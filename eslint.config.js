@@ -23,6 +23,7 @@ export default [
                 ChatMessage: "readonly",
                 Collection: "readonly",
                 ContextMenu: "readonly",
+                Combatant: "readonly",
                 Dialog: "readonly",
                 DocumentSheet: "readonly",
                 DocumentSheetConfig: "readonly",

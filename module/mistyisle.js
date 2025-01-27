@@ -1368,6 +1368,8 @@ export const verData = {
     id: "mistyisle",
     label: "Song of Heroic Lands: Misty Island",
     CONFIG: {
+        displayChatActionButtons: sohl.Utility.displayChatActionButtons,
+        onChatCardAction: sohl.Utility.onChatCardAction,
         Helper: {
             modifiers: sohl.SohlModifiers,
             contextMenu: sohl.SohlContextMenu,
@@ -1423,6 +1425,9 @@ export const verData = {
             typeIcons: { [sohl.SohlActiveEffectData.typeName]: "fas fa-gears" },
             types: [sohl.SohlActiveEffectData.typeName],
             legacyTransferral: false,
+        },
+        Combatant: {
+            documentClass: sohl.SohlCombatant,
         },
         Macro: {
             documentClass: sohl.SohlMacro,

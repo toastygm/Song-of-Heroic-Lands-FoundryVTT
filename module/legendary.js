@@ -132,6 +132,414 @@ class LgndMasteryLevelModifier extends sohl.MasteryLevelModifier {
             ),
         );
     }
+
+    /**
+     * @typedef LgndSuccessTestResult
+     * @property {object} speaker
+     * @property {MasteryLevelModifier} mlMod MasteryLevelModifier for this test
+     * @property {ImpactModifier} impactMod
+     * @property {number} aim
+     * @property {SohlItem} item
+     * @property {Roll} roll Roll for this test
+     * @property {number} lastDigit
+     * @property {boolean} isCapped
+     * @property {string} type
+     * @property {string} title
+     * @property {string} typeLabel
+     * @property {number} rollMode
+     * @property {boolean} askFate
+     * @property {boolean} critAllowed
+     * @property {boolean} successLevel
+     * @property {boolean} isCritical
+     * @property {boolean} isSuccess
+     * @property {string} description
+     * @property {boolean} isSuccessValue
+     * @property {number} successValueMod
+     * @property {number} successValue
+     * @property {number} svBonus
+     */
+
+    testResultToObject(testResult) {
+        const result = {};
+        for (const [k, v] of Object.entries(testResult)) {
+            if (["roll", "mlMod", "impactMod"].includes(k)) {
+                result[`${k}Json`] = v.toJSON();
+            } else if (
+                k instanceof sohl.SohlItem ||
+                k instanceof sohl.SohlActor
+            ) {
+                result[`${k}Uuid`] = v.uuid;
+            }
+        }
+        return result;
+    }
+
+    testResultFromObject(obj) {
+        const result = {};
+        for (const [k, v] of Object.entries(obj)) {
+            if (k.endsWith("Json")) {
+                result[k.slice(0, -4)] = v.fromJSON();
+            } else if (k.endsWith("Uuid")) {
+                result[k.slice(0, -4)] = fromUuidSync(v);
+            } else {
+                result[k] = v;
+            }
+        }
+    }
+
+    static async successTestToChat({ speaker, testResult }) {
+        if (!speaker) {
+            speaker = this.parent.actor
+                ? ChatMessage.getSpeaker({ actor: this.parent.actor })
+                : ChatMessage.getSpeaker();
+        }
+
+        const chatData = {
+            variant: sohl.SOHL.sysVer.id,
+            testResult,
+            testResultJson: JSON.stringify(testResult),
+        };
+
+        const chatTemplate =
+            "systems/sohl/templates/chat/standard-test-card.html";
+
+        const html = await renderTemplate(chatTemplate, chatData);
+
+        const messageData = {
+            user: game.user.id,
+            speaker,
+            content: html.trim(),
+            sound: CONFIG.sounds.dice,
+        };
+
+        ChatMessage.applyRollMode(messageData, testResult.rollMode);
+
+        // Create a chat message
+        return await ChatMessage.create(messageData);
+    }
+
+    static async opposedTestToChat(speaker, actor, token, character, scope) {
+        let { opposedTestResult } = scope;
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+                needsToken: true,
+                self: this,
+            }));
+
+        // Prepare for Chat Message
+        const chatTemplate =
+            "systems/sohl/templates/chat/opposed-result-card.html";
+
+        const chatTemplateData = foundry.utils.mergeObject(
+            opposedTestResult,
+            {
+                variant: sohl.SOHL.sysVer.id,
+                title: `Opposed Roll Result`,
+            },
+            { inplace: false },
+        );
+
+        chatTemplateData.sourceTestResultJson = JSON.stringify(
+            LgndMasteryLevelModifier.testResultToObject(
+                opposedTestResult.sourceTestResult,
+            ),
+        );
+        chatTemplateData.targetTestResultJson = JSON.stringify(
+            LgndMasteryLevelModifier.testResultToObject(
+                opposedTestResult.targetTestResult,
+            ),
+        );
+
+        const html = await renderTemplate(chatTemplate, chatTemplateData);
+
+        const messageData = {
+            user: game.user.id,
+            speaker: this.speaker,
+            content: html.trim(),
+            style: CONST.CHAT_MESSAGE_STYLES.DICE,
+        };
+
+        const messageOptions = {};
+
+        // Create a chat message
+        return await ChatMessage.create(messageData, messageOptions);
+    }
+
+    /**
+     * Perform a success test of the MasteryLevel.
+     *
+     * @param {object} options Configuration options for the roll
+     * @param {boolean} [options.skipDialog=false] Do not display dialog box (use defaults)
+     * @param {string} [options.type] Test identifier string
+     * @param {label} [options.title] Human-readable short description
+     * @returns {LgndSuccessTestResult} Object containing results of the roll
+     */
+    async test({
+        skipDialog = false,
+        speaker,
+        type = "Skill",
+        title = "",
+        successTestResult = null,
+        noChat = false,
+    } = {}) {
+        if (!successTestResult) {
+            let mlMod = this.constructor.create(this);
+            let rollMode = null;
+            let impactMod = null;
+            let aim = this.parent.defaultAim;
+            if (this.parent instanceof sohl.StrikeModeItemData) {
+                impactMod = LgndImpactModifier.create(
+                    this.parent.system.$impact,
+                );
+            }
+            if (!skipDialog) {
+                // Render modal dialog
+                let dlgTemplate =
+                    "systems/sohl/templates/dialog/standard-test-dialog.html";
+
+                let dialogData = {
+                    variant: sohl.SOHL.sysVer.id,
+                    type,
+                    title,
+                    target: mlMod.effective,
+                    base: mlMod.base,
+                    mlModValue: 0,
+                    askSuccessLevelMod: true,
+                    successLevelModValue: mlMod.successLevelMod || 0,
+                    askImpactMod: !!impactMod,
+                    impactModValue: 0,
+                    askAim:
+                        this.parent instanceof
+                        sohl.MeleeWeaponStrikeModeItemData,
+                    defaultAim: aim,
+                    aimChoices: this.parent.aimChoices,
+                    rollMode: game.settings.get("core", "rollMode"),
+                    rollModes: Object.entries(CONFIG.Dice.rollModes).map(
+                        ([k, v]) => ({
+                            group: "CHAT.RollDefault",
+                            value: k,
+                            label: v,
+                        }),
+                    ),
+                };
+                const html = await renderTemplate(dlgTemplate, dialogData);
+
+                // Create the dialog window
+                const result = await Dialog.prompt({
+                    title: dialogData.title,
+                    content: html.trim(),
+                    label: "Roll",
+                    callback: (html) => {
+                        const form = html.querySelector("form");
+                        const fd = new FormDataExtended(form);
+                        const formData = fd.object;
+                        const formMlMod =
+                            Number.parseInt(formData.mlMod, 10) || 0;
+                        const formImpactMod =
+                            Number.parseInt(formData.impactMod, 10) || 0;
+                        const formAim =
+                            Number.parseInt(formData.impactMod, 10) || 0;
+
+                        if (impactMod) {
+                            impactMod.add(
+                                "SituationalModifier",
+                                "SitMod",
+                                formImpactMod,
+                            );
+                        }
+
+                        if (formMlMod) {
+                            mlMod.add(
+                                "Situational Modifier",
+                                "SitMod",
+                                formMlMod,
+                            );
+                        }
+
+                        if (dialogData.askSuccessLevelMod) {
+                            const formSuccessLevelMod = Number.parseInt(
+                                formData.successLevelMod,
+                                10,
+                            );
+                            mlMod.successLevelMod = formSuccessLevelMod;
+                        }
+
+                        return {
+                            mlMod,
+                            impactMod,
+                            aim: formAim || null,
+                            rollMode: formData.rollMode,
+                        };
+                    },
+                    rejectClose: false,
+                    options: { jQuery: false },
+                });
+
+                if (!result) return;
+                mlMod = result.mlMod;
+                rollMode = result.rollMode;
+                aim = result.aim;
+                impactMod = result.impactMod;
+            }
+
+            const roll = await new Roll("1d100").evaluate();
+            if (!roll) {
+                throw new Error(`Roll evaluation failed`);
+            }
+
+            successTestResult = {
+                speaker,
+                mlMod,
+                impactMod,
+                aim,
+                item: this.parent.item,
+                roll: roll,
+                lastDigit: roll.total % 10,
+                isCapped: mlMod.effective !== mlMod.constrainedEffective,
+                type,
+                title,
+                typeLabel: this.parent.constructor.typeLabel,
+                rollMode,
+            };
+        }
+
+        successTestResult.critAllowed =
+            successTestResult.mlMod.critSuccessDigits.length ||
+            successTestResult.mlMod.critFailureDigits.length;
+        if (successTestResult.critAllowed) {
+            if (
+                successTestResult.roll.total <=
+                successTestResult.mlMod.constrainedEffective
+            ) {
+                if (
+                    successTestResult.mlMod.critSuccessDigits.includes(
+                        successTestResult.lastDigit,
+                    )
+                ) {
+                    successTestResult.successLevel =
+                        sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess;
+                } else {
+                    successTestResult.successLevel =
+                        sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
+                }
+            } else {
+                if (
+                    successTestResult.mlMod.critFailureDigits.includes(
+                        successTestResult.lastDigit,
+                    )
+                ) {
+                    successTestResult.successLevel =
+                        sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalFailure;
+                } else {
+                    successTestResult.successLevel =
+                        sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalFailure;
+                }
+            }
+        } else {
+            if (
+                successTestResult.roll.total <=
+                successTestResult.mlMod.constrainedEffective
+            ) {
+                successTestResult.successLevel =
+                    sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
+            } else {
+                successTestResult.successLevel =
+                    sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalFailure;
+            }
+        }
+        successTestResult.successLevel += successTestResult.successLevelMod;
+        if (!successTestResult.critAllowed) {
+            successTestResult.successLevel = Math.min(
+                Math.max(
+                    successTestResult.successLevel,
+                    sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalFailure,
+                ),
+                sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess,
+            );
+        }
+
+        successTestResult.isCritical =
+            successTestResult.critAllowed &&
+            (successTestResult.successLevel <=
+                sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalFailure ||
+                successTestResult.successLevel >=
+                    sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess);
+        successTestResult.isSuccess =
+            successTestResult.successLevel >=
+            sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
+        successTestResult.description = `${successTestResult.critAllowed ? (successTestResult.isCritical ? "Critical " : "Marginal ") : ""}${successTestResult.isSuccess ? "Success" : "Failure"}`;
+
+        // If success level is greater than critical success or less than critical failure
+        // then add the amount to the end of the description
+        let successLevelIncr = 0;
+        if (successTestResult.isCritical) {
+            successLevelIncr =
+                successTestResult.successLevel -
+                (successTestResult.isSuccess
+                    ? sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess
+                    : sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalFailure);
+        }
+        if (successLevelIncr) {
+            successTestResult.description = `${successTestResult.description} (${
+                (successLevelIncr > 0 ? "+" : "") + successLevelIncr
+            })`;
+        }
+
+        if (!successTestResult.isSuccessValue) {
+            // If there is a table providing detailed description of
+            // the results of this test, then process that table to
+            // extract the detailed result descriptions.  Many tests
+            // will not have these detailed descriptions, in which
+            // case only generic descriptions will be given.
+            if (successTestResult.mlMod.hasProperty("testDescTable")) {
+                LgndMasteryLevelModifier._handleDetailedDescription(
+                    successTestResult,
+                    successTestResult.successLevel,
+                    successTestResult.mlMod.testDescTable,
+                );
+            }
+        } else {
+            successTestResult.successValueMod =
+                successTestResult.successLevel - 1;
+            successTestResult.successValue =
+                this.index + successTestResult.successValueMod;
+            const slSign = successTestResult.successValueMod < 0 ? "-" : "+";
+            successTestResult.successValueExpr = `${
+                this.index
+            } ${slSign} ${Math.abs(successTestResult.successValueMod)}`;
+
+            // Each MasteryLevel item may optionally
+            // have its own success value table included; if
+            // so, then that one will be used, otherwise the
+            // default one will be used.
+            const svTable = this.parent.item.system.successValueTable;
+
+            // The meaning of the success value bonus ("svBonus") is
+            // unique to each type of success value.  Sometimes it
+            // represents the number of rolls on another table, or the
+            // increase in value or quality of a crafted item, or any
+            // other thing.  See the description of the specific test
+            // to determine the meaning of the bonus.
+            successTestResult.svBonus =
+                LgndMasteryLevelModifier._handleDetailedDescription(
+                    successTestResult,
+                    successTestResult.successValue,
+                    svTable,
+                );
+        }
+
+        if (!noChat) {
+            await LgndMasteryLevelModifier.successTestToChat({
+                speaker,
+                testResult: successTestResult,
+            });
+        }
+        return successTestResult;
+    }
 }
 
 class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
@@ -216,6 +624,221 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
             impactMod,
             strikeMode,
         });
+    }
+
+    /**
+     * Select the appropriate item to use for the opposed test, then delegate processing
+     * of the opposed request to that item.
+     *
+     * @param {object} scope
+     * @param {string} [scope.sourceTestResult]
+     * @param {number} [scope.testType]
+     * @returns {OpposedTestResult} result of the test
+     */
+    async opposedTestResume(speaker, actor, token, character, scope) {
+        let { sourceTestResult, testType = "skill" } = scope;
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+                needsToken: true,
+                self: this,
+            }));
+
+        if (testType === "ignore") {
+            return await this.execute("ignoreResume", scope);
+        }
+
+        let opposedItems = [];
+        let label = "Melee Strike Mode";
+        switch (testType) {
+            case "skill":
+                label = "Skill";
+                for (const it of this.actor.allItems()) {
+                    if (
+                        it.system instanceof sohl.TraitItemData &&
+                        it.system.intensity === "attribute"
+                    ) {
+                        if (!it.system.$masteryLevel.disabled) {
+                            opposedItems.push({
+                                name: `Attribute: ${it.name} (ML:${it.system.$masteryLevel.effective})`,
+                                uuid: it.uuid,
+                                value: it.system.$masteryLevel,
+                                item: it,
+                            });
+                        }
+                    } else if (it.system instanceof sohl.SkillItemData) {
+                        if (!it.system.$masteryLevel.disabled) {
+                            opposedItems.push({
+                                name: `Skill: ${it.name} (ML:${it.system.$masteryLevel.effective})`,
+                                uuid: it.uuid,
+                                value: it.system.$masteryLevel,
+                                item: it,
+                            });
+                        }
+                    }
+                }
+                opposedItems.sort((a, b) => a.localeCompare(b));
+                break;
+
+            case "block":
+                opposedItems = this.actor.itemTypes.meleestrikemode.filter(
+                    (it) => !it.system.$defense.block.disabled,
+                );
+                opposedItems.sort(
+                    (a, b) =>
+                        b.item.system.$defense.block.effective -
+                        a.item.system.$defense.block.effective,
+                );
+                break;
+
+            case "dodge":
+                opposedItems = this.actor.itemTypes.skill.filter(
+                    (it) =>
+                        it.system.subType === "Combat" && it.name === "Dodge",
+                );
+                break;
+
+            case "counterstrike":
+                opposedItems = this.actor.itemTypes.meleestrikemode.filter(
+                    (it) => !it.system.$defense.counterstrike.disabled,
+                );
+                opposedItems.sort(
+                    (a, b) =>
+                        b.item.system.$defense.counterstrike.effective -
+                        a.item.system.$defense.counterstrike.effective,
+                );
+                break;
+        }
+
+        if (!opposedItems.length) {
+            ui.notifications.warn("No items available for opposing test");
+            return null;
+        }
+
+        const defaultItem = opposedItems[0];
+
+        const dialogOptions = {
+            variant: "legendary",
+            type: "opposed-item-select",
+            title: `Select ${label}`,
+            opposedItems,
+            defaultItem,
+        };
+        const compiled = Handlebars.compile(`<form id="select-token">
+            <div class="form-group">
+            <span>Opponent using ${sourceTestResult.item.label}</span>
+            </div>
+            <div class="form-group">
+                <label>Select which ${label} to use:</label>
+                <select name="opposedItemUuid">
+                {{selectOptions opposedItems selected=defaultItem.uuid valueAttr="uuid" labelAttr="name"}}
+                </select>
+            </div></form>`);
+        const dlgHtml = compiled(dialogOptions, {
+            allowProtoMethodsByDefault: true,
+            allowProtoPropertiesByDefault: true,
+        });
+        const item = await Dialog.prompt({
+            title: `Choose ${label}`,
+            content: dlgHtml,
+            label: "OK",
+            callback: async (html) => {
+                const form = html.querySelector("form");
+                const fd = new FormDataExtended(form);
+                const formdata = foundry.utils.expandObject(fd.object);
+                return opposedItems.find(
+                    (obj) => obj.uuid === formdata.opposedItemUuid,
+                );
+            },
+            options: { jQuery: false },
+            rejectClose: false,
+        });
+        if (!item) return null;
+        return item.system.execute("opposedTestResume", scope);
+    }
+
+    /**
+     * Select the appropriate item to use for the opposed test, then delegate processing
+     * of the opposed request to that item.
+     *
+     * @param {object} scope
+     * @param {string} [scope.sourceTestResult]
+     * @param {number} [scope.testType]
+     * @returns {OpposedTestResult} result of the test
+     */
+    async ignoreResume(speaker, actor, token, character, scope) {
+        let { sourceTestResult } = scope;
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+                needsToken: true,
+                self: this,
+            }));
+
+        const targetTestResult = {
+            speaker,
+            mlMod: new LgndMasteryLevelModifier(this).setBase(0),
+            impactMod: null,
+            aim: null,
+            item: null,
+            roll: new Roll("5").execute(),
+            lastDigit: 5,
+            isCapped: true,
+            type: null,
+            typeLabel: null,
+            rollMode: "publicroll",
+            critAllowed: true,
+            successLevel: sohl.SOHL.CONST.CriticalFailure,
+            isCritical: true,
+            isSuccess: false,
+            description: "Critical Failure",
+            isSuccessValue: false,
+        };
+
+        let victoryStars = Math.max(
+            sourceTestResult.successLevel -
+                sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalFailure,
+            0,
+        );
+        const opposedTestResult = {
+            sourceTestResult,
+            targetTestResult,
+            victoryStars: victoryStars,
+            vsText: sohl.MasteryLevelItemData.victoryStarsText(victoryStars),
+            sourceWins: victoryStars > 0,
+            targetWins: false,
+        };
+
+        if (victoryStars >= 2) {
+            sourceTestResult.tacticalAdvantages = [];
+            sourceTestResult.addlTacticalAdvantages = victoryStars - 1 + 1;
+            sourceTestResult.tacticalAdvantageTypes = ["Impact", "Precision"];
+        }
+
+        if (sourceTestResult.isCritical && !sourceTestResult.isSuccess) {
+            if (sourceTestResult.lastDigit === 0) {
+                sourceTestResult.fumbleTest = true;
+            } else {
+                sourceTestResult.stumbleTest = true;
+            }
+        }
+
+        return await LgndMasteryLevelModifier.opposedTestToChat(
+            speaker,
+            actor,
+            token,
+            character,
+            {
+                speaker,
+                opposedTestResult,
+            },
+        );
     }
 
     prepareBaseData() {
@@ -1105,20 +1728,236 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
         return actions;
     }
 
+    /**
+     * Queries for the weapon to use, and additional weapon parameters (aim, aspect, range).
+     *
+     * options should include:
+     * attackerName (String): The name of the attacker
+     * defenderName (String): The name of the defender
+     * type (string): either 'Block', 'Attack', or 'Counterstrike'
+     * distance (number): the distance to the target
+     *
+     * The return value will be an object with the following keys:
+     *  aim (string):       The aim location (High, Mid, Low)
+     *  situationalModifier (number): Modifier to the attack roll (AML)
+     *
+     * @param {Object} options
+     */
+    async attackDialog(options) {
+        let { type, sourceToken, targetToken, weaponItem } = options;
+        const dlgOptions = {
+            variant: "legendary",
+            type,
+            title: `${sourceToken.name} vs. ${targetToken.name} Melee Attack with ${this.name}`,
+            weapon: weaponItem.name,
+            startZone: 1,
+            situationalModifier: 0,
+            addlImpactModifier: 0,
+            addlSuccessLevelMod: 0,
+            impactMods: sohl.ImpactModifier.create(this.$impact),
+            attackMods: sohl.MasteryLevelModifier.create(this.$attack),
+            rollMode: game.settings.get("core", "rollMode"),
+            rollModes: Object.entries(CONFIG.Dice.rollModes).map(([k, v]) => ({
+                group: "CHAT.RollDefault",
+                value: k,
+                label: v,
+            })),
+        };
+
+        const attackDialogTemplate =
+            "systems/hmk/templates/dialog/attack-dialog.html";
+        const dlghtml = await renderTemplate(attackDialogTemplate, dlgOptions);
+
+        // Request weapon details
+        return await Dialog.prompt({
+            title: dlgOptions.title,
+            content: dlghtml.trim(),
+            label: options.type,
+            callback: (html) => {
+                const form = html[0].querySelector("form");
+                const situationalModifier =
+                    Number.parseInt(form.situationalModifier.value, 10) || 0;
+                const addlImpactModifier =
+                    Number.parseInt(form.addlImpactModifier.value, 10) || 0;
+                const addlSuccessLevelMod =
+                    Number.parseInt(form.addlSuccessLevelMod.value, 10) || 0;
+                const rollMode = Number.parseInt(form.rollMode.value, 10) || 0;
+                const startZone =
+                    Number.parseInt(form.startZone.value, 10) || 0;
+                const result = {
+                    startZone,
+                    impactMods: dlgOptions.impactMods,
+                    attackMods: dlgOptions.attackMods,
+                    rollMode,
+                };
+                if (situationalModifier) {
+                    result.attackMods.add(
+                        "Situational Modifier",
+                        "SitMod",
+                        situationalModifier,
+                    );
+                }
+                if (addlImpactModifier) {
+                    result.impactMods.add(
+                        "Situational Modifier",
+                        "SitMod",
+                        addlImpactModifier,
+                    );
+                }
+                if (addlSuccessLevelMod) {
+                    result.attackMods.successLevelMod += addlSuccessLevelMod;
+                }
+
+                return result;
+            },
+        });
+    }
+
+    async blockTestResume(scope) {
+        let { sourceTestResult, opposedTestResult } = scope;
+        let targetTestResult = opposedTestResult?.targetTestResult;
+        if (!targetTestResult) {
+            targetTestResult = this.$defense.block.test({
+                noChat: true,
+                type: `${this.type}-${this.name}-block-test`,
+                title: `${this.item.label} Block Test`,
+            });
+        }
+
+        let victoryStars = LgndMasteryLevelModifier.calcVictoryStars(
+            sourceTestResult,
+            targetTestResult,
+        );
+
+        opposedTestResult = {
+            sourceTestResult,
+            targetTestResult,
+            victoryStars,
+            vsText: sohl.MasteryLevelItemData.victoryStarsText(victoryStars),
+            sourceWins: victoryStars > 0,
+            targetWins: victoryStars < 0,
+        };
+
+        return opposedTestResult;
+    }
+
+    async counterstrikeTestResume(scope) {
+        let { sourceTestResult, opposedTestResult } = scope;
+        let targetTestResult = opposedTestResult?.targetTestResult;
+        if (!targetTestResult) {
+            targetTestResult = this.$defense.block.test({
+                noChat: true,
+                type: `${this.type}-${this.name}-cx-test`,
+                title: `${this.item.label} Counterstrike Test`,
+            });
+        }
+
+        let victoryStars = LgndMasteryLevelModifier.calcVictoryStars(
+            sourceTestResult,
+            targetTestResult,
+        );
+
+        opposedTestResult = {
+            sourceTestResult,
+            targetTestResult,
+            victoryStars,
+            vsText: sohl.MasteryLevelItemData.victoryStarsText(victoryStars),
+            sourceWins: victoryStars > 0,
+            targetWins: victoryStars < 0,
+        };
+
+        return opposedTestResult;
+    }
+
+    /**
+     * Continue the opposed test. Only valid testTypes are "block" and "counterstrike".
+     *
+     * @param {object} scope
+     * @param {string} [scope.sourceTestResult]
+     * @param {number} [scope.testType]
+     * @returns {OpposedTestResult} result of the test
+     */
+    async opposedTestResume(speaker, actor, token, character, scope) {
+        let { testType } = scope;
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+                needsToken: true,
+                self: this,
+            }));
+
+        let opposedTestResult;
+        if (testType === "block") {
+            opposedTestResult = await this.blockTestResume(scope);
+        } else if (testType === "counterstrike") {
+            opposedTestResult = await this.counterstrikeTestResume(scope);
+        } else {
+            throw new Error(`Invalid testType ${testType}`);
+        }
+        opposedTestResult.speaker = speaker;
+        return await LgndMasteryLevelModifier.opposedTestToChat(
+            speaker,
+            actor,
+            token,
+            character,
+            {
+                speaker,
+                opposedTestResult,
+            },
+        );
+    }
+
+    calcReachModifier(opponentDefStrikeMode, atkMod) {
+        const opponentToken = opponentDefStrikeMode.nestedIn?.token;
+        if (!opponentToken) {
+            throw new Error(
+                `Strike mode ${opponentDefStrikeMode.name} does not belong to a token`,
+            );
+        }
+
+        let reachDiff = this.$reach - opponentDefStrikeMode.system.$reach;
+        let reachPenalty = -Math.abs(reachDiff) * 5;
+        const inClose =
+            LgndUtility.rangeToTarget(this.actor.token, opponentToken) < 5;
+        if (inClose) {
+            if (reachDiff > 0) {
+                // Attacker weapon reach is longer, penalty goes to attacker
+                atkMod.add("In-Close Reach Penalty", "InClsRch", reachPenalty);
+            } else {
+                // Attacker weapon reach is shorter, thrust bonus goes to attacker
+                if (this.$traits.thrust) {
+                    atkMod.add(
+                        "In-Close Thrust Bonus",
+                        "InClsThr",
+                        -reachPenalty,
+                    );
+                }
+            }
+        } else {
+            if (reachDiff < 0) {
+                // Attacker weapon reach is shorter, penalty goes to attacker
+                atkMod.add("Reach Penalty", "Rch", reachPenalty);
+            } else {
+                // Attacker weapon reach is longer, thrust bonus goes to attacker
+                if (this.$traits.thrust) {
+                    atkMod.add("Thrust Bonus", "Thrust", -reachPenalty);
+                }
+            }
+        }
+        return atkMod;
+    }
+
     async automatedAttack(
         speaker = null,
         actor = null,
         token = null,
         character = null,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-bleed-stop-test`,
-            title = `${this.item.label} Bleeding Stoppage Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        },
+        scope = {},
     ) {
+        let { skipDialog = false } = scope;
         ({ speaker, actor, token, character } =
             sohl.SohlMacro.getExecuteDefaults({
                 speaker,
@@ -1127,8 +1966,111 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
                 character,
             }));
 
-        // TODO - Melee Automated Attack
-        ui.notifications.warn("Melee Automated Attack Not Implemented");
+        if (!(this.item.nestedIn?.system instanceof sohl.WeaponGearItemData)) {
+            ui.notification.warn(
+                `Strike Mode ${this.name} must be nested in a weapon`,
+            );
+            return null;
+        }
+
+        const targetToken = sohl.Utility.getUserTargetedToken(token);
+        if (!targetToken) return null;
+
+        if (!token) {
+            ui.notifications.warn(`No attacker token identified.`);
+            return null;
+        }
+
+        if (!token.isOwner) {
+            ui.notifications.warn(
+                `You do not have permissions to perform this operation on ${token.name}`,
+            );
+            return null;
+        }
+
+        const targetRange = LgndUtility.rangeToTarget(token, targetToken);
+        if (
+            targetRange > LgndUtility.engagementZoneRange(this.$reach.effective)
+        ) {
+            const msg = `Target ${targetToken.name} is outside of engagement zone for ${this.name}; distance = ${targetRange} feet, EZ = ${LgndUtility.engagementZoneRange(this.$reach.effective)} feet.`;
+            ui.notifications.warn(msg);
+            return null;
+        }
+
+        // display dialog, get aspect, aim, and addl damage
+        const dlgOptions = {
+            type: "Attack",
+            sourceToken: token,
+            targetToken,
+            weaponItem: this.item.nestedIn,
+        };
+
+        if (!dlgOptions.weaponItem.system.isHeld) {
+            ui.notification.warn(
+                `For ${token.name} ${dlgOptions.weaponItem.name} is not held.`,
+            );
+            return null;
+        }
+
+        let dialogResult;
+        if (!skipDialog) {
+            dialogResult = await this.attackDialog(dlgOptions);
+        } else {
+            dialogResult = {
+                startZone: 1,
+                impactMods: sohl.ImpactModifier.create(this.$impact),
+                attackMods: sohl.MasteryLevelModifier.create(this.$attack),
+                rollMode: game.settings.get("core", "rollMode"),
+            };
+        }
+
+        // If user cancelled the dialog, then return immediately
+        if (!dialogResult) return null;
+
+        if (dialogResult.startZone !== 1) {
+            dialogResult.attackMods.add("Chosen Start Zone", "ChZn", -10);
+        }
+
+        // Prepare for Chat Message
+        const chatTemplate = "systems/sohl/templates/chat/attack-card.html";
+
+        const chatTemplateData = {
+            variant: "legendary",
+            title: `${this.name} Melee Attack`,
+            weaponType: "melee",
+            sourceToken: token,
+            targetToken,
+            distance: targetRange,
+            sourceItem: this,
+            startZone: dialogResult.startZone,
+            attackMods: dialogResult.attackMods,
+            impactMods: dialogResult.impactMods,
+            visibleActorUuid: targetToken.actor.uuid,
+        };
+
+        const html = await renderTemplate(chatTemplate, chatTemplateData);
+
+        const messageData = {
+            user: game.user.id,
+            speaker: speaker,
+            content: html.trim(),
+            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        };
+
+        ChatMessage.applyRollMode(messageData, dialogResult.rollMode);
+
+        const messageOptions = {};
+
+        // Create a chat message
+        await ChatMessage.create(messageData, messageOptions);
+        if (game.settings.get("sohl", "combatAudio")) {
+            AudioHelper.play(
+                { src: "sounds/drums.wav", autoplay: true, loop: false },
+                true,
+            );
+        }
+
+        return chatTemplateData;
     }
 
     /** @override */
@@ -2401,6 +3343,77 @@ class LgndTraitItemData extends sohl.TraitItemData {
         }
     }
 
+    /**
+     * Complete the opposed test.
+     *
+     * @param {object} scope
+     * @param {string} [scope.sourceTestResult]
+     * @param {number} [scope.testType]
+     * @returns {OpposedTestResult} result of the test
+     */
+    async opposedTestResume(speaker, actor, token, character, scope) {
+        let { sourceTestResult, targetTestResult } = scope;
+
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+                needsToken: true,
+                self: this,
+            }));
+
+        let opposedTestResult;
+        if (this.intensity !== "attribute") {
+            let victoryStars = Math.max(sourceTestResult.successLevel, 0);
+            opposedTestResult = {
+                sourceTestResult,
+                targetTestResult,
+                victoryStars: victoryStars,
+                vsText: sohl.MasteryLevelItemData.victoryStarsText(
+                    victoryStars,
+                ),
+                sourceWins: victoryStars > 0,
+                targetWins: false,
+            };
+        } else {
+            if (!targetTestResult) {
+                // Roll for the target
+                targetTestResult = await this.$masteryLevel.test({
+                    type: "target-opposed-test",
+                });
+            }
+
+            const victoryStars = sohl.MasteryLevelItemData.calcVictoryStars(
+                sourceTestResult,
+                targetTestResult,
+            );
+
+            opposedTestResult = {
+                sourceTestResult,
+                targetTestResult,
+                victoryStars,
+                vsText: sohl.MasteryLevelItemData.victoryStarsText(
+                    victoryStars,
+                ),
+                sourceWins: victoryStars > 0,
+                targetWins: victoryStars < 0,
+            };
+        }
+
+        return await LgndMasteryLevelModifier.opposedTestToChat(
+            speaker,
+            actor,
+            token,
+            character,
+            {
+                speaker,
+                opposedTestResult,
+            },
+        );
+    }
+
     processSiblings() {
         super.processSiblings();
         if (this.isNumeric) {
@@ -2483,6 +3496,60 @@ class LgndSkillItemData extends LgndMasteryLevelItemDataMixin(
             combat: "fire",
             esoteric: null,
         };
+    }
+
+    /**
+     * Complete the opposed test.
+     *
+     * @param {object} scope
+     * @param {string} [scope.sourceTestResult]
+     * @param {number} [scope.testType]
+     * @returns {OpposedTestResult} result of the test
+     */
+    async opposedTestResume(speaker, actor, token, character, scope) {
+        let { sourceTestResult, targetTestResult } = scope;
+
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+                needsToken: true,
+                self: this,
+            }));
+
+        if (!targetTestResult) {
+            // Roll for the target
+            targetTestResult = await this.$masteryLevel.test({
+                type: "target-opposed-test",
+            });
+        }
+
+        const victoryStars = sohl.MasteryLevelItemData.calcVictoryStars(
+            sourceTestResult,
+            targetTestResult,
+        );
+
+        const opposedTestResult = {
+            sourceTestResult,
+            targetTestResult,
+            victoryStars,
+            vsText: sohl.MasteryLevelItemData.victoryStarsText(victoryStars),
+            sourceWins: victoryStars > 0,
+            targetWins: victoryStars < 0,
+        };
+
+        return await LgndMasteryLevelModifier.opposedTestToChat(
+            speaker,
+            actor,
+            token,
+            character,
+            {
+                speaker,
+                opposedTestResult,
+            },
+        );
     }
 
     processSiblings() {
@@ -2921,6 +3988,68 @@ export class LgndUtility extends sohl.Utility {
             ? Math.trunc(str / 2) - 5
             : [-10, -10, -8, -6, -4, -3].at(Math.max(str, 0));
     }
+
+    static engagementZoneRange(reach) {
+        if (reach <= 7) return 5;
+        const result = (Math.floor((reach - 7) / 5) + 1) * 5;
+        return result;
+    }
+
+    /**
+     * Calculates the distance from sourceToken to targetToken in "scene" units (e.g., feet).
+     *
+     * @param {Token} sourceToken
+     * @param {Token} targetToken
+     * @param {Boolean} gridUnits If true, return in grid units, not "scene" units
+     */
+    static rangeToTarget(sourceToken, targetToken, gridUnits = false) {
+        if (!sourceToken || !targetToken || !canvas.scene || !canvas.scene.grid)
+            return 9999;
+
+        // If the current scene is marked "Theatre of the Mind", then range is always 0
+        if (canvas.scene.getFlag("sohl", "isTotm")) return 0;
+
+        const sToken = canvas.tokens.get(sourceToken.id);
+        const tToken = canvas.tokens.get(targetToken.id);
+
+        const segments = [];
+        const source = sToken.center;
+        const dest = tToken.center;
+        const ray = new Ray(source, dest);
+        segments.push({ ray });
+        const distances = canvas.grid.measureDistances(segments, {
+            gridSpaces: true,
+        });
+        const distance = distances[0];
+        if (gridUnits) return Math.round(distance / canvas.dimensions.distance);
+        return distance;
+    }
+
+    /**
+     * Determine if the token is valid (must be either a 'creature' or 'character')
+     *
+     * @param {Token} token
+     */
+    static isValidToken(token) {
+        if (!token) {
+            ui.notifications.warn("No token selected.");
+            return false;
+        }
+
+        if (!token.actor) {
+            ui.notifications.warn(`Token ${token.name} is not a valid actor.`);
+            return false;
+        }
+
+        if (token.actor.type === "entity") {
+            return true;
+        } else {
+            ui.notifications.warn(
+                `Token ${token.name} is not a character or creature.`,
+            );
+            return false;
+        }
+    }
 }
 
 export class LgndTour extends Tour {
@@ -3082,6 +4211,8 @@ export const verData = {
     id: "legendary",
     label: "Song of Heroic Lands: Legendary",
     CONFIG: {
+        displayChatActionButtons: sohl.Utility.displayChatActionButtons,
+        onChatCardAction: sohl.Utility.onChatCardAction,
         Helper: {
             modifiers: LgndModifiers,
             contextMenu: sohl.SohlContextMenu,
@@ -3137,6 +4268,9 @@ export const verData = {
             typeIcons: { [sohl.SohlActiveEffectData.typeName]: "fas fa-gears" },
             types: [sohl.SohlActiveEffectData.typeName],
             legacyTransferral: false,
+        },
+        Combatant: {
+            documentClass: sohl.SohlCombatant,
         },
         Macro: {
             documentClass: sohl.SohlMacro,

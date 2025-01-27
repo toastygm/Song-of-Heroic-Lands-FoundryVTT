@@ -236,10 +236,20 @@ export const SOHL = {
             optionFate: {
                 key: "optionFate",
                 data: {
-                    name: "Use fate rules",
+                    name: "Fate: Use fate rules",
                     scope: "world",
                     config: true,
-                    type: new fields.BooleanField({ initial: true }),
+                    default: "enable",
+                    type: new fields.StringField({
+                        nullable: false,
+                        blank: false,
+                        initial: "pcOnly",
+                        choices: {
+                            none: "Fate rules disabled",
+                            pconly: "Fate rules only apply to PCs",
+                            everyone: "Fate rules apply to all animate actors",
+                        },
+                    }),
                 },
             },
             optionGearDamage: {
@@ -308,42 +318,33 @@ export class ValueModifier {
     }
 
     get effective() {
-        if (this._disabled) return 0;
-
-        this._apply();
+        if (this.disabled) return 0;
         return this._effective;
     }
 
     get modifier() {
-        if (this._disabled) return 0;
-
+        if (this.disabled) return 0;
         return this.effective - (this.base || 0);
     }
 
     get base() {
-        if (this._disabled) return undefined;
-
-        this._apply();
+        if (this.disabled) return undefined;
         return this._base;
     }
 
     get abbrev() {
-        if (this._disabled) return "";
-
-        this._apply();
+        if (this.disabled) return "";
         return this._abbrev;
     }
 
     get index() {
+        if (this.disabled) return 0;
         return Math.trunc((this.base || 0) / 10);
     }
 
     get disabled() {
+        this.apply();
         return this._disabled;
-    }
-
-    set disabled(value) {
-        this._disabled = !!value;
     }
 
     test() {
@@ -600,6 +601,27 @@ export class ValueModifier {
         );
     }
 
+    setEnabled() {
+        this._mods = this._mods.filter(
+            (m) =>
+                !(
+                    m.op === CONST.ACTIVE_EFFECT_MODES.CUSTOM &&
+                    m.value === "disabled"
+                ),
+        );
+        this._dirty = true;
+        return this;
+    }
+
+    setDisabled(name, abbrev) {
+        return this._oper(
+            name,
+            abbrev,
+            "disabled",
+            CONST.ACTIVE_EFFECT_MODES.CUSTOM,
+        );
+    }
+
     /**
      * This is a relatively expensive operation, so it is preferred to use
      * ValueModifier#getProperty or the getters instead unless these properties
@@ -778,39 +800,49 @@ export class ValueModifier {
 
     _calcAbbrev() {
         this._abbrev = "";
-        this._mods.forEach((adj) => {
-            if (this._abbrev) {
-                this._abbrev += ", ";
-            }
+        if (this._disabled) {
+            const reason = this._mods.find(
+                (adj) =>
+                    adj.op === CONST.ACTIVE_EFFECT_MODES.CUSTOM &&
+                    adj.value === "disabled",
+            );
+            this._abbrev = `DISABLED: ${reason?.abbrev}`;
+        } else {
+            this._mods.forEach((adj) => {
+                if (this._abbrev) {
+                    this._abbrev += ", ";
+                }
 
-            switch (adj.op) {
-                case CONST.ACTIVE_EFFECT_MODES.ADD:
-                    this._abbrev += `${adj.abbrev} ${adj.value > 0 ? "+" : ""}${
-                        adj.value
-                    }`;
-                    break;
+                switch (adj.op) {
+                    case CONST.ACTIVE_EFFECT_MODES.ADD:
+                        this._abbrev += `${adj.abbrev} ${adj.value > 0 ? "+" : ""}${
+                            adj.value
+                        }`;
+                        break;
 
-                case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-                    this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.TIMES}${adj.value}`;
-                    break;
+                    case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
+                        this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.TIMES}${adj.value}`;
+                        break;
 
-                case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-                    this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.LESSTHANOREQUAL}${adj.value}`;
-                    break;
+                    case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
+                        this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.LESSTHANOREQUAL}${adj.value}`;
+                        break;
 
-                case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-                    this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.GREATERTHANOREQUAL}${adj.value}`;
-                    break;
+                    case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
+                        this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.GREATERTHANOREQUAL}${adj.value}`;
+                        break;
 
-                case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
-                    this._abbrev += `${adj.abbrev} =${adj.value}`;
-                    break;
+                    case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
+                        this._abbrev += `${adj.abbrev} =${adj.value}`;
+                        break;
 
-                case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
-                    this._abbrev += `${adj.abbrev}`;
-                    break;
-            }
-        });
+                    case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
+                        if (adj.value === "disabled")
+                            this._abbrev += `${adj.abbrev}`;
+                        break;
+                }
+            });
+        }
     }
 
     static _cleanNumber(value) {
@@ -888,6 +920,13 @@ export class ValueModifier {
                         overrideVal = value ? 1 : 0;
                         break;
                 }
+            } else if (typeof value === "string") {
+                switch (adj.op) {
+                    case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
+                        if (value === "disabled") {
+                            this._disabled = true;
+                        }
+                }
             }
         });
 
@@ -944,10 +983,6 @@ export class ImpactModifier extends ValueModifier {
         let disabled =
             this._disabled || (this.die === 0 && this.effective === 0);
         return disabled;
-    }
-
-    set disabled(val) {
-        this._disabled = !!val;
     }
 
     static get aspectTypes() {
@@ -1035,341 +1070,11 @@ export class MasteryLevelModifier extends ValueModifier {
         return disabled;
     }
 
-    set disabled(val) {
-        super.disabled = val;
-    }
-
     get constrainedEffective() {
         return Math.min(
             this.maxTarget,
             Math.max(this.minTarget, this.effective),
         );
-    }
-
-    /**
-     * @typedef SuccessTestChatData
-     * @property {boolean} askFate Whether a fate roll may be made against this test
-     * @property {string} mlModJson JSON-encoded MasteryLevelModifier for this test
-     * @property {string} rollJson JSON-encoded Roll for this test
-     */
-
-    /**
-     * Perform a success test of the MasteryLevel.
-     *
-     * @param {object} options Configuration options for the roll
-     * @param {boolean} [options.skipDialog=false] Do not display dialog box (use defaults)
-     * @param {boolean} [options.noChat=false] Do not send any chat messages
-     * @param {string} [options.type] Test identifier string
-     * @param {label} [options.title] Human-readable short description
-     * @returns {SuccessTestResult} Object containing results of the roll
-     */
-    async test({
-        skipDialog = false,
-        noChat = false,
-        speaker,
-        type = "",
-        title = "",
-    } = {}) {
-        let mlMod = this.constructor.create(this, {
-            parent: this.parent,
-        });
-
-        if (!skipDialog) {
-            // Render modal dialog
-            let dlgTemplate =
-                "systems/sohl/templates/dialog/standard-test-dialog.html";
-
-            let dialogData = {
-                type,
-                title,
-                target: mlMod.effective,
-                base: mlMod.base,
-                mods: mlMod.chatHtml,
-                modifier: 0,
-                askSuccessLevelMod: true,
-                successLevelMod: mlMod.successLevelMod || 0,
-            };
-            const html = await renderTemplate(dlgTemplate, dialogData);
-
-            // Create the dialog window
-            mlMod = await Dialog.prompt({
-                title: dialogData.title,
-                content: html.trim(),
-                label: "Roll",
-                callback: (html) => {
-                    const form = html.querySelector("form");
-                    const fd = new FormDataExtended(form);
-                    const formData = fd.object;
-
-                    const formModifier = Number.parseInt(formData.modifier, 10);
-                    if (formModifier) {
-                        mlMod.add("Player Modifier", "PlyrMod", formModifier);
-                    }
-
-                    if (dialogData.askSuccessLevelMod) {
-                        const formSuccessLevelMod = Number.parseInt(
-                            formData.successLevelMod,
-                            10,
-                        );
-                        mlMod.successLevelMod = formSuccessLevelMod;
-                    }
-
-                    return mlMod;
-                },
-                rejectClose: false,
-                options: { jQuery: false },
-            });
-
-            if (!mlMod) return;
-        }
-
-        const roll = await new Roll("1d100").evaluate();
-        if (!roll) {
-            throw new Error(`Roll evaluation failed`);
-        }
-
-        const testResult = {
-            speaker,
-            askFate: this.parent.availableFate,
-            mlModJson: JSON.stringify(mlMod.toJSON()),
-            rollJson: JSON.stringify(roll.toJSON()),
-            type,
-            title,
-        };
-
-        if (!noChat) this.successTestToChat(testResult);
-        return testResult;
-    }
-
-    /**
-     * @typedef SuccessTestChatData
-     * @property {string} type type name of test
-     * @property {string} title Title of chat card to display
-     * @property {number} origTarget The initial target (before modifiers)
-     * @property {string} modHtml HTML fragment containing modifier explanations
-     * @property {number} successLevel Final success level after all modifiers applied
-     * @property {number} successLevelMod Modifier to success level
-     * @property {number} effTarget Effective target after all modifiers applied
-     * @property {boolean} isCapped Whether the target was capped
-     * @property {boolean} isSuccess Whether the roll result was a success
-     * @property {boolean} isCritical Whether the roll result was a critical
-     * @property {string} rollJson JSON encoded string for the Roll object
-     * @property {number} rollTotal The total value of the roll
-     * @property {string} rollResultExpr An expression for the terms of the roll
-     * @property {number} lastDigit
-     * @property {string} resultText
-     * @property {string} resultDesc
-     * @property {string} description
-     * @property {boolean} askFate
-     * @property {number} fateCost
-     * @property {number} fateBonus
-     * @property {boolean} isOpposedTest
-     * @property {string} initActorUuid
-     * @property {string} initActorName
-     * @property {string} initItemUuid
-     * @property {string} initItemName
-     * @property {string} initItemTypeLabel
-     * @property {string} targetActorUuid
-     * @property {string} targetActorName
-     * @property {boolean} isSuccessValue
-     * @property {number} successValue
-     * @property {number} successValueExpr
-     * @property {number} svBonus
-     */
-
-    /**
-     *
-     * @param {*} speaker
-     * @param {*} actor
-     * @param {*} token
-     * @param {*} character
-     * @param {*} noChat
-     * @param {*} title
-     * @param {*} type
-     * @param {*} testResult
-     * @returns
-     */
-    async successTestToChat({
-        speaker,
-        noChat = false,
-        askFate,
-        mlModJson,
-        rollJson,
-        type,
-        title,
-        isSuccessValue = false,
-        fateBonus = 0,
-        ...testResult
-    }) {
-        if (!speaker) {
-            speaker = this.parent.actor
-                ? ChatMessage.getSpeaker({ actor: this.parent.actor })
-                : ChatMessage.getSpeaker();
-        }
-        const mlMod = this.constructor.fromJSON(mlModJson, this.parent);
-        const roll = Roll.fromJSON(rollJson);
-
-        const chatData = {
-            mlMod: mlMod,
-            type: type,
-            title: title,
-            typeLabel: this.parent.constructor.typeLabel,
-            origTarget: mlMod.effective,
-            modHtml: mlMod.chatHtml,
-            successLevel: 0,
-            successLevelMod: mlMod.successLevelMod,
-            effTarget: mlMod.constrainedEffective,
-            isCapped: mlMod.effective !== mlMod.constrainedEffective,
-            isSuccess: false,
-            isCritical: false,
-            rollTotal: roll.total,
-            lastDigit: roll.total % 10,
-            resultText: "",
-            resultDesc: "",
-            description: "",
-            testResultJson: JSON.stringify(testResult),
-            nextTargetUuid: this.parent.item.uuid,
-            isSuccessValue,
-            successValueMod: -1,
-            svSuccess: false,
-            fateBonus,
-        };
-
-        const critAllowed =
-            chatData.mlMod.critSuccessDigits.length ||
-            chatData.mlMod.critFailureDigits.length;
-        if (critAllowed) {
-            if (roll.total <= chatData.effTarget) {
-                if (
-                    chatData.mlMod.critSuccessDigits.includes(
-                        chatData.lastDigit,
-                    )
-                ) {
-                    chatData.successLevel =
-                        SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess;
-                } else {
-                    chatData.successLevel =
-                        SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
-                }
-            } else {
-                if (
-                    chatData.mlMod.critFailureDigits.includes(
-                        chatData.lastDigit,
-                    )
-                ) {
-                    chatData.successLevel =
-                        SOHL.CONST.SUCCESS_LEVEL.CriticalFailure;
-                } else {
-                    chatData.successLevel =
-                        SOHL.CONST.SUCCESS_LEVEL.MarginalFailure;
-                }
-            }
-        } else {
-            if (roll.total <= chatData.effTarget) {
-                chatData.successLevel =
-                    SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
-            } else {
-                chatData.successLevel =
-                    SOHL.CONST.SUCCESS_LEVEL.MarginalFailure;
-            }
-        }
-        chatData.successLevel += chatData.successLevelMod;
-        chatData.successLevel += chatData.fateBonus;
-        if (!critAllowed) {
-            chatData.successLevel = Math.min(
-                Math.max(
-                    chatData.successLevel,
-                    SOHL.CONST.SUCCESS_LEVEL.MarginalFailure,
-                ),
-                SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess,
-            );
-        }
-        chatData.isCritical =
-            critAllowed &&
-            (chatData.successLevel <=
-                SOHL.CONST.SUCCESS_LEVEL.CriticalFailure ||
-                chatData.successLevel >=
-                    SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess);
-        chatData.isSuccess =
-            chatData.successLevel >= SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
-        chatData.description = `${critAllowed ? (chatData.isCritical ? "Critical " : "Marginal ") : ""}${chatData.isSuccess ? "Success" : "Failure"}`;
-
-        // If success level is greater than critical success or less than critical failure
-        // then add the amount to the end of the description
-        let successLevelIncr = 0;
-        if (chatData.isCritical) {
-            successLevelIncr =
-                chatData.successLevel -
-                (chatData.isSuccess
-                    ? SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess
-                    : SOHL.CONST.SUCCESS_LEVEL.CriticalFailure);
-        }
-        if (successLevelIncr) {
-            chatData.description = `${chatData.description} (${
-                (successLevelIncr > 0 ? "+" : "") + successLevelIncr
-            })`;
-        }
-
-        if (!chatData.isSuccessValue) {
-            // If there is a table providing detailed description of
-            // the results of this test, then process that table to
-            // extract the detailed result descriptions.  Many tests
-            // will not have these detailed descriptions, in which
-            // case only generic descriptions will be given.
-            if (chatData.mlMod.hasProperty("testDescTable")) {
-                MasteryLevelModifier._handleDetailedDescription(
-                    chatData,
-                    chatData.successLevel,
-                    chatData.mlMod.testDescTable,
-                );
-            }
-        } else {
-            chatData.successValueMod = chatData.successLevel - 1;
-            chatData.successValue = this.index + chatData.successValueMod;
-            const slSign = chatData.successValueMod < 0 ? "-" : "+";
-            chatData.successValueExpr = `${
-                this.index
-            } ${slSign} ${Math.abs(chatData.successValueMod)}`;
-
-            // Each MasteryLevel item may optionally
-            // have its own success value table included; if
-            // so, then that one will be used, otherwise the
-            // default one will be used.
-            const svTable = this.parent.item.system.successValueTable;
-
-            // The meaning of the success value bonus ("svBonus") is
-            // unique to each type of success value.  Sometimes it
-            // represents the number of rolls on another table, or the
-            // increase in value or quality of a crafted item, or any
-            // other thing.  See the description of the specific test
-            // to determine the meaning of the bonus.
-            chatData.svBonus = MasteryLevelModifier._handleDetailedDescription(
-                chatData,
-                chatData.successValue,
-                svTable,
-            );
-        }
-
-        if (!noChat) {
-            const chatTemplate =
-                "systems/sohl/templates/chat/standard-test-card.html";
-
-            const html = await renderTemplate(chatTemplate, chatData);
-
-            const messageData = {
-                user: game.user.id,
-                speaker,
-                content: html.trim(),
-                sound: CONFIG.sounds.dice,
-            };
-
-            ChatMessage.applyRollMode(messageData, "roll");
-
-            // Create a chat message
-            await ChatMessage.create(messageData);
-        }
-
-        return chatData;
     }
 
     /**
@@ -1691,6 +1396,7 @@ export class SohlItem extends Item {
         const html = await renderTemplate(
             "templates/sidebar/document-create.html",
             {
+                variant: SOHL.sysVer.id,
                 folders,
                 name: data.name,
                 defaultName: cls.defaultName({ type, parent, pack, subType }),
@@ -2543,7 +2249,7 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
 
     static get mods() {
         return {
-            Player: { name: "Player Modifier", abbrev: "PlyrMod" },
+            Player: { name: "Situational Modifier", abbrev: "SitMod" },
             MinValue: { name: "Minimum Value", abbrev: "MinVal" },
             MaxValue: { name: "Maximum Value", abbrev: "MaxVal" },
             AE: { name: "Active Effect", abbrev: "AE" },
@@ -2558,7 +2264,7 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
     }
 
     get availableFate() {
-        return false;
+        return [];
     }
 
     get actor() {
@@ -2814,7 +2520,10 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
      * @param {boolean} [options.async=false] Whether to execute this action as an async function
      * @param {object[]} [options.scope] additional parameters
      */
-    execute(actionName, { inPrepareData = false, ...scope } = {}) {
+    execute(
+        actionName,
+        { inPrepareData = false, sync = false, ...scope } = {},
+    ) {
         if (!actionName) return;
 
         let action = this.actions.find(
@@ -2857,9 +2566,15 @@ export class SohlActorData extends SohlBaseData {
      */
     $isSetup;
 
+    $initiativeRank;
+
     get virtualItems() {
         if (!this.#virtualItems) this.#virtualItems = new Collection();
         return this.#virtualItems;
+    }
+
+    get initiativeRank() {
+        return this.$initiativeRank;
     }
 
     getEvent(eventTag) {
@@ -2898,6 +2613,7 @@ export class SohlActorData extends SohlBaseData {
     /** @override */
     prepareBaseData() {
         super.prepareBaseData();
+        this.$initiativeRank = 0;
         this.$collection = new Collection();
         this.$gearWeight = new ValueModifier(this, {
             maxFight: new ValueModifier(this),
@@ -3152,6 +2868,7 @@ export class SohlItemData extends SohlBaseData {
 
     async showDescription() {
         const chatData = {
+            variant: SOHL.sysVer.id,
             name: this.item.name,
             subtitle: `${this.subType} ${this.constructor.typeLabel.singular}`,
             level: this.$level.effective,
@@ -3491,6 +3208,7 @@ export class AnimateEntityActorData extends SohlActorData {
         // Prepare for Chat Message
         const chatTemplate = "systems/sohl/templates/chat/damage-card.html";
         const chatTemplateData = {
+            variant: SOHL.sysVer.id,
             title:
                 dialogOptions.label +
                 (targetToken ? ` to ${targetToken.name}` : ""),
@@ -3530,6 +3248,7 @@ export class AnimateEntityActorData extends SohlActorData {
         // Render modal dialog
         let dlgTemplate = "systems/sohl/templates/dialog/damage-dialog.html";
         let dialogData = {
+            variant: SOHL.sysVer.id,
             type,
             strikeMode,
             weaponName: strikeMode?.name || "Non-Weapon",
@@ -3578,12 +3297,16 @@ export class AnimateEntityActorData extends SohlActorData {
             },
         });
         if (formAddlWeaponImpact) {
-            newImpact.add("Player Modifier", "PlyrMod", formAddlWeaponImpact);
+            newImpact.add(
+                "Situational Modifier",
+                "SitMod",
+                formAddlWeaponImpact,
+            );
         }
         if (formAddlArmorReduction) {
             newImpact.armorReduction.add(
-                "Player Modifier",
-                "PlyrMod",
+                "Situational Modifier",
+                "SitMod",
                 formAddlArmorReduction,
             );
         }
@@ -3731,7 +3454,8 @@ export class AnimateEntityActorData extends SohlActorData {
     }
 
     /**
-     * Resume the opposed test
+     * Resume the opposed test, selecting the skill to use for the opposed test and then
+     * passing further processing of the opposed test to that skill.
      *
      * @param {object} options
      * @param {string} [options.atkItemUuid] UUID of the item the initiator is using
@@ -3739,18 +3463,12 @@ export class AnimateEntityActorData extends SohlActorData {
      * @param {number} [options.atkSLMod] The Success Level modifier for the initiator
      * @returns Object containing the results of the test
      */
-    async opposedTestResume(
+    async selectOpposedTestSkill(
         speaker,
         actor,
         token,
         character,
-        {
-            atkItemUuid,
-            successLevelMod: atkSuccLvlMod,
-            modifier: atkModifier,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        },
+        { sourceToken, sourceItem, sourceMlMod, ...scope },
     ) {
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
@@ -3760,30 +3478,6 @@ export class AnimateEntityActorData extends SohlActorData {
             needsToken: true,
             self: this,
         }));
-
-        // Get the attacker's item for the opposed roll
-        const atkItem = fromUuidSync(atkItemUuid);
-
-        if (!atkItem) {
-            ui.notifications.error(
-                `Cannot find item with UUID: ${atkItemUuid}`,
-            );
-            return null;
-        }
-
-        const atkMasteryLevel = ValueModifier.create(
-            atkItem.system.$masteryLevel,
-        );
-        if (!atkMasteryLevel) {
-            ui.notifications.error(
-                `${atkItem.name} does not support opposed rolls, can't continue`,
-            );
-            return null;
-        }
-        atkMasteryLevel.successLevelMod = atkSuccLvlMod;
-        if (atkModifier) {
-            atkMasteryLevel.add("Player Modifier", "PlyrMod", atkModifier);
-        }
 
         // Build list of acceptable opposed items on this actor
         const opposedItems = [];
@@ -3804,18 +3498,28 @@ export class AnimateEntityActorData extends SohlActorData {
                         name: `${itemTypeName}: ${it.name} (TL:${it.system.$masteryLevel.effective})`,
                         uuid: it.uuid,
                         value: it.system.$masteryLevel,
+                        item: it,
                     });
                 }
             }
         }
+        if (!opposedItems.length) {
+            ui.notifications.warn("No items available for opposing test");
+            return null;
+        }
         opposedItems.sort((a, b) => a.localeCompare(b));
 
-        const defaultItem = this.parent.items.find(
-            (it) => it.type === atkItem.type && it.name === atkItem.name,
-        );
-        const defaultItemUuid = defaultItem?.uuid || opposedItems[0].uuid;
+        const defaultItem = sourceItem
+            ? this.parent.items.find(
+                  (it) =>
+                      it.type === sourceItem.type &&
+                      it.name === sourceItem.name,
+              )
+            : opposedItems[0];
+        const defaultItemUuid = defaultItem.uuid;
 
         const dialogOptions = {
+            variant: SOHL.sysVer.id,
             type: "opposed-test-resume",
             title: "Opposed Roll",
             opposedItems,
@@ -3861,11 +3565,16 @@ export class AnimateEntityActorData extends SohlActorData {
                 );
                 const result = {
                     value: ValueModifier.create(opposedItem.value),
-                    successLevelMod: defSuccessLevelMod,
                     opposedItemUuid,
+                    item: opposedItem,
                 };
+                result.value.successLevelMod += defSuccessLevelMod;
                 if (defModifier) {
-                    result.value.add("Player Modifier", "PlyrMod", defModifier);
+                    result.value.add(
+                        "Situational Modifier",
+                        "SitMod",
+                        defModifier,
+                    );
                 }
                 return result;
             },
@@ -3875,127 +3584,105 @@ export class AnimateEntityActorData extends SohlActorData {
         // If dialog cancelled then quit
         if (!dlgResult) return null;
 
-        // Get the defender's item for the opposed roll
-        const defItem = this.getItem(dlgResult.opposedItemId);
-
-        if (!defItem) {
-            ui.notifications.error(
-                `Cannot find item ${dlgResult.opposedItemId} on actor ${this.name}`,
-            );
-            return null;
-        }
-
-        const defItemUuid = defItem.uuid;
-
-        let defMasteryLevel;
-        if (!defItem.system.$masteryLevel) {
-            ui.notifications.error(
-                `${defItem.name} does not support opposed rolls, can't continue`,
-            );
-            return null;
-        } else {
-            defMasteryLevel = ValueModifier.create(
-                defItem.system.$masteryLevel,
-            );
-        }
-
-        defMasteryLevel.addVM(dlgResult.value, { includeBase: true });
-        defMasteryLevel.successLevelMod = dlgResult.value.successLevelMod;
-
-        // Roll for the attacker
-        const atkTest = await atkMasteryLevel.test({
-            type: "attacker-opposed-test",
+        scope.targetMlMod = dlgResult.value;
+        foundry.utils.mergeObject(scope, {
+            sourceToken,
+            sourceItem,
+            sourceMlMod,
         });
-
-        // Roll for the defender
-        const defTest = await defMasteryLevel.test({
-            type: "defender-opposed-test",
-        });
-
-        return await this.opposedTestSendToChat(
-            speaker,
-            actor,
-            token,
-            character,
-            {
-                prevAtkResultJson: JSON.stringify(atkTest),
-                prevDefResultJson: JSON.stringify(defTest),
-                atkItemUuid,
-                defItemUuid,
-            },
-        );
+        return dlgResult.item.system.execute("opposedTestResume", scope);
     }
 
-    async opposedTestSendToChat(
-        speaker,
-        actor,
-        token,
-        character,
-        // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-        { prevAtkResult, prevDefResult, atkItemUuid, defItemUuid, ...scope },
+    async meleeCounterstrikeResume(
+        speaker = null,
+        actor = null,
+        token = null,
+        character = null,
+        scope = {},
     ) {
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
             token,
             character,
-            needsToken: true,
-            self: this,
         }));
+        if (!token) {
+            ui.notifications.warn(
+                `Token for defender ${this.name} could not be found on canvas.`,
+            );
+            return null;
+        }
 
-        prevAtkResult.mlMod = JSON.parse(prevAtkResult.mlModStr);
-        prevDefResult.mlMod = JSON.parse(prevDefResult.mlModStr);
-        const atkItem = await fromUuid(atkItemUuid);
-        const defItem = await fromUuid(defItemUuid);
-        const victoryStars = this.calcVictoryStars(
-            prevAtkResult.successLevel + prevAtkResult.atkFateBonus,
-            prevDefResult.successLevel + prevDefResult.defFateBonus,
-        );
-        const atkWins = victoryStars > 0;
-        const defWins = victoryStars < 0;
-        const victoryStarsText = this.victoryStarsText(
-            !prevAtkResult.isSuccess && !prevDefResult.isSuccess
-                ? null
-                : victoryStars,
-        );
+        return { speaker, actor, token, character, scope };
+    }
 
-        // Prepare for Chat Message
-        const chatTemplate =
-            "systems/sohl/templates/chat/opposed-result-card.html";
+    async meleeBlockResume(
+        speaker = null,
+        actor = null,
+        token = null,
+        character = null,
+        scope = {},
+    ) {
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+        }));
+        if (!token) {
+            ui.notifications.warn(
+                `Token for defender ${this.name} could not be found on canvas.`,
+            );
+            return null;
+        }
 
-        const chatTemplateData = {
-            title: `Opposed Roll Result`,
-            prevAtkResult,
-            prevDefResult,
-            prevAtkResultJson: JSON.stringify(prevAtkResult),
-            prevDefResultJson: JSON.stringify(prevDefResult),
-            atkItem,
-            defItem,
-            atkItemUuid,
-            defItemUuid,
-            atkWins,
-            defWins,
-            vsText: victoryStarsText.text,
-            vsisTied: victoryStarsText.isTied,
-            atkVictory: victoryStarsText.isTester,
-            defVictory: victoryStarsText.isOpponent,
-        };
+        return { speaker, actor, token, character, scope };
+    }
 
-        const html = await renderTemplate(chatTemplate, chatTemplateData);
+    async meleeDodgeResume(
+        speaker = null,
+        actor = null,
+        token = null,
+        character = null,
+        scope = {},
+    ) {
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+        }));
+        if (!token) {
+            ui.notifications.warn(
+                `Token for defender ${this.name} could not be found on canvas.`,
+            );
+            return null;
+        }
 
-        const messageData = {
-            user: game.user.id,
-            speaker: this.speaker,
-            content: html.trim(),
-            style: CONST.CHAT_MESSAGE_STYLES.DICE,
-        };
+        return { speaker, actor, token, character, scope };
+    }
 
-        const messageOptions = {};
+    async meleeIgnoreResume(
+        speaker = null,
+        actor = null,
+        token = null,
+        character = null,
+        scope = {},
+    ) {
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+        }));
+        if (!token) {
+            ui.notifications.warn(
+                `Token for defender ${this.name} could not be found on canvas.`,
+            );
+            return null;
+        }
 
-        // Create a chat message
-        await ChatMessage.create(messageData, messageOptions);
-
-        return chatTemplateData;
+        return { speaker, actor, token, character, scope };
     }
 
     prepareBaseData() {
@@ -4488,7 +4175,7 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
             die: this.impactBase.die,
         });
         if (!this.impactBase.modifier && !this.impactBase.die) {
-            this.$impact.disabled = true;
+            this.$impact.setDisabled("No modifier or no die", "NMND");
         } else {
             this.$impact.setBase(this.impactBase.modifier);
         }
@@ -4532,7 +4219,7 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
                 includeBase: true,
             });
         } else {
-            this.$durability.disabled = true;
+            this.$durability.setDisabled("Not Nested In Gear", "NNiG");
         }
         this.$assocSkill = this.actor.getItem(this.assocSkillName, {
             types: [SkillItemData.typeName],
@@ -4548,7 +4235,7 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
                 },
             );
         } else {
-            this.$attack.disabled = true;
+            this.$attack.setDisabled("No Associated Skill", "NoSkill");
         }
         this.$dodgeSkill = this.actor.getItem("Dodge", {
             types: [SkillItemData.typeName],
@@ -4561,7 +4248,7 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
                 includeBase: true,
             });
         } else {
-            this.$dodge.disabled = true;
+            this.$dodge.setDisabled("No Dodge Skill", "NoSkill");
         }
     }
 }
@@ -4765,8 +4452,11 @@ export class MissileWeaponStrikeModeItemData extends StrikeModeItemData {
 
     prepareBaseData() {
         super.prepareBaseData();
-        this.$defense.block.disabled = true;
-        this.$defense.counterstrike.disabled = true;
+        this.$defense.block.setDisabled("No Blocking Allowed", "NoBlk");
+        this.$defense.counterstrike.setDisabled(
+            "No Counterstrike Allowed",
+            "NoCX",
+        );
     }
 }
 
@@ -5025,7 +4715,7 @@ export class MasteryLevelItemData extends SohlItemData {
      */
     get availableFate() {
         let result = [];
-        if (this.actor && !this.$masteryLevel.disabled) {
+        if (!this.$masteryLevel.disabled) {
             for (const it of this.actor.allItems()) {
                 if (
                     it.system instanceof MysteryItemData &&
@@ -5299,25 +4989,78 @@ export class MasteryLevelItemData extends SohlItemData {
     }
 
     /**
+     * Returns number of victory stars.
+     * @param {*} sourceTestResult
+     * @param {*} targetTestResult
+     * @returns Positive numbers for attacker victory stars, and negative numbers for defender victory stars.
+     * Zero indicates a tie. If there are no victory stars at all (due to both having failures), returns null.
+     */
+    static calcVictoryStars(sourceTestResult, targetTestResult) {
+        if (
+            sourceTestResult.successLevel <=
+                SOHL.CONST.SUCCESS_LEVEL.MarginalFailure &&
+            targetTestResult.successLevel <=
+                SOHL.CONST.SUCCESS_LEVEL.MarginalFailure
+        ) {
+            return null;
+        } else {
+            let victoryStars =
+                sourceTestResult.successLevel - targetTestResult.successLevel;
+            if (victoryStars) return victoryStars;
+
+            // We have a tie, so first try to break it by giving it to the one with the higher roll
+            const diff =
+                sourceTestResult.roll.total - targetTestResult.roll.total;
+            if (!diff) return diff > 0 ? 1 : -1;
+
+            // We still have a tie, so generate a random number to determine who wins
+            const result =
+                foundry.dice.MersenneTwister.int() -
+                foundry.dice.MersenneTwister.int();
+            return result > 0 ? 1 : -1;
+        }
+    }
+
+    static victoryStarsText(vs) {
+        const result = {
+            vsList: ["None"],
+            text: "Both Fail",
+            isTester: false,
+            isOpponent: false,
+        };
+        if (vs !== null) {
+            result.victoryStars = Math.abs(vs);
+            if (vs) {
+                result.isTester = vs > 0;
+                result.isOpponent = !result.isTester;
+                result.vsList = new Array(result.victoryStars).fill(
+                    result.isTester
+                        ? SOHL.CONST.CHARS.STARF
+                        : SOHL.CONST.CHARS.STAR,
+                );
+                result.text = result.vsList.join("");
+            }
+        }
+        return result;
+    }
+
+    static async testAdjust(rollResult) {
+        return rollResult;
+    }
+
+    /**
      * Perform Success Test for this Item
      *
      * @param {object} options
      * @returns {SuccessTestChatData}
      */
-    async successTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
+    async successTest(speaker, actor, token, character, scope) {
+        let {
             skipDialog = false,
-            noChat = false,
             type = `${this.type}-${this.name}-test`,
             title = `${this.item.label} Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+            testResult,
+        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -5327,14 +5070,18 @@ export class MasteryLevelItemData extends SohlItemData {
             self: this,
         }));
 
-        const chatResult = await this.$masteryLevel.test({
-            skipDialog,
-            noChat,
-            type,
-            title,
-        });
+        if (!testResult) {
+            testResult = await this.$masteryLevel.test({
+                skipDialog,
+                type,
+                title,
+            });
+        } else {
+            testResult = MasteryLevelModifier.testResultFromObject(testResult);
+            testResult = await MasteryLevelItemData.testAdjust(testResult);
+        }
 
-        return chatResult;
+        return testResult;
     }
 
     /**
@@ -5343,20 +5090,13 @@ export class MasteryLevelItemData extends SohlItemData {
      * @param {object} options
      * @returns {SuccessTestChatData}
      */
-    successValueTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
+    successValueTest(speaker, actor, token, character, scope) {
+        let {
             skipDialog = false,
             noChat = false,
             type = `${this.type}-${this.name}-svtest`,
             title = `${this.item.label} Success Value Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -5366,24 +5106,12 @@ export class MasteryLevelItemData extends SohlItemData {
             self: this,
         }));
 
-        return this.$masteryLevel
-            .test({
-                skipDialog,
-                noChat: true,
-                type,
-                title,
-            })
-            .then((chatResult) => {
-                chatResult.isSuccessValue = true;
-                if (!noChat) {
-                    const ml = MasteryLevelModifier.fromJSON(
-                        chatResult.mlModJson,
-                        this,
-                    );
-                    ml.successTestToChat(chatResult);
-                }
-                return chatResult;
-            });
+        return this.$masteryLevel.test({
+            skipDialog,
+            noChat,
+            type,
+            title,
+        });
     }
 
     /**
@@ -5391,20 +5119,57 @@ export class MasteryLevelItemData extends SohlItemData {
      * @param {object} options
      * @returns {SuccessTestChatData}
      */
-    opposedTestStart(
-        speaker,
-        actor,
-        token,
-        character,
-        {
+    async opposedTestStart(speaker, actor, token, character, scope) {
+        let {
             skipDialog = false,
-            noChat = false,
             type = `${this.type}-${this.name}-opposedtest`,
             title = `${this.item.label} Opposed Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+        } = scope;
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+            needsToken: true,
+            self: this,
+        }));
+        let target = Utility.getUserTargetedToken(token);
+
+        const sourceTestResult = await this.$masteryLevel.test({
+            skipDialog,
+            type,
+            title,
+            noChat: true,
+        });
+
+        const chatTemplate =
+            "systems/sohl/templates/chat/opposed-request-card.html";
+
+        const chatData = {
+            variant: SOHL.sysVer.id,
+            sourceToken: token,
+            targetToken: target,
+            sourceRollResult: sourceTestResult,
+        };
+
+        const chatHtml = await renderTemplate(chatTemplate, chatData);
+
+        const messageData = {
+            user: game.user.id,
+            speaker: this.actor?.getSpeaker || ChatMessage.getSpeaker(),
+            content: chatHtml.trim(),
+            sound: CONFIG.sounds.dice,
+        };
+
+        ChatMessage.applyRollMode(messageData, "roll");
+
+        // Create a chat message
+        return ChatMessage.create(messageData);
+    }
+
+    async opposedTestResume(speaker, actor, token, character, scope) {
+        let { sourceTestResult, targetTestResult } = scope;
+
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -5414,93 +5179,40 @@ export class MasteryLevelItemData extends SohlItemData {
             self: this,
         }));
 
-        let target = Utility.getSingleSelectedToken({ quiet: true });
-        if (!canvas.scene) {
-            ui.notifications.warn(`No active scene`);
-        } else if (!canvas.scene.tokens.size) {
-            ui.notifications.warn(`No tokens on the active scene`);
+        if (!targetTestResult) {
+            // Roll for the target
+            targetTestResult = await this.$masteryLevel.test({
+                type: "target-opposed-test",
+            });
         }
 
-        let dlgHtml = `<form id="select-token">
-            <p>Select target to perform Opposed Test against:</p>
-            <div class="form-group"><select name="tokenId">`;
-        canvas.scene.tokens.forEach((tokdoc) => {
-            dlgHtml += `<option value="${tokdoc.id}" ${
-                tokdoc.id === target?.id ? "selected" : ""
-            }>${tokdoc.name}`;
-        });
-        dlgHtml += `</select></div>
-            <div class="form-group">
-                <label>Situational Modifier:</label>
-                <input type="number" name="modifier" value="0" />
-            </div>
-            <div class="form-group">
-                <label>Success Level Modifier:</label>
-                <input type="number" name="successLevelMod" value="0" />
-            </div></form>`;
-        return Dialog.prompt({
-            title: "Choose Opposed Test Target",
-            content: dlgHtml,
-            label: "OK",
-            callback: async (html) => {
-                const form = html.querySelector("form");
-                const fd = new FormDataExtended(form);
-                const formdata = foundry.utils.expandObject(fd.object);
-                target = canvas.scene.tokens.get(formdata.tokenId);
-                const formModifier =
-                    Number.parseInt(formdata.modifier, 10) || 0;
-                let successLevelMod =
-                    Number.parseInt(formdata.successLevelMod, 10) || 0;
+        const victoryStars = MasteryLevelItemData.calcVictoryStars(
+            sourceTestResult,
+            targetTestResult,
+        );
 
-                if (this.actor.system.shock === SOHL.CONST.SHOCK.Stunned)
-                    successLevelMod--;
+        const opposedTestResult = {
+            sourceTestResult,
+            targetTestResult,
+            victoryStars,
+            vsText: MasteryLevelItemData.victoryStarsText(victoryStars),
+            sourceWins: victoryStars > 0,
+            targetWins: victoryStars < 0,
+        };
 
-                const chatTemplate =
-                    "systems/sohl/templates/chat/opposed-request-card.html";
-
-                const chatData = {
-                    sourceToken: token,
-                    targetToken: target,
-                    testItem: this.item,
-                    modifier: formModifier,
-                    successLevelMod,
-                };
-
-                const chatHtml = await renderTemplate(chatTemplate, chatData);
-
-                const messageData = {
-                    user: game.user.id,
-                    speaker: this.actor?.getSpeaker || ChatMessage.getSpeaker(),
-                    content: chatHtml.trim(),
-                    sound: CONFIG.sounds.dice,
-                };
-
-                ChatMessage.applyRollMode(messageData, "roll");
-
-                // Create a chat message
-                return ChatMessage.create(messageData);
+        return await MasteryLevelModifier.opposedTestToChat(
+            speaker,
+            actor,
+            token,
+            character,
+            {
+                speaker,
+                opposedTestResult,
             },
-            options: { jQuery: false },
-            rejectClose: false,
-        });
+        );
     }
 
-    async fateTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-fatetest`,
-            title = `${this.item.label} Fate Test`,
-            nextTargetUuid,
-            nextAction,
-            testPropName: testResultPropName,
-            ...scope
-        } = {},
-    ) {
+    async fateTest(speaker, actor, token, character = {}) {
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -5512,52 +5224,76 @@ export class MasteryLevelItemData extends SohlItemData {
 
         // Ensure that there is fate available to be used
         const fateList = this.availableFate;
-        let fateItem;
+        let fateUuid;
         if (fateList?.length) {
-            if (fateList.length === 1) {
-                fateItem = fateList[0];
-            } else {
-                let dlgHtml = `<form id="select-fate">
-                    <p>Select which fate to use:</p>
-                    <div class="form-group"><select name="fateIndex">`;
-                fateList.forEach((fateItem, idx) => {
-                    dlgHtml += `<option value="${idx}"}>${fateItem.name}`;
-                });
-                dlgHtml += `</select></div></form>`;
-                fateItem = await Dialog.prompt({
-                    title: "Choose Fate",
-                    content: dlgHtml,
-                    label: "OK",
-                    callback: async (html) => {
-                        const form = html.querySelector("form");
-                        const fd = new FormDataExtended(form);
-                        const formdata = foundry.utils.expandObject(fd.object);
-                        const formIndex =
-                            Number.parseInt(formdata.fateIndex, 10) || 0;
-                        return fateList.at(formIndex);
-                    },
-                    options: { jQuery: false },
-                    rejectClose: false,
-                });
-                if (!fateItem) return null;
-            }
-        } else {
-            ui.notifications.warn(`No fate available to use`);
-            return null;
+            const dlgData = {
+                fateChoices: Object.fromEntries(
+                    fateList.map((it) => [it.uuid, it.name]),
+                ),
+            };
+            const compiled = Handlebars.compile(`<form id="select-token"><div class="form-group">
+                <label>Select which fate to use:</label>
+                <select name="fateChoice">
+                {{selectOptions fateChoices}}
+            </select></div></form>`);
+            const dlgHtml = compiled(dlgData, {
+                allowProtoMethodsByDefault: true,
+                allowProtoPropertiesByDefault: true,
+            });
+            fateUuid = await Dialog.prompt({
+                title: "Choose Fate",
+                content: dlgHtml,
+                label: "OK",
+                callback: async (html) => {
+                    const form = html.querySelector("form");
+                    const fd = new FormDataExtended(form);
+                    const formdata = foundry.utils.expandObject(fd.object);
+                    return formdata.fateChoice;
+                },
+                options: { jQuery: false },
+                rejectClose: false,
+            });
+            if (!fateUuid) return null;
         }
-        const fateChatData = await this.$masteryLevel.fate.test({
-            skipDialog,
+        const fateItem = await fromUuid(fateUuid);
+        ui.notifications.warn(`Can't find fate with UUID ${fateUuid}`);
+        if (!fateItem) return null;
+
+        const mlMod = MasteryLevelModifier.create(this.$masteryLevel, {
+            parent: this,
+        });
+        this.fateBonusItems.forEach((it) => {
+            mlMod.add(it.name, "FateBns", it.system.$level.effective);
+        });
+        const fateTestResult = this.$masteryLevel.fate.test({
+            mlMod,
             noChat: true,
         });
 
         // If user cancelled the roll, then return immediately
-        if (!fateChatData) return null;
+        if (!fateTestResult) return null;
 
-        if (fateChatData.isSuccess) {
+        MasteryLevelModifier._handleDetailedDescription(fateTestResult, [
+            {
+                maxValue: SOHL.CONST.SUCCESS_LEVEL.MarginalFailure,
+                lastDigit: [],
+                label: "No Fate",
+                description: "Fate test failed, no fate",
+            },
+            {
+                maxValue: Number.MAX_SAFE_INTEGER,
+                lastDigit: [],
+                label: "Fate Succeeded",
+                description:
+                    "Fate test succeeded, increase test by 1 Success Level",
+            },
+        ]);
+        let fateCost = 0;
+        if (fateTestResult.isSuccess) {
             // If we got a critical success, then ask the player how to proceed
-            if (fateChatData.isCritical) {
-                const fateChoice = await Dialog.wait({
-                    title,
+            if (fateTestResult.isCritical) {
+                const fateResult = await Dialog.wait({
+                    title: "Fate Critical Success",
                     content: `<p>Choose how to proceed:
                     <ol>
                     <li><strong>Free Fate:</strong> Get +1 success level bonus, but the character doesn't have to expend any fate points.</li>
@@ -5579,29 +5315,31 @@ export class MasteryLevelItemData extends SohlItemData {
                     default: "freeFate",
                     options: { jQuery: false },
                 });
-
-                if (fateChoice === "doubleFate") {
-                    fateChatData.fateBonus = 2;
-                    fateChatData.fateCost = 1;
+                if (fateResult === "doubleFate") {
+                    fateTestResult.label = "Fate Critical Success";
+                    fateTestResult.description =
+                        "Increase test Success Level by 2, cost 1 FP";
+                    fateCost = 1;
                 } else {
-                    fateChatData.fateBonus = 1;
-                    fateChatData.fateCost = 0;
+                    fateTestResult.label = "Fate Critical Success";
+                    fateTestResult.description =
+                        "Increase test Success Level by 1, no fate cost";
                 }
             } else {
-                fateChatData.fateBonus = 1;
-                fateChatData.fateCost = 1;
+                fateCost = 1;
             }
         } else {
-            fateChatData.fateBonus = 0;
-            fateChatData.fateCost = fateChatData.isCritical ? 1 : 0;
+            fateCost = fateTestResult.isCritical ? 1 : 0;
         }
 
+        await MasteryLevelModifier.successTestToChat({
+            speaker,
+            testResult: fateTestResult,
+        });
+
         // Reduce the fate level by the fate cost if any
-        if (fateChatData.fateCost) {
-            const newFate = Math.max(
-                0,
-                fateItem.system.levelBase - fateChatData.fateCost,
-            );
+        if (fateCost) {
+            const newFate = Math.max(0, fateItem.system.levelBase - fateCost);
             if (newFate !== fateItem.system.levelBase) {
                 fateItem.update({ "system.levelBase": newFate });
             }
@@ -5617,23 +5355,7 @@ export class MasteryLevelItemData extends SohlItemData {
             }
         });
 
-        if (!noChat) {
-            await this.$masteryLevel.fate.successTestToChat(fateChatData);
-        }
-
-        if (testResultPropName && Object.hasOwn(scope, testResultPropName)) {
-            const mlMod = MasteryLevelModifier.create(
-                scope[testResultPropName].mlModJson,
-            );
-            mlMod.successLevelMod += fateChatData.fateBonus;
-            scope[testResultPropName].mlModJson = JSON.stringify(
-                mlMod.toJSON(),
-            );
-            scope[testResultPropName].askFate = false;
-            const doc = await fromUuid(nextTargetUuid);
-            doc?.system.execute(nextAction, ...scope);
-        }
-        return fateChatData;
+        return fateTestResult;
     }
 
     async improveWithSDR(speaker) {
@@ -5653,6 +5375,7 @@ export class MasteryLevelItemData extends SohlItemData {
         const chatTemplate =
             "systems/sohl/templates/chat/standard-test-card.html";
         const chatTemplateData = {
+            variant: SOHL.sysVer.id,
             type: `${this.type}-${this.name}-improve-sdr`,
             title: `${this.item.label} Development Roll`,
             effTarget: this.$masteryLevel.base,
@@ -5705,6 +5428,7 @@ export class MasteryLevelItemData extends SohlItemData {
             });
             const chatTemplate = "systems/sohl/templates/chat/xp-card.html";
             const chatTemplateData = {
+                variant: SOHL.sysVer.id,
                 type: `${this.type}-${this.name}-improve-xp`,
                 title: `${this.item.label} Experience Point Increase`,
                 xpCost: xpVal - newXPVal,
@@ -5734,7 +5458,26 @@ export class MasteryLevelItemData extends SohlItemData {
         this.$masteryLevel = new MasteryLevelModifier(this, {
             fate: new MasteryLevelModifier(this),
         });
-        this.$masteryLevel.setBase(this.masteryLevelBase);
+        if (this.actor) {
+            const fateSetting = game.settings.get("sohl", "optionFate");
+            if (fateSetting === "everyone") {
+                this.$masteryLevel.setBase(this.masteryLevelBase);
+            } else if (fateSetting === "pconly") {
+                if (this.actor.hasPlayerOwner) {
+                    this.$masteryLevel.setBase(this.masteryLevelBase);
+                } else {
+                    this.$masteryLevel.fate.setDisabled(
+                        "Non-Player Character/Creature",
+                        "NPC",
+                    );
+                }
+            } else {
+                this.$masteryLevel.fate.setDisabled(
+                    "Fate Disabled in Settings",
+                    "NoFate",
+                );
+            }
+        }
         this.$skillBase ||= new SkillBase(this.skillBaseFormula, {
             items: this.actor?.items,
         });
@@ -5761,15 +5504,22 @@ export class MasteryLevelItemData extends SohlItemData {
 
         if (this.skillBase.attributes.includes("Aura")) {
             // Any skill that has Aura in its SB formula cannot use fate
-            this.$masteryLevel.fate.set("Aura-Based, No Fate", "AurBsd", 0);
-            this.$masteryLevel.fate.disabled = true;
+            this.$masteryLevel.fate.setDisabled(
+                "Aura-Based, No Fate",
+                "AurBsd",
+            );
         }
     }
 
     /** @override */
     postProcess() {
         super.postProcess();
-        this.$masteryLevel.fate.disabled ||= this.$masteryLevel.disabled;
+        if (this.$masteryLevel.disabled) {
+            this.$masteryLevel.fate.setDisabled(
+                "Mastery Level Disabled",
+                "MLDsbl",
+            );
+        }
         if (!this.$masteryLevel.fate.disabled) {
             const fate = this.actor.getTraitByAbbrev("fate");
             if (fate) {
@@ -5796,6 +5546,12 @@ export class MasteryLevelItemData extends SohlItemData {
                     it.system.$level.effective,
                 );
             });
+            if (!this.availableFate.length) {
+                this.$masteryLevel.fate.setDisabled(
+                    "No Fate Available",
+                    "NoFateAvail",
+                );
+            }
         }
         this.applyPenalties();
     }
@@ -5939,8 +5695,8 @@ export class MysteryItemData extends SubtypeMixin(SohlItemData) {
             max: new ValueModifier(this),
         });
         if (!this.charges.usesCharges) {
-            this.$charges.disabled = true;
-            this.$charges.max.disabled = true;
+            this.$charges.setDisabled("Doesn't Use Charges", "NoChrg");
+            this.$charges.max.setDisabled("Doesn't Use Charges", "NoChrg");
         } else {
             this.$charges.setBase(this.charges.value);
             this.$charges.max.setBase(this.charges.max);
@@ -6058,7 +5814,7 @@ export class MysticalAbilityItemData extends SubtypeMixin(
     get availableFate() {
         // All of the Mystical Abilities are essentially aura based, so none of them
         // may be Fated.
-        return false;
+        return [];
     }
 
     /**
@@ -6180,8 +5936,8 @@ export class MysticalAbilityItemData extends SubtypeMixin(
             max: new ValueModifier(this),
         });
         if (!this.charges.usesCharges) {
-            this.$charges.disabled = true;
-            this.$charges.max.disabled = true;
+            this.$charges.setDisabled("Doesn't Use Charges", "NoChrg");
+            this.$charges.max.setDisabled("Doesn't Use Charges", "NoChrg");
         } else {
             this.$charges.setBase(this.charges.value);
             this.$charges.max.setBase(this.charges.max);
@@ -7341,8 +7097,11 @@ export class AfflictionItemData extends SubtypeMixin(SohlItemData) {
     prepareBaseData() {
         super.prepareBaseData();
         this.$healingRate = new ValueModifier(this);
-        if (this.healingRateBase === -1) this.$healingRate.disabled = true;
-        else this.$healingRate.setBase(this.healingRateBase);
+        if (this.healingRateBase === -1) {
+            this.$healingRate.setDisabled("No Healing Rate", "NoHeal");
+        } else {
+            this.$healingRate.setBase(this.healingRateBase);
+        }
         this.$contagionIndex = new ValueModifier(this).setBase(
             this.contagionIndexBase,
         );
@@ -7510,15 +7269,24 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
             const scoreVal = Number.parseInt(this.textValue, 10);
             this.$score.setBase(scoreVal);
             if (this.intensity === "attribute") {
-                this.$masteryLevel.disabled = false;
-                this.$masteryLevel.fate.disabled = false;
+                this.$masteryLevel.setEnabled();
+                this.$masteryLevel.fate.setEnabled();
                 this.$masteryLevel.setBase(scoreVal * 5);
             }
             this.$skillBase = new SkillBase(this.skillBaseFormula, [this]);
         } else {
-            this.$score.disabled = true;
-            this.$masteryLevel.disabled = true;
-            this.$masteryLevel.fate.disabled = true;
+            this.$score.setDisabled(
+                "Non-numeric traits don't have Score",
+                "NoScr",
+            );
+            this.$masteryLevel.setDisabled(
+                "Non-numeric traits don't have ML",
+                "NoML",
+            );
+            this.$masteryLevel.fate.setDisabled(
+                "Non-numeric traits don't have Fate",
+                "NoFate",
+            );
         }
     }
 
@@ -7565,7 +7333,10 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
                 }
             }
         } else {
-            this.$masteryLevel.disabled = true;
+            this.$masteryLevel.setDisabled(
+                "Non-attribute traits don't have ML",
+                "NoML",
+            );
         }
 
         if (this.abbrev === "fate") {
@@ -7686,6 +7457,13 @@ export class SkillItemData extends SubtypeMixin(MasteryLevelItemData) {
                 hint: "Domain associated with this skill, if any",
             }),
         });
+    }
+
+    prepareBaseData() {
+        super.prepareBaseData();
+        if (this.abbrev === "init") {
+            this.actor.system.$initiativeRank = this.masteryLevelBase || 0;
+        }
     }
 }
 
@@ -7882,6 +7660,10 @@ export class BodyPartItemData extends SohlItemData {
             this.canHoldItem &&
             this.heldItemId &&
             this.actor.items.find((it) => it.id === this.heldItemId);
+
+        if (this.$heldItem) {
+            this.$heldItem.system.$isHeldBy.push(this.item);
+        }
     }
 
     /** @override */
@@ -8088,6 +7870,10 @@ export class GearItemData extends SohlItemData {
 
     get equipped() {
         return false;
+    }
+
+    get isHeld() {
+        return !!this.$isHeldBy.length;
     }
 
     static defineSchema() {
@@ -8349,6 +8135,10 @@ export class ArmorGearItemData extends GearItemData {
 
     static get defaultImage() {
         return "systems/sohl/assets/icons/armor.svg";
+    }
+
+    get equipped() {
+        return this.isEquipped;
     }
 
     static defineSchema() {
@@ -9122,13 +8912,127 @@ export class Utility {
         }, target);
     }
 
+    /**
+     * Determines the identity of the current token/actor that is in combat. If token
+     * is specified, tries to use token (and will allow it regardless if user is GM.),
+     * otherwise returned token will be the combatant whose turn it currently is.
+     *
+     * @param {Token} token
+     */
+    static getTokenInCombat(token = null, forceAllow = false) {
+        if (token && (game.user.isGM || forceAllow)) {
+            const result = { token: token, actor: token.actor };
+            return result;
+        }
+
+        if (!game.combat || game.combat.combatants.length === 0) {
+            ui.notifications.warn(`No active combatant.`);
+            return null;
+        }
+
+        const combatant = game.combat.combatant;
+
+        if (token && token.id !== combatant.token.id) {
+            ui.notifications.warn(
+                `${token.name} cannot perform that action at this time.`,
+            );
+            return null;
+        }
+
+        if (!combatant.actor.isOwner) {
+            ui.notifications.warn(
+                `You do not have permissions to control ${combatant.token.name}.`,
+            );
+            return null;
+        }
+
+        token = canvas.tokens.get(combatant.token.id);
+        return { token: token, actor: combatant.actor };
+    }
+
+    static getUserTargetedToken(combatant) {
+        const targets = game.user.targets;
+        if (!targets?.size) {
+            ui.notifications.warn(
+                `No targets selected, you must select exactly one target, combat aborted.`,
+            );
+            return null;
+        } else if (targets.size > 1) {
+            ui.notifications.warn(
+                `${targets} targets selected, you must select exactly one target, combat aborted.`,
+            );
+        }
+
+        const targetToken = Array.from(game.user.targets)[0];
+
+        if (combatant?.token && targetToken.id === combatant.token.id) {
+            ui.notifications.warn(
+                `You have targetted the combatant, they cannot attack themself, combat aborted.`,
+            );
+            return null;
+        }
+
+        return targetToken;
+    }
+
+    static getActor({ item, actor, speaker } = {}) {
+        const result = { item, actor, speaker };
+        if (item?.actor) {
+            result.actor = item.actor;
+            result.speaker = ChatMessage.getSpeaker({ actor: result.actor });
+        } else {
+            // If actor is an Actor, just return it
+            if (result.actor instanceof Actor) {
+                result.speaker ||= ChatMessage.getSpeaker({
+                    actor: result.actor,
+                });
+            } else {
+                if (!result.actor) {
+                    // If actor was null, lets try to figure it out from the Speaker
+                    result.speaker = ChatMessage.getSpeaker();
+                    if (result.speaker?.token) {
+                        const token = canvas.tokens.get(result.speaker.token);
+                        result.actor = token.actor;
+                    } else {
+                        result.actor = result.speaker?.actor;
+                    }
+                    if (!result.actor) {
+                        ui.notifications.warn(
+                            `No actor selected, roll ignored.`,
+                        );
+                        return null;
+                    }
+                } else {
+                    result.actor = fromUuidSync(result.actor);
+                    result.speaker = ChatMessage.getSpeaker({
+                        actor: result.actor,
+                    });
+                }
+
+                if (!result.actor) {
+                    ui.notifications.warn(`No actor selected, roll ignored.`);
+                    return null;
+                }
+            }
+        }
+
+        if (!result.actor.isOwner) {
+            ui.notifications.warn(
+                `You do not have permissions to control ${result.actor.name}.`,
+            );
+            return null;
+        }
+
+        return result;
+    }
+
     /*
     cyrb53 (c) 2018 bryc (github.com/bryc)
     License: Public domain (or MIT if needed). Attribution appreciated.
     A fast and simple 53-bit string hash function with decent collision resistance.
     Largely inspired by MurmurHash2/3, but with a focus on speed/simplicity.
     https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
-*/
+    */
     static cyrb53(str, seed = 0) {
         let h1 = 0xdeadbeef ^ seed,
             h2 = 0x41c6ce57 ^ seed;
@@ -9151,6 +9055,7 @@ export class Utility {
         const currentWorldTime = game.time.worldTime;
         const gameStartTime = 0;
         const dialogData = {
+            variant: SOHL.sysVer.id,
             timeBases: {
                 world: "Current World Time",
                 existing: "From Existing Time",
@@ -9228,56 +9133,6 @@ export class Utility {
      */
     static maxPrecision(value, precision = 0) {
         return +parseFloat(value).toFixed(precision);
-    }
-
-    /**
-     * Returns number of victory stars.
-     * @param {*} atkSuccLvl
-     * @param {*} defSuccLvl
-     * @returns Positive numbers for attacker victory stars, and negative numbers for defender victory stars.
-     * Zero indicates a tie. If there are no victory stars at all (due to both having failures), returns null.
-     */
-    static calcVictoryStars(atkSuccLvl, defSuccLvl = null) {
-        if (defSuccLvl === null) {
-            return atkSuccLvl >= SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess
-                ? atkSuccLvl
-                : null;
-        } else {
-            if (
-                atkSuccLvl <= SOHL.CONST.SUCCESS_LEVEL.MarginalFailure &&
-                defSuccLvl <= SOHL.CONST.SUCCESS_LEVEL.MarginalFailure
-            ) {
-                return null;
-            } else {
-                return atkSuccLvl - defSuccLvl;
-            }
-        }
-    }
-
-    static victoryStarsText(vs) {
-        const result = {
-            vsList: ["None"],
-            text: "Both Fail",
-            isTester: false,
-            isOpponent: false,
-            isTied: false,
-        };
-        if (vs !== null) {
-            result.victoryStars = Math.abs(vs);
-            if (vs) {
-                result.isTester = vs > 0;
-                result.isOpponent = !result.isTester;
-                result.vsList = new Array(result.victoryStars).fill(
-                    result.isTester
-                        ? SOHL.CONST.CHARS.STARF
-                        : SOHL.CONST.CHARS.STAR,
-                );
-                result.text = result.vsList.join("");
-            } else {
-                result.isTied = true;
-            }
-        }
-        return result;
     }
 
     static async moveQtyDialog(item, dest) {
@@ -9802,6 +9657,134 @@ export class Utility {
             foundry.utils.getRoute(filepath, { prefix: ROUTE_PREFIX }),
         );
         return json;
+    }
+
+    static async createItemFromJson(filepath) {
+        const descObj = await Utility.loadJSONFromFile(filepath);
+
+        const createData = foundry.utils.deepClone(descObj.template);
+        createData._id ||= foundry.utils.randomID();
+
+        if (descObj.nestedItems) {
+            foundry.utils.mergeObject(createData, {
+                system: {
+                    nestedItems: [],
+                },
+            });
+
+            for (let [name, type] of descObj.nestedItems) {
+                const itemData = await Utility.getItemFromPacks(
+                    name,
+                    SOHL.sysVer.CONFIG.Item.compendiums,
+                    { itemType: type },
+                );
+                if (itemData) {
+                    itemData._id = foundry.utils.randomID();
+                    delete itemData.folder;
+                    delete itemData.sort;
+                    delete itemData._stats;
+                    delete itemData.pack;
+                    createData.system.nestedItems.push(itemData);
+                }
+            }
+        }
+        const result = await SohlItem.create(createData, { clean: true });
+        console.log(`Item with name ${descObj.name} created`);
+        return result;
+    }
+
+    /**
+     * Handles combat fatigue for each combatant in a combat. Calculates the distance a combatant has moved since the start of combat and applies combat fatigue to the combatant's actor. Updates flags to mark that the combatant has not participated in combat and sets the start location for the next combat round.
+     *
+     * @static
+     * @param {*} combat
+     */
+    static handleCombatFatigue(combat) {
+        combat.turns.forEach((combatant) => {
+            const actor = combatant.token.actor;
+            const didCombat = combatant.getFlag("sohl", "didCombat");
+
+            if (didCombat) {
+                // Calculate distance combatant has moved
+                const startLocation = combatant.getFlag(
+                    "sohl",
+                    "startLocation",
+                );
+                const dist = startLocation
+                    ? combat.getDistance(startLocation, combatant.token.center)
+                    : 0;
+
+                actor?.system.applyCombatFatigue(dist);
+            }
+
+            combatant.update({
+                "flags.sohl.didCombat": false,
+                "flags.sohl.startLocation": combatant.token.center,
+            });
+        });
+    }
+
+    /**
+     * Optionally hide the display of chat card action buttons which cannot be performed by the user
+     */
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    static displayChatActionButtons(message, html, data) {
+        const chatCard = html.find(".chat-card");
+        if (chatCard.length > 0) {
+            // If the user is the GM, proceed
+            if (game.user.isGM) return;
+
+            // Otherwise conceal action buttons
+            const buttons = chatCard.find("button[data-action]");
+            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+            buttons.each((i, btn) => {
+                if (btn.dataset?.handlerActorUuid) {
+                    let actor = fromUuidSync(btn.dataset.handlerActorUuid);
+                    if (!actor || !actor.isOwner) {
+                        btn.style.display = "none";
+                    }
+                }
+            });
+        }
+    }
+
+    static async onChatCardAction(event) {
+        event.preventDefault();
+        const button = event.currentTarget;
+        button.disabled = true;
+        const options = {};
+        for (const [key, val] of button.dataset.entries()) {
+            if (key.endsWith("Json")) {
+                const newKey = key.slice(0, -4);
+                options[newKey] = JSON.parse(val);
+            } else {
+                options[key] = val;
+            }
+        }
+        let doc = await fromUuid(options.targetUuid);
+        if (doc instanceof Token) {
+            options.token = doc.document;
+            options.actor = doc.actor;
+            doc = options.actor;
+        } else if (doc instanceof TokenDocument) {
+            options.token = doc;
+            options.actor = doc.actor;
+            doc = options.actor;
+        } else if (doc instanceof SohlActor) {
+            options.token = doc.getToken(options.defTokenUuid);
+            options.actor = doc;
+        } else if (doc instanceof SohlItem) {
+            options.actor = doc.actor;
+            options.token = doc.actor.getToken(options.defTokenUuid);
+        } else {
+            throw new Error(
+                `targetUuid ${options.targetUuid} is not a Token, TokenDocument, Actor, or Item UUID`,
+            );
+        }
+
+        await options.actor.system.execute(options.action, ...options);
+        button.disabled = false;
     }
 }
 
@@ -10824,7 +10807,10 @@ export class SohlActiveEffect extends ActiveEffect {
 
         // If nestedIn is specified, use update() on the nestedIn
         if (options.parent?.nestedIn) {
-            const newAry = options.parent.nestedIn.effects.contents;
+            let doc = options.parent.nestedIn.system.nestedItems.find(
+                (it) => (it._id = options.parent.id),
+            );
+            let newAry = foundry.utils.deepClone(doc.effects);
 
             const effectExists = newAry.some((obj) => obj._id === newData._id);
             if (effectExists) {
@@ -10846,10 +10832,9 @@ export class SohlActiveEffect extends ActiveEffect {
             effectData.sort = maxSort;
             newAry.push(effectData);
 
-            const result = await options.parent.nestedIn.update(
-                { "system.effects": newAry },
-                { nestedIn: options.parent.nestedIn },
-            );
+            const result = await options.parent.update({
+                effects: newAry,
+            });
             options.parent.sheet.render();
             return result;
         } else {
@@ -10927,7 +10912,8 @@ export class SohlActiveEffectConfig extends ActiveEffectConfig {
     // biome-ignore lint/correctness/noUnusedVariables: <explanation>
     async getData(options) {
         const context = await super.getData();
-        context.keyChoices = this.object.getEffectKeyChoices();
+        (context.variant = SOHL.sysVer.id),
+            (context.keyChoices = this.object.getEffectKeyChoices());
         context.sourceName = await this.object.sourceName;
 
         // Setup Target Types
@@ -11064,7 +11050,7 @@ export class SohlMacro extends Macro {
     }
 
     get useAsync() {
-        return this.getFlag("sohl", "useAsync");
+        return this.getFlag("sohl", "useAsync") || true;
     }
 
     set useAsync(val) {
@@ -11486,15 +11472,16 @@ export class SohlMacroConfig extends MacroConfig {
     /** @override */
     getData(options = {}) {
         const data = super.getData(options);
-        data.macroTypes = game.documentTypes.Macro.reduce((obj, t) => {
-            if (
-                t === CONST.MACRO_TYPES.SCRIPT &&
-                !game.user.can("MACRO_SCRIPT")
-            )
+        (data.variant = SOHL.sysVer.id),
+            (data.macroTypes = game.documentTypes.Macro.reduce((obj, t) => {
+                if (
+                    t === CONST.MACRO_TYPES.SCRIPT &&
+                    !game.user.can("MACRO_SCRIPT")
+                )
+                    return obj;
+                obj[t] = game.i18n.localize(CONFIG.Macro.typeLabels[t]);
                 return obj;
-            obj[t] = game.i18n.localize(CONFIG.Macro.typeLabels[t]);
-            return obj;
-        }, {});
+            }, {}));
         data.editable = this.isEditable;
         data.const = SOHL.sysVer.CONST;
         data.config = SOHL.sysVer.CONFIG;
@@ -11539,6 +11526,18 @@ export class SohlMacroConfig extends MacroConfig {
 
         // Set data transfer
         event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+    }
+}
+
+export class SohlCombatant extends Combatant {
+    async _preCreate(createData, options, user) {
+        let allowed = await super._preCreate(createData, options, user);
+        if (allowed === false) return false;
+        if (!createData.initiative) {
+            this.updateSource({
+                initiative: this.actor?.system.initiativeRank || 0,
+            });
+        }
     }
 }
 
@@ -11684,14 +11683,20 @@ export class SohlActor extends Actor {
      * is chosen.  If no token is selected, then choose one at random (in the best case there
      * will only be one linked token anyway).
      *
+     * @param {*} targetTokenUuid Prospective token UUID to use if a linked token
      * @returns {Token} the token associated with this actor
      */
-    getToken() {
+
+    getToken(targetTokenUuid) {
         // If this is a synthetic actor, then get the token associated with the actor
         let token = this.token;
 
+        // Actor is a linked token
+        if (!token && targetTokenUuid) {
+            token = fromUuidSync(targetTokenUuid);
+        }
+
         if (!token && canvas.tokens) {
-            // Actor is a linked token
             // Case 1: A single token is selected, and it is the actor we are looking for
             if (
                 canvas.tokens.controlled?.length == 1 &&
@@ -12040,22 +12045,6 @@ export class SohlActor extends Actor {
     }
 
     /**
-     *
-     * @param {string} name Name of combat skill to find
-     * @returns {MasteryLevelModifier} clone of MasteryLevelModifier of combat skill
-     */
-    getCombatStat(name) {
-        const combatSkill = this.itemTypes[SkillItemData.typeName].find(
-            (it) => it.system.subType === "Combat" && it.name === name,
-        );
-        if (combatSkill) {
-            return combatSkill.system.$masteryLevel;
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Get a reference to the trait item on the actor.
      *
      * @param {string} abbrev Abbreviation of trait Item to find
@@ -12372,7 +12361,7 @@ function SohlSheetMixin(Base) {
 
         getData() {
             const data = super.getData();
-            data.const = SOHL.sysVer.CONST;
+            (data.variant = SOHL.sysVer.id), (data.const = SOHL.sysVer.CONST);
             data.config = SOHL.sysVer.CONFIG;
             data.owner = this.document.isOwner;
             data.limited = this.document.limited;
@@ -12515,8 +12504,13 @@ function SohlSheetMixin(Base) {
         }
 
         async _onEffectCreate() {
+            let name = "New Effect";
+            let i = 0;
+            while (this.document.effects.some((e) => e.name === name)) {
+                name = `New Effect ${++i}`;
+            }
             const aeData = {
-                name: "New Effect",
+                name,
                 type: SohlActiveEffectData.typeName,
                 icon: SohlActiveEffectData.defaultImage,
                 origin: this.document.uuid,
@@ -13043,6 +13037,7 @@ function SohlSheetMixin(Base) {
             );
 
             const dialogData = {
+                variant: SOHL.sysVer.id,
                 newKey: "",
                 newValue: "",
             };
@@ -13278,7 +13273,7 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
     /** @override */
     getData() {
         const data = super.getData();
-        data.adata = this.actor.system;
+        (data.variant = SOHL.sysVer.id), (data.adata = this.actor.system);
         data.labels = this.actor.labels || {};
         data.itemTypes = this.actor.itemTypes;
         data.itemSubtypes = this.actor.itemSubtypes;
@@ -13713,6 +13708,7 @@ export class SohlItemSheet extends SohlSheetMixin(ItemSheet) {
     /** @override */
     getData() {
         const data = super.getData();
+        data.variant = SOHL.sysVer.id;
 
         // Re-define the template data references (backwards compatible)
         data.item = this.item;
@@ -14125,142 +14121,7 @@ export class NestedItemSheet extends ItemSheet {
     }
 }
 
-/**
- * A class containing static methods for handling commands related to combat fatigue and chat card actions. Includes methods to handle combat fatigue, display chat action buttons, and handle chat card actions.
- *
- * @export
- * @class Commands
- * @typedef {Commands}
- */
-export class Commands {
-    static async createItemFromJson(filepath) {
-        const descObj = await Utility.loadJSONFromFile(filepath);
-
-        const createData = foundry.utils.deepClone(descObj.template);
-        createData._id ||= foundry.utils.randomID();
-
-        if (descObj.nestedItems) {
-            foundry.utils.mergeObject(createData, {
-                system: {
-                    nestedItems: [],
-                },
-            });
-
-            for (let [name, type] of descObj.nestedItems) {
-                const itemData = await Utility.getItemFromPacks(
-                    name,
-                    SOHL.sysVer.CONFIG.Item.compendiums,
-                    { itemType: type },
-                );
-                if (itemData) {
-                    itemData._id = foundry.utils.randomID();
-                    delete itemData.folder;
-                    delete itemData.sort;
-                    delete itemData._stats;
-                    delete itemData.pack;
-                    createData.system.nestedItems.push(itemData);
-                }
-            }
-        }
-        const result = await SohlItem.create(createData, { clean: true });
-        console.log(`Item with name ${descObj.name} created`);
-        return result;
-    }
-
-    /**
-     * Handles combat fatigue for each combatant in a combat. Calculates the distance a combatant has moved since the start of combat and applies combat fatigue to the combatant's actor. Updates flags to mark that the combatant has not participated in combat and sets the start location for the next combat round.
-     *
-     * @static
-     * @param {*} combat
-     */
-    static handleCombatFatigue(combat) {
-        combat.turns.forEach((combatant) => {
-            const actor = combatant.token.actor;
-            const didCombat = combatant.getFlag("sohl", "didCombat");
-
-            if (didCombat) {
-                // Calculate distance combatant has moved
-                const startLocation = combatant.getFlag(
-                    "sohl",
-                    "startLocation",
-                );
-                const dist = startLocation
-                    ? combat.getDistance(startLocation, combatant.token.center)
-                    : 0;
-
-                actor?.system.applyCombatFatigue(dist);
-            }
-
-            combatant.update({
-                "flags.sohl.didCombat": false,
-                "flags.sohl.startLocation": combatant.token.center,
-            });
-        });
-    }
-
-    /**
-     * Optionally hide the display of chat card action buttons which cannot be performed by the user
-     */
-
-    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-    static displayChatActionButtons(message, html, data) {
-        const chatCard = html.find(".chat-card");
-        if (chatCard.length > 0) {
-            // If the user is the GM, proceed
-            if (game.user.isGM) return;
-
-            // Otherwise conceal action buttons
-            const buttons = chatCard.find("button[data-action]");
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            buttons.each((i, btn) => {
-                if (btn.dataset?.handlerActorUuid) {
-                    let actor = fromUuidSync(btn.dataset.handlerActorUuid);
-                    if (!actor || !actor.isOwner) {
-                        btn.style.display = "none";
-                    }
-                }
-            });
-        }
-    }
-
-    static async onChatCardAction(event) {
-        event.preventDefault();
-        const button = event.currentTarget;
-        button.disabled = true;
-        const options = {};
-        for (const [key, val] of button.dataset.entries()) {
-            if (key.endsWith("Json")) {
-                const newKey = key.slice(0, -4);
-                options[newKey] = JSON.parse(val);
-            } else {
-                options[key] = val;
-            }
-        }
-        let doc = await fromUuid(options.targetUuid);
-        if (doc instanceof Token) {
-            options.token = doc.document;
-            options.actor = doc.actor;
-            doc = options.actor;
-        } else if (doc instanceof TokenDocument) {
-            options.token = doc;
-            options.actor = doc.actor;
-            doc = options.actor;
-        } else if (doc instanceof SohlActor) {
-            options.token = doc.getToken();
-            options.actor = doc;
-        } else if (doc instanceof SohlItem) {
-            options.actor = doc.actor;
-            options.token = doc.actor.getToken();
-        } else {
-            throw new Error(
-                `targetUuid ${options.targetUuid} is not a Token, TokenDocument, Actor, or Item UUID`,
-            );
-        }
-
-        doc.system.execute(options.action, ...options);
-        button.disabled = false;
-    }
-}
+export class Commands {}
 SOHL.cmds = Commands;
 
 export const SohlActorDataModels = {

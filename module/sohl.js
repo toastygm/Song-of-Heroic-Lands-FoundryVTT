@@ -25,6 +25,9 @@ function setupSohlVersion(verData) {
         verData.CONFIG.ActiveEffect,
         { inplace: true },
     );
+    foundry.utils.mergeObject(CONFIG.Combatant, verData.CONFIG.Combatant, {
+        inplace: true,
+    });
 
     // Register sheet application classes
     if (Actors.registeredSheets.length) {
@@ -88,7 +91,7 @@ function registerSystemSettings() {
 
 Hooks.on("renderChatMessage", (app, html, data) => {
     // Display action buttons
-    sohl.SOHL.cmds.displayChatActionButtons(app, html, data);
+    sohl.SOHL.sysVer.CONFIG.displayChatActionButtons(app, html, data);
 });
 
 // biome-ignore lint/correctness/noUnusedVariables: <explanation>
@@ -96,7 +99,7 @@ Hooks.on("renderChatLog", (app, html, data) => {
     html.on(
         "click",
         ".card-buttons button",
-        sohl.SOHL.cmds.onChatCardAction.bind(this),
+        sohl.SOHL.sysVer.CONFIG.onChatCardAction.bind(this),
     );
 });
 
@@ -105,20 +108,8 @@ Hooks.on("renderChatPopout", (app, html, data) => {
     html.on(
         "click",
         ".card-buttons button",
-        sohl.SOHL.cmds.onChatCardAction.bind(this),
+        sohl.SOHL.sysVer.CONFIG.onChatCardAction.bind(this),
     );
-});
-
-// Since HM does not have the concept of rolling for initiative,
-// this hook simply prepopulates the initiative value. This ensures
-// that no die roll is needed.
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
-Hooks.on("preCreateCombatant", (combat, combatant, options, id) => {
-    if (!combatant.initiative) {
-        let token = canvas.tokens.get(combatant.tokenId);
-        combatant.initiative =
-            token.actor.system.ruleset.getCombatStat("Initiative").effective;
-    }
 });
 
 // biome-ignore lint/correctness/noUnusedVariables: <explanation>
@@ -186,7 +177,7 @@ Hooks.once("init", async function () {
      * @type {String}
      */
     CONFIG.Combat.initiative = {
-        formula: "@eph.combatStat.Initiative.base",
+        formula: "@initiativeRank",
         decimals: 2,
     };
 

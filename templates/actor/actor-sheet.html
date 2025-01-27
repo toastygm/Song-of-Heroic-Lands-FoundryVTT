@@ -327,7 +327,13 @@
                                         {{system.$masteryLevel.effective}}
                                         {{/if}}
                                     </div>
-                                    <div class="detail ele" data-tooltip="{{system.$masteryLevel.fate.abbrev}}">{{system.$masteryLevel.fate.effective}}</div>
+                                    <div class="detail ele" data-tooltip="{{system.$masteryLevel.fate.abbrev}}">
+                                        {{#if system.$masteryLevel.fate.disabled}}
+                                        <i class="fas fa-xmark fa-lg"></i>
+                                        {{else}}
+                                        {{system.$masteryLevel.fate.effective}}
+                                        {{/if}}
+                                    </div>
                                     <div class="detail notes">{{system.notes}}</div>
                                     {{#unless printable}}
                                     <div class="item-controls">
