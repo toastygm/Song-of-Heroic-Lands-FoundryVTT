@@ -349,8 +349,11 @@ form .form-group .form-fields {
     }
 }
 
-.sheet-tabs {
-    flex: 0;
+.macro-sheet .form-group .condition {
+    .condition {
+        height: 20%;
+        resize: none;
+    }
 }
 
 .sheet-body,

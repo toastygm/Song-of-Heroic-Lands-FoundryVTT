@@ -1367,6 +1367,7 @@ const IsleItemDataModels = foundry.utils.mergeObject(
 export const verData = {
     id: "mistyisle",
     label: "Song of Heroic Lands: Misty Island",
+    cmds: IsleCommands,
     CONFIG: {
         displayChatActionButtons: sohl.Utility.displayChatActionButtons,
         onChatCardAction: sohl.Utility.onChatCardAction,

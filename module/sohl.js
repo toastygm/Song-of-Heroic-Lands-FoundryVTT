@@ -6,6 +6,7 @@ import * as mistyisle from "./mistyisle.js";
 function setupSohlVersion(verData) {
     console.log(verData.CONST.initVersionMessage);
     sohl.SOHL.sysVer = verData;
+    sohl.SOHL.cmds = verData.cmds;
 
     Object.values(verData.CONST.VERSETTINGS).forEach((setting) => {
         game.settings.register("sohl", setting.key, setting.data);
@@ -91,7 +92,7 @@ function registerSystemSettings() {
 
 Hooks.on("renderChatMessage", (app, html, data) => {
     // Display action buttons
-    sohl.SOHL.sysVer.CONFIG.displayChatActionButtons(app, html, data);
+    sohl.SOHL.sysVer.CONFIG.displayChatActions(app, html, data);
 });
 
 // biome-ignore lint/correctness/noUnusedVariables: <explanation>
@@ -99,7 +100,12 @@ Hooks.on("renderChatLog", (app, html, data) => {
     html.on(
         "click",
         ".card-buttons button",
-        sohl.SOHL.sysVer.CONFIG.onChatCardAction.bind(this),
+        sohl.SOHL.sysVer.CONFIG.onChatCardButton.bind(this),
+    );
+    html.on(
+        "click",
+        ".edit-action",
+        sohl.SOHL.sysVer.CONFIG.onChatCardEditAction.bind(this),
     );
 });
 
@@ -108,7 +114,12 @@ Hooks.on("renderChatPopout", (app, html, data) => {
     html.on(
         "click",
         ".card-buttons button",
-        sohl.SOHL.sysVer.CONFIG.onChatCardAction.bind(this),
+        sohl.SOHL.sysVer.CONFIG.onChatCardButton.bind(this),
+    );
+    html.on(
+        "click",
+        ".edit-action",
+        sohl.SOHL.sysVer.CONFIG.onChatCardEditAction.bind(this),
     );
 });
 

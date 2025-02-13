@@ -24,6 +24,7 @@ export const SOHL = {
     versionsData: {},
     defaultVersion: "legendary",
     sysVer: {},
+    cmds: null,
     registerSystemVersion: function (verId, verData) {
         SOHL.versionsData[verId] = verData;
     },
@@ -123,14 +124,6 @@ export const SOHL = {
         ],
 
         /** @enum */
-        SUCCESS_LEVEL: {
-            CriticalFailure: -1,
-            MarginalFailure: 0,
-            MarginalSuccess: 1,
-            CriticalSuccess: 2,
-        },
-
-        /** @enum */
         SHOCK: {
             None: 0,
             Stunned: 1,
@@ -189,11 +182,11 @@ export const SOHL = {
                     type: new fields.BooleanField({ initial: true }),
                 },
             },
-            recordInjuries: {
-                key: "recordInjuries",
+            recordTrauma: {
+                key: "recordTrauma",
                 data: {
-                    name: "Record injuries automatically on actor sheet",
-                    hint: "Automatically add injuries to actor sheet",
+                    name: "Record trauma automatically",
+                    hint: "Automatically add physical and mental afflictions and injuries",
                     scope: "world",
                     config: true,
                     default: "enable",
@@ -202,9 +195,9 @@ export const SOHL = {
                         blank: false,
                         initial: "enable",
                         choices: {
-                            enable: "Record injuries automatically",
-                            disable: "Don't record injuries automatically",
-                            ask: "Prompt user on each injury",
+                            enable: "Record trauma automatically",
+                            disable: "Don't record trauma automatically",
+                            ask: "Prompt user on each injury or affliction",
                         },
                     }),
                 },
@@ -243,7 +236,7 @@ export const SOHL = {
                     type: new fields.StringField({
                         nullable: false,
                         blank: false,
-                        initial: "pcOnly",
+                        initial: "pconly",
                         choices: {
                             none: "Fate rules disabled",
                             pconly: "Fate rules only apply to PCs",
@@ -282,7 +275,6 @@ export class ValueModifier {
     _abbrev;
     _parent;
     _properties;
-    _disabled;
     _dirty;
     _base;
 
@@ -295,7 +287,6 @@ export class ValueModifier {
 
         this.reset();
         this._properties = new Collection();
-        this._disabled = false;
         this._dirty = true;
         Object.keys(initProperties).forEach((p) => {
             this.setProperty(p, initProperties[p]);
@@ -318,39 +309,42 @@ export class ValueModifier {
     }
 
     get effective() {
-        if (this.disabled) return 0;
+        this._apply();
         return this._effective;
     }
 
     get modifier() {
-        if (this.disabled) return 0;
         return this.effective - (this.base || 0);
     }
 
     get base() {
-        if (this.disabled) return undefined;
+        this._apply();
         return this._base;
     }
 
     get abbrev() {
-        if (this.disabled) return "";
+        this._apply();
         return this._abbrev;
     }
 
     get index() {
-        if (this.disabled) return 0;
         return Math.trunc((this.base || 0) / 10);
     }
 
     get disabled() {
-        this.apply();
-        return this._disabled;
+        return this._mods.some(
+            (m) =>
+                m.op === CONST.ACTIVE_EFFECT_MODES.CUSTOM &&
+                m.value === "disabled",
+        );
     }
 
     test() {
-        if (this.disabled) {
-            return null;
-        }
+        throw Error("test must be defined in subclass");
+    }
+
+    get empty() {
+        return !this._mods.length;
     }
 
     getProperty(name) {
@@ -487,7 +481,6 @@ export class ValueModifier {
     reset() {
         this._abbrev = null;
         this._mods = [];
-        this._disabled = false;
         this._properties?.keys().forEach((k) => {
             const type = typeof this._properties[k];
             switch (type) {
@@ -559,6 +552,17 @@ export class ValueModifier {
         }
 
         return this;
+    }
+
+    has(abbrev) {
+        if (typeof abbrev !== "string") return false;
+        return this._mods?.some((m) => m.abbrev === abbrev) || false;
+    }
+
+    delete(abbrev) {
+        if (typeof abbrev !== "string") return;
+        const newMods = this._mods?.filter((m) => m.abbrev !== abbrev) | [];
+        this._mods = newMods;
     }
 
     add(name, abbrev, value) {
@@ -645,21 +649,21 @@ export class ValueModifier {
         return result;
     }
 
-    toObject() {
+    toJSON() {
         const propKeys = Array.from(this._properties.keys());
         return {
             vmName: this.constructor.vmName,
             mods: foundry.utils.deepClone(this._mods),
             properties: propKeys.reduce((obj, k) => {
                 let prop = this.getProperty(k);
-                prop = prop instanceof ValueModifier ? prop.toObject() : prop;
+                prop = prop instanceof ValueModifier ? prop.toJSON() : prop;
                 obj[k] = prop;
                 return obj;
             }, {}),
         };
     }
 
-    static fromObject(obj, parent) {
+    static fromData(obj, parent) {
         if (!obj || typeof obj !== "object" || obj.vmName !== this.vmName)
             return obj;
         if (!(parent instanceof SohlItemData)) {
@@ -668,9 +672,7 @@ export class ValueModifier {
         const props = Object.entries(obj.properties).reduce(
             (acc, [key, val]) => {
                 let prop =
-                    typeof val === "object"
-                        ? this.fromObject(val, parent)
-                        : val;
+                    typeof val === "object" ? this.fromData(val, parent) : val;
                 acc[key] = prop;
                 return acc;
             },
@@ -692,15 +694,11 @@ export class ValueModifier {
     }
 
     static fromJSON(json, parent) {
-        const result = this.fromObject(JSON.parse(json), parent);
+        const result = this.fromData(JSON.parse(json), parent);
         if (!(result instanceof ValueModifier)) {
             throw new Error("Not a ValueModifier");
         }
         return result;
-    }
-
-    toJSON() {
-        return this.toObject();
     }
 
     get chatHtml() {
@@ -800,13 +798,13 @@ export class ValueModifier {
 
     _calcAbbrev() {
         this._abbrev = "";
-        if (this._disabled) {
-            const reason = this._mods.find(
+        if (this.disabled) {
+            const disabled = this._mods.find(
                 (adj) =>
                     adj.op === CONST.ACTIVE_EFFECT_MODES.CUSTOM &&
                     adj.value === "disabled",
             );
-            this._abbrev = `DISABLED: ${reason?.abbrev}`;
+            if (disabled) this._abbrev = `DISABLED: ${disabled?.abbrev}`;
         } else {
             this._mods.forEach((adj) => {
                 if (this._abbrev) {
@@ -851,13 +849,14 @@ export class ValueModifier {
 
     _apply() {
         if (!this._dirty) return;
+        this._dirty = false;
 
         // Sort modifiers so that we process Adds first, then Mults, then Floor, then Ceil
         this._mods.sort((a, b) => (a.op < b.op ? -1 : a.op > b.op ? 1 : 0));
 
         let minVal = null;
         let maxVal = null;
-        let overrideVal = null;
+        let overrideVal;
 
         this._effective = 0;
 
@@ -924,7 +923,8 @@ export class ValueModifier {
                 switch (adj.op) {
                     case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
                         if (value === "disabled") {
-                            this._disabled = true;
+                            // disabled VMs always have an effective value of 0
+                            overrideVal = 0;
                         }
                 }
             }
@@ -951,7 +951,6 @@ export class ValueModifier {
                 adj.op === CONST.ACTIVE_EFFECT_MODES.ADD,
         );
         this._base = baseAdj ? baseAdj.value : undefined;
-        this._dirty = false;
     }
 
     /**
@@ -1017,6 +1016,27 @@ export class ImpactModifier extends ValueModifier {
         return "ImpactModifier";
     }
 
+    /**
+     * Returns the statistical median impact. Result is an integer.
+     *
+     * @readonly
+     * @type {void}
+     * @returns {number} an integer representing the median impact
+     */
+    get median() {
+        let diceMedian = 0;
+        if (this.numDice > 0 && this.die > 0) {
+            diceMedian = this.numDice * ((1 + this.die) / 2);
+            if (this.die % 2 === 0) {
+                diceMedian = this.numDice * (this.die / 2 + 0.5);
+            } else {
+                diceMedian = this.numDice * ((this.die + 1) / 2);
+            }
+        }
+
+        return diceMedian + this.effective;
+    }
+
     get diceFormula() {
         if (!this.numDice && !this.effective) return "0";
         const result =
@@ -1037,7 +1057,7 @@ export class ImpactModifier extends ValueModifier {
 
     async evaluate() {
         const roll = await Roll.create(this.diceFormula).evaluate();
-        this.setProperty("lastResultJson", roll.toJSON());
+        this.setProperty("rollObj", roll.toJSON());
         return roll;
     }
 }
@@ -1062,12 +1082,6 @@ export class MasteryLevelModifier extends ValueModifier {
 
     static get vmName() {
         return "MasteryLevelModifier";
-    }
-
-    get disabled() {
-        let disabled = super.disabled;
-        disabled ||= this.base <= 0;
-        return disabled;
     }
 
     get constrainedEffective() {
@@ -1158,6 +1172,459 @@ export class CombatModifier extends MasteryLevelModifier {
 
     static get vmName() {
         return "CombatModifier";
+    }
+}
+
+export class SuccessTestResult {
+    static get SUCCESS_LEVEL() {
+        return {
+            CRITICAL_FAILURE: -1,
+            MARGINAL_FAILURE: 0,
+            MARGINAL_SUCCESS: 1,
+            CRITICAL_SUCCESS: 2,
+        };
+    }
+
+    static get TEST_TYPE() {
+        return {
+            ATTACK: "attack",
+            BLOCK: "block",
+            DODGE: "dodge",
+            COUNTERSTRIKE: "counterstrike",
+            IGNORE: "ignore",
+            SKILL: "skill",
+            SHOCK: "shock",
+            STUMBLE: "stumble",
+            FUMBLE: "fumble",
+            MORALE: "morale",
+            FEAR: "fear",
+            AFFLICTIONCONTRACT: "afflcontr",
+            AFFLICTIONTRANSMIT: "affltx",
+            AFFLICTIONCOURSE: "afflcrs",
+            FATIGUE: "fatigue",
+            TREATMENT: "treatment",
+            DIAGNOSIS: "diagnosis",
+            HEAL: "heal",
+            BLEEDINGSTOPPAGE: "bldstop",
+            BLOODLOSSADVANCE: "bldlossadv",
+        };
+    }
+
+    static get testTypes() {
+        return {
+            [this.TEST_TYPE.ATTACK]: {
+                type: this.TEST_TYPE.ATTACK,
+                label: "Attack",
+                icon: "fas fa-sword",
+            },
+            [this.TEST_TYPE.BLOCK]: {
+                type: this.TEST_TYPE.BLOCK,
+                label: "Block",
+                icon: "fas fa-shield",
+            },
+            [this.TEST_TYPE.DODGE]: {
+                type: this.TEST_TYPE.DODGE,
+                label: "Dodge",
+                icon: "fas fa-person-walking-arrow-loop-left",
+            },
+            [this.TEST_TYPE.COUNTERSTRIKE]: {
+                type: this.TEST_TYPE.COUNTERSTRIKE,
+                label: "Counterstrike",
+                icon: "fas fa-circle-half-stroke",
+            },
+            [this.TEST_TYPE.IGNORE]: {
+                type: this.TEST_TYPE.IGNORE,
+                label: "Ignore",
+                icon: "fas fa-ban",
+            },
+            [this.TEST_TYPE.SKILL]: {
+                type: this.TEST_TYPE.SKILL,
+                label: "Skill",
+                icon: "fas fa-people-arrows",
+            },
+            [this.TEST_TYPE.SHOCK]: {
+                type: this.TEST_TYPE.SHOCK,
+                label: "Shock",
+                icon: "far fa-face-eyes-xmarks",
+            },
+            [this.TEST_TYPE.STUMBLE]: {
+                type: this.TEST_TYPE.STUMBLE,
+                label: "Stumble",
+                icon: "far fa-person-falling",
+            },
+            [this.TEST_TYPE.FUMBLE]: {
+                type: this.TEST_TYPE.FUMBLE,
+                label: "Fumble",
+                icon: "far fa-ball-pile",
+            },
+            [this.TEST_TYPE.MORALE]: {
+                type: this.TEST_TYPE.MORALE,
+                label: "Morale",
+                icon: "far fa-people-group",
+            },
+            [this.TEST_TYPE.FEAR]: {
+                type: this.TEST_TYPE.FEAR,
+                label: "Fear",
+                icon: "far fa-face-scream",
+            },
+            [this.TEST_TYPE.AFFLICTIONTRANSMIT]: {
+                type: this.TEST_TYPE.AFFLICTIONTRANSMIT,
+                label: "Transmit Affliction",
+                icon: "fas fa-viruses",
+            },
+            [this.TEST_TYPE.AFFLICTIONCONTRACT]: {
+                type: this.TEST_TYPE.AFFLICTIONCONTRACT,
+                label: "Contract Affliction",
+                icon: "fas fa-virus",
+            },
+            [this.TEST_TYPE.AFFLICTIONCOURSE]: {
+                type: this.TEST_TYPE.AFFLICTIONCOURSE,
+                label: "Affliction Course",
+                icon: "fas fa-heart-pulse",
+            },
+            [this.TEST_TYPE.FATIGUE]: {
+                type: this.TEST_TYPE.FATIGUE,
+                label: "Fatigue",
+                icon: "fas fa-face-downcast-sweat",
+            },
+            [this.TEST_TYPE.TREATMENT]: {
+                type: this.TEST_TYPE.TREATMENT,
+                label: "Treatment",
+                icon: "fas fa-staff-snake",
+            },
+            [this.TEST_TYPE.DIAGNOSIS]: {
+                type: this.TEST_TYPE.DIAGNOSIS,
+                label: "Diagnosis",
+                icon: "fas fa-stethoscope",
+            },
+            [this.TEST_TYPE.HEAL]: {
+                type: this.TEST_TYPE.HEAL,
+                label: "Heal",
+                icon: "fas fa-heart-pulse",
+            },
+            [this.TEST_TYPE.BLEEDINGSTOPPAGE]: {
+                type: this.TEST_TYPE.BLEEDINGSTOPPAGE,
+                label: "Heal",
+                icon: "fas fa-droplet-slash",
+            },
+            [this.TEST_TYPE.BLOODLOSSADVANCE]: {
+                type: this.TEST_TYPE.BLOODLOSSADVANCE,
+                label: "Blood Loss Advance",
+                icon: "fas fa-droplet",
+            },
+        };
+    }
+
+    constructor({
+        speaker,
+        situationalModifier,
+        item,
+        typeLabel,
+        type,
+        testType = SuccessTestResult.TEST_TYPE.SKILL,
+        title,
+        rollMode,
+        roll,
+        mlMod,
+        impactMod,
+    }) {
+        if (item instanceof SohlItem) {
+            this.item = item;
+        } else if (typeof item === "string") {
+            // We assume that item is a UUID to the actual item
+            this.item = fromUuidSync(item);
+            if (!this.item) throw new Error(`Can't find item UUID ${item}`);
+        } else {
+            throw new Error("Must provide an item");
+        }
+
+        if (roll)
+            this._roll = roll instanceof Roll ? roll : Roll.fromData(roll);
+
+        if (mlMod)
+            this.mlMod =
+                mlMod instanceof MasteryLevelModifier
+                    ? mlMod
+                    : MasteryLevelModifier.fromData(mlMod, this.item);
+
+        if (impactMod)
+            this.impactMod =
+                impactMod instanceof ImpactModifier
+                    ? impactMod
+                    : ImpactModifier.fromData(impactMod, this.item);
+
+        this.speaker = speaker;
+        this.situationalModifier = situationalModifier;
+        this._description = "";
+        this._typeLabel = typeLabel;
+        this.type = type;
+        this.testType = this.item.$masteryLevel.disabled
+            ? SuccessTestResult.TEST_TYPE.IGNORE
+            : testType;
+        this.title = title;
+        this._successLevel = SuccessTestResult.MARGINAL_FAILURE;
+        this.rollMode = rollMode;
+    }
+
+    get normSuccessLevel() {
+        let result;
+        if (this.isSuccess) {
+            if (this.isCritical) {
+                result = SuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS;
+            } else {
+                result = SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
+            }
+        } else {
+            if (this.isCritical) {
+                result = SuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE;
+            } else {
+                result = SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
+            }
+        }
+        return result;
+    }
+}
+
+export class OpposedTestResult {
+    sourceTestResult;
+    targetTestResult;
+    rollMode;
+    combatResult;
+    _tieBreak;
+    _breakTies;
+
+    static get TIE_BREAK() {
+        return {
+            SOURCE: 1,
+            TARGET: -1,
+        };
+    }
+
+    get availResponses() {
+        switch (this.sourceTestResult?.testType) {
+            case SuccessTestResult.TEST_TYPE.ATTACK:
+                return [
+                    SuccessTestResult.TEST_TYPE.BLOCK,
+                    SuccessTestResult.TEST_TYPE.DODGE,
+                    SuccessTestResult.TEST_TYPE.COUNTERSTRIKE,
+                    SuccessTestResult.TEST_TYPE.IGNORE,
+                ].map((t) => SuccessTestResult.testTypes[t]);
+
+            case SuccessTestResult.TEST_TYPE.SKILL:
+                return SuccessTestResult.testTypes[
+                    SuccessTestResult.TEST_TYPE.SKILL
+                ];
+
+            default:
+                return [];
+        }
+    }
+
+    constructor({
+        speaker,
+        sourceTestResult,
+        targetTestResult,
+        combatResult = null,
+        tieBreak = 0,
+        breakTies = false,
+        rollMode = game.settings.get("core", "rollMode"),
+    }) {
+        if (!speaker) speaker = ChatMessage.toSpeaker();
+        if (!sourceTestResult) {
+            throw new Error("Must provide sourceTestResult");
+        }
+        this.sourceTestResult =
+            sourceTestResult instanceof SuccessTestResult
+                ? sourceTestResult
+                : SuccessTestResult.fromData(sourceTestResult);
+
+        this.targetTestResult = targetTestResult
+            ? targetTestResult instanceof SuccessTestResult
+                ? targetTestResult
+                : SuccessTestResult.fromData(targetTestResult)
+            : null;
+        this.rollMode = rollMode;
+        this.combatResult = combatResult;
+        this._tieBreak = tieBreak;
+        this._breakTies = breakTies === true;
+    }
+
+    get isTied() {
+        return (
+            !this.bothFail &&
+            this.sourceTestResult.normSuccessLevel ===
+                this.targetTestResult.normSuccessLevel
+        );
+    }
+
+    get bothFail() {
+        return (
+            !this.sourceTestResult.isSuccess && !this.targetTestResult.isSuccess
+        );
+    }
+
+    get tieBreakOffset() {
+        return !this.bothFail ? this._tieBreak : 0;
+    }
+
+    get breakTies() {
+        return this._breakTies;
+    }
+
+    set breakTies(pred = true) {
+        this._breakTies = !!pred;
+    }
+
+    get sourceWins() {
+        return (
+            !this.bothFail &&
+            this.sourceTestResult.normSuccessLevel >
+                this.targetTestResult.normSuccessLevel
+        );
+    }
+
+    get targetWins() {
+        return (
+            !this.bothFail &&
+            this.sourceTestResult.normSuccessLevel <
+                this.targetTestResult.normSuccessLevel
+        );
+    }
+
+    toJSON() {
+        return {
+            speaker: this.speaker,
+            sourceTestResult: this.sourceTestResult.toJSON(),
+            targetTestResult: this.targetTestResult.toJSON(),
+            rollMode: this.rollMode,
+            tieBreak: this._tieBreak,
+            breakTies: this._breakTies,
+            combatResult: this.combatResult,
+        };
+    }
+
+    static create(data = {}) {
+        return new OpposedTestResult({
+            speaker: data.speaker,
+            sourceTestResult: data.sourceTestResult,
+            targetTestResult: data.targetTestResult,
+            rollMode: data.rollMode,
+            tieBreak: data.tieBreak,
+            breakTies: data.breakTies,
+            combatResult: data.combatResult,
+        });
+    }
+
+    evaluate() {
+        return;
+    }
+
+    async toChat({
+        chatTemplate = "systems/sohl/templates/chat/opposed-result-card.html",
+        chatTemplateData = {},
+    } = {}) {
+        chatTemplateData = foundry.utils.mergeObject(
+            {
+                variant: SOHL.sysVer.id,
+                title: `${SuccessTestResult.testTypes[this.sourceTestResult.testType].label} vs. ${SuccessTestResult.testTypes[this.targetTestResult.testType].label} Result`,
+                sourceTestResult: this.sourceTestResult,
+                targetTestResult: this.targetTestResult,
+                combatResult: this.combatResult,
+                availResponses: this.availResponses,
+                sourceTestResultJson: JSON.stringify(
+                    this.sourceTestResult.toJSON(),
+                ),
+                targetTestResultJson: JSON.stringify(
+                    this.targetTestResult.toJSON(),
+                ),
+                sourceImpactResultJson: JSON.stringify({
+                    speaker: this.sourceTestResult.speaker,
+                    itemUuid: this.sourceTestResult.item.uuid,
+                    roll: this.sourceTestResult.roll?.toJSON(),
+                    impactMod: this.sourceTestResult.impactMod.toJSON(),
+                }),
+                targetImpactResultJson: JSON.stringify({
+                    speaker: this.targetTestResult.speaker,
+                    itemUuid: this.targetTestResult.item.uuid,
+                    roll: this.targetTestResult.roll?.toJSON(),
+                    impactMod: this.targetTestResult.impactMod.toJSON(),
+                }),
+            },
+            chatTemplateData,
+        );
+
+        const html = await renderTemplate(chatTemplate, chatTemplateData);
+
+        const messageData = {
+            user: game.user.id,
+            speaker: this.speaker,
+            content: html.trim(),
+            style: CONST.CHAT_MESSAGE_STYLES.DICE,
+        };
+
+        const messageOptions = {};
+
+        // Create a chat message
+        return await ChatMessage.create(messageData, messageOptions);
+    }
+}
+
+export class ImpactResult {
+    speaker;
+    item;
+    impactMod;
+    roll;
+
+    constructor({ speaker, item, roll, impactMod } = {}) {
+        if (item instanceof SohlItem) {
+            this.item = item;
+        } else if (typeof item === "string") {
+            // We assume that item is a UUID to the actual item
+            this.item = fromUuidSync(item);
+            if (!this.item) throw new Error(`Can't find item UUID ${item}`);
+        } else {
+            throw new Error("Must provide an item");
+        }
+
+        if (roll)
+            this._roll = roll instanceof Roll ? roll : Roll.fromData(roll);
+
+        if (impactMod)
+            this.impactMod =
+                impactMod instanceof
+                SOHL.sysVer.CONST.Helper.modifiers.ImpactModifier
+                    ? impactMod
+                    : SOHL.sysVer.CONST.Helper.modifiers.ImpactModifier.fromData(
+                          impactMod,
+                          this.item,
+                      );
+
+        this.speaker = speaker;
+    }
+
+    toJSON() {
+        return {
+            speaker: this.speaker,
+            itemUuid: this.item.uuid,
+            roll: this.roll.toJSON(),
+            impactMod: this.impactMod.toJSON(),
+        };
+    }
+
+    static fromData(data = {}) {
+        return new ImpactResult({
+            speaker: data.speaker || ChatMessage.getSpeaker(),
+            item: fromUuidSync(data.itemUuid),
+            roll: Roll.fromData(data.roll),
+            impactMod:
+                SOHL.sysVer.CONST.Helper.modifiers.ImpactModifier.fromData(
+                    data.impactMod,
+                ),
+        });
+    }
+
+    static fromJSON(data) {
+        return this.fromData(JSON.parse(data));
     }
 }
 
@@ -2377,8 +2844,17 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
      * actions are already implemented in code, so they are always available.  These
      * can be specifically overridden by a macro with the same name.
      */
-    getIntrinsicActions(_data = this) {
-        return [];
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        actions.forEach((a) => {
+            if (a.functionName === defaultAction) {
+                a.contextGroup = "default";
+            } else if (a.contextGroup === "default") {
+                a.contextGroup = "essential";
+            }
+        });
+        return actions.sort((a, b) =>
+            a.contextGroup.localeCompare(b.contextGroup),
+        );
     }
 
     get events() {
@@ -2803,67 +3279,72 @@ export class SohlItemData extends SohlBaseData {
         await this.item.sheet.render(true);
     }
 
-    getIntrinsicActions(_data = this) {
-        return [
-            {
-                functionName: "editItem",
-                name: "Edit",
-                contextIconClass: "fas fa-edit",
-                contextCondition: () => {
-                    if (_data.actor?.isOwner || _data.item.isOwner) return true;
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super
+            .getIntrinsicActions(_data, defaultAction, [
+                {
+                    functionName: "editItem",
+                    name: "Edit",
+                    contextIconClass: "fas fa-edit",
+                    contextCondition: () => {
+                        if (_data.actor?.isOwner || _data.item.isOwner)
+                            return true;
+                    },
+                    contextGroup: "general",
                 },
-                contextGroup: "general",
-            },
-            {
-                functionName: "deleteItem",
-                name: "Delete",
-                contextIconClass: "fas fa-trash",
-                contextCondition: () => {
-                    if (_data.actor?.isOwner || _data.item.isOwner) return true;
+                {
+                    functionName: "deleteItem",
+                    name: "Delete",
+                    contextIconClass: "fas fa-trash",
+                    contextCondition: () => {
+                        if (_data.actor?.isOwner || _data.item.isOwner)
+                            return true;
+                    },
+                    contextGroup: "general",
                 },
-                contextGroup: "general",
-            },
-            {
-                functionName: "showDescription",
-                name: "Show Description",
-                contextIconClass: "fas fa-scroll",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return (
-                        item &&
-                        !!(
-                            _data.description ||
-                            _data.notes ||
-                            _data.textReference
-                        )
-                    );
+                {
+                    functionName: "showDescription",
+                    name: "Show Description",
+                    contextIconClass: "fas fa-scroll",
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return (
+                            item &&
+                            !!(
+                                _data.description ||
+                                _data.notes ||
+                                _data.textReference
+                            )
+                        );
+                    },
+                    contextGroup: "general",
                 },
-                contextGroup: "general",
-            },
-            {
-                functionName: "setupVirtualItems",
-                name: "Setup Virtual Items",
-                contextIconClass: "",
-                contextCondition: false,
-                contextGroup: "hidden",
-            },
-            {
-                functionName: "processSiblings",
-                name: "Process Siblings",
-                contextIconClass: "",
-                contextCondition: false,
-                contextGroup: "hidden",
-            },
-            {
-                functionName: "postProcess",
-                name: "Post-Process",
-                contextIconClass: "",
-                contextCondition: false,
-                contextGroup: "hidden",
-            },
-        ];
+                {
+                    functionName: "setupVirtualItems",
+                    name: "Setup Virtual Items",
+                    contextIconClass: "fas fa-gears",
+                    contextCondition: false,
+                    contextGroup: "hidden",
+                },
+                {
+                    functionName: "processSiblings",
+                    name: "Process Siblings",
+                    contextIconClass: "fas fa-gears",
+                    contextCondition: false,
+                    contextGroup: "hidden",
+                },
+                {
+                    functionName: "postProcess",
+                    name: "Post-Process",
+                    contextIconClass: "fas fa-gears",
+                    contextCondition: false,
+                    contextGroup: "hidden",
+                },
+            ])
+            .concat(actions);
     }
 
     async showDescription() {
@@ -3075,263 +3556,167 @@ export class AnimateEntityActorData extends SohlActorData {
         });
     }
 
-    getIntrinsicActions(_data = this) {
-        let actions = super.getIntrinsicActions(_data).map((a) => {
-            if (a.contextGroup === "default") {
-                a.contextGroup = "essential";
-            }
-            return a;
-        });
-
-        actions.push(
-            {
-                functionName: "shockTest",
-                name: "Shock Test",
-                contextIconClass: "far fa-face-eyes-xmarks",
-                contextCondition: true,
-                contextGroup: "essential",
-            },
-            {
-                functionName: "stumbleTest",
-                name: "Stumble Test",
-                contextIconClass: "far fa-person-falling",
-                contextCondition: true,
-                contextGroup: "essential",
-            },
-            {
-                functionName: "fumbleTest",
-                name: "Fumble Test",
-                contextIconClass: "far fa-ball-pile",
-                contextCondition: true,
-                contextGroup: "essential",
-            },
-            {
-                functionName: "moraleTest",
-                name: "Morale Test",
-                contextIconClass: "far fa-people-group",
-                contextCondition: true,
-                contextGroup: "essential",
-            },
-            {
-                functionName: "fearTest",
-                name: "Fear Test",
-                contextIconClass: "far fa-face-scream",
-                contextCondition: true,
-                contextGroup: "essential",
-            },
-            {
-                functionName: "opposedTestResume",
-                name: "Opposed Test Resume",
-                contextIconClass: "far fa-gears",
-                contextCondition: false,
-                contextGroup: "hidden",
-            },
-            {
-                functionName: "contractTest",
-                name: "Contract Affliction Test",
-                contextIconClass: "fas fa-virus",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    const endurance = item?.actor?.getTraitByAbbrev("end");
-                    return (
-                        endurance && !endurance.system.$masteryLevel.disabled
-                    );
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            Utility.uniqueActions(actions, [
+                {
+                    functionName: "opposedTestResume",
+                    name: "Opposed Test Resume",
+                    contextIconClass: "far fa-gears",
+                    contextCondition: true,
+                    contextGroup: "hidden",
                 },
-                contextGroup: "default",
-            },
+                {
+                    functionName: "calcImpact",
+                    name: "Calculate Impact",
+                    contextIconClass: "fas fa-bullseye-arrow",
+                    contextCondition: true,
+                    contextGroup: "general",
+                },
+                {
+                    functionName: "shockTest",
+                    name: "Shock Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.SHOCK
+                        ].icon,
+                    contextCondition: true,
+                    contextGroup: "essential",
+                },
+                {
+                    functionName: "stumbleTest",
+                    name: "Stumble Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.STUMBLE
+                        ].icon,
+                    contextCondition: true,
+                    contextGroup: "essential",
+                },
+                {
+                    functionName: "fumbleTest",
+                    name: "Fumble Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.FUMBLE
+                        ].icon,
+                    contextCondition: true,
+                    contextGroup: "essential",
+                },
+                {
+                    functionName: "moraleTest",
+                    name: "Morale Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.MORALE
+                        ].icon,
+                    contextCondition: true,
+                    contextGroup: "general",
+                },
+                {
+                    functionName: "fearTest",
+                    name: "Fear Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.FEAR
+                        ].icon,
+                    contextCondition: true,
+                    contextGroup: "general",
+                },
+                {
+                    functionName: "contractAfflictionTest",
+                    name: "Contract Affliction Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.AFFLICTIONCONTRACT
+                        ].icon,
+                    contextCondition: true,
+                    contextGroup: "general",
+                },
+            ]),
         );
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
-    }
-
-    /*--------------------------------------------------------------------------------*/
-    /*        DAMAGE ROLL PROCESSING
-    /*--------------------------------------------------------------------------------*/
-
-    /**
-     * Performs a damage roll, presenting a dialog
-     * to collect information about the damage.
-     *
-     * @param {object}  rollData
-     * @param {object}  [rollData.impactMod] A CombatModifier object representing the impact
-     * @param {string}  [rollData.strikeModeUuid] UUID of strike mode
-     * @param {number}  [numImpactTAs=0] Number of Impact Tactical Advantages
-     * @param {boolean} [rollData.skipDialog=false] if true, do not display dialog
-     */
-    async damageRoll({
-        targetToken,
-        impactMod,
-        bodyLocationUuid,
-        skipDialog = false,
-        ...options
-    } = {}) {
-        if (skipDialog && !impactMod) return null;
-
-        const impactModifier =
-            SOHL.sysVer.CONFIG.Helper.modifiers.ImpactModifier;
-        const strikeMode =
-            impactMod.parent instanceof StrikeModeItemData
-                ? impactMod.parent.item
-                : null;
-        const bodyLocation = bodyLocationUuid
-            ? await fromUuid(bodyLocationUuid)
-            : null;
-
-        const dialogOptions = {
-            type: "damage",
-            label: strikeMode ? `${strikeMode.name} Damage` : "Damage",
-            strikeMode,
-            impactMod: impactMod
-                ? impactModifier.create(impactMod)
-                : new impactModifier(this),
-            ...options,
-        };
-
-        let roll;
-        if (!impactMod || !skipDialog) {
-            // Create the Roll instance
-            roll = await this._damageDialog(dialogOptions);
-
-            // If user cancelled the roll, then return immediately
-            if (!roll) return null;
-        } else {
-            roll = {
-                type: dialogOptions.type,
-                impactMod: dialogOptions.impactMod,
-            };
-            roll.rollObj = await dialogOptions.impactMod.evaluate();
-        }
-
-        // Prepare for Chat Message
-        const chatTemplate = "systems/sohl/templates/chat/damage-card.html";
-        const chatTemplateData = {
-            variant: SOHL.sysVer.id,
-            title:
-                dialogOptions.label +
-                (targetToken ? ` to ${targetToken.name}` : ""),
-            roll,
-            targetToken,
-            bodyLocation,
-        };
-        const html = await renderTemplate(chatTemplate, chatTemplateData);
-
-        const messageData = {
-            user: game.user.id,
-            speaker: this.speaker,
-            content: html.trim(),
-            style: CONST.CHAT_MESSAGE_STYLES.ROLL,
-            sound: CONFIG.sounds.dice,
-            roll: roll.rollObj,
-        };
-
-        const messageOptions = {
-            rollMode: game.settings.get("core", "rollMode"),
-        };
-
-        // Create a chat message
-        await ChatMessage.create(messageData, messageOptions);
-
-        return chatTemplateData;
-    }
-
-    /**
-     * Renders a dialog to get the information for a damage roll, and then
-     * perform processing to determine results.  Returns Roll object
-     * representing outcome of die rolls, or null if user cancelled dialog.
-     *
-     * @param {*} dialogOptions
-     */
-    async _damageDialog({ type, label, strikeMode, impactMod, ...options }) {
-        // Render modal dialog
-        let dlgTemplate = "systems/sohl/templates/dialog/damage-dialog.html";
-        let dialogData = {
-            variant: SOHL.sysVer.id,
-            type,
-            strikeMode,
-            weaponName: strikeMode?.name || "Non-Weapon",
-            impactFormula: impactMod.label,
-            impactMod,
-            askImpact: !impactMod,
-            addlWeaponImpact: 0,
-            addlArmorReduction: 0,
-            config: SOHL.sysVer.CONFIG,
-            ...options,
-        };
-        const html = await renderTemplate(dlgTemplate, dialogData);
-
-        // Create the dialog window
-        return await Dialog.prompt({
-            title: label,
-            content: html.trim(),
-            label: "Roll",
-            callback: async (html) => {
-                return this._damageDialogCallback(html, dialogData);
-            },
-            rejectClose: false,
-        });
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-    async _damageDialogCallback(html, { type, impactMod, strikeMode }) {
-        const form = html[0].querySelector("form");
-        const formAddlWeaponImpact =
-            Number.parseInt(form.addlWeaponImpact.value, 10) || 0;
-        const formAddlArmorReduction =
-            Number.parseInt(form.addlArmorReduction.value, 10) || 0;
-        const newImpact = impactMod
-            ? this.constructor.create(impactMod)
-            : {
-                  numDice: Number.parseInt(form.numDice?.value, 10) || 1,
-                  die: Number.parseInt(form.impactDie?.value, 10) || 0,
-                  modifier:
-                      Number.parseInt(form.impactModifier?.value, 10) || 0,
-                  aspect: form.impactAspect?.value || "blunt",
-              };
-        foundry.utils.mergeObject(newImpact, {
-            extraBleedRisk: form.extraBleedRisk.checked,
-            armorReduction: {
-                mods: [],
-            },
-        });
-        if (formAddlWeaponImpact) {
-            newImpact.add(
-                "Situational Modifier",
-                "SitMod",
-                formAddlWeaponImpact,
-            );
+    async calcImpact(speaker, actor, token, character, scope = {}) {
+        let { impactResult, itemId } = scope;
+        if (!impactResult && !itemId) return null;
+        if (itemId) {
+            for (let it of this.actor.allItems()) {
+                if (it.id === itemId)
+                    return it.execute("calcImpact", { impactResult });
+            }
+        } else {
+            impactResult =
+                impactResult instanceof ImpactResult
+                    ? impactResult
+                    : new ImpactResult.fromData(impactResult);
+            return impactResult.item?.system.execute("calcImpact", {
+                impactResult,
+            });
         }
-        if (formAddlArmorReduction) {
-            newImpact.armorReduction.add(
-                "Situational Modifier",
-                "SitMod",
-                formAddlArmorReduction,
-            );
+        return null;
+    }
+
+    shockTest(speaker, actor, token, character, scope = {}) {
+        let {
+            skipDialog = false,
+            noChat = false,
+            type = `${this.name}-shock-test`,
+            title = `${this.name} Shock Test`,
+            testResult,
+        } = scope;
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+            needsActor: true,
+            self: this,
+        }));
+
+        if (!testResult) {
+            const shockSkill = this.actor.getItem("shk", { types: ["skill"] });
+            if (!shockSkill) return null;
+            testResult = SuccessTestResult.fromData({
+                speaker,
+                item: shockSkill,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title,
+                situationalModifier: 0,
+                typeLabel: shockSkill.system.constructor.typeLabel,
+                mlMod: MasteryLevelModifier.create(
+                    shockSkill.system.$masteryLevel,
+                    shockSkill.system,
+                ),
+            });
+            // For the shock test, the test should not include the impairment penalty
+            testResult.mlMod.delete("BPImp");
         }
 
-        const roll = {
+        testResult = testResult.item.system.successTest({
+            skipDialog,
+            noChat,
             type,
-            impactMod: impactMod,
-        };
-        roll.rollObj = await impactMod.evaluate();
-        return roll;
+            title,
+            testResult,
+        });
+
+        testResult.shockMod = 1 - testResult.successLevel;
+        return testResult;
     }
-    shockTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
+
+    stumbleTest(speaker, actor, token, character, scope = {}) {
+        let {
             skipDialog = false,
             noChat = false,
-            type = `${this.type}-${this.name}-shock-test`,
-            title = `${this.item.label} Shock Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+            type = `${this.name}-stumble-test`,
+            title = `${this.name} Stumble Test`,
+            testResult,
+        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3341,24 +3726,48 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        // TODO - Shock Test
-        ui.notifications.warn("Shock Test Not Implemented");
+        if (!testResult) {
+            const agility = this.actor.getItem("agl", { types: ["trait"] });
+            const acrobatics = this.actor.getItem("acro", { types: ["skill"] });
+            const item =
+                agility?.system.$masteryLevel.effective >
+                acrobatics?.system.$masteryLevel.effective
+                    ? agility
+                    : acrobatics;
+            if (!item) return null;
+
+            testResult = SuccessTestResult.fromData({
+                speaker,
+                item: item,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title,
+                situationalModifier: 0,
+                typeLabel: item.system.constructor.typeLabel,
+                mlMod: MasteryLevelModifier.create(
+                    item.system.$masteryLevel,
+                    item.system,
+                ),
+            });
+        }
+
+        return testResult.item.system.successTest({
+            skipDialog,
+            noChat,
+            type,
+            title,
+            testResult,
+        });
     }
 
-    stumbleTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
+    fumbleTest(speaker, actor, token, character, scope = {}) {
+        let {
             skipDialog = false,
             noChat = false,
-            type = `${this.type}-${this.name}-stumble-test`,
-            title = `${this.item.label} Stumble Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+            type = `${this.name}-fumble-test`,
+            title = `${this.name} Fumble Test`,
+            testResult,
+        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3368,24 +3777,50 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        // TODO - Stumble Test
-        ui.notifications.warn("Stumble Test Not Implemented");
+        if (!testResult) {
+            const dexterity = this.actor.getItem("dex", { types: ["trait"] });
+            const legerdemain = this.actor.getItem("lgdm", {
+                types: ["skill"],
+            });
+            const item =
+                dexterity?.system.$masteryLevel.effective >
+                legerdemain?.system.$masteryLevel.effective
+                    ? dexterity
+                    : legerdemain;
+            if (!item) return null;
+
+            testResult = SuccessTestResult.fromData({
+                speaker,
+                item: item,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title,
+                situationalModifier: 0,
+                typeLabel: item.system.constructor.typeLabel,
+                mlMod: MasteryLevelModifier.create(
+                    item.system.$masteryLevel,
+                    item.system,
+                ),
+            });
+        }
+
+        return testResult.item.system.successTest({
+            skipDialog,
+            noChat,
+            type,
+            title,
+            testResult,
+        });
     }
 
-    fumbleTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
+    async moraleTest(speaker, actor, token, character, scope = {}) {
+        let {
             skipDialog = false,
             noChat = false,
-            type = `${this.type}-${this.name}-fumble-test`,
-            title = `${this.item.label} Fumble Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+            type = `${this.name}-morale-test`,
+            title = `${this.name} Morale Test`,
+            testResult,
+        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3395,24 +3830,63 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        // TODO - Fumble Test
-        ui.notifications.warn("Fumble Test Not Implemented");
+        if (!testResult) {
+            const initSkill = this.actor.getItem("init", { types: ["skill"] });
+            if (!initSkill) return null;
+            testResult = SuccessTestResult.fromData({
+                speaker,
+                item: initSkill,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title,
+                situationalModifier: 0,
+                typeLabel: initSkill.system.constructor.typeLabel,
+                mlMod: MasteryLevelModifier.create(
+                    initSkill.system.$masteryLevel,
+                    initSkill.system,
+                ),
+            });
+        }
+
+        let createMorale = game.settings.get("sohl", "recordTrauma");
+        if (!testResult.isSuccess && createMorale !== "disable") {
+            if (createMorale === "ask") {
+                createMorale = await Dialog.confirm({
+                    title: `Create ${testResult.item.label}`,
+                    content: `<p>Do you wish to create the ${testResult.item.label} on ${this.actor.name}?</p>`,
+                    yes: () => {
+                        return "enable";
+                    },
+                });
+            }
+
+            if (createMorale === "enable") {
+                SohlItem.create(testResult.item.toObject(), {
+                    parent: this.item,
+                    clean: true,
+                });
+            }
+        }
+
+        testResult = testResult.item.system.successTest({
+            skipDialog,
+            noChat,
+            type,
+            title,
+            testResult,
+        });
+
+        return testResult;
     }
 
-    moraleTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
+    async fearTest(speaker, actor, token, character, scope = {}) {
+        let {
             skipDialog = false,
             noChat = false,
-            type = `${this.type}-${this.name}-morale-test`,
-            title = `${this.item.label} Morale Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+            type = `${this.name}-fear-test`,
+            title = `${this.name} Fear Test`,
+            testResult,
+        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3422,24 +3896,64 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        // TODO - Morale Test
-        ui.notifications.warn("Morale Test Not Implemented");
+        if (!testResult) {
+            const initSkill = this.actor.getItem("init", { types: ["skill"] });
+            if (!initSkill) return null;
+            testResult = SuccessTestResult.fromData({
+                speaker,
+                item: initSkill,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title,
+                situationalModifier: 0,
+                typeLabel: initSkill.system.constructor.typeLabel,
+                mlMod: MasteryLevelModifier.create(
+                    initSkill.system.$masteryLevel,
+                    initSkill.system,
+                ),
+            });
+        }
+
+        testResult = testResult.item.system.successTest({
+            skipDialog,
+            noChat,
+            type,
+            title,
+            testResult,
+        });
+
+        let createFear = game.settings.get("sohl", "recordTrauma");
+        if (!testResult.isSuccess && createFear !== "disable") {
+            if (createFear === "ask") {
+                createFear = await Dialog.confirm({
+                    title: `Create ${testResult.item.label}`,
+                    content: `<p>Do you wish to create the ${testResult.item.label} on ${this.actor.name}?</p>`,
+                    yes: () => {
+                        return "enable";
+                    },
+                });
+            }
+
+            if (createFear === "enable") {
+                SohlItem.create(testResult.item.toObject(), {
+                    parent: this.item,
+                    clean: true,
+                });
+            }
+        }
+
+        return testResult;
     }
 
-    fearTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
+    async contractAfflictionTest(speaker, actor, token, character, scope = {}) {
+        let {
             skipDialog = false,
             noChat = false,
-            type = `${this.type}-${this.name}-fear-test`,
-            title = `${this.item.label} Fear Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+            type = `${this.name}-contract-affliction-test`,
+            title,
+            testResult = null,
+            afflictionObj = null,
+        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3449,27 +3963,73 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        // TODO - Fear Test
-        ui.notifications.warn("Fear Test Not Implemented");
+        if (!testResult) {
+            if (!afflictionObj) return null;
+
+            const item = new SohlItem(afflictionObj);
+            if (!item) return null;
+
+            testResult = SuccessTestResult.fromData({
+                speaker,
+                item: item,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title: title || `${this.name} Contract ${item.label} Test`,
+                situationalModifier: 0,
+                typeLabel: item.system.constructor.typeLabel,
+                mlMod: MasteryLevelModifier.create(
+                    item.system.$masteryLevel,
+                    item.system,
+                ),
+            });
+        }
+
+        testResult = testResult.item.system.successTest({
+            skipDialog,
+            noChat,
+            type,
+            title,
+            testResult,
+        });
+
+        let createAffliction = game.settings.get("sohl", "recordTrauma");
+        if (!testResult.isSuccess && createAffliction !== "disable") {
+            if (createAffliction === "ask") {
+                createAffliction = await Dialog.confirm({
+                    title: `Create ${testResult.item.label}`,
+                    content: `<p>Do you wish to create the ${testResult.item.label} on ${this.actor.name}?</p>`,
+                    yes: () => {
+                        return "enable";
+                    },
+                });
+            }
+
+            if (createAffliction === "enable") {
+                SohlItem.create(testResult.item.toObject(), {
+                    parent: this.item,
+                    clean: true,
+                });
+            }
+        }
+
+        return testResult;
     }
 
     /**
-     * Resume the opposed test, selecting the skill to use for the opposed test and then
-     * passing further processing of the opposed test to that skill.
+     * Select the appropriate item to use for the opposed test, then delegate processing
+     * of the opposed request to that item.
      *
-     * @param {object} options
-     * @param {string} [options.atkItemUuid] UUID of the item the initiator is using
-     * @param {number} [options.atkRollData] The attack roll data
-     * @param {number} [options.atkSLMod] The Success Level modifier for the initiator
-     * @returns Object containing the results of the test
+     * @param {object} scope
+     * @param {string} [scope.sourceTestResult]
+     * @param {number} [scope.testType]
+     * @returns {OpposedTestResult} result of the test
      */
-    async selectOpposedTestSkill(
-        speaker,
-        actor,
-        token,
-        character,
-        { sourceToken, sourceItem, sourceMlMod, ...scope },
-    ) {
+    async opposedTestResume(speaker, actor, token, character, scope = {}) {
+        let { opposedTestResult, testType } = scope;
+        if (!opposedTestResult) {
+            throw new Error("Must supply opposedTestResult");
+        }
+
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3479,210 +4039,176 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        // Build list of acceptable opposed items on this actor
-        const opposedItems = [];
-        for (const it of actor.allItems()) {
-            if (it.system.isMasteryLevelItemData) {
-                if (!it.system.$masteryLevel.disabled) {
-                    let itemTypeName =
-                        it.system instanceof TraitItemData &&
-                        it.system.intensity === "attribute"
-                            ? "Attribute"
-                            : game.i18n.localize(
-                                  SOHL.sysVer.CONFIG.Item.typeLabels[it.type],
-                              );
-                    if (it.system.subType) {
-                        itemTypeName += ` (${it.system.subType})`;
+        opposedTestResult.testType ||= SuccessTestResult.TEST_TYPE.IGNORE;
+
+        if (testType === SuccessTestResult.TEST_TYPE.IGNORE) {
+            return await this.execute("ignoreResume", scope);
+        }
+
+        if (!opposedTestResult.targetTestResult.item) {
+            let opposedItems = [];
+            let defaultItemUuid = null;
+            let label = "Melee Strike Mode";
+            switch (testType) {
+                case SuccessTestResult.TEST_TYPE.SKILL:
+                    label = "Skill";
+                    for (const it of this.actor.allItems()) {
+                        if (
+                            it.system instanceof TraitItemData &&
+                            it.system.intensity === "attribute"
+                        ) {
+                            if (!it.system.$masteryLevel.disabled) {
+                                opposedItems.push({
+                                    name: `Attribute: ${it.name} (ML:${it.system.$masteryLevel.effective})`,
+                                    uuid: it.uuid,
+                                    value: it.system.$masteryLevel,
+                                    item: it,
+                                });
+                            }
+                        } else if (it.system instanceof SkillItemData) {
+                            if (!it.system.$masteryLevel.disabled) {
+                                opposedItems.push({
+                                    name: `Skill: ${it.name} (ML:${it.system.$masteryLevel.effective})`,
+                                    uuid: it.uuid,
+                                    value: it.system.$masteryLevel,
+                                    item: it,
+                                });
+                            }
+                        }
                     }
-                    opposedItems.push({
-                        name: `${itemTypeName}: ${it.name} (TL:${it.system.$masteryLevel.effective})`,
-                        uuid: it.uuid,
-                        value: it.system.$masteryLevel,
-                        item: it,
-                    });
-                }
+                    if (opposedItems.length) {
+                        opposedItems.sort((a, b) =>
+                            a.name.localeCompare(b.name),
+                        );
+                        const defaultItem = opposedItems.find(
+                            (oi) =>
+                                oi.item.type ===
+                                    opposedTestResult.sourceTestResult.item
+                                        .type &&
+                                oi.item.name ===
+                                    opposedTestResult.sourceTestResult.item
+                                        .name,
+                        );
+                        if (defaultItem) {
+                            defaultItemUuid = defaultItem.uuid;
+                        } else {
+                            defaultItemUuid = opposedItems[0].uuid;
+                        }
+                        defaultItemUuid = opposedItems[0].uuid;
+                    }
+                    break;
+
+                case SuccessTestResult.TEST_TYPE.BLOCK:
+                    opposedItems = this.actor.itemTypes.meleestrikemode.reduce(
+                        (ary, it) => {
+                            if (!it.system.$defense.block.disabled) {
+                                ary.push({
+                                    name: it.name,
+                                    uuid: it.uuid,
+                                    value: it.system.$defense.block,
+                                    item: it,
+                                });
+                            }
+                            return ary;
+                        },
+                        [],
+                    );
+                    if (opposedItems.length) {
+                        opposedItems.sort(
+                            (a, b) => b.value.effective - a.value.effective,
+                        );
+                        defaultItemUuid = opposedItems[0].uuid;
+                    }
+                    break;
+
+                case SuccessTestResult.TEST_TYPE.DODGE:
+                    {
+                        const dodgeSkill = this.actor.getItem("dge", {
+                            types: ["skill"],
+                        });
+                        opposedItems.push({
+                            name: dodgeSkill.name,
+                            uuid: dodgeSkill.uuid,
+                            value: dodgeSkill.system.$masteryLevel,
+                            item: dodgeSkill,
+                        });
+                    }
+                    if (opposedItems.length) {
+                        defaultItemUuid = opposedItems[0].uuid;
+                    }
+                    break;
+
+                case SuccessTestResult.TEST_TYPE.COUNTERSTRIKE:
+                    opposedItems = this.actor.itemTypes.meleestrikemode.reduce(
+                        (ary, it) => {
+                            ary.push({
+                                name: it.name,
+                                uuid: it.uuid,
+                                value: it.system.$defense.counterstrike,
+                                item: it,
+                            });
+                            return ary;
+                        },
+                        [],
+                    );
+                    opposedItems.sort(
+                        (a, b) => b.value.effective - a.value.effective,
+                    );
+                    defaultItemUuid = opposedItems[0].uuid;
+                    break;
             }
-        }
-        if (!opposedItems.length) {
-            ui.notifications.warn("No items available for opposing test");
-            return null;
-        }
-        opposedItems.sort((a, b) => a.localeCompare(b));
 
-        const defaultItem = sourceItem
-            ? this.parent.items.find(
-                  (it) =>
-                      it.type === sourceItem.type &&
-                      it.name === sourceItem.name,
-              )
-            : opposedItems[0];
-        const defaultItemUuid = defaultItem.uuid;
-
-        const dialogOptions = {
-            variant: SOHL.sysVer.id,
-            type: "opposed-test-resume",
-            title: "Opposed Roll",
-            opposedItems,
-            opposedItemUuid: defaultItemUuid,
-            mods: opposedItems[0].mods,
-            label: `Complete Opposed Roll`,
-            modifier: 0,
-            successLevelMod: 0,
-        };
-        if (this.$shockState === SOHL.CONST.SHOCK.Stunned)
-            dialogOptions.successLevelMod--;
-
-        const dlgTemplate =
-            "systems/sohl/templates/dialog/opposed-response-dialog.html";
-        const dlgHtml = await renderTemplate(dlgTemplate, dialogOptions);
-
-        // Pop up the dialog to get the defender's data
-        const dlgResult = await Dialog.prompt({
-            title: dialogOptions.title,
-            content: dlgHtml.trim(),
-            label: dialogOptions.label,
-            render: (html) => {
-                const form = html[0].querySelector("form");
-                const mods = html[0].querySelector("_mods");
-                form.opposedItemUuid.addEventListener("change", () => {
-                    const opposedItemUuid = form.opposedItemUuid.value;
-                    const opposedItem = dialogOptions.opposedItems.find(
-                        (it) => it.value === opposedItemUuid,
-                    );
-                    const newHtml = opposedItem.chatHtml;
-                    mods.innerHTML = newHtml;
-                });
-            },
-            callback: (html) => {
-                const form = html[0].querySelector("form");
-                const defModifier =
-                    Number.parseInt(form.modifier.value, 10) || 0;
-                const defSuccessLevelMod =
-                    Number.parseInt(form.successLevelMod.value, 10) || 0;
-                const opposedItemUuid = form.opposedItemUuid.value;
-                const opposedItem = dialogOptions.opposedItems.find(
-                    (it) => it.uuid === opposedItemUuid,
-                );
-                const result = {
-                    value: ValueModifier.create(opposedItem.value),
-                    opposedItemUuid,
-                    item: opposedItem,
+            if (!opposedItems.length) {
+                ui.notifications.warn("No items available for opposing test");
+                return null;
+            } else if (opposedItems.length === 1) {
+                opposedTestResult.targetTestResult.item = opposedItems[0].item;
+            } else {
+                const dialogOptions = {
+                    variant: "legendary",
+                    type: "opposed-item-select",
+                    title: `${token.name} select ${label} vs. ${opposedTestResult.sourceTestResult.token.name} ${opposedTestResult.sourceTestResult.title}`,
+                    opposedItems,
+                    defaultItem: defaultItemUuid,
                 };
-                result.value.successLevelMod += defSuccessLevelMod;
-                if (defModifier) {
-                    result.value.add(
-                        "Situational Modifier",
-                        "SitMod",
-                        defModifier,
-                    );
-                }
-                return result;
-            },
-            rejectClose: false,
-        });
-
-        // If dialog cancelled then quit
-        if (!dlgResult) return null;
-
-        scope.targetMlMod = dlgResult.value;
-        foundry.utils.mergeObject(scope, {
-            sourceToken,
-            sourceItem,
-            sourceMlMod,
-        });
-        return dlgResult.item.system.execute("opposedTestResume", scope);
-    }
-
-    async meleeCounterstrikeResume(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        scope = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-        }));
-        if (!token) {
-            ui.notifications.warn(
-                `Token for defender ${this.name} could not be found on canvas.`,
-            );
-            return null;
+                const compiled = Handlebars.compile(`<form id="select-token">
+                    <div class="form-group">
+                    <span>${opposedTestResult.sourceTestResult.token.name} using ${opposedTestResult.sourceTestResult.title}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Select which ${label} to use:</label>
+                        <select name="opposedItemUuid">
+                        {{selectOptions opposedItems selected=defaultItem valueAttr="uuid" labelAttr="name"}}
+                        </select>
+                    </div></form>`);
+                const dlgHtml = compiled(dialogOptions, {
+                    allowProtoMethodsByDefault: true,
+                    allowProtoPropertiesByDefault: true,
+                });
+                opposedTestResult.targetTestResult.item = await Dialog.prompt({
+                    title: `Choose ${label}`,
+                    content: dlgHtml,
+                    label: "OK",
+                    callback: async (html) => {
+                        const form = html.querySelector("form");
+                        const fd = new FormDataExtended(form);
+                        const formdata = foundry.utils.expandObject(fd.object);
+                        const opposedItem = opposedItems.find(
+                            (obj) => obj.uuid === formdata.opposedItemUuid,
+                        );
+                        return opposedItem?.item;
+                    },
+                    options: { jQuery: false },
+                    rejectClose: false,
+                });
+            }
+            if (!opposedTestResult.targetTestResult.item) return null;
         }
 
-        return { speaker, actor, token, character, scope };
-    }
-
-    async meleeBlockResume(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        scope = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-        }));
-        if (!token) {
-            ui.notifications.warn(
-                `Token for defender ${this.name} could not be found on canvas.`,
-            );
-            return null;
-        }
-
-        return { speaker, actor, token, character, scope };
-    }
-
-    async meleeDodgeResume(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        scope = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-        }));
-        if (!token) {
-            ui.notifications.warn(
-                `Token for defender ${this.name} could not be found on canvas.`,
-            );
-            return null;
-        }
-
-        return { speaker, actor, token, character, scope };
-    }
-
-    async meleeIgnoreResume(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        scope = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-        }));
-        if (!token) {
-            ui.notifications.warn(
-                `Token for defender ${this.name} could not be found on canvas.`,
-            );
-            return null;
-        }
-
-        return { speaker, actor, token, character, scope };
+        return opposedTestResult.targetTestResult.item.system.execute(
+            "opposedTestResume",
+            scope,
+        );
     }
 
     prepareBaseData() {
@@ -3706,87 +4232,6 @@ export class AnimateEntityActorData extends SohlActorData {
         );
     }
 }
-
-// export class CharacterActorData extends LivingActorData {
-//     static get typeName() {
-//         return "character";
-//     }
-
-//     static get typeLabel() {
-//         return {
-//             singular: "Character",
-//             plural: "Characters",
-//         };
-//     }
-
-//     static getDefaultArtwork(data) {
-//         return {
-//             img: "systems/sohl/images/silhouette/character-headshot.webp",
-//             texture: {
-//                 src: "systems/sohl/images/silhouette/character-token.svg",
-//             },
-//         };
-//     }
-
-// export class CreatureActorData extends LivingActorData {
-//     static get typeName() {
-//         return "creature";
-//     }
-
-//     static get typeLabel() {
-//         return {
-//             singular: "Creature",
-//             plural: "Creatures",
-//         };
-//     }
-
-//     static getDefaultArtwork(data) {
-//         return {
-//             img: "systems/sohl/assets/icons/claw.svg",
-//             texture: {
-//                 src: "systems/sohl/images/silhouette/creature-token.svg",
-//             },
-//         };
-//     }
-
-//     static get defaultBiography() {
-//         return `<h1>Data</h1>\n
-//         <table style="width: 95%;" border="1">\n
-//         <tbody>\n
-//         <tr>\n
-//         <td style="width: 143.6px;"><strong>Habitat</strong></td>\n
-//         <td style="width: 432px;">&nbsp;</td>\n
-//         </tr>\n
-//         <tr>\n
-//         <td style="width: 143.6px;"><strong>Height</strong></td>\n
-//         <td style="width: 432px;">&nbsp;</td>\n
-//         </tr>\n
-//         <tr>\n
-//         <td style="width: 143.6px;"><strong>Weight</strong></td>\n
-//         <td style="width: 432px;"></td>\n
-//         </tr>\n
-//         <tr>\n
-//         <td style="width: 143.6px;"><strong>Diet</strong></td>\n
-//         <td style="width: 432px;">&nbsp;</td>\n
-//         </tr>\n
-//         <tr>\n
-//         <td style="width: 143.6px;"><strong>Lifespan</strong></td>\n
-//         <td style="width: 432px;">&nbsp;</td>\n
-//         </tr>\n
-//         <tr>\n
-//         <td style="width: 143.6px;"><strong>Group</strong></td>\n
-//         <td style="width: 432px;">&nbsp;</td>\n
-//         </tr>\n
-//         </tbody>\n
-//         </table>\n
-//         <h1>Special Abilities</h1>\n
-//         <p>Describe any special attributes.</p>\n
-//         <h1>Attacks</h1>\n
-//         <p>Describe methods of attack.</p>\n
-//         <h1>Behavior</h1>\n
-//         <p>Describe behavioral aspects.</p>`;
-//     }
-// }
 
 export class InanimateObjectActorData extends SohlActorData {
     static get typeName() {
@@ -4013,6 +4458,41 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
         });
     }
 
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            Utility.uniqueActions(actions, [
+                {
+                    functionName: "opposedTestStart",
+                    name: "Automated Attack",
+                    contextIconClass: "fas fa-sword",
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$attack.disabled;
+                    },
+                    contextGroup: "essential",
+                },
+                {
+                    functionName: "opposedTestResume",
+                    name: "Attack Resume",
+                    contextIconClass: "fas fa-gears",
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$impact.disabled;
+                    },
+                    contextGroup: "hidden",
+                },
+            ]),
+        );
+    }
+
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
             mode: new fields.StringField({
@@ -4059,59 +4539,132 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
         });
     }
 
-    getIntrinsicActions(_data = this) {
-        let actions = super.getIntrinsicActions(_data).map((a) => {
-            if (a.contextGroup === "default") {
-                a.contextGroup = "essential";
-            }
-            return a;
-        });
+    async _preOpposedSuccessTest(speaker, actor, token, character, scope) {
+        let result = super._preOpposedSuccessTest(
+            speaker,
+            actor,
+            token,
+            character,
+            (scope = {}),
+        );
+        if (!result) return;
 
-        actions.push(
+        let { targetToken, sourceTestResult } = scope;
+
+        return {
+            speaker,
+            sourceTestResult,
+            targetToken,
+        };
+    }
+
+    async opposedTestStart(speaker, actor, token, character, scope) {
+        let {
+            skipDialog = false,
+            noChat = false,
+            testType = SuccessTestResult.TEST_TYPE.ATTACK,
+        } = scope;
+
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+        }));
+
+        const sourceTestResult = this.successTest(
+            speaker,
+            actor,
+            token,
+            character,
             {
-                functionName: "assistedAttackTest",
-                name: "Attack Test",
-                contextIconClass: "fas fa-dagger",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$attack.disabled;
-                },
-                contextGroup: "default",
-            },
-            {
-                functionName: "calcImpact",
-                name: "Impact Roll",
-                contextIconClass: "fas fa-bullseye-arrow",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$impact.disabled;
-                },
-                contextGroup: "general",
+                skipDialog,
+                noChat: true,
+                testType,
             },
         );
+        if (!sourceTestResult) return;
 
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
+        const opposedTestResultData =
+            await this._calcOpposedTestResultData(scope);
+        if (!opposedTestResultData) return null;
+
+        const opposedTestResult = OpposedTestResult.fromData(
+            opposedTestResultData,
+        );
+
+        // Note that in the opposed test start, we specifically do not
+        // call the evaluate() method of opposedTestResult, since
+        // we have not finished creating it yet (no targetTestResult)
+
+        if (!noChat) {
+            opposedTestResult.toChat();
+        }
+
+        return opposedTestResult;
     }
 
-    assistedAttackTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-attack-test`,
-            title = `${this.item.label} Attack Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+    /**
+     * Continue the opposed test. Only valid testTypes are "block" and "counterstrike".
+     *
+     * @param {object} scope
+     * @param {string} [scope.sourceTestResult]
+     * @param {number} [scope.testType]
+     * @returns {OpposedTestResult} result of the test
+     */
+    async opposedTestResume(speaker, actor, token, character, scope = {}) {
+        let { noChat = false, opposedTestResult, testType } = scope;
+
+        if (!opposedTestResult) {
+            throw new Error("Must supply opposedTestResult");
+        } else if (!(opposedTestResult instanceof OpposedTestResult)) {
+            opposedTestResult = OpposedTestResult.fromData(opposedTestResult);
+        }
+
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+            needsToken: true,
+            self: this,
+        }));
+
+        if (!opposedTestResult.targetTestResult) {
+            opposedTestResult.targetTestResult = this.successTest({
+                noChat: true,
+                testType: testType,
+            });
+            if (!opposedTestResult.targetTestResult) return null;
+        } else {
+            opposedTestResult = opposedTestResult.fromData(opposedTestResult);
+
+            // In this situation, where the targetTestResult is provided,
+            // the GM is modifying the result of a prior opposedTest.
+            // Therefore, we re-display the dialog for each of the prior
+            // successTests.
+            opposedTestResult.sourceTestResult =
+                opposedTestResult.sourceTestResult.item.successTest({
+                    noChat: true,
+                    successTestResult: opposedTestResult.sourceTestResult,
+                });
+            opposedTestResult.targetTestResult =
+                opposedTestResult.targetTestResult.item.successTest({
+                    noChat: true,
+                    successTestResult: opposedTestResult.targetTestResult,
+                });
+        }
+
+        opposedTestResult.evaluate();
+
+        if (!noChat) {
+            opposedTestResult.toChat();
+        }
+
+        return opposedTestResult;
+    }
+
+    async attackTest(speaker, actor, token, character, scope) {
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -4120,31 +4673,12 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
             needsActor: true,
             self: this,
         }));
-
-        const chatResult = this.$attack.test({
-            skipDialog,
-            noChat,
-            type,
-            title,
-        });
-
-        return chatResult;
+        scope.mlMod = CombatModifier.create(this.$attack);
+        scope.testType ||= SuccessTestResult.TEST_TYPE.ATTACK;
+        return this.successTest(speaker, actor, token, character, scope);
     }
 
-    calcImpact(
-        speaker,
-        actor,
-        token,
-        character,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-impact-roll`,
-            title = `${this.item.label} Impact Roll`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
+    async blockTest(speaker, actor, token, character, scope) {
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -4153,9 +4687,23 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
             needsActor: true,
             self: this,
         }));
+        scope.mlMod = CombatModifier.create(this.$defense.block);
+        scope.testType = SuccessTestResult.TEST_TYPE.BLOCK;
+        return this.successTest(speaker, actor, token, character, scope);
+    }
 
-        // TODO - Implement Impact Calculation
-        ui.notifications.warn("Impact Calculation Not Implemented");
+    async counterstrikeTest(speaker, actor, token, character, scope) {
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+            needsActor: true,
+            self: this,
+        }));
+        scope.mlMod = CombatModifier.create(this.$defense.counterstrike);
+        scope.testType = SuccessTestResult.TEST_TYPE.COUNTERSTRIKE;
+        return this.successTest(speaker, actor, token, character, scope);
     }
 
     /** @override */
@@ -4168,7 +4716,6 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
             block: new CombatModifier(this),
             counterstrike: new CombatModifier(this),
         };
-        this.$dodge = new CombatModifier(this);
         this.$impact = new ImpactModifier(this, {
             numDice: this.impactBase.numDice,
             aspect: this.impactBase.aspect,
@@ -4189,6 +4736,7 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
         super.setupVirtualItems();
         this.$assocSkill = this.actor.getItem(this.assocSkillName, {
             types: [SkillItemData.typeName],
+            isName: true,
         });
         if (!this.$assocSkill) {
             const msg = `${this.constructor.typeLabel.singular} ${this.name} requires skill ${this.assocSkillName} but it does not exist, creating a dummy skill with ML 0`;
@@ -4223,6 +4771,7 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
         }
         this.$assocSkill = this.actor.getItem(this.assocSkillName, {
             types: [SkillItemData.typeName],
+            isName: true,
         });
         if (this.$assocSkill) {
             this.$attack.addVM(this.$assocSkill.system.$masteryLevel, {
@@ -4236,19 +4785,6 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
             );
         } else {
             this.$attack.setDisabled("No Associated Skill", "NoSkill");
-        }
-        this.$dodgeSkill = this.actor.getItem("Dodge", {
-            types: [SkillItemData.typeName],
-        });
-        if (this.$dodgeSkill) {
-            this.$dodge.addVM(this.$dodgeSkill.system.$masteryLevel, {
-                includeBase: true,
-            });
-            this.$dodge.fate.addVM(this.$assocSkill.system.$masteryLevel.fate, {
-                includeBase: true,
-            });
-        } else {
-            this.$dodge.setDisabled("No Dodge Skill", "NoSkill");
         }
     }
 }
@@ -4278,38 +4814,47 @@ export class MeleeWeaponStrikeModeItemData extends StrikeModeItemData {
         });
     }
 
-    getIntrinsicActions(_data = this) {
-        let actions = super.getIntrinsicActions(_data);
-
-        actions.push(
-            {
-                functionName: "assistedBlockTest",
-                name: "Block Test",
-                contextIconClass: "fas fa-shield",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$defense.block.disabled;
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            Utility.uniqueActions(actions, [
+                {
+                    functionName: "assistedBlockTest",
+                    name: "Block Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.BLOCK
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$defense.block.disabled;
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "assistedCounterstrikeTest",
-                name: "Counterstrike Test",
-                contextIconClass: "fas fa-swords",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$defense.counterstrike.disabled;
+                {
+                    functionName: "assistedCounterstrikeTest",
+                    name: "Counterstrike Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.COUNTERSTRIKE
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return (
+                            item && !item.system.$defense.counterstrike.disabled
+                        );
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
+            ]),
         );
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
     }
 
     assistedBlockTest(
@@ -4484,46 +5029,47 @@ export class CombatTechniqueStrikeModeItemData extends StrikeModeItemData {
         });
     }
 
-    getIntrinsicActions(_data = this) {
-        let actions = super
-            .getIntrinsicActions(_data)
-            .filter((a) => a.name !== "attack")
-            .map((a) => {
-                if (a.contextGroup === "default") {
-                    a.contextGroup = "essential";
-                }
-                return a;
-            });
-
-        actions.push(
-            {
-                functionName: "assistedBlockTest",
-                name: "Block Test",
-                contextIconClass: "fas fa-shield",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$defense.block.disabled;
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            Utility.uniqueActions(actions, [
+                {
+                    functionName: "assistedBlockTest",
+                    name: "Block Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.BLOCK
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$defense.block.disabled;
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "assistedCounterstrikeTest",
-                name: "Counterstrike Test",
-                contextIconClass: "fas fa-swords",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$defense.counterstrike.disabled;
+                {
+                    functionName: "assistedCounterstrikeTest",
+                    name: "Counterstrike Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.COUNTERSTRIKE
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return (
+                            item && !item.system.$defense.counterstrike.disabled
+                        );
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
+            ]),
         );
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
     }
 
     static defineSchema() {
@@ -4781,138 +5327,114 @@ export class MasteryLevelItemData extends SohlItemData {
         return 1;
     }
 
-    getIntrinsicActions(_data = this) {
-        let actions = super.getIntrinsicActions(_data).map((a) => {
-            if (a.contextGroup === "default") {
-                a.contextGroup = "essential";
-            }
-            return a;
-        });
-
-        actions = actions.concat([
-            {
-                functionName: "successTest",
-                name: "Success Test",
-                contextIconClass: "far fa-dice-d20",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$masteryLevel.disabled;
-                },
-                contextGroup: "default",
-            },
-            {
-                functionName: "successValueTest",
-                name: "Success Value Test",
-                contextIconClass: "far fa-list",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$masteryLevel.disabled;
-                },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "opposedTestStart",
-                name: "Opposed Test",
-                contextIconClass:
-                    "fas fa-arrow-down-left-and-arrow-up-right-to-center",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    if (!item) return false;
-                    const token = item.actor?.getToken();
-                    return token && !item.system.$masteryLevel.disabled;
-                },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "fateTest",
-                name: "Fate Test",
-                contextIconClass: "fas fa-stars",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return (
-                        item &&
-                        !item.system.$masteryLevel.fate.disabled &&
-                        item.system.availableFate.length > 0
-                    );
-                },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "setImproveFlag",
-                name: "Set Skill Dev Flag",
-                contextIconClass: "fas fa-star",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return (
-                        item &&
-                        item.system.canImprove &&
-                        !item.system.improveFlag
-                    );
-                },
-                contextGroup: "general",
-            },
-            {
-                functionName: "unsetImproveFlag",
-                name: "Unset Skill Dev Flag",
-                contextIconClass: "far fa-star",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return (
-                        item &&
-                        item.system.canImprove &&
-                        item.system.improveFlag
-                    );
-                },
-                contextGroup: "general",
-            },
-            {
-                functionName: "improveWithXP",
-                name: "Improve Mastery using XP",
-                contextIconClass: "fas fa-lightbulb-on",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    if (!item || !item.system.canImprove) return false;
-                    if (item.system.$masteryLevel.disabled) return false;
-                    const xpItem = item.actor?.getTraitByAbbrev("xp");
-                    const xpVal =
-                        (xpItem &&
-                            !xpItem?.system.$score?.disabled &&
-                            xpItem?.system.$score.effective) ||
-                        -1;
-                    return xpItem && xpVal >= item.system.$masteryLevel.index;
-                },
-                contextGroup: "general",
-            },
-            {
-                functionName: "improveWithSDR",
-                name: "Improve Mastery using SDR",
-                contextIconClass: "fas fa-star",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item?.system.canImprove && item.system.improveFlag;
-                },
-                contextGroup: "general",
-            },
-        ]);
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super
+            .getIntrinsicActions(
+                _data,
+                defaultAction || "successTest",
+                Utility.uniqueActions(actions, [
+                    {
+                        functionName: "successTest",
+                        name: "Success Test",
+                        contextIconClass:
+                            SuccessTestResult.testTypes[
+                                SuccessTestResult.TEST_TYPE.SKILL
+                            ].icon,
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return item && !item.system.$masteryLevel.disabled;
+                        },
+                        contextGroup: "essential",
+                    },
+                    {
+                        functionName: "opposedTestStart",
+                        name: "Opposed Test",
+                        contextIconClass:
+                            "fas fa-arrow-down-left-and-arrow-up-right-to-center",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            if (!item) return false;
+                            const token = item.actor?.getToken();
+                            return token && !item.system.$masteryLevel.disabled;
+                        },
+                        contextGroup: "essential",
+                    },
+                    {
+                        functionName: "opposedTestResume",
+                        name: "Opposed Test Resume",
+                        contextIconClass: "far fa-gears",
+                        contextCondition: false,
+                        contextGroup: "hidden",
+                    },
+                    {
+                        functionName: "setImproveFlag",
+                        name: "Set Skill Dev Flag",
+                        contextIconClass: "fas fa-star",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return (
+                                item &&
+                                item.system.canImprove &&
+                                !item.system.improveFlag
+                            );
+                        },
+                        contextGroup: "general",
+                    },
+                    {
+                        functionName: "unsetImproveFlag",
+                        name: "Unset Skill Dev Flag",
+                        contextIconClass: "far fa-star",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return (
+                                item &&
+                                item.system.canImprove &&
+                                item.system.improveFlag
+                            );
+                        },
+                        contextGroup: "general",
+                    },
+                    {
+                        functionName: "improveWithSDR",
+                        name: "Improve Mastery using SDR",
+                        contextIconClass: "fas fa-star",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return (
+                                item?.system.canImprove &&
+                                item.system.improveFlag
+                            );
+                        },
+                        contextGroup: "general",
+                    },
+                ]),
+            )
+            .sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
     }
 
     static defineSchema() {
@@ -4938,193 +5460,12 @@ export class MasteryLevelItemData extends SohlItemData {
         });
     }
 
-    setImproveFlag() {
-        if (!this.improveFlag) this.item.update({ "system.improveFlag": true });
-    }
-
-    async unsetImproveFlag() {
-        if (this.improveFlag)
-            await this.item.update({ "system.improveFlag": false });
-    }
-
-    toggleImproveFlag() {
-        if (this.improveFlag) this.unsetImproveFlag();
-        else this.setImproveFlag();
-    }
-
-    /**
-     * Updates the boosts value by adding the given value if the input is a number.
-     *
-     * @param {*} val
-     */
-    applyBoosts(val) {
-        if (typeof val === "number") {
-            this.$boosts += val;
-        }
-    }
-
-    /**
-     * Applies penalties to the current context
-     */
-    applyPenalties() {
-        // Subclasses can define behaviors
-    }
-
-    /**
-     * Calculates the mastery boost based on the given mastery level. Returns different boost values based on different ranges of mastery levels.
-     *
-     * @static
-     * @param {*} ml
-     * @returns {(3 | 4 | 10 | 9 | 8 | 7 | 6 | 5)}
-     */
-    static calcMasteryBoost(ml) {
-        if (ml <= 39) return 10;
-        else if (ml <= 44) return 9;
-        else if (ml <= 49) return 8;
-        else if (ml <= 59) return 7;
-        else if (ml <= 69) return 6;
-        else if (ml <= 79) return 5;
-        else if (ml <= 99) return 4;
-        else return 3;
-    }
-
-    /**
-     * Returns number of victory stars.
-     * @param {*} sourceTestResult
-     * @param {*} targetTestResult
-     * @returns Positive numbers for attacker victory stars, and negative numbers for defender victory stars.
-     * Zero indicates a tie. If there are no victory stars at all (due to both having failures), returns null.
-     */
-    static calcVictoryStars(sourceTestResult, targetTestResult) {
-        if (
-            sourceTestResult.successLevel <=
-                SOHL.CONST.SUCCESS_LEVEL.MarginalFailure &&
-            targetTestResult.successLevel <=
-                SOHL.CONST.SUCCESS_LEVEL.MarginalFailure
-        ) {
-            return null;
-        } else {
-            let victoryStars =
-                sourceTestResult.successLevel - targetTestResult.successLevel;
-            if (victoryStars) return victoryStars;
-
-            // We have a tie, so first try to break it by giving it to the one with the higher roll
-            const diff =
-                sourceTestResult.roll.total - targetTestResult.roll.total;
-            if (!diff) return diff > 0 ? 1 : -1;
-
-            // We still have a tie, so generate a random number to determine who wins
-            const result =
-                foundry.dice.MersenneTwister.int() -
-                foundry.dice.MersenneTwister.int();
-            return result > 0 ? 1 : -1;
-        }
-    }
-
-    static victoryStarsText(vs) {
-        const result = {
-            vsList: ["None"],
-            text: "Both Fail",
-            isTester: false,
-            isOpponent: false,
-        };
-        if (vs !== null) {
-            result.victoryStars = Math.abs(vs);
-            if (vs) {
-                result.isTester = vs > 0;
-                result.isOpponent = !result.isTester;
-                result.vsList = new Array(result.victoryStars).fill(
-                    result.isTester
-                        ? SOHL.CONST.CHARS.STARF
-                        : SOHL.CONST.CHARS.STAR,
-                );
-                result.text = result.vsList.join("");
-            }
-        }
-        return result;
-    }
-
-    static async testAdjust(rollResult) {
-        return rollResult;
-    }
-
-    /**
-     * Perform Success Test for this Item
-     *
-     * @param {object} options
-     * @returns {SuccessTestChatData}
-     */
-    async successTest(speaker, actor, token, character, scope) {
-        let {
-            skipDialog = false,
-            type = `${this.type}-${this.name}-test`,
-            title = `${this.item.label} Test`,
-            testResult,
-        } = scope;
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-            needsActor: true,
-            self: this,
-        }));
-
-        if (!testResult) {
-            testResult = await this.$masteryLevel.test({
-                skipDialog,
-                type,
-                title,
-            });
-        } else {
-            testResult = MasteryLevelModifier.testResultFromObject(testResult);
-            testResult = await MasteryLevelItemData.testAdjust(testResult);
-        }
-
-        return testResult;
-    }
-
-    /**
-     * Perform Success Value Test for this Item.
-     *
-     * @param {object} options
-     * @returns {SuccessTestChatData}
-     */
-    successValueTest(speaker, actor, token, character, scope) {
-        let {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-svtest`,
-            title = `${this.item.label} Success Value Test`,
-        } = scope;
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-            needsActor: true,
-            self: this,
-        }));
-
-        return this.$masteryLevel.test({
-            skipDialog,
-            noChat,
-            type,
-            title,
-        });
-    }
-
     /**
      * Perform an opposed test
      * @param {object} options
      * @returns {SuccessTestChatData}
      */
     async opposedTestStart(speaker, actor, token, character, scope) {
-        let {
-            skipDialog = false,
-            type = `${this.type}-${this.name}-opposedtest`,
-            title = `${this.item.label} Opposed Test`,
-        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -5133,42 +5474,55 @@ export class MasteryLevelItemData extends SohlItemData {
             needsToken: true,
             self: this,
         }));
-        let target = Utility.getUserTargetedToken(token);
+        let {
+            skipDialog = false,
+            type = `${this.item.type}-${this.item.name}-source-opposedtest`,
+            title = `${this.item.label} Test`,
+            targetToken,
+        } = scope;
 
-        const sourceTestResult = await this.$masteryLevel.test({
+        targetToken ||= Utility.getUserTargetedToken(token);
+        if (!targetToken) return null;
+
+        if (!token) {
+            ui.notifications.warn(`No attacker token identified.`);
+            return null;
+        }
+
+        if (!token.isOwner) {
+            ui.notifications.warn(
+                `You do not have permissions to perform this operation on ${token.name}`,
+            );
+            return null;
+        }
+
+        const sourceTestResult = await this.successTest({
+            speaker,
             skipDialog,
             type,
             title,
             noChat: true,
         });
 
-        const chatTemplate =
-            "systems/sohl/templates/chat/opposed-request-card.html";
+        const opposedTest = OpposedTestResult.fromData({
+            speaker,
+            targetToken,
+            sourceTestResult,
+        });
 
-        const chatData = {
-            variant: SOHL.sysVer.id,
-            sourceToken: token,
-            targetToken: target,
-            sourceRollResult: sourceTestResult,
-        };
-
-        const chatHtml = await renderTemplate(chatTemplate, chatData);
-
-        const messageData = {
-            user: game.user.id,
-            speaker: this.actor?.getSpeaker || ChatMessage.getSpeaker(),
-            content: chatHtml.trim(),
-            sound: CONFIG.sounds.dice,
-        };
-
-        ChatMessage.applyRollMode(messageData, "roll");
-
-        // Create a chat message
-        return ChatMessage.create(messageData);
+        return opposedTest.toChat();
     }
 
     async opposedTestResume(speaker, actor, token, character, scope) {
-        let { sourceTestResult, targetTestResult } = scope;
+        let {
+            noChat = false,
+            opposedTestResult,
+            testType = SuccessTestResult.TEST_TYPE.SKILL,
+        } = scope;
+
+        if (!opposedTestResult) {
+            throw new Error("Must supply opposedTestResult");
+        }
 
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
@@ -5179,276 +5533,36 @@ export class MasteryLevelItemData extends SohlItemData {
             self: this,
         }));
 
-        if (!targetTestResult) {
-            // Roll for the target
-            targetTestResult = await this.$masteryLevel.test({
-                type: "target-opposed-test",
+        if (!opposedTestResult.targetTestResult) {
+            opposedTestResult.targetTestResult = this.successTest({
+                noChat: true,
+                testType,
             });
-        }
-
-        const victoryStars = MasteryLevelItemData.calcVictoryStars(
-            sourceTestResult,
-            targetTestResult,
-        );
-
-        const opposedTestResult = {
-            sourceTestResult,
-            targetTestResult,
-            victoryStars,
-            vsText: MasteryLevelItemData.victoryStarsText(victoryStars),
-            sourceWins: victoryStars > 0,
-            targetWins: victoryStars < 0,
-        };
-
-        return await MasteryLevelModifier.opposedTestToChat(
-            speaker,
-            actor,
-            token,
-            character,
-            {
-                speaker,
-                opposedTestResult,
-            },
-        );
-    }
-
-    async fateTest(speaker, actor, token, character = {}) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-            needsActor: true,
-            self: this,
-        }));
-
-        // Ensure that there is fate available to be used
-        const fateList = this.availableFate;
-        let fateUuid;
-        if (fateList?.length) {
-            const dlgData = {
-                fateChoices: Object.fromEntries(
-                    fateList.map((it) => [it.uuid, it.name]),
-                ),
-            };
-            const compiled = Handlebars.compile(`<form id="select-token"><div class="form-group">
-                <label>Select which fate to use:</label>
-                <select name="fateChoice">
-                {{selectOptions fateChoices}}
-            </select></div></form>`);
-            const dlgHtml = compiled(dlgData, {
-                allowProtoMethodsByDefault: true,
-                allowProtoPropertiesByDefault: true,
-            });
-            fateUuid = await Dialog.prompt({
-                title: "Choose Fate",
-                content: dlgHtml,
-                label: "OK",
-                callback: async (html) => {
-                    const form = html.querySelector("form");
-                    const fd = new FormDataExtended(form);
-                    const formdata = foundry.utils.expandObject(fd.object);
-                    return formdata.fateChoice;
-                },
-                options: { jQuery: false },
-                rejectClose: false,
-            });
-            if (!fateUuid) return null;
-        }
-        const fateItem = await fromUuid(fateUuid);
-        ui.notifications.warn(`Can't find fate with UUID ${fateUuid}`);
-        if (!fateItem) return null;
-
-        const mlMod = MasteryLevelModifier.create(this.$masteryLevel, {
-            parent: this,
-        });
-        this.fateBonusItems.forEach((it) => {
-            mlMod.add(it.name, "FateBns", it.system.$level.effective);
-        });
-        const fateTestResult = this.$masteryLevel.fate.test({
-            mlMod,
-            noChat: true,
-        });
-
-        // If user cancelled the roll, then return immediately
-        if (!fateTestResult) return null;
-
-        MasteryLevelModifier._handleDetailedDescription(fateTestResult, [
-            {
-                maxValue: SOHL.CONST.SUCCESS_LEVEL.MarginalFailure,
-                lastDigit: [],
-                label: "No Fate",
-                description: "Fate test failed, no fate",
-            },
-            {
-                maxValue: Number.MAX_SAFE_INTEGER,
-                lastDigit: [],
-                label: "Fate Succeeded",
-                description:
-                    "Fate test succeeded, increase test by 1 Success Level",
-            },
-        ]);
-        let fateCost = 0;
-        if (fateTestResult.isSuccess) {
-            // If we got a critical success, then ask the player how to proceed
-            if (fateTestResult.isCritical) {
-                const fateResult = await Dialog.wait({
-                    title: "Fate Critical Success",
-                    content: `<p>Choose how to proceed:
-                    <ol>
-                    <li><strong>Free Fate:</strong> Get +1 success level bonus, but the character doesn't have to expend any fate points.</li>
-                    <li><strong>Double Fate:</strong> Get +2 success level bonus, but the character must expend one fate point.</li>
-                    </ol></p>`,
-                    buttons: {
-                        freeFate: {
-                            icon: '<i class="far fa-circle-check"></i>',
-                            label: "Free",
-                            callback: () => "+1 Bonus, no cost",
-                        },
-                        doubleFate: {
-                            icon: '<i class="fas fa-check-double"></i>',
-                            label: "Double",
-                            callback: () => "+2 Bonus, 1 Fate",
-                        },
-                    },
-                    close: () => "freeFate",
-                    default: "freeFate",
-                    options: { jQuery: false },
-                });
-                if (fateResult === "doubleFate") {
-                    fateTestResult.label = "Fate Critical Success";
-                    fateTestResult.description =
-                        "Increase test Success Level by 2, cost 1 FP";
-                    fateCost = 1;
-                } else {
-                    fateTestResult.label = "Fate Critical Success";
-                    fateTestResult.description =
-                        "Increase test Success Level by 1, no fate cost";
-                }
-            } else {
-                fateCost = 1;
-            }
+            if (!opposedTestResult.targetTestResult) return null;
         } else {
-            fateCost = fateTestResult.isCritical ? 1 : 0;
+            // In this situation, where the targetTestResult is provided,
+            // the GM is modifying the result of a prior opposedTest.
+            // Therefore, we re-display the dialog for each of the prior
+            // successTests.
+            opposedTestResult.sourceTestResult =
+                opposedTestResult.sourceTestResult.item.successTest({
+                    noChat: true,
+                    successTestResult: opposedTestResult.sourceTestResult,
+                });
+            opposedTestResult.targetTestResult =
+                opposedTestResult.targetTestResult.item.successTest({
+                    noChat: true,
+                    successTestResult: opposedTestResult.targetTestResult,
+                });
         }
 
-        await MasteryLevelModifier.successTestToChat({
-            speaker,
-            testResult: fateTestResult,
-        });
+        opposedTestResult.evaluate();
 
-        // Reduce the fate level by the fate cost if any
-        if (fateCost) {
-            const newFate = Math.max(0, fateItem.system.levelBase - fateCost);
-            if (newFate !== fateItem.system.levelBase) {
-                fateItem.update({ "system.levelBase": newFate });
-            }
+        if (!noChat) {
+            opposedTestResult.toChat();
         }
 
-        // Reduce the number of charges for each fate bonus (if any)
-        this.fateBonusItems.forEach((it) => {
-            if (!it.system.$charges.disabled) {
-                const newCharges = Math.max(0, it.system.charges.value - 1);
-                if (newCharges !== it.system.charges.value) {
-                    it.update({ "system.charges.value": newCharges });
-                }
-            }
-        });
-
-        return fateTestResult;
-    }
-
-    async improveWithSDR(speaker) {
-        const updateData = { "system.improveFlag": false };
-        let roll = await Roll.create("1d100 + @sb", {
-            sb: this.skillBase.value,
-        });
-        const isSuccess = roll.total > this.$masteryLevel.base;
-
-        if (isSuccess) {
-            updateData["system.masteryLevelBase"] =
-                this.masteryLevelBase + this.sdrIncr;
-        }
-        let prefix = `${this.constructor.subTypes[this.subType]} ${
-            this.constructor.typeLabel.singular
-        }`;
-        const chatTemplate =
-            "systems/sohl/templates/chat/standard-test-card.html";
-        const chatTemplateData = {
-            variant: SOHL.sysVer.id,
-            type: `${this.type}-${this.name}-improve-sdr`,
-            title: `${this.item.label} Development Roll`,
-            effTarget: this.$masteryLevel.base,
-            isSuccess: isSuccess,
-            rollValue: roll.total,
-            rollResult: roll.result,
-            showResult: true,
-            resultText: `${isSuccess ? "" : "No "}${prefix} Increase`,
-            resultDesc: isSuccess
-                ? `${this.item.label} increased by ${this.sdrIncr} to ${
-                      this.$masteryLevel.base + this.sdrIncr
-                  }`
-                : "",
-            description: isSuccess ? "Success" : "Failure",
-            notes: "",
-            sdrIncr: this.sdrIncr,
-        };
-
-        const html = await renderTemplate(chatTemplate, chatTemplateData);
-
-        const messageData = {
-            user: game.user.id,
-            speaker,
-            content: html.trim(),
-            sound: CONFIG.sounds.dice,
-        };
-
-        ChatMessage.applyRollMode(messageData, "roll");
-
-        // Create a chat message
-        await ChatMessage.create(messageData);
-    }
-
-    async improveWithXP(speaker) {
-        const xpItem = this.actor.getTraitByAbbrev("xp");
-        if (xpItem?.system.$score.disabled) {
-            ui.notifications.warn(
-                "Exprience Points disabled or don't exist, cannot improve with XP",
-            );
-            return null;
-        }
-        const xpVal = xpItem.system.$score.effective || 0;
-        const newXPVal = xpVal - Math.max(this.$masteryLevel.index, 1);
-        if (newXPVal >= 0) {
-            await this.item.update({
-                "system.masteryLevelBase": this.masteryLevelBase + 1,
-            });
-            await xpItem.update({
-                "system.textValue": String(newXPVal),
-            });
-            const chatTemplate = "systems/sohl/templates/chat/xp-card.html";
-            const chatTemplateData = {
-                variant: SOHL.sysVer.id,
-                type: `${this.type}-${this.name}-improve-xp`,
-                title: `${this.item.label} Experience Point Increase`,
-                xpCost: xpVal - newXPVal,
-                skillIncrease: 1,
-            };
-
-            const html = await renderTemplate(chatTemplate, chatTemplateData);
-
-            const messageData = {
-                user: game.user.id,
-                speaker,
-                content: html.trim(),
-                sound: CONFIG.sounds.dice,
-            };
-
-            ChatMessage.applyRollMode(messageData, "roll");
-
-            // Create a chat message
-            await ChatMessage.create(messageData);
-        }
+        return opposedTestResult;
     }
 
     /** @override */
@@ -5458,13 +5572,15 @@ export class MasteryLevelItemData extends SohlItemData {
         this.$masteryLevel = new MasteryLevelModifier(this, {
             fate: new MasteryLevelModifier(this),
         });
+        this.$masteryLevel.setBase(this.masteryLevelBase);
         if (this.actor) {
             const fateSetting = game.settings.get("sohl", "optionFate");
+
             if (fateSetting === "everyone") {
-                this.$masteryLevel.setBase(this.masteryLevelBase);
+                this.$masteryLevel.fate.setBase(50);
             } else if (fateSetting === "pconly") {
                 if (this.actor.hasPlayerOwner) {
-                    this.$masteryLevel.setBase(this.masteryLevelBase);
+                    this.$masteryLevel.fate.setBase(50);
                 } else {
                     this.$masteryLevel.fate.setDisabled(
                         "Non-Player Character/Creature",
@@ -5553,7 +5669,6 @@ export class MasteryLevelItemData extends SohlItemData {
                 );
             }
         }
-        this.applyPenalties();
     }
 }
 
@@ -5878,29 +5993,26 @@ export class MysticalAbilityItemData extends SubtypeMixin(
         );
     }
 
-    getIntrinsicActions(_data = this) {
-        let actions = super.getIntrinsicActions(_data).map((a) => {
-            if (a.contextGroup === "default") {
-                a.contextGroup = "essential";
-            }
-            return a;
-        });
-
-        actions.push({
-            functionName: "perform",
-            name: `Perform ${this.constructor.subTypes[this.subType]}`,
-            contextIconClass: "far fa-bullseye",
-            contextCondition: (header) => {
-                header = header instanceof HTMLElement ? header : header[0];
-                const li = header.closest(".item");
-                const item = fromUuidSync(li.dataset.uuid);
-                return item && !item.system.$masteryLevel.disabled;
-            },
-            contextGroup: "default",
-        });
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction || "perform",
+            Utility.uniqueActions(actions, [
+                {
+                    functionName: "perform",
+                    name: `Perform ${this.constructor.subTypes[this.subType]}`,
+                    contextIconClass: "far fa-hand-sparkles",
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$masteryLevel.disabled;
+                    },
+                    contextGroup: "essential",
+                },
+            ]),
+        );
     }
 
     perform(
@@ -6134,10 +6246,6 @@ export class DomainItemData extends SohlItemData {
         return this.item.getFlag("sohl", "embodiments") || [];
     }
 
-    getIntrinsicActions(_data = this) {
-        return super.getIntrinsicActions(_data);
-    }
-
     static defineSchema() {
         return foundry.utils.mergeObject(
             super.defineSchema(),
@@ -6276,81 +6384,96 @@ export class InjuryItemData extends SohlItemData {
         );
     }
 
-    getIntrinsicActions(_data = this) {
-        let actions = super.getIntrinsicActions(_data).map((a) => {
-            if (a.contextGroup === "default") {
-                a.contextGroup = "essential";
-            }
-            return a;
-        });
-
-        actions.push(
-            {
-                functionName: "bleedingStoppageTest",
-                name: "Bleeding Stoppage Test",
-                contextIconClass: "fas fa-droplet-slash",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    if (!item?.system.isBleeding) return false;
-                    const physician = item?.actor?.getSkillByAbbrev("pysn");
-                    return (
-                        physician && !physician.system.$masteryLevel.disabled
-                    );
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction || "healTest",
+            Utility.uniqueActions(actions, [
+                {
+                    functionName: "bleedingStoppageTest",
+                    name: "Bleeding Stoppage Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.BLEEDINGSTOPAGE
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        if (!item?.system.isBleeding) return false;
+                        const physician = item?.actor?.getSkillByAbbrev("pysn");
+                        return (
+                            physician &&
+                            !physician.system.$masteryLevel.disabled
+                        );
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "bloodLossAdvanceTest",
-                name: "Blood Loss Advance Test",
-                contextIconClass: "fas fa-droplet",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    if (!item || !item.system.isBleeding) return false;
-                    const strength = item?.actor?.getTraitByAbbrev("str");
-                    return strength && !strength.system.$masteryLevel?.disabled;
+                {
+                    functionName: "bloodLossAdvanceTest",
+                    name: "Blood Loss Advance Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.BLOODLESSADVANCE
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        if (!item || !item.system.isBleeding) return false;
+                        const strength = item?.actor?.getTraitByAbbrev("str");
+                        return (
+                            strength && !strength.system.$masteryLevel?.disabled
+                        );
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "treatmentTest",
-                name: "Treatment Test",
-                contextIconClass: "fas fa-staff-snake",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    if (item?.system.isBleeding) return false;
-                    const physician = item?.actor?.getSkillByAbbrev("pysn");
-                    return (
-                        physician && !physician.system.$masteryLevel.disabled
-                    );
+                {
+                    functionName: "treatmentTest",
+                    name: "Treatment Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.TREATMENT
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        if (item?.system.isBleeding) return false;
+                        const physician = item?.actor?.getSkillByAbbrev("pysn");
+                        return (
+                            physician &&
+                            !physician.system.$masteryLevel.disabled
+                        );
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "default",
-            },
-            {
-                functionName: "healTest",
-                name: "Heal Test",
-                contextIconClass: "fas fa-heart-pulse",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    if (item?.system.isBleeding) return false;
-                    const endurance = item?.actor?.getTraitByAbbrev("end");
-                    return (
-                        endurance && !endurance.system.$masteryLevel.disabled
-                    );
+                {
+                    functionName: "healTest",
+                    name: "Heal Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.HEAL
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        if (item?.system.isBleeding) return false;
+                        const endurance = item?.actor?.getTraitByAbbrev("end");
+                        return (
+                            endurance &&
+                            !endurance.system.$masteryLevel.disabled
+                        );
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "default",
-            },
+            ]),
         );
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
     }
 
     treatmentTest(
@@ -6718,104 +6841,104 @@ export class AfflictionItemData extends SubtypeMixin(SohlItemData) {
         );
     }
 
-    getIntrinsicActions(_data = this) {
-        let actions = super.getIntrinsicActions(_data).map((a) => {
-            if (a.contextGroup === "default") {
-                a.contextGroup = "essential";
-            }
-            return a;
-        });
+    getIntrinsicActions(_data = this, defaultAction, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction || "transmit",
+            Utility.uniqueActions(actions, [
+                {
+                    functionName: "transmit",
+                    name: "Transmit Affliction",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.AFFLICTIONTRANSMIT
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item?.system.canTransmit;
+                    },
 
-        actions.push(
-            {
-                functionName: "transmit",
-                name: "Transmit Affliction",
-                contextIconClass: "fas fa-viruses",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item?.system.canTransmit;
+                    contextGroup: "essential",
                 },
-
-                contextGroup: "default",
-            },
-            {
-                functionName: "courseTest",
-                name: "Course Test",
-                contextIconClass: "fas fa-heart-pulse",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    if (item.system.isDormant) return false;
-                    const endurance = item?.actor?.getTraitByAbbrev("end");
-                    return (
-                        endurance && !endurance.system.$masteryLevel.disabled
-                    );
+                {
+                    functionName: "courseTest",
+                    name: "Course Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.AFFLICTIONCOURSE
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        if (item.system.isDormant) return false;
+                        const endurance = item?.actor?.getTraitByAbbrev("end");
+                        return (
+                            endurance &&
+                            !endurance.system.$masteryLevel.disabled
+                        );
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "diagnosisTest",
-                name: "Diagnosis Test",
-                contextIconClass: "fas fa-stethoscope",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.isTreated;
+                {
+                    functionName: "diagnosisTest",
+                    name: "Diagnosis Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.DIAGNOSIS
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.isTreated;
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "treatmentTest",
-                name: "Treatment Test",
-                contextIconClass: "fas fa-staff-snake",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.isTreated;
+                {
+                    functionName: "treatmentTest",
+                    name: "Treatment Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.TREATMENT
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.isTreated;
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "healingTest",
-                name: "Healing Test",
-                contextIconClass: "fas fa-heart-pulse",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    if (item?.system.$healingRate.disabled) return false;
-                    const endurance = item?.actor?.getTraitByAbbrev("end");
-                    return (
-                        endurance && !endurance.system.$masteryLevel.disabled
-                    );
+                {
+                    functionName: "healingTest",
+                    name: "Healing Test",
+                    contextIconClass:
+                        SuccessTestResult.testTypes[
+                            SuccessTestResult.TEST_TYPE.HEAL
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        if (item?.system.$healingRate.disabled) return false;
+                        const endurance = item?.actor?.getTraitByAbbrev("end");
+                        return (
+                            endurance &&
+                            !endurance.system.$masteryLevel.disabled
+                        );
+                    },
+                    contextGroup: "essential",
                 },
-                contextGroup: "essential",
-            },
-            {
-                functionName: "infectionCourseTest",
-                name: "Infection Course Test",
-                contextIconClass: "fas fa-bullseye",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const affliction = fromUuidSync(li.dataset.uuid);
-                    return (
-                        affliction &&
-                        affliction.system.subType === "infection" &&
-                        !affliction.system.$healingRate.effective < 6
-                    );
-                },
-                contextGroup: "essential",
-            },
+            ]),
         );
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
     }
 
     /** @override */
@@ -7163,14 +7286,18 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
         return result;
     }
 
-    getIntrinsicActions(_data = this) {
+    getIntrinsicActions(_data = this, defaultAction = null, options = []) {
         if (this.intensity === "attribute" && this.isNumeric) {
-            return super.getIntrinsicActions(_data);
+            return super.getIntrinsicActions(_data, defaultAction, options);
         } else {
             // If this is not a numeric attribute, then targetlevel is
             // actually not used, so don't include its intrinsic actions
             // and instead use the intrinsic actions for SohlItemData.
-            return SohlItemData.prototype.getIntrinsicActions(_data);
+            return SohlItemData.prototype.getIntrinsicActions(
+                _data,
+                defaultAction,
+                options,
+            );
         }
     }
 
@@ -8263,10 +8390,6 @@ export class ProjectileGearItemData extends SubtypeMixin(GearItemData) {
                 abbrev: "ProjBlunt",
             },
             "system.$traits.bleed": { label: "Bleeding", abbrev: "ProjBld" },
-            "system.$traits.armorReduction": {
-                label: "Armor Reduction",
-                abbrev: "ProjAR",
-            },
         });
     }
 
@@ -8903,6 +9026,37 @@ export class Utility {
         for (let it of iterators) yield* it;
     }
 
+    /**
+     * Ensures the resulting actions array has only unique actions.
+     * Keeps all items in newActions, and only those items in oldActions that are not already in newActions.
+     * @param {*} oldActions Array of actions to only keep if it is not already in newActions
+     * @param {*} newActions Array of actions to keep
+     * @returns
+     */
+    static uniqueActions(newActions, oldActions) {
+        return oldActions.reduce((ary, a) => {
+            if (!ary.some((i) => i.functionName === a.functionName))
+                ary.push(a);
+            return ary;
+        }, newActions);
+    }
+
+    static listToText(ary) {
+        if (!ary?.length) return "";
+        if (ary.length === 1) {
+            return ary[0];
+        } else if (ary.length === 2) {
+            return `${ary[0]} or ${ary[1]}`;
+        } else {
+            let str = "";
+            for (let i = 0; i < ary.length - 1; i++) {
+                str += `${ary[i]}, `;
+            }
+            str += `or ${ary.at(-1)}`;
+            return str;
+        }
+    }
+
     // A very simple object merge method that doesn't try to do
     // anything fancy.  Always modifies target.
     static simpleMerge(target, changes) {
@@ -8925,23 +9079,35 @@ export class Utility {
             return result;
         }
 
-        if (!game.combat || game.combat.combatants.length === 0) {
-            ui.notifications.warn(`No active combatant.`);
+        if (!game.combat?.started) {
+            ui.notifications.warn("No active combat.");
+            return null;
+        }
+
+        if (game.combat.combatants.size === 0) {
+            ui.notifications.warn(`No combatants.`);
             return null;
         }
 
         const combatant = game.combat.combatant;
 
+        if (combatant.isDefeated) {
+            ui.notifications.warn(
+                `Combatant ${combatant.token.name} has been defeated`,
+            );
+            return null;
+        }
+
         if (token && token.id !== combatant.token.id) {
             ui.notifications.warn(
-                `${token.name} cannot perform that action at this time.`,
+                `${combatant.token.name} is not the current combatant`,
             );
             return null;
         }
 
         if (!combatant.actor.isOwner) {
             ui.notifications.warn(
-                `You do not have permissions to control ${combatant.token.name}.`,
+                `You do not have permissions to control the combatant ${combatant.token.name}.`,
             );
             return null;
         }
@@ -9423,12 +9589,12 @@ export class Utility {
 
         rollResults.successLevel =
             roll.total <= rollResults.target
-                ? SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess
-                : SOHL.CONST.SUCCESS_LEVEL.MarginalFailure;
+                ? SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS
+                : SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
         rollResults.successLevel += successLevelMod;
         rollResults.isSuccess =
             rollResults.successLevel >=
-            SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
+            SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
 
         if (critSuccess.length || critFailure.length) {
             rollResults.isCritical = rollResults.isSuccess
@@ -9451,8 +9617,8 @@ export class Utility {
                 successLevelIncr =
                     rollResults.successLevel -
                     (rollResults.isSuccess
-                        ? SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess
-                        : SOHL.CONST.SUCCESS_LEVEL.CriticalFailure);
+                        ? SuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS
+                        : SuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE);
             }
             if (successLevelIncr > 1 || successLevelIncr < -1) {
                 rollResults.description = `${rollResults.description} (${
@@ -9463,9 +9629,9 @@ export class Utility {
             rollResults.successLevel = Math.max(
                 Math.min(
                     rollResults.successLevel,
-                    SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess,
+                    SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
                 ),
-                SOHL.CONST.SUCCESS_LEVEL.MarginalFailure,
+                SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE,
             );
             rollResults.description = rollResults.isSuccess
                 ? "Success"
@@ -9729,13 +9895,17 @@ export class Utility {
      */
 
     // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-    static displayChatActionButtons(message, html, data) {
+    static displayChatActions(message, html, data) {
         const chatCard = html.find(".chat-card");
         if (chatCard.length > 0) {
             // If the user is the GM, proceed
             if (game.user.isGM) return;
 
-            // Otherwise conceal action buttons
+            // Conceal edit link
+            const editAnchor = chatCard.find("a.edit-action");
+            editAnchor.style.display = "none";
+
+            // Conceal action buttons
             const buttons = chatCard.find("button[data-action]");
             // biome-ignore lint/correctness/noUnusedVariables: <explanation>
             buttons.each((i, btn) => {
@@ -9749,20 +9919,31 @@ export class Utility {
         }
     }
 
-    static async onChatCardAction(event) {
+    static async onChatCardEditAction(event) {
+        event.preventDefault();
+        return await Utility._executeAction(event.currentTarget.dataset);
+    }
+
+    static async onChatCardButton(event) {
         event.preventDefault();
         const button = event.currentTarget;
         button.disabled = true;
+        const result = await Utility._executeAction(button.dataset);
+        button.disabled = false;
+        return result;
+    }
+
+    static async _executeAction(dataset) {
         const options = {};
-        for (const [key, val] of button.dataset.entries()) {
+        for (const key in dataset) {
             if (key.endsWith("Json")) {
                 const newKey = key.slice(0, -4);
-                options[newKey] = JSON.parse(val);
+                options[newKey] = JSON.parse(dataset[key]);
             } else {
-                options[key] = val;
+                options[key] = dataset[key];
             }
         }
-        let doc = await fromUuid(options.targetUuid);
+        let doc = await fromUuid(options.actionHandlerUuid);
         if (doc instanceof Token) {
             options.token = doc.document;
             options.actor = doc.actor;
@@ -9783,8 +9964,7 @@ export class Utility {
             );
         }
 
-        await options.actor.system.execute(options.action, ...options);
-        button.disabled = false;
+        return await doc.system.execute(options.action, options);
     }
 }
 
@@ -11405,13 +11585,13 @@ export class SohlMacro extends Macro {
     }
 
     async update(data = [], context = {}) {
-        this.updateSource(data, context);
         if (this.nestedIn) {
             let result = null;
             const idx = this.nestedIn.system.macros.findIndex(
                 (obj) => obj._id === this.id,
             );
             if (idx >= 0) {
+                this.updateSource(data, context);
                 const newAry = foundry.utils.deepClone(
                     this.nestedIn.system.macros,
                 );
@@ -11428,7 +11608,7 @@ export class SohlMacro extends Macro {
                 );
             }
             return result;
-        } else if (this.parent) {
+        } else if (!this.cause) {
             return super.update(data, context);
         }
     }
@@ -11444,7 +11624,7 @@ export class SohlMacro extends Macro {
         } else if (this.cause) {
             this.cause.system.actions.delete(this.id);
             this.cause.sheet.render();
-        } else if (this.parent) {
+        } else {
             return super.delete(context);
         }
     }
@@ -11454,18 +11634,16 @@ export class SohlMacroConfig extends MacroConfig {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ["sohl", "sheet", "macro", "macro-sheet"],
             template: "systems/sohl/templates/dialog/macro-config.html",
             tabs: [
                 {
-                    navSelector: ".sheet-tabs",
+                    navSelector: ".tabs",
                     contentSelector: ".sheet-body",
                     initial: "script",
                 },
             ],
             width: 560,
             height: 600,
-            resizable: true,
         });
     }
 
@@ -11486,6 +11664,7 @@ export class SohlMacroConfig extends MacroConfig {
         data.const = SOHL.sysVer.CONST;
         data.config = SOHL.sysVer.CONFIG;
         data.flags = data.document.flags;
+        data.isAction = data.document.cause;
         data.contextGroupChoices = SohlContextMenu.sortGroups;
         return data;
     }
@@ -12090,7 +12269,7 @@ export class SohlActor extends Actor {
      * @param {String} itemName Either an item id, an item UUID, or an item name
      * @param {String} type The type of Item (e.g., "weapongear")
      */
-    getItem(itemName, { types = [] } = {}) {
+    getItem(itemName, { types = [], isName = false } = {}) {
         if (!itemName) {
             throw new Error(`Must specify a name, id, or UUID`);
         }
@@ -12124,8 +12303,9 @@ export class SohlActor extends Actor {
                 // Type(s) have been specified, so we can use these as a hint as to where to look
                 // for the items.
                 for (const it of this.allItems()) {
-                    if (types.includes(it.type) && it.name === itemName) {
-                        items.push(it);
+                    if (types.includes(it.type)) {
+                        const testVal = isName ? it.name : it.system.abbrev;
+                        if (testVal === itemName) items.push(it);
                     }
                 }
             } else {
@@ -14121,8 +14301,398 @@ export class NestedItemSheet extends ItemSheet {
     }
 }
 
-export class Commands {}
-SOHL.cmds = Commands;
+/**
+ * A standalone, pure JavaScript implementation of the Mersenne Twister pseudo random number generator.
+ *
+ * @author Raphael Pigulla <pigulla@four66.com>
+ * @version 0.2.3
+ * @license
+ * Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *
+ * 3. The names of its contributors may not be used to endorse or promote
+ * products derived from this software without specific prior written
+ * permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+export class MersenneTwister {
+    /**
+     * Instantiates a new Mersenne Twister.
+     * @param {number} [seed]   The initial seed value, if not provided the current timestamp will be used.
+     * @constructor
+     */
+    constructor(seed) {
+        // Initial values
+        this.MAX_INT = 4294967296.0;
+        this.N = 624;
+        this.M = 397;
+        this.UPPER_MASK = 0x80000000;
+        this.LOWER_MASK = 0x7fffffff;
+        this.MATRIX_A = 0x9908b0df;
+
+        // Initialize sequences
+        this.mt = new Array(this.N);
+        this.mti = this.N + 1;
+        this.SEED = this.seed(seed ?? new Date().getTime());
+    }
+
+    /**
+     * Initializes the state vector by using one unsigned 32-bit integer "seed", which may be zero.
+     *
+     * @since 0.1.0
+     * @param {number} seed The seed value.
+     */
+    seed(seed) {
+        this.SEED = seed;
+        let s;
+        this.mt[0] = seed >>> 0;
+
+        for (this.mti = 1; this.mti < this.N; this.mti++) {
+            s = this.mt[this.mti - 1] ^ (this.mt[this.mti - 1] >>> 30);
+            this.mt[this.mti] =
+                ((((s & 0xffff0000) >>> 16) * 1812433253) << 16) +
+                (s & 0x0000ffff) * 1812433253 +
+                this.mti;
+            this.mt[this.mti] >>>= 0;
+        }
+        return seed;
+    }
+
+    /**
+     * Initializes the state vector by using an array key[] of unsigned 32-bit integers of the specified length. If
+     * length is smaller than 624, then each array of 32-bit integers gives distinct initial state vector. This is
+     * useful if you want a larger seed space than 32-bit word.
+     *
+     * @since 0.1.0
+     * @param {array} vector The seed vector.
+     */
+    seedArray(vector) {
+        let i = 1,
+            j = 0,
+            k = this.N > vector.length ? this.N : vector.length,
+            s;
+        this.seed(19650218);
+        for (; k > 0; k--) {
+            s = this.mt[i - 1] ^ (this.mt[i - 1] >>> 30);
+
+            this.mt[i] =
+                (this.mt[i] ^
+                    (((((s & 0xffff0000) >>> 16) * 1664525) << 16) +
+                        (s & 0x0000ffff) * 1664525)) +
+                vector[j] +
+                j;
+            this.mt[i] >>>= 0;
+            i++;
+            j++;
+            if (i >= this.N) {
+                this.mt[0] = this.mt[this.N - 1];
+                i = 1;
+            }
+            if (j >= vector.length) {
+                j = 0;
+            }
+        }
+
+        for (k = this.N - 1; k; k--) {
+            s = this.mt[i - 1] ^ (this.mt[i - 1] >>> 30);
+            this.mt[i] =
+                (this.mt[i] ^
+                    (((((s & 0xffff0000) >>> 16) * 1566083941) << 16) +
+                        (s & 0x0000ffff) * 1566083941)) -
+                i;
+            this.mt[i] >>>= 0;
+            i++;
+            if (i >= this.N) {
+                this.mt[0] = this.mt[this.N - 1];
+                i = 1;
+            }
+        }
+        this.mt[0] = 0x80000000;
+    }
+
+    /**
+     * Generates a random unsigned 32-bit integer.
+     *
+     * @since 0.1.0
+     * @returns {number}
+     */
+    int() {
+        let y,
+            kk,
+            mag01 = [0, this.MATRIX_A];
+
+        if (this.mti >= this.N) {
+            if (this.mti === this.N + 1) {
+                this.seed(5489);
+            }
+
+            for (kk = 0; kk < this.N - this.M; kk++) {
+                y =
+                    (this.mt[kk] & this.UPPER_MASK) |
+                    (this.mt[kk + 1] & this.LOWER_MASK);
+                this.mt[kk] = this.mt[kk + this.M] ^ (y >>> 1) ^ mag01[y & 1];
+            }
+
+            for (; kk < this.N - 1; kk++) {
+                y =
+                    (this.mt[kk] & this.UPPER_MASK) |
+                    (this.mt[kk + 1] & this.LOWER_MASK);
+                this.mt[kk] =
+                    this.mt[kk + (this.M - this.N)] ^ (y >>> 1) ^ mag01[y & 1];
+            }
+
+            y =
+                (this.mt[this.N - 1] & this.UPPER_MASK) |
+                (this.mt[0] & this.LOWER_MASK);
+            this.mt[this.N - 1] =
+                this.mt[this.M - 1] ^ (y >>> 1) ^ mag01[y & 1];
+            this.mti = 0;
+        }
+
+        y = this.mt[this.mti++];
+
+        y ^= y >>> 11;
+        y ^= (y << 7) & 0x9d2c5680;
+        y ^= (y << 15) & 0xefc60000;
+        y ^= y >>> 18;
+
+        return y >>> 0;
+    }
+
+    /**
+     * Generates a random unsigned 31-bit integer.
+     *
+     * @since 0.1.0
+     * @returns {number}
+     */
+    int31() {
+        return this.int() >>> 1;
+    }
+
+    /**
+     * Generates a random real in the interval [0;1] with 32-bit resolution.
+     *
+     * @since 0.1.0
+     * @returns {number}
+     */
+    real() {
+        return this.int() * (1.0 / (this.MAX_INT - 1));
+    }
+
+    /**
+     * Generates a random real in the interval ]0;1[ with 32-bit resolution.
+     *
+     * @since 0.1.0
+     * @returns {number}
+     */
+    realx() {
+        return (this.int() + 0.5) * (1.0 / this.MAX_INT);
+    }
+
+    /**
+     * Generates a random real in the interval [0;1[ with 32-bit resolution.
+     *
+     * @since 0.1.0
+     * @returns {number}
+     */
+    rnd() {
+        return this.int() * (1.0 / this.MAX_INT);
+    }
+
+    /**
+     * Generates a random real in the interval [0;1[ with 32-bit resolution.
+     *
+     * Same as .rnd() method - for consistency with Math.random() interface.
+     *
+     * @since 0.2.0
+     * @returns {number}
+     */
+    random() {
+        return this.rnd();
+    }
+
+    /**
+     * Generates a random real in the interval [0;1[ with 53-bit resolution.
+     *
+     * @since 0.1.0
+     * @returns {number}
+     */
+    rndHiRes() {
+        const a = this.int() >>> 5;
+        const b = this.int() >>> 6;
+        return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
+    }
+
+    /**
+     * A pseudo-normal distribution using the Box-Muller transform.
+     * @param {number} mu     The normal distribution mean
+     * @param {number} sigma  The normal distribution standard deviation
+     * @returns {number}
+     */
+    normal(mu, sigma) {
+        let u = 0;
+        while (u === 0) u = this.random(); // Converting [0,1) to (0,1)
+        let v = 0;
+        while (v === 0) v = this.random(); // Converting [0,1) to (0,1)
+        let n = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        return n * sigma + mu;
+    }
+
+    /**
+     * A factory method for generating a random 32-bit signed integer
+     * @returns {number}
+     */
+    static int() {
+        return SOHL.CONST.twist.int();
+    }
+
+    /**
+     * A factory method for generating random uniform rolls
+     * @returns {number}
+     */
+    static random() {
+        return SOHL.CONST.twist.random();
+    }
+
+    /**
+     * A factory method for generating random normal rolls
+     * @return {number}
+     */
+    static normal(...args) {
+        return SOHL.CONST.twist.normal(...args);
+    }
+}
+
+// Create Global Singleton
+SOHL.CONST.twist = new MersenneTwister(Date.now());
+
+export class Commands {
+    /**
+     * If the current combatant is controllable by the player, then perform an automated attack.
+     * If only one strike mode is possible, it is selected, otherwise a dialog is provided with all
+     * available strike modes ordered by median impact.
+     *
+     * @param {*} speaker
+     * @param {*} actor
+     * @param {*} token
+     * @param {*} character
+     * @param {*} scope
+     * @returns
+     */
+    static async currentCombatantAttack(
+        _speaker,
+        _actor,
+        _token,
+        _character,
+        scope = {},
+    ) {
+        let { skipDialog = false, groups = [], aspect = null } = scope;
+
+        const combatant = Utility.getTokenInCombat();
+        if (!combatant) return;
+
+        const candidates = [];
+        for (let it of combatant.actor.allItems()) {
+            if (it.type.endsWith("strikemode")) {
+                if (groups.length && !groups.includes(it.system.group))
+                    continue;
+
+                // Ignore any disabled strike modes
+                if (it.system.$attack.disabled) continue;
+
+                if (it.type === CombatTechniqueStrikeModeItemData.typeName) {
+                    // Combat Techniques must be nested in Combat Maneuvers, otherwise ignore
+                    if (
+                        !(it.nestedIn?.type === CombatManeuverItemData.typeName)
+                    )
+                        continue;
+                    if (!aspect || it.system.$impact.aspect === aspect) {
+                        if (!candidates.some((c) => c.id === it.id))
+                            candidates.push(it);
+                    }
+                } else {
+                    // All other Strike Modes must be nested in Weapon Gear, otherwise ignore
+                    if (!(it.nestedIn?.type === WeaponGearItemData.typeName))
+                        continue;
+
+                    // Strike mode weapon must be held, otherwise ignore
+                    if (!it.nestedIn.system.$heldBy) continue;
+
+                    if (!aspect || it.system.$impact.aspect === aspect) {
+                        if (!candidates.some((c) => c.id === it.id))
+                            candidates.push(it);
+                    }
+                }
+            }
+        }
+
+        if (!candidates.length) {
+            ui.notifications.warn(
+                `${combatant.token.name} has no usable strike modes, cannot attack`,
+            );
+            return null;
+        }
+
+        // Sort candidates by highest to lowest median impact
+        candidates.sort(
+            (a, b) => b.system.$impact.median - a.system.$impact.median,
+        );
+
+        // get the strikemode with the highest median impact as default
+        let strikeMode = candidates[0];
+
+        if (!skipDialog) {
+            let dlgHtml = `<form id="select-strikemode">
+                <div class="form-group">
+                    <label>Select which Strike Mode to use for ${combatant.token.name}:</label>
+                    <select name="strikemodeId">`;
+            candidates.forEach((sm, idx) => {
+                dlgHtml += `<option value=${sm.id}${!idx ? " selected" : ""}>${sm.nestedIn.name} ${sm.name} (${sm.system.$impact.label})</option>`;
+            });
+            dlgHtml += `</select></div></form>`;
+            strikeMode = await Dialog.prompt({
+                title: `Choose Strike Mode for ${combatant.token.name}`,
+                content: dlgHtml,
+                label: "OK",
+                callback: async (html) => {
+                    const form = html.querySelector("form");
+                    const fd = new FormDataExtended(form);
+                    const formdata = foundry.utils.expandObject(fd.object);
+                    const selection = candidates.find(
+                        (sm) => sm.id === formdata.strikemodeId,
+                    );
+                    return selection;
+                },
+                options: { jQuery: false },
+                rejectClose: false,
+            });
+        }
+        if (!strikeMode) return null;
+        strikeMode.system.execute("opposedTestStart", scope);
+    }
+}
 
 export const SohlActorDataModels = {
     [AnimateEntityActorData.typeName]: AnimateEntityActorData,

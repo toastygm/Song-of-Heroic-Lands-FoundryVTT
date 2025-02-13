@@ -74,6 +74,16 @@ const LGND = {
                     }),
                 },
             },
+            optionBothOnCounterstrike: {
+                key: "optionBothOnCounterstrike",
+                data: {
+                    name: 'Support "Both" Option on Counterstrike',
+                    hint: "Enable combat option that allows both attacker and defender to hit on tied counterstrike defense",
+                    scope: "world",
+                    config: true,
+                    type: new fields.BooleanField({ initial: false }),
+                },
+            },
         },
     },
 };
@@ -91,29 +101,911 @@ class LgndImpactModifier extends sohl.ImpactModifier {
         };
     }
 
-    static get maxImpactDie() {
-        return Object.values(this.dice).at(-1);
+    get impactTA() {
+        let result = this.getProperty("impactTAOverride");
+        if (!Number.isInteger(result)) {
+            switch (this.aspect) {
+                case "blunt":
+                    result = 3;
+                    break;
+
+                case "edged":
+                    result = 5;
+                    break;
+
+                case "piercing":
+                    result = 4;
+                    break;
+
+                case "fire":
+                    result = 2;
+                    break;
+
+                default:
+                    result = 0;
+                    break;
+            }
+        }
+        return result;
     }
 
-    get impactTA() {
-        switch (this.aspect) {
-            case "blunt":
-                return 3;
-            case "edged":
-                return 5;
-            case "piercing":
-                return 4;
-            case "fire":
-                return 2;
-            default:
-                return 0;
+    constructor(parent, initProperties = {}) {
+        super(
+            parent,
+            foundry.utils.mergeObject(
+                initProperties,
+                {
+                    armorReduction: 0,
+                    extraBleedRisk: false,
+                    zoneDie: 0,
+                    startZone: 1,
+                    isProjectile: false,
+                    bodyLocationId: "",
+                    impactTAOverride: null,
+                },
+                { inplace: false, recursive: false },
+            ),
+        );
+    }
+}
+
+/**
+ * @typedef LgndSuccessTestResult
+ * @property {object} speaker
+ * @property {MasteryLevelModifier} mlMod LgndMasteryLevelModifier for this test
+ * @property {ImpactModifier} impactMod
+ * @property {number} aim
+ * @property {SohlItem} item
+ * @property {Roll} roll Roll for this test
+ * @property {number} lastDigit
+ * @property {boolean} isCapped
+ * @property {string} type
+ * @property {string} title
+ * @property {string} typeLabel
+ * @property {number} rollMode
+ * @property {boolean} askFate
+ * @property {boolean} critAllowed
+ * @property {boolean} successLevel
+ * @property {boolean} isCritical
+ * @property {boolean} isSuccess
+ * @property {string} description
+ * @property {boolean} isSuccessValue
+ * @property {number} successValueMod
+ * @property {number} successValue
+ * @property {number} successValueExpr
+ * @property {number} svBonus
+ */
+
+class LgndSuccessTestResult extends sohl.SuccessTestResult {
+    speaker;
+    mlMod;
+    aim;
+    defaultAim;
+    impactMod;
+    item;
+    _typeLabel;
+    _roll;
+    rollMode;
+    type;
+    testType;
+    title;
+    _successValue;
+    _svBonus;
+    situationalModifier;
+    impactSituationalModifier;
+    _successLevel;
+    resultText;
+    resultDesc;
+    svSuccess;
+    _description;
+    targetMovement;
+    cxBothOption;
+
+    static get TEST_TYPE() {
+        return foundry.utils.mergeObject(
+            super.TEST_TYPE,
+            {
+                DIRECT: "direct",
+                VOLLEY: "volley",
+                STILL: "still",
+                MOVING: "moving",
+                EVADING: "evading",
+                FATE: "fate",
+            },
+            { inplace: false },
+        );
+    }
+
+    static get testTypes() {
+        return foundry.utils.mergeObject(
+            super.testTypes,
+            {
+                [this.TEST_TYPE.DIRECT]: {
+                    type: this.TEST_TYPE.DIRECT,
+                    label: "Direct Missile Attack",
+                    icon: "fas fa-location-arrow-up fa-rotate-90",
+                },
+                [this.TEST_TYPE.VOLLEY]: {
+                    type: this.TEST_TYPE.VOLLEY,
+                    label: "Volley Missile Attack",
+                    icon: "fas fa-location-arrow",
+                },
+                [this.TEST_TYPE.STILL]: {
+                    type: this.TEST_TYPE.STILL,
+                    label: "Still",
+                    icon: "fas fa-person",
+                },
+                [this.TEST_TYPE.MOVING]: {
+                    type: this.TEST_TYPE.MOVING,
+                    label: "Moving",
+                    icon: "fas fa-person-walking",
+                },
+                [this.TEST_TYPE.EVADING]: {
+                    type: this.TEST_TYPE.EVADING,
+                    label: "Evading",
+                    icon: "fas fa-person-running",
+                },
+                [this.TEST_TYPE.FATE]: {
+                    type: this.TEST_TYPE.FATE,
+                    label: "Fate",
+                    icon: "fas fa-stars",
+                },
+            },
+            { inplace: false },
+        );
+    }
+
+    constructor(data = {}) {
+        super(data);
+        let {
+            aim,
+            defaultAim,
+            impactSituationalModifier,
+            isSuccessValue = false,
+            svTable,
+            targetMovement,
+            cxBothOption = false,
+        } = data;
+        this.aim = aim;
+        this.defaultAim = defaultAim;
+        this.impactSituationalModifier = impactSituationalModifier;
+        this._svBonus = null;
+        this._isSuccessValue = isSuccessValue;
+        this.targetMovement = targetMovement;
+        this.cxBothOption = cxBothOption;
+
+        // If the successValueTable is provided, then use that one,
+        // else use the one associated with the item (if available),
+        // and if neither of those are available, use the default one.
+        this.svTable = svTable || this.item.system.successValueTable;
+    }
+
+    get typeLabel() {
+        return this._typeLabel;
+    }
+
+    get roll() {
+        return this._roll;
+    }
+
+    get isSuccessValue() {
+        return this._isSuccessValue;
+    }
+
+    get lastDigit() {
+        return this._roll.total % 10;
+    }
+
+    get isCapped() {
+        return this.mlMod.effective !== this.mlMod.constrainedEffective;
+    }
+
+    get successLevel() {
+        return this._successLevel;
+    }
+
+    get critAllowed() {
+        return !!(
+            this.mlMod.critSuccessDigits.length ||
+            this.mlMod.critFailureDigits.length
+        );
+    }
+
+    get isCritical() {
+        return (
+            this.critAllowed &&
+            (this.successLevel <=
+                LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE ||
+                this.successLevel >=
+                    LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS)
+        );
+    }
+
+    get isSuccess() {
+        return (
+            this.successLevel >=
+            LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS
+        );
+    }
+
+    get description() {
+        return this._description;
+    }
+
+    get successValue() {
+        return this._successValue;
+    }
+
+    get svBonus() {
+        return this._svBonus;
+    }
+
+    get scene() {
+        if (this.speaker?.scene && this.speaker.token) {
+            return game.scenes.get(this.speaker.scene);
+        }
+
+        return null;
+    }
+
+    get token() {
+        return this.scene?.tokens.get(this.speaker.token);
+    }
+
+    get actor() {
+        return this.token?.actor || game.actors.get(this.speaker.actor);
+    }
+
+    evaluate() {
+        super.evaluate();
+        if (
+            this.mlMod.disabled ||
+            this.testType === LgndSuccessTestResult.TEST_TYPE.IGNORE
+        ) {
+            // Ignore tests always return critical failure (Roll = 100)
+            this._roll = new Roll("100").evaluateSync();
+        } else {
+            this._roll = new Roll("1d100").evaluateSync();
+        }
+        if (!this._roll) throw new Error(`Roll evaluation failed`);
+
+        if (this.critAllowed) {
+            if (this._roll.total <= this.mlMod.constrainedEffective) {
+                if (this.mlMod.critSuccessDigits.includes(this.lastDigit)) {
+                    this._successLevel =
+                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS;
+                } else {
+                    this._successLevel =
+                        LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
+                }
+            } else {
+                if (this.mlMod.critFailureDigits.includes(this.lastDigit)) {
+                    this._successLevel =
+                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE;
+                } else {
+                    this._successLevel =
+                        LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
+                }
+            }
+        } else {
+            if (this._roll.total <= this.mlMod.constrainedEffective) {
+                this._successLevel =
+                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
+            } else {
+                this._successLevel =
+                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
+            }
+        }
+        this._successLevel += this.mlMod.successLevelMod;
+        if (!this.critAllowed) {
+            this._successLevel = Math.min(
+                Math.max(
+                    this._successLevel,
+                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE,
+                ),
+                LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
+            );
+        }
+
+        this._description = `${this.critAllowed ? (this.isCritical ? "Critical " : "Marginal ") : ""}${this.isSuccess ? "Success" : "Failure"}`;
+
+        // If success level is greater than critical success or less than critical failure
+        // then add the amount to the end of the description
+        let successLevelIncr = 0;
+        if (this.isCritical) {
+            successLevelIncr =
+                this.successLevel -
+                (this.isSuccess
+                    ? LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS
+                    : LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE);
+        }
+        if (successLevelIncr) {
+            this._description += ` (${
+                (successLevelIncr > 0 ? "+" : "") + successLevelIncr
+            })`;
+        }
+
+        if (!this._isSuccessValue) {
+            // If there is a table providing detailed description of
+            // the results of this test, then process that table to
+            // extract the detailed result descriptions.  Many tests
+            // will not have these detailed descriptions, in which
+            // case only generic descriptions will be given.
+            if (this.mlMod.hasProperty("testDescTable")) {
+                LgndMasteryLevelModifier._handleDetailedDescription(
+                    this,
+                    this.successLevel,
+                    this.mlMod.testDescTable,
+                );
+            }
+        } else {
+            this.successValueMod = this.successLevel - 1;
+            this._successValue = this.index + this.successValueMod;
+            const slSign = this.successValueMod < 0 ? "-" : "+";
+            this.successValueExpr = `${
+                this.index
+            } ${slSign} ${Math.abs(this.successValueMod)}`;
+
+            // The meaning of the success value bonus ("svBonus") is
+            // unique to each type of success value.  Sometimes it
+            // represents the number of rolls on another table, or the
+            // increase in value or quality of a crafted item, or any
+            // other thing.  See the description of the specific test
+            // to determine the meaning of the bonus.
+            this._svBonus = LgndMasteryLevelModifier._handleDetailedDescription(
+                this,
+                this._successValue,
+                this.svTable,
+            );
         }
     }
 
-    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-    calcStrikeImpact(numImpactTAs = 0, { impactTA = null } = {}) {
-        // TODO - Implement Impact Calculation
-        return 0;
+    async toChat() {
+        let speaker = this.speaker || ChatMessage.getSpeaker();
+        const testResultObj = this.toJSON();
+        const chatData = {
+            variant: "legendary",
+            testResultJson: JSON.stringify(testResultObj),
+            speaker,
+            mlMod: this.mlMod,
+            aim: this.aim,
+            defaultAim: this.defaultAim,
+            impactMod: this.impactMod,
+            item: this.item,
+            typeLabel: this.typeLabel,
+            roll: this.roll,
+            rollMode: this.rollMode,
+            type: this.type,
+            title: this.title,
+            successValue: this.successValue,
+            svBonus: this.svBonus,
+            situationalModifier: this.situationalModifier,
+            impactSituationalModifier: this.impactSituationalModifier,
+            successLevel: this.successLevel,
+            resultText: this.resultText,
+            resultDesc: this.resultDesc,
+            svSuccess: this.svSuccess,
+            description: this.description,
+        };
+
+        const chatTemplate =
+            "systems/sohl/templates/chat/standard-test-card.html";
+
+        const html = await renderTemplate(chatTemplate, chatData);
+
+        const messageData = {
+            user: game.user.id,
+            speaker,
+            content: html.trim(),
+            sound: CONFIG.sounds.dice,
+        };
+
+        ChatMessage.applyRollMode(messageData, this.rollMode);
+
+        // Create a chat message
+        return await ChatMessage.create(messageData);
+    }
+
+    toJSON() {
+        return {
+            speaker: this.speaker,
+            mlMod: this.mlMod.toJSON(),
+            situationalModifier: this.situationalModifier,
+            aim: this.aim,
+            defaultAim: this.defaultAim,
+            impactMod: this.impactMod ? this.impactMod.toJSON() : null,
+            impactSituationalModifier: this.impactSituationalModifier,
+            item: this.item.uuid,
+            typeLabel: this._typeLabel,
+            roll: this._roll ? this._roll.toJSON() : null,
+            rollMode: this.rollMode,
+            type: this.type,
+            title: this.title,
+            isSuccessValue: this._isSuccessValue,
+            svTable: this.svTable,
+        };
+    }
+
+    static fromData(data = {}) {
+        return new LgndSuccessTestResult({
+            speaker: data.speaker,
+            mlMod: data.mlMod,
+            situationalModifier: data.situationalModifier,
+            aim: data.aim,
+            defaultAim: data.defaultAim,
+            impactMod: data.impactMod,
+            impactSituationalModifier: data.impactSituationalModifier,
+            item: data.item,
+            typeLabel: data.typeLabel,
+            roll: data.roll,
+            rollMode: data.rollMode,
+            type: data.type,
+            title: data.title,
+            isSuccessValue: data.isSuccessValue,
+            svTable: data.svTable,
+        });
+    }
+}
+
+class LgndOpposedTestResult extends sohl.OpposedTestResult {
+    _victoryStars;
+
+    static get TACTICAL_ADVANTAGE() {
+        return {
+            IMPACT: "impact",
+            PRECISION: "precision",
+            ACTION: "action",
+            SETUP: "setup",
+        };
+    }
+
+    static get tacticalAdvantages() {
+        return {
+            [this.TACTICAL_ADVANTAGE.IMPACT]: "Impact",
+            [this.TACTICAL_ADVANTAGE.PRECISION]: "Precision",
+            [this.TACTICAL_ADVANTAGE.ACTION]: "Action",
+            [this.TACTICAL_ADVANTAGE.SETUP]: "Setup",
+        };
+    }
+
+    constructor(context) {
+        super(context);
+        let { victoryStars = 0 } = context;
+        if (!Number.isInteger(victoryStars))
+            throw new Error("victoryStars must be an integer");
+        this._victoryStars = victoryStars;
+    }
+
+    get isTied() {
+        return !this.bothFail && this._victoryStars === 0;
+    }
+
+    get bothFail() {
+        return (
+            !this.sourceTestResult.isSuccess && !this.targetTestResult.isSuccess
+        );
+    }
+
+    get victoryStars() {
+        if (this.bothFail) return 0;
+        let vs = this._victoryStars;
+        if (this.isTied && this.breakTies) vs += this._tieBreak;
+        return vs;
+    }
+
+    set victoryStarBase(val) {
+        if (!Number.isInteger(val)) throw new Error("Value must be an integer");
+        this._victoryStars = val;
+    }
+
+    get victoryStarsBase() {
+        return this._victoryStars;
+    }
+
+    set winner(val) {
+        if (val === 0) {
+            this._victoryStars = 0;
+        } else if (
+            [
+                LgndOpposedTestResult.TIE_BREAK.SOURCE,
+                LgndOpposedTestResult.TIE_BREAK.TARGET,
+                0,
+            ].includes(val)
+        ) {
+            this._victoryStars = val;
+        } else {
+            throw new Error("Invalid value: ${val}");
+        }
+        this._tieBreak = 0;
+    }
+
+    get sourceWins() {
+        return !this.bothFail && this.victoryStars > 0;
+    }
+
+    get targetWins() {
+        return !this.bothFail && this.victoryStars < 0;
+    }
+
+    get victoryStarsText() {
+        const result = {
+            vsList: ["None"],
+            text: this.bothFail ? "Both Fail" : "Tied",
+            isSource: false,
+            isTarget: false,
+            vsAbs: 0,
+        };
+        result.vsAbs = Math.abs(this.victoryStars);
+        if (result.vsAbs) {
+            result.isSource = this.sourceWins;
+            result.isTarget = this.targetWins;
+            result.vsList = new Array(result.vsAbs).fill(
+                result.isSource
+                    ? sohl.SOHL.CONST.CHARS.STARF
+                    : sohl.SOHL.CONST.CHARS.STAR,
+            );
+            result.text = result.vsList.join("");
+        }
+        return result;
+    }
+
+    calcMissileCombatResult() {
+        const combatResult = {
+            attacker: {
+                deliversImpact: false,
+                isFumble:
+                    this.sourceTestResult.isCritical &&
+                    !this.sourceTestResult.isSuccess &&
+                    this.sourceTestResult.lastDigit === 0,
+                isStumble:
+                    this.sourceTestResult.isCritical &&
+                    !this.sourceTestResult.isSuccess &&
+                    this.sourceTestResult.lastDigit === 5,
+                tacticalAdvantageChoices: [],
+                tacticalAdvantageChoicesText: "",
+                tacticalAdvantages: [],
+                addlTacAdvs: 0,
+                weaponBreak: false,
+            },
+            defender: {
+                deliversImpact: false,
+                isFumble: false,
+                isStumble: false,
+                tacticalAdvantageChoices: [],
+                tacticalAdvantageChoicesText: "",
+                tacticalAdvantages: [],
+                addlTacAdvs: 0,
+                weaponBreak: false,
+            },
+        };
+
+        combatResult.defender.isStumble = false;
+        combatResult.defender.isFumble = false;
+        if (this.sourceWins) {
+            combatResult.attacker.addlTacAdvs = Math.min(
+                0,
+                this.sourceTestResult.successLevel -
+                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
+            );
+            if (
+                this.targetTestResult.testType ===
+                LgndSuccessTestResult.TEST_TYPE.STILL
+            ) {
+                combatResult.attacker.addlTacAdvs =
+                    this.sourceTestResult.successLevel;
+            }
+        }
+
+        if (this.testType === LgndSuccessTestResult.TEST_TYPE.DIRECT) {
+            combatResult.attacker.deliversImpact = this.sourceWins;
+
+            // For Direct, if there are TAs beyond the first, there is a choice between
+            // impact and precision TAs for each
+            if (combatResult.attacker.addlTacAdvs) {
+                combatResult.attacker.tacticalAdvantageChoices = [
+                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.IMPACT,
+                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.PRECISION,
+                ];
+            }
+        } else {
+            // FIXME: Need to implement decision whether attack delivers impact or not
+            // Complex rules of area hits apply.
+
+            // For Volley, all TAs are Precision TAs
+            for (let i = 0; i < combatResult.attacker.addlTacAdvs; i++) {
+                combatResult.attacker.tacticalAdvantages.push(
+                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.PRECISION,
+                );
+            }
+            combatResult.attacker.addlTacAdvs = 0;
+        }
+        this.combatResult = combatResult;
+    }
+
+    calcMeleeCombatResult() {
+        const combatResult = {
+            attacker: {
+                deliversImpact: false,
+                isFumble:
+                    this.sourceTestResult.isCritical &&
+                    !this.sourceTestResult.isSuccess &&
+                    this.sourceTestResult.lastDigit === 0,
+                isStumble:
+                    this.sourceTestResult.isCritical &&
+                    !this.sourceTestResult.isSuccess &&
+                    this.sourceTestResult.lastDigit === 5,
+                tacticalAdvantageChoices: [],
+                tacticalAdvantageChoicesText: "",
+                tacticalAdvantages: [],
+                addlTacAdvs: 0,
+                weaponBreak: false,
+            },
+            defender: {
+                deliversImpact: false,
+                isFumble:
+                    this.targetTestResult.isCritical &&
+                    !this.targetTestResult.isSuccess &&
+                    this.targetTestResult.lastDigit === 0,
+                isStumble:
+                    this.targetTestResult.isCritical &&
+                    !this.targetTestResult.isSuccess &&
+                    this.targetTestResult.lastDigit === 5,
+                tacticalAdvantageChoices: [],
+                tacticalAdvantageChoicesText: "",
+                tacticalAdvantages: [],
+                addlTacAdvs: 0,
+                weaponBreak: false,
+            },
+        };
+
+        switch (this.targetTestResult.testType) {
+            case LgndSuccessTestResult.TEST_TYPE.IGNORE:
+                combatResult.defender.isStumble = false;
+                combatResult.defender.isFumble = false;
+                if (
+                    this.sourceTestResult.successLevel >=
+                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE
+                ) {
+                    this.winner(LgndOpposedTestResult.TIE_BREAK.SOURCE);
+                    combatResult.attacker.deliversImpact = true;
+                    combatResult.attacker.addlTacAdvs = Math.min(
+                        0,
+                        this.sourceTestResult.successLevel -
+                            LgndSuccessTestResult.SUCCESS_LEVEL
+                                .MARGINAL_SUCCESS,
+                    );
+                }
+                break;
+
+            case LgndSuccessTestResult.TEST_TYPE.BLOCK:
+                if (this.sourceWins) {
+                    combatResult.attacker.addlTacAdvs = this.victoryStars - 1;
+                    combatResult.attacker.deliversImpact = true;
+                } else {
+                    if (this.isTied)
+                        this.winner(LgndOpposedTestResult.TIE_BREAK.TARGET);
+                    combatResult.defender.addlTacAdvs = -this.victoryStars - 1;
+                }
+
+                if (combatResult.defender.addlTacAdvs) {
+                    combatResult.defender.tacticalAdvantageChoices = [
+                        LgndOpposedTestResult.TACTICAL_ADVANTAGE.ACTION,
+                        LgndOpposedTestResult.TACTICAL_ADVANTAGE.SETUP,
+                    ];
+                }
+                break;
+
+            case LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE:
+                if (this.targetTestResult.mlMod.has("CXBoth"))
+                    if (this.isTied) {
+                        if (this.targetTestResult.mlMod.has("CXBoth")) {
+                            this.breakTies(true);
+                            if (this.targetWins)
+                                combatResult.defender.deliversImpact = true;
+                        } else {
+                            this.winner(LgndOpposedTestResult.TIE_BREAK.SOURCE);
+                        }
+                        combatResult.attacker.deliversImpact = true;
+                    } else if (this.sourceWins) {
+                        combatResult.attacker.addlTacAdvs =
+                            this.victoryStars - 1;
+                        combatResult.attacker.deliversImpact = true;
+                    } else {
+                        combatResult.defender.addlTacAdvs =
+                            -this.victoryStars - 1;
+                        combatResult.defender.deliversImpact = true;
+                    }
+
+                if (combatResult.defender.addlTacAdvs) {
+                    combatResult.defender.tacticalAdvantageChoices = [
+                        LgndOpposedTestResult.TACTICAL_ADVANTAGE.IMPACT,
+                        LgndOpposedTestResult.TACTICAL_ADVANTAGE.PRECISION,
+                    ];
+                }
+                break;
+        }
+
+        if (combatResult.attacker.addlTacAdvs) {
+            combatResult.attacker.tacticalAdvantageChoices = Array.from(
+                LgndOpposedTestResult.TACTICAL_ADVANTAGE.values(),
+            );
+        }
+
+        combatResult.attacker.tacticalAdvantageChoicesText =
+            sohl.Utility.listToText(
+                combatResult.attacker.tacticalAdvantageChoices,
+            );
+        combatResult.defender.tacticalAdvantageChoicesText =
+            sohl.Utility.listToText(
+                combatResult.defender.tacticalAdvantageChoices,
+            );
+
+        this.combatResult = combatResult;
+    }
+
+    calcDodgeCombatResult() {
+        const combatResult = {
+            attacker: {
+                deliversImpact: false,
+                isFumble:
+                    this.sourceTestResult.isCritical &&
+                    !this.sourceTestResult.isSuccess &&
+                    this.sourceTestResult.lastDigit === 0,
+                isStumble:
+                    this.sourceTestResult.isCritical &&
+                    !this.sourceTestResult.isSuccess &&
+                    this.sourceTestResult.lastDigit === 5,
+                tacticalAdvantageChoices: [],
+                tacticalAdvantageChoicesText: "",
+                addlTacAdvs: 0,
+                weaponBreak: false,
+            },
+            defender: {
+                deliversImpact: false,
+                isFumble: false,
+                isStumble:
+                    this.sourceTestResult.isCritical &&
+                    !this.sourceTestResult.isSuccess,
+                tacticalAdvantageChoices: [],
+                tacticalAdvantageChoicesText: "",
+                addlTacAdvs: 0,
+                weaponBreak: false,
+            },
+        };
+
+        if (this.sourceWins) {
+            combatResult.attacker.addlTacAdvs = this.victoryStars - 1;
+            combatResult.attacker.deliversImpact = true;
+        } else {
+            combatResult.defender.addlTacAdvs = -this.victoryStars - 1;
+        }
+
+        if (combatResult.defender.addlTacAdvs) {
+            combatResult.defender.tacticalAdvantageChoices = [
+                LgndOpposedTestResult.TACTICAL_ADVANTAGE.IMPACT,
+                LgndOpposedTestResult.TACTICAL_ADVANTAGE.PRECISION,
+            ];
+        }
+
+        if (combatResult.attacker.addlTacAdvs) {
+            combatResult.attacker.tacticalAdvantageChoices = Array.from(
+                LgndOpposedTestResult.TACTICAL_ADVANTAGE.values(),
+            );
+        }
+
+        combatResult.attacker.tacticalAdvantageChoicesText =
+            sohl.Utility.listToText(
+                combatResult.attacker.tacticalAdvantageChoices,
+            );
+        combatResult.defender.tacticalAdvantageChoicesText =
+            sohl.Utility.listToText(
+                combatResult.defender.tacticalAdvantageChoices,
+            );
+
+        this.combatResult = combatResult;
+    }
+
+    toJSON() {
+        return foundry.utils.mergeObject(super.toJSON(), {
+            victoryStars: this._victoryStars,
+        });
+    }
+
+    static create(data = {}) {
+        return new LgndOpposedTestResult(data);
+    }
+
+    evaluate() {
+        super.evaluate();
+        // Skill tests (including dodge) always break ties
+        if (
+            this.targetTestResult.testType ===
+                LgndSuccessTestResult.TEST_TYPE.SKILL ||
+            this.targetTestResult.testType ===
+                LgndSuccessTestResult.TEST_TYPE.DODGE
+        ) {
+            this.breakTies = true;
+        }
+
+        if (
+            this.sourceTestResult.successLevel <=
+                LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE &&
+            this.targetTestResult.successLevel <=
+                LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE
+        ) {
+            this.victoryStars = null;
+        } else {
+            this.victoryStars =
+                this.sourceTestResult.successLevel -
+                this.targetTestResult.successLevel;
+        }
+
+        if (!this._victoryStars) {
+            // We have a tie, so first try to break it by giving it to the one with the higher roll
+            this._tieBreak = Math.max(
+                -1,
+                Math.min(
+                    1,
+                    this.sourceTestResult.roll.total -
+                        this.targetTestResult.roll.total,
+                ),
+            );
+            while (!this._tieBreak)
+                this._tieBreak =
+                    Math.round(sohl.MersenneTwister.random() * 2) - 1;
+        }
+
+        if (
+            [
+                LgndSuccessTestResult.TEST_TYPE.BLOCK,
+                LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE,
+                LgndSuccessTestResult.TEST_TYPE.IGNORE,
+            ].includes(this.targetTestResult.testType)
+        ) {
+            this.calcMeleeCombatResult();
+        } else if (
+            this.targetTestResult.testType ===
+            LgndSuccessTestResult.TEST_TYPE.DODGE
+        ) {
+            this.calcDodgeCombatResult();
+        } else if (
+            [
+                LgndSuccessTestResult.TEST_TYPE.DIRECT,
+                LgndSuccessTestResult.TEST_TYPE.VOLLEY,
+            ].includes(this.sourceTestResult.testType)
+        ) {
+            this.calcMissileCombatResult();
+        }
+    }
+
+    async toChat({
+        chatTemplate = "systems/sohl/templates/chat/opposed-result-card.html",
+        chatTemplateData = {},
+    } = {}) {
+        chatTemplateData = foundry.utils.mergeObject(
+            {
+                victoryStars: this._victoryStars,
+                victoryStarsText: this.victoryStarsText,
+            },
+            chatTemplateData,
+        );
+
+        return super.toChat({
+            chatTemplateData,
+            chatTemplate,
+        });
+    }
+}
+
+class LgndImpactResult extends sohl.ImpactResult {
+    constructor(data = {}) {
+        const result = super(data);
+        result.impactMod = LgndImpactModifier.create(result.impactMod);
+    }
+
+    static fromData(data = {}) {
+        const result = super.fromData(data);
+        result.impactMod = LgndImpactModifier.create(result.impactMod);
     }
 }
 
@@ -132,415 +1024,9 @@ class LgndMasteryLevelModifier extends sohl.MasteryLevelModifier {
             ),
         );
     }
-
-    /**
-     * @typedef LgndSuccessTestResult
-     * @property {object} speaker
-     * @property {MasteryLevelModifier} mlMod MasteryLevelModifier for this test
-     * @property {ImpactModifier} impactMod
-     * @property {number} aim
-     * @property {SohlItem} item
-     * @property {Roll} roll Roll for this test
-     * @property {number} lastDigit
-     * @property {boolean} isCapped
-     * @property {string} type
-     * @property {string} title
-     * @property {string} typeLabel
-     * @property {number} rollMode
-     * @property {boolean} askFate
-     * @property {boolean} critAllowed
-     * @property {boolean} successLevel
-     * @property {boolean} isCritical
-     * @property {boolean} isSuccess
-     * @property {string} description
-     * @property {boolean} isSuccessValue
-     * @property {number} successValueMod
-     * @property {number} successValue
-     * @property {number} svBonus
-     */
-
-    testResultToObject(testResult) {
-        const result = {};
-        for (const [k, v] of Object.entries(testResult)) {
-            if (["roll", "mlMod", "impactMod"].includes(k)) {
-                result[`${k}Json`] = v.toJSON();
-            } else if (
-                k instanceof sohl.SohlItem ||
-                k instanceof sohl.SohlActor
-            ) {
-                result[`${k}Uuid`] = v.uuid;
-            }
-        }
-        return result;
-    }
-
-    testResultFromObject(obj) {
-        const result = {};
-        for (const [k, v] of Object.entries(obj)) {
-            if (k.endsWith("Json")) {
-                result[k.slice(0, -4)] = v.fromJSON();
-            } else if (k.endsWith("Uuid")) {
-                result[k.slice(0, -4)] = fromUuidSync(v);
-            } else {
-                result[k] = v;
-            }
-        }
-    }
-
-    static async successTestToChat({ speaker, testResult }) {
-        if (!speaker) {
-            speaker = this.parent.actor
-                ? ChatMessage.getSpeaker({ actor: this.parent.actor })
-                : ChatMessage.getSpeaker();
-        }
-
-        const chatData = {
-            variant: sohl.SOHL.sysVer.id,
-            testResult,
-            testResultJson: JSON.stringify(testResult),
-        };
-
-        const chatTemplate =
-            "systems/sohl/templates/chat/standard-test-card.html";
-
-        const html = await renderTemplate(chatTemplate, chatData);
-
-        const messageData = {
-            user: game.user.id,
-            speaker,
-            content: html.trim(),
-            sound: CONFIG.sounds.dice,
-        };
-
-        ChatMessage.applyRollMode(messageData, testResult.rollMode);
-
-        // Create a chat message
-        return await ChatMessage.create(messageData);
-    }
-
-    static async opposedTestToChat(speaker, actor, token, character, scope) {
-        let { opposedTestResult } = scope;
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-                needsToken: true,
-                self: this,
-            }));
-
-        // Prepare for Chat Message
-        const chatTemplate =
-            "systems/sohl/templates/chat/opposed-result-card.html";
-
-        const chatTemplateData = foundry.utils.mergeObject(
-            opposedTestResult,
-            {
-                variant: sohl.SOHL.sysVer.id,
-                title: `Opposed Roll Result`,
-            },
-            { inplace: false },
-        );
-
-        chatTemplateData.sourceTestResultJson = JSON.stringify(
-            LgndMasteryLevelModifier.testResultToObject(
-                opposedTestResult.sourceTestResult,
-            ),
-        );
-        chatTemplateData.targetTestResultJson = JSON.stringify(
-            LgndMasteryLevelModifier.testResultToObject(
-                opposedTestResult.targetTestResult,
-            ),
-        );
-
-        const html = await renderTemplate(chatTemplate, chatTemplateData);
-
-        const messageData = {
-            user: game.user.id,
-            speaker: this.speaker,
-            content: html.trim(),
-            style: CONST.CHAT_MESSAGE_STYLES.DICE,
-        };
-
-        const messageOptions = {};
-
-        // Create a chat message
-        return await ChatMessage.create(messageData, messageOptions);
-    }
-
-    /**
-     * Perform a success test of the MasteryLevel.
-     *
-     * @param {object} options Configuration options for the roll
-     * @param {boolean} [options.skipDialog=false] Do not display dialog box (use defaults)
-     * @param {string} [options.type] Test identifier string
-     * @param {label} [options.title] Human-readable short description
-     * @returns {LgndSuccessTestResult} Object containing results of the roll
-     */
-    async test({
-        skipDialog = false,
-        speaker,
-        type = "Skill",
-        title = "",
-        successTestResult = null,
-        noChat = false,
-    } = {}) {
-        if (!successTestResult) {
-            let mlMod = this.constructor.create(this);
-            let rollMode = null;
-            let impactMod = null;
-            let aim = this.parent.defaultAim;
-            if (this.parent instanceof sohl.StrikeModeItemData) {
-                impactMod = LgndImpactModifier.create(
-                    this.parent.system.$impact,
-                );
-            }
-            if (!skipDialog) {
-                // Render modal dialog
-                let dlgTemplate =
-                    "systems/sohl/templates/dialog/standard-test-dialog.html";
-
-                let dialogData = {
-                    variant: sohl.SOHL.sysVer.id,
-                    type,
-                    title,
-                    target: mlMod.effective,
-                    base: mlMod.base,
-                    mlModValue: 0,
-                    askSuccessLevelMod: true,
-                    successLevelModValue: mlMod.successLevelMod || 0,
-                    askImpactMod: !!impactMod,
-                    impactModValue: 0,
-                    askAim:
-                        this.parent instanceof
-                        sohl.MeleeWeaponStrikeModeItemData,
-                    defaultAim: aim,
-                    aimChoices: this.parent.aimChoices,
-                    rollMode: game.settings.get("core", "rollMode"),
-                    rollModes: Object.entries(CONFIG.Dice.rollModes).map(
-                        ([k, v]) => ({
-                            group: "CHAT.RollDefault",
-                            value: k,
-                            label: v,
-                        }),
-                    ),
-                };
-                const html = await renderTemplate(dlgTemplate, dialogData);
-
-                // Create the dialog window
-                const result = await Dialog.prompt({
-                    title: dialogData.title,
-                    content: html.trim(),
-                    label: "Roll",
-                    callback: (html) => {
-                        const form = html.querySelector("form");
-                        const fd = new FormDataExtended(form);
-                        const formData = fd.object;
-                        const formMlMod =
-                            Number.parseInt(formData.mlMod, 10) || 0;
-                        const formImpactMod =
-                            Number.parseInt(formData.impactMod, 10) || 0;
-                        const formAim =
-                            Number.parseInt(formData.impactMod, 10) || 0;
-
-                        if (impactMod) {
-                            impactMod.add(
-                                "SituationalModifier",
-                                "SitMod",
-                                formImpactMod,
-                            );
-                        }
-
-                        if (formMlMod) {
-                            mlMod.add(
-                                "Situational Modifier",
-                                "SitMod",
-                                formMlMod,
-                            );
-                        }
-
-                        if (dialogData.askSuccessLevelMod) {
-                            const formSuccessLevelMod = Number.parseInt(
-                                formData.successLevelMod,
-                                10,
-                            );
-                            mlMod.successLevelMod = formSuccessLevelMod;
-                        }
-
-                        return {
-                            mlMod,
-                            impactMod,
-                            aim: formAim || null,
-                            rollMode: formData.rollMode,
-                        };
-                    },
-                    rejectClose: false,
-                    options: { jQuery: false },
-                });
-
-                if (!result) return;
-                mlMod = result.mlMod;
-                rollMode = result.rollMode;
-                aim = result.aim;
-                impactMod = result.impactMod;
-            }
-
-            const roll = await new Roll("1d100").evaluate();
-            if (!roll) {
-                throw new Error(`Roll evaluation failed`);
-            }
-
-            successTestResult = {
-                speaker,
-                mlMod,
-                impactMod,
-                aim,
-                item: this.parent.item,
-                roll: roll,
-                lastDigit: roll.total % 10,
-                isCapped: mlMod.effective !== mlMod.constrainedEffective,
-                type,
-                title,
-                typeLabel: this.parent.constructor.typeLabel,
-                rollMode,
-            };
-        }
-
-        successTestResult.critAllowed =
-            successTestResult.mlMod.critSuccessDigits.length ||
-            successTestResult.mlMod.critFailureDigits.length;
-        if (successTestResult.critAllowed) {
-            if (
-                successTestResult.roll.total <=
-                successTestResult.mlMod.constrainedEffective
-            ) {
-                if (
-                    successTestResult.mlMod.critSuccessDigits.includes(
-                        successTestResult.lastDigit,
-                    )
-                ) {
-                    successTestResult.successLevel =
-                        sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess;
-                } else {
-                    successTestResult.successLevel =
-                        sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
-                }
-            } else {
-                if (
-                    successTestResult.mlMod.critFailureDigits.includes(
-                        successTestResult.lastDigit,
-                    )
-                ) {
-                    successTestResult.successLevel =
-                        sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalFailure;
-                } else {
-                    successTestResult.successLevel =
-                        sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalFailure;
-                }
-            }
-        } else {
-            if (
-                successTestResult.roll.total <=
-                successTestResult.mlMod.constrainedEffective
-            ) {
-                successTestResult.successLevel =
-                    sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
-            } else {
-                successTestResult.successLevel =
-                    sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalFailure;
-            }
-        }
-        successTestResult.successLevel += successTestResult.successLevelMod;
-        if (!successTestResult.critAllowed) {
-            successTestResult.successLevel = Math.min(
-                Math.max(
-                    successTestResult.successLevel,
-                    sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalFailure,
-                ),
-                sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess,
-            );
-        }
-
-        successTestResult.isCritical =
-            successTestResult.critAllowed &&
-            (successTestResult.successLevel <=
-                sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalFailure ||
-                successTestResult.successLevel >=
-                    sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess);
-        successTestResult.isSuccess =
-            successTestResult.successLevel >=
-            sohl.SOHL.CONST.SUCCESS_LEVEL.MarginalSuccess;
-        successTestResult.description = `${successTestResult.critAllowed ? (successTestResult.isCritical ? "Critical " : "Marginal ") : ""}${successTestResult.isSuccess ? "Success" : "Failure"}`;
-
-        // If success level is greater than critical success or less than critical failure
-        // then add the amount to the end of the description
-        let successLevelIncr = 0;
-        if (successTestResult.isCritical) {
-            successLevelIncr =
-                successTestResult.successLevel -
-                (successTestResult.isSuccess
-                    ? sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalSuccess
-                    : sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalFailure);
-        }
-        if (successLevelIncr) {
-            successTestResult.description = `${successTestResult.description} (${
-                (successLevelIncr > 0 ? "+" : "") + successLevelIncr
-            })`;
-        }
-
-        if (!successTestResult.isSuccessValue) {
-            // If there is a table providing detailed description of
-            // the results of this test, then process that table to
-            // extract the detailed result descriptions.  Many tests
-            // will not have these detailed descriptions, in which
-            // case only generic descriptions will be given.
-            if (successTestResult.mlMod.hasProperty("testDescTable")) {
-                LgndMasteryLevelModifier._handleDetailedDescription(
-                    successTestResult,
-                    successTestResult.successLevel,
-                    successTestResult.mlMod.testDescTable,
-                );
-            }
-        } else {
-            successTestResult.successValueMod =
-                successTestResult.successLevel - 1;
-            successTestResult.successValue =
-                this.index + successTestResult.successValueMod;
-            const slSign = successTestResult.successValueMod < 0 ? "-" : "+";
-            successTestResult.successValueExpr = `${
-                this.index
-            } ${slSign} ${Math.abs(successTestResult.successValueMod)}`;
-
-            // Each MasteryLevel item may optionally
-            // have its own success value table included; if
-            // so, then that one will be used, otherwise the
-            // default one will be used.
-            const svTable = this.parent.item.system.successValueTable;
-
-            // The meaning of the success value bonus ("svBonus") is
-            // unique to each type of success value.  Sometimes it
-            // represents the number of rolls on another table, or the
-            // increase in value or quality of a crafted item, or any
-            // other thing.  See the description of the specific test
-            // to determine the meaning of the bonus.
-            successTestResult.svBonus =
-                LgndMasteryLevelModifier._handleDetailedDescription(
-                    successTestResult,
-                    successTestResult.successValue,
-                    svTable,
-                );
-        }
-
-        if (!noChat) {
-            await LgndMasteryLevelModifier.successTestToChat({
-                speaker,
-                testResult: successTestResult,
-            });
-        }
-        return successTestResult;
-    }
 }
+
+class LgndCombatModifier extends sohl.CombatModifier {}
 
 class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
     $combatReach;
@@ -549,215 +1035,163 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
     $encumbrance;
     $sunsign;
 
-    get intrinsicActions() {
-        let actions = super.intrinsicActions.map((a) => {
-            if (a.contextGroup === "default") {
-                a.contextGroup = "primary";
-            }
-            return a;
-        });
-
-        actions.push(
-            // TODO - Add Lgnd Actor Actions
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            sohl.Utility.uniqueActions(actions, []),
         );
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
     }
 
-    async damageRoll({
-        targetToken,
-        impactMod,
-        numImpactTAs = 0,
-        bodyLocationUuid,
-        skipDialog = false,
-        ...options
-    } = {}) {
-        return super.damageRoll({
-            targetToken,
-            impactMod,
-            numImpactTAs,
-            bodyLocationUuid,
-            skipDialog,
-            ...options,
-        });
-    }
-
-    async _damageDialog({
-        type,
-        label,
-        strikeMode,
-        impactMod,
-        numImpactTAs = 0,
-        ...options
-    }) {
-        return super._damageDialog({
-            type,
-            label,
-            strikeMode,
-            impactMod,
-            numImpactTAs,
-            ...options,
-        });
-    }
-
-    async _damageDialogCallback(html, { type, impactMod, strikeMode }) {
-        const form = html[0].querySelector("form");
-        const formNumImpactTAs =
-            Number.parseInt(form.numImpactTAs.value, 10) || 0;
-        const newImpact = impactMod
-            ? this.constructor.create(impactMod)
-            : {
-                  die: Number.parseInt(form.impactDie.value, 10) || 0,
-                  modifier: Number.parseInt(form.impactModifier.value, 10) || 0,
-                  aspect: form.impactAspect.value,
-              };
-        if (formNumImpactTAs) {
-            const impactAdd =
-                (strikeMode?.system.$traits.impactTA || newImpact.impactTA) *
-                formNumImpactTAs;
-            newImpact.add(`${formNumImpactTAs} Impact TAs`, "ImpTA", impactAdd);
-        }
-
-        return super._damageDialogCallback(html, {
-            type,
-            impactMod,
-            strikeMode,
-        });
-    }
-
-    /**
-     * Select the appropriate item to use for the opposed test, then delegate processing
-     * of the opposed request to that item.
-     *
-     * @param {object} scope
-     * @param {string} [scope.sourceTestResult]
-     * @param {number} [scope.testType]
-     * @returns {OpposedTestResult} result of the test
-     */
-    async opposedTestResume(speaker, actor, token, character, scope) {
-        let { sourceTestResult, testType = "skill" } = scope;
+    async moraleTest(speaker, actor, token, character, scope = {}) {
+        let { type = `${this.name}-morale-test`, title, testResult } = scope;
         ({ speaker, actor, token, character } =
             sohl.SohlMacro.getExecuteDefaults({
                 speaker,
                 actor,
                 token,
                 character,
-                needsToken: true,
+                needsActor: true,
                 self: this,
             }));
 
-        if (testType === "ignore") {
-            return await this.execute("ignoreResume", scope);
+        if (!testResult) {
+            const initSkill = this.actor.getItem("init", { types: ["skill"] });
+            if (!initSkill) return null;
+            testResult = LgndSuccessTestResult.fromData({
+                speaker,
+                item: initSkill,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title: title || `${this.name} Morale Test`,
+                situationalModifier: 0,
+                typeLabel: initSkill.system.constructor.typeLabel,
+                mlMod: LgndMasteryLevelModifier.create(
+                    initSkill.system.$masteryLevel,
+                    initSkill.system,
+                ),
+            });
+            testResult.mlMod.testDescTable = [
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE,
+                    lastDigit: [0],
+                    label: "Catatonic",
+                    description:
+                        "Suffers 2 PSY and is unaware and unable to move, act, or defend.",
+                },
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE,
+                    lastDigit: [5],
+                    label: "Routed",
+                    description:
+                        "Suffers 1 PSY and selects flee action at full move each round.",
+                },
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE,
+                    lastDigit: [],
+                    label: "Withdrawing",
+                    description:
+                        "Selects Move action each round to retreat from combat at 1/2 move or more.",
+                },
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
+                    lastDigit: [],
+                    label: "Steady",
+                    description: "Character may take any action.",
+                },
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS,
+                    lastDigit: [],
+                    label: "Brave",
+                    description:
+                        "Character may take any action and receives a +20 bonus to all Morale and Fear rolls for 5 minutes.",
+                },
+            ];
         }
 
-        let opposedItems = [];
-        let label = "Melee Strike Mode";
-        switch (testType) {
-            case "skill":
-                label = "Skill";
-                for (const it of this.actor.allItems()) {
-                    if (
-                        it.system instanceof sohl.TraitItemData &&
-                        it.system.intensity === "attribute"
-                    ) {
-                        if (!it.system.$masteryLevel.disabled) {
-                            opposedItems.push({
-                                name: `Attribute: ${it.name} (ML:${it.system.$masteryLevel.effective})`,
-                                uuid: it.uuid,
-                                value: it.system.$masteryLevel,
-                                item: it,
-                            });
-                        }
-                    } else if (it.system instanceof sohl.SkillItemData) {
-                        if (!it.system.$masteryLevel.disabled) {
-                            opposedItems.push({
-                                name: `Skill: ${it.name} (ML:${it.system.$masteryLevel.effective})`,
-                                uuid: it.uuid,
-                                value: it.system.$masteryLevel,
-                                item: it,
-                            });
-                        }
-                    }
-                }
-                opposedItems.sort((a, b) => a.localeCompare(b));
-                break;
+        scope.testResult = testResult;
+        return super.moraleTest(speaker, actor, token, character, scope);
+    }
 
-            case "block":
-                opposedItems = this.actor.itemTypes.meleestrikemode.filter(
-                    (it) => !it.system.$defense.block.disabled,
-                );
-                opposedItems.sort(
-                    (a, b) =>
-                        b.item.system.$defense.block.effective -
-                        a.item.system.$defense.block.effective,
-                );
-                break;
+    async fearTest(speaker, actor, token, character, scope = {}) {
+        let { type = `${this.name}-fear-test`, title, testResult } = scope;
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+                needsActor: true,
+                self: this,
+            }));
 
-            case "dodge":
-                opposedItems = this.actor.itemTypes.skill.filter(
-                    (it) =>
-                        it.system.subType === "Combat" && it.name === "Dodge",
-                );
-                break;
-
-            case "counterstrike":
-                opposedItems = this.actor.itemTypes.meleestrikemode.filter(
-                    (it) => !it.system.$defense.counterstrike.disabled,
-                );
-                opposedItems.sort(
-                    (a, b) =>
-                        b.item.system.$defense.counterstrike.effective -
-                        a.item.system.$defense.counterstrike.effective,
-                );
-                break;
+        if (!testResult) {
+            const willTrait = this.actor.getItem("will", { types: ["trait"] });
+            if (!willTrait) return null;
+            testResult = LgndSuccessTestResult.fromData({
+                speaker,
+                item: willTrait,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title: title || `${this.name} Contract Fear Test`,
+                situationalModifier: 0,
+                typeLabel: willTrait.system.constructor.typeLabel,
+                mlMod: LgndMasteryLevelModifier.create(
+                    willTrait.system.$masteryLevel,
+                    willTrait.system,
+                ),
+            });
+            testResult.mlMod.testDescTable = [
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE,
+                    lastDigit: [0],
+                    label: "Catatonic",
+                    description:
+                        "Suffers 2 PSY and is unaware and unable to move, act, or defend.",
+                },
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE,
+                    lastDigit: [5],
+                    label: "Terrified",
+                    description:
+                        "Suffers 1 PSY and only able to Block or Dodge in defense; on next turn must flee at full move.",
+                },
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE,
+                    lastDigit: [],
+                    label: "Afraid",
+                    description:
+                        "Only able to Block or Dodge in defense; on next turn must flee at 1/2 move or more.",
+                },
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
+                    lastDigit: [],
+                    label: "Steady",
+                    description:
+                        "Character may act unaffected by this source of fear.",
+                },
+                {
+                    maxValue:
+                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS,
+                    lastDigit: [],
+                    label: "Brave",
+                    description:
+                        "Character may act unaffected by this source of fear and receives a +20 bonus to all Fear and Morale rolls for 5 minutes.",
+                },
+            ];
         }
 
-        if (!opposedItems.length) {
-            ui.notifications.warn("No items available for opposing test");
-            return null;
-        }
-
-        const defaultItem = opposedItems[0];
-
-        const dialogOptions = {
-            variant: "legendary",
-            type: "opposed-item-select",
-            title: `Select ${label}`,
-            opposedItems,
-            defaultItem,
-        };
-        const compiled = Handlebars.compile(`<form id="select-token">
-            <div class="form-group">
-            <span>Opponent using ${sourceTestResult.item.label}</span>
-            </div>
-            <div class="form-group">
-                <label>Select which ${label} to use:</label>
-                <select name="opposedItemUuid">
-                {{selectOptions opposedItems selected=defaultItem.uuid valueAttr="uuid" labelAttr="name"}}
-                </select>
-            </div></form>`);
-        const dlgHtml = compiled(dialogOptions, {
-            allowProtoMethodsByDefault: true,
-            allowProtoPropertiesByDefault: true,
-        });
-        const item = await Dialog.prompt({
-            title: `Choose ${label}`,
-            content: dlgHtml,
-            label: "OK",
-            callback: async (html) => {
-                const form = html.querySelector("form");
-                const fd = new FormDataExtended(form);
-                const formdata = foundry.utils.expandObject(fd.object);
-                return opposedItems.find(
-                    (obj) => obj.uuid === formdata.opposedItemUuid,
-                );
-            },
-            options: { jQuery: false },
-            rejectClose: false,
-        });
-        if (!item) return null;
-        return item.system.execute("opposedTestResume", scope);
+        scope.testResult = testResult;
+        return super.fearTest(speaker, actor, token, character, scope);
     }
 
     /**
@@ -769,7 +1203,7 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
      * @param {number} [scope.testType]
      * @returns {OpposedTestResult} result of the test
      */
-    async ignoreResume(speaker, actor, token, character, scope) {
+    async ignoreResume(speaker, actor, token, character, scope = {}) {
         let { sourceTestResult } = scope;
         ({ speaker, actor, token, character } =
             sohl.SohlMacro.getExecuteDefaults({
@@ -792,7 +1226,7 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
             isCapped: true,
             type: null,
             typeLabel: null,
-            rollMode: "publicroll",
+            rollMode: CONST.DICE_ROLL_MODES.PUBLIC,
             critAllowed: true,
             successLevel: sohl.SOHL.CONST.CriticalFailure,
             isCritical: true,
@@ -803,20 +1237,19 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
 
         let victoryStars = Math.max(
             sourceTestResult.successLevel -
-                sohl.SOHL.CONST.SUCCESS_LEVEL.CriticalFailure,
+                LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE,
             0,
         );
         const opposedTestResult = {
             sourceTestResult,
             targetTestResult,
             victoryStars: victoryStars,
-            vsText: sohl.MasteryLevelItemData.victoryStarsText(victoryStars),
             sourceWins: victoryStars > 0,
             targetWins: false,
         };
 
         if (victoryStars >= 2) {
-            sourceTestResult.tacticalAdvantages = [];
+            sourceTestResult.addlTacAdvs = [];
             sourceTestResult.addlTacticalAdvantages = victoryStars - 1 + 1;
             sourceTestResult.tacticalAdvantageTypes = ["Impact", "Precision"];
         }
@@ -955,8 +1388,437 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
             });
         }
 
+        getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+            return super.getIntrinsicActions(
+                _data,
+                defaultAction,
+                sohl.Utility.uniqueActions(actions, [
+                    {
+                        functionName: "calcImpact",
+                        name: "Calculate Impact",
+                        contextIconClass: "fas fa-bullseye-arrow",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return item && !item.system.$impact.disabled;
+                        },
+                        contextGroup: "general",
+                    },
+                ]),
+            );
+        }
+
+        /**
+         * Perform Success Test for this Item
+         *
+         * @param {object} options
+         * @returns {SuccessTestChatData}
+         */
+        async successTest(speaker, actor, token, character, scope) {
+            ({ speaker, actor, token, character } =
+                sohl.SohlMacro.getExecuteDefaults({
+                    speaker,
+                    actor,
+                    token,
+                    character,
+                    needsActor: true,
+                    self: this,
+                }));
+
+            let {
+                skipDialog = false,
+                noChat = false,
+                type,
+                title,
+                testType = LgndSuccessTestResult.TEST_TYPE.ATTACK,
+                testResult,
+                mlMod,
+                targetMovement = null,
+            } = scope;
+
+            if (
+                !Object.values(LgndSuccessTestResult.TEST_TYPE).includes(
+                    testType,
+                )
+            ) {
+                throw new Error(`Invalid testType=${testType}`);
+            }
+
+            type ??= `${this.type}-${this.name}-${testType}-test`;
+            if (testType === LgndSuccessTestResult.TEST_TYPE.DIRECT) {
+                title ??= `${this.item.label} Direct Missile Attack Test`;
+                targetMovement = "Direct";
+            } else if (testType === LgndSuccessTestResult.TEST_TYPE.VOLLEY) {
+                title ??= `${this.item.label} Volley Missile Attack Test`;
+                targetMovement = "Volley";
+            } else {
+                title ??= `${this.item.label} ${LgndSuccessTestResult.testTypes[testType].label} Test`;
+            }
+            if (!token) {
+                ui.notifications.warn(`No attacker token identified.`);
+                return null;
+            }
+
+            if (!token.isOwner) {
+                ui.notifications.warn(
+                    `You do not have permissions to perform this operation on ${token.name}`,
+                );
+                return null;
+            }
+
+            if (!this.item.nestedIn.system.isHeld) {
+                ui.notification.warn(
+                    `For ${token.name} ${this.item.nestedIn.name} is not held.`,
+                );
+                return null;
+            }
+
+            if (testResult) {
+                testResult = LgndSuccessTestResult.fromData(testResult);
+            } else {
+                testResult = LgndSuccessTestResult.fromData({
+                    speaker,
+                    item: this.item,
+                    rollMode: game.settings.get("core", "rollMode"),
+                    type,
+                    title,
+                    situationalModifier: 0,
+                    typeLabel: this.constructor.typeLabel,
+                    testType,
+                    mlMod,
+                    targetMovement,
+                    cxBothOption: false,
+                });
+            }
+
+            if (!skipDialog) {
+                // Render modal dialog
+                let dlgTemplate =
+                    "systems/sohl/templates/dialog/standard-test-dialog.html";
+
+                let dialogData = {
+                    variant: "legendary",
+                    type: testResult.type,
+                    title: `${testResult.token ? testResult.token.name : testResult.actor.name} ${testResult.title}`,
+                    testType: testResult.testType,
+                    mlMod: testResult.mlMod,
+                    situationalModifier: testResult.situationalModifier,
+                    impactMod: testResult.impactMod,
+                    impactSituationalModifier:
+                        testResult.impactSituationalModifier,
+                    defaultAim: testResult.defaultAim,
+                    aimChoices: testResult.aimChoices,
+                    targetMovement: testResult.targetMovement,
+                    movementOptions:
+                        LgndMissileWeaponStrikeModeItemData.movementOptions,
+                    cxBothOption: testResult.cxBothOption,
+                    askCXBothOption: game.settings.get(
+                        "sohl",
+                        "optionBothOnCounterstrike",
+                    ),
+                    rollMode: testResult.rollMode,
+                    rollModes: Object.entries(CONFIG.Dice.rollModes).map(
+                        ([k, v]) => ({
+                            group: "CHAT.RollDefault",
+                            value: k,
+                            label: v,
+                        }),
+                    ),
+                };
+                const html = await renderTemplate(dlgTemplate, dialogData);
+
+                // Create the dialog window
+                const result = await Dialog.prompt({
+                    title: dialogData.title,
+                    content: html.trim(),
+                    label: "Roll",
+                    callback: (html) => {
+                        const form = html.querySelector("form");
+                        const fd = new FormDataExtended(form);
+                        const formData = fd.object;
+                        const formSituationalModifier =
+                            Number.parseInt(formData.situationalModifier, 10) ||
+                            0;
+                        const formImpactSituationalModifier =
+                            Number.parseInt(
+                                formData.impactSituationalModifier,
+                                10,
+                            ) || 0;
+                        const formAim = Number.parseInt(formData.aim, 10) || 0;
+
+                        if (
+                            testResult.impactMod &&
+                            formImpactSituationalModifier
+                        ) {
+                            testResult.impactMod.add(
+                                "SituationalModifier",
+                                "SitMod",
+                                formImpactSituationalModifier,
+                            );
+                            testResult.impactSituationalModifier =
+                                formImpactSituationalModifier;
+                        }
+
+                        if (formSituationalModifier) {
+                            testResult.mlMod.add(
+                                "Situational Modifier",
+                                "SitMod",
+                                formSituationalModifier,
+                            );
+                            testResult.situationalModifier =
+                                formSituationalModifier;
+                        }
+
+                        const formSuccessLevelMod = Number.parseInt(
+                            formData.successLevelMod,
+                            10,
+                        );
+                        testResult.cxBothOption = !!formData.cxBothOption;
+                        testResult.mlMod.successLevelMod = formSuccessLevelMod;
+                        testResult.aim = formAim;
+                        testResult.rollMode = formData.rollMode;
+                        if (dialogData.targetMovement)
+                            testResult.targetMovement = formData.targetMovement;
+                        return true;
+                    },
+                    rejectClose: false,
+                    options: { jQuery: false },
+                });
+
+                if (!result) return;
+            }
+
+            if (testResult.aim && testResult.aim !== testResult.defaultAim) {
+                testResult.mlMod.add("Non-default Aim Zone", "AimZn", -10);
+            }
+
+            if (
+                testType === LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE &&
+                testResult.cxBothOption &&
+                !testResult.mlMod.has("CXBoth")
+            ) {
+                testResult.mlMod.add(
+                    '"Both" Counterstrike Option',
+                    "CXBoth",
+                    -10,
+                );
+            } else {
+                if (testResult.mlMod.has("CXBoth"))
+                    testResult.mlMod.delete("CXBoth");
+            }
+            testResult.evaluate();
+
+            if (!noChat) {
+                await this.successTestToChat({
+                    speaker,
+                    testResult,
+                });
+            }
+            return testResult;
+        }
+
+        async _preOpposedSuccessTest(speaker, actor, token, character, scope) {
+            let result = super._preOpposedSuccessTest(
+                speaker,
+                actor,
+                token,
+                character,
+                scope,
+            );
+            if (!result) return;
+
+            let { targetToken, testType } = scope;
+
+            // Unique to the opposed test, we get the targeted token and determine
+            // whether that token is inside our engagement zone
+            targetToken ||= sohl.Utility.getUserTargetedToken(token);
+            if (!targetToken) return;
+
+            const targetRange = LgndUtility.rangeToTarget(token, targetToken);
+            if (
+                testType === LgndSuccessTestResult.TEST_TYPE.ATTACK &&
+                targetRange >
+                    LgndUtility.engagementZoneRange(this.$reach.effective)
+            ) {
+                const msg = `Target ${targetToken.name} is outside of engagement zone for ${this.name}; distance = ${targetRange} feet, EZ = ${LgndUtility.engagementZoneRange(this.$reach.effective)} feet.`;
+                ui.notifications.warn(msg);
+                return;
+            } else if (
+                testType === LgndSuccessTestResult.TEST_TYPE.DIRECT &&
+                targetRange > this.$maxDistance.effective
+            ) {
+                const msg = `Target ${targetToken.name} is outside of ${this.range} range for ${this.name}; distance = ${targetRange} feet, max distance = ${this.$maxDistance} feet.`;
+                ui.notifications.warn(msg);
+                return;
+            }
+
+            return result;
+        }
+
+        /**
+         * Calculate impact for this Item
+         *
+         * @param {object} options
+         * @returns {SuccessTestChatData}
+         */
+        async calcImpact(speaker, actor, token, character, scope) {
+            ({ speaker, actor, token, character } =
+                sohl.SohlMacro.getExecuteDefaults({
+                    speaker,
+                    actor,
+                    token,
+                    character,
+                    needsActor: true,
+                    self: this,
+                }));
+
+            let {
+                skipDialog = false,
+                noChat = false,
+                impactResult,
+                numImpactTAs = 0,
+                targetToken,
+            } = scope;
+            if (!actor.isOwner) {
+                ui.notifications.warn(
+                    `You do not have permissions to perform this operation on ${token ? token.name : actor.name}`,
+                );
+                return null;
+            }
+
+            if (!impactResult) {
+                impactResult = LgndImpactResult.fromData({
+                    speaker,
+                    item: this.item,
+                    impactMod: LgndImpactModifier.create(this.$impact),
+                });
+            } else if (!(impactResult instanceof LgndImpactResult)) {
+                impactResult = LgndImpactResult.fromData(impactResult);
+                impactResult.impactMod = LgndImpactModifier.create(
+                    impactResult.impactMod,
+                );
+            }
+
+            let dlgResult;
+            let dlgData = {
+                impactResult,
+                numImpactTAs,
+                situationalImpact: 0,
+            };
+            if (!skipDialog) {
+                const compiled = Handlebars.compile(`<form id="select-token">
+                <div class="form-group">
+                    {{{impactResult.impactMod.chatHtml}}}
+                </div>
+                <div class="form-group">
+                    <label>Impact TAs ({{numberFormat impactResult.impactMod.impactTA sign=true}}):</label>
+                    {{numberInput numImpactTAs name="numImpactTAs" step=1 min=0}}
+                </div>
+                <div class="form-group">
+                    <label>Situational Impact:</label>
+                    {{numberInput situationalImpact name="situationalImpact" step=1}}
+                </div>
+                </form>`);
+                const dlgHtml = compiled(dlgData, {
+                    allowProtoMethodsByDefault: true,
+                    allowProtoPropertiesByDefault: true,
+                });
+
+                // Create the dialog window
+                dlgResult = await Dialog.prompt({
+                    title: dlgData.title,
+                    content: dlgHtml.trim(),
+                    label: "Roll",
+                    callback: (html) => {
+                        const form = html.querySelector("form");
+                        const fd = new FormDataExtended(form);
+                        const formData = fd.object;
+                        const formSituationalImpact =
+                            Number.parseInt(formData.situationalImpact, 10) ||
+                            0;
+                        const formNumImpactTAs =
+                            Number.parseInt(formData.numImpactTAs, 10) || 0;
+                        return {
+                            situationalImpact: formSituationalImpact,
+                            numImpactTAs: formNumImpactTAs,
+                        };
+                    },
+                    rejectClose: false,
+                    options: { jQuery: false },
+                });
+
+                if (!dlgResult) return;
+            } else {
+                dlgResult = {
+                    situationalImpact: 0,
+                    impactTAs: numImpactTAs,
+                };
+            }
+
+            if (dlgResult.numImpactTAs) {
+                impactResult.impactMod.add(
+                    `${dlgResult.numImpactTAs} Impact TAs`,
+                    "ImpTA",
+                    dlgResult.numImpactTAs * impactResult.impactMod.impactTA,
+                );
+            }
+
+            if (dlgResult.situationalImpact) {
+                impactResult.impactMod.add(
+                    "Situational Impact",
+                    "SitImp",
+                    dlgResult.situationalImpact,
+                );
+            }
+
+            impactResult.roll = await impactResult.impactMod.evaluate();
+
+            if (!noChat) {
+                const actor = token ? token.actor : actor;
+                const name = token ? token.name : actor?.name;
+                let title = `${name} ${dlgData.impactMod.parent.item.label} Impact`;
+                if (targetToken) title += ` against ${targetToken.name}`;
+                const chatData = {
+                    actor,
+                    targetToken,
+                    impactResult,
+                    impactResultJson: JSON.stringify(impactResult.toJSON()),
+                    title,
+                };
+                const chatTemplate =
+                    "systems/sohl/templates/chat/damage-card.html";
+
+                const html = await renderTemplate(chatTemplate, chatData);
+
+                const messageData = {
+                    user: game.user.id,
+                    speaker: speaker || ChatMessage.getSpeaker(),
+                    content: html.trim(),
+                    sound: CONFIG.sounds.dice,
+                };
+
+                // Create a chat message
+                await ChatMessage.create(messageData);
+            }
+
+            return impactResult;
+        }
+
         prepareBaseData() {
             super.prepareBaseData();
+            this.$attack = LgndCombatModifier.create(this.$attack);
+            this.$defense = {
+                block: LgndCombatModifier.create(this.$defense.block),
+                counterstrike: LgndCombatModifier.create(
+                    this.$defense.counterstrike,
+                ),
+            };
+            this.$impact = LgndImpactModifier.create(this.$impact);
+
             this.$reach = new sohl.ValueModifier(this);
             this.$heft = new sohl.ValueModifier(this);
             foundry.utils.mergeObject(this.$traits, {
@@ -982,10 +1844,14 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
 
         processSiblings() {
             super.processSiblings();
-            if (this.$traits.noBlock) this.$defense.block.disabled = true;
+            if (this.$traits.noBlock)
+                this.$defense.block.setDisabled("No Blocking Allowed", "NoBlk");
             if (this.$traits.noAttack) {
-                this.$attack.disabled = true;
-                this.$defense.counterstrike.disabled = true;
+                this.$attack.setDisabled("No Attack Allowed", "NoAtk");
+                this.$defense.counterstrike.setDisabled(
+                    "No Counterstrike Allowed",
+                    "NoCX",
+                );
             }
             if (this.$traits.blockSLMod)
                 this.$defense.block.successLevelMod.add(
@@ -1111,802 +1977,62 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
         };
     }
 
-    static get combatTable() {
-        return {
-            block: {
-                "cf:cf": {
-                    atkFumble: true,
-                    defFumble: true,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction || "opposedTestStart",
+            sohl.Utility.uniqueActions(actions, [
+                {
+                    functionName: "attackTest",
+                    name: "Attack Test",
+                    contextIconClass:
+                        LgndSuccessTestResult.testTypes[
+                            LgndSuccessTestResult.TEST_TYPE.ATTACK
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$attack.disabled;
+                    },
+                    contextGroup: "general",
                 },
-                "mf:cf": {
-                    atkFumble: false,
-                    defFumble: true,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
+                {
+                    functionName: "blockTest",
+                    name: "Block Test",
+                    contextIconClass:
+                        LgndSuccessTestResult.testTypes[
+                            LgndSuccessTestResult.TEST_TYPE.BLOCK
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$defense.block.disabled;
+                    },
+                    contextGroup: "general",
                 },
-                "ms:cf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 2,
-                    defDice: 0,
+                {
+                    functionName: "counterstrikeTest",
+                    name: "Counterstrike Test",
+                    contextIconClass:
+                        LgndSuccessTestResult.testTypes[
+                            LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return (
+                            item && !item.system.$defense.counterstrike.disabled
+                        );
+                    },
+                    contextGroup: "general",
                 },
-                "cs:cf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 3,
-                    defDice: 0,
-                },
-
-                "cf:mf": {
-                    atkFumble: true,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 1,
-                    defDice: 0,
-                },
-                "cs:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 2,
-                    defDice: 0,
-                },
-
-                "cf:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "cs:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 1,
-                    defDice: 0,
-                },
-
-                "cf:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "cs:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-            },
-            counterstrike: {
-                "cf:cf": {
-                    atkFumble: true,
-                    defFumble: true,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:cf": {
-                    atkFumble: false,
-                    defFumble: true,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:cf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 3,
-                    defDice: 0,
-                },
-                "cs:cf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 4,
-                    defDice: 0,
-                },
-
-                "cf:mf": {
-                    atkFumble: true,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 2,
-                    defDice: 0,
-                },
-                "cs:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 3,
-                    defDice: 0,
-                },
-
-                "cf:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 2,
-                },
-                "mf:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 1,
-                },
-                "ms:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 1,
-                    defDice: 1,
-                },
-                "cs:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 1,
-                    defDice: 0,
-                },
-
-                "cf:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 3,
-                },
-                "mf:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 2,
-                },
-                "ms:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 1,
-                },
-                "cs:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 2,
-                    defDice: 2,
-                },
-            },
-            dodge: {
-                "cf:cf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: true,
-                    defStumble: true,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:cf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: true,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:cf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 2,
-                    defDice: 0,
-                },
-                "cs:cf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 3,
-                    defDice: 0,
-                },
-
-                "cf:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: true,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 1,
-                    defDice: 0,
-                },
-                "cs:mf": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 2,
-                    defDice: 0,
-                },
-
-                "cf:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "cs:ms": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 1,
-                    defDice: 0,
-                },
-
-                "cf:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "mf:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "ms:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                "cs:cs": {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: true,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-            },
-            ignore: {
-                cf: {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: true,
-                    block: false,
-                    miss: false,
-                    atkDice: 0,
-                    defDice: 0,
-                },
-                mf: {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 1,
-                    defDice: 0,
-                },
-                ms: {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 3,
-                    defDice: 0,
-                },
-                cs: {
-                    atkFumble: false,
-                    defFumble: false,
-                    atkStumble: false,
-                    defStumble: false,
-                    dta: false,
-                    block: false,
-                    miss: false,
-                    atkDice: 4,
-                    defDice: 0,
-                },
-            },
-        };
-    }
-
-    get intrinsicActions() {
-        let actions = super.intrinsicActions
-            .filter((a) => a.name !== "attack")
-            .map((a) => {
-                if (a.contextGroup === "default") {
-                    a.contextGroup = "primary";
-                }
-                return a;
-            });
-
-        actions.push({
-            functionName: "automatedAttack",
-            name: "Automated Attack",
-            contextIconClass: "fas fa-sword",
-            contextCondition: (header) => {
-                header = header instanceof HTMLElement ? header : header[0];
-                const li = header.closest(".item");
-                const item = fromUuidSync(li.dataset.uuid);
-                return item && !item.system.$attack.disabled;
-            },
-            contextGroup: "default",
-        });
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
-    }
-
-    /**
-     * Queries for the weapon to use, and additional weapon parameters (aim, aspect, range).
-     *
-     * options should include:
-     * attackerName (String): The name of the attacker
-     * defenderName (String): The name of the defender
-     * type (string): either 'Block', 'Attack', or 'Counterstrike'
-     * distance (number): the distance to the target
-     *
-     * The return value will be an object with the following keys:
-     *  aim (string):       The aim location (High, Mid, Low)
-     *  situationalModifier (number): Modifier to the attack roll (AML)
-     *
-     * @param {Object} options
-     */
-    async attackDialog(options) {
-        let { type, sourceToken, targetToken, weaponItem } = options;
-        const dlgOptions = {
-            variant: "legendary",
-            type,
-            title: `${sourceToken.name} vs. ${targetToken.name} Melee Attack with ${this.name}`,
-            weapon: weaponItem.name,
-            startZone: 1,
-            situationalModifier: 0,
-            addlImpactModifier: 0,
-            addlSuccessLevelMod: 0,
-            impactMods: sohl.ImpactModifier.create(this.$impact),
-            attackMods: sohl.MasteryLevelModifier.create(this.$attack),
-            rollMode: game.settings.get("core", "rollMode"),
-            rollModes: Object.entries(CONFIG.Dice.rollModes).map(([k, v]) => ({
-                group: "CHAT.RollDefault",
-                value: k,
-                label: v,
-            })),
-        };
-
-        const attackDialogTemplate =
-            "systems/hmk/templates/dialog/attack-dialog.html";
-        const dlghtml = await renderTemplate(attackDialogTemplate, dlgOptions);
-
-        // Request weapon details
-        return await Dialog.prompt({
-            title: dlgOptions.title,
-            content: dlghtml.trim(),
-            label: options.type,
-            callback: (html) => {
-                const form = html[0].querySelector("form");
-                const situationalModifier =
-                    Number.parseInt(form.situationalModifier.value, 10) || 0;
-                const addlImpactModifier =
-                    Number.parseInt(form.addlImpactModifier.value, 10) || 0;
-                const addlSuccessLevelMod =
-                    Number.parseInt(form.addlSuccessLevelMod.value, 10) || 0;
-                const rollMode = Number.parseInt(form.rollMode.value, 10) || 0;
-                const startZone =
-                    Number.parseInt(form.startZone.value, 10) || 0;
-                const result = {
-                    startZone,
-                    impactMods: dlgOptions.impactMods,
-                    attackMods: dlgOptions.attackMods,
-                    rollMode,
-                };
-                if (situationalModifier) {
-                    result.attackMods.add(
-                        "Situational Modifier",
-                        "SitMod",
-                        situationalModifier,
-                    );
-                }
-                if (addlImpactModifier) {
-                    result.impactMods.add(
-                        "Situational Modifier",
-                        "SitMod",
-                        addlImpactModifier,
-                    );
-                }
-                if (addlSuccessLevelMod) {
-                    result.attackMods.successLevelMod += addlSuccessLevelMod;
-                }
-
-                return result;
-            },
-        });
-    }
-
-    async blockTestResume(scope) {
-        let { sourceTestResult, opposedTestResult } = scope;
-        let targetTestResult = opposedTestResult?.targetTestResult;
-        if (!targetTestResult) {
-            targetTestResult = this.$defense.block.test({
-                noChat: true,
-                type: `${this.type}-${this.name}-block-test`,
-                title: `${this.item.label} Block Test`,
-            });
-        }
-
-        let victoryStars = LgndMasteryLevelModifier.calcVictoryStars(
-            sourceTestResult,
-            targetTestResult,
-        );
-
-        opposedTestResult = {
-            sourceTestResult,
-            targetTestResult,
-            victoryStars,
-            vsText: sohl.MasteryLevelItemData.victoryStarsText(victoryStars),
-            sourceWins: victoryStars > 0,
-            targetWins: victoryStars < 0,
-        };
-
-        return opposedTestResult;
-    }
-
-    async counterstrikeTestResume(scope) {
-        let { sourceTestResult, opposedTestResult } = scope;
-        let targetTestResult = opposedTestResult?.targetTestResult;
-        if (!targetTestResult) {
-            targetTestResult = this.$defense.block.test({
-                noChat: true,
-                type: `${this.type}-${this.name}-cx-test`,
-                title: `${this.item.label} Counterstrike Test`,
-            });
-        }
-
-        let victoryStars = LgndMasteryLevelModifier.calcVictoryStars(
-            sourceTestResult,
-            targetTestResult,
-        );
-
-        opposedTestResult = {
-            sourceTestResult,
-            targetTestResult,
-            victoryStars,
-            vsText: sohl.MasteryLevelItemData.victoryStarsText(victoryStars),
-            sourceWins: victoryStars > 0,
-            targetWins: victoryStars < 0,
-        };
-
-        return opposedTestResult;
-    }
-
-    /**
-     * Continue the opposed test. Only valid testTypes are "block" and "counterstrike".
-     *
-     * @param {object} scope
-     * @param {string} [scope.sourceTestResult]
-     * @param {number} [scope.testType]
-     * @returns {OpposedTestResult} result of the test
-     */
-    async opposedTestResume(speaker, actor, token, character, scope) {
-        let { testType } = scope;
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-                needsToken: true,
-                self: this,
-            }));
-
-        let opposedTestResult;
-        if (testType === "block") {
-            opposedTestResult = await this.blockTestResume(scope);
-        } else if (testType === "counterstrike") {
-            opposedTestResult = await this.counterstrikeTestResume(scope);
-        } else {
-            throw new Error(`Invalid testType ${testType}`);
-        }
-        opposedTestResult.speaker = speaker;
-        return await LgndMasteryLevelModifier.opposedTestToChat(
-            speaker,
-            actor,
-            token,
-            character,
-            {
-                speaker,
-                opposedTestResult,
-            },
+            ]),
         );
     }
 
@@ -1950,129 +2076,6 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
         return atkMod;
     }
 
-    async automatedAttack(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        scope = {},
-    ) {
-        let { skipDialog = false } = scope;
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-            }));
-
-        if (!(this.item.nestedIn?.system instanceof sohl.WeaponGearItemData)) {
-            ui.notification.warn(
-                `Strike Mode ${this.name} must be nested in a weapon`,
-            );
-            return null;
-        }
-
-        const targetToken = sohl.Utility.getUserTargetedToken(token);
-        if (!targetToken) return null;
-
-        if (!token) {
-            ui.notifications.warn(`No attacker token identified.`);
-            return null;
-        }
-
-        if (!token.isOwner) {
-            ui.notifications.warn(
-                `You do not have permissions to perform this operation on ${token.name}`,
-            );
-            return null;
-        }
-
-        const targetRange = LgndUtility.rangeToTarget(token, targetToken);
-        if (
-            targetRange > LgndUtility.engagementZoneRange(this.$reach.effective)
-        ) {
-            const msg = `Target ${targetToken.name} is outside of engagement zone for ${this.name}; distance = ${targetRange} feet, EZ = ${LgndUtility.engagementZoneRange(this.$reach.effective)} feet.`;
-            ui.notifications.warn(msg);
-            return null;
-        }
-
-        // display dialog, get aspect, aim, and addl damage
-        const dlgOptions = {
-            type: "Attack",
-            sourceToken: token,
-            targetToken,
-            weaponItem: this.item.nestedIn,
-        };
-
-        if (!dlgOptions.weaponItem.system.isHeld) {
-            ui.notification.warn(
-                `For ${token.name} ${dlgOptions.weaponItem.name} is not held.`,
-            );
-            return null;
-        }
-
-        let dialogResult;
-        if (!skipDialog) {
-            dialogResult = await this.attackDialog(dlgOptions);
-        } else {
-            dialogResult = {
-                startZone: 1,
-                impactMods: sohl.ImpactModifier.create(this.$impact),
-                attackMods: sohl.MasteryLevelModifier.create(this.$attack),
-                rollMode: game.settings.get("core", "rollMode"),
-            };
-        }
-
-        // If user cancelled the dialog, then return immediately
-        if (!dialogResult) return null;
-
-        if (dialogResult.startZone !== 1) {
-            dialogResult.attackMods.add("Chosen Start Zone", "ChZn", -10);
-        }
-
-        // Prepare for Chat Message
-        const chatTemplate = "systems/sohl/templates/chat/attack-card.html";
-
-        const chatTemplateData = {
-            variant: "legendary",
-            title: `${this.name} Melee Attack`,
-            weaponType: "melee",
-            sourceToken: token,
-            targetToken,
-            distance: targetRange,
-            sourceItem: this,
-            startZone: dialogResult.startZone,
-            attackMods: dialogResult.attackMods,
-            impactMods: dialogResult.impactMods,
-            visibleActorUuid: targetToken.actor.uuid,
-        };
-
-        const html = await renderTemplate(chatTemplate, chatTemplateData);
-
-        const messageData = {
-            user: game.user.id,
-            speaker: speaker,
-            content: html.trim(),
-            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-        };
-
-        ChatMessage.applyRollMode(messageData, dialogResult.rollMode);
-
-        const messageOptions = {};
-
-        // Create a chat message
-        await ChatMessage.create(messageData, messageOptions);
-        if (game.settings.get("sohl", "combatAudio")) {
-            AudioHelper.play(
-                { src: "sounds/drums.wav", autoplay: true, loop: false },
-                true,
-            );
-        }
-
-        return chatTemplateData;
-    }
-
     /** @override */
     prepareBaseData() {
         super.prepareBaseData();
@@ -2086,6 +2089,7 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
             halfSword: false,
             twoPartLen: 0,
         });
+        this.$range = new sohl.ValueModifier(this);
     }
 
     processSiblings() {
@@ -2115,19 +2119,43 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
             );
         }
     }
+
+    postProcess() {
+        super.postProcess();
+        if (this.item.nestedIn?.system instanceof sohl.ProjectileGearItemData) {
+            this.$range.addVM(this.item.nestedIn.system.$baseRange, {
+                includeBase: true,
+            });
+        }
+    }
 }
 
 class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
     sohl.MissileWeaponStrikeModeItemData,
 ) {
-    $baseRange;
+    $range;
     $draw;
     $canDraw;
     $pull;
 
+    static get MOVEMENT_OPTIONS() {
+        return {
+            STILL: "still",
+            MOVING: "moving",
+            EVADING: "evading",
+        };
+    }
+    static get movementOptions() {
+        return {
+            [this.MOVEMENT_OPTIONS.STILL]: "Still",
+            [this.MOVEMENT_OPTIONS.MOVING]: "Moving",
+            [this.MOVEMENT_OPTIONS.EVADING]: "Evading",
+        };
+    }
+
     static get tactialAdvantages() {
         return foundry.utils.mergeObject(
-            super.tacticalAdvantages,
+            super.addlTacAdvs,
             {
                 setup: "Setup",
             },
@@ -2135,22 +2163,46 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
         );
     }
 
-    static get ranges() {
+    static get RANGE() {
         return {
-            pb: "PB",
-            direct: "Direct",
-            v2: "V2",
-            v3: "V3",
-            v4: "V4",
+            POINT_BLANK: "pb",
+            DIRECT: "direct",
+            VOLLEY_2: "v2",
+            VOLLEY_3: "v3",
+            VOLLEY_4: "v4",
         };
     }
 
-    get maxVolleyMult() {
-        return this.item.getFlag("sohl", "legendary.maxVolleyMult") || 0;
+    static get ranges() {
+        return {
+            [this.RANGE.POINT_BLANK]: {
+                label: "PB",
+                mult: 0.5,
+            },
+            [this.RANGE.DIRECT]: {
+                label: "Direct",
+                mult: 1,
+            },
+            [this.RANGE.VOLLEY_2]: {
+                label: "V2",
+                mult: 2,
+            },
+            [this.RANGE.VOLLEY_3]: {
+                label: "V3",
+                mult: 3,
+            },
+            [this.RANGE.VOLLEY_4]: {
+                label: "V4",
+                mult: 4,
+            },
+        };
     }
 
-    get baseRangeBase() {
-        return this.item.getFlag("sohl", "legendary.baseRangeBase") || 0;
+    get range() {
+        return (
+            this.item.getFlag("sohl", "legendary.range") ||
+            LgndMissileWeaponStrikeModeItemData.RANGE.DIRECT
+        );
     }
 
     get drawBase() {
@@ -2165,125 +2217,54 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
         );
     }
 
-    static get combatTable() {
-        return {
-            block: {
-                "cf:cf": { wild: true, block: false, miss: false, atkDice: 0 },
-                "mf:cf": { wild: false, block: false, miss: true, atkDice: 0 },
-                "ms:cf": { wild: false, block: false, miss: false, atkDice: 2 },
-                "cs:cf": { wild: false, block: false, miss: false, atkDice: 3 },
-
-                "cf:mf": { wild: true, block: false, miss: false, atkDice: 0 },
-                "mf:mf": { wild: false, block: false, miss: true, atkDice: 0 },
-                "ms:mf": { wild: false, block: false, miss: false, atkDice: 1 },
-                "cs:mf": { wild: false, block: false, miss: false, atkDice: 2 },
-
-                "cf:ms": { wild: true, block: false, miss: false, atkDice: 0 },
-                "mf:ms": { wild: false, block: false, miss: true, atkDice: 0 },
-                "ms:ms": { wild: false, block: true, miss: false, atkDice: 0 },
-                "cs:ms": { wild: false, block: false, miss: false, atkDice: 1 },
-
-                "cf:cs": { wild: true, block: false, miss: false, atkDice: 0 },
-                "mf:cs": { wild: false, block: false, miss: true, atkDice: 0 },
-                "ms:cs": { wild: false, block: true, miss: false, atkDice: 0 },
-                "cs:cs": { wild: false, block: true, miss: false, atkDice: 0 },
-            },
-            dodge: {
-                "cf:cf": { wild: true, block: false, miss: false, atkDice: 0 },
-                "mf:cf": { wild: false, block: false, miss: true, atkDice: 0 },
-                "ms:cf": { wild: false, block: false, miss: false, atkDice: 2 },
-                "cs:cf": { wild: false, block: false, miss: false, atkDice: 3 },
-
-                "cf:mf": { wild: true, block: false, miss: false, atkDice: 0 },
-                "mf:mf": { wild: false, block: false, miss: true, atkDice: 0 },
-                "ms:mf": { wild: false, block: false, miss: false, atkDice: 1 },
-                "cs:mf": { wild: false, block: false, miss: false, atkDice: 2 },
-
-                "cf:ms": { wild: true, block: false, miss: false, atkDice: 0 },
-                "mf:ms": { wild: false, block: false, miss: true, atkDice: 0 },
-                "ms:ms": { wild: false, block: false, miss: true, atkDice: 0 },
-                "cs:ms": { wild: false, block: false, miss: false, atkDice: 1 },
-
-                "cf:cs": { wild: true, block: false, miss: false, atkDice: 0 },
-                "mf:cs": { wild: false, block: false, miss: true, atkDice: 0 },
-                "ms:cs": { wild: false, block: false, miss: true, atkDice: 0 },
-                "cs:cs": { wild: false, block: false, miss: true, atkDice: 0 },
-            },
-            ignore: {
-                cf: { wild: true, block: false, miss: false, atkDice: 0 },
-                mf: { wild: false, block: false, miss: true, atkDice: 0 },
-                ms: { wild: false, block: false, miss: false, atkDice: 2 },
-                cs: { wild: false, block: false, miss: false, atkDice: 3 },
-            },
-        };
-    }
-
-    get intrinsicActions() {
-        let actions = super.intrinsicActions
-            .filter((a) => a.name !== "attack")
-            .map((a) => {
-                if (a.contextGroup === "default") {
-                    a.contextGroup = "primary";
-                }
-                return a;
-            });
-
-        actions.push(
-            {
-                functionName: "automatedAttack",
-                name: "Automated Attack",
-                contextIconClass: "fas fa-bow-arrow",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$attack.disabled;
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction || "automatedAttack",
+            sohl.Utility.uniqueActions(actions, [
+                {
+                    functionName: "directAttackTest",
+                    name: "Direct Missile Attack Test",
+                    contextIconClass:
+                        LgndSuccessTestResult.testTypes[
+                            LgndSuccessTestResult.TEST_TYPE.DIRECT
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$attack.disabled;
+                    },
+                    contextGroup: "general",
                 },
-                contextGroup: "default",
-            },
-            {
-                functionName: "directAttackTest",
-                name: "Direct Attack Test",
-                contextIconClass: "fas fa-location-arrow-up fa-rotate-90",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$attack.disabled;
+                {
+                    functionName: "volleyAttackTest",
+                    name: "Volley Missile Attack Test",
+                    contextIconClass:
+                        LgndSuccessTestResult.testTypes[
+                            LgndSuccessTestResult.TEST_TYPE.VOLLEY
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$attack.disabled;
+                    },
+                    contextGroup: "primary",
                 },
-                contextGroup: "primary",
-            },
-            {
-                functionName: "volleyAttackTest",
-                name: "Volley Attack Test",
-                contextIconClass: "fas fa-location-arrow",
-                contextCondition: (header) => {
-                    header = header instanceof HTMLElement ? header : header[0];
-                    const li = header.closest(".item");
-                    const item = fromUuidSync(li.dataset.uuid);
-                    return item && !item.system.$attack.disabled;
-                },
-                contextGroup: "primary",
-            },
+            ]),
         );
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
     }
 
-    async automatedAttack(
+    async volleyAttackTest(
         speaker = null,
         actor = null,
         token = null,
         character = null,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-bleed-stop-test`,
-            title = `${this.item.label} Bleeding Stoppage Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        },
+        // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+        scope = {},
     ) {
         ({ speaker, actor, token, character } =
             sohl.SohlMacro.getExecuteDefaults({
@@ -2293,23 +2274,16 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
                 character,
             }));
 
-        // TODO - Missile Automated Attack
-        ui.notifications.warn("Missile Automated Attack Not Implemented");
+        ui.notifications.warn(`Volley attacks not implemented`);
+        return null;
     }
 
-    volleyAttack(
+    async directAttackTest(
         speaker = null,
         actor = null,
         token = null,
         character = null,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-volley-attack`,
-            title = `${this.item.label} Volley Attack`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        },
+        scope = {},
     ) {
         ({ speaker, actor, token, character } =
             sohl.SohlMacro.getExecuteDefaults({
@@ -2319,34 +2293,8 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
                 character,
             }));
 
-        // TODO - Missile Volley Attack
-        ui.notifications.warn("Missile Volley Attack Not Implemented");
-    }
-
-    directAttack(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-direct-missile-attack`,
-            title = `${this.item.label} Direct Missile Attack`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        },
-    ) {
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-            }));
-
-        // TODO - Missile Direct Attack
-        ui.notifications.warn("Missile Direct Attack Not Implemented");
+        scope.testType = LgndSuccessTestResult.TEST_TYPE.DIRECT;
+        return super.attackTest(speaker, actor, token, character, scope);
     }
 
     /** @override */
@@ -2356,14 +2304,44 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
             armorReduction: 0,
             bleed: false,
         });
-        this.$maxVolleyMult = new sohl.ValueModifier(this).setBase(
-            this.maxVolleyMult,
-        );
-        this.$baseRange = new sohl.ValueModifier(this).setBase(
-            this.baseRangeBase,
-        );
+        this.$maxDistance = new sohl.ValueModifier(this);
         this.$draw = new sohl.ValueModifier(this).setBase(this.drawBase);
         this.$pull = new sohl.ValueModifier(this);
+        this.$defense.block.setDisabled(
+            "No Defense for Missile Attacks",
+            "NoDfseMsl",
+        );
+        this.$defense.block.critSuccessDigits = [];
+        this.$defense.block.critFailureDigits = [];
+        this.$defense.counterstrike.setDisabled(
+            "No Defense for Missile Attacks",
+            "NoDfseMsl",
+        );
+        this.$defense.counterstrike.critSuccessDigits = [];
+        this.$defense.counterstrike.critFailureDigits = [];
+    }
+
+    processSiblings() {
+        super.processSiblings();
+        if (this.item.nestedIn?.system instanceof LgndWeaponGearItemData) {
+            const mult = this.constructor.ranges[this.range]?.mult;
+            if (mult) {
+                this.$maxDistance.addVM(this.item.nestedIn.system.$baseRange, {
+                    includeBase: true,
+                });
+                this.$maxDistance.multiply(
+                    `${this.range} Range Multiplier`,
+                    "RngMult",
+                    mult,
+                );
+            } else {
+                this.$maxDistance.set(
+                    `Range ${this.range} invalid, setting max distance to 0`,
+                    "InvRng",
+                    0,
+                );
+            }
+        }
     }
 
     postProcess() {
@@ -2400,58 +2378,88 @@ class LgndCombatTechniqueStrikeModeItemData extends LgndStrikeModeItemDataMixin(
         });
     }
 
-    get intrinsicActions() {
-        let actions = super.intrinsicActions
-            .filter((a) => a.name !== "attack")
-            .map((a) => {
-                if (a.contextGroup === "default") {
-                    a.contextGroup = "primary";
-                }
-                return a;
-            });
-
-        actions.push({
-            functionName: "assistedAttack",
-            name: "Automated Attack",
-            contextIconClass: "fas fa-hand-fist fa-rotate-90",
-            contextCondition: (header) => {
-                header = header instanceof HTMLElement ? header : header[0];
-                const li = header.closest(".item");
-                const item = fromUuidSync(li.dataset.uuid);
-                return item && !item.system.$attack.disabled;
-            },
-            contextGroup: "default",
-        });
-
-        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
-        return actions;
-    }
-
-    async automatedAttack(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-bleed-stop-test`,
-            title = `${this.item.label} Bleeding Stoppage Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        },
-    ) {
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-            }));
-
-        // TODO - Combat Technique Automated Attack
-        ui.notifications.warn(
-            "Combat Technique Automated Attack Not Implemented",
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction || "opposedTestStart",
+            sohl.Utility.uniqueActions(actions, [
+                {
+                    functionName: "opposedTestStart",
+                    name: "Automated Attack",
+                    contextIconClass: "fas fa-circle-half-stroke",
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$attack.disabled;
+                    },
+                    contextGroup: "essential",
+                },
+                {
+                    functionName: "opposedTestResume",
+                    name: "Attack Resume",
+                    contextIconClass: "",
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$impact.disabled;
+                    },
+                    contextGroup: "hidden",
+                },
+                {
+                    functionName: "attackTest",
+                    name: "Attack Test",
+                    contextIconClass:
+                        LgndSuccessTestResult.testTypes[
+                            LgndSuccessTestResult.TEST_TYPE.ATTACK
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$attack.disabled;
+                    },
+                    contextGroup: "general",
+                },
+                {
+                    functionName: "blockTest",
+                    name: "Block Test",
+                    contextIconClass:
+                        LgndSuccessTestResult.testTypes[
+                            LgndSuccessTestResult.TEST_TYPE.BLOCK
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return item && !item.system.$defense.block.disabled;
+                    },
+                    contextGroup: "general",
+                },
+                {
+                    functionName: "counterstrikeTest",
+                    name: "Counterstrike Test",
+                    contextIconClass:
+                        LgndSuccessTestResult.testTypes[
+                            LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE
+                        ].icon,
+                    contextCondition: (header) => {
+                        header =
+                            header instanceof HTMLElement ? header : header[0];
+                        const li = header.closest(".item");
+                        const item = fromUuidSync(li.dataset.uuid);
+                        return (
+                            item && !item.system.$defense.counterstrike.disabled
+                        );
+                    },
+                    contextGroup: "general",
+                },
+            ]),
         );
     }
 
@@ -2494,6 +2502,563 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
             );
         }
 
+        setImproveFlag() {
+            if (!this.improveFlag)
+                this.item.update({ "system.improveFlag": true });
+        }
+
+        async unsetImproveFlag() {
+            if (this.improveFlag)
+                await this.item.update({ "system.improveFlag": false });
+        }
+
+        toggleImproveFlag() {
+            if (this.improveFlag) this.unsetImproveFlag();
+            else this.setImproveFlag();
+        }
+
+        getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+            return super.getIntrinsicActions(
+                _data,
+                defaultAction,
+                sohl.Utility.uniqueActions(actions, [
+                    {
+                        functionName: "successValueTest",
+                        name: "Success Value Test",
+                        contextIconClass: "far fa-list",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return item && !item.system.$masteryLevel.disabled;
+                        },
+                        contextGroup: "essential",
+                    },
+                    {
+                        functionName: "fateTest",
+                        name: "Fate Test",
+                        contextIconClass:
+                            LgndSuccessTestResult.testTypes[
+                                LgndSuccessTestResult.TEST_TYPE.FATE
+                            ].icon,
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return (
+                                item &&
+                                !item.system.$masteryLevel.fate.disabled &&
+                                item.system.availableFate.length > 0
+                            );
+                        },
+                        contextGroup: "essential",
+                    },
+                    {
+                        functionName: "improveWithXP",
+                        name: "Improve Mastery using XP",
+                        contextIconClass: "fas fa-lightbulb-on",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            if (!item || !item.system.canImprove) return false;
+                            if (item.system.$masteryLevel.disabled)
+                                return false;
+                            const xpItem = item.actor?.getTraitByAbbrev("xp");
+                            const xpVal =
+                                (xpItem &&
+                                    !xpItem?.system.$score?.disabled &&
+                                    xpItem?.system.$score.effective) ||
+                                -1;
+                            return (
+                                xpItem &&
+                                xpVal >= item.system.$masteryLevel.index
+                            );
+                        },
+                        contextGroup: "general",
+                    },
+                ]),
+            );
+        }
+
+        /**
+         * Updates the boosts value by adding the given value if the input is a number.
+         *
+         * @param {*} val
+         */
+        applyBoosts(val) {
+            if (typeof val === "number") {
+                this.$boosts += val;
+            }
+        }
+
+        /**
+         * Calculates the mastery boost based on the given mastery level. Returns different boost values based on different ranges of mastery levels.
+         *
+         * @static
+         * @param {*} ml
+         * @returns {(3 | 4 | 10 | 9 | 8 | 7 | 6 | 5)}
+         */
+        static calcMasteryBoost(ml) {
+            if (ml <= 39) return 10;
+            else if (ml <= 44) return 9;
+            else if (ml <= 49) return 8;
+            else if (ml <= 59) return 7;
+            else if (ml <= 69) return 6;
+            else if (ml <= 79) return 5;
+            else if (ml <= 99) return 4;
+            else return 3;
+        }
+
+        static async testAdjust(rollResult) {
+            return rollResult;
+        }
+
+        /**
+         * Perform Success Test for this Item
+         *
+         * @param {object} options
+         * @returns {SuccessTestChatData}
+         */
+        async successTest(speaker, actor, token, character, scope) {
+            ({ speaker, actor, token, character } =
+                sohl.SohlMacro.getExecuteDefaults({
+                    speaker,
+                    actor,
+                    token,
+                    character,
+                    needsActor: true,
+                    self: this,
+                }));
+
+            let {
+                skipDialog = false,
+                type = `${this.type}-${this.name}-test`,
+                title = `${this.item.label} Test`,
+                testResult,
+                noChat = false,
+                mlMod,
+            } = scope;
+
+            if (testResult) {
+                testResult = LgndSuccessTestResult.fromData(testResult);
+            } else {
+                testResult = LgndSuccessTestResult.fromData({
+                    speaker,
+                    item: this.item,
+                    rollMode: game.settings.get("core", "rollMode"),
+                    type,
+                    title,
+                    situationalModifier: 0,
+                    typeLabel: this.constructor.typeLabel,
+                    mlMod:
+                        mlMod ||
+                        LgndMasteryLevelModifier.create(
+                            this.$masteryLevel,
+                            this,
+                        ),
+                });
+            }
+
+            if (!skipDialog) {
+                // Render modal dialog
+                let dlgTemplate =
+                    "systems/sohl/templates/dialog/standard-test-dialog.html";
+
+                let dialogData = {
+                    variant: "legendary",
+                    type: testResult.type,
+                    title: `${testResult.token ? testResult.token.name : testResult.actor.name} ${testResult.title}`,
+                    mlMod: testResult.mlMod,
+                    situationalModifier: testResult.situationalModifier,
+                    rollMode: testResult.rollMode,
+                    rollModes: Object.entries(CONFIG.Dice.rollModes).map(
+                        ([k, v]) => ({
+                            group: "CHAT.RollDefault",
+                            value: k,
+                            label: v,
+                        }),
+                    ),
+                };
+                const html = await renderTemplate(dlgTemplate, dialogData);
+
+                // Create the dialog window
+                const result = await Dialog.prompt({
+                    title: dialogData.title,
+                    content: html.trim(),
+                    label: "Roll",
+                    callback: (html) => {
+                        const form = html.querySelector("form");
+                        const fd = new FormDataExtended(form);
+                        const formData = fd.object;
+                        const formSituationalModifier =
+                            Number.parseInt(formData.situationalModifier, 10) ||
+                            0;
+
+                        if (formSituationalModifier) {
+                            testResult.mlMod.add(
+                                "Situational Modifier",
+                                "SitMod",
+                                formSituationalModifier,
+                            );
+                            testResult.situationalModifier =
+                                formSituationalModifier;
+                        }
+
+                        const formSuccessLevelMod = Number.parseInt(
+                            formData.successLevelMod,
+                            10,
+                        );
+                        testResult.mlMod.successLevelMod = formSuccessLevelMod;
+                        testResult.rollMode = formData.rollMode;
+                        return true;
+                    },
+                    rejectClose: false,
+                    options: { jQuery: false },
+                });
+
+                if (!result) return;
+            }
+
+            testResult.evaluate();
+
+            if (!noChat) {
+                await testResult.toChat({
+                    speaker,
+                    testResult,
+                });
+            }
+            return testResult;
+        }
+
+        /**
+         * Perform Success Value Test for this Item.
+         *
+         * @param {object} options
+         * @returns {SuccessTestChatData}
+         */
+        successValueTest(speaker, actor, token, character, scope) {
+            ({ speaker, actor, token, character } =
+                sohl.SohlMacro.getExecuteDefaults({
+                    speaker,
+                    actor,
+                    token,
+                    character,
+                    needsActor: true,
+                    self: this,
+                }));
+
+            let {
+                skipDialog = false,
+                noChat = false,
+                type = `${this.type}-${this.name}-svtest`,
+                title = `${this.item.label} Success Value Test`,
+                svTable = this.successValueTable,
+            } = scope;
+
+            return this.successTest(speaker, actor, token, character, {
+                skipDialog,
+                noChat,
+                testResult: {
+                    speaker,
+                    item: this.item,
+                    rollMode: game.settings.get("core", "rollMode"),
+                    type,
+                    title,
+                    situationalModifier: 0,
+                    typeLabel: this.constructor.typeLabel,
+                    isSuccessValue: true,
+                    svTable,
+                    mlMod: LgndMasteryLevelModifier.create(
+                        this.$masteryLevel,
+                        this,
+                    ),
+                },
+            });
+        }
+
+        async fateTest(speaker, actor, token, character, scope = {}) {
+            let { skipDialog = false, noChat = false } = scope;
+
+            ({ speaker, actor, token, character } =
+                sohl.SohlMacro.getExecuteDefaults({
+                    speaker,
+                    actor,
+                    token,
+                    character,
+                    needsActor: true,
+                    self: this,
+                }));
+
+            // Ensure that there is fate available to be used
+            const fateList = this.availableFate;
+            let fateUuid;
+            if (fateList?.length) {
+                const dlgData = {
+                    fateChoices: Object.fromEntries(
+                        fateList.map((it) => [it.uuid, it.name]),
+                    ),
+                };
+                const compiled = Handlebars.compile(`<form id="select-token"><div class="form-group">
+                <label>Select which fate to use:</label>
+                <select name="fateChoice">
+                {{selectOptions fateChoices}}
+            </select></div></form>`);
+                const dlgHtml = compiled(dlgData, {
+                    allowProtoMethodsByDefault: true,
+                    allowProtoPropertiesByDefault: true,
+                });
+                fateUuid = await Dialog.prompt({
+                    title: "Choose Fate",
+                    content: dlgHtml,
+                    label: "OK",
+                    callback: async (html) => {
+                        const form = html.querySelector("form");
+                        const fd = new FormDataExtended(form);
+                        const formdata = foundry.utils.expandObject(fd.object);
+                        return formdata.fateChoice;
+                    },
+                    options: { jQuery: false },
+                    rejectClose: false,
+                });
+                if (!fateUuid) return null;
+            }
+            const fateItem = await fromUuid(fateUuid);
+            ui.notifications.warn(`Can't find fate with UUID ${fateUuid}`);
+            if (!fateItem) return null;
+
+            const mlMod = LgndMasteryLevelModifier.create(this.$masteryLevel, {
+                parent: this,
+            });
+            this.fateBonusItems.forEach((it) => {
+                mlMod.add(it.name, "FateBns", it.system.$level.effective);
+            });
+
+            const successTestResult = this.successTest(
+                speaker,
+                actor,
+                token,
+                character,
+                {
+                    noChat,
+                    skipDialog,
+                    type: `${this.type}-${this.name}-fate-test`,
+                    title: `${this.item.label} Fate Test`,
+                    testResult: {
+                        speaker,
+                        item: this.item,
+                        rollMode: game.settings.get("core", "rollMode"),
+                        situationalModifier: 0,
+                        typeLabel: this.constructor.typeLabel,
+                        mlMod: LgndMasteryLevelModifier.create(
+                            this.$masteryLevel.fate,
+                            this,
+                        ),
+                        svTable: [
+                            {
+                                maxValue:
+                                    sohl.SOHL.CONST.SUCCESS_LEVEL
+                                        .MarginalFailure,
+                                lastDigit: [],
+                                label: "No Fate",
+                                description: "Fate test failed, no fate",
+                            },
+                            {
+                                maxValue: Number.MAX_SAFE_INTEGER,
+                                lastDigit: [],
+                                label: "Fate Succeeded",
+                                description:
+                                    "Fate test succeeded, increase test by 1 Success Level",
+                            },
+                        ],
+                    },
+                },
+            );
+
+            // If user cancelled the roll, then return immediately
+            if (!successTestResult) return null;
+
+            LgndMasteryLevelModifier._handleDetailedDescription(
+                successTestResult,
+            );
+            let fateCost = 0;
+            if (successTestResult.isSuccess) {
+                // If we got a critical success, then ask the player how to proceed
+                if (successTestResult.isCritical) {
+                    const fateResult = await Dialog.wait({
+                        title: "Fate Critical Success",
+                        content: `<p>Choose how to proceed:
+                    <ol>
+                    <li><strong>Free Fate:</strong> Get +1 success level bonus, but the character doesn't have to expend any fate points.</li>
+                    <li><strong>Double Fate:</strong> Get +2 success level bonus, but the character must expend one fate point.</li>
+                    </ol></p>`,
+                        buttons: {
+                            freeFate: {
+                                icon: '<i class="far fa-circle-check"></i>',
+                                label: "Free",
+                                callback: () => "+1 Bonus, no cost",
+                            },
+                            doubleFate: {
+                                icon: '<i class="fas fa-check-double"></i>',
+                                label: "Double",
+                                callback: () => "+2 Bonus, 1 Fate",
+                            },
+                        },
+                        close: () => "freeFate",
+                        default: "freeFate",
+                        options: { jQuery: false },
+                    });
+                    if (fateResult === "doubleFate") {
+                        successTestResult.label = "Fate Critical Success";
+                        successTestResult.description =
+                            "Increase test Success Level by 2, cost 1 FP";
+                        fateCost = 1;
+                    } else {
+                        successTestResult.label = "Fate Critical Success";
+                        successTestResult.description =
+                            "Increase test Success Level by 1, no fate cost";
+                    }
+                } else {
+                    fateCost = 1;
+                }
+            } else {
+                fateCost = successTestResult.isCritical ? 1 : 0;
+            }
+
+            await this.successTestToChat({
+                speaker,
+                testResult: successTestResult,
+            });
+
+            // Reduce the fate level by the fate cost if any
+            if (fateCost) {
+                const newFate = Math.max(
+                    0,
+                    fateItem.system.levelBase - fateCost,
+                );
+                if (newFate !== fateItem.system.levelBase) {
+                    fateItem.update({ "system.levelBase": newFate });
+                }
+            }
+
+            // Reduce the number of charges for each fate bonus (if any)
+            this.fateBonusItems.forEach((it) => {
+                if (!it.system.$charges.disabled) {
+                    const newCharges = Math.max(0, it.system.charges.value - 1);
+                    if (newCharges !== it.system.charges.value) {
+                        it.update({ "system.charges.value": newCharges });
+                    }
+                }
+            });
+
+            return successTestResult;
+        }
+
+        async improveWithSDR(speaker) {
+            const updateData = { "system.improveFlag": false };
+            let roll = await Roll.create("1d100 + @sb", {
+                sb: this.skillBase.value,
+            });
+            const isSuccess = roll.total > this.$masteryLevel.base;
+
+            if (isSuccess) {
+                updateData["system.masteryLevelBase"] =
+                    this.masteryLevelBase + this.sdrIncr;
+            }
+            let prefix = `${this.constructor.subTypes[this.subType]} ${
+                this.constructor.typeLabel.singular
+            }`;
+            const chatTemplate =
+                "systems/sohl/templates/chat/standard-test-card.html";
+            const chatTemplateData = {
+                variant: "legendary",
+                type: `${this.type}-${this.name}-improve-sdr`,
+                title: `${this.item.label} Development Roll`,
+                effTarget: this.$masteryLevel.base,
+                isSuccess: isSuccess,
+                rollValue: roll.total,
+                rollResult: roll.result,
+                showResult: true,
+                resultText: `${isSuccess ? "" : "No "}${prefix} Increase`,
+                resultDesc: isSuccess
+                    ? `${this.item.label} increased by ${this.sdrIncr} to ${
+                          this.$masteryLevel.base + this.sdrIncr
+                      }`
+                    : "",
+                description: isSuccess ? "Success" : "Failure",
+                notes: "",
+                sdrIncr: this.sdrIncr,
+            };
+
+            const html = await renderTemplate(chatTemplate, chatTemplateData);
+
+            const messageData = {
+                user: game.user.id,
+                speaker,
+                content: html.trim(),
+                sound: CONFIG.sounds.dice,
+            };
+
+            ChatMessage.applyRollMode(messageData, "roll");
+
+            // Create a chat message
+            await ChatMessage.create(messageData);
+        }
+
+        async improveWithXP(speaker) {
+            const xpItem = this.actor.getTraitByAbbrev("xp");
+            if (xpItem?.system.$score.disabled) {
+                ui.notifications.warn(
+                    "Exprience Points disabled or don't exist, cannot improve with XP",
+                );
+                return null;
+            }
+            const xpVal = xpItem.system.$score.effective || 0;
+            const newXPVal = xpVal - Math.max(this.$masteryLevel.index, 1);
+            if (newXPVal >= 0) {
+                await this.item.update({
+                    "system.masteryLevelBase": this.masteryLevelBase + 1,
+                });
+                await xpItem.update({
+                    "system.textValue": String(newXPVal),
+                });
+                const chatTemplate = "systems/sohl/templates/chat/xp-card.html";
+                const chatTemplateData = {
+                    variant: "legendary",
+                    type: `${this.type}-${this.name}-improve-xp`,
+                    title: `${this.item.label} Experience Point Increase`,
+                    xpCost: xpVal - newXPVal,
+                    skillIncrease: 1,
+                };
+
+                const html = await renderTemplate(
+                    chatTemplate,
+                    chatTemplateData,
+                );
+
+                const messageData = {
+                    user: game.user.id,
+                    speaker,
+                    content: html.trim(),
+                    sound: CONFIG.sounds.dice,
+                };
+
+                ChatMessage.applyRollMode(messageData, "roll");
+
+                // Create a chat message
+                await ChatMessage.create(messageData);
+            }
+        }
+
         /** @override */
         applyPenalties() {
             // Apply Encumbrance Penalty to Mastery Level
@@ -2511,10 +3076,13 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
                 { parent: this },
             );
         }
+
+        postProcess() {
+            super.postProcess();
+            this.applyPenalties();
+        }
     };
 }
-
-class LgndDomainItemData extends sohl.DomainItemData {}
 
 class LgndInjuryItemData extends sohl.InjuryItemData {
     static get aspectTypes() {
@@ -3321,7 +3889,9 @@ class LgndMysticalAbilityItemData extends LgndMasteryLevelItemDataMixin(
     sohl.MysticalAbilityItemData,
 ) {}
 
-class LgndTraitItemData extends sohl.TraitItemData {
+class LgndTraitItemData extends LgndMasteryLevelItemDataMixin(
+    sohl.TraitItemData,
+) {
     get actionBodyParts() {
         return this.item.getFlag("sohl", "legendary.actionBodyParts") || [];
     }
@@ -3343,77 +3913,6 @@ class LgndTraitItemData extends sohl.TraitItemData {
         }
     }
 
-    /**
-     * Complete the opposed test.
-     *
-     * @param {object} scope
-     * @param {string} [scope.sourceTestResult]
-     * @param {number} [scope.testType]
-     * @returns {OpposedTestResult} result of the test
-     */
-    async opposedTestResume(speaker, actor, token, character, scope) {
-        let { sourceTestResult, targetTestResult } = scope;
-
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-                needsToken: true,
-                self: this,
-            }));
-
-        let opposedTestResult;
-        if (this.intensity !== "attribute") {
-            let victoryStars = Math.max(sourceTestResult.successLevel, 0);
-            opposedTestResult = {
-                sourceTestResult,
-                targetTestResult,
-                victoryStars: victoryStars,
-                vsText: sohl.MasteryLevelItemData.victoryStarsText(
-                    victoryStars,
-                ),
-                sourceWins: victoryStars > 0,
-                targetWins: false,
-            };
-        } else {
-            if (!targetTestResult) {
-                // Roll for the target
-                targetTestResult = await this.$masteryLevel.test({
-                    type: "target-opposed-test",
-                });
-            }
-
-            const victoryStars = sohl.MasteryLevelItemData.calcVictoryStars(
-                sourceTestResult,
-                targetTestResult,
-            );
-
-            opposedTestResult = {
-                sourceTestResult,
-                targetTestResult,
-                victoryStars,
-                vsText: sohl.MasteryLevelItemData.victoryStarsText(
-                    victoryStars,
-                ),
-                sourceWins: victoryStars > 0,
-                targetWins: victoryStars < 0,
-            };
-        }
-
-        return await LgndMasteryLevelModifier.opposedTestToChat(
-            speaker,
-            actor,
-            token,
-            character,
-            {
-                speaker,
-                opposedTestResult,
-            },
-        );
-    }
-
     processSiblings() {
         super.processSiblings();
         if (this.isNumeric) {
@@ -3426,13 +3925,13 @@ class LgndTraitItemData extends sohl.TraitItemData {
                         if (it.system.$impairment.unusable) {
                             this.$masteryLevel.set(
                                 `${this.item.name} Unusable`,
-                                `${this.abbrev}Unusable`,
+                                `BPUnusable`,
                                 0,
                             );
                         } else if (it.system.$impairment.value) {
                             this.$masteryLevel.add(
                                 `${this.item.name} Impairment`,
-                                `${this.abbrev}Imp`,
+                                `BPImp`,
                                 it.system.$impairment.value,
                             );
                         }
@@ -3499,15 +3998,33 @@ class LgndSkillItemData extends LgndMasteryLevelItemDataMixin(
     }
 
     /**
-     * Complete the opposed test.
+     * Continue the opposed test. Only valid testTypes are "block" and "counterstrike".
      *
      * @param {object} scope
      * @param {string} [scope.sourceTestResult]
      * @param {number} [scope.testType]
      * @returns {OpposedTestResult} result of the test
      */
-    async opposedTestResume(speaker, actor, token, character, scope) {
-        let { sourceTestResult, targetTestResult } = scope;
+    async opposedTestResume(speaker, actor, token, character, scope = {}) {
+        let { noChat = false, opposedTestResult } = scope;
+
+        if (!opposedTestResult) {
+            throw new Error("Must supply opposedTestResult");
+        }
+
+        if (
+            this.abbrev !== "dge" ||
+            opposedTestResult.sourceTestResult.testType !==
+                LgndSuccessTestResult.TEST_TYPE.ATTACK
+        ) {
+            return super.opposedTestResume(
+                speaker,
+                actor,
+                token,
+                character,
+                scope,
+            );
+        }
 
         ({ speaker, actor, token, character } =
             sohl.SohlMacro.getExecuteDefaults({
@@ -3519,37 +4036,105 @@ class LgndSkillItemData extends LgndMasteryLevelItemDataMixin(
                 self: this,
             }));
 
-        if (!targetTestResult) {
-            // Roll for the target
-            targetTestResult = await this.$masteryLevel.test({
-                type: "target-opposed-test",
+        if (!opposedTestResult.targetTestResult) {
+            opposedTestResult.targetTestResult = this.successTest({
+                noChat: true,
+                testType: LgndSuccessTestResult.TEST_TYPE.DODGE,
             });
+            if (!opposedTestResult.targetTestResult) return null;
+        } else {
+            // In this situation, where the targetTestResult is provided,
+            // the GM is modifying the result of a prior opposedTest.
+            // Therefore, we re-display the dialog for each of the prior
+            // successTests.
+            opposedTestResult.sourceTestResult =
+                opposedTestResult.sourceTestResult.item.successTest({
+                    noChat: true,
+                    successTestResult: opposedTestResult.sourceTestResult,
+                });
+            opposedTestResult.targetTestResult =
+                opposedTestResult.targetTestResult.item.successTest({
+                    noChat: true,
+                    successTestResult: opposedTestResult.targetTestResult,
+                });
         }
 
-        const victoryStars = sohl.MasteryLevelItemData.calcVictoryStars(
-            sourceTestResult,
-            targetTestResult,
-        );
+        opposedTestResult.evaluate();
 
-        const opposedTestResult = {
-            sourceTestResult,
-            targetTestResult,
-            victoryStars,
-            vsText: sohl.MasteryLevelItemData.victoryStarsText(victoryStars),
-            sourceWins: victoryStars > 0,
-            targetWins: victoryStars < 0,
+        const combatResult = {
+            attacker: {
+                wins: false,
+                isFumble: false,
+                isStumble: false,
+                tacticalAdvantageChoices: [],
+                tacticalAdvantageChoicesText: "",
+                addlTacAdvs: 0,
+            },
+            defender: {
+                wins: false,
+                isFumble: false,
+                isStumble: false,
+                tacticalAdvantageChoices: [],
+                tacticalAdvantageChoicesText: "",
+                addlTacAdvs: 0,
+            },
         };
 
-        return await LgndMasteryLevelModifier.opposedTestToChat(
-            speaker,
-            actor,
-            token,
-            character,
-            {
-                speaker,
-                opposedTestResult,
-            },
-        );
+        combatResult.attacker.isFumble =
+            opposedTestResult.sourceTestResult.isCritical &&
+            !opposedTestResult.sourceTestResult.isSuccess &&
+            opposedTestResult.sourceTestResult.lastDigit === 0;
+        combatResult.attacker.isStumble =
+            opposedTestResult.sourceTestResult.isCritical &&
+            !opposedTestResult.sourceTestResult.isSuccess &&
+            opposedTestResult.sourceTestResult.lastDigit === 5;
+
+        combatResult.defender.isStumble =
+            opposedTestResult.targetTestResult.isCritical &&
+            !opposedTestResult.targetTestResult.isSuccess;
+
+        const victoryStars = opposedTestResult.victoryStarsBreakTies;
+        if (victoryStars > 0) {
+            combatResult.attacker.wins = true;
+            combatResult.attacker.addlTacAdvs = victoryStars - 1;
+        } else {
+            combatResult.defender.wins = true;
+            combatResult.defender.addlTacAdvs = -victoryStars - 1;
+        }
+
+        if (combatResult.defender.addlTacAdvs) {
+            combatResult.defender.tacticalAdvantageChoices = [
+                LgndOpposedTestResult.TACTICAL_ADVANTAGE.ACTION,
+                LgndOpposedTestResult.TACTICAL_ADVANTAGE.SETUP,
+            ];
+        }
+
+        if (combatResult.attacker.addlTacAdvs) {
+            combatResult.attacker.tacticalAdvantageChoices = Array.from(
+                LgndOpposedTestResult.TACTICAL_ADVANTAGE.values(),
+            );
+        }
+
+        combatResult.attacker.tacticalAdvantageChoicesText =
+            sohl.Utility.listToText(
+                combatResult.attacker.tacticalAdvantageChoices,
+            );
+        combatResult.defender.tacticalAdvantageChoicesText =
+            sohl.Utility.listToText(
+                combatResult.defender.tacticalAdvantageChoices,
+            );
+
+        opposedTestResult.combatResult = combatResult;
+
+        if (!noChat) {
+            opposedTestResult.toChat();
+        }
+
+        return opposedTestResult;
+    }
+
+    prepareBaseData() {
+        super.prepareBaseData();
     }
 
     processSiblings() {
@@ -3563,13 +4148,13 @@ class LgndSkillItemData extends LgndMasteryLevelItemDataMixin(
                     if (it.system.$impairment.unusable) {
                         this.$masteryLevel.set(
                             `${this.item.name} Unusable`,
-                            `${this.abbrev}Unusable`,
+                            `BPUnusable`,
                             0,
                         );
                     } else if (it.system.$impairment.value) {
                         this.$masteryLevel.add(
                             `${this.item.name} Impairment`,
-                            `${this.abbrev}Imp`,
+                            `BPImp`,
                             it.system.$impairment.value,
                         );
                     }
@@ -3914,6 +4499,11 @@ class LgndArmorGearItemData extends sohl.ArmorGearItemData {
 class LgndWeaponGearItemData extends sohl.WeaponGearItemData {
     $length;
     $heft;
+    $baseRange;
+
+    get baseRangeBase() {
+        return this.item.getFlag("sohl", "legendary.baseRangeBase") || 0;
+    }
 
     get heftBase() {
         return this.item.getFlag("sohl", "legendary.heftBase") || 0;
@@ -3927,6 +4517,9 @@ class LgndWeaponGearItemData extends sohl.WeaponGearItemData {
 
         this.$heft = new sohl.ValueModifier(this);
         this.$heft.setBase(this.heftBase);
+
+        this.$baseRange = new sohl.ValueModifier(this);
+        this.$baseRange.setBase(this.baseRangeBase);
     }
 
     setupVirtualItems() {
@@ -3978,6 +4571,24 @@ class LgndWeaponGearItemData extends sohl.WeaponGearItemData {
                 }
             }
         });
+    }
+}
+
+class LgndProjectileWeaponGearItemData extends sohl.ProjectileGearItemData {
+    static get effectKeys() {
+        return sohl.Utility.simpleMerge(super.effectKeys, {
+            "system.$traits.armorReduction": {
+                label: "Armor Reduction",
+                abbrev: "ProjAR",
+            },
+        });
+    }
+
+    prepareBaseData() {
+        super.prepareBaseData();
+
+        this.$attack = new LgndCombatModifier(this);
+        this.$impact = new LgndImpactModifier(this);
     }
 }
 
@@ -4180,7 +4791,6 @@ const LgndItemDataModels = foundry.utils.mergeObject(
         [sohl.TraitItemData.typeName]: LgndTraitItemData,
         [sohl.SkillItemData.typeName]: LgndSkillItemData,
         [sohl.InjuryItemData.typeName]: LgndInjuryItemData,
-        [sohl.DomainItemData.typeName]: LgndDomainItemData,
         [sohl.AfflictionItemData.typeName]: LgndAfflictionItemData,
         [sohl.AnatomyItemData.typeName]: LgndAnatomyItemData,
         [sohl.BodyZoneItemData.typeName]: LgndBodyZoneItemData,
@@ -4194,6 +4804,8 @@ const LgndItemDataModels = foundry.utils.mergeObject(
             LgndCombatTechniqueStrikeModeItemData,
         [sohl.ArmorGearItemData.typeName]: LgndArmorGearItemData,
         [sohl.WeaponGearItemData.typeName]: LgndWeaponGearItemData,
+        [sohl.ProjectileGearItemData.typeName]:
+            LgndProjectileWeaponGearItemData,
     },
     { inplace: false },
 );
@@ -4203,6 +4815,7 @@ const LgndModifiers = foundry.utils.mergeObject(
     {
         ImpactModifier: LgndImpactModifier,
         MasteryLevelModifier: LgndMasteryLevelModifier,
+        CombatModifier: LgndCombatModifier,
     },
     { inplace: false },
 );
@@ -4210,9 +4823,11 @@ const LgndModifiers = foundry.utils.mergeObject(
 export const verData = {
     id: "legendary",
     label: "Song of Heroic Lands: Legendary",
+    cmds: LgndCommands,
     CONFIG: {
-        displayChatActionButtons: sohl.Utility.displayChatActionButtons,
-        onChatCardAction: sohl.Utility.onChatCardAction,
+        displayChatActions: sohl.Utility.displayChatActions,
+        onChatCardEditAction: sohl.Utility.onChatCardEditAction,
+        onChatCardButton: sohl.Utility.onChatCardButton,
         Helper: {
             modifiers: LgndModifiers,
             contextMenu: sohl.SohlContextMenu,
