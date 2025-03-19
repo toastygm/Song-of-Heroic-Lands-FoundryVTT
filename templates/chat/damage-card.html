@@ -11,14 +11,14 @@
 
     <fieldset>
         <legend>Impact Modifier</legend>
-        {{{testResult.impactMod.chatHtml}}}
+        {{{impactResult.impactMod.chatHtml}}}
     </fieldset>
 
     <div class="grid grid-2col">
         <div class="card-content center">
             <div class="flexrow">
                 <span class="label">Formula:</span>
-                <span class="value">{{testResult.impactMod.label}}</span>
+                <span class="value">{{impactResult.impactMod.label}}</span>
             </div>
         </div>
 
@@ -26,37 +26,37 @@
             <div class="flexrow">
                 <span class="label">Roll:</span>
                 <span class="value"
-                    >{{impactRoll.result}} = <strong>{{impactRoll.total}}</strong></span
+                    >{{impactResult.roll.result}} = <strong>{{impactResult.roll.total}}</strong></span
                 >
             </div>
         </div>
     </div>
 
-    {{#if testResult.impactMod.armorReduction.effective}}
+    {{#if impactResult.impactMod.armorReduction.effective}}
     <fieldset>
         <legend>Armor Reduction</legend>
         <div class="card-content">
-            {{{testResult.impactMod.armorReduction.chatHtml}}}
+            {{{impactResult.impactMod.armorReduction.chatHtml}}}
         </div>
 
         <div class="card-content">
             <div class="flexrow flex-center">
                 <span class="label">Total:</span>
-                <span class="value">{{testResult.impactMod.armorReduction.effective}}</span>
+                <span class="value">{{impactResult.impactMod.armorReduction.effective}}</span>
             </div>
         </div>
     </fieldset>
     {{/if}}
 
-    {{#if testResult.impactMod.zoneDie}}
+    {{#if impactResult.impactMod.zoneDie}}
     <div class="card-content">
         <div class="flexrow flex-center">
             <span class="label">Start Zone:</span>
-            <span class="value">{{testResult.impactMod.startZone}}</span>
+            <span class="value">{{impactResult.impactMod.startZone}}</span>
         </div>
         <div class="flexrow flex-center">
             <span class="label">Zone Die:</span>
-            <span class="value">d{{testResult.impactMod.zoneDie}}</span>
+            <span class="value">d{{impactResult.impactMod.zoneDie}}</span>
         </div>
     </div>
     {{else}}
@@ -65,26 +65,26 @@
     </div>
     {{/if}}
 
-    {{#if testResult.impactMod.isProjectile}}
+    {{#if impactResult.impactMod.isProjectile}}
     <div class="card-content center">
         <span class="value">Impact is from a projectile.</span>
     </div>
     {{/if}}
 
-    {{#if testResult.impactMod.extraBleedRisk}}
+    {{#if impactResult.impactMod.extraBleedRisk}}
     <div class="card-content center">
         <span class="value">Risk of extra bleeding from impact.</span>
     </div>
     {{/if}}
 
-    {{#if (and targetToken impactRoll.total)}}
+    {{#if (and targetToken impactResult.roll.total)}}
     <div class="card-buttons">
         <button
             data-action="createInjury"
             data-handler-uuid="{{targetToken.actor.uuid}}"
             data-source-actor-uuid="{{actor.uuid}}"
             data-test-result-json="{{testResultJson}}"
-            >Calculate {{targetName}} Injury
+            >Calculate {{targetToken.name}} Injury
         </button>
     </div>
     {{/if}}

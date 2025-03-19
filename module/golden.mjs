@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import * as sohl from "./sohl-common.js";
+import * as sohl from "./sohl-common.mjs";
 
 /* ====================================================================== */
 /*          Constants                                                     */
@@ -83,7 +83,7 @@ export const verData = {
             documentSheet: sohl.SohlMacroConfig,
         },
     },
-    CONST: foundry.utils.mergeObject(sohl.SOHL.CONST, GOLD.CONST, {
+    CONST: foundry.utils.mergeObject(CONFIG.SOHL.CONST, GOLD.CONST, {
         inplace: false,
     }),
 };

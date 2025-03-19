@@ -23,7 +23,10 @@
         "minimum": "12",
         "verified": "12.323"
     },
-    "esmodules": ["module/sohl.js"],
+    "scripts": [
+        "scripts/intl-messageformat.min.js"
+    ],
+    "esmodules": ["module/sohl.mjs"],
     "styles": ["css/sohl.css"],
     "languages": [
         {
@@ -42,7 +45,9 @@
                 "creatures",
                 "characteristics",
                 "mysteries",
-                "possessions"
+                "possessions",
+                "journals",
+                "macros"
             ]
         }
     ],
@@ -85,6 +90,22 @@
             "name": "possessions",
             "system": "sohl",
             "path": "packs/possessions",
+            "private": false
+        },
+        {
+            "label": "Journals",
+            "type": "JournalEntry",
+            "name": "journals",
+            "system": "sohl",
+            "path": "packs/journals",
+            "private": false
+        },
+        {
+            "label": "Macros",
+            "type": "Macro",
+            "name": "macros",
+            "system": "sohl",
+            "path": "packs/macros",
             "private": false
         }
     ],

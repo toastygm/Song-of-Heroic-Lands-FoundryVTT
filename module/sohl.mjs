@@ -1,143 +1,168 @@
 /* eslint-disable no-unused-vars */
-import * as sohl from "./sohl-common.js";
-import * as legendary from "./legendary.js";
-import * as mistyisle from "./mistyisle.js";
+import * as sohl from "./sohl-common.mjs";
+import * as legendary from "./legendary.mjs";
+import * as mistyisle from "./mistyisle.mjs";
 
+/**
+ * Configures FoundryVTT settings and UI for SoHL.
+ * @param {object} verData - The version data for the system.
+ */
 function setupSohlVersion(verData) {
-    console.log(verData.CONST.initVersionMessage);
-    sohl.SOHL.sysVer = verData;
-    sohl.SOHL.cmds = verData.cmds;
+    foundry.utils.mergeObject(CONFIG, verData.CONFIG, { inplace: true });
+    CONFIG.SOHL = verData.SOHL;
+    console.log(CONFIG.SOHL.CONST.initVariantMessage);
 
-    Object.values(verData.CONST.VERSETTINGS).forEach((setting) => {
+    // Register Foundry system settings
+    Object.values(CONFIG.SOHL.CONST.VERSETTINGS).forEach((setting) => {
         game.settings.register("sohl", setting.key, setting.data);
     });
 
-    foundry.utils.mergeObject(CONFIG.Item, verData.CONFIG.Item, {
-        inplace: true,
-    });
-    foundry.utils.mergeObject(CONFIG.Actor, verData.CONFIG.Actor, {
-        inplace: true,
-    });
-    foundry.utils.mergeObject(CONFIG.Macro, verData.CONFIG.Macro, {
-        inplace: true,
-    });
-    foundry.utils.mergeObject(
-        CONFIG.ActiveEffect,
-        verData.CONFIG.ActiveEffect,
-        { inplace: true },
-    );
-    foundry.utils.mergeObject(CONFIG.Combatant, verData.CONFIG.Combatant, {
-        inplace: true,
-    });
-
-    // Register sheet application classes
     if (Actors.registeredSheets.length) {
         Actors.unregisterSheet("sohl", ...Actors.registeredSheets);
     }
-
-    sohl.SOHL.sysVer.CONFIG.Actor.documentSheets.forEach(({ cls, types }) => {
-        Actors.registerSheet("sohl", cls, {
-            types: types,
-            makeDefault: true,
-        });
+    CONFIG.Actor.documentSheets.forEach(({ cls, types }) => {
+        Actors.registerSheet("sohl", cls, { types, makeDefault: true });
     });
+
     if (Items.registeredSheets.length) {
         Items.unregisterSheet("sohl", ...Items.registeredSheets);
     }
-    sohl.SOHL.sysVer.CONFIG.Item.documentSheets.forEach(({ cls, types }) => {
-        Items.registerSheet("sohl", cls, {
-            types: types,
-            makeDefault: true,
-        });
+    CONFIG.Item.documentSheets.forEach(({ cls, types }) => {
+        Items.registerSheet("sohl", cls, { types, makeDefault: true });
     });
+
     if (Macros.registeredSheets.length) {
         Macros.unregisterSheet("sohl", ...Macros.registeredSheets);
     }
-    Macros.registerSheet("sohl", verData.CONFIG.Macro.documentSheet, {
+    Macros.registerSheet("sohl", CONFIG.Macro.documentSheet, {
         makeDefault: true,
-        label: `Default ${verData.label} Macro Sheet`,
+        label: `Default ${CONFIG.SOHL.label} Macro Sheet`,
     });
-    DocumentSheetConfig.unregisterSheet(
-        ActiveEffect,
-        "core",
-        ActiveEffectConfig,
-    );
-    DocumentSheetConfig.registerSheet(
-        ActiveEffect,
-        "sohl",
-        sohl.SohlActiveEffectConfig,
-        {
-            makeDefault: true,
-            label: "Default HarnMaster Active Effect Sheet",
-        },
-    );
-    Macros.registerSheet("sohl", verData.CONFIG.Macro.documentSheet, {
-        makeDefault: true,
-        label: `Default ${verData.label} Macro Sheet`,
-    });
+
+    if (game.release.generation < 13) {
+        DocumentSheetConfig.unregisterSheet(
+            ActiveEffect,
+            "core",
+            ActiveEffectConfig,
+        );
+        DocumentSheetConfig.registerSheet(
+            ActiveEffect,
+            "sohl",
+            sohl.SohlActiveEffectConfig,
+            {
+                makeDefault: true,
+                label: `Default ${CONFIG.SOHL.label} Active Effect Sheet`,
+            },
+        );
+    } else {
+        foundry.applications.apps.DocumentSheetConfig.unregisterSheet(
+            ActiveEffect,
+            "core",
+            foundry.applications.sheets.ActiveEffectConfig,
+        );
+        foundry.applications.apps.DocumentSheetConfig.registerSheet(
+            ActiveEffect,
+            "sohl",
+            sohl.SohlActiveEffectConfig,
+            {
+                makeDefault: true,
+                label: `Default ${CONFIG.SOHL.label} Active Effect Sheet`,
+            },
+        );
+    }
 }
 
 /*===============================================================*/
 /*      System Settings                                          */
 /*===============================================================*/
 function registerSystemSettings() {
-    Object.values(sohl.SOHL.CONST.SETTINGS).forEach((setting) => {
+    Object.values(sohl.SOHL.SETTINGS).forEach((setting) => {
         game.settings.register("sohl", setting.key, setting.data);
     });
 }
 
-/*===============================================================*/
-/*      System Initialization                                    */
-/*===============================================================*/
-
-Hooks.on("renderChatMessage", (app, html, data) => {
+function registerSystemHooks() {
     // Display action buttons
-    sohl.SOHL.sysVer.CONFIG.displayChatActions(app, html, data);
-});
-
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
-Hooks.on("renderChatLog", (app, html, data) => {
-    html.on(
-        "click",
-        ".card-buttons button",
-        sohl.SOHL.sysVer.CONFIG.onChatCardButton.bind(this),
-    );
-    html.on(
-        "click",
-        ".edit-action",
-        sohl.SOHL.sysVer.CONFIG.onChatCardEditAction.bind(this),
-    );
-});
-
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
-Hooks.on("renderChatPopout", (app, html, data) => {
-    html.on(
-        "click",
-        ".card-buttons button",
-        sohl.SOHL.sysVer.CONFIG.onChatCardButton.bind(this),
-    );
-    html.on(
-        "click",
-        ".edit-action",
-        sohl.SOHL.sysVer.CONFIG.onChatCardEditAction.bind(this),
-    );
-});
-
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
-Hooks.on("renderSceneConfig", (app, html, data) => {
-    const scene = app.object;
-    if (app.renderTOTMScene) return;
-    app.renderTOTMScene = true;
-
-    let isTotm = scene.getFlag("sohl", "isTotm");
-    if (typeof isTotm === "undefined") {
-        if (!scene.compendium) {
-            scene.setFlag("sohl", "isTotm", false);
-        }
-        isTotm = false;
+    if (game.release.generation < 13) {
+        Hooks.on("renderChatMessage", (app, jQuery, data) => {
+            CONFIG.SOHL.class.Utility.displayChatActions(app, jQuery[0], data);
+        });
+    } else {
+        Hooks.on("renderChatMessageHTML", (app, element, data) => {
+            CONFIG.SOHL.class.Utility.displayChatActions(app, element, data);
+        });
     }
 
-    const totmHtml = `
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    Hooks.on("renderChatLog", (app, html, data) => {
+        const element = html instanceof jQuery ? html[0] : html;
+        element.addEventListener("click", (ev) => {
+            const target = ev.target;
+
+            // Check if it's a button inside .card-buttons
+            let actionElement = target.closest(".card-buttons button");
+            if (actionElement) {
+                CONFIG.SOHL.class.Utility.onChatCardButton.call(
+                    this,
+                    actionElement,
+                );
+            }
+            // Check if it's an element with the class .edit-action
+            else {
+                actionElement = target.closest("a.edit-action");
+                if (actionElement) {
+                    CONFIG.SOHL.class.Utility.onChatCardEditAction.call(
+                        this,
+                        actionElement,
+                    );
+                }
+            }
+        });
+    });
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    Hooks.on("renderChatPopout", (app, html, data) => {
+        const element = html instanceof jQuery ? html[0] : html;
+        element.addEventListener("click", (ev) => {
+            const target = ev.target;
+
+            // Check if it's a button inside .card-buttons
+            let actionElement = target.closest(".card-buttons button");
+            if (actionElement) {
+                CONFIG.SOHL.class.Utility.onChatCardButton.call(
+                    this,
+                    actionElement,
+                );
+            }
+            // Check if it's an element with the class .edit-action
+            else {
+                actionElement = target.closest("a.edit-action");
+                if (actionElement) {
+                    CONFIG.SOHL.class.Utility.onChatCardEditAction.call(
+                        this,
+                        actionElement,
+                    );
+                }
+            }
+        });
+    });
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    Hooks.on("renderSceneConfig", (app, html, data) => {
+        const element = html instanceof jQuery ? html[0] : html;
+        const scene = app.object;
+        if (app.renderTOTMScene) return;
+        app.renderTOTMScene = true;
+
+        let isTotm = scene.getFlag("sohl", "isTotm");
+        if (typeof isTotm === "undefined") {
+            if (!scene.compendium) {
+                scene.setFlag("sohl", "isTotm", false);
+            }
+            isTotm = false;
+        }
+
+        const totmHtml = `
     <div class="form-group">
         <label>Theatre of the Mind</label>
         <input id="sohl-totm" type="checkbox" name="sohlTotm" data-dtype="Boolean" ${isTotm ? "checked" : ""}>
@@ -145,28 +170,181 @@ Hooks.on("renderSceneConfig", (app, html, data) => {
     </div>
     `;
 
-    const totmFind = html.find("input[name = 'gridAlpha']");
-    const formGroup = totmFind.closest(".form-group");
-    formGroup.after(totmHtml);
-});
+        const totmFind = element.querySelector("input[name='gridAlpha']");
 
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
-Hooks.on("closeSceneConfig", (app, html, data) => {
-    const scene = app.object;
-    app.renderTOTMScene = false;
-    if (!scene.compendium) {
-        scene.setFlag(
-            "sohl",
-            "isTotm",
-            html.find("input[name='sohlTotm']").is(":checked"),
-        );
+        // Find the closest parent with the class '.form-group'
+        const formGroup = totmFind?.closest(".form-group");
+
+        // Insert the totmHtml after the formGroup
+        if (formGroup) {
+            formGroup.insertAdjacentHTML("afterend", totmHtml);
+        }
+    });
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    Hooks.on("closeSceneConfig", (app, html, data) => {
+        const element = html instanceof jQuery ? html[0] : html;
+        const scene = app.object;
+        app.renderTOTMScene = false;
+        if (!scene.compendium) {
+            scene.setFlag(
+                "sohl",
+                "isTotm",
+                element.querySelector("input[name='sohlTotm']")?.checked ||
+                    false,
+            );
+        }
+    });
+}
+
+/**
+ * Handles custom UUID resolution (synchronous)
+ * Supports resolving virtual and nested items within SOHL actors/items.
+ *
+ * @param {string} uuid - The custom UUID to resolve.
+ * @param {object} options - Additional options (e.g., strict mode).
+ * @returns {Document|null} - The resolved document, or null if not found.
+ */
+function handleCustomUuidSync(uuid, options = {}) {
+    let parts = uuid.split("#");
+    const baseUuid = parts.shift();
+
+    // Resolve base document using Foundry's original method
+    let doc = globalThis.origFromUuidSync(baseUuid, options);
+    if (!doc) return null; // Match Foundry's behavior
+
+    // Process custom parts (e.g., #NestedItem, #VirtualItem)
+    while (doc && parts.length) {
+        const docType = parts.shift();
+        const docId = parts.shift();
+
+        switch (docType) {
+            case "VirtualItem":
+                if (!(doc instanceof sohl.SohlActor)) {
+                    if (options.strict) {
+                        throw new Error(
+                            `Invalid UUID: ${uuid} - Expected a SohlActor for VirtualItem resolution.`,
+                        );
+                    }
+                    return null;
+                }
+                doc = doc.system.virtualItems?.get(docId) ?? null;
+                break;
+
+            case "NestedItem":
+                if (!(doc instanceof sohl.SohlItem)) {
+                    if (options.strict) {
+                        throw new Error(
+                            `Invalid UUID: ${uuid} - Expected a SohlItem for NestedItem resolution.`,
+                        );
+                    }
+                    return null;
+                }
+                doc = doc.system.items?.get(docId) ?? null;
+                break;
+
+            default:
+                if (options.strict) {
+                    throw new Error(`Unknown UUID Type: ${docType}`);
+                }
+                return null;
+        }
     }
-});
+
+    return doc;
+}
+
+/**
+ * Handles custom UUID resolution (asynchronous)
+ * Supports resolving virtual and nested items within SOHL actors/items.
+ *
+ * @param {string} uuid - The custom UUID to resolve.
+ * @param {object} options - Additional options (e.g., strict mode).
+ * @returns {Promise<Document|null>} - The resolved document, or null if not found.
+ */
+async function handleCustomUuidAsync(uuid, options = {}) {
+    let parts = uuid.split("#");
+    const baseUuid = parts.shift();
+
+    // Resolve base document using Foundry's original async method
+    let doc = await globalThis.origFromUuid(baseUuid, options);
+    if (!doc) return null; // Match Foundry's behavior
+
+    // Process custom parts (e.g., #NestedItem, #VirtualItem)
+    while (doc && parts.length) {
+        const docType = parts.shift();
+        const docId = parts.shift();
+
+        switch (docType) {
+            case "VirtualItem":
+                if (!(doc instanceof sohl.SohlActor)) {
+                    if (options.strict) {
+                        throw new Error(
+                            `Invalid UUID: ${uuid} - Expected a SohlActor for VirtualItem resolution.`,
+                        );
+                    }
+                    return null;
+                }
+                doc = doc.system.virtualItems?.get(docId) ?? null;
+                break;
+
+            case "NestedItem":
+                if (!(doc instanceof sohl.SohlItem)) {
+                    if (options.strict) {
+                        throw new Error(
+                            `Invalid UUID: ${uuid} - Expected a SohlItem for NestedItem resolution.`,
+                        );
+                    }
+                    return null;
+                }
+                doc = doc.system.items?.get(docId) ?? null;
+                break;
+
+            default:
+                if (options.strict) {
+                    throw new Error(`Unknown UUID Type: ${docType}`);
+                }
+                return null;
+        }
+    }
+
+    return doc;
+}
+
+function patchFromUuid() {
+    const fromUuid = globalThis.fromUuid;
+    const fromUuidSync = globalThis.fromUuidSync;
+
+    globalThis.fromUuidSync = (uuid, options = {}) => {
+        try {
+            // Use Foundry's original function first
+            let doc = fromUuidSync(uuid, options);
+            if (doc || !uuid.includes("#")) return doc;
+            return handleCustomUuidSync(uuid, options);
+        } catch (error) {
+            console.error(`fromUuidSync Error: ${error.message}`, error);
+            return null;
+        }
+    };
+
+    globalThis.fromUuid = async (uuid, options = {}) => {
+        try {
+            let doc = await fromUuid(uuid, options);
+            if (doc || !uuid.includes("#")) return doc;
+            return handleCustomUuidAsync(uuid, options);
+        } catch (error) {
+            console.error(`fromUuid Error: ${error.message}`, error);
+            return null;
+        }
+    };
+}
+
+/*===============================================================*/
+/*      System Initialization                                    */
+/*===============================================================*/
 
 Hooks.once("init", async function () {
-    console.log(`SoHL | ${sohl.SOHL.CONST.sohlInitMessage}`);
-
-    game.sohl = sohl.SOHL;
+    console.log(`SoHL | ${sohl.SOHL.CONST.SOHL_INIT_MESSAGE}`);
 
     // Register all available SoHR versions
     sohl.SOHL.registerSystemVersion("legendary", legendary.verData);
@@ -174,11 +352,9 @@ Hooks.once("init", async function () {
 
     // Initialize all system settings
     registerSystemSettings();
+    registerSystemHooks();
 
-    let hmVer = game.settings.get(
-        "sohl",
-        sohl.SOHL.CONST.SETTINGS.sohlVariant.key,
-    );
+    let hmVer = game.settings.get("sohl", sohl.SOHL.SETTINGS.sohlVariant.key);
     if (hmVer) {
         setupSohlVersion(sohl.SOHL.versionsData[hmVer]);
     }
@@ -196,74 +372,15 @@ Hooks.once("init", async function () {
     CONFIG.time.roundTime = 5;
     CONFIG.time.turnTime = 0;
 
-    sohl.SOHL.statusEffects.forEach((s) => CONFIG.statusEffects.push(s));
-    foundry.utils.mergeObject(
-        CONFIG.specialStatusEffects,
-        sohl.SOHL.specialStatusEffects,
-    );
-    foundry.utils.mergeObject(CONFIG.controlIcons, sohl.SOHL.controlIcons);
+    // CONFIG.SOHL.statusEffects.forEach((s) => CONFIG.statusEffects.push(s));
+    // foundry.utils.mergeObject(
+    //     CONFIG.specialStatusEffects,
+    //     CONFIG.SOHL.specialStatusEffects,
+    // );
 
     // Replace the standard fromUuidSync and fromUuid with new ones
     // that can handle embed items.
-    globalThis.origFromUuidSync = globalThis.fromUuidSync;
-    globalThis.origFromUuid = globalThis.fromUuid;
-    globalThis.fromUuidSync = function (uuid, options = {}) {
-        let doc = options.doc;
-        let parts = options.parts;
-        if (!doc) {
-            parts = uuid.split("#");
-            const topUuid = parts.shift();
-            doc = globalThis.origFromUuidSync(topUuid, options);
-        }
-
-        if (doc instanceof sohl.SohlActor && parts.length) {
-            // The UUID is for a nested or virtual item,
-            // and the doc is an Actor.  Search for the
-            // item in the virtual items list.
-            const found = doc.system.virtualItems.find(
-                (it) => it.uuid === uuid,
-            );
-            if (found) return found;
-        }
-
-        while (doc && parts.length) {
-            const docType = parts.shift();
-            const docId = parts.shift();
-
-            if (docType === "VirtualItem") {
-                if (!(doc instanceof sohl.SohlActor)) {
-                    throw new Error(`Invalid UUID: ${uuid}`);
-                }
-                doc = doc.system.virtualItems.get(docId);
-            } else if (docType === "NestedItem") {
-                if (!(doc instanceof sohl.SohlItem)) {
-                    throw new Error(`Invalid UUID: ${uuid}`);
-                }
-                doc = doc.system.items.get(docId);
-            } else if (docType === "NestedMacro") {
-                if (!(doc.system instanceof sohl.SohlBaseData)) {
-                    throw new Error(`Invalid UUID: ${uuid}`);
-                }
-                doc = doc.system.actions.get(docId);
-            } else {
-                throw new Error(`Invalid UUID: ${uuid}`);
-            }
-
-            if (!doc) {
-                console.error(`UUID ${uuid} not found`);
-                break;
-            }
-        }
-
-        return doc;
-    };
-
-    globalThis.fromUuid = async function (uuid, options = {}) {
-        let parts = uuid.split("#");
-        const topUuid = parts.shift();
-        let doc = await globalThis.origFromUuid(topUuid, options);
-        return globalThis.fromUuidSync(null, { doc, parts });
-    };
+    patchFromUuid();
 });
 
 /**
@@ -271,24 +388,48 @@ Hooks.once("init", async function () {
  * we should perform a data migration.
  */
 Hooks.once("ready", function () {
-    //Hooks.on("hotbarDrop", (bar, data, slot) => LegendaryCommand.createHMMacro(data, slot));
+    CONFIG.SOHL.Actor.macros = Object.fromEntries(
+        Object.keys(CONFIG.Actor.dataModels).map((k) => [
+            k,
+            game.macros.getName(`sohl.actor.${k}`),
+        ]),
+    );
 
-    if (
-        game.settings.get(
-            "sohl",
-            sohl.SOHL.CONST.SETTINGS.showWelcomeDialog.key,
-        )
-    ) {
-        welcomeDialog().then((showAgain) => {
-            if (showAgain !== null)
-                game.settings.set("sohl", "showWelcomeDialog", showAgain);
+    CONFIG.SOHL.Item.macros = Object.fromEntries(
+        Object.keys(CONFIG.Item.dataModels).map((k) => [
+            k,
+            game.macros.getName(`sohl.item.${k}`),
+        ]),
+    );
+
+    if (game.settings.get("sohl", sohl.SOHL.SETTINGS.showWelcomeDialog.key)) {
+        welcomeDialog().then(async (result) => {
+            if (result !== null) {
+                game.settings.set(
+                    "sohl",
+                    "showWelcomeDialog",
+                    result.showOnStartup,
+                );
+
+                // if (result.initMacros) {
+                //     const automatedAttackMacro =
+                //         await sohl.Utility.getDocumentFromPacks(
+                //             "Automated Attack",
+                //             "sohl.macros",
+                //             { docType: "script" },
+                //         );
+                //     if (automatedAttackMacro)
+                //         game.user.assignHotbarMacro(automatedAttackMacro);
+                //     game.settings.set("sohl", "initMacros", false);
+                // }
+            }
         });
     }
 
     if (game.user.isGM) {
         if (game.modules.get("foundryvtt-simple-calendar")?.active) {
             Hooks.on(SimpleCalendar.Hooks.Ready, () => {
-                sohl.SOHL.hasSimpleCalendar = true;
+                CONFIG.SOHL.hasSimpleCalendar = true;
             });
         }
 
@@ -323,13 +464,13 @@ Hooks.once("ready", function () {
             // biome-ignore lint/correctness/noUnusedVariables: <explanation>
             Hooks.on("combatStart", (combat, updateData) => {
                 if (game.user.ActiveGM?.isSelf)
-                    sohl.SOHL.cmds.handleCombatFatigue(combat);
+                    CONFIG.SOHL.class.Utility.handleCombatFatigue(combat);
             });
 
             // biome-ignore lint/correctness/noUnusedVariables: <explanation>
             Hooks.on("combatRound", (combat, updateData, updateOptions) => {
                 if (game.user.ActiveGM?.isSelf)
-                    sohl.SOHL.cmds.handleCombatFatigue(combat);
+                    CONFIG.SOHL.class.Utility.handleCombatFatigue(combat);
             });
         }
 
@@ -412,7 +553,7 @@ Hooks.once("ready", function () {
         // Determine whether a system migration is required
         const currentWorldSystemVersion = game.settings.get(
             "sohl",
-            sohl.SOHL.CONST.SETTINGS.systemMigrationVersion.key,
+            sohl.SOHL.SETTINGS.systemMigrationVersion.key,
         );
 
         if (currentWorldSystemVersion) {
@@ -456,23 +597,48 @@ Hooks.once("ready", function () {
     registerHandlebarsHelpers();
     preloadHandlebarsTemplates();
 
-    sohl.SOHL.ready = true;
+    CONFIG.SOHL.ready = true;
 });
 
 async function welcomeDialog() {
-    const dlgTemplate = "systems/sohl/templates/dialog/welcome.html";
-    const html = await renderTemplate(dlgTemplate, {});
+    const dlgOptions = {
+        textBody: `<p>This system assists players and GMs in playing Song of Heroic Lands
+            as well as other compatible RPG systems by
+            taking over much of the bookkeeping and mundane tasks, and speeding up
+            the flow of combat through automation.</p>`,
+        showOnStartup: game.settings.get("sohl", "showWelcomeDialog") || false,
+        initMacros: game.settings.get("sohl", "initMacros") || false,
+    };
+    const compiled = Handlebars.compile(`<form id="welcome">
+        <h2>Welcome to Song of Heroic Lands for Foundry VTT</h2>
+        {{{textBody}}}
+        <div class="form-group">
+            <input type="checkbox" name="showOnStartup" {{checked showOnStartup}} />
+            <label id="showonstartup">Show this tip on startup</label>
+        </div>
+        <!-- div class="form-group">
+            <input type="checkbox" name="initMacros" {{checked initMacros}} />
+            <label>Initialize Macros</label>
+        </div -->
+    </form>`);
+    const dlgHtml = compiled(dlgOptions, {
+        allowProtoMethodsByDefault: true,
+        allowProtoPropertiesByDefault: true,
+    });
 
     // Create the dialog window
     return Dialog.prompt({
         title: "Welcome!",
-        content: html,
+        content: dlgHtml,
         label: "Dismiss",
-        callback: (html) => {
-            const form = html.querySelector("#welcome");
+        callback: (element) => {
+            const form = element.querySelector("form");
             const fd = new FormDataExtended(form);
-            const data = fd.object;
-            return data.showOnStartup;
+            const formData = foundry.utils.expandObject(fd.object);
+            return {
+                showOnStartup: !!formData.showOnStartup,
+                initMacros: !!formData.initMacros,
+            };
         },
         rejectClose: false,
         options: { jQuery: false },
@@ -540,13 +706,13 @@ function registerHandlebarsHelpers() {
         }
 
         // Create the HTML
-        let html = "";
+        let fragHtml = "";
         for (const option of selectOptions) {
             const label = Handlebars.escapeExpression(option.label);
             const isSelected = selected.includes(option.value);
-            html += `<option value="${option.value}" ${isSelected ? "selected" : ""}>${label}</option>`;
+            fragHtml += `<option value="${option.value}" ${isSelected ? "selected" : ""}>${label}</option>`;
         }
-        return new Handlebars.SafeString(html);
+        return new Handlebars.SafeString(fragHtml);
     });
 
     Handlebars.registerHelper("endswith", function (op1, op2) {
@@ -600,7 +766,7 @@ function registerHandlebarsHelpers() {
     Handlebars.registerHelper("injurySeverity", function (val) {
         if (val <= 0) return "NA";
         return val <= 5
-            ? sohl.SOHL.InjuryItemData.injuryLevels[val]
+            ? CONFIG.SOHL.Item.dataModels.injury.injuryLevels[val]
             : `G${val}`;
     });
 
