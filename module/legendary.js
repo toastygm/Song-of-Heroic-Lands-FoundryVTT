@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import * as sohl from "./sohl-common.js";
+import * as sohl from "./sohl-common.mjs";
 
 /* ====================================================================== */
 /*          Constants                                                     */
@@ -2798,7 +2798,8 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
                     const dlgData = {
                         fateChoices: fateList,
                     };
-                    const compiled = Handlebars.compile(`<form id="select-token"><div class="form-group">
+                    const compiled =
+                        Handlebars.compile(`<form id="select-token"><div class="form-group">
                     <label>Select which fate to use:</label>
                     <select name="fateChoice">
                     {{selectOptions fateChoices}}

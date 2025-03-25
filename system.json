@@ -23,7 +23,10 @@
         "minimum": "12",
         "verified": "12.323"
     },
-    "esmodules": ["module/sohl.js"],
+    "scripts": [
+        "scripts/intl-messageformat.min.js"
+    ],
+    "esmodules": ["module/sohl.mjs"],
     "styles": ["css/sohl.css"],
     "languages": [
         {

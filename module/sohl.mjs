@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import * as sohl from "./sohl-common.js";
-import * as legendary from "./legendary.js";
-import * as mistyisle from "./mistyisle.js";
+import * as sohl from "./sohl-common.mjs";
+import * as legendary from "./legendary.mjs";
+import * as mistyisle from "./mistyisle.mjs";
 
 /**
  * Configures FoundryVTT settings and UI for SoHL.

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import * as sohl from "./sohl-common.js";
+import * as sohl from "./sohl-common.mjs";
 
 /* ====================================================================== */
 /*          Constants                                                     */

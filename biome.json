@@ -102,16 +102,6 @@
             "attributePosition": "auto"
         },
         "globals": [
-            "jest",
-            "test",
-            "it",
-            "expect",
-            "describe",
-            "beforeAll",
-            "afterAll",
-            "beforeEach",
-            "afterEach",
-            "$",
             "ActiveEffect",
             "ActiveEffects",
             "ActiveEffectConfig",
@@ -163,28 +153,13 @@
             "Token",
             "TokenDocument",
             "Tour",
-            "ui"
+            "ui",
+            "jQuery"
         ]
     },
     "overrides": [
         {
             "include": ["**/*.hbs"]
-        },
-        {
-            "include": ["tests/**/*.test.js"],
-            "javascript": {
-                "globals": [
-                    "jest",
-                    "test",
-                    "it",
-                    "expect",
-                    "describe",
-                    "beforeAll",
-                    "afterAll",
-                    "beforeEach",
-                    "afterEach"
-                ]
-            }
         }
     ]
 }

@@ -36,6 +36,7 @@ build/
 _source/
 .venv/
 /packs
+/coverage
 
 # Distrubution files
 dist/
