@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
-import * as sohl from "./sohl-common.mjs";
-import * as legendary from "./legendary.mjs";
+import * as sohlCmn from "./sohl-common.mjs";
+import * as SohlActor from "./common/actor/SohlActor.mjs";
+import * as SohlActiveEffectConfig from "./common/SohlActiveEffectConfig.mjs";
+import * as SohlItem from "./common/item/SohlItem.mjs";
+import * as Utility from "./common/helper/utility.mjs";
+import * as constants from "./common/helper/constants.mjs";
+import * as legendary from "./legendary/legendary.mjs";
 import * as mistyisle from "./mistyisle.mjs";
 
 /**
@@ -8,12 +13,12 @@ import * as mistyisle from "./mistyisle.mjs";
  * @param {object} verData - The version data for the system.
  */
 function setupSohlVersion(verData) {
-    foundry.utils.mergeObject(CONFIG, verData.CONFIG, { inplace: true });
+    sohl.utils.mergeObject(CONFIG, verData.CONFIG, { inplace: true });
     CONFIG.SOHL = verData.SOHL;
-    console.log(CONFIG.SOHL.CONST.initVariantMessage);
+    console.log(game.sohl.initVariantMessage);
 
     // Register Foundry system settings
-    Object.values(CONFIG.SOHL.CONST.VERSETTINGS).forEach((setting) => {
+    Object.values(CONFIG.SOHL.VERSETTINGS).forEach((setting) => {
         game.settings.register("sohl", setting.key, setting.data);
     });
 
@@ -48,7 +53,7 @@ function setupSohlVersion(verData) {
         DocumentSheetConfig.registerSheet(
             ActiveEffect,
             "sohl",
-            sohl.SohlActiveEffectConfig,
+            SohlActiveEffectConfig.SohlActiveEffectConfig,
             {
                 makeDefault: true,
                 label: `Default ${CONFIG.SOHL.label} Active Effect Sheet`,
@@ -63,7 +68,7 @@ function setupSohlVersion(verData) {
         foundry.applications.apps.DocumentSheetConfig.registerSheet(
             ActiveEffect,
             "sohl",
-            sohl.SohlActiveEffectConfig,
+            SohlActiveEffectConfig.SohlActiveEffectConfig,
             {
                 makeDefault: true,
                 label: `Default ${CONFIG.SOHL.label} Active Effect Sheet`,
@@ -76,7 +81,7 @@ function setupSohlVersion(verData) {
 /*      System Settings                                          */
 /*===============================================================*/
 function registerSystemSettings() {
-    Object.values(sohl.SOHL.SETTINGS).forEach((setting) => {
+    Object.values(game.sohl.SETTINGS).forEach((setting) => {
         game.settings.register("sohl", setting.key, setting.data);
     });
 }
@@ -220,7 +225,7 @@ function handleCustomUuidSync(uuid, options = {}) {
 
         switch (docType) {
             case "VirtualItem":
-                if (!(doc instanceof sohl.SohlActor)) {
+                if (!(doc instanceof SohlActor.SohlActor)) {
                     if (options.strict) {
                         throw new Error(
                             `Invalid UUID: ${uuid} - Expected a SohlActor for VirtualItem resolution.`,
@@ -232,7 +237,7 @@ function handleCustomUuidSync(uuid, options = {}) {
                 break;
 
             case "NestedItem":
-                if (!(doc instanceof sohl.SohlItem)) {
+                if (!(doc instanceof SohlItem.SohlItem)) {
                     if (options.strict) {
                         throw new Error(
                             `Invalid UUID: ${uuid} - Expected a SohlItem for NestedItem resolution.`,
@@ -277,7 +282,7 @@ async function handleCustomUuidAsync(uuid, options = {}) {
 
         switch (docType) {
             case "VirtualItem":
-                if (!(doc instanceof sohl.SohlActor)) {
+                if (!(doc instanceof SohlActor.SohlActor)) {
                     if (options.strict) {
                         throw new Error(
                             `Invalid UUID: ${uuid} - Expected a SohlActor for VirtualItem resolution.`,
@@ -289,7 +294,7 @@ async function handleCustomUuidAsync(uuid, options = {}) {
                 break;
 
             case "NestedItem":
-                if (!(doc instanceof sohl.SohlItem)) {
+                if (!(doc instanceof SohlItem.SohlItem)) {
                     if (options.strict) {
                         throw new Error(
                             `Invalid UUID: ${uuid} - Expected a SohlItem for NestedItem resolution.`,
@@ -344,19 +349,20 @@ function patchFromUuid() {
 /*===============================================================*/
 
 Hooks.once("init", async function () {
-    console.log(`SoHL | ${sohl.SOHL.CONST.SOHL_INIT_MESSAGE}`);
+    globalThis.sohl = game.sohl = Object.assign(game.system, constants.SOHL);
+    console.log(`SoHL | ${game.sohl.SOHL_INIT_MESSAGE}`);
 
     // Register all available SoHR versions
-    sohl.SOHL.registerSystemVersion("legendary", legendary.verData);
-    sohl.SOHL.registerSystemVersion("mistyisle", mistyisle.verData);
+    game.sohl.registerSystemVersion("legendary", legendary.verData);
+    game.sohl.registerSystemVersion("mistyisle", mistyisle.verData);
 
     // Initialize all system settings
     registerSystemSettings();
     registerSystemHooks();
 
-    let hmVer = game.settings.get("sohl", sohl.SOHL.SETTINGS.sohlVariant.key);
+    let hmVer = game.settings.get("sohl", game.sohl.SETTINGS.sohlVariant.key);
     if (hmVer) {
-        setupSohlVersion(sohl.SOHL.versionsData[hmVer]);
+        setupSohlVersion(game.sohl.versionsData[hmVer]);
     }
 
     /**
@@ -373,7 +379,7 @@ Hooks.once("init", async function () {
     CONFIG.time.turnTime = 0;
 
     // CONFIG.SOHL.statusEffects.forEach((s) => CONFIG.statusEffects.push(s));
-    // foundry.utils.mergeObject(
+    // sohl.utils.mergeObject(
     //     CONFIG.specialStatusEffects,
     //     CONFIG.SOHL.specialStatusEffects,
     // );
@@ -402,7 +408,7 @@ Hooks.once("ready", function () {
         ]),
     );
 
-    if (game.settings.get("sohl", sohl.SOHL.SETTINGS.showWelcomeDialog.key)) {
+    if (game.settings.get("sohl", game.sohl.SETTINGS.showWelcomeDialog.key)) {
         welcomeDialog().then(async (result) => {
             if (result !== null) {
                 game.settings.set(
@@ -429,7 +435,7 @@ Hooks.once("ready", function () {
     if (game.user.isGM) {
         if (game.modules.get("foundryvtt-simple-calendar")?.active) {
             Hooks.on(SimpleCalendar.Hooks.Ready, () => {
-                CONFIG.SOHL.hasSimpleCalendar = true;
+                game.sohl.hasSimpleCalendar = true;
             });
         }
 
@@ -553,7 +559,7 @@ Hooks.once("ready", function () {
         // Determine whether a system migration is required
         const currentWorldSystemVersion = game.settings.get(
             "sohl",
-            sohl.SOHL.SETTINGS.systemMigrationVersion.key,
+            game.sohl.SETTINGS.systemMigrationVersion.key,
         );
 
         if (currentWorldSystemVersion) {
@@ -562,7 +568,7 @@ Hooks.once("ready", function () {
             );
 
             if (
-                foundry.utils.isNewerVersion(
+                sohl.utils.isNewerVersion(
                     game.system.flags.compatibleMigrationVersion,
                     currentWorldSystemVersion,
                 )
@@ -574,7 +580,7 @@ Hooks.once("ready", function () {
                 );
             } else {
                 if (
-                    foundry.utils.isNewerVersion(
+                    sohl.utils.isNewerVersion(
                         game.system.flags.needsMigrationVersion,
                         currentWorldSystemVersion,
                     )
@@ -597,7 +603,7 @@ Hooks.once("ready", function () {
     registerHandlebarsHelpers();
     preloadHandlebarsTemplates();
 
-    CONFIG.SOHL.ready = true;
+    game.sohl.ready = true;
 });
 
 async function welcomeDialog() {
@@ -634,7 +640,7 @@ async function welcomeDialog() {
         callback: (element) => {
             const form = element.querySelector("form");
             const fd = new FormDataExtended(form);
-            const formData = foundry.utils.expandObject(fd.object);
+            const formData = sohl.utils.expandObject(fd.object);
             return {
                 showOnStartup: !!formData.showOnStartup,
                 initMacros: !!formData.initMacros,
@@ -682,9 +688,9 @@ function registerHandlebarsHelpers() {
     Handlebars.registerHelper("selectArray", function (choices, options) {
         let { selected = null, blank = null, sort = false } = options.hash;
         selected =
-            selected instanceof Array
-                ? selected.map(String)
-                : [String(selected)];
+            selected instanceof Array ?
+                selected.map(String)
+            :   [String(selected)];
 
         // Prepare the choices as an array of objects
         const selectOptions = [];
@@ -742,9 +748,9 @@ function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper("contains", function (container, value, options) {
-        return container.includes(value)
-            ? options.fn(this)
-            : options.inverse(this);
+        return container.includes(value) ?
+                options.fn(this)
+            :   options.inverse(this);
     });
 
     Handlebars.registerHelper("toJSON", function (obj) {
@@ -756,7 +762,7 @@ function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper("getProperty", function (object, key) {
-        return foundry.utils.getProperty(object, key);
+        return sohl.utils.getProperty(object, key);
     });
 
     Handlebars.registerHelper("arrayToString", function (ary) {
@@ -765,9 +771,9 @@ function registerHandlebarsHelpers() {
 
     Handlebars.registerHelper("injurySeverity", function (val) {
         if (val <= 0) return "NA";
-        return val <= 5
-            ? CONFIG.SOHL.Item.dataModels.injury.injuryLevels[val]
-            : `G${val}`;
+        return val <= 5 ?
+                CONFIG.SOHL.Item.dataModels.injury.injuryLevels[val]
+            :   `G${val}`;
     });
 
     Handlebars.registerHelper("object", function ({ hash }) {
@@ -788,7 +794,7 @@ function registerHandlebarsHelpers() {
 
     // biome-ignore lint/correctness/noUnusedVariables: <explanation>
     Handlebars.registerHelper("displayWorldTime", function (value, options) {
-        return new Handlebars.SafeString(sohl.Utility.htmlWorldTime(value));
+        return new Handlebars.SafeString(Utility.Utility.htmlWorldTime(value));
     });
 }
 

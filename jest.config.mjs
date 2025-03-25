@@ -1,8 +1,9 @@
 export default {
-    testEnvironment: "node", // ✅ Use Node instead of JSDOM
-    setupFilesAfterEnv: ["./jest.setup.js"], // ✅ Ensure Jest loads FoundryVTT before tests
-    transform: {}, // ✅ Prevent Jest from transforming ESM files
+    testEnvironment: "node",
+    setupFiles: ["./jest.setup.js"],
+    setupFilesAfterEnv: ["./jest.setup.js"],
+    transform: {},
     moduleNameMapper: {
-        "^(\\.{1,2}/.*)\\.js$": "$1", // ✅ Fix Jest ESM import issues
+        "^(\\.{1,2}/.*)\\.js$": "$1",
     },
 };

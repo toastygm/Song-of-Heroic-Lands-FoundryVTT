@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "outDir": "build/generated",
+        "rootDir": "module", // your source entry
+        "strict": true,
+        "allowJs": true,
+        "checkJs": true,
+        "baseUrl": ".",
+        "types": ["./types/sohl-global", "./types/sohl-datamodel"],
+        "paths": {
+            "@module/*": ["module/*"],
+            "@templates/*": ["templates/*"],
+            "@assets/*": ["assets/*"],
+            "@lang/*": ["lang/*"],
+            "@packs/*": ["packs/*"],
+            "@tests/*": ["tests/*"],
+            "@generated/*": ["build/generated/*"],
+            "@sohl-global": ["types/sohl-global"],
+            "@sohl-datamodel": ["types/sohl-datamodel"]
+        },
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true
+    },
+    "include": ["module/**/*"],
+    "exclude": ["build", "node_modules", "types", "tests"]
+}

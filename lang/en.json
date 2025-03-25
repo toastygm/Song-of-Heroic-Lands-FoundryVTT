@@ -64,21 +64,55 @@
         }
     },
     "SOHL": {
-        "MODS": {
+        "MOD": {
+            "NotDisabled": "",
             "PLAYER": "Situational Modifier",
             "MINVALUE": "Minimum Value",
             "MAXVALUE": "Maximum Value",
             "OUTNUMBERED": "Outnumbered",
             "OFFHAND": "Off-Hand Weapon Use",
-            "MLDSBL": "Mastery Level Disabled",
+            "MasteryLevelDisabled": "Mastery Level Disabled",
             "MAGICMOD": "Magic Modifier",
             "FATEBNS": "{skill} Fate Bonus",
             "NOFATE": "No Fate Available",
-            "MLATTRBOOST": "Mastery Level Increase from {attr}",
-            "NOTATTRNOML": "Non-attribute traits don't have ML",
+            "MasteryLevelAttrBoost": "Mastery Level Increase from {attr}",
             "SSMOD": "Sunsign Modifier",
             "DURABILITY": "",
-            "ITEMWT": "{item} Weight"
+            "ITEMWT": "{item} Weight",
+            "NoMissileDefense": "No Defense for Missile Attacks",
+            "NoModifierNoDie": "No modifier or no die",
+            "GearNotNestedInGear": "Not Nested In Gear",
+            "NoAssocSkill": "No Associated Skill",
+            "NoBlock": "No Blocking Allowed",
+            "NoCounterstrike": "No Counterstrike Allowed",
+            "NoFateNPC": "No Fate Allowed for Non-Player Character or Creature",
+            "NoFateSettings": "Fate Disabled in Settings",
+            "NoFateAura": "No Fate for Aura-based Skills",
+            "NoUseCharges": "Does not use Charges",
+            "NoHealRate": "No Healing Rate",
+            "TraitNotNumNoScore": "Non-numeric traits don't have a score",
+            "TraitNotNumNoML": "Non-numeric traits don't have a mastery level",
+            "TraitNotNumNoFate": "Non-numeric traits don't have fate",
+            "TraitNotAttrNoML": "Non-attribute traits don't have Mastery Level",
+            "Unspecified": "Disabled Reason Unspecified",
+            "ArmorProtection": "{source} Armor Protection",
+            "RangeMult": {
+                "pointblank": "Point Blank Range Multiplier",
+                "direct": "Direct Range Multiplier",
+                "volley_2": "Volley 2 Range Multiplier",
+                "volley_3": "Volley 3 Range Multiplier",
+                "volley_4": "Volley 4 Range Multiplier"
+            },
+            "InvalidRange": "Invalid Range, setting max distance to 0",
+            "BowStrengthML": "Add Strength ML to Bow Draw",
+            "BowAssocSkillML": "Add {assocSkillName} Skill ML to Bow Draw",
+            "NoDrawTooWeak": "Cannot draw bow, too weak",
+            "StrengthImpactAdjustment": "Strength Impact Adjustment"
+        },
+        "DURATION": {
+            "FUTURE": "in {duration}",
+            "PAST": "{duration} ago",
+            "NOW": "Now"
         },
         "VALUEMODIFIER": {
             "entity": "Value Modifier",
@@ -109,7 +143,7 @@
         "SUCCESSTESTRESULT": {
             "entity": "Success Test Result",
             "entityPl": "Success Test Results",
-            "testTypes": {
+            "tests": {
                 "setImproveFlag": "Set Skill Dev Flag",
                 "unsetImproveFlag": "Unset Skill Dev Flag",
                 "improveWithSDR": "Improve Mastery using SDR",
@@ -130,7 +164,10 @@
                 "bleedingStoppageTest": "Bleeding Stoppage Check",
                 "bloodlossAdvanceTest": "Check Blood Loss Advance",
                 "opposedTestResume": "Resolve Opposed Skill",
-                "resolveImpact": "Resolve Impact"
+                "resolveImpact": "Resolve Impact",
+                "successValueTest": "Success Value Test",
+                "improveWithXP": "Improve Mastery using XP",
+                "fateTest": "Fate Test"
             },
             "testDialog": {
                 "title": "{name} {title}",
@@ -152,23 +189,40 @@
         "COMBATTESTRESULT": {
             "entity": "Combat Test Result",
             "entityPl": "Combat Test Results",
-            "testTypes": {
+            "tests": {
                 "automatedMeleeStart": "Automated Melee Attack",
                 "automatedMissileStart": "Automated Missile Attack",
                 "meleeAttackTest": "Melee Attack Test",
                 "missileAttackTest": "Missile Attack Test",
                 "blockTest": "Block Test",
                 "counterstrikeTest": "Counterstrike Test",
-                "blockResume": "Block",
-                "dodgeResume": "Dodge",
-                "counterstrikeResume": "Counterstrike",
-                "ignoreResume": "Ignore",
+                "autoCombatResume": "Automated Combat Resume",
                 "calcImpact": "Calc Impact"
+            },
+            "DEFENSE": {
+                "block": "Block",
+                "counterstrike": "Counterstrike",
+                "dodge": "Dodge",
+                "ignore": "Ignore"
+            },
+            "MOVEMENT": {
+                "still": "Still",
+                "moving": "Moving",
+                "evading": "Evading"
+            },
+            "TACTICAL_ADVANTAGE": {
+                "impact": "Impact",
+                "precision": "Precision",
+                "action": "Action",
+                "setup": "Setup"
             }
         },
         "ENTITY": {
             "FIELDS": {
 
+            },
+            "ACTION": {
+                "calcImpact": "Calc Impact"
             },
             "EFFECT_KEYS": {
                 "engagedOpponents": "Engaged Opponents"
@@ -191,6 +245,9 @@
         "BASEDATA": {
             "FIELDS": {
                 "macros.label": "Macros"
+            },
+            "ACTIONS": {
+                "AUTOCOMBATRESUME": "Resume Automated Combat"
             },
             "events.self": "Self",
             "_getContextOptions.ContextConditionError": "Error executing context condition for {name} on {parentName}",
@@ -296,12 +353,25 @@
                 "block": "Block",
                 "counterstrike": "Counterstrike",
                 "noAttack": "No Attack",
-                "noBlock": "No Block"
+                "noBlock": "No Block",
+                "armorReduction": "Armor Reduction",
+                "blockSuccessLevel": "Block Success Level",
+                "counterstrikeSuccessLevel": "Counterstrike Success Level",
+                "opponentDef": "Opponent Defense",
+                "impactTA": "Impact Tactical Advantage",
+                "entangle": "Entangle",
+                "envelop": "Envelop",
+                "highStrike": "High Strike",
+                "lowStrike": "Low Strike",
+                "notInClose": "Not In Close Combat",
+                "onlyInClose": "Only In Close Combat",
+                "deflectTN": "Deflect Target Number",
+                "shieldMod": "Shield Modifier",
+                "extraBleedRisk": "Extra Bleed Risk",
+                "noStrMod": "No Strength Modifier",
+                "halfImpact": "Half Impact"
             },
-            "NoModifierNoDieDisabled": "No modifier or no die",
-            "NoAssocSkillWarning": "{label} requires skill {skillName} but it does not exist, creating a dummy skill with ML 0",
-            "GearNotNestedInGearDisabled": "Not Nested In Gear",
-            "NoAssocSkillDisabled": "No Associated Skill"
+            "NoAssocSkillWarning": "{label} requires skill {skillName} but it does not exist, creating a dummy skill with ML 0"
         },
         "MELEEWEAPONSTRIKEMODE": {
             "FIELDS": {}
@@ -842,6 +912,14 @@
                 "always": "Always"
             }
         },
+        "SOHLCONTEXTMENU": {
+            "SORT_GROUPS": {
+                "DEFAULT": "Default",
+                "ESSENTIAL": "Essential",
+                "GENERAL": "General",
+                "HIDDEN": "Hidden"
+            }
+        },
         "ACTIVE_EFFECT": {
             "FIELDS": {
                 "targetName.label": "Target Name",
@@ -928,6 +1006,7 @@
         "Success": "Success",
         "Failure": "Failure",
         "CanImproveMastery": "Can Improve",
-        "SubType": "Sub-type"
+        "SubType": "Sub-type",
+        "NoChanges": "No changes"
     }
 }

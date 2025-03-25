@@ -2,74 +2,56 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginJest from "eslint-plugin-jest";
+import jsdoc from "eslint-plugin-jsdoc";
 
 export default [
     pluginJs.configs.recommended,
     eslintConfigPrettier, // ✅ Keep Prettier integration
     {
         languageOptions: {
-            ecmaVersion: 2022,
+            parser: require.resolve("@typescript-eslint/parser"),
+            parserOptions: {
+                projet: "./jsconfig.json",
+            },
+            ecmaVersion: "latest",
             sourceType: "module",
             globals: {
                 ...globals.browser,
-                // ✅ FoundryVTT Globals (as in your original config)
                 $: "readonly",
-                ActiveEffect: "readonly",
-                ActiveEffects: "readonly",
-                ActiveEffectConfig: "readonly",
-                Actor: "readonly",
-                Actors: "readonly",
-                ActorSheet: "readonly",
-                AudioHelper: "readonly",
-                BaseItem: "readonly",
-                ChatMessage: "readonly",
-                Collection: "readonly",
-                ContextMenu: "readonly",
-                Combatant: "readonly",
-                Dialog: "readonly",
-                DocumentSheet: "readonly",
-                DocumentSheetConfig: "readonly",
-                Folder: "readonly",
-                FormDataExtended: "readonly",
-                getDocumentClass: "readonly",
-                Handlebars: "readonly",
-                HandlebarsHelpers: "readonly",
-                Hooks: "readonly",
-                Item: "readonly",
-                Items: "readonly",
-                ItemSheet: "readonly",
-                IntlMessageFormat: "readonly",
                 jQuery: "readonly",
-                LRUMap: "readonly",
-                Macro: "readonly",
-                Macros: "readonly",
-                MacroConfig: "readonly",
-                MersenneTwister: "readonly",
-                Ray: "readonly",
-                Roll: "readonly",
-                SearchFilter: "readonly",
-                SettingsConfig: "readonly",
-                SortingHelpers: "readonly",
-                TextEditor: "readonly",
-                Token: "readonly",
-                TokenDocument: "readonly",
-                Tour: "readonly",
-                CONFIG: "readonly",
-                CONST: "readonly",
-                foundry: "readonly",
-                game: "readonly",
-                canvas: "readonly",
-                ui: "readonly",
-                fromUuid: "readonly",
-                fromUuidSync: "readonly",
-                renderTemplate: "readonly",
-                loadTemplates: "readonly",
                 SimpleCalendar: "readonly",
-                ROUTE_PREFIX: "readonly",
             },
         },
         plugins: {
             jest: eslintPluginJest,
+            jsdoc,
+        },
+        rules: {
+            // Recommended JSDoc rules
+            "jsdoc/require-jsdoc": [
+                "warn",
+                {
+                    require: {
+                        ClassDeclaration: true,
+                        MethodDefinition: true,
+                    },
+                },
+            ],
+            "jsdoc/require-description": "warn",
+            "jsdoc/require-param": "warn",
+            "jsdoc/require-returns": "warn",
+            "jsdoc/require-override": "error",
+            "jsdoc/no-missing-syntax": [
+                "error",
+                {
+                    contexts: [
+                        {
+                            context: "MethodDefinition[override=true]",
+                            inlineTags: ["inheritdoc"],
+                        },
+                    ],
+                },
+            ],
         },
     },
     {
