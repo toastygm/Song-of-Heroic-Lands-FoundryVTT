@@ -9,9 +9,39 @@
  */
 const fields = foundry.data.fields;
 
+export class SohlLocalize {
+    static _messageCache = new Map();
+
+    static _fnv1a64(str) {
+        const FNV_PRIME = 0x100000001b3n;
+        const OFFSET_BASIS = 0xcbf29ce484222325n;
+        let hash = OFFSET_BASIS;
+        for (let i = 0; i < str.length; i++) {
+            hash ^= BigInt(str.charCodeAt(i));
+            hash *= FNV_PRIME;
+        }
+        return hash;
+    }
+
+    static format(key, values = {}) {
+        const template = game.i18n.localize(key);
+        const cacheKey = SohlLocalize._fnv1a64(template);
+        let formatter = this._messageCache.get(cacheKey);
+        if (!formatter) {
+            formatter = new IntlMessageFormat(template, game.i18n.lang);
+            Utility._messageCache.set(cacheKey, formatter);
+        }
+        return formatter.format(values);
+    }
+}
+
+function _l(stringId, data = {}) {
+    return SohlLocalize.format(stringId, data);
+}
+
 export const SOHL_VARIANTS = {
-    legendary: "Legendary",
-    mistyisle: "Misty Isle",
+    LEGENDARY: "legendary",
+    MISTYISLE: "mistyisle",
 };
 
 /**
@@ -19,39 +49,65 @@ export const SOHL_VARIANTS = {
  * parameters related to the SOHL system,
  */
 export const SOHL = {
-    ready: false,
-    hasSimpleCalendar: false,
     versionsData: {},
-    defaultVersion: "legendary",
     sysVer: {},
-    cmds: null,
     registerSystemVersion: function (verId, verData) {
         SOHL.versionsData[verId] = verData;
     },
-    statusEffects: [
-        {
-            id: "incapacitated",
-            name: "incapacitated",
-            img: "systems/sohl/assets/icons/knockout.svg",
-        },
-        {
-            id: "vanquished",
-            name: "vanquished",
-            img: "systems/sohl/assets/icons/surrender.svg",
-        },
-    ],
+    /* The 'twist' singleton will be added here later after MersenneTwister is deined. */
 
-    specialStatusEffects: {
-        DEFEATED: "vanquished",
+    CONFIG: {
+        ready: false,
+        hasSimpleCalendar: false,
+        defaultVariant: "legendary",
+        statusEffects: [
+            {
+                id: "incapacitated",
+                name: "incapacitated",
+                img: "systems/sohl/assets/icons/knockout.svg",
+            },
+            {
+                id: "vanquished",
+                name: "vanquished",
+                img: "systems/sohl/assets/icons/surrender.svg",
+            },
+        ],
+
+        specialStatusEffects: {
+            DEFEATED: "vanquished",
+        },
+
+        controlIcons: {
+            defeated: "systems/sohl/assets/icons/surrender.svg",
+        },
+        MOD: Object.fromEntries(
+            Object.entries({
+                PLAYER: "SitMod",
+                MINVALUE: "MinVal",
+                MAXVALUE: "MaxVal",
+                OUTNUMBERED: "Outn",
+                OFFHAND: "OffHnd",
+                MAGIC: "Magic",
+                MLDSBL: "MLDsbl",
+                MAGICMOD: "MagicMod",
+                FATEBNS: "FateBns",
+                NOFATE: "NoFateAvail",
+                MLATTRBOOST: "MlAtrBst",
+                NOTATTRNOML: "NotAttrNoML",
+                SSMOD: "Sunsign Modifier",
+                Durability: "Dur",
+                ITEMWT: "ItmWt",
+            }).map(([k, v]) => [k, { name: `SOHL.MOD.${k}`, abbrev: v }]),
+        ),
+        EVENT: {
+            NONE: "none",
+            CREATED: "created",
+            MODIFIED: "modified",
+        },
     },
 
-    controlIcons: {
-        defeated: "systems/sohl/assets/icons/surrender.svg",
-    },
-
-    CONST: {
-        // ASCII Artwork (Doom font)
-        sohlInitMessage: `Initializing the Song of Heroic Lands Game System
+    // ASCII Artwork (Doom font)
+    SOHL_INIT_MESSAGE: `Initializing the Song of Heroic Lands Game System
 ===========================================================
  _____                            __
 /  ___|                          / _|
@@ -69,195 +125,1970 @@ export const SOHL = {
 \\_| |_/\\___|_|  \\___/|_|\\___| \\_____/\\__,_|_| |_|\\__,_|___/
 ===========================================================`,
 
-        /** @enum */
-        CHARS: {
-            TIMES: "\u00D7",
-            GREATERTHANOREQUAL: "\u2265",
-            LESSTHANOREQUAL: "\u2264",
-            INFINITY: "\u221E",
-            STARF: "\u2605",
-            STAR: "\u2606",
+    /** @enum */
+    CHARS: {
+        TIMES: "\u00D7",
+        GREATERTHANOREQUAL: "\u2265",
+        LESSTHANOREQUAL: "\u2264",
+        INFINITY: "\u221E",
+        STARF: "\u2605",
+        STAR: "\u2606",
+    },
+
+    SETTINGS: {
+        systemMigrationVersion: {
+            key: "systemMigrationVersion",
+            data: {
+                name: "System Migration Version",
+                scope: "world",
+                config: false,
+                type: new fields.StringField({
+                    required: true,
+                    nullable: false,
+                    initial: "",
+                }),
+            },
         },
-
-        SUCCESS_VALUE_TABLE: [
-            {
-                maxValue: 0,
-                result: 0,
-                limited: [],
-                success: false,
-                label: "No Value",
-                description: "Test fails to produce a usable result",
+        sohlVariant: {
+            key: "sohlVariant",
+            data: {
+                name: "Rules Variant",
+                hint: "Which set of rules to use",
+                scope: "world",
+                config: true,
+                requiresReload: true,
+                type: new fields.StringField({
+                    nullable: false,
+                    initial: "legendary",
+                    blank: false,
+                    choices: SOHL_VARIANTS,
+                }),
             },
-            {
-                maxValue: 2,
-                result: 0,
-                limited: [],
-                success: false,
-                label: "Little Value",
-                description: "Test produces a limited or flawed result",
-            },
-            {
-                maxValue: 4,
-                result: 0,
-                limited: [],
-                success: true,
-                label: "Base Value",
-                description: "Test produces an average result",
-            },
-            {
-                maxValue: 8,
-                result: (chatData) => chatData.successValue - 4,
-                limited: [],
-                success: true,
-                label: (chatData) =>
-                    "\u2605".repeat(chatData.successValue - 4) + " Bonus Value",
-                description: "Test produces a superior result",
-            },
-            {
-                maxValue: 999,
-                result: 5,
-                limited: [],
-                success: true,
-                label: "\u2605".repeat(5) + " Bonus Value",
-                description: "Test produces a superior result",
-            },
-        ],
-
-        /** @enum */
-        SHOCK: {
-            None: 0,
-            Stunned: 1,
-            Incapacitated: 2,
-            Unconscious: 3,
-            Killed: 4,
         },
-
-        SETTINGS: {
-            systemMigrationVersion: {
-                key: "systemMigrationVersion",
-                data: {
-                    name: "System Migration Version",
-                    scope: "world",
-                    config: false,
-                    type: new fields.StringField({
-                        required: true,
-                        nullable: false,
-                        initial: "",
-                    }),
-                },
+        showWelcomeDialog: {
+            key: "showWelcomeDialog",
+            data: {
+                name: "Show welcome dialog on start",
+                hint: "Display the welcome dialog box when the user logs in.",
+                scope: "client",
+                config: true,
+                type: new fields.BooleanField({ initial: true }),
             },
-            sohlVariant: {
-                key: "sohlVariant",
-                data: {
-                    name: "Rules Variant",
-                    hint: "Which set of rules to use",
-                    scope: "world",
-                    config: true,
-                    requiresReload: true,
-                    type: new fields.StringField({
-                        nullable: false,
-                        initial: "legendary",
-                        blank: false,
-                        choices: SOHL_VARIANTS,
-                    }),
-                },
+        },
+        initMacros: {
+            key: "initMacros",
+            data: {
+                name: "Ask to initialize macros",
+                hint: "The next time the user logs in, ask whether to install the default macros.",
+                scope: "client",
+                default: true,
+                config: true,
+                type: new fields.BooleanField({ initial: true }),
             },
-            showWelcomeDialog: {
-                key: "showWelcomeDialog",
-                data: {
-                    name: "Show welcome dialog on start",
-                    hint: "Display the welcome dialog box when the user logs in.",
-                    scope: "client",
-                    config: true,
-                    type: new fields.BooleanField({ initial: true }),
-                },
+        },
+        combatAudio: {
+            key: "combatAudio",
+            data: {
+                name: "Combat sounds",
+                hint: "Enable combat flavor sounds",
+                scope: "world",
+                config: true,
+                type: new fields.BooleanField({ initial: true }),
             },
-            combatAudio: {
-                key: "combatAudio",
-                data: {
-                    name: "Combat sounds",
-                    hint: "Enable combat flavor sounds",
-                    scope: "world",
-                    config: true,
-                    type: new fields.BooleanField({ initial: true }),
-                },
+        },
+        recordTrauma: {
+            key: "recordTrauma",
+            data: {
+                name: "Record trauma automatically",
+                hint: "Automatically add physical and mental afflictions and injuries",
+                scope: "world",
+                config: true,
+                default: "enable",
+                type: new fields.StringField({
+                    nullable: false,
+                    blank: false,
+                    initial: "enable",
+                    choices: {
+                        enable: "Record trauma automatically",
+                        disable: "Don't record trauma automatically",
+                        ask: "Prompt user on each injury or affliction",
+                    },
+                }),
             },
-            recordTrauma: {
-                key: "recordTrauma",
-                data: {
-                    name: "Record trauma automatically",
-                    hint: "Automatically add physical and mental afflictions and injuries",
-                    scope: "world",
-                    config: true,
-                    default: "enable",
-                    type: new fields.StringField({
-                        nullable: false,
-                        blank: false,
-                        initial: "enable",
-                        choices: {
-                            enable: "Record trauma automatically",
-                            disable: "Don't record trauma automatically",
-                            ask: "Prompt user on each injury or affliction",
-                        },
-                    }),
-                },
+        },
+        healingSeconds: {
+            key: "healingSeconds",
+            data: {
+                name: "Seconds between healing checks",
+                hint: "Number of seconds between healing checks. Set to 0 to disable.",
+                scope: "world",
+                config: true,
+                type: new fields.NumberField({
+                    required: true,
+                    nullable: false,
+                    initial: 432000, // 5 days
+                }),
             },
-            healingSeconds: {
-                key: "healingSeconds",
-                data: {
-                    name: "Seconds between healing checks",
-                    hint: "Number of seconds between healing checks. Set to 0 to disable.",
-                    scope: "world",
-                    config: true,
-                    type: new fields.NumberField({
-                        required: true,
-                        nullable: false,
-                        initial: 432000, // 5 days
-                    }),
-                },
+        },
+        optionProjectileTracking: {
+            key: "optionProjectileTracking",
+            data: {
+                name: "Track Projectile/Missile Quantity",
+                hint: "Reduce projectile/missile quantity when used; disallow missile attack when quantity is zero",
+                scope: "world",
+                config: true,
+                type: new fields.BooleanField({ initial: false }),
             },
-            optionProjectileTracking: {
-                key: "optionProjectileTracking",
-                data: {
-                    name: "Track Projectile/Missile Quantity",
-                    hint: "Reduce projectile/missile quantity when used; disallow missile attack when quantity is zero",
-                    scope: "world",
-                    config: true,
-                    type: new fields.BooleanField({ initial: false }),
-                },
+        },
+        optionFate: {
+            key: "optionFate",
+            data: {
+                name: "Fate: Use fate rules",
+                scope: "world",
+                config: true,
+                default: "enable",
+                type: new fields.StringField({
+                    nullable: false,
+                    blank: false,
+                    initial: "pconly",
+                    choices: {
+                        none: "Fate rules disabled",
+                        pconly: "Fate rules only apply to PCs",
+                        everyone: "Fate rules apply to all animate actors",
+                    },
+                }),
             },
-            optionFate: {
-                key: "optionFate",
-                data: {
-                    name: "Fate: Use fate rules",
-                    scope: "world",
-                    config: true,
-                    default: "enable",
-                    type: new fields.StringField({
-                        nullable: false,
-                        blank: false,
-                        initial: "pconly",
-                        choices: {
-                            none: "Fate rules disabled",
-                            pconly: "Fate rules only apply to PCs",
-                            everyone: "Fate rules apply to all animate actors",
-                        },
-                    }),
-                },
-            },
-            optionGearDamage: {
-                key: "optionGearDamage",
-                data: {
-                    name: "Gear Damage",
-                    hint: "Enable combat rule that allows gear (weapons and armor) to be damaged or destroyed on successful block",
-                    scope: "world",
-                    config: true,
-                    type: new fields.BooleanField({ initial: false }),
-                },
+        },
+        optionGearDamage: {
+            key: "optionGearDamage",
+            data: {
+                name: "Gear Damage",
+                hint: "Enable combat rule that allows gear (weapons and armor) to be damaged or destroyed on successful block",
+                scope: "world",
+                config: true,
+                type: new fields.BooleanField({ initial: false }),
             },
         },
     },
 };
+
+export class Utility {
+    static getChoicesMap(values, locPrefix) {
+        return Object.fromEntries(
+            Object.values(values).map((i) => [i, `${locPrefix}.${i}`]),
+        );
+    }
+
+    static sortStrings(...ary) {
+        const collator = new Intl.Collator(game.intl.lang);
+        ary.sort((a, b) => collator.compare(a, b));
+        return ary;
+    }
+
+    static rollToJSON(val) {
+        if (!(val instanceof Roll)) {
+            throw new Error("Not a roll instance");
+        }
+
+        return {
+            name: "Roll",
+            data: val.toJSON(),
+        };
+    }
+
+    static JSON_stringify(val, _d = 0) {
+        if (_d > 20) {
+            throw new Error("Maximum depth exceeded");
+        }
+
+        switch (typeof val) {
+            case "function":
+                return `{name: "Function", data: "${val.toString()}"}`;
+
+            case "object":
+                if (val === null) return "null";
+                if (val instanceof Roll) {
+                    return JSON.stringify(Utility.rollToJSON(val));
+                } else if (
+                    val instanceof ValueModifier ||
+                    val instanceof TestResult
+                ) {
+                    return JSON.stringify(val.toJSON());
+                } else if (val instanceof Collection) {
+                    return `{name: "Collection", data: ${Utility.JSON_stringify(val.toJSON(), _d + 1)}}`;
+                } else if (val instanceof Map) {
+                    return `{name: "Map", data: ${JSON.stringify(val.entries().map(([k, v]) => [k, Utility.JSON_stringify(v, _d + 1)]))}}`;
+                } else if (val instanceof Set) {
+                    return `{name: "Set", data: ${JSON.stringify(val.map((e) => Utility.JSON_stringify(e, _d + 1)))}}`;
+                } else if (Array.isArray(val)) {
+                    return JSON.stringify(
+                        val.map((e) => Utility.JSON_stringify(e, _d + 1)),
+                    );
+                } else {
+                    return JSON.stringify(val);
+                }
+
+            case "undefined":
+                return `{name: "undefined"}`;
+
+            case "bigint":
+                return `{name: "bigint", data: "${val.toString()}"}`;
+
+            default:
+                return JSON.stringify(val);
+        }
+    }
+
+    static JSON_reviver({ thisArg, _d = 0 } = {}) {
+        if (_d > 20) {
+            throw new Error("Max depth exceeded");
+        }
+
+        return function (_key, value) {
+            if (!value) return value;
+            if (typeof value === "object") {
+                if (!Object.hasOwn(value, "name")) {
+                    if (Array.isArray(value)) {
+                        return value.map((e) =>
+                            Utility.JSON_reviver({
+                                thisArg,
+                                _d: _d + 1,
+                            })("", e),
+                        );
+                    } else {
+                        return value;
+                    }
+                } else {
+                    switch (value.name) {
+                        case "Function":
+                            return Utility.safeFunctionFactory(value.data);
+
+                        case "Roll":
+                            return Roll.fromData(value.data, {
+                                parent: thisArg,
+                            });
+
+                        case "undefined":
+                            return undefined;
+
+                        case "bigint":
+                            return BigInt(value.data);
+
+                        case "Collection":
+                            return new Collection(
+                                Utility.JSON_reviver({
+                                    thisArg,
+                                    _d: _d + 1,
+                                })("", value.data),
+                            );
+
+                        case "Map":
+                            return new Map(
+                                Utility.JSON_reviver({
+                                    thisArg,
+                                    _d: _d + 1,
+                                })("", value.data),
+                            );
+
+                        case "Set":
+                            return new Set(
+                                Utility.JSON_reviver({
+                                    thisArg,
+                                    _d: _d + 1,
+                                })("", value.data),
+                            );
+
+                        default:
+                            if (CONFIG.SOHL.class[value.name]) {
+                                return CONFIG.SOHL.class[value.name].fromData(
+                                    value,
+                                    { parent: thisArg },
+                                );
+                            } else {
+                                return value;
+                            }
+                    }
+                }
+            }
+            return value;
+        };
+    }
+
+    static JSON_parse(val, { thisArg } = {}) {
+        return JSON.parse(val, Utility.JSON_reviver({ thisArg }));
+    }
+
+    static safeFunctionFactory(fnString, async = false) {
+        // Basic regex to check if it's an arrow function or normal function
+        const functionPattern = /^\s*(?:\([\w\s,]*\)|\w+)\s*=>|\bfunction\b/;
+
+        // Reject anything that contains dangerous keywords
+        const dangerousKeywords =
+            /\b(eval|Function|document|window|globalThis|process)\b/;
+
+        if (!functionPattern.test(fnString)) {
+            throw new Error("Invalid function string");
+        } else if (dangerousKeywords.test(fnString)) {
+            throw new Error("Function uses unsafe keyword");
+        }
+
+        const fnStr = `"use strict"; return ${fnString}`;
+        try {
+            return new (async ? foundry.utils.AsyncFunction : Function)(fnStr);
+        } catch (e) {
+            throw new Error("Function parsing failed", { cause: e });
+        }
+    }
+
+    static deepClone(obj, { thisArg } = {}) {
+        thisArg ||= obj.parent;
+        return Utility.JSON_parse(Utility.JSON_stringify(obj), { thisArg });
+    }
+
+    static *combine(...iterators) {
+        for (let it of iterators) yield* it;
+    }
+
+    /**
+     * Ensures the resulting actions array has only unique actions.
+     * Keeps all items in newActions, and only those items in oldActions that are not already in newActions.
+     * @param {*} oldActions Array of actions to only keep if it is not already in newActions
+     * @param {*} newActions Array of actions to keep
+     * @returns
+     */
+    static uniqueActions(newActions, oldActions) {
+        return oldActions.reduce((ary, a) => {
+            if (!ary.some((i) => i.functionName === a.functionName))
+                ary.push(a);
+            return ary;
+        }, newActions);
+    }
+
+    /**
+     * Determines the identity of the current token/actor that is in combat. If token
+     * is specified, tries to use token (and will allow it regardless if user is GM.),
+     * otherwise returned token will be the combatant whose turn it currently is.
+     *
+     * @param {Token} token
+     */
+    static getTokenInCombat(token = null, forceAllow = false) {
+        if (token && (game.user.isGM || forceAllow)) {
+            const result = { token: token, actor: token.actor };
+            return result;
+        }
+
+        if (!game.combat?.started) {
+            ui.notifications.warn("No active combat.");
+            return null;
+        }
+
+        if (game.combat.combatants.size === 0) {
+            ui.notifications.warn(`No combatants.`);
+            return null;
+        }
+
+        const combatant = game.combat.combatant;
+
+        if (combatant.isDefeated) {
+            ui.notifications.warn(
+                `Combatant ${combatant.token.name} has been defeated`,
+            );
+            return null;
+        }
+
+        if (token && token.id !== combatant.token.id) {
+            ui.notifications.warn(
+                `${combatant.token.name} is not the current combatant`,
+            );
+            return null;
+        }
+
+        if (!combatant.actor.isOwner) {
+            ui.notifications.warn(
+                `You do not have permissions to control the combatant ${combatant.token.name}.`,
+            );
+            return null;
+        }
+
+        token = canvas.tokens.get(combatant.token.id);
+        return { token: token, actor: combatant.actor };
+    }
+
+    static getUserTargetedToken(combatant) {
+        const targets = game.user.targets;
+        if (!targets?.size) {
+            ui.notifications.warn(
+                `No targets selected, you must select exactly one target, combat aborted.`,
+            );
+            return null;
+        } else if (targets.size > 1) {
+            ui.notifications.warn(
+                `${targets} targets selected, you must select exactly one target, combat aborted.`,
+            );
+        }
+
+        const targetToken = Array.from(game.user.targets)[0]?.document;
+
+        if (combatant?.token && targetToken.id === combatant.token.id) {
+            ui.notifications.warn(
+                `You have targetted the combatant, they cannot attack themself, combat aborted.`,
+            );
+            return null;
+        }
+
+        return targetToken;
+    }
+
+    static getActor({ item, actor, speaker } = {}) {
+        const result = { item, actor, speaker };
+        if (item?.actor) {
+            result.actor = item.actor;
+            result.speaker = ChatMessage.getSpeaker({ actor: result.actor });
+        } else {
+            // If actor is an Actor, just return it
+            if (result.actor instanceof Actor) {
+                result.speaker ||= ChatMessage.getSpeaker({
+                    actor: result.actor,
+                });
+            } else {
+                if (!result.actor) {
+                    // If actor was null, lets try to figure it out from the Speaker
+                    result.speaker = ChatMessage.getSpeaker();
+                    if (result.speaker?.token) {
+                        const token = canvas.tokens.get(result.speaker.token);
+                        result.actor = token.actor;
+                    } else {
+                        result.actor = result.speaker?.actor;
+                    }
+                    if (!result.actor) {
+                        ui.notifications.warn(
+                            `No actor selected, roll ignored.`,
+                        );
+                        return null;
+                    }
+                } else {
+                    result.actor = fromUuidSync(result.actor);
+                    result.speaker = ChatMessage.getSpeaker({
+                        actor: result.actor,
+                    });
+                }
+
+                if (!result.actor) {
+                    ui.notifications.warn(`No actor selected, roll ignored.`);
+                    return null;
+                }
+            }
+        }
+
+        if (!result.actor.isOwner) {
+            ui.notifications.warn(
+                `You do not have permissions to control ${result.actor.name}.`,
+            );
+            return null;
+        }
+
+        return result;
+    }
+
+    /*
+    cyrb53 (c) 2018 bryc (github.com/bryc)
+    License: Public domain (or MIT if needed). Attribution appreciated.
+    A fast and simple 53-bit string hash function with decent collision resistance.
+    Largely inspired by MurmurHash2/3, but with a focus on speed/simplicity.
+    https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
+    */
+    static cyrb53(str, seed = 0) {
+        let h1 = 0xdeadbeef ^ seed,
+            h2 = 0x41c6ce57 ^ seed;
+        for (let i = 0, ch; i < str.length; i++) {
+            ch = str.charCodeAt(i);
+            h1 = Math.imul(h1 ^ ch, 2654435761);
+            h2 = Math.imul(h2 ^ ch, 1597334677);
+        }
+        h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+        h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+        h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+        h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+        return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+    }
+
+    static async onAlterTime(
+        time,
+        { days = 0, hours = 0, mins = 0, secs = 0 } = {},
+    ) {
+        const currentWorldTime = game.time.worldTime;
+        const gameStartTime = 0;
+        const dialogData = {
+            variant: CONFIG.SOHL.id,
+            timeBases: {
+                world: "Current World Time",
+                existing: "From Existing Time",
+                epoch: "From Game Start Time",
+            },
+            timeDirections: {
+                future: "Toward the Future",
+                past: "Toward the Past",
+            },
+            timeBase: "world",
+            setTime: time,
+            days,
+            hours,
+            mins,
+            secs,
+        };
+
+        let dlgTemplate = "systems/sohl/templates/dialog/time-dialog.html";
+        const dlgHtml = await renderTemplate(dlgTemplate, dialogData);
+
+        const dlgResult = await Dialog.prompt({
+            title: "Adjust Time",
+            content: dlgHtml.trim(),
+            label: `Adjust Time`,
+            render: (element) => {
+                element
+                    .querySelector('[name="timeBase"]')
+                    ?.addEventListener("change", (e) => {
+                        const time = element.querySelector("#time");
+                        let newValue =
+                            e.target.value === "existing"
+                                ? Utility.htmlWorldTime(time)
+                                : e.target.value === "world"
+                                  ? Utility.htmlWorldTime(currentWorldTime)
+                                  : Utility.htmlWorldTime(gameStartTime);
+                        time.innerHTML = newValue;
+                    });
+            },
+            callback: (element) => {
+                const form = element.querySelector("form");
+                const fd = new FormDataExtended(form);
+                const formData = foundry.utils.expandObject(fd.object);
+                const timeBase = formData.timeBase;
+                const direction = formData.direction;
+                const days = Number.parseInt(formData.days, 10);
+                const hours = Number.parseInt(formData.hours, 10);
+                const mins = Number.parseInt(formData.mins, 10);
+                const secs = Number.parseInt(formData.secs, 10);
+                let newTime =
+                    timeBase === "world"
+                        ? game.time.worldTime
+                        : timeBase === "existing"
+                          ? dialogData.setTime
+                          : 0;
+                const diff = days * 86400 + hours * 3600 + mins * 60 + secs;
+                newTime += direction === "future" ? diff : -diff;
+                return newTime;
+            },
+            rejectClose: false,
+            options: { jQuery: false },
+        });
+
+        return dlgResult;
+    }
+
+    /**
+     * Coerces value to the specified maximum precision.  If the value has greater than
+     * the specified precision, then rounds the value to the specified precision.  If
+     * the value has less than or equal to the specified precision, the value is unchanged.
+     *
+     * @param {number} value Source value to be evaluated
+     * @param {number} [precision=0] Maximum number of characters after decimal point
+     * @returns {number} value rounded to the specified precision
+     */
+    static maxPrecision(value, precision = 0) {
+        return +parseFloat(value).toFixed(precision);
+    }
+
+    static async moveQtyDialog(item, dest) {
+        // Render modal dialog
+        let dlgData = {
+            itemName: item.name,
+            targetName: dest.name || this.actor.name,
+            maxItems: item.system.quantity,
+        };
+
+        if (item.nestedIn) {
+            dlgData.sourceName = `${item.nestedIn.label}`;
+        } else {
+            dlgData.sourceName = this.actor.name;
+        }
+
+        const compiled = Handlebars.compile(`<form id="items-to-move">
+            <p>Moving ${dlgData.itemName} from ${dlgData.sourceName} to ${dlgData.targetName}</p>
+            <div class="form-group">
+                <label>How many (0-${dlgData.maxItems})?</label>
+                {{numberInput ${dlgData.maxItems} name="itemstomove" step=1 min=0 max=${dlgData.maxItems}}}
+            </div>
+            </form>`);
+        const dlgHtml = compiled(dlgData, {
+            allowProtoMethodsByDefault: true,
+            allowProtoPropertiesByDefault: true,
+        });
+
+        // Create the dialog window
+        const result = await Dialog.prompt({
+            title: "Move Items",
+            content: dlgHtml,
+            label: "OK",
+            callback: async (element) => {
+                const form = element.querySelector("form");
+                const fd = new FormDataExtended(form);
+                const formdata = foundry.utils.expandObject(fd.object);
+                let formQtyToMove = Number.parseInt(formdata.itemstomove) || 0;
+
+                return formQtyToMove;
+            },
+            options: { jQuery: false },
+            rejectClose: false,
+        });
+
+        return result || 0;
+    }
+
+    static createAction(event, parent) {
+        if (event.preventDefault) event.preventDefault();
+        const dataset = event.currentTarget.dataset;
+        const isChat = dataset.type === "chat";
+
+        let dlgHtml = `<form>
+            <div class="form-group">
+                <label>Action Name:</label>
+                <input name="name" type="text" placeholder="Action Name"/>
+            </div>
+            <div class="form-group">
+                <label>Macro Type:</label>
+                <select name="type">
+                    <option value="script" ${!isChat ? "selected" : ""}>Script</option>
+                    <option value="chat" ${isChat ? "selected" : ""}>Chat</option>
+                </select>
+            </div>
+        </form>`;
+
+        // Create the dialog window
+        return Dialog.prompt({
+            title: "Create Action",
+            content: dlgHtml,
+            label: "Create",
+            callback: async (element) => {
+                const form = element.querySelector("form");
+                const fd = new FormDataExtended(form);
+                const formData = foundry.utils.expandObject(fd.object);
+
+                const hasAction = parent.system.actions.some(
+                    (it) => !it.isIntrinsicAction && it.name === formData.name,
+                );
+                if (hasAction) {
+                    ui.notifications.error(
+                        `An action named ${formData.name} already exists on ${parent.label}`,
+                    );
+                    return null;
+                }
+
+                const action = await SohlMacro.create(
+                    { name: formData.name, type: formData.type },
+                    { nestedIn: parent },
+                );
+                action.sheet.render(true);
+                return action;
+            },
+            options: { jQuery: false },
+            rejectClose: false,
+        });
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    static deleteAction(event, action) {
+        if (!action) {
+            console.error(`SoHL | Delete aborted, action not specified.`);
+            return null;
+        }
+
+        return Dialog.confirm({
+            title: `Delete Action: ${action.name}`,
+            content:
+                "<p>Are You Sure?</p><p>This action will be deleted and cannot be recovered.</p>",
+            yes: () => {
+                return action.delete();
+            },
+        });
+    }
+
+    /**
+     * Generates a unique name by appending numerical suffixes to the specified prefix if necessary. Iterates over the provided items to ensure the generated name does not already exist in the list.
+     *
+     * @static
+     * @param {*} prefix
+     * @param {*} items
+     * @returns {*}
+     */
+    static uniqueName(prefix, items) {
+        let candidate = prefix;
+        if (items instanceof Map || items instanceof Array) {
+            let ord = 0;
+            while (items.some((n) => n.name === candidate)) {
+                ord++;
+                candidate = `${prefix} ${ord}`;
+            }
+        }
+
+        return candidate;
+    }
+
+    static htmlWorldTime(value) {
+        const worldDateLabel = EventItemData.getWorldDateLabel(value);
+        const remainingDurationLabel = Utility.formatDuration(
+            value - game.time.worldTime,
+        );
+        const fragHtml = `<span data-tooltip="${worldDateLabel}">${remainingDurationLabel}</span>`;
+        return fragHtml;
+    }
+
+    static formatDuration(age) {
+        const duration = Math.abs(age);
+        const days = Math.floor(duration / 86400);
+        const hours = Math.floor((duration % 86400) / 3600);
+        const min = Math.floor((duration % 3600) / 60);
+        const sec = duration % 60;
+        let result = days ? `${days}d ` : "";
+        result += hours ? `${hours}h ` : "";
+        result += min ? `${min}m ` : "";
+        result += !result || sec ? `${sec}s` : "";
+        result += age > 0 ? " in the future" : age < 0 ? " ago" : "";
+        return result;
+    }
+
+    /**
+     * A static method that converts a given number of seconds to a normalized time format. It calculates the normalized hours, minutes, and seconds based on the input seconds value and constructs a formatted time string. Returns an object with 'label' property containing the formatted time string and 'inFuture' property indicating whether the input seconds value is negative.
+     *
+     * @static
+     * @param {*} seconds
+     * @returns {{ label: string; inFuture: boolean; }}
+     */
+    static toNormTime(seconds) {
+        const asecs = Math.abs(seconds);
+        const normHours = Math.floor(asecs / 3600);
+        const remSeconds = asecs % 3600;
+        const normMinutes = Number(Math.floor(remSeconds / 60))
+            .toString()
+            .padStart(2, "0");
+        const normSeconds = Number(remSeconds % 60)
+            .toString()
+            .padStart(2, "0");
+        return {
+            label: `${normHours}:${normMinutes}:${normSeconds}`,
+            inFuture: seconds < 0,
+        };
+    }
+
+    /**
+     * Convert an integer into a roman numeral.  Taken from:
+     * http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+     *
+     * @param {Integer} num
+     */
+    static romanize(num) {
+        if (isNaN(num)) return NaN;
+        var digits = String(+num).split(""),
+            key = [
+                "",
+                "C",
+                "CC",
+                "CCC",
+                "CD",
+                "D",
+                "DC",
+                "DCC",
+                "DCCC",
+                "CM",
+                "",
+                "X",
+                "XX",
+                "XXX",
+                "XL",
+                "L",
+                "LX",
+                "LXX",
+                "LXXX",
+                "XC",
+                "",
+                "I",
+                "II",
+                "III",
+                "IV",
+                "V",
+                "VI",
+                "VII",
+                "VIII",
+                "IX",
+            ],
+            roman = "",
+            i = 3;
+        while (i--) roman = (key[+digits.pop() + i * 10] || "") + roman;
+        return Array(+digits.join("") + 1).join("M") + roman;
+    }
+
+    /**
+     * Calculates the distance from sourceToken to targetToken in "scene" units (e.g., feet).
+     *
+     * @param {Token} sourceToken
+     * @param {Token} targetToken
+     * @param {Boolean} gridUnits If true, return in grid units, not "scene" units
+     */
+    static rangeToTarget(sourceToken, targetToken, gridUnits = false) {
+        if (sourceToken instanceof Token) {
+            sourceToken = sourceToken.document;
+        } else if (!(sourceToken instanceof TokenDocument)) {
+            throw new Error(`invalid sourceToken`);
+        }
+        if (targetToken instanceof Token) {
+            targetToken = targetToken.document;
+        } else if (!(targetToken instanceof TokenDocument)) {
+            throw new Error(`invalid targetToken`);
+        }
+        if (!canvas.scene?.grid) {
+            ui.notifications.warn(`No scene active`);
+            return null;
+        }
+        if (!gridUnits && !["feet", "ft"].includes(canvas.scene.grid.units)) {
+            ui.notifications.warn(
+                `Scene uses units of ${canvas.scene.grid.units} but only feet are supported, distance calculation not possible`,
+            );
+            return 0;
+        }
+
+        // If the current scene is marked "Theatre of the Mind", then range is always 0
+        if (canvas.scene.getFlag("sohl", "isTotm")) return 0;
+
+        const result = canvas.grid.measurePath([
+            sourceToken.object.center,
+            targetToken.object.center,
+        ]);
+
+        return gridUnits ? result.spaces : result.distance;
+    }
+
+    /**
+     * Returns the single selected token if there is exactly one token selected
+     * on the canvas, otherwise issue a warning.
+     *
+     * @static
+     * @param {object} [options]
+     * @param {boolean} [options.quiet=false] suppress warning messages
+     * @returns {Token|null} The currently selected token, or null if there is not exactly one selected token
+     */
+    static getSingleSelectedToken({ quiet = false } = {}) {
+        const numTargets = canvas.tokens?.controlled?.length;
+        if (!numTargets) {
+            if (!quiet)
+                ui.notifications.warn(`No selected tokens on the canvas.`);
+            return null;
+        }
+
+        if (numTargets > 1) {
+            if (!quiet)
+                ui.notifications.warn(
+                    `There are ${numTargets} selected tokens on the canvas, please select only one`,
+                );
+            return null;
+        }
+
+        return canvas.tokens.controlled[0].document;
+    }
+
+    static async asyncForEach(array, callback) {
+        for (let index = 0; index < array.length; index++) {
+            await callback(array[index], index, array);
+        }
+    }
+
+    static async getDocsFromPacks(
+        packNames,
+        { documentName = "Item", docType },
+    ) {
+        let allDocs = [];
+        for (let packName of packNames) {
+            const pack = game.packs.get(packName);
+            if (!pack) continue;
+            if (pack.documentName !== documentName) continue;
+            const query = {};
+            if (docType) {
+                query["type"] = docType;
+            }
+            const items = await pack.getDocuments(query);
+            allDocs.push(...items.map((it) => it.toObject()));
+        }
+        return allDocs;
+    }
+
+    /**
+     * A static asynchronous function that retrieves an item from the specified
+     * packs based on the item name, pack names, and optionally item type.
+     * It iterates over each pack name, gets the pack object from the game data,
+     * constructs a query object based on the item name and optional item type,
+     * and fetches documents that match the query from the pack. If any results
+     * are found, the first result is assigned to the variable 'result' and the
+     * iteration stops. Finally, it returns the found item or null if no item is found.
+     *
+     * @static
+     * @async
+     * @param {string} docName
+     * @param {string[]} packNames
+     * @param {object} options
+     * @param {string} [options.itemType]
+     * @param {boolean} [options.keepId]
+     * @returns {object} data representing a document from the compendium
+     */
+    static async getDocumentFromPacks(
+        docName,
+        packNames,
+        { documentName = "Item", docType, keepId } = {},
+    ) {
+        let data = null;
+        const allDocs = await Utility.getDocsFromPacks(packNames, {
+            documentName,
+            docType,
+        });
+        const doc = allDocs?.find((it) => it.name === docName);
+        if (doc) {
+            // Cleanup item data
+            data = doc.toObject();
+            if (!keepId) data._id = foundry.utils.randomID();
+            delete data.folder;
+            delete data.sort;
+            if (doc.pack)
+                foundry.utils.setProperty(
+                    data,
+                    "_stats.compendiumSource",
+                    doc.uuid,
+                );
+            if ("ownership" in data) {
+                data.ownership = {
+                    default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+                    [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+                };
+            }
+            if (doc.effects) {
+                data.effects = doc.effects.contents.map((e) => e.toObject());
+            }
+        }
+
+        return data;
+    }
+
+    /**
+     * Creates a 16-digit sequence of hexadecimal digits, suitable for use as
+     * an ID, but such that the same input string will produce the same output
+     * every time.
+     *
+     * @param {string} str Input string to convert to hash
+     * @returns Sequence of 16 hexadecimal digits as a string
+     */
+    static createHash16(str) {
+        const chars =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const ary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        for (let i = 0; i < str.length; i++) {
+            ary[i % 16] += str.codePointAt(i);
+        }
+        let id = "";
+        for (let i = 0; i < 16; i++) id += chars[ary[i] % chars.length];
+        return id;
+    }
+
+    /**
+     * Loads a JSON file and returns an object representing the JSON structure.
+     *
+     * @param {string} filepath path to the JSON file
+     * @returns {object} The parsed JSON structure
+     */
+    static async loadJSONFromFile(filepath) {
+        const json = await foundry.utils.fetchJsonWithTimeout(
+            foundry.utils.getRoute(filepath, { prefix: ROUTE_PREFIX }),
+        );
+        return json;
+    }
+
+    static async createItemFromJson(filepath) {
+        const descObj = await Utility.loadJSONFromFile(filepath);
+
+        const createData = foundry.utils.deepClone(descObj.template);
+        createData._id ||= foundry.utils.randomID();
+
+        if (descObj.nestedItems) {
+            foundry.utils.mergeObject(createData, {
+                system: {
+                    nestedItems: [],
+                },
+            });
+
+            for (let [name, type] of descObj.nestedItems) {
+                const itemData = await Utility.getItemFromPacks(
+                    name,
+                    CONFIG.Item.compendiums,
+                    { itemType: type },
+                );
+                if (itemData) {
+                    itemData._id = foundry.utils.randomID();
+                    delete itemData.folder;
+                    delete itemData.sort;
+                    delete itemData._stats;
+                    delete itemData.pack;
+                    createData.system.nestedItems.push(itemData);
+                }
+            }
+        }
+        const result = await SohlItem.create(createData, { clean: true });
+        console.log(`Item with name ${descObj.name} created`);
+        return result;
+    }
+
+    /**
+     * Handles combat fatigue for each combatant in a combat. Calculates the distance a combatant has moved since the start of combat and applies combat fatigue to the combatant's actor. Updates flags to mark that the combatant has not participated in combat and sets the start location for the next combat round.
+     *
+     * @static
+     * @param {*} combat
+     */
+    static handleCombatFatigue(combat) {
+        combat.turns.forEach((combatant) => {
+            const actor = combatant.token.actor;
+            const didCombat = combatant.getFlag("sohl", "didCombat");
+
+            if (didCombat) {
+                // Calculate distance combatant has moved
+                const startLocation = combatant.getFlag(
+                    "sohl",
+                    "startLocation",
+                );
+                const dist = startLocation
+                    ? combat.getDistance(startLocation, combatant.token.center)
+                    : 0;
+
+                actor?.system.applyCombatFatigue(dist);
+            }
+
+            combatant.update({
+                "flags.sohl.didCombat": false,
+                "flags.sohl.startLocation": combatant.token.center,
+            });
+        });
+    }
+
+    /**
+     * Optionally hide the display of chat card action buttons which cannot be performed by the user
+     */
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    static displayChatActions(message, html, data) {
+        const element = html instanceof jQuery ? html[0] : html;
+
+        const chatCard = element.querySelectorAll(".chat-card");
+        if (chatCard.length > 0) {
+            // If the user is the GM, proceed
+            if (game.user.isGM) return;
+
+            // Conceal edit link
+            const editAnchor = chatCard.querySelector("a.edit-action");
+            editAnchor.style.display = "none";
+
+            // Conceal action buttons
+            const buttons = chatCard.querySelectorAll("button[data-action]");
+            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+            buttons.each((i, btn) => {
+                if (btn.dataset?.handlerActorUuid) {
+                    let actor = fromUuidSync(btn.dataset.handlerActorUuid);
+                    if (!actor || !actor.isOwner) {
+                        btn.style.display = "none";
+                    }
+                }
+            });
+        }
+    }
+
+    static async onChatCardEditAction(editAction) {
+        return await Utility._executeAction(editAction.dataset);
+    }
+
+    static async onChatCardButton(button) {
+        button.disabled = true;
+        const result = await Utility._executeAction(button.dataset);
+        button.disabled = false;
+        return result;
+    }
+
+    static async _executeAction(dataset) {
+        const options = {};
+        let thisArg;
+        let doc = await fromUuid(dataset.actionHandlerUuid);
+        if (doc instanceof Token) {
+            options.token = doc.document;
+            options.actor = doc.actor;
+            thisArg = doc.actor?.system;
+            doc = options.actor;
+        } else if (doc instanceof TokenDocument) {
+            options.token = doc;
+            options.actor = doc.actor;
+            thisArg = doc.actor?.system;
+            doc = options.actor;
+        } else if (doc instanceof SohlActor) {
+            options.token = doc.getToken(options.defTokenUuid);
+            options.actor = doc;
+            thisArg = doc.system;
+        } else if (doc instanceof SohlItem) {
+            options.actor = doc.actor;
+            options.token = doc.actor.getToken(options.defTokenUuid);
+            thisArg = doc.system;
+        } else {
+            throw new Error(
+                `targetUuid ${options.targetUuid} is not a Token, TokenDocument, Actor, or Item UUID`,
+            );
+        }
+
+        for (const key in dataset) {
+            if (key.endsWith("Json")) {
+                const newKey = key.slice(0, -4);
+                options[newKey] = Utility.JSON_parse(dataset[key], { thisArg });
+            } else {
+                options[key] = dataset[key];
+            }
+        }
+
+        return await doc.system.execute(options.action, options);
+    }
+
+    static async getOpposedItem({
+        actor,
+        skipDialog = false,
+        label,
+        title,
+        func,
+        compareFn = (a, b) => a - b,
+    } = {}) {
+        if (!(actor instanceof SohlActor))
+            throw new Error("Must provide actor");
+        let candidates = new foundry.utils.Collection();
+        for (let it of actor.allItems()) {
+            const result = func instanceof Function ? func(it) : null;
+            if (result) candidates.set(result.key, result.value);
+        }
+
+        if (!candidates.size) {
+            return false; // False means no candidates found
+        } else if (candidates.size === 1) {
+            return candidates.contents[0]; // If only one candidate, simply return it, no dialog needed
+        }
+
+        candidates = Array.from(candidates.values());
+        candidates.sort(compareFn);
+
+        // get the strikemode with the highest median impact as default
+        let candidate = candidates[0];
+
+        if (!skipDialog) {
+            let dlgHtml = `<form id="select-candidate">
+                <div class="form-group">
+                    <label>${label}</label>
+                    <select name="candidateId">`;
+            candidates.forEach((cand, idx) => {
+                dlgHtml += `<option value=${cand.id}${!idx ? " selected" : ""}>${cand.nestedIn.name} ${cand.name}`;
+                if (cand.system.$impact) {
+                    dlgHtml += ` (${cand.system.$impact.label})`;
+                }
+                dlgHtml += `</option>`;
+            });
+            dlgHtml += `</select></div></form>`;
+            candidate = await Dialog.prompt({
+                title,
+                content: dlgHtml,
+                label: "OK",
+                callback: async (element) => {
+                    const form = element.querySelector("form");
+                    const fd = new FormDataExtended(form);
+                    const formdata = foundry.utils.expandObject(fd.object);
+                    const selection = candidates.find(
+                        (cand) => cand.id === formdata.candidateId,
+                    );
+                    return selection;
+                },
+                options: { jQuery: false },
+                rejectClose: false,
+            });
+            if (!candidate) return null; // Null means dialog was cancelled, closed without selection
+        }
+        return candidate;
+    }
+
+    static async opposedTestResume(
+        speaker,
+        actor,
+        token,
+        character,
+        scope = {},
+    ) {
+        let {
+            noChat = false,
+            opposedTestResult,
+            testType = SuccessTestResult.TEST_TYPE.SKILL,
+            item,
+        } = scope;
+
+        if (!opposedTestResult) {
+            throw new Error("Must supply opposedTestResult");
+        }
+
+        if (!item) {
+            throw new Error("Must supply item");
+        }
+
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+            needsToken: true,
+            self: this,
+        }));
+
+        if (!opposedTestResult.targetTestResult) {
+            opposedTestResult.targetTestResult = item.successTest({
+                noChat: true,
+                testType,
+            });
+            if (!opposedTestResult.targetTestResult) return null;
+        } else {
+            // In this situation, where the targetTestResult is provided,
+            // the GM is modifying the result of a prior opposedTest.
+            // Therefore, we re-display the dialog for each of the prior
+            // successTests.
+            opposedTestResult.sourceTestResult =
+                opposedTestResult.sourceTestResult.item.successTest({
+                    noChat: true,
+                    successTestResult: opposedTestResult.sourceTestResult,
+                });
+            opposedTestResult.targetTestResult =
+                opposedTestResult.targetTestResult.item.successTest({
+                    noChat: true,
+                    successTestResult: opposedTestResult.targetTestResult,
+                });
+        }
+
+        let allowed = await opposedTestResult.evaluate();
+
+        if (allowed && !noChat) {
+            opposedTestResult.toChat({
+                template:
+                    "systems/sohl/templates/chat/opposed-result-card.html",
+                title: `Opposed Action Result`,
+            });
+        }
+
+        return allowed ? opposedTestResult : false;
+    }
+
+    static stringParse(val) {
+        if (typeof val !== "string") throw new Error("not a string");
+        if (val === "true") return true;
+        else if (val === "false") return false;
+        else if (val === "null") return null;
+        else if (val === "undefined") return undefined;
+
+        let tmpVal = Number(val);
+        if (!Number.isNaN(tmpVal)) return tmpVal;
+
+        try {
+            tmpVal = Utility.safeFunctionFactory(val);
+        } catch (_err) {
+            tmpVal = undefined;
+        }
+        if (tmpVal !== undefined) return tmpVal;
+
+        try {
+            tmpVal = JSON.parse(val);
+        } catch (_err) {
+            /* empty */
+        }
+
+        return val;
+    }
+}
+
+class SohlFunctionField extends fields.JavaScriptField {
+    constructor(options = {}, context = {}) {
+        super(options, context);
+        this.nullable = false;
+    }
+
+    /** @inheritdoc */
+    static get _defaults() {
+        return Object.assign(super._defaults, {
+            validationError: "is not a valid Function",
+        });
+    }
+
+    getInitialValue(_data) {
+        if (typeof this.inital === "function") return this.initial;
+        else return this._cast(this.initial);
+    }
+
+    /** @override */
+    _cast(value) {
+        if (typeof value === "string" && value)
+            return Utility.safeFunctionFactory(value, this.async);
+        else if (typeof value === "function") return value;
+        else return Utility.safeFunctionFactory("", this.async);
+    }
+
+    toObject(value) {
+        if (typeof value === "function") return value.toString();
+        else return "";
+    }
+}
+
+export class SohlContextMenu extends foundry.applications.ui.ContextMenu {
+    static get SORT_GROUPS() {
+        return {
+            DEFAULT: "default",
+            ESSENTIAL: "essential",
+            GENERAL: "general",
+            HIDDEN: "hidden",
+        };
+    }
+
+    static get sortGroups() {
+        return {
+            [SohlContextMenu.SORT_GROUPS.DEFAULT]: "Default",
+            [SohlContextMenu.SORT_GROUPS.ESSENTIAL]: "Essential",
+            [SohlContextMenu.SORT_GROUPS.GENERAL]: "General",
+            [SohlContextMenu.SORT_GROUPS.DEFAULT]: "Hidden",
+        };
+    }
+
+    _setPosition(html, target, { event } = {}) {
+        // Ensure element is a native HTMLElement
+        const element = html instanceof jQuery ? html[0] : html;
+        if (target instanceof jQuery) [target] = target;
+
+        // Find the container element (equivalent to target.parents("div.app"))
+        let container = target.closest("div.app");
+
+        // Set styles on the target
+        target.style.position = "relative";
+        element.style.visibility = "hidden";
+        element.style.width = "fit-content";
+
+        // Append the element to the container
+        container.appendChild(element);
+
+        // Calculate context bounds
+        const contextRect = element.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const mouseX = event.pageX - containerRect.left;
+        const mouseY = event.pageY - containerRect.top;
+
+        const contextTopOffset = mouseY;
+        let contextLeftOffset = Math.min(
+            containerRect.width - contextRect.width,
+            mouseX,
+        );
+
+        // Calculate whether the menu should expand upward
+        const contextTopMax = mouseY - contextRect.height;
+        const contextBottomMax = mouseY + contextRect.height;
+        const canOverflowUp =
+            contextTopMax > containerRect.top ||
+            getComputedStyle(container).overflowY === "visible";
+
+        // Determine if it should expand upward
+        const expandUp =
+            contextBottomMax > containerRect.height &&
+            (contextTopMax >= 0 || canOverflowUp);
+
+        // Calculate top and bottom positions
+        const contextTop = expandUp
+            ? contextTopOffset - contextRect.height
+            : contextTopOffset;
+        const contextBottom = contextTop + contextRect.height;
+
+        // Update classes for expand-up/expand-down
+        element.classList.toggle("expand-up", expandUp);
+        element.classList.toggle("expand-down", !expandUp);
+
+        // Set positioning styles
+        element.style.top = `${contextTop}px`;
+        element.style.bottom = `${contextBottom}px`;
+        if (contextLeftOffset) {
+            element.style.left = `${contextLeftOffset}px`;
+        }
+
+        // Make the element visible
+        element.style.visibility = "visible";
+
+        // Add context class to target
+        target.classList.add("context");
+    }
+}
+
+function NestableDataModelMixin(Base) {
+    return class NestableDataModel extends Base {
+        static metadata = Object.freeze({
+            name: undefined,
+            locId: "",
+            iconCssClass: "",
+            label: "",
+            labelPlural: "",
+            img: "icons/svg/item-bag.svg",
+            sheet: "",
+
+            /*
+             * The metadata has to include the version of this Document schema, which needs to be increased
+             * whenever the schema is changed such that Document data created before this version
+             * would come out different if `fromSource(data).toObject()` was applied to it so that
+             * we always vend data to client that is in the schema of the current core version.
+             * The schema version needs to be bumped if
+             *   - a field was added or removed,
+             *   - the class/type of any field was changed,
+             *   - the casting or cleaning behavior of any field class was changed,
+             *   - the data model of an embedded data field was changed,
+             *   - certain field properties are changed (e.g. required, nullable, blank, ...), or
+             *   - there have been changes to cleanData or migrateData of the Document.
+             *
+             * Moreover, the schema version needs to be bumped if the sanitization behavior
+             * of any field in the schema was changed.
+             */
+            schemaVersion: undefined,
+        });
+
+        static get TYPE_NAME() {
+            return this.metadata.name;
+        }
+
+        get TYPE_NAME() {
+            return this.constructor.TYPE_NAME;
+        }
+
+        static get TYPE_LABEL() {
+            return {
+                SINGULAR: this.metadata.label,
+                PLURAL: this.metadata.labelPlural,
+            };
+        }
+
+        get TYPE_LABEL() {
+            return this.constructor.TYPE_LABEL;
+        }
+
+        static get parentDocumentClass() {
+            throw new Error("Subclass must define parent doccument class");
+        }
+
+        constructor(data = {}, options = {}) {
+            super(data, options);
+            if (!this.parent) {
+                throw new Error("parent must be specified");
+            }
+        }
+
+        static defineSchema() {
+            return {
+                schemaVersion: new fields.StringField({
+                    initial: this.metadata.schemaVersion,
+                }),
+            };
+        }
+
+        _configure({ parentCollection = null } = {}) {
+            /**
+             * An immutable reverse-reference to the name of the collection that this Document exists in on its parent, if any.
+             * @type {string|null}
+             */
+            Object.defineProperty(this, "parentCollection", {
+                value: this._getParentCollection(parentCollection),
+                writable: false,
+            });
+
+            // Construct Embedded Collections
+            const collections = {};
+            for (const [fieldName, field] of Object.entries(
+                this.constructor.hierarchy,
+            )) {
+                if (!field.constructor.implementation) continue;
+                const data = this._source[fieldName];
+                const c = (collections[fieldName] =
+                    new field.constructor.implementation(
+                        fieldName,
+                        this,
+                        data,
+                    ));
+                Object.defineProperty(this, fieldName, {
+                    value: c,
+                    writable: false,
+                });
+            }
+
+            /**
+             * A mapping of embedded Document collections which exist in this model.
+             * @type {Record<string, EmbeddedCollection>}
+             */
+            Object.defineProperty(this, "collections", {
+                value: Object.seal(collections),
+                writable: false,
+            });
+        }
+
+        /**
+         * Ensure that all SohlDataModel classes share the same schema of their base declaration.
+         * @type {SchemaField}
+         * @override
+         */
+        static get schema() {
+            if (this._schema) return this._schema;
+            const base = this.baseDataModel;
+            if (!Object.prototype.hasOwnProperty.call(base, "_schema")) {
+                const schema = new fields.SchemaField(
+                    Object.freeze(base.defineSchema()),
+                );
+                Object.defineProperty(base, "_schema", {
+                    value: schema,
+                    writable: false,
+                });
+            }
+            Object.defineProperty(this, "_schema", {
+                value: base._schema,
+                writable: false,
+            });
+            return base._schema;
+        }
+
+        /** @override */
+        static *_initializationOrder() {
+            const hierarchy = this.hierarchy;
+
+            // Initialize non-hierarchical fields first
+            for (const [name, field] of this.schema.entries()) {
+                if (name in hierarchy) continue;
+                yield [name, field];
+            }
+
+            // Initialize hierarchical fields last
+            for (const [name, field] of Object.entries(hierarchy)) {
+                yield [name, field];
+            }
+        }
+
+        /**
+         * Return a reference to the configured subclass of this base SohlDataModel type.
+         * @type {typeof NestableDataModel}
+         */
+        static get implementation() {
+            return CONFIG[
+                this.baseDataModel.parentDocumentClass.documentName
+            ]?.[this.dataModelName]?.documentClass;
+        }
+
+        /* -------------------------------------------- */
+
+        /**
+         * The base SohlDataModel definition that this SohlDataModel class extends from.
+         * @type {typeof Document}
+         */
+        static get baseDataModel() {
+            let cls;
+            let parent = this;
+            while (parent) {
+                cls = parent;
+                if (cls.name === this.metadata.name) return cls;
+                parent = Object.getPrototypeOf(cls);
+                if (parent === NestableDataModel) return cls;
+            }
+            throw new Error(
+                `Base SohlDataModel class identification failed for "${this.documentName}"`,
+            );
+        }
+
+        /**
+         * The canonical name of this Document type, for example "Actor".
+         * @type {string}
+         */
+        static get dataModelName() {
+            return this.metadata.name;
+        }
+
+        get dataModelName() {
+            return this.constructor.dataModelName;
+        }
+
+        /**
+         * The nested Document hierarchy for this Document.
+         * @returns {Readonly<Record<string, EmbeddedCollectionField|EmbeddedDocumentField>>}
+         */
+        static get hierarchy() {
+            const hierarchy = {};
+            for (const [fieldName, field] of this.schema.entries()) {
+                if (field.constructor.hierarchical)
+                    hierarchy[fieldName] = field;
+            }
+            Object.defineProperty(this, "hierarchy", {
+                value: Object.freeze(hierarchy),
+                writable: false,
+            });
+            return hierarchy;
+        }
+
+        get isNested() {
+            return !!this.parentCollection;
+        }
+
+        /**
+         * Migrate the object to conform to its latest data model.
+         * @returns {object}              The migrated system data object
+         */
+        migrateData() {
+            if (
+                !foundry.utils.isNewerVersion(
+                    this.constructor.metadata.schemaVersion,
+                    this.schemaVersion,
+                )
+            )
+                return this;
+            const model = this.schema ?? {};
+            return foundry.utils.mergeObject(model, this, {
+                insertKeys: false,
+                insertValues: true,
+                enforceTypes: false,
+                overwrite: true,
+                inplace: false,
+            });
+        }
+
+        static getCollectionName(name) {
+            if (name in this.hierarchy) return name;
+            for (const [collectionName, field] of Object.entries(
+                this.hierarchy,
+            )) {
+                if (field.model.documentName === name) return collectionName;
+            }
+            return null;
+        }
+
+        /* -------------------------------------------- */
+
+        /**
+         * Obtain a reference to the Array of source data within the data object for a certain embedded Document name
+         * @param {string} nestedName   The name of the embedded Document type
+         * @returns {DocumentCollection}  The Collection instance of embedded Documents of the requested type
+         */
+        getNestedCollection(nestedName) {
+            const collectionName =
+                this.constructor.getCollectionName(nestedName);
+            if (!collectionName) {
+                throw new Error(
+                    `${nestedName} is not a valid nested Document within the ${this.documentName} Document`,
+                );
+            }
+            const field = this.constructor.hierarchy[collectionName];
+            return field.getCollection(this);
+        }
+
+        /* -------------------------------------------- */
+
+        /**
+         * Get an embedded document by its id from a named collection in the parent document.
+         * @param {string} nestedName              The name of the embedded Document type
+         * @param {string} id                        The id of the child document to retrieve
+         * @param {object} [options]                 Additional options which modify how embedded documents are retrieved
+         * @param {boolean} [options.strict=false]   Throw an Error if the requested id does not exist. See Collection#get
+         * @param {boolean} [options.invalid=false]  Allow retrieving an invalid Embedded Document.
+         * @returns {Document}                       The retrieved embedded Document instance, or undefined
+         * @throws If the embedded collection does not exist, or if strict is true and the Embedded Document could not be
+         *         found.
+         */
+        getNestedDocument(
+            nestedName,
+            id,
+            { invalid = false, strict = false } = {},
+        ) {
+            const collection = this.getNestedCollection(nestedName);
+            return collection.get(id, { invalid, strict });
+        }
+
+        /* -------------------------------------------- */
+
+        /**
+         * Create multiple embedded Document instances within this parent Document using provided input data.
+         * @see Document.createDocuments
+         * @param {string} nestedName                     The name of the embedded Document type
+         * @param {object[]} data                           An array of data objects used to create multiple documents
+         * @param {DatabaseCreateOperation} [operation={}]  Parameters of the database creation workflow
+         * @returns {Promise<Document[]>}                   An array of created Document instances
+         */
+        async createNestedDocuments(nestedName, data = [], operation = {}) {
+            this.getNestedCollection(nestedName); // Validation only
+            operation.parent = this;
+            const cls = getDocumentClass(nestedName);
+            return cls.createDocuments(data, operation);
+        }
+
+        /* -------------------------------------------- */
+
+        /**
+         * Update multiple embedded Document instances within a parent Document using provided differential data.
+         * @see Document.updateDocuments
+         * @param {string} nestedName                     The name of the embedded Document type
+         * @param {object[]} updates                        An array of differential data objects, each used to update a
+         *                                                  single Document
+         * @param {DatabaseUpdateOperation} [operation={}]  Parameters of the database update workflow
+         * @returns {Promise<Document[]>}                   An array of updated Document instances
+         */
+        async updateNestedDocuments(nestedName, updates = [], operation = {}) {
+            this.getNestedCollection(nestedName); // Validation only
+            operation.parent = this;
+            const cls = getDocumentClass(nestedName);
+            return cls.updateDocuments(updates, operation);
+        }
+
+        /* -------------------------------------------- */
+
+        /**
+         * Delete multiple embedded Document instances within a parent Document using provided string ids.
+         * @see Document.deleteDocuments
+         * @param {string} nestedName                     The name of the embedded Document type
+         * @param {string[]} ids                            An array of string ids for each Document to be deleted
+         * @param {DatabaseDeleteOperation} [operation={}]  Parameters of the database deletion workflow
+         * @returns {Promise<Document[]>}                   An array of deleted Document instances
+         */
+        async deleteNestedDocuments(nestedName, ids, operation = {}) {
+            this.getNestedCollection(nestedName); // Validation only
+            operation.parent = this;
+            const cls = getDocumentClass(nestedName);
+            return cls.deleteDocuments(ids, operation);
+        }
+
+        _getParentCollection(parentCollection) {
+            if (!this.parent) return null;
+            if (parentCollection) return parentCollection;
+            return this.parent.constructor.getCollectionName(
+                this.dataModelName,
+            );
+        }
+
+        *traverseNestedDocuments(_parentPath) {
+            for (const [fieldName, field] of Object.entries(
+                this.constructor.hierarchy,
+            )) {
+                const fieldPath = _parentPath
+                    ? `${_parentPath}.${fieldName}`
+                    : fieldName;
+
+                // Singleton embedded document
+                if (
+                    field instanceof foundry.data.fields.EmbeddedDocumentField
+                ) {
+                    const document = this[fieldName];
+                    if (document) {
+                        yield [fieldPath, document];
+                        yield* document.traverseNestedDocuments(fieldPath);
+                    }
+                } else if (
+                    field instanceof foundry.data.fields.EmbeddedCollectionField
+                ) {
+                    const collection = this[fieldName];
+                    for (const document of collection.values()) {
+                        yield [fieldPath, document];
+                        yield* document.traverseNestedDocuments(fieldPath);
+                    }
+                }
+            }
+        }
+    };
+}
+
+function NestableDocumentMixin(Base) {
+    return class NestableDocument extends Base {
+        _cause;
+
+        static metadata = Object.freeze({
+            name: undefined,
+            locId: "",
+            label: "",
+            labelPlural: "",
+            img: "icons/svg/item-bag.svg",
+            iconCssClass: "",
+            sheet: "",
+
+            /*
+             * The metadata has to include the version of this Document schema, which needs to be increased
+             * whenever the schema is changed such that Document data created before this version
+             * would come out different if `fromSource(data).toObject()` was applied to it so that
+             * we always vend data to client that is in the schema of the current core version.
+             * The schema version needs to be bumped if
+             *   - a field was added or removed,
+             *   - the class/type of any field was changed,
+             *   - the casting or cleaning behavior of any field class was changed,
+             *   - the data model of an embedded data field was changed,
+             *   - certain field properties are changed (e.g. required, nullable, blank, ...), or
+             *   - there have been changes to cleanData or migrateData of the Document.
+             *
+             * Moreover, the schema version needs to be bumped if the sanitization behavior
+             * of any field in the schema was changed.
+             */
+            schemaVersion: undefined,
+        });
+
+        _initialize(options = {}) {
+            super._initialize(options);
+            this._cause = options.cause || null;
+        }
+
+        get cause() {
+            return this._cause || this.nestedIn;
+        }
+
+        set cause(doc) {
+            if (doc instanceof SohlActor || doc instanceof SohlItem) {
+                this._cause = doc;
+            } else {
+                throw new Error("must provide a valid cause");
+            }
+        }
+
+        get isNested() {
+            return this.parent instanceof SohlItem;
+        }
+
+        get item() {
+            if (this.isNested) return this.parent;
+            else if (this.cause instanceof SohlItem) return this.cause;
+            return null;
+        }
+
+        get actor() {
+            if (this.parent instanceof SohlActor) return this.parent;
+            else if (this.cause instanceof SohlActor) return this.cause;
+            else return this.item?.actor;
+        }
+
+        /** @inheritdoc */
+        static async createDocuments(dataAry = [], context = {}) {
+            if (!context?.parent?.isNested)
+                return super.createDocuments(dataAry, context);
+            if (!Array.isArray(dataAry)) dataAry = [dataAry];
+            const result = [];
+            for (let data of dataAry) {
+                if (!(data._id && context.keepId)) {
+                    data._id = foundry.utils.randomID();
+                }
+
+                if (!("ownership" in data)) {
+                    data.ownership = {
+                        default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+                    };
+                }
+                const doc = new this.impelementation(data, context);
+                if (!doc)
+                    throw new Error(`${this.documentName} creation failed`);
+
+                const collection = context.parent.system.getNestedCollection(
+                    this.documentName,
+                );
+                const newAry = collection.toObject();
+
+                // Set sort property
+                let maxSort = newAry.reduce(
+                    (max, obj) => Math.max(max, obj.sort),
+                    0,
+                );
+                maxSort += CONST.SORT_INTEGER_DENSITY;
+                doc.sort = maxSort;
+
+                const docExists = newAry.some((obj) => obj._id === doc.id);
+                if (docExists) {
+                    if (!context.keepId) {
+                        throw new Error(
+                            `${this.documentName} with id ${doc.id} already exists in ${context.parent.label}`,
+                        );
+                    }
+                } else {
+                    newAry.push(doc.toObject());
+                    const collectionName =
+                        context.parent.system.constructor.getCollectionName(
+                            this.documentName,
+                        );
+                    context.parent.updateSource({
+                        [`system.${collectionName}`]: newAry,
+                    });
+                }
+                result.push(doc);
+            }
+            return result;
+        }
+
+        /** @inheritdoc */
+        static async updateDocuments(updates = [], context = {}) {
+            if (!context?.parent?.isNested)
+                return super.updateDocuments(updates, context);
+            if (!Array.isArray(updates)) updates = [updates];
+            const collection = context.parent.system.getNestedCollection(
+                this.documentName,
+            );
+            const newAry = collection.map((it) => it.toObject());
+            const result = [];
+            for (let update of updates) {
+                // Expand the object, if dot-notation keys are provided
+                if (Object.keys(update).some((k) => /\./.test(k))) {
+                    const expandedUpdate = foundry.utils.expandObject(update);
+                    for (const key in update) delete update[key];
+                    Object.assign(update, expandedUpdate);
+                }
+                const itemIdx = newAry.findIndex(
+                    (it) => it._id === update?._id,
+                );
+                if (itemIdx >= 0) {
+                    const id = update._id;
+                    delete update._id;
+                    foundry.utils.mergeObject(newAry[itemIdx], update);
+                    result.push(id);
+                } else {
+                    console.error(
+                        `Can't find item with id ${update._id} in nested collection`,
+                    );
+                    continue;
+                }
+            }
+            const collectionName =
+                context.parent.system.constructor.getCollectionName(
+                    this.documentName,
+                );
+            context.parent.updateSource({
+                [`system.${collectionName}`]: newAry,
+            });
+            const changedDocs = collection.filter((it) =>
+                result.includes(it.id),
+            );
+            changedDocs.forEach((doc) => doc.render());
+            context.parent.render();
+            return changedDocs;
+        }
+
+        /** @inheritdoc */
+        static async deleteDocuments(ids = [], operation = {}) {
+            if (!operation?.parent?.isNested)
+                return super.deleteDocuments(ids, operation);
+            if (!Array.isArray(ids)) ids = [ids];
+            const collection = operation.parent.system.getNestedCollection(
+                this.documentName,
+            );
+            let newAry = collection.map((it) => it.toObject());
+            newAry = newAry.filter((it) => !ids.includes(it._id));
+            const collectionName =
+                operation.parent.system.constructor.getCollectionName(
+                    this.documentName,
+                );
+            operation.parent.updateSource({
+                [`system.${collectionName}`]: newAry,
+            });
+            operation.parent.render();
+            return ids;
+        }
+    };
+}
 
 /**
  * A class representing a value and associated modifications. It includes methods
@@ -268,48 +2099,103 @@ export const SOHL = {
  * @class ValueModifier
  * @typedef {ValueModifier}
  */
-export class ValueModifier {
-    static _reserved_words;
-    _mods;
+export class ValueModifier extends NestableDataModelMixin(
+    foundry.abstract.DataModel,
+) {
     _effective;
     _abbrev;
-    _parent;
-    _properties;
-    _dirty;
-    _base;
 
-    constructor(parent, initProperties = {}) {
-        if (parent instanceof SohlBaseData) {
-            this._parent = parent;
-        } else {
-            throw new Error("parent must be a subclass of SohlBaseData");
-        }
+    static OPERATOR = Object.freeze({
+        CUSTOM: 0,
+        MULTIPLY: 1,
+        ADD: 2,
+        DOWNGRADE: 3,
+        UPGRADE: 4,
+        OVERRIDE: 5,
+    });
 
-        this.reset();
-        this._properties = new Collection();
-        this._dirty = true;
-        Object.keys(initProperties).forEach((p) => {
-            this.setProperty(p, initProperties[p]);
+    static MOD = Object.freeze({
+        DISABLED: {
+            name: "Disabled",
+            abbrev: "DSBL",
+            op: this.OPERATOR.CUSTOM,
+            value: "disabled",
+        },
+    });
+
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        label: "SOHL.VALUEMODIFIER.entity",
+        labelPlural: "SOHL.VALUEMODIFIER.entityPl",
+        schemaVersion: "0.5.6",
+        reservedWords: [],
+    });
+
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema, {
+            modifiers: new fields.ArrayField(
+                new fields.SchemaField({
+                    name: new fields.StringField({
+                        blank: false,
+                        required: true,
+                        label: "Name",
+                    }),
+                    abbrev: new fields.StringField({
+                        blank: false,
+                        required: true,
+                        label: "Abbreviation",
+                    }),
+                    op: new fields.NumberField({
+                        required: true,
+                        initial: this.OPERATOR.ADD,
+                        choices: Utility.getChoicesMap(
+                            ValueModifier.OPERATOR,
+                            "SOHL.VALUEMODIFIER.OPERATOR",
+                        ),
+                        validationError:
+                            "must be a value in ValueModifier.OPERATOR",
+                        label: "Operator",
+                    }),
+                    value: new fields.StringField({
+                        label: "Value",
+                    }),
+                }),
+                {
+                    label: "Modifiers",
+                },
+            ),
+            disabledReason: new fields.StringField({
+                label: "Disabled Reason",
+            }),
+            baseValue: new fields.NumberField({
+                nullable: true,
+                integer: true,
+                initial: null,
+                label: "Base Value",
+            }),
         });
     }
 
-    static get vmName() {
-        return "ValueModifier";
-    }
+    /** @override */
+    static LOCALIZATION_PREFIXES = ["VALUEMODIFIER"];
 
-    static get reservedWords() {
-        if (!this._reserved_words) {
-            this._reserved_words = Object.getOwnPropertyNames(this.prototype);
+    /**
+     * Constructs a new ValueModifier using the data supplied in the {@link data} plain object. Note that although
+     * this can take an object created by {@link #toJSON}, this is not required, and appropriate default values will
+     * be supplied for missing parameters.
+     *
+     * @param {object} data A plain object that was created with a corresponding {@link #toJSON} method
+     * @param {object} context Contextual information relating to the object
+     * @param {string} context.parent {@link SohlItemData} associated with the object
+     */
+    constructor(data = {}, context = {}) {
+        if (!(context.parent instanceof SohlBaseData)) {
+            throw new Error("parent must be a subclass of SohlBaseData");
         }
-        return this._reserved_words;
-    }
-
-    get parent() {
-        return this._parent;
+        super(data, context);
     }
 
     get effective() {
-        this._apply();
         return this._effective;
     }
 
@@ -317,13 +2203,7 @@ export class ValueModifier {
         return this.effective - (this.base || 0);
     }
 
-    get base() {
-        this._apply();
-        return this._base;
-    }
-
     get abbrev() {
-        this._apply();
         return this._abbrev;
     }
 
@@ -332,509 +2212,248 @@ export class ValueModifier {
     }
 
     get disabled() {
-        return this._mods.some(
-            (m) =>
-                m.op === CONST.ACTIVE_EFFECT_MODES.CUSTOM &&
-                m.value === "disabled",
+        return (
+            this.disabledReason ||
+            _l("SOHL.VALUEMODIFIER.DISABLED_REASON_UNSPECIFIED")
         );
     }
 
-    test() {
-        throw Error("test must be defined in subclass");
+    set disabled(reason) {
+        this.updateSource({ disabledReason: reason || null });
+    }
+
+    get base() {
+        return this.baseValue || 0;
+    }
+
+    set base(value) {
+        if (value !== null) {
+            value = Number(value);
+            if (Number.isNaN(value))
+                throw new TypeError("value must be numeric or null");
+        }
+        this.updateSource({ disabledReason: value });
+    }
+
+    get hasBase() {
+        return this.baseValue !== null;
     }
 
     get empty() {
-        return !this._mods.length;
-    }
-
-    getProperty(name) {
-        if (!this._properties.has(name)) {
-            return undefined;
-        }
-
-        const val = this._properties.get(name);
-        if (val instanceof Function) {
-            this._apply();
-            return val(this);
-        }
-
-        return val;
-    }
-
-    /**
-     * Sets the named property to the provided value.  If the name is not currently a property
-     * of this ValueModifier, then it adds a getter and setter to this ValueModifier for
-     * ease of access and setting of the property value.
-     *
-     * @param {string} name Name of property to set to value
-     * @param {*} newValue New value of the property
-     * @returns {ValueModifier} the base ValueModifier
-     */
-    setProperty(name, newValue) {
-        if (!this._properties.has(name)) {
-            if (!/^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(name)) {
-                throw new Error(`Name "${name}" is not a valid identifier`);
-            }
-
-            if (this.constructor.reservedWords.includes(name)) {
-                throw new Error(`Cannot set property of reserved key ${name}`);
-            }
-
-            const config = {
-                get() {
-                    return this.getProperty(name);
-                },
-                set(v) {
-                    this.setProperty(name, v);
-                },
-                enumerable: false,
-                configurable: false,
-            };
-
-            if (this.name) {
-                delete config.get;
-            }
-
-            if (newValue instanceof Function) {
-                delete config.set;
-            }
-
-            if (this.get || this.set) {
-                Object.defineProperty(this, name, config);
-            }
-        }
-
-        if (this._properties.get(name) instanceof Function) {
-            throw new Error(
-                `Attempt to modify an unmodifiable property "${name}"`,
-            );
-        } else {
-            const curVal = this._properties.get(name);
-            const type = typeof curVal;
-            if (
-                !["undefined", "null"].includes(type) &&
-                // biome-ignore lint/suspicious/useValidTypeof: This is a bogus error, the logic is fine
-                typeof newValue !== type
-            ) {
-                throw new Error("types do not match");
-            }
-            this._properties.set(name, newValue);
-            this._dirty = true;
-            return this;
-        }
-    }
-
-    hasProperty(name) {
-        return this._properties.has(name);
-    }
-
-    /**
-     * Sets the base value to the provided value, replacing any existing base value.
-     * @param {number} value New value to add
-     * @returns {ValueModifier} the base ValueModifier
-     */
-    setBase(value) {
-        // Delete any existing mod base
-        for (let idx = this._mods.length - 1; idx >= 0; idx--) {
-            if (this._mods[idx].name === SohlBaseData.mods.Base.name)
-                this._mods.splice(idx, 1);
-        }
-
-        const type = typeof value;
-        if (type === "number") {
-            // Add new mod base to the beginning of the mods array
-            this._mods.unshift({
-                name: SohlBaseData.mods.Base.name,
-                abbrev: SohlBaseData.mods.Base.abbrev,
-                op: CONST.ACTIVE_EFFECT_MODES.ADD,
-                value: ValueModifier._cleanNumber(value),
-            });
-        } else if (value !== null && type !== "undefined") {
-            throw new Error(`value "${value}" must be a number`);
-        }
-
-        this._dirty = true;
-        return this;
-    }
-
-    /**
-     * Modifies the base by adding the provided value.
-     *
-     * @param {number} value Value to add to the current base value
-     * @returns {ValueModifier} the base ValueModifier
-     */
-    addToBase(value) {
-        if (value !== null) {
-            const type = typeof value;
-            if (type === "undefined") {
-                return this;
-            } else if (type === "number") {
-                this._apply();
-                this.setBase((this.base || 0) + value);
-            } else {
-                throw new Error(`value "${value}" must be a number`);
-            }
-        }
-        return this;
-    }
-
-    reset() {
-        this._abbrev = null;
-        this._mods = [];
-        this._properties?.keys().forEach((k) => {
-            const type = typeof this._properties[k];
-            switch (type) {
-                case "number":
-                    this._properties.set(k, 0);
-                    break;
-
-                case "string":
-                    this._properties.set(k, "");
-                    break;
-
-                case "boolean":
-                    this._properties.set(k, false);
-                    break;
-            }
-        });
-        this._dirty = true;
-        return this;
-    }
-
-    /**
-     * Adds the modifiers (and optionally the base value as well) from a source ValueModifier to this one.
-     *
-     * @param {ValueModifier} sourceVM An existing ValueModifier to add to the current one
-     * @param {object} [options={}]
-     * @param {boolean} [options.includeBase=false] Whether to include adding the base value; otherwise, just the modifications will be added
-     * @returns {ValueModifier} the base ValueModifier
-     */
-    addVM(sourceVM, { includeBase = false } = {}) {
-        if (!(sourceVM instanceof ValueModifier)) {
-            throw new Error(`not a ValueModifier`);
-        }
-
-        let newBase;
-        for (let mod of sourceVM._mods) {
-            if (mod.name !== SohlBaseData.mods.Base.name) {
-                this._mods.push(foundry.utils.deepClone(mod));
-            } else {
-                newBase = mod.value;
-            }
-        }
-        if (includeBase && typeof newBase === "number") this.setBase(newBase);
-
-        this._dirty = true;
-        return this;
+        return !this.modifiers.length;
     }
 
     _oper(name, abbrev, value, op) {
-        const existingOverride = this._mods.find(
-            (m) => m.op === CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+        name = game.i18n.localize(name);
+
+        if (typeof value === "string") {
+            value = Utility.stringParse(value);
+        }
+        const existingOverride = this.modifiers.find(
+            (m) => m.op === this.OPERATOR.OVERRIDE,
         );
         if (existingOverride) {
             // If the operation is not override, then ignore it (leave current override in place)
-            if (op === CONST.ACTIVE_EFFECT_MODES.OVERRIDE) {
+            if (op === this.OPERATOR.OVERRIDE) {
                 // If this ValueModifier already been overriden to zero, all other modifications are ignored.
                 if (existingOverride.value !== 0) {
                     // If this ValueModifier is being overriden, throw out all other modifications
-                    this._mods = [];
+                    this.updateSource({
+                        modifiers: [{ name, abbrev, op, value }],
+                    });
                 }
             }
         } else {
-            this._mods.push({
+            const mods = this.modifiers.filter((m) => m.abbrev !== abbrev);
+            mods.push({
                 name: name,
                 abbrev: abbrev,
                 op: op,
-                value: ValueModifier._cleanNumber(value),
+                value: value,
             });
+            this.updateSource({ modifiers: mods });
             this._dirty = true;
         }
 
         return this;
+    }
+
+    get(abbrev) {
+        if (typeof abbrev !== "string") return false;
+        return this.modifiers.find((m) => m.abbrev === abbrev);
     }
 
     has(abbrev) {
         if (typeof abbrev !== "string") return false;
-        return this._mods?.some((m) => m.abbrev === abbrev) || false;
+        return this.modifiers.some((m) => m.abbrev === abbrev) || false;
     }
 
     delete(abbrev) {
         if (typeof abbrev !== "string") return;
-        const newMods = this._mods?.filter((m) => m.abbrev !== abbrev) | [];
-        this._mods = newMods;
+        const newMods = this.modifiers.filter((m) => m.abbrev !== abbrev) || [];
+        this.updateSource({ modifiers: newMods });
     }
 
-    add(name, abbrev, value) {
-        return this._oper(name, abbrev, value, CONST.ACTIVE_EFFECT_MODES.ADD);
+    add(...args) {
+        let name, abbrev, value, data;
+        if (typeof args[0] === "object") {
+            [{ name, abbrev }, value, data = {}] = args;
+        } else {
+            [name, abbrev, value, data = {}] = args;
+        }
+        if (!Number.isNumeric(value))
+            throw new TypeError("value is not numeric");
+        return this._oper(name, abbrev, value, this.OPERATOR.ADD, data);
     }
 
-    multiply(name, abbrev, value) {
+    multiply(...args) {
+        let name, abbrev, value, data;
+        if (typeof args[0] === "object") {
+            [{ name, abbrev }, value, data = {}] = args;
+        } else {
+            [name, abbrev, value, data = {}] = args;
+        }
+        if (!Number.isNumeric(value))
+            throw new TypeError("value is not numeric");
         return this._oper(
             name,
             abbrev,
             value,
-            CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
+            ValueModifier.OPERATOR.MULTIPLY,
+            data,
         );
     }
 
-    set(name, abbrev, value) {
+    set(...args) {
+        let name, abbrev, value, data;
+        if (typeof args[0] === "object") {
+            [{ name, abbrev }, value, data = {}] = args;
+        } else {
+            [name, abbrev, value, data = {}] = args;
+        }
         return this._oper(
             name,
             abbrev,
             value,
-            CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+            ValueModifier.OPERATOR.OVERRIDE,
+            data,
         );
     }
 
-    floor(name, abbrev, value) {
+    floor(...args) {
+        let name, abbrev, value, data;
+        if (typeof args[0] === "object") {
+            [{ name, abbrev }, value, data = {}] = args;
+        } else {
+            [name, abbrev, value, data = {}] = args;
+        }
+        if (!Number.isNumeric(value))
+            throw new TypeError("value is not numeric");
         return this._oper(
             name,
             abbrev,
             value,
-            CONST.ACTIVE_EFFECT_MODES.UPGRADE,
+            ValueModifier.OPERATOR.UPGRADE,
+            data,
         );
     }
 
-    ceiling(name, abbrev, value) {
+    ceiling(...args) {
+        let name, abbrev, value, data;
+        if (typeof args[0] === "object") {
+            [{ name, abbrev }, value, data = {}] = args;
+        } else {
+            [name, abbrev, value, data = {}] = args;
+        }
+        if (!Number.isNumeric(value))
+            throw new TypeError("value is not numeric");
         return this._oper(
             name,
             abbrev,
             value,
-            CONST.ACTIVE_EFFECT_MODES.DOWNGRADE,
+            ValueModifier.OPERATOR.DOWNGRADE,
+            data,
         );
-    }
-
-    setEnabled() {
-        this._mods = this._mods.filter(
-            (m) =>
-                !(
-                    m.op === CONST.ACTIVE_EFFECT_MODES.CUSTOM &&
-                    m.value === "disabled"
-                ),
-        );
-        this._dirty = true;
-        return this;
-    }
-
-    setDisabled(name, abbrev) {
-        return this._oper(
-            name,
-            abbrev,
-            "disabled",
-            CONST.ACTIVE_EFFECT_MODES.CUSTOM,
-        );
-    }
-
-    /**
-     * This is a relatively expensive operation, so it is preferred to use
-     * ValueModifier#getProperty or the getters instead unless these properties
-     * need to be accessed as an object.
-     *
-     * This method differs from ValueModifier#toObject, since the returned
-     * object does not have the private information needed to recreate the
-     * ValueModifier, and the properties are nomalized to be at the outer level
-     * of the object.
-     */
-    get props() {
-        const result = {
-            base: this.base,
-            effective: this.effective,
-            abbrev: this.abbrev,
-            modifier: this.modifier,
-        };
-        for (let k of this._properties.keys()) {
-            result[k] = this.getProperty(k);
-        }
-        return result;
-    }
-
-    toJSON() {
-        const propKeys = Array.from(this._properties.keys());
-        return {
-            vmName: this.constructor.vmName,
-            mods: foundry.utils.deepClone(this._mods),
-            properties: propKeys.reduce((obj, k) => {
-                let prop = this.getProperty(k);
-                prop = prop instanceof ValueModifier ? prop.toJSON() : prop;
-                obj[k] = prop;
-                return obj;
-            }, {}),
-        };
-    }
-
-    static fromData(obj, parent) {
-        if (!obj || typeof obj !== "object" || obj.vmName !== this.vmName)
-            return obj;
-        if (!(parent instanceof SohlItemData)) {
-            throw new Error("parent must be a subclass of SohlItemData");
-        }
-        const props = Object.entries(obj.properties).reduce(
-            (acc, [key, val]) => {
-                let prop =
-                    typeof val === "object" ? this.fromData(val, parent) : val;
-                acc[key] = prop;
-                return acc;
-            },
-            {},
-        );
-        const vm = new this(parent, props);
-        let newBase;
-        for (let mod of obj.mods) {
-            if (mod.name !== SohlBaseData.mods.Base.name) {
-                vm._mods.push(mod);
-            } else {
-                newBase = mod.value;
-            }
-            if (newBase !== undefined) {
-                vm.setBase(newBase);
-            }
-        }
-        return vm;
-    }
-
-    static fromJSON(json, parent) {
-        const result = this.fromData(JSON.parse(json), parent);
-        if (!(result instanceof ValueModifier)) {
-            throw new Error("Not a ValueModifier");
-        }
-        return result;
     }
 
     get chatHtml() {
-        let html = `<div class="adjustment">
-        <div class="flexrow">
-            <span class="label adj-name">Adjustment</span>
-            <span class="label adj-value">Value</span>    
-        </div>`;
-        this._mods.forEach((m) => {
-            html += `<div class="flexrow">
-            <span class="adj-name">${m.name}</span>
-            <span class="adj-value">`;
-            switch (m.op) {
-                case CONST.ACTIVE_EFFECT_MODES.ADD:
-                    html += `${m.value >= 0 ? "+" : ""}${m.value}`;
-                    break;
+        function getValue(mod) {
+            switch (mod.op) {
+                case ValueModifier.OPERATOR.ADD:
+                    return `${mod.value >= 0 ? "+" : ""}${mod.value}`;
 
-                case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-                    html += `${SOHL.CONST.CHARS.TIMES}${m.value}`;
-                    break;
+                case ValueModifier.OPERATOR.MULTIPLY:
+                    return `${SOHL.CHARS.TIMES}${mod.value}`;
 
-                case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-                    html += `${SOHL.CONST.CHARS.LESSTHANOREQUAL}${m.value}`;
-                    break;
+                case ValueModifier.OPERATOR.DOWNGRADE:
+                    return `${SOHL.CHARS.LESSTHANOREQUAL}${mod.value}`;
 
-                case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-                    html += `${SOHL.CONST.CHARS.GREATERTHANOREQUAL}${m.value}`;
-                    break;
+                case ValueModifier.OPERATOR.UPGRADE:
+                    return `${SOHL.CHARS.GREATERTHANOREQUAL}${mod.value}`;
 
-                case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
-                    html += `=${m.value}`;
-                    break;
+                case ValueModifier.OPERATOR.OVERRIDE:
+                    return `=${mod.value}`;
 
-                case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
-                    html += `${SOHL.CONST.CHARS.STAR}${m.value}`;
-                    break;
+                case ValueModifier.OPERATOR.CUSTOM:
+                    return `${SOHL.CHARS.STAR}${mod.value}`;
 
                 default:
                     throw Error(
-                        `SoHL | Specified mode "${m.op}" not recognized while processing ${m.abbrev}`,
+                        `SoHL | Specified mode "${mod.op}" not recognized while processing ${mod.abbrev}`,
                     );
             }
-            html += `</span></div>`;
-        });
-        html += "</div>";
-        return html;
-    }
-
-    /**
-     * Creates a new ValueModifier from a source ValueModifier and a parent DataModel.
-     *
-     * @static
-     * @param {ValueModifier|string} [sourceVM=null] a ValueModifier object or a JSON serialized ValueModifier
-     * @param {object} [options={}]
-     * @param {DataModel} [options.parent=null] The parent DataModel of the new ValueModifier.
-     * @returns {ValueModifier}
-     */
-    static create(sourceVM = null, { parent = null } = {}) {
-        if (!parent) {
-            if (!(sourceVM instanceof ValueModifier)) {
-                throw new Error("Must supply parent");
-            } else {
-                parent = sourceVM.parent;
-            }
         }
 
-        if (sourceVM instanceof ValueModifier) {
-            sourceVM = JSON.stringify(sourceVM.toJSON());
-        }
+        if (this.disabled) return "";
+        const fragHtml = `<div class="adjustment">
+        <div class="flexrow">
+            <span class="label adj-name">${_l("SOHL.ValueModifier.Adjustment")}</span>
+            <span class="label adj-value">${_l("SOHL.ValueModifier.Value")}</span>    
+        </div>${this.modifiers
+            .map((m) => {
+                return `<div class="flexrow">
+            <span class="adj-name">${m.name}</span>
+            <span class="adj-value">${getValue(m)}</span></div>`;
+            })
+            .join("")}</div>`;
 
-        if (typeof sourceVM === "string") {
-            try {
-                sourceVM = this.fromJSON(sourceVM, parent);
-            } catch (error) {
-                Hooks.onError("ValueModifier#create", error, {
-                    msg: "Invalid JSON serialized string",
-                    log: "error",
-                });
-            }
-        } else {
-            throw new Error(
-                `Must be ValueModifier or a JSON serialized ValueModifier`,
-            );
-        }
-
-        const props = {};
-        for (const [key, value] of sourceVM._properties.entries()) {
-            props[key] = value;
-        }
-
-        let result = new this(parent, props);
-        if (!result) throw new Error(`Not a valid ValueModifier`);
-        result._mods = sourceVM._mods;
-
-        return result;
+        return fragHtml;
     }
 
     _calcAbbrev() {
         this._abbrev = "";
         if (this.disabled) {
-            const disabled = this._mods.find(
-                (adj) =>
-                    adj.op === CONST.ACTIVE_EFFECT_MODES.CUSTOM &&
-                    adj.value === "disabled",
-            );
-            if (disabled) this._abbrev = `DISABLED: ${disabled?.abbrev}`;
+            this._abbrev = ValueModifier.DISABLED_ABBREV;
         } else {
-            this._mods.forEach((adj) => {
+            this.modifiers.forEach((adj) => {
                 if (this._abbrev) {
                     this._abbrev += ", ";
                 }
 
                 switch (adj.op) {
-                    case CONST.ACTIVE_EFFECT_MODES.ADD:
+                    case ValueModifier.OPERATOR.ADD:
                         this._abbrev += `${adj.abbrev} ${adj.value > 0 ? "+" : ""}${
                             adj.value
                         }`;
                         break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-                        this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.TIMES}${adj.value}`;
+                    case ValueModifier.OPERATOR.MULTIPLY:
+                        this._abbrev += `${adj.abbrev} ${SOHL.CHARS.TIMES}${adj.value}`;
                         break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-                        this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.LESSTHANOREQUAL}${adj.value}`;
+                    case ValueModifier.OPERATOR.DOWNGRADE:
+                        this._abbrev += `${adj.abbrev} ${SOHL.CHARS.LESSTHANOREQUAL}${adj.value}`;
                         break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-                        this._abbrev += `${adj.abbrev} ${SOHL.CONST.CHARS.GREATERTHANOREQUAL}${adj.value}`;
+                    case ValueModifier.OPERATOR.UPGRADE:
+                        this._abbrev += `${adj.abbrev} ${SOHL.CHARS.GREATERTHANOREQUAL}${adj.value}`;
                         break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
+                    case ValueModifier.OPERATOR.OVERRIDE:
                         this._abbrev += `${adj.abbrev} =${adj.value}`;
                         break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
+                    case ValueModifier.OPERATOR.CUSTOM:
                         if (adj.value === "disabled")
                             this._abbrev += `${adj.abbrev}`;
                         break;
@@ -843,134 +2462,107 @@ export class ValueModifier {
         }
     }
 
-    static _cleanNumber(value) {
-        return Number.parseFloat(value) || 0;
-    }
+    _initialize() {
+        if (this.disabled) {
+            this._effective = 0;
+        } else {
+            const mods = this.modifiers.concat();
 
-    _apply() {
-        if (!this._dirty) return;
-        this._dirty = false;
+            // Sort modifiers so that we process Adds first, then Mults, then Floor, then Ceil
+            mods.sort((a, b) => (a.op < b.op ? -1 : a.op > b.op ? 1 : 0));
 
-        // Sort modifiers so that we process Adds first, then Mults, then Floor, then Ceil
-        this._mods.sort((a, b) => (a.op < b.op ? -1 : a.op > b.op ? 1 : 0));
+            let minVal = null;
+            let maxVal = null;
+            let overrideVal;
 
-        let minVal = null;
-        let maxVal = null;
-        let overrideVal;
+            this._effective = 0;
 
-        this._effective = 0;
+            // Process each modifier
+            mods.forEach((adj) => {
+                let value = adj.value;
 
-        // Process each modifier
-        this._mods.forEach((adj) => {
-            let value = ValueModifier._cleanNumber(adj.value);
+                if (typeof value === "number") {
+                    value ||= 0;
+                    switch (adj.op) {
+                        case ValueModifier.OPERATOR.ADD:
+                            this._effective += value;
+                            break;
 
-            if (typeof value === "number") {
-                value ||= 0;
-                switch (adj.op) {
-                    case CONST.ACTIVE_EFFECT_MODES.ADD:
-                        this._effective += value;
-                        break;
+                        case ValueModifier.OPERATOR.MULTIPLY:
+                            this._effective *= value;
+                            break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-                        this._effective *= value;
-                        break;
+                        case ValueModifier.OPERATOR.UPGRADE:
+                            // set minVal to the largest minimum value
+                            minVal = Math.max(
+                                minVal ?? Number.MIN_SAFE_INTEGER,
+                                value,
+                            );
+                            break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-                        // set minVal to the largest minimum value
-                        minVal = Math.max(
-                            minVal ?? Number.MIN_SAFE_INTEGER,
-                            value,
-                        );
-                        break;
+                        case ValueModifier.OPERATOR.DOWNGRADE:
+                            // set maxVal to the smallest maximum value
+                            maxVal = Math.min(
+                                maxVal ?? Number.MAX_SAFE_INTEGER,
+                                value,
+                            );
+                            break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-                        // set maxVal to the smallest maximum value
-                        maxVal = Math.min(
-                            maxVal ?? Number.MAX_SAFE_INTEGER,
-                            value,
-                        );
-                        break;
+                        case ValueModifier.OPERATOR.OVERRIDE:
+                            overrideVal = value;
+                            break;
+                    }
+                } else if (typeof value === "boolean") {
+                    switch (adj.op) {
+                        case ValueModifier.OPERATOR.ADD:
+                            this._effective ||= value ? 1 : 0;
+                            break;
 
-                    case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
-                        overrideVal = value;
-                        break;
+                        case ValueModifier.OPERATOR.MULTIPLY:
+                            this._effective = value && this._effective ? 1 : 0;
+                            break;
+
+                        case ValueModifier.OPERATOR.UPGRADE:
+                            // set minVal to the largest minimum value
+                            minVal = 0;
+                            break;
+
+                        case ValueModifier.OPERATOR.DOWNGRADE:
+                            // set maxVal to the smallest maximum value
+                            maxVal = 1;
+                            break;
+
+                        case ValueModifier.OPERATOR.OVERRIDE:
+                            overrideVal = value ? 1 : 0;
+                            break;
+                    }
+                } else if (typeof value === "string") {
+                    switch (adj.op) {
+                        case ValueModifier.OPERATOR.CUSTOM:
+                            if (value === ValueModifier.MOD.DISABLED.value) {
+                                // disabled VMs always have an effective value of 0
+                                overrideVal = 0;
+                            }
+                    }
                 }
-            } else if (typeof value === "boolean") {
-                switch (adj.op) {
-                    case CONST.ACTIVE_EFFECT_MODES.ADD:
-                        this._effective ||= value ? 1 : 0;
-                        break;
+            });
 
-                    case CONST.ACTIVE_EFFECT_MODES.MULTIPLY:
-                        this._effective = value && this._effective ? 1 : 0;
-                        break;
+            this._effective =
+                minVal === null
+                    ? this._effective
+                    : Math.max(minVal, this._effective);
+            this._effective =
+                maxVal === null
+                    ? this._effective
+                    : Math.min(maxVal, this._effective);
+            this._effective = overrideVal ?? this._effective;
+            this._effective ||= 0;
 
-                    case CONST.ACTIVE_EFFECT_MODES.UPGRADE:
-                        // set minVal to the largest minimum value
-                        minVal = 0;
-                        break;
-
-                    case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE:
-                        // set maxVal to the smallest maximum value
-                        maxVal = 1;
-                        break;
-
-                    case CONST.ACTIVE_EFFECT_MODES.OVERRIDE:
-                        overrideVal = value ? 1 : 0;
-                        break;
-                }
-            } else if (typeof value === "string") {
-                switch (adj.op) {
-                    case CONST.ACTIVE_EFFECT_MODES.CUSTOM:
-                        if (value === "disabled") {
-                            // disabled VMs always have an effective value of 0
-                            overrideVal = 0;
-                        }
-                }
-            }
-        });
-
-        this._effective =
-            minVal === null
-                ? this._effective
-                : Math.max(minVal, this._effective);
-        this._effective =
-            maxVal === null
-                ? this._effective
-                : Math.min(maxVal, this._effective);
-        this._effective = overrideVal ?? this._effective;
-        this._effective ||= 0;
-
-        // All values must be rounded to no more than 3 significant digits.
-        this._effective = Utility.maxPrecision(this._effective, 3);
+            // All values must be rounded to no more than 3 significant digits.
+            this._effective = Utility.maxPrecision(this._effective, 3);
+        }
 
         this._calcAbbrev();
-        const baseAdj = this._mods.find(
-            (adj) =>
-                adj.abbrev === SohlBaseData.mods.Base.abbrev &&
-                adj.op === CONST.ACTIVE_EFFECT_MODES.ADD,
-        );
-        this._base = baseAdj ? baseAdj.value : undefined;
-    }
-
-    /**
-     * Checks if the provided value is a valid array item by ensuring that it is an object with specific properties: 'name' as a string, 'abbr' as a string, 'op' as a number, and 'value' as a number. Returns true if the conditions are met, otherwise returns false.
-     *
-     * @static
-     * @param {*} value
-     * @returns {boolean}
-     */
-    static _arrayItemValid(value) {
-        if (typeof value === "object") {
-            if (
-                typeof value.name === "string" &&
-                typeof value.abbrev === "string" &&
-                typeof value.op === "number" &&
-                typeof value.value === "number"
-            )
-                return true;
-        }
-        return false;
     }
 }
 
@@ -978,42 +2570,70 @@ export class ValueModifier {
  * Specialized ValueModifier for Impacts
  */
 export class ImpactModifier extends ValueModifier {
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        name: "ImpactModifier",
+        label: "SOHL.IMPACTMODIFIER.entity",
+        labelPlural: "SOHL.IMPACTMODIFIER.entityPl",
+        schemaVersion: "0.5.6",
+    });
+
     get disabled() {
         let disabled =
             this._disabled || (this.die === 0 && this.effective === 0);
         return disabled;
     }
 
-    static get aspectTypes() {
+    static get ASPECT() {
         return {
-            blunt: "Blunt",
-            edged: "Edged",
-            piercing: "Piercing",
-            fire: "Fire",
+            BLUNT: "blunt",
+            EDGED: "edged",
+            PIERCING: "piercing",
+            FIRE: "fire",
         };
     }
 
-    constructor(
-        parent,
-        { aspect = "blunt", die = 6, numDice = 1, ...initProperties } = {},
-    ) {
-        super(
-            parent,
-            foundry.utils.mergeObject(
-                initProperties,
-                {
-                    aspect,
-                    die,
-                    numDice,
-                    lastResult: null,
-                },
-                { inplace: false },
-            ),
-        );
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema(), {
+            aspect: new fields.StringField({
+                initial: ImpactModifier.ASPECT.BLUNT,
+                choices: Utility.getChoicesMap(
+                    ImpactModifier.ASPECT,
+                    "SOHL.IMPACTMODIFIER.ASPECT",
+                ),
+            }),
+            die: new fields.NumberField({
+                integer: true,
+                min: 0,
+                initial: 6,
+            }),
+            numDice: new fields.NumberField({
+                integer: true,
+                min: 0,
+                initial: 1,
+            }),
+            rollObj: new fields.ObjectField(),
+        });
     }
 
-    static get vmName() {
-        return "ImpactModifier";
+    _initialize(options = {}) {
+        super._initialize(options);
+        Object.defineProperty(this, "roll", {
+            value: () => {
+                if (!this.rollObj) return null;
+                else {
+                    let roll;
+                    try {
+                        roll = Roll.fromData(this.rollObj);
+                    } catch (_e) {
+                        roll = null;
+                    }
+                    return !roll && null;
+                }
+            },
+            writable: false,
+            enumerable: false,
+        });
     }
 
     /**
@@ -1056,32 +2676,64 @@ export class ImpactModifier extends ValueModifier {
     }
 
     async evaluate() {
-        const roll = await Roll.create(this.diceFormula).evaluate();
-        this.setProperty("rollObj", roll.toJSON());
-        return roll;
+        if (this.roll) return false;
+        const roll = await Roll.create(this.diceFormula);
+        const allowed = await roll.evaluate();
+        if (allowed) {
+            this.updateSource({ roll: roll.toJSON() });
+        }
+        return allowed;
     }
 }
 
 export class MasteryLevelModifier extends ValueModifier {
-    constructor(parent, initProperties = {}) {
-        super(
-            parent,
-            foundry.utils.mergeObject(
-                {
-                    minTarget: 5,
-                    maxTarget: 95,
-                    successLevelMod: 0,
-                    critFailureDigits: [5, 0],
-                    critSuccessDigits: [5, 0],
-                },
-                initProperties,
-                { inplace: false, recursive: false },
-            ),
-        );
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        name: "MasteryLevelModifier",
+        label: "SOHL.MASTERYLEVELMODIFIER.entity",
+        labelPlural: "SOHL.MASTERYLEVELMODIFIER.entityPl",
+        schemaVersion: "0.5.6",
+    });
 
-    static get vmName() {
-        return "MasteryLevelModifier";
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema(), {
+            minTarget: new fields.NumberField({
+                integer: true,
+                nullable: false,
+                min: 0,
+                initial: 5,
+            }),
+            maxTarget: new fields.NumberField({
+                integer: true,
+                nullable: false,
+                min: 0,
+                initial: 95,
+            }),
+            successLevelMod: new fields.NumberField({
+                integer: true,
+                nullable: false,
+                min: 0,
+                initial: 0,
+            }),
+            critFailureDigits: new fields.ArrayField(
+                new fields.NumberField({
+                    integer: true,
+                    nullable: false,
+                    required: true,
+                    min: 0,
+                    max: 9,
+                }),
+            ),
+            critSuccessDigits: new fields.ArrayField(
+                new fields.NumberField({
+                    integer: true,
+                    nullable: false,
+                    required: true,
+                    min: 0,
+                    max: 9,
+                }),
+            ),
+        });
     }
 
     get constrainedEffective() {
@@ -1089,6 +2741,112 @@ export class MasteryLevelModifier extends ValueModifier {
             this.maxTarget,
             Math.max(this.minTarget, this.effective),
         );
+    }
+
+    /**
+     * Perform Success Test for this Item
+     *
+     * @param {object} options
+     * @returns {SuccessTestChatData}
+     */
+    async createSuccessTest({
+        speaker = ChatMessage.getSpeaker(),
+        skipDialog = false,
+        noChat = false,
+        type = `${this.parent.item.type}-${this.parent.item.name}-test`,
+        title = _l("SOHL.MasteryLevelModifier.successTest.title", {
+            label: this.parent.item.label,
+        }),
+        testResult,
+    } = {}) {
+        if (testResult) {
+            testResult = Utility.JSON_reviver(testResult, {
+                thisArg: this.parent,
+            });
+        } else {
+            testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    type,
+                    title,
+                    mlMod: Utility.deepClone(this.$masteryLevel),
+                },
+                { parent: this.parent },
+            );
+        }
+
+        if (!skipDialog) {
+            // Render modal dialog
+            let dlgTemplate =
+                "systems/sohl/templates/dialog/standard-test-dialog.html";
+
+            let dialogData = {
+                variant: CONFIG.SOHL.id,
+                type: testResult.type,
+                title: _l("SOHL.MasteryLevelModifier.successTest.dialogTitle", {
+                    name: testResult.token
+                        ? testResult.token.name
+                        : testResult.actor.name,
+                    title: testResult.title,
+                }),
+                mlMod: testResult.mlMod,
+                situationalModifier: testResult.situationalModifier,
+                rollMode: testResult.rollMode,
+                rollModes: Object.entries(CONFIG.Dice.rollModes).map(
+                    ([k, v]) => ({
+                        group: "CHAT.RollDefault",
+                        value: k,
+                        label: v,
+                    }),
+                ),
+            };
+            const dlgHtml = await renderTemplate(dlgTemplate, dialogData);
+
+            // Create the dialog window
+            const result = await Dialog.prompt({
+                title: dialogData.title,
+                content: dlgHtml.trim(),
+                label: _l("SOHL.MasteryLevelModifier.successTest.dialogLabel"),
+                callback: (element) => {
+                    const form = element.querySelector("form");
+                    const fd = new FormDataExtended(form);
+                    const formData = fd.object;
+                    const formSituationalModifier =
+                        Number.parseInt(formData.situationalModifier, 10) || 0;
+
+                    if (formSituationalModifier) {
+                        testResult.mlMod.add(
+                            CONFIG.SOHL.MOD.PLAYER,
+                            formSituationalModifier,
+                        );
+                        testResult.situationalModifier =
+                            formSituationalModifier;
+                    }
+
+                    const formSuccessLevelMod = Number.parseInt(
+                        formData.successLevelMod,
+                        10,
+                    );
+                    testResult.mlMod.successLevelMod = formSuccessLevelMod;
+                    testResult.rollMode = formData.rollMode;
+                    return true;
+                },
+                rejectClose: false,
+                options: { jQuery: false },
+            });
+
+            if (!result) return;
+        }
+
+        let allowed = await testResult.evaluate();
+
+        if (allowed && !noChat) {
+            await testResult.toChat({
+                speaker,
+                testResult,
+            });
+        }
+        return allowed ? testResult : false;
     }
 
     /**
@@ -1149,6 +2907,13 @@ export class MasteryLevelModifier extends ValueModifier {
 }
 
 export class CombatModifier extends MasteryLevelModifier {
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        name: "CombatModifier",
+        label: "SOHL.COMBATMODIFIER.entity",
+        labelPlural: "SOHL.COMBATMODIFIER.entityPl",
+        schemaVersion: "0.5.6",
+    });
     /**
      * Creates an instance of CombatModifier.
      *
@@ -1156,214 +2921,473 @@ export class CombatModifier extends MasteryLevelModifier {
      * @param {*} parent
      * @param {object} [initProperties={}]
      */
-    constructor(parent, initProperties = {}) {
-        super(
-            parent,
-            foundry.utils.mergeObject(
-                initProperties,
-                {
-                    successLevelMod: 0,
-                    fate: new MasteryLevelModifier(parent),
-                },
-                { inplace: false, recursive: false },
-            ),
+    constructor(data = {}, context = {}) {
+        foundry.utils.mergeObject(
+            data,
+            {
+                properties: {},
+            },
+            { overwrite: false },
         );
+        super(data, context);
     }
 
-    static get vmName() {
+    static get baseClassName() {
         return "CombatModifier";
     }
 }
 
-export class SuccessTestResult {
-    static get SUCCESS_LEVEL() {
+class TestResult extends NestableDataModelMixin(foundry.abstract.DataModel) {
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        name: "TestResult",
+        label: "SOHL.TESTRESULT.entity",
+        labelPlural: "SOHL.TESTRESULT.entityPl",
+        schemaVersion: "0.5.6",
+    });
+
+    static defineSchema() {
         return {
-            CRITICAL_FAILURE: -1,
-            MARGINAL_FAILURE: 0,
-            MARGINAL_SUCCESS: 1,
-            CRITICAL_SUCCESS: 2,
+            name: new fields.StringField({
+                initial: this.constructor.baseDataModel,
+                readonly: true,
+            }),
+            speaker: new fields.ObjectField(),
+            title: new fields.StringField(),
+            type: new fields.StringField(),
         };
     }
 
-    static get TEST_TYPE() {
-        return {
-            ATTACK: "attack",
-            BLOCK: "block",
-            DODGE: "dodge",
-            COUNTERSTRIKE: "counterstrike",
-            IGNORE: "ignore",
-            SKILL: "skill",
-            SHOCK: "shock",
-            STUMBLE: "stumble",
-            FUMBLE: "fumble",
-            MORALE: "morale",
-            FEAR: "fear",
-            AFFLICTIONCONTRACT: "afflcontr",
-            AFFLICTIONTRANSMIT: "affltx",
-            AFFLICTIONCOURSE: "afflcrs",
-            FATIGUE: "fatigue",
-            TREATMENT: "treatment",
-            DIAGNOSIS: "diagnosis",
-            HEAL: "heal",
-            BLEEDINGSTOPPAGE: "bldstop",
-            BLOODLOSSADVANCE: "bldlossadv",
-        };
+    constructor(data = {}, options = {}) {
+        super(data, options);
+        if (!(parent instanceof SohlBaseData)) {
+            throw new Error("Parent must be of type SohlBaseData");
+        }
     }
 
-    static get testTypes() {
-        return {
-            [this.TEST_TYPE.ATTACK]: {
-                type: this.TEST_TYPE.ATTACK,
-                label: "Attack",
-                icon: "fas fa-sword",
-            },
-            [this.TEST_TYPE.BLOCK]: {
-                type: this.TEST_TYPE.BLOCK,
-                label: "Block",
-                icon: "fas fa-shield",
-            },
-            [this.TEST_TYPE.DODGE]: {
-                type: this.TEST_TYPE.DODGE,
-                label: "Dodge",
-                icon: "fas fa-person-walking-arrow-loop-left",
-            },
-            [this.TEST_TYPE.COUNTERSTRIKE]: {
-                type: this.TEST_TYPE.COUNTERSTRIKE,
-                label: "Counterstrike",
-                icon: "fas fa-circle-half-stroke",
-            },
-            [this.TEST_TYPE.IGNORE]: {
-                type: this.TEST_TYPE.IGNORE,
-                label: "Ignore",
-                icon: "fas fa-ban",
-            },
-            [this.TEST_TYPE.SKILL]: {
-                type: this.TEST_TYPE.SKILL,
-                label: "Skill",
-                icon: "fas fa-people-arrows",
-            },
-            [this.TEST_TYPE.SHOCK]: {
-                type: this.TEST_TYPE.SHOCK,
-                label: "Shock",
-                icon: "far fa-face-eyes-xmarks",
-            },
-            [this.TEST_TYPE.STUMBLE]: {
-                type: this.TEST_TYPE.STUMBLE,
-                label: "Stumble",
-                icon: "far fa-person-falling",
-            },
-            [this.TEST_TYPE.FUMBLE]: {
-                type: this.TEST_TYPE.FUMBLE,
-                label: "Fumble",
-                icon: "far fa-ball-pile",
-            },
-            [this.TEST_TYPE.MORALE]: {
-                type: this.TEST_TYPE.MORALE,
-                label: "Morale",
-                icon: "far fa-people-group",
-            },
-            [this.TEST_TYPE.FEAR]: {
-                type: this.TEST_TYPE.FEAR,
-                label: "Fear",
-                icon: "far fa-face-scream",
-            },
-            [this.TEST_TYPE.AFFLICTIONTRANSMIT]: {
-                type: this.TEST_TYPE.AFFLICTIONTRANSMIT,
-                label: "Transmit Affliction",
-                icon: "fas fa-viruses",
-            },
-            [this.TEST_TYPE.AFFLICTIONCONTRACT]: {
-                type: this.TEST_TYPE.AFFLICTIONCONTRACT,
-                label: "Contract Affliction",
-                icon: "fas fa-virus",
-            },
-            [this.TEST_TYPE.AFFLICTIONCOURSE]: {
-                type: this.TEST_TYPE.AFFLICTIONCOURSE,
-                label: "Affliction Course",
-                icon: "fas fa-heart-pulse",
-            },
-            [this.TEST_TYPE.FATIGUE]: {
-                type: this.TEST_TYPE.FATIGUE,
-                label: "Fatigue",
-                icon: "fas fa-face-downcast-sweat",
-            },
-            [this.TEST_TYPE.TREATMENT]: {
-                type: this.TEST_TYPE.TREATMENT,
-                label: "Treatment",
-                icon: "fas fa-staff-snake",
-            },
-            [this.TEST_TYPE.DIAGNOSIS]: {
-                type: this.TEST_TYPE.DIAGNOSIS,
-                label: "Diagnosis",
-                icon: "fas fa-stethoscope",
-            },
-            [this.TEST_TYPE.HEAL]: {
-                type: this.TEST_TYPE.HEAL,
-                label: "Heal",
-                icon: "fas fa-heart-pulse",
-            },
-            [this.TEST_TYPE.BLEEDINGSTOPPAGE]: {
-                type: this.TEST_TYPE.BLEEDINGSTOPPAGE,
-                label: "Heal",
-                icon: "fas fa-droplet-slash",
-            },
-            [this.TEST_TYPE.BLOODLOSSADVANCE]: {
-                type: this.TEST_TYPE.BLOODLOSSADVANCE,
-                label: "Blood Loss Advance",
-                icon: "fas fa-droplet",
-            },
-        };
-    }
-
-    constructor({
-        speaker,
-        situationalModifier,
-        item,
-        typeLabel,
-        type,
-        testType = SuccessTestResult.TEST_TYPE.SKILL,
-        title,
-        rollMode,
-        roll,
-        mlMod,
-        impactMod,
-    }) {
-        if (item instanceof SohlItem) {
-            this.item = item;
-        } else if (typeof item === "string") {
-            // We assume that item is a UUID to the actual item
-            this.item = fromUuidSync(item);
-            if (!this.item) throw new Error(`Can't find item UUID ${item}`);
-        } else {
-            throw new Error("Must provide an item");
+    _initialize(options = {}) {
+        if (!this._source.speaker) {
+            Object.defineProperty(this, "speaker", {
+                value: ChatMessage.getSpeaker(),
+                writable: false,
+            });
         }
 
-        if (roll)
-            this._roll = roll instanceof Roll ? roll : Roll.fromData(roll);
+        return super._initialize(options);
+    }
 
-        if (mlMod)
-            this.mlMod =
-                mlMod instanceof MasteryLevelModifier
-                    ? mlMod
-                    : MasteryLevelModifier.fromData(mlMod, this.item);
+    static get parentDocumentClass() {
+        return SohlBaseData;
+    }
 
-        if (impactMod)
-            this.impactMod =
-                impactMod instanceof ImpactModifier
-                    ? impactMod
-                    : ImpactModifier.fromData(impactMod, this.item);
+    get scene() {
+        return this.speaker?.scene ? game.scenes.get(this.speaker.scene) : null;
+    }
 
-        this.speaker = speaker;
-        this.situationalModifier = situationalModifier;
-        this._description = "";
-        this._typeLabel = typeLabel;
-        this.type = type;
-        this.testType = this.item.$masteryLevel.disabled
-            ? SuccessTestResult.TEST_TYPE.IGNORE
-            : testType;
-        this.title = title;
-        this._successLevel = SuccessTestResult.MARGINAL_FAILURE;
-        this.rollMode = rollMode;
+    get token() {
+        return this.actor?.token || this.scene?.tokens.get(this.speaker.token);
+    }
+
+    get actor() {
+        return (
+            this.parent?.actor ||
+            this.token?.actor ||
+            game.actors.get(this.speaker.actor)
+        );
+    }
+
+    get item() {
+        return this.parent?.item;
+    }
+
+    async evaluate() {
+        return true;
+    }
+}
+
+export class SuccessTestResult extends TestResult {
+    _resultText;
+    _resultDesc;
+    _description;
+    _targetMovement;
+    _successLevel;
+
+    static SUCCESS_LEVEL = Object.freeze({
+        CRITICAL_FAILURE: -1,
+        MARGINAL_FAILURE: 0,
+        MARGINAL_SUCCESS: 1,
+        CRITICAL_SUCCESS: 2,
+    });
+
+    static ROLL = Object.freeze({
+        CRITICAL_FAILURE: Roll.create("100").evaluateSync(),
+        MARGINAL_FAILURE: Roll.create("99").evaluateSync(),
+        CRITICAL_SUCCESS: Roll.create("5").evaluateSync(),
+        MARGINAL_SUCCESS: Roll.create("1").evaluateSync(),
+    });
+
+    static TEST_TYPE = Object.freeze({
+        SETIMPROVEFLAG: "setImproveFlag",
+        UNSETIMPROVEFLAG: "unsetImproveFlag",
+        IMPROVESDR: "improveWithSDR",
+        SKILL: "successTest",
+        OPPOSEDSKILL: "opposedTestStart",
+        SHOCK: "shockTest",
+        STUMBLE: "stumbleTest",
+        FUMBLE: "fumbleTest",
+        MORALE: "moraleTest",
+        FEAR: "fearTest",
+        AFFLICTIONCONTRACT: "contractAfflictionTest",
+        AFFLICTIONTRANSMIT: "transmitAffliction",
+        AFFLICTIONCOURSE: "courseTest",
+        FATIGUE: "fatigueTest",
+        TREATMENT: "treatmentTest",
+        DIAGNOSIS: "diagnosisTest",
+        HEAL: "healingTest",
+        BLEEDINGSTOPPAGE: "bleedingStoppageTest",
+        BLOODLOSSADVANCE: "bloodlossAdvanceTest",
+        OPPOSEDSKILLRESUME: "opposedTestResume",
+        RESOLVEIMPACT: "resolveImpact",
+    });
+
+    static MOVEMENT_OPTION = Object.freeze({
+        STILL: "still",
+        MOVING: "moving",
+    });
+
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        name: "SuccessTestResult",
+        label: "SOHL.SUCCESSTESTRESULT.entity",
+        labelPlural: "SOHL.SUCCESSTESTRESULT.entityPl",
+        testTypes: {
+            setImproveFlag: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.setImproveFlag",
+                functionName: "setImproveFlag",
+                contextIconClass: "fas fa-star",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return (
+                        item &&
+                        item.system.canImprove &&
+                        !item.system.improveFlag
+                    );
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            unsetImproveFlag: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.unsetImproveFlag",
+                functionName: "unsetImproveFlag",
+                contextIconClass: "far fa-star",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return (
+                        item &&
+                        item.system.canImprove &&
+                        item.system.improveFlag
+                    );
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            improveWithSDR: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.improveWithSDR",
+                functionName: "improveWithSDR",
+                contextIconClass: "fas fa-star",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item?.system.canImprove && item.system.improveFlag;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            successTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.successTest",
+                functionName: "successTest",
+                contextIconClass: "fas fa-person",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.$masteryLevel.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            opposedTestStart: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.opposedTestStart",
+                functionName: "opposedTestStart",
+                contextIconClass:
+                    "fas fa-arrow-down-left-and-arrow-up-right-to-center",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    if (!item) return false;
+                    const token = item.actor?.getToken();
+                    return token && !item.system.$masteryLevel.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            shockTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.shockTest",
+                functionName: "shockTest",
+                contextIconClass: "far fa-face-eyes-xmarks",
+                contextCondition: true,
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            stumbleTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.stumbleTest",
+                functionName: "stumbleTest",
+                contextIconClass: "far fa-person-falling",
+                contextCondition: true,
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            fumbleTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.fumbleTest",
+                functionName: "fumbleTest",
+                contextIconClass: "far fa-ball-pile",
+                contextCondition: true,
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            moraleTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.moraleTest",
+                functionName: "moraleTest",
+                contextIconClass: "far fa-people-group",
+                contextCondition: true,
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            fearTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.fearTest",
+                functionName: "fearTest",
+                contextIconClass: "far fa-face-scream",
+                contextCondition: true,
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            transmitAffliction: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.transmitAffliction",
+                functionName: "transmitAffliction",
+                contextIconClass: "fas fa-head-side-cough",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item?.system.canTransmit;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            contractAfflictionTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.contractAfflictionTest",
+                functionName: "contractAfflictionTest",
+                contextIconClass: "fas fa-virus",
+                contextCondition: true,
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            courseTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.courseTest",
+                functionName: "courseTest",
+                contextIconClass: "fas fa-heart-pulse",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    if (item.system.isDormant) return false;
+                    const endurance = item?.actor?.getTraitByAbbrev("end");
+                    return (
+                        endurance && !endurance.system.$masteryLevel.disabled
+                    );
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            fatigueTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.fatigueTest",
+                functionName: "fatigueTest",
+                contextIconClass: "fas fa-face-downcast-sweat",
+                contextCondition: true,
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+            treatmentTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.treatmentTest",
+                functionName: "treatmentTest",
+                contextIconClass: "fas fa-staff-snake",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    if (item?.system.isBleeding) return false;
+                    const physician = item?.actor?.getSkillByAbbrev("pysn");
+                    return (
+                        physician && !physician.system.$masteryLevel.disabled
+                    );
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            diagnosisTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.diagnosisTest",
+                functionName: "diagnosisTest",
+                contextIconClass: "fas fa-stethoscope",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.isTreated;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            healingTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.healingTest",
+                functionName: "healingTest",
+                contextIconClass: "fas fa-heart-pulse",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    if (item?.system.isBleeding) return false;
+                    const endurance = item?.actor?.getTraitByAbbrev("end");
+                    return (
+                        endurance && !endurance.system.$masteryLevel.disabled
+                    );
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            bleedingStoppageTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.bleedingStoppageTest",
+                functionName: "bleedingStoppageTest",
+                contextIconClass: "fas fa-droplet-slash",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    if (!item?.system.isBleeding) return false;
+                    const physician = item?.actor?.getSkillByAbbrev("pysn");
+                    return (
+                        physician && !physician.system.$masteryLevel.disabled
+                    );
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            bloodlossAdvanceTest: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.bloodlossAdvanceTest",
+                functionName: "bloodlossAdvanceTest",
+                contextIconClass: "fas fa-droplet",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    if (!item || !item.system.isBleeding) return false;
+                    const strength = item?.actor?.getTraitByAbbrev("str");
+                    return strength && !strength.system.$masteryLevel?.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            opposedTestResume: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.opposedTestResume",
+                functionName: "opposedTestResume",
+                contextIconClass: "fas fa-people-arrows",
+                contextCondition: false,
+                contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
+            },
+            resolveImpact: {
+                name: "SOHL.SUCCESSTESTRESULT.TESTTYPE.resolveImpact",
+                functionName: "resolveImpact",
+                contextIconClass: "fas fa-person-burst",
+                contextCondition: true,
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+        },
+        schemaVersion: "0.5.6",
+    });
+
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema, {
+            mlMod: new fields.EmbeddedDataField(MasteryLevelModifier),
+            situationalModifier: new fields.NumberField({
+                integer: true,
+                initial: 0,
+            }),
+            roll: new fields.ObjectField(),
+            rollMode: new fields.NumberField({
+                integer: true,
+                nullable: true,
+                initial: null,
+            }),
+            testType: new fields.NumberField({
+                integer: true,
+                required: true,
+                initial: this.TEST_TYPE.SKILL,
+                choices: Utility.getChoicesMap(
+                    this.TEST_TYPE,
+                    "SOHL.SUCCESSTESTRESULT.TESTTYPE",
+                ),
+            }),
+            tokenUuid: new fields.DocumentUUIDField(),
+        });
+    }
+
+    constructor(data = {}, context = {}) {
+        super(data, context);
+        if (!data.mlMod) {
+            throw new Error("mlMod is required");
+        }
+    }
+
+    _initialize(options = {}) {
+        if (this._source.roll) {
+            Object.defineProperty(this, "roll", {
+                value: Roll.fromData(this._source.roll),
+                writable: false,
+            });
+        }
+
+        if (!this._source.rollMode) {
+            Object.defineProperty(this, "rollMode", {
+                value: game.settings.get("core", "rollMode"),
+                writable: false,
+            });
+        }
+
+        super._initialize(options);
+        if (this.roll) this.evaluate();
+    }
+
+    get resultText() {
+        return this._resultText;
+    }
+
+    get resultDesc() {
+        return this._resultDesc;
+    }
+
+    get targetMovement() {
+        return this._targetMovement;
+    }
+
+    get successLevel() {
+        return this._successLevel;
+    }
+
+    get description() {
+        return this._description;
+    }
+
+    get item() {
+        return this.mlMod.parent.item;
+    }
+
+    get availResponses() {
+        const result = [];
+        if (this.testType.type === SuccessTestResult.TEST_TYPE.OPPOSEDSKILL) {
+            result.push(
+                SuccessTestResult.testTypes[
+                    SuccessTestResult.TEST_TYPE.OPPOSEDSKILLRESUME
+                ],
+            );
+        }
+
+        return result;
     }
 
     get normSuccessLevel() {
@@ -1383,70 +3407,352 @@ export class SuccessTestResult {
         }
         return result;
     }
+
+    get lastDigit() {
+        return this.roll?.total % 10;
+    }
+
+    get isCapped() {
+        return this.mlMod.effective !== this.mlMod.constrainedEffective;
+    }
+
+    get critAllowed() {
+        return !!(
+            this.mlMod.critSuccessDigits.length ||
+            this.mlMod.critFailureDigits.length
+        );
+    }
+
+    get isCritical() {
+        return (
+            this.critAllowed &&
+            (this.successLevel <=
+                SuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE ||
+                this.successLevel >=
+                    SuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS)
+        );
+    }
+
+    get isSuccess() {
+        return (
+            this.successLevel >=
+            SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS
+        );
+    }
+
+    static async createMacroTest(speaker, actor, token, character, scope = {}) {
+        let { skipDialog = false, noChat = false, testResult, mlMod } = scope;
+
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+            needsActor: true,
+            self: this,
+        }));
+
+        if (testResult) {
+            testResult = Utility.JSON_reviver({
+                thisArg: mlMod?.parent,
+            })("", testResult);
+        } else {
+            scope.speaker ||= speaker;
+            testResult = new this(scope, { parent: mlMod?.parent });
+        }
+        if (!skipDialog) {
+            if (!(await testResult.testDialog())) return null;
+        }
+
+        let allowed = testResult.evaluate();
+
+        if (allowed && !noChat) {
+            testResult.toChat();
+        }
+
+        return allowed ? testResult : false;
+    }
+
+    async testDialog(data = {}, callback) {
+        foundry.utils.mergeObject(
+            data,
+            {
+                variant: CONFIG.SOHL.id,
+                template:
+                    "systems/sohl/templates/dialog/standard-test-dialog.html",
+                type: this.type,
+                title: _l("SOHL.SuccessTestResult.testDialog.title", {
+                    name: this.token ? this.token.name : this.actor.name,
+                    title: this.title,
+                }),
+                testType: this._testType,
+                mlMod: this.mlMod,
+                situationalModifier: this.situationalModifier,
+                impactMod: this.impactMod,
+                impactSituationalModifier: this.impactSituationalModifier,
+                defaultAim: this.defaultAim,
+                aimChoices: this.aimChoices,
+                targetMovement: this._targetMovement,
+                movementOptions:
+                    MissileWeaponStrikeModeItemData.movementOptions,
+                cxBothOption: this.cxBothOption,
+                askCXBothOption: game.settings.get(
+                    "sohl",
+                    "optionBothOnCounterstrike",
+                ),
+                rollMode: this.rollMode,
+                rollModes: Object.entries(CONFIG.Dice.rollModes).map(
+                    ([k, v]) => ({
+                        group: "CHAT.RollDefault",
+                        value: k,
+                        label: v,
+                    }),
+                ),
+            },
+            { overwrite: false },
+        );
+        const dlgHtml = await renderTemplate(data.template, data);
+
+        // Create the dialog window
+        return await Dialog.prompt({
+            title: data.title,
+            content: dlgHtml.trim(),
+            label: "SOHL.SuccessTestResult.testDialog.label",
+            callback: (element) => {
+                const form = element.querySelector("form");
+                const fd = new FormDataExtended(form);
+                const formData = fd.object;
+                const formSituationalModifier =
+                    Number.parseInt(formData.situationalModifier, 10) || 0;
+
+                if (formSituationalModifier) {
+                    this.mlMod.add(
+                        CONFIG.SOHL.MOD.PLAYER,
+                        formSituationalModifier,
+                    );
+                    this.situationalModifier = formSituationalModifier;
+                }
+
+                const formSuccessLevelMod = Number.parseInt(
+                    formData.successLevelMod,
+                    10,
+                );
+                this.mlMod.successLevelMod = formSuccessLevelMod;
+                this.rollMode = formData.rollMode;
+                if (data.targetMovement)
+                    this._targetMovement = formData.targetMovement;
+                if (callback instanceof Function) callback(this, formData);
+                return true;
+            },
+            rejectClose: false,
+            options: { jQuery: false },
+        });
+    }
+
+    async evaluate() {
+        let allowed = await super.evaluate();
+        if (allowed === false) return false;
+
+        if ((this.token && !this.token.isOwner) || !this.actor?.isOwner) {
+            ui.notifications.warn(
+                _l("SOHL.SUCCESSTESTRESULT.evaluate.NoPerm", {
+                    name: this.token ? this.token.name : this.actor.name,
+                }),
+            );
+            return false;
+        }
+
+        if (!this.roll) {
+            let rollData;
+            if (
+                this.mlMod.disabled ||
+                this.testType.type === SuccessTestResult.TEST_TYPE.IGNORE
+            ) {
+                // Ignore tests always return critical failure (Roll = 100)
+                rollData = SuccessTestResult.ROLL.CRITICAL_FAILURE.toObject();
+            } else if (!this.roll?._evaluated) {
+                const roll = await Roll.create("1d100");
+                try {
+                    await roll.evaluate();
+                    rollData = roll.toObject();
+                } catch (err) {
+                    Hooks.onError("SuccessTestResult#evaluate", err, {
+                        msg: _l("SOHL.SuccessTestResult.evaluate.RollFail"),
+                        log: "error",
+                    });
+                    return false;
+                }
+            }
+            this.updateSource(rollData);
+        }
+
+        if (this.critAllowed) {
+            if (this.roll.total <= this.mlMod.constrainedEffective) {
+                if (this.mlMod.critSuccessDigits.includes(this.lastDigit)) {
+                    this._successLevel =
+                        SuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS;
+                } else {
+                    this._successLevel =
+                        SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
+                }
+            } else {
+                if (this.mlMod.critFailureDigits.includes(this.lastDigit)) {
+                    this._successLevel =
+                        SuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE;
+                } else {
+                    this._successLevel =
+                        SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
+                }
+            }
+        } else {
+            if (this.roll.total <= this.mlMod.constrainedEffective) {
+                this._successLevel =
+                    SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
+            } else {
+                this._successLevel =
+                    SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
+            }
+        }
+
+        this._successLevel += this.mlMod.successLevelMod;
+        if (!this.critAllowed) {
+            this._successLevel = Math.min(
+                Math.max(
+                    this._successLevel,
+                    SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE,
+                ),
+                SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
+            );
+        }
+
+        if (this.critAllowed) {
+            if (this.isCritical) {
+                this._description = this.isSuccess
+                    ? SuccessTestResult.SUCCESS_TEXT.CRITICAL_SUCCESS
+                    : SuccessTestResult.SUCCESS_TEXT.CRITICAL_FAILURE;
+            } else {
+                this._description = this.isSuccess
+                    ? SuccessTestResult.SUCCESS_TEXT.MARGINAL_SUCCESS
+                    : SuccessTestResult.SUCCESS_TEXT.MARGINAL_FAILURE;
+            }
+        } else {
+            this._description = this.isSuccess
+                ? SuccessTestResult.SUCCESS_TEXT.SUCCESS
+                : SuccessTestResult.SUCCESS_TEXT.FAILURE;
+        }
+
+        return allowed;
+    }
+
+    async toChat(data = {}) {
+        foundry.utils.mergeObject(
+            data,
+            {
+                variant: CONFIG.SOHL.id,
+                template: "systems/sohl/templates/chat/standard-test-card.html",
+                testResultJson: Utility.JSON_stringify(this),
+                speaker: this.speaker,
+                mlMod: this.mlMod,
+                aim: this.aim,
+                defaultAim: this.defaultAim,
+                item: this.item,
+                typeLabel: this.item?.system.constructor.metadata.label,
+                roll: this.roll,
+                type: this.type,
+                title: this.title,
+                successValue: this.successValue,
+                svBonus: this.svBonus,
+                situationalModifier: this.situationalModifier,
+                successLevel: this.successLevel,
+                isCritical: this.isCritical,
+                isSuccess: this.isSuccess,
+                resultText: this._resultText,
+                resultDesc: this._resultDesc,
+                description: this.description,
+                rollMode: this.rollMode,
+                rollModes: Object.entries(CONFIG.Dice.rollModes).map(
+                    ([k, v]) => ({
+                        group: "CHAT.RollDefault",
+                        value: k,
+                        label: v,
+                    }),
+                ),
+            },
+            { overwrite: false },
+        );
+
+        const chatHtml = await renderTemplate(data.template, data);
+
+        const messageData = {
+            user: game.user.id,
+            speaker: this.speaker,
+            content: chatHtml.trim(),
+            sound: CONFIG.sounds.dice,
+        };
+
+        ChatMessage.applyRollMode(messageData, this.rollMode);
+
+        // Create a chat message
+        return await ChatMessage.create(messageData);
+    }
 }
 
-export class OpposedTestResult {
-    sourceTestResult;
-    targetTestResult;
-    rollMode;
-    combatResult;
-    _tieBreak;
-    _breakTies;
+export class OpposedTestResult extends TestResult {
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        name: "OpposedTestResult",
+        label: "SOHL.OPPOSEDTESTRESULT.entity",
+        labelPlural: "SOHL.OPPOSEDTESTRESULT.entityPl",
+        schemaVersion: "0.5.6",
+    });
 
-    static get TIE_BREAK() {
-        return {
-            SOURCE: 1,
-            TARGET: -1,
-        };
+    static TIE_BREAK = Object.freeze({
+        SOURCE: 1,
+        TARGET: -1,
+    });
+
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema(), {
+            sourceTestResult: new fields.EmbeddedDataField(SuccessTestResult, {
+                nullable: true,
+            }),
+            targetTestResult: new fields.EmbeddedDataField(SuccessTestResult, {
+                nullable: true,
+            }),
+            targetTokenUuid: new fields.DocumentUUIDField(),
+            rollMode: new fields.NumberField({
+                integer: true,
+                nullable: true,
+                initial: null,
+            }),
+            tieBreak: new fields.NumberField({
+                integer: true,
+                initial: 0,
+            }),
+            breakTies: new fields.BooleanField({ initial: false }),
+        });
     }
 
-    get availResponses() {
-        switch (this.sourceTestResult?.testType) {
-            case SuccessTestResult.TEST_TYPE.ATTACK:
-                return [
-                    SuccessTestResult.TEST_TYPE.BLOCK,
-                    SuccessTestResult.TEST_TYPE.DODGE,
-                    SuccessTestResult.TEST_TYPE.COUNTERSTRIKE,
-                    SuccessTestResult.TEST_TYPE.IGNORE,
-                ].map((t) => SuccessTestResult.testTypes[t]);
+    _initialize(options = {}) {
+        super._initialize(options);
 
-            case SuccessTestResult.TEST_TYPE.SKILL:
-                return SuccessTestResult.testTypes[
-                    SuccessTestResult.TEST_TYPE.SKILL
-                ];
-
-            default:
-                return [];
+        if (this.targetTokenUuid) {
+            Object.defineProperty(this, "targetToken", {
+                value: this.targetTokenUuid
+                    ? fromUuidSync(this.targetTokenUuid)
+                    : null,
+            });
         }
     }
 
-    constructor({
-        speaker,
-        sourceTestResult,
-        targetTestResult,
-        combatResult = null,
-        tieBreak = 0,
-        breakTies = false,
-        rollMode = game.settings.get("core", "rollMode"),
-    }) {
-        if (!speaker) speaker = ChatMessage.toSpeaker();
-        if (!sourceTestResult) {
-            throw new Error("Must provide sourceTestResult");
+    constructor(data = {}, context = {}) {
+        super(data, context);
+        if (!data.sourceTestResult) {
+            throw new Error("sourceTestResult must be provided");
         }
-        this.sourceTestResult =
-            sourceTestResult instanceof SuccessTestResult
-                ? sourceTestResult
-                : SuccessTestResult.fromData(sourceTestResult);
-
-        this.targetTestResult = targetTestResult
-            ? targetTestResult instanceof SuccessTestResult
-                ? targetTestResult
-                : SuccessTestResult.fromData(targetTestResult)
-            : null;
-        this.rollMode = rollMode;
-        this.combatResult = combatResult;
-        this._tieBreak = tieBreak;
-        this._breakTies = breakTies === true;
+        if (!data.targetTokenUuid) {
+            throw new Error("Target token UUID must be provided");
+        }
     }
 
     get isTied() {
@@ -1459,106 +3765,77 @@ export class OpposedTestResult {
 
     get bothFail() {
         return (
-            !this.sourceTestResult.isSuccess && !this.targetTestResult.isSuccess
+            !this.sourceTestResult?.isSuccess &&
+            !this.targetTestResult?.isSuccess
         );
     }
 
     get tieBreakOffset() {
-        return !this.bothFail ? this._tieBreak : 0;
-    }
-
-    get breakTies() {
-        return this._breakTies;
-    }
-
-    set breakTies(pred = true) {
-        this._breakTies = !!pred;
+        return !this.bothFail ? this.tieBreak : 0;
     }
 
     get sourceWins() {
-        return (
-            !this.bothFail &&
-            this.sourceTestResult.normSuccessLevel >
-                this.targetTestResult.normSuccessLevel
-        );
+        let result = false;
+        if (
+            typeof this.sourceTestResult === "object" &&
+            typeof this.targetTestResult === "object"
+        ) {
+            result =
+                !this.bothFail &&
+                this.sourceTestResult.normSuccessLevel >
+                    this.targetTestResult.normSuccessLevel;
+        }
+        return result;
     }
 
     get targetWins() {
-        return (
-            !this.bothFail &&
-            this.sourceTestResult.normSuccessLevel <
-                this.targetTestResult.normSuccessLevel
-        );
+        let result = false;
+        if (
+            typeof this.sourceTestResult === "object" &&
+            typeof this.targetTestResult === "object"
+        ) {
+            result =
+                !this.bothFail &&
+                this.sourceTestResult.normSuccessLevel <
+                    this.targetTestResult.normSuccessLevel;
+        }
+        return result;
     }
 
-    toJSON() {
-        return {
-            speaker: this.speaker,
-            sourceTestResult: this.sourceTestResult.toJSON(),
-            targetTestResult: this.targetTestResult.toJSON(),
-            rollMode: this.rollMode,
-            tieBreak: this._tieBreak,
-            breakTies: this._breakTies,
-            combatResult: this.combatResult,
-        };
+    async evaluate() {
+        if (this.sourceTestResult && this.targetTestResult) {
+            let allowed = await super.evaluate();
+            allowed &&= !!(await this.sourceTestResult.evaluate());
+            allowed &&= !!(await this.targetTestResult.evaluate());
+            return allowed;
+        } else {
+            return false;
+        }
     }
 
-    static create(data = {}) {
-        return new OpposedTestResult({
-            speaker: data.speaker,
-            sourceTestResult: data.sourceTestResult,
-            targetTestResult: data.targetTestResult,
-            rollMode: data.rollMode,
-            tieBreak: data.tieBreak,
-            breakTies: data.breakTies,
-            combatResult: data.combatResult,
-        });
-    }
-
-    evaluate() {
-        return;
-    }
-
-    async toChat({
-        chatTemplate = "systems/sohl/templates/chat/opposed-result-card.html",
-        chatTemplateData = {},
-    } = {}) {
-        chatTemplateData = foundry.utils.mergeObject(
+    async toChat(data = {}) {
+        foundry.utils.mergeObject(
+            data,
             {
-                variant: SOHL.sysVer.id,
-                title: `${SuccessTestResult.testTypes[this.sourceTestResult.testType].label} vs. ${SuccessTestResult.testTypes[this.targetTestResult.testType].label} Result`,
-                sourceTestResult: this.sourceTestResult,
-                targetTestResult: this.targetTestResult,
-                combatResult: this.combatResult,
-                availResponses: this.availResponses,
-                sourceTestResultJson: JSON.stringify(
-                    this.sourceTestResult.toJSON(),
-                ),
-                targetTestResultJson: JSON.stringify(
-                    this.targetTestResult.toJSON(),
-                ),
-                sourceImpactResultJson: JSON.stringify({
-                    speaker: this.sourceTestResult.speaker,
-                    itemUuid: this.sourceTestResult.item.uuid,
-                    roll: this.sourceTestResult.roll?.toJSON(),
-                    impactMod: this.sourceTestResult.impactMod.toJSON(),
-                }),
-                targetImpactResultJson: JSON.stringify({
-                    speaker: this.targetTestResult.speaker,
-                    itemUuid: this.targetTestResult.item.uuid,
-                    roll: this.targetTestResult.roll?.toJSON(),
-                    impactMod: this.targetTestResult.impactMod.toJSON(),
+                variant: CONFIG.SOHL.id,
+                template:
+                    "systems/sohl/templates/chat/opposed-request-card.html",
+                title: _l("SOHL.OpposedTestResult.toChat.title"),
+                opposedTestResult: this,
+                opposedTestResultJson: Utility.JSON_stringify(this),
+                description: _l("SOHL.OpposedTestResult.toChat.description", {
+                    targetActorName: this.targetToken.name,
                 }),
             },
-            chatTemplateData,
+            { overwrite: false },
         );
 
-        const html = await renderTemplate(chatTemplate, chatTemplateData);
+        const chatHtml = await renderTemplate(data.template, data);
 
         const messageData = {
             user: game.user.id,
             speaker: this.speaker,
-            content: html.trim(),
+            content: chatHtml.trim(),
             style: CONST.CHAT_MESSAGE_STYLES.DICE,
         };
 
@@ -1569,66 +3846,369 @@ export class OpposedTestResult {
     }
 }
 
-export class ImpactResult {
-    speaker;
-    item;
-    impactMod;
-    roll;
+export class CombatTestResult extends SuccessTestResult {
+    static TEST_TYPE = Object.freeze(
+        foundry.utils.mergeObject(super.TEST_TYPE, {
+            AUTOCOMBATMELEE: "autoCombatMelee",
+            AUTOCOMBATMISSILE: "autoCombatMissile",
+            MISSILEATTACK: "missileAttackTest",
+            MELEEATTACK: "meleeAttackTest",
+            DODGE: "dodgeTest",
+            BLOCK: "blockTest",
+            COUNTERSTRIKE: "counterstrikeTest",
+            DODGEDEFENSE: "dodgeResume",
+            BLOCKDEFENSE: "blockResume",
+            CXDEFENSE: "counterstrikeResume",
+            IGNOREDEFENSE: "ignoreResume",
+            CALCIMPACT: "calcImpact",
+        }),
+    );
 
-    constructor({ speaker, item, roll, impactMod } = {}) {
-        if (item instanceof SohlItem) {
-            this.item = item;
-        } else if (typeof item === "string") {
-            // We assume that item is a UUID to the actual item
-            this.item = fromUuidSync(item);
-            if (!this.item) throw new Error(`Can't find item UUID ${item}`);
-        } else {
-            throw new Error("Must provide an item");
-        }
+    static availResponses = Object.freeze(
+        super.availResponses.concat([
+            CombatTestResult.TEST_TYPE.BLOCKDEFENSE,
+            CombatTestResult.TEST_TYPE.DODGEDEFENSE,
+            CombatTestResult.TEST_TYPE.CXDEFENSE,
+            CombatTestResult.TEST_TYPE.IGNOREDEFENSE,
+        ]),
+    );
 
-        if (roll)
-            this._roll = roll instanceof Roll ? roll : Roll.fromData(roll);
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        name: "CombatTestResult",
+        label: "SOHL.COMBATTESTRESULT.entity",
+        labelPlural: "SOHL.COMBATTESTRESULT.entityPl",
+        schemaVersion: "0.5.6",
+        testTypes: {
+            autoCombatMelee: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.autoCombatMelee",
+                functionName: "autoCombatMelee",
+                contextIconClass: "fas fa-swords",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.$attack.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            autoCombatMissile: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.autoCombatMissile",
+                functionName: "autoCombatMissile",
+                contextIconClass: "fas fa-bow-arrow",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.$attack.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            meleeAttackTest: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.meleeAttackTest",
+                functionName: "meleeAttackTest",
+                contextIconClass: "fas fa-sword",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.$attack.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            missileAttackTest: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.missileAttackTest",
+                functionName: "missileAttackTest",
+                contextIconClass: "fas fa-bow-arrow",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.$attack.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            blockTest: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.blockTest",
+                functionName: "blockTest",
+                contextIconClass: "fas fa-shield",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.$defense.block.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            counterstrikeTest: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.counterstrikeTest",
+                functionName: "counterstrikeTest",
+                contextIconClass: "fas fa-circle-half-stroke",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.$defense.counterstrike.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+            },
+            blockResume: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.blockResume",
+                functionName: "blockResume",
+                contextIconClass: "fas fa-shield",
+                contextCondition: false,
+                contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
+            },
+            dodgeResume: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.dodgeResume",
+                functionName: "dodgeResume",
+                contextIconClass: "fas fa-person-walking-arrow-loop-left",
+                contextCondition: false,
+                contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
+            },
+            counterstrikeResume: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.counterstrikeResume",
+                functionName: "counterstrikeResume",
+                contextIconClass: "fas fa-circle-half-stroke",
+                contextCondition: false,
+                contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
+            },
+            ignoreResume: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.ignoreResume",
+                functionName: "ignoreResume",
+                contextIconClass: "fas fa-ban",
+                contextCondition: false,
+                contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
+            },
+            calcImpact: {
+                name: "SOHL.COMBATTESTRESULT.TESTTYPE.calcImpact",
+                functionName: "calcImpact",
+                contextIconClass: "fas fa-bullseye-arrow",
+                contextCondition: (header) => {
+                    header = header instanceof HTMLElement ? header : header[0];
+                    const li = header.closest(".item");
+                    const item = fromUuidSync(li.dataset.uuid);
+                    return item && !item.system.$impact.disabled;
+                },
+                contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+            },
+        },
+    });
 
-        if (impactMod)
-            this.impactMod =
-                impactMod instanceof
-                SOHL.sysVer.CONST.Helper.modifiers.ImpactModifier
-                    ? impactMod
-                    : SOHL.sysVer.CONST.Helper.modifiers.ImpactModifier.fromData(
-                          impactMod,
-                          this.item,
-                      );
-
-        this.speaker = speaker;
-    }
-
-    toJSON() {
-        return {
-            speaker: this.speaker,
-            itemUuid: this.item.uuid,
-            roll: this.roll.toJSON(),
-            impactMod: this.impactMod.toJSON(),
-        };
-    }
-
-    static fromData(data = {}) {
-        return new ImpactResult({
-            speaker: data.speaker || ChatMessage.getSpeaker(),
-            item: fromUuidSync(data.itemUuid),
-            roll: Roll.fromData(data.roll),
-            impactMod:
-                SOHL.sysVer.CONST.Helper.modifiers.ImpactModifier.fromData(
-                    data.impactMod,
-                ),
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema(), {
+            impactMod: new fields.EmbeddedDataField(ImpactModifier),
+            situationalModifier: new fields.NumberField({
+                integer: true,
+                initial: 0,
+            }),
+            deliversImpact: new fields.BooleanField({ initial: false }),
+            testFumble: new fields.BooleanField({ initial: false }),
+            testStumble: new fields.BooleanField({ initial: false }),
+            weaponBreak: new fields.BooleanField({ initial: false }),
         });
     }
 
-    static fromJSON(data) {
-        return this.fromData(JSON.parse(data));
+    constructor(data = {}, context = {}) {
+        super(data, context);
+        if (!data.impactMod) {
+            throw new Error("impactMod must be specified");
+        }
+    }
+
+    calcMeleeCombatResult(opposedTestResult) {
+        const attacker = opposedTestResult.sourceTestResult;
+        const defender = opposedTestResult.targetTestResult;
+
+        this.testFumble =
+            this.isCritical && !this.isSuccess && this.lastDigit === 0;
+        this.testStumble =
+            this.isCritical && !this.isSuccess && this.lastDigit === 5;
+        this.deliversImpact = false;
+
+        if (this.testType.type === CombatTestResult.TEST_TYPE.IGNOREDEFENSE) {
+            this.testStumble = false;
+        }
+
+        switch (this.testType.type) {
+            case CombatTestResult.TEST_TYPE.IGNOREDEFENSE:
+                defender.testStumble = false;
+                defender.testFumble = false;
+                if (
+                    attacker.successLevel >=
+                    SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE
+                ) {
+                    opposedTestResult.winner(
+                        OpposedTestResult.TIE_BREAK.SOURCE,
+                    );
+                    attacker.deliversImpact = true;
+                }
+                break;
+
+            case CombatTestResult.TEST_TYPE.BLOCKDEFENSE:
+                if (opposedTestResult.sourceWins) {
+                    attacker.deliversImpact = true;
+                } else {
+                    if (opposedTestResult.isTied)
+                        opposedTestResult.winner(
+                            OpposedTestResult.TIE_BREAK.TARGET,
+                        );
+                }
+                break;
+
+            case CombatTestResult.TEST_TYPE.CXDEFENSE:
+                if (defender.mlMod.has("CXBoth"))
+                    if (opposedTestResult.isTied) {
+                        if (defender.mlMod.has("CXBoth")) {
+                            opposedTestResult.breakTies(true);
+                            if (opposedTestResult.targetWins)
+                                defender.deliversImpact = true;
+                        } else {
+                            opposedTestResult.winner(
+                                OpposedTestResult.TIE_BREAK.SOURCE,
+                            );
+                        }
+                        attacker.deliversImpact = true;
+                    } else if (opposedTestResult.sourceWins) {
+                        attacker.deliversImpact = true;
+                    } else {
+                        defender.deliversImpact = true;
+                    }
+                break;
+        }
+    }
+
+    calcDodgeCombatResult(opposedTestResult) {
+        const attacker = opposedTestResult.sourceTestResult;
+        const defender = opposedTestResult.targetTestResult;
+
+        attacker.deliversImpact = false;
+        attacker.testFumble =
+            attacker.isCritical &&
+            !attacker.isSuccess &&
+            attacker.lastDigit === 0;
+        attacker.testStumble =
+            attacker.isCritical &&
+            !attacker.isSuccess &&
+            attacker.lastDigit === 5;
+        defender.deliversImpact = false;
+        defender.testFumble = false;
+        defender.testStumble = defender.isCritical && !defender.isSuccess;
+
+        if (opposedTestResult.sourceWins) {
+            attacker.deliversImpact = true;
+        }
+    }
+
+    opposedTestEvaluate(opposedTestResult) {
+        super.opposedTestEvaluate(opposedTestResult);
+        if (opposedTestResult.targetTestResult === this) {
+            if (
+                [
+                    CombatTestResult.TEST_TYPE.BLOCKDEFENSE,
+                    CombatTestResult.TEST_TYPE.CXDEFENSE,
+                    CombatTestResult.TEST_TYPE.IGNOREDEFENSE,
+                ].includes(opposedTestResult.testType.type)
+            ) {
+                this.calcMeleeCombatResult(opposedTestResult);
+            } else if (
+                this.testType.type === CombatTestResult.TEST_TYPE.DODGEDEFENSE
+            ) {
+                this.calcDodgeCombatResult(opposedTestResult);
+            }
+        }
+        return;
+    }
+
+    async testDialog(data = {}, callback) {
+        foundry.utils.mergeObject(
+            data,
+            {
+                impactMod: this.impactMod,
+                impactSituationalModifier: this.situationalModifier,
+                deliversImpact: this.deliversImpact,
+                testFumble: this.testFumble,
+                testStumble: this.testStumble,
+                weaponBreak: this.weaponBreak,
+            },
+            { overwrite: false },
+        );
+
+        return await super.testDialog(data, (thisArg, formData) => {
+            const formImpactSituationalModifier =
+                Number.parseInt(formData.impactSituationalModifier, 10) || 0;
+
+            if (thisArg.impactMod && formImpactSituationalModifier) {
+                thisArg.impactMod.add(
+                    CONFIG.SOHL.MOD.PLAYER,
+                    formImpactSituationalModifier,
+                );
+                thisArg.impactSituationalModifier =
+                    formImpactSituationalModifier;
+            }
+
+            if (callback) callback(this, formData);
+        });
+    }
+
+    async toChat(data = {}) {
+        return super.toChat(
+            foundry.utils.mergeObject(
+                data,
+                {
+                    impactSituationalModifier: this.situationalModifier,
+                    impactMod: this.impactMod,
+                    deliversImpact: this.deliversImpact,
+                    testFumble: this.testFumble,
+                    testStumble: this.testStumble,
+                    weaponBreak: this.weaponBreak,
+                },
+                { overwrite: false },
+            ),
+        );
     }
 }
 
-export class SohlItem extends Item {
+export class ImpactResult extends TestResult {
+    /** @inheritdoc */
+    static metadata = Object.freeze({
+        name: "ImpactResult",
+        label: "SOHL.IMPACTRESULT.entity",
+        labelPlural: "SOHL.IMPACTRESULT.entityPl",
+        schemaVersion: "0.5.6",
+    });
+
+    get item() {
+        return this.impactMod.parent.item;
+    }
+
+    constructor(data = {}, context = {}) {
+        super(data, context);
+        if (!data.impactMod) {
+            throw new Error("impactMod is required");
+        }
+    }
+
+    _initialize(options = {}) {
+        if (this._source.roll) {
+            Object.defineProperty(this, "roll", {
+                value: Roll.fromData(this._source.roll),
+                writable: false,
+            });
+        }
+
+        super._initialize(options);
+    }
+
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema, {
+            impactMod: new fields.EmbeddedDataField(ImpactModifier),
+            roll: new fields.ObjectField(),
+        });
+    }
+}
+
+export class SohlItem extends NestableDocumentMixin(Item) {
     /**
      * An object that tracks the changes to the data model which were applied by active effects.
      * See SohlActor.applyActiveEffects() for info on how this is set.
@@ -1637,7 +4217,6 @@ export class SohlItem extends Item {
     overrides = {};
 
     _uuid;
-    _cause;
 
     /** @override */
     _configure(options) {
@@ -1661,50 +4240,16 @@ export class SohlItem extends Item {
         });
     }
 
-    _initialize(options = {}) {
-        super._initialize(options);
-        if (options.cause) this._cause = options.cause;
-    }
-
-    get cause() {
-        return this._cause || this.nestedIn;
-    }
-
-    set cause(item) {
-        if (!this.actor) return;
-        if (!(item instanceof SohlItem))
-            throw new Error("must provide a valid cause");
-        this._cause = item;
-        if (!this.actor.system.virtualItems.has(this.id)) {
-            this.actor.system.virtualItems.set(this.id, this);
-        }
-    }
-
     get label() {
-        let label = `${this.name} `;
-        if (this.system.subType)
-            label += `${
-                this.system.constructor.subTypes[this.system.subType]
-            } `;
-        label += this.system.constructor.typeLabel.singular;
-        return label;
+        return this.system.label;
     }
 
     get isVirtual() {
         return !this.isNested && this.actor?.system.virtualItems.get(this.id);
     }
 
-    get isNested() {
-        return !!this.nestedIn;
-    }
-
     get fromCompendiumOrWorld() {
         return !!(this.pack || game.items.some((it) => it.id === this.id));
-    }
-
-    /** @override */
-    get actor() {
-        return super.actor || this.nestedIn?.actor || this.cause?.actor;
     }
 
     get permission() {
@@ -1747,7 +4292,6 @@ export class SohlItem extends Item {
 
     static defaultName({ type, parent, pack, subType } = {}) {
         const documentName = this.metadata.name;
-        const cls = CONFIG[documentName].dataModels?.[type];
         let collection;
         if (parent) {
             if (!(parent instanceof SohlActor)) {
@@ -1766,9 +4310,17 @@ export class SohlItem extends Item {
 
         const takenNames = new Set();
         for (const document of collection) takenNames.add(document.name);
-        let baseName = CONFIG[documentName].typeLabels?.[type];
-        baseName = game.i18n.localize(baseName);
-        if (subType) baseName = `${cls?.subTypes?.[subType]} ${baseName}`;
+        let baseName = _l(
+            subType
+                ? "SOHL.ITEM.defaultName.WithSubType"
+                : "SOHL.ITEM.defaultName.NoSubType",
+            {
+                docLabel: _l(CONFIG.Item.typeLabels[type] || "SOHL.Unknown"),
+                subType: _l(
+                    CONFIG.Item.subTypeLabels[subType] || "SOHL.Unknown",
+                ),
+            },
+        );
         let name = baseName;
         let index = 1;
         while (takenNames.has(name)) name = `${baseName} (${++index})`;
@@ -1786,7 +4338,7 @@ export class SohlItem extends Item {
      */
     static async createDialog(
         data = {},
-        { parent = null, pack = null, types, ...options } = {},
+        { parent = null, pack = null, types, nestedIn, ...options } = {},
     ) {
         const cls = this.implementation;
 
@@ -1808,9 +4360,14 @@ export class SohlItem extends Item {
             for (const type of this.TYPES) {
                 if (type === CONST.BASE_DOCUMENT_TYPE) continue;
                 if (types && !types.includes(type)) continue;
+                if (
+                    !nestedIn &&
+                    CONFIG[this.documentName]?.dataModels[type]?.nestOnly
+                )
+                    continue;
                 let label =
                     CONFIG[this.documentName]?.typeLabels?.[type] || type;
-                label = game.i18n.localize(label);
+                label = _l(label);
                 documentTypes.push({ value: type, label });
                 if (type === defaultType) defaultTypeAllowed = true;
             }
@@ -1821,17 +4378,14 @@ export class SohlItem extends Item {
 
             if (!defaultTypeAllowed) defaultType = documentTypes[0].value;
             // Sort alphabetically
-            documentTypes.sort((a, b) =>
-                a.label.localeCompare(b.label, game.i18n.lang),
-            );
+            Utility.sortStrings(documentTypes);
             hasTypes = true;
         }
 
         let askType =
             !!types || !documentTypes.some((t) => t.value === data.type);
 
-        const itemClassSubtypes =
-            SOHL.sysVer.CONFIG.Item.dataModels[defaultType].subTypes;
+        const itemClassSubtypes = CONFIG.Item.dataModels[defaultType].subTypes;
         let subTypes = itemClassSubtypes
             ? Object.entries(itemClassSubtypes).reduce((ary, [name, value]) => {
                   ary.push({ name, label: value });
@@ -1856,14 +4410,14 @@ export class SohlItem extends Item {
 
         // Collect data
         const folders = collection?._formatFolderSelectOptions() ?? [];
-        const label = game.i18n.localize(this.metadata.label);
-        const title = game.i18n.format("DOCUMENT.Create", { type: label });
+        const label = _l(this.metadata.label);
+        const title = _l("DOCUMENT.Create", { type: label });
         const type = data.type || defaultType;
 
-        const html = await renderTemplate(
+        const dlgHtml = await renderTemplate(
             "templates/sidebar/document-create.html",
             {
-                variant: SOHL.sysVer.id,
+                variant: CONFIG.SOHL.id,
                 folders,
                 name: data.name,
                 defaultName: cls.defaultName({ type, parent, pack, subType }),
@@ -1888,10 +4442,10 @@ export class SohlItem extends Item {
 
         return await Dialog.prompt({
             title,
-            content: html,
+            content: dlgHtml,
             label: title,
-            render: (html) => {
-                const formTop = html.querySelector("form");
+            render: (element) => {
+                const formTop = element.querySelector("form");
                 const fd = new FormDataExtended(formTop);
                 const formData = foundry.utils.mergeObject(fd.object, {
                     parent,
@@ -1900,24 +4454,22 @@ export class SohlItem extends Item {
                     askSubType,
                 });
                 SohlItem._handleTypeChange(formTop, formData);
-                html.querySelector('[name="type"]').addEventListener(
-                    "change",
-                    (ev) => {
+                element
+                    .querySelector('[name="type"]')
+                    ?.addEventListener("change", (ev) => {
                         formData.type = ev.target.value;
                         SohlItem._handleTypeChange(formTop, formData);
-                    },
-                );
+                    });
 
-                html.querySelector('[name="subType"]').addEventListener(
-                    "change",
-                    (ev) => {
+                element
+                    .querySelector('[name="subType"]')
+                    ?.addEventListener("change", (ev) => {
                         formData.subType = ev.target.value;
                         SohlItem._handleTypeChange(formTop, formData);
-                    },
-                );
+                    });
             },
-            callback: (html) => {
-                const formTop = html.querySelector("form");
+            callback: (element) => {
+                const formTop = element.querySelector("form");
                 const fd = new FormDataExtended(formTop);
                 const formData = foundry.utils.expandObject(fd.object);
                 const formName = formData.name;
@@ -1942,15 +4494,10 @@ export class SohlItem extends Item {
 
                 data.type = formType || type;
 
-                const subTypes =
-                    SOHL.sysVer.CONFIG.Item.dataModels[data.type].subTypes;
+                const subTypes = CONFIG.Item.dataModels[data.type].subTypes;
                 if (subTypes && Object.keys(subTypes)?.includes(formSubType)) {
                     data["system.subType"] = formSubType;
                 }
-
-                // Make sure gear goes into the top container of the
-                // actor unless specifically nested elsewhere
-                let nestedIn = options.nestedIn;
 
                 return this.implementation.create(data, {
                     parent,
@@ -1981,7 +4528,7 @@ export class SohlItem extends Item {
         formTop.elements.type.disabled = !askType;
 
         // Determine if subtypes exist for this type, and if so, create the subtype dropdown
-        const subTypeObj = SOHL.sysVer.CONFIG.Item.dataModels[type]?.subTypes;
+        const subTypeObj = CONFIG.Item.dataModels[type]?.subTypes;
         if (typeof subTypeObj === "object" && Object.keys(subTypeObj).length) {
             let subTypes = Object.entries(subTypeObj)?.reduce(
                 (ary, [name, value]) => {
@@ -2003,7 +4550,12 @@ export class SohlItem extends Item {
                 return str;
             }, "");
             formSubtypeSelect.innerHTML = selectOptions;
-            formTop.elements.subType.value = `${subType} selected`;
+            formTop.elements.subType.value = _l(
+                "SOHL.SohlItem._handleTypeChange.subTypeSelected",
+                {
+                    subType,
+                },
+            );
             formSubtypeSelect.disabled = !askSubType;
         } else {
             // Hide subtype dropdown if type doesn't support it
@@ -2280,25 +4832,25 @@ export class SohlItem extends Item {
         // Generally, all fields will be updated.  Depending on the
         // specific type, some fields will be left unchanged.
         switch (sourceItem.type) {
-            case MysteryItemData.typeName:
+            case MysteryItemData.TYPE_NAME:
                 delete updateData.system.charges;
                 break;
 
-            case MysticalAbilityItemData.typeName:
+            case MysticalAbilityItemData.TYPE_NAME:
                 delete updateData.system.charges;
                 break;
 
-            case AfflictionItemData.typeName:
+            case AfflictionItemData.TYPE_NAME:
                 delete updateData.system.healingRateBase;
                 break;
 
-            case TraitItemData.typeName:
+            case TraitItemData.TYPE_NAME:
                 if (sourceItem.system.textValue)
                     delete updateData.system.textValue;
                 if (sourceItem.system.max) delete updateData.system.max;
                 break;
 
-            case BodyPartItemData.typeName:
+            case BodyPartItemData.TYPE_NAME:
                 delete updateData.system.heldItem;
                 break;
         }
@@ -2351,20 +4903,20 @@ export class SohlItem extends Item {
                 // Ask whether to refresh the item from World/Compendium
                 const overwrite = await Dialog.confirm({
                     title: "Confirm Overwrite",
-                    content: `<p>Overwrite existing ${similarSibling.system.constructor.typeLabel.singlular} ${similarSibling.name}?</p>`,
+                    content: `<p>Overwrite existing ${similarSibling.system.TYPE_LABEL.singlular} ${similarSibling.name}?</p>`,
                     defaultYes: false,
                     options: { jQuery: false },
                 });
                 */
                 ui.notifications.warn(
-                    `An Item named ${this.name} exists in ${nestTarget.name}, cannot create new item with same name`,
+                    _l("SOHL.SohlItem.nestIn.IdenticalItemWarning", {
+                        name: this.name,
+                        targetName: nestTarget.name,
+                    }),
                 );
                 return null;
             } else if (similarSibling.id === this.id) {
-                // Don't re-nest an item if it is already there
-                ui.notifications.warn(
-                    `Identical Item ${this.name} already exists in ${nestTarget.name}`,
-                );
+                // Item already exists here, do nothing
                 return null;
             }
 
@@ -2394,7 +4946,10 @@ export class SohlItem extends Item {
                 }
             } else {
                 ui.notifications.warn(
-                    `Similar sibling already exists, move denied`,
+                    _l("SOHL.SohlItem.nestIn.IdenticalItemWarning", {
+                        name: this.name,
+                        targetName: nestTarget.name,
+                    }),
                 );
                 return null;
             }
@@ -2490,167 +5045,11 @@ export class SohlItem extends Item {
             return e;
         });
     }
-
-    static async create(data, options = {}) {
-        let newData = foundry.utils.deepClone(data);
-
-        if (Object.keys(newData).some((k) => /\./.test(k))) {
-            newData = foundry.utils.expandObject(newData);
-        }
-
-        if (!data.type) {
-            throw new Error("Must specify type of item to create");
-        }
-
-        if (options.clean) {
-            delete newData.folder;
-            delete newData.sort;
-            delete newData.pack;
-            if ("ownership" in newData) {
-                newData.ownership = {
-                    default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-                    [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-                };
-            }
-
-            // Clear and disable all events associated with the item
-            if (newData.system?.nestedItems.length) {
-                for (const obj of newData.system.nestedItems) {
-                    if (obj.type === "event" && obj.system.activation.enabled) {
-                        obj.system.activation.enabled = false;
-                        obj.system.activation.startTime = 0;
-                        obj.system.activation.endTime = 0;
-                    }
-                }
-            }
-        }
-
-        if (!("ownership" in newData)) {
-            newData.ownership = {
-                default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-                [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-            };
-        }
-
-        if (options.parent && !(options.parent instanceof SohlActor))
-            throw new Error("parent must always be an instance of SohlActor");
-
-        if (!(newData._id && options.keepId)) {
-            SohlItem._resetIds(newData);
-        }
-
-        if (!newData.img) {
-            newData.img =
-                SOHL.sysVer.CONFIG.Item.dataModels[newData.type]?.defaultImage;
-        }
-
-        // If nestedIn is specified, use update() on the nestedIn
-        if (options.nestedIn) {
-            if (options.nestedIn && !(options.nestedIn instanceof SohlItem)) {
-                throw new Error(`nestedIn must be an SohlItem document`);
-            }
-
-            const newAry = foundry.utils.deepClone(
-                options.nestedIn.system.nestedItems,
-            );
-
-            const itemExists = newAry.some((obj) => obj._id === newData._id);
-            if (itemExists) {
-                throw new Error(
-                    `Item with id ${newData._id} already exists in ${options.nestedIn.label}`,
-                );
-            }
-
-            let item = new SohlItem(newData, options);
-            //await item._preCreate(newData, options, game.user);
-            const itemData = item.toObject();
-
-            // Set sort property
-            let maxSort = newAry.reduce(
-                (max, obj) => Math.max(max, obj.sort),
-                0,
-            );
-            maxSort += CONST.SORT_INTEGER_DENSITY;
-            itemData.sort = maxSort;
-            newAry.push(itemData);
-
-            const result = await options.nestedIn.update(
-                { "system.nestedItems": newAry },
-                { nestedIn: options.nestedIn },
-            );
-
-            return result;
-        } else {
-            return await super.create(newData, options);
-        }
-    }
-
-    /** @override */
-    update(data = [], context = {}) {
-        // Note that this method will return a direct response if called
-        // on an item with an nestedIn, otherwise it will return a Promise.
-
-        let result = this.cause;
-
-        if (this.nestedIn || this.cause) {
-            this.updateSource(data);
-        }
-
-        if (this.nestedIn) {
-            const newAry = foundry.utils.deepClone(
-                this.nestedIn.system.nestedItems,
-            );
-            const idx = newAry.findIndex((obj) => obj._id === this.id);
-            if (idx >= 0) {
-                const expandedData = foundry.utils.expandObject(data);
-                foundry.utils.mergeObject(newAry[idx], expandedData, {
-                    performDeletions: true,
-                });
-                newAry.sort((a, b) => a.sort - b.sort);
-                const updateData = {
-                    "system.nestedItems": newAry,
-                };
-                result = this.nestedIn.update(updateData, context);
-            }
-        } else if (!this.cause) {
-            result = super.update(data, context);
-        }
-
-        return result;
-    }
-
-    /** @override */
-    delete(context = {}) {
-        // Note that this method will return a direct response if called
-        // on an item with either nestedIn or cause with a truthy value,
-        // otherwise it will return a Promise.
-        if (this.nestedIn || this.cause) {
-            if (this.nestedIn) {
-                const newAry = foundry.utils.deepClone(
-                    this.nestedIn.system.nestedItems,
-                );
-                const filtered = newAry.filter((obj) => obj._id !== this.id);
-                if (filtered.length !== newAry.length) {
-                    this.nestedIn.update(
-                        { "system.nestedItems": filtered },
-                        context,
-                    );
-                }
-            }
-
-            if (this.cause) {
-                this.actor.system.virtualItems.delete(this.id);
-                this.actor.render();
-            }
-
-            return this;
-        } else {
-            return super.delete(context);
-        }
-    }
 }
 
-export class SohlBaseData extends foundry.abstract.TypeDataModel {
+export class SohlBaseData extends NestableDataModelMixin(
+    foundry.abstract.TypeDataModel,
+) {
     /**
      * An object containing collections, including macros and nested items
      *
@@ -2658,20 +5057,26 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
      */
     _collections = {};
 
-    static get comparison() {
+    static COMPARISON = Object.freeze({
+        IDENTICAL: 0,
+        SIMILAR: 1,
+        DIFFERENT: 2,
+    });
+
+    static LOCALIZATION_PREFIXES = ["SOHL.BASEDATA"];
+
+    /** @override */
+    static defineSchema() {
         return {
-            IDENTICAL: 0,
-            SIMILAR: 1,
-            DIFFERENT: 2,
+            macros: new fields.ArrayField(new fields.ObjectField()),
         };
     }
 
-    static get typeName() {
-        throw new Error("Subclass must define typeName");
-    }
-
-    static get typeLabel() {
-        throw new Error("Subclass must define typeLabel");
+    get label() {
+        return game.i18n.format("SOHL.BASEDATA.label", {
+            name: this.parent.name,
+            typeLabel: _l(this.constructor.metadata.label),
+        });
     }
 
     same(other) {
@@ -2685,49 +5090,17 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
         return SohlBaseData.comparison.DIFFERENT;
     }
 
-    static get defaultImage() {
-        return "icons/svg/item-bag.svg";
-    }
-
-    static get effectKeys() {
-        return {};
-    }
-
-    static get eventTags() {
-        return {
-            none: "",
-            created: "Created",
-            modified: "Last Modified",
-        };
-    }
-
     // biome-ignore lint/correctness/noUnusedVariables: <explanation>
     getEvent(eventTag) {
         throw new Error("Subclass must define getEvent");
     }
 
     get created() {
-        return this.getEvent("created")?.system;
+        return this.getEvent(SohlBaseData.EVENT.CREATED)?.system;
     }
 
     get modified() {
-        return this.getEvent("modified")?.system;
-    }
-
-    static get mods() {
-        return {
-            Player: { name: "Situational Modifier", abbrev: "SitMod" },
-            MinValue: { name: "Minimum Value", abbrev: "MinVal" },
-            MaxValue: { name: "Maximum Value", abbrev: "MaxVal" },
-            AE: { name: "Active Effect", abbrev: "AE" },
-            Base: { name: "Base", abbrev: "Base" },
-            Outnumbered: { name: "Outnumbered", abbrev: "Outn" },
-            OffHand: { name: "Off-Hand Weapon Use", abbrev: "OffHnd" },
-        };
-    }
-
-    static get sheet() {
-        throw new Error("Must define sheet path in subclass of SohlBaseData");
+        return this.getEvent(SohlBaseData.EVENT.MODIFIED)?.system;
     }
 
     get availableFate() {
@@ -2795,7 +5168,7 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
                                 contextCondition,
                                 contextGroup: intrinsicAction.contextGroup,
                                 isIntrinsicAction: true,
-                                useAsync: !!intrinsicAction.useAsync,
+                                useAsync: intrinsicAction.useAsync !== false,
                             },
                         },
                     },
@@ -2809,25 +5182,29 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
         // Only accept the first default, all others set to Primary
         let hasDefault = false;
         ary.forEach(([, macro]) => {
-            const isDefault = macro.contextGroup === "default";
+            const isDefault =
+                macro.contextGroup === SohlContextMenu.SORT_GROUPS.DEFAULT;
             if (hasDefault) {
                 if (isDefault) {
-                    macro.$contextGroup = "essential";
+                    macro.$contextGroup = SohlContextMenu.SORT_GROUPS.ESSENTIAL;
                 }
             } else {
                 hasDefault ||= isDefault;
             }
         });
 
+        const collator = new Intl.Collator(this.lang);
         ary.sort(([, macroA], [, macroB]) => {
-            const contextGroupA = macroA.$contextGroup || "general";
-            const contextGroupB = macroB.$contextGroup || "general";
-            return contextGroupA.localeCompare(contextGroupB);
+            const contextGroupA =
+                macroA.$contextGroup || SohlContextMenu.SORT_GROUPS.GENERAL;
+            const contextGroupB =
+                macroB.$contextGroup || SohlContextMenu.SORT_GROUPS.GENERAL;
+            return collator.compare(contextGroupA, contextGroupB);
         });
 
         // If no default was specified, then make the first element the default
         if (!hasDefault && ary.length) {
-            ary[0][1].$contextGroup = "default";
+            ary[0][1].$contextGroup = SohlContextMenu.SORT_GROUPS.DEFAULT;
         }
 
         if (this._collections.actions) delete this._collections.actions;
@@ -2839,22 +5216,26 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
         return this._collections.actions;
     }
 
+    get defaultAction() {
+        return "";
+    }
+
     /**
      * Returns an array of predefined action descriptors for this item.  These
      * actions are already implemented in code, so they are always available.  These
      * can be specifically overridden by a macro with the same name.
      */
     getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
-        actions.forEach((a) => {
-            if (a.functionName === defaultAction) {
-                a.contextGroup = "default";
-            } else if (a.contextGroup === "default") {
-                a.contextGroup = "essential";
+        defaultAction ||= _data.defaultAction;
+        let result = actions.map((a) => {
+            if (a.type === defaultAction) {
+                a.contextGroup = SohlContextMenu.SORT_GROUPS.DEFAULT;
+            } else if (a.contextGroup === SohlContextMenu.SORT_GROUPS.DEFAULT) {
+                a.contextGroup = SohlContextMenu.SORT_GROUPS.ESSENTIAL;
             }
+            return a;
         });
-        return actions.sort((a, b) =>
-            a.contextGroup.localeCompare(b.contextGroup),
-        );
+        return game.i18n.sortObjects(result, "contextGroup");
     }
 
     get events() {
@@ -2898,7 +5279,7 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
                             target: it.system.target,
                             targetName:
                                 it.system.target.uuid === it.uuid
-                                    ? "Self"
+                                    ? _l("SOHL.SohlBaseData.events.self")
                                     : it.system.target?.label || "",
                             when: it.system.activation.endTime,
                             remaining: it.system.remainingDuration,
@@ -2917,35 +5298,32 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
         return result;
     }
 
-    /** @override */
-    static defineSchema() {
-        return {
-            macros: new fields.ArrayField(new fields.ObjectField()),
-        };
-    }
-
     getDefaultAction(html) {
+        const element = html instanceof jQuery ? html[0] : html;
+
         const contextOptions = this._getContextOptions();
         const defAction = contextOptions.find(
             (co) =>
-                co.group === "default" &&
+                co.group === SohlContextMenu.SORT_GROUPS.DEFAULT &&
                 (co.condition instanceof Function
-                    ? co.condition(html)
+                    ? co.condition(element)
                     : co.condition),
         );
         return defAction;
     }
 
     _getContextOptions() {
-        let result = this.actions.reduce((ary, m) => {
-            const contextCondition = m.contextCondition;
+        let result = this.actions.reduce((ary, a) => {
+            const contextCondition = a.contextCondition;
             let cond = contextCondition;
             if (typeof contextCondition === "string") {
                 if (!contextCondition || /^true$/i.test(contextCondition)) {
                     cond = true;
                 } else if (/^false$/i.test(contextCondition)) {
                     cond = false;
-                } else if (m.$contextGroup === "hidden") {
+                } else if (
+                    a.$contextGroup === SohlContextMenu.SORT_GROUPS.HIDDEN
+                ) {
                     cond = false;
                 } else {
                     cond = function (header) {
@@ -2961,7 +5339,13 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
                                 "SohlBaseData#_getContextOptions",
                                 err,
                                 {
-                                    msg: `Error executing context condition for ${m.name} on ${this.parent.name}`,
+                                    msg: _l(
+                                        "SOHL.SohlBaseData._getContextOptions.ContextConditionError",
+                                        {
+                                            name: a.name,
+                                            parentName: this.parent.name,
+                                        },
+                                    ),
                                     log: "error",
                                 },
                             );
@@ -2972,13 +5356,13 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
 
             if (cond) {
                 const newAction = {
-                    name: m.name,
-                    icon: `<i class="${m.contextIconClass}"></i>`,
+                    name: a.name,
+                    icon: `<i class="${a.contextIconClass}${a.contextGroup === SohlContextMenu.SORT_GROUPS.DEFAULT ? " fa-beat-fade" : ""}"></i>`,
                     condition: cond,
                     callback: () => {
-                        this.execute(m.name);
+                        this.execute(a.name);
                     },
-                    group: m.$contextGroup,
+                    group: a.$contextGroup,
                 };
                 ary.push(newAction);
             }
@@ -2995,23 +5379,67 @@ export class SohlBaseData extends foundry.abstract.TypeDataModel {
      * @param {object} options Execution parameters which are passed to the action
      * @param {boolean} [options.async=false] Whether to execute this action as an async function
      * @param {object[]} [options.scope] additional parameters
+     *
+     * @returns false if no further processing should occur, undefined if no such
+     * action was found on this object, or the value returned by the execution of
+     * the action (which may or may not be a promise).
      */
     execute(
         actionName,
         { inPrepareData = false, sync = false, ...scope } = {},
     ) {
-        if (!actionName) return;
+        if (!actionName)
+            throw new Error("Must provide an actionName to execute()");
 
+        let typeActionHandler =
+            CONFIG.SOHL[this.parent.documentName]?.macros[this.parent.type];
         let action = this.actions.find(
             (a) => a.name === actionName || a.functionName === actionName,
         );
-        if (action) {
+        if (action || typeActionHandler) {
+            let useAsync = action?.useAsync ?? !!typeActionHandler?.useAsync;
             scope.actionName = actionName;
             scope.self = this;
             scope.inPrepareData = inPrepareData;
-            return action.execute(scope);
+
+            let result;
+            if (typeActionHandler) result = typeActionHandler.execute(scope);
+            // If the action exists on this item, then process the action
+            if (action) {
+                if (useAsync) {
+                    if (action.useAsync)
+                        Promise.resolve(result).then((newResult) => {
+                            // If the return from the Type Action Handler is boolean false (not falsy,
+                            // but specifically false), then abandon all further processing, and return
+                            // false (meaning all ancestors should stop further processing).
+                            if (newResult === false) return false;
+
+                            // Otherwise add the return value as the "priorResult" key in the scope,
+                            // and execute the local action, returning the result.
+                            scope.priorResult = newResult;
+
+                            // This is going to return a promise
+                            return action.execute(scope);
+                        });
+                } else {
+                    // If the return from the Type Action Handler is boolean false (not falsy,
+                    // but specifically false), then abandon all further processing, and return
+                    // false (meaning all ancestors should stop further processing).
+                    if (result === false) return false;
+
+                    // Otherwise add the return value as the "priorResult" key in the scope,
+                    // and execute the local action, returning the result.
+                    scope.priorResult = result;
+
+                    // This is going to return a direct value, not a promise.
+                    return action.execute(scope);
+                }
+            }
+
+            return result;
         }
-        return null;
+
+        return;
     }
 
     prepareBaseData() {
@@ -3044,6 +5472,15 @@ export class SohlActorData extends SohlBaseData {
 
     $initiativeRank;
 
+    static metadata = Object.freeze({
+        img: "icons/svg/item-bag.svg",
+        sheet: "systems/sohl/templates/actor/actor-sheet.html",
+    });
+
+    static get parentDocumentClass() {
+        return SohlActor;
+    }
+
     get virtualItems() {
         if (!this.#virtualItems) this.#virtualItems = new Collection();
         return this.#virtualItems;
@@ -3061,56 +5498,70 @@ export class SohlActorData extends SohlBaseData {
         );
     }
 
-    static get sheet() {
-        return "systems/sohl/templates/actor/actor-sheet.html";
-    }
-
     /** @override */
     static defineSchema() {
-        return foundry.utils.mergeObject(super.defineSchema(), {
-            bioImage: new fields.FilePathField({
-                categories: ["IMAGE"],
-                initial: CONST.DEFAULT_TOKEN,
-                label: "Biographical Image",
-            }),
-            description: new fields.HTMLField({
-                initial: "",
-                label: "Description",
-                hint: "Physical description and traits",
-            }),
-            biography: new fields.HTMLField({
-                initial: "",
-                label: "Biography",
-                hint: "Backstory and biographical information",
-            }),
-        });
+        if (!this._sohlDataSchema) {
+            this._sohlDataSchema = foundry.utils.mergeObject(
+                super.defineSchema(),
+                {
+                    bioImage: new fields.FilePathField({
+                        categories: ["IMAGE"],
+                        initial: CONST.DEFAULT_TOKEN,
+                    }),
+                    description: new fields.HTMLField(),
+                    biography: new fields.HTMLField(),
+                },
+            );
+        }
+        return this._sohlDataSchema;
     }
 
     /** @override */
     prepareBaseData() {
-        super.prepareBaseData();
-        this.$initiativeRank = 0;
-        this.$collection = new Collection();
-        this.$gearWeight = new ValueModifier(this, {
-            maxFight: new ValueModifier(this),
-            max: new ValueModifier(this),
-            value: (thisVM) => {
-                return Math.round(thisVM.effective * 1000) / 1000;
-            },
-            status: (thisVM) => {
-                if (thisVM.effective > thisVM.max.effective)
-                    return ContainerGearItemData.status.OverCapacity;
-                else if (thisVM.effective > thisVM.maxFight.effective)
-                    return ContainerGearItemData.status.OverFightCapacity;
-                else return ContainerGearItemData.status.Ok;
-            },
-        });
-
         // The maximum weights here are totally arbitrary.  To get reasonable values,
         // it is expected for the actor to have a "capacity" trait that sets these
         // values correctly.
-        this.$gearWeight.maxFight.setBase(50);
-        this.$gearWeight.max.setBase(75);
+        class GearWeightModifier extends CONFIG.SOHL.class.ValueModifier {
+            static defineSchema() {
+                return foundry.utils.mergeObject(super.defineSchema(), {
+                    maxFight: new fields.NumberField({
+                        integer: true,
+                        nullable: false,
+                        min: 0,
+                        initial: 50,
+                    }),
+                    max: new fields.NumberField({
+                        integer: true,
+                        nullable: false,
+                        min: 0,
+                        initial: 75,
+                    }),
+                    value: new SohlFunctionField({
+                        initial: (thisVM) => {
+                            return Math.round(thisVM.effective * 1000) / 1000;
+                        },
+                    }),
+                    status: new SohlFunctionField({
+                        initial: (thisVM) => {
+                            if (thisVM.effective > thisVM.max.effective)
+                                return ContainerGearItemData.status
+                                    .OverCapacity;
+                            else if (
+                                thisVM.effective > thisVM.maxFight.effective
+                            )
+                                return ContainerGearItemData.status
+                                    .OverFightCapacity;
+                            else return ContainerGearItemData.status.Ok;
+                        },
+                    }),
+                });
+            }
+        }
+
+        super.prepareBaseData();
+        this.$initiativeRank = 0;
+        this.$collection = new Collection();
+        this.$gearWeight = new GearWeightModifier({}, { parent: this });
         this.$magicMod = {};
     }
 
@@ -3122,20 +5573,131 @@ export class SohlActorData extends SohlBaseData {
 }
 
 export class SohlItemData extends SohlBaseData {
-    static get sheet() {
-        return `systems/sohl/templates/item/${this.typeName}-sheet.html`;
+    static ACTION_TYPE = Object.freeze({
+        EDIT: "editItem",
+        DELETE: "deleteItem",
+        SHOWDESC: "showDescription",
+        SETUPVIRTUALITEMS: "setupVirtualItems",
+        PROCESSSIBLINGS: "processSiblings",
+        POSTPROCESS: "postProcess",
+    });
+
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "",
+                label: "",
+                labelPlural: "",
+                img: "",
+                iconCssClass: "",
+                sheet: "systems/sohl/templates/item/item-sheet.html",
+                nestOnly: false,
+                defaultAction: SohlItemData.ACTION_TYPE.EDIT,
+                actionTypes: Object.fromEntries(
+                    [
+                        {
+                            type: SohlItemData.ACTION_TYPE.EDIT,
+                            contextIconClass: "fas fa-edit",
+                            contextCondition: (header) => {
+                                header =
+                                    header instanceof HTMLElement
+                                        ? header
+                                        : header[0];
+                                const li = header.closest(".item");
+                                const item = fromUuidSync(li.dataset.uuid);
+                                if (item.actor?.isOwner || item.isOwner)
+                                    return true;
+                            },
+                            contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+                        },
+                        {
+                            type: SohlItemData.ACTION_TYPE.DELETE,
+                            contextIconClass: "fas fa-trash",
+                            contextCondition: (header) => {
+                                header =
+                                    header instanceof HTMLElement
+                                        ? header
+                                        : header[0];
+                                const li = header.closest(".item");
+                                const item = fromUuidSync(li.dataset.uuid);
+                                if (item.actor?.isOwner || item.isOwner)
+                                    return true;
+                            },
+                            contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+                        },
+                        {
+                            type: SohlItemData.ACTION_TYPE.SHOWDESC,
+                            contextIconClass: "fas fa-scroll",
+                            contextCondition: (header) => {
+                                header =
+                                    header instanceof HTMLElement
+                                        ? header
+                                        : header[0];
+                                const li = header.closest(".item");
+                                const item = fromUuidSync(li.dataset.uuid);
+                                if (!item) return false;
+                                return (
+                                    item &&
+                                    (item.system.description ||
+                                        item.system.notes ||
+                                        item.system.textReference)
+                                );
+                            },
+                            contextGroup: SohlContextMenu.SORT_GROUPS.GENERAL,
+                        },
+                        {
+                            type: SohlItemData.ACTION_TYPE.SETUPVIRTUALITEMS,
+                            contextIconClass: "far fa-gears",
+                            contextCondition: false,
+                            contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
+                            useAsync: false,
+                        },
+                        {
+                            type: SohlItemData.ACTION_TYPE.PROCESSSIBLINGS,
+                            contextIconClass: "far fa-gears",
+                            contextCondition: false,
+                            contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
+                            useAsync: false,
+                        },
+                        {
+                            type: SohlItemData.ACTION_TYPE.PROCESSSIBLINGS,
+                            contextIconClass: "far fa-gears",
+                            contextCondition: false,
+                            contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
+                            useAsync: false,
+                        },
+                    ].map((t) => [
+                        t.type,
+                        foundry.utils.mergeObject(
+                            t,
+                            {
+                                functionName: t.type,
+                                name: `SOHL.ITEMDATA.actionTypes.${t.type}`,
+                            },
+                            { inplace: false },
+                        ),
+                    ]),
+                ),
+                schemaVersion: "0.6.5",
+            },
+            { inplace: false },
+        ),
+    );
+
+    static defineSchema() {
+        return foundry.utils.mergeObject(super.defineSchema(), {
+            notes: new fields.StringField(),
+            description: new fields.HTMLField(),
+            textReference: new fields.StringField(),
+            items: new fields.EmbeddedCollectionField(SohlItem),
+            transfer: new fields.BooleanField({ initial: false }),
+        });
     }
 
-    /**
-     * Static property that returns a boolean value indicating whether this item
-     * must be nested or not.
-     *
-     * @static
-     * @readonly
-     * @type {boolean}
-     */
-    static get nestOnly() {
-        return false;
+    static get parentDocumentClass() {
+        return SohlItem;
     }
 
     getEvent(eventTag) {
@@ -3222,28 +5784,6 @@ export class SohlItemData extends SohlBaseData {
         return SohlBaseData.comparison.DIFFERENT;
     }
 
-    static defineSchema() {
-        return foundry.utils.mergeObject(super.defineSchema(), {
-            notes: new fields.StringField({
-                initial: "",
-                label: "Notes",
-            }),
-            description: new fields.HTMLField({
-                initial: "",
-                label: "Description",
-            }),
-            textReference: new fields.StringField({
-                initial: "",
-                label: "Reference",
-            }),
-            nestedItems: new fields.ArrayField(new fields.ObjectField()),
-            transfer: new fields.BooleanField({
-                initial: false,
-                label: "Transfer to Actor",
-            }),
-        });
-    }
-
     /** @override */
     // FIXME biome-ignore lint/correctness/noUnusedVariables: <explanation>
     async _preCreate(data, options, userId) {
@@ -3252,21 +5792,16 @@ export class SohlItemData extends SohlBaseData {
     }
 
     async deleteItem() {
-        let title = `Delete Item: ${this.name}`;
-        let content =
-            "<p>Are You Sure?</p><p>This item will be deleted and cannot be recovered.</p>";
-
-        if (this instanceof ContainerGearItemData) {
-            title = `Delete Container: ${this.name}`;
-            content +=
-                "<p>WARNING: All items in this container will be deleted as well!</p>" +
-                content;
-        }
-
         // Create the dialog window
         const agree = await Dialog.confirm({
-            title: title,
-            content: content,
+            title:
+                this instanceof ContainerGearItemData
+                    ? "SOHL.ITEMDATA.deleteItem.Container.title"
+                    : "SOHL.ITEMDATA.deleteItem.NonContainer.title",
+            content:
+                this instanceof ContainerGearItemData
+                    ? "SOHL.ITEMDATA.deleteItem.Container.queryHtml"
+                    : "SOHL.ITEMDATA.deleteItem.NonContainer.queryHtml",
             yes: () => true,
         });
 
@@ -3280,110 +5815,174 @@ export class SohlItemData extends SohlBaseData {
     }
 
     getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
-        return super
-            .getIntrinsicActions(_data, defaultAction, [
-                {
-                    functionName: "editItem",
-                    name: "Edit",
-                    contextIconClass: "fas fa-edit",
-                    contextCondition: () => {
-                        if (_data.actor?.isOwner || _data.item.isOwner)
-                            return true;
-                    },
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "deleteItem",
-                    name: "Delete",
-                    contextIconClass: "fas fa-trash",
-                    contextCondition: () => {
-                        if (_data.actor?.isOwner || _data.item.isOwner)
-                            return true;
-                    },
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "showDescription",
-                    name: "Show Description",
-                    contextIconClass: "fas fa-scroll",
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return (
-                            item &&
-                            !!(
-                                _data.description ||
-                                _data.notes ||
-                                _data.textReference
-                            )
-                        );
-                    },
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "setupVirtualItems",
-                    name: "Setup Virtual Items",
-                    contextIconClass: "fas fa-gears",
-                    contextCondition: false,
-                    contextGroup: "hidden",
-                },
-                {
-                    functionName: "processSiblings",
-                    name: "Process Siblings",
-                    contextIconClass: "fas fa-gears",
-                    contextCondition: false,
-                    contextGroup: "hidden",
-                },
-                {
-                    functionName: "postProcess",
-                    name: "Post-Process",
-                    contextIconClass: "fas fa-gears",
-                    contextCondition: false,
-                    contextGroup: "hidden",
-                },
-            ])
-            .concat(actions);
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            Utility.uniqueActions(
+                actions,
+                [
+                    SohlItemData.ACTION_TYPE.EDIT,
+                    SohlItemData.ACTION_TYPE.DELETE,
+                    SohlItemData.ACTION_TYPE.SHOWDESC,
+                    SohlItemData.ACTION_TYPE.SETUPVIRTUALITEMS,
+                    SohlItemData.ACTION_TYPE.PROCESSSIBLINGS,
+                    SohlItemData.ACTION_TYPE.POSTPROCESS,
+                ].map((a) => SohlItemData.metadata.actionTypes[a]),
+            ),
+        );
     }
 
     async showDescription() {
         const chatData = {
-            variant: SOHL.sysVer.id,
+            variant: CONFIG.SOHL.id,
             name: this.item.name,
-            subtitle: `${this.subType} ${this.constructor.typeLabel.singular}`,
+            subtitle: this.label,
             level: this.$level.effective,
             desc: this.description,
             notes: this.notes,
             textRef: this.item.system.textReference,
         };
 
-        if (this.item.type === MysticalAbilityItemData.typeName) {
-            chatData.name += ` (${this.$level.roman})`;
-            chatData.subtitle = `${this.domain} ${
-                this.constructor.domainLabel[this.domain] || "Domain"
-            }`;
-            if (this.charges.usesCharges) {
-                chatData.charges = `${this.$charges.effective}`;
-                if (this.$maxCharges.effective) {
-                    chatData.charges += `/${this.$maxCharges}`;
-                }
-            }
-        }
-
         const chatTemplate = "systems/sohl/templates/chat/item-desc-card.html";
 
-        const html = await renderTemplate(chatTemplate, chatData);
+        const chatHtml = await renderTemplate(chatTemplate, chatData);
 
         const messageData = {
             user: game.user.id,
             speaker: ChatMessage.getSpeaker(),
-            content: html.trim(),
+            content: chatHtml.trim(),
             sound: CONFIG.sounds.notification,
         };
 
         // Create a chat message
         return ChatMessage.create(messageData);
+    }
+
+    _preSuccessTestDialog(scope) {
+        scope.rollMode ??= game.settings.get("core", "rollMode");
+        scope.typeLabel ??= _l(this.constructor.metadata.label);
+        scope.situationalModifier ??= 0;
+
+        if (scope.testResult) {
+            scope.testResult = Utility.JSON_reviver({
+                thisArg: this,
+            })("", scope.testResult);
+        } else {
+            if (!scope.mlMod)
+                throw new Error("Must specify either testResult or mlMod");
+            scope.testResult = new CONFIG.SOHL.class.SuccessTestResult(scope, {
+                parent: this,
+            });
+        }
+
+        const sitMod = scope.testResult.mlMod.get(
+            SohlBaseData.MODS.PLAYER.abbrev,
+        );
+
+        if (sitMod?.op === ValueModifier.OPERATOR.ADD) {
+            scope.testResult.situationalModifier = sitMod.value;
+            scope.testResult.mlMod.delete(sitMod.abbrev);
+        }
+
+        const impSitMod = scope.testResult.impactMod?.get(
+            SohlBaseData.MODS.PLAYER.abbrev,
+        );
+
+        if (impSitMod?.op === ValueModifier.OPERATOR.ADD) {
+            scope.testResult.impactSituationalModifier = impSitMod.value;
+            scope.testResult.impactMod.delete(impSitMod.abbrev);
+        }
+
+        return scope.testResult;
+    }
+
+    _postSuccessTestDialog(testResult, dlgResult) {
+        if (dlgResult.situationalModifier) {
+            testResult.mlMod.add(
+                CONFIG.SOHL.MOD.PLAYER,
+                dlgResult.situationalModifier,
+            );
+        }
+
+        testResult.mlMod.successLevelMod = dlgResult.successLevelMod;
+
+        if (dlgResult.impactSituationalModifier) {
+            testResult.impactMod.add(
+                CONFIG.SOHL.MOD.PLAYER,
+                dlgResult.impactSituationalModifier,
+            );
+        }
+
+        return testResult;
+    }
+
+    /**
+     * Perform Success Test for this Item
+     *
+     * @param {object} options
+     * @returns {SuccessTestChatData}
+     */
+    async successTest(speaker, actor, token, character, scope = {}) {
+        let { skipDialog = false, noChat = false, testResult } = scope;
+
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+            speaker,
+            actor,
+            token,
+            character,
+            needsActor: true,
+            self: this,
+        }));
+
+        scope.speaker ||= speaker;
+        testResult = this._preSuccessTestDialog(scope);
+
+        let dlgResult = null;
+        if (!skipDialog) {
+            // Render modal dialog
+            let dlgTemplate =
+                "systems/sohl/templates/dialog/standard-test-dialog.html";
+
+            let { ...dialogData } = testResult;
+            foundry.utils.mergeObject(dialogData, {
+                variant: CONFIG.SOHL.id,
+                title: `${this.actor.token ? this.actor.token.name : this.actor.name} ${testResult.title}`,
+                rollModes: Object.entries(CONFIG.Dice.rollModes).map(
+                    ([k, v]) => ({
+                        group: "CHAT.RollDefault",
+                        value: k,
+                        label: v,
+                    }),
+                ),
+            });
+            const dlgHtml = await renderTemplate(dlgTemplate, dialogData);
+
+            // Create the dialog window
+            dlgResult = await Dialog.prompt({
+                title: dialogData.title,
+                content: dlgHtml.trim(),
+                label: "Roll",
+                callback: (element) => {
+                    const form = element.querySelector("form");
+                    const fd = new FormDataExtended(form);
+                    const formData = fd.object;
+                    return formData;
+                },
+                rejectClose: false,
+                options: { jQuery: false },
+            });
+
+            if (!dlgResult) return false;
+        }
+
+        testResult = this._postSuccessTestDialog(testResult, dlgResult);
+
+        let allowed = await testResult.evaluate();
+
+        if (allowed && !noChat) {
+            await testResult.toChat();
+        }
+        return allowed ? testResult : false;
     }
 
     /**
@@ -3400,11 +5999,11 @@ export class SohlItemData extends SohlBaseData {
             .forEach((ni) => {
                 const ignore =
                     [
-                        "protection",
-                        "meleestrikemode",
-                        "missilestrikemode",
-                        "combattechniquestrikemode",
-                    ].includes(ni.type) && ni.system.subType !== SOHL.sysVer.id;
+                        ProtectionItemData.metadata.name,
+                        MeleeWeaponStrikeModeItemData.metadata.name,
+                        MissileWeaponStrikeModeItemData.metadata.name,
+                        CombatTechniqueStrikeModeItemData.metadata.name,
+                    ].includes(ni.type) && ni.system.subType !== CONFIG.SOHL.id;
 
                 if (!ignore) {
                     const data = foundry.utils.deepClone(ni);
@@ -3536,138 +6135,127 @@ export class AnimateEntityActorData extends SohlActorData {
 
     $magicMod;
 
-    static get typeName() {
-        return "entity";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Animate Entity",
-            plural: "Animate Entities",
-        };
-    }
-
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "mod:system.$engagedOpponents": {
-                label: "Engaged Opponents",
-                abbrev: "EngOpp",
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "entity",
+                locId: "ENTITY",
+                iconCssClass: "fas fa-person",
+                label: "TYPES.Actor.entity",
+                labelPlural: "TYPES.Actor.entityPl",
+                img: "icons/svg/item-bag.svg",
+                sheet: "systems/sohl/templates/actor/actor-sheet.html",
+                effectKeys: {
+                    "mod:system.$engagedOpponents": {
+                        label: "SOHL.ENTITY.effectKeys.engagedOpponents",
+                        abbrev: "EngOpp",
+                    },
+                },
+                schemaVersion: "0.5.6",
             },
-        });
-    }
+            { inplace: false },
+        ),
+    );
 
     getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
         return super.getIntrinsicActions(
             _data,
             defaultAction,
-            Utility.uniqueActions(actions, [
-                {
-                    functionName: "opposedTestResume",
-                    name: "Opposed Test Resume",
-                    contextIconClass: "far fa-gears",
-                    contextCondition: true,
-                    contextGroup: "hidden",
-                },
-                {
-                    functionName: "calcImpact",
-                    name: "Calculate Impact",
-                    contextIconClass: "fas fa-bullseye-arrow",
-                    contextCondition: true,
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "shockTest",
-                    name: "Shock Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.SHOCK
-                        ].icon,
-                    contextCondition: true,
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "stumbleTest",
-                    name: "Stumble Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.STUMBLE
-                        ].icon,
-                    contextCondition: true,
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "fumbleTest",
-                    name: "Fumble Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.FUMBLE
-                        ].icon,
-                    contextCondition: true,
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "moraleTest",
-                    name: "Morale Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.MORALE
-                        ].icon,
-                    contextCondition: true,
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "fearTest",
-                    name: "Fear Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.FEAR
-                        ].icon,
-                    contextCondition: true,
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "contractAfflictionTest",
-                    name: "Contract Affliction Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.AFFLICTIONCONTRACT
-                        ].icon,
-                    contextCondition: true,
-                    contextGroup: "general",
-                },
-            ]),
+            Utility.uniqueActions(
+                actions,
+                [
+                    SuccessTestResult.TEST_TYPE.IMPROVESDR,
+                    SuccessTestResult.TEST_TYPE.SKILL,
+                    SuccessTestResult.TEST_TYPE.SHOCK,
+                    SuccessTestResult.TEST_TYPE.STUMBLE,
+                    SuccessTestResult.TEST_TYPE.FUMBLE,
+                    SuccessTestResult.TEST_TYPE.MORALE,
+                    SuccessTestResult.TEST_TYPE.FEAR,
+                    SuccessTestResult.TEST_TYPE.AFFLICTIONCONTRACT,
+                    SuccessTestResult.TEST_TYPE.FATIGUE,
+                    SuccessTestResult.TEST_TYPE.AFFLICTIONCOURSE,
+                    SuccessTestResult.TEST_TYPE.TREATMENT,
+                    SuccessTestResult.TEST_TYPE.DIAGNOSIS,
+                    SuccessTestResult.TEST_TYPE.HEAL,
+                    SuccessTestResult.TEST_TYPE.BLEEDINGSTOPPAGE,
+                    SuccessTestResult.TEST_TYPE.BLOODLOSSADVANCE,
+                ].map((a) => SuccessTestResult.testTypes[a]),
+            ),
         );
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async improveWithSDR(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async successTest(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async fatigueTest(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async courseTest(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async treatmentTest(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async diagnosisTest(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async healingTest(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async bleedingStoppageTest(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async bloodLossAdvanceTest(speaker, actor, token, character, scope = {}) {
+        return;
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: <explanation>
     async calcImpact(speaker, actor, token, character, scope = {}) {
         let { impactResult, itemId } = scope;
-        if (!impactResult && !itemId) return null;
-        if (itemId) {
-            for (let it of this.actor.allItems()) {
-                if (it.id === itemId)
-                    return it.execute("calcImpact", { impactResult });
+        if (!(impactResult instanceof ImpactResult)) {
+            if (!itemId) {
+                throw new Error("must provide either impactResult or itemId");
             }
-        } else {
-            impactResult =
-                impactResult instanceof ImpactResult
-                    ? impactResult
-                    : new ImpactResult.fromData(impactResult);
-            return impactResult.item?.system.execute("calcImpact", {
-                impactResult,
+            const item = this.actor.getItem(itemId, {
+                types: [
+                    MeleeWeaponStrikeModeItemData.TYPE_NAME,
+                    MissileWeaponStrikeModeItemData.TYPE_NAME,
+                    CombatTechniqueStrikeModeItemData.TYPE_NAME,
+                ],
             });
+            impactResult = Utility.JSON_reviver({
+                thisArg: item.system,
+            })("", impactResult);
         }
-        return null;
+        return impactResult.item?.system.execute("calcImpact", {
+            impactResult,
+        });
     }
 
-    shockTest(speaker, actor, token, character, scope = {}) {
-        let {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.name}-shock-test`,
-            title = `${this.name} Shock Test`,
-            testResult,
-        } = scope;
+    async shockTest(speaker, actor, token, character, scope = {}) {
+        let { testResult } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3680,43 +6268,25 @@ export class AnimateEntityActorData extends SohlActorData {
         if (!testResult) {
             const shockSkill = this.actor.getItem("shk", { types: ["skill"] });
             if (!shockSkill) return null;
-            testResult = SuccessTestResult.fromData({
-                speaker,
-                item: shockSkill,
-                rollMode: game.settings.get("core", "rollMode"),
-                type,
-                title,
-                situationalModifier: 0,
-                typeLabel: shockSkill.system.constructor.typeLabel,
-                mlMod: MasteryLevelModifier.create(
-                    shockSkill.system.$masteryLevel,
-                    shockSkill.system,
-                ),
-            });
+            testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    testType: SuccessTestResult.TEST_TYPE.SHOCK,
+                    mlMod: Utility.deepClone(shockSkill.system.$masteryLevel),
+                },
+                { parent: shockSkill.system },
+            );
             // For the shock test, the test should not include the impairment penalty
             testResult.mlMod.delete("BPImp");
         }
 
-        testResult = testResult.item.system.successTest({
-            skipDialog,
-            noChat,
-            type,
-            title,
-            testResult,
-        });
+        testResult = testResult.item.system.successTest(scope);
 
         testResult.shockMod = 1 - testResult.successLevel;
         return testResult;
     }
 
-    stumbleTest(speaker, actor, token, character, scope = {}) {
-        let {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.name}-stumble-test`,
-            title = `${this.name} Stumble Test`,
-            testResult,
-        } = scope;
+    async stumbleTest(speaker, actor, token, character, scope = {}) {
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3726,7 +6296,7 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        if (!testResult) {
+        if (!scope.testResult) {
             const agility = this.actor.getItem("agl", { types: ["trait"] });
             const acrobatics = this.actor.getItem("acro", { types: ["skill"] });
             const item =
@@ -3736,38 +6306,20 @@ export class AnimateEntityActorData extends SohlActorData {
                     : acrobatics;
             if (!item) return null;
 
-            testResult = SuccessTestResult.fromData({
-                speaker,
-                item: item,
-                rollMode: game.settings.get("core", "rollMode"),
-                type,
-                title,
-                situationalModifier: 0,
-                typeLabel: item.system.constructor.typeLabel,
-                mlMod: MasteryLevelModifier.create(
-                    item.system.$masteryLevel,
-                    item.system,
-                ),
-            });
+            scope.testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    testType: SuccessTestResult.TEST_TYPE.STUMBLE,
+                    mlMod: Utility.deepClone(item.system.$masteryLevel),
+                },
+                { parent: item.system },
+            );
         }
 
-        return testResult.item.system.successTest({
-            skipDialog,
-            noChat,
-            type,
-            title,
-            testResult,
-        });
+        return scope.testResult.item.system.successTest(scope);
     }
 
-    fumbleTest(speaker, actor, token, character, scope = {}) {
-        let {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.name}-fumble-test`,
-            title = `${this.name} Fumble Test`,
-            testResult,
-        } = scope;
+    async fumbleTest(speaker, actor, token, character, scope = {}) {
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3777,7 +6329,7 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        if (!testResult) {
+        if (!scope.testResult) {
             const dexterity = this.actor.getItem("dex", { types: ["trait"] });
             const legerdemain = this.actor.getItem("lgdm", {
                 types: ["skill"],
@@ -3789,38 +6341,20 @@ export class AnimateEntityActorData extends SohlActorData {
                     : legerdemain;
             if (!item) return null;
 
-            testResult = SuccessTestResult.fromData({
-                speaker,
-                item: item,
-                rollMode: game.settings.get("core", "rollMode"),
-                type,
-                title,
-                situationalModifier: 0,
-                typeLabel: item.system.constructor.typeLabel,
-                mlMod: MasteryLevelModifier.create(
-                    item.system.$masteryLevel,
-                    item.system,
-                ),
-            });
+            scope.testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    testType: SuccessTestResult.TEST_TYPE.FUMBLE,
+                    mlMod: Utility.deepClone(item.system.$masteryLevel),
+                },
+                { parent: item.system },
+            );
         }
 
-        return testResult.item.system.successTest({
-            skipDialog,
-            noChat,
-            type,
-            title,
-            testResult,
-        });
+        return scope.testResult.item.system.successTest(scope);
     }
 
     async moraleTest(speaker, actor, token, character, scope = {}) {
-        let {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.name}-morale-test`,
-            title = `${this.name} Morale Test`,
-            testResult,
-        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3830,63 +6364,24 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        if (!testResult) {
+        if (!scope.testResult) {
             const initSkill = this.actor.getItem("init", { types: ["skill"] });
             if (!initSkill) return null;
-            testResult = SuccessTestResult.fromData({
-                speaker,
-                item: initSkill,
-                rollMode: game.settings.get("core", "rollMode"),
-                type,
-                title,
-                situationalModifier: 0,
-                typeLabel: initSkill.system.constructor.typeLabel,
-                mlMod: MasteryLevelModifier.create(
-                    initSkill.system.$masteryLevel,
-                    initSkill.system,
-                ),
-            });
+            scope.testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    testType: SuccessTestResult.TEST_TYPE.MORALE,
+                    mlMod: Utility.deepClone(initSkill.system.$masteryLevel),
+                },
+                { parent: initSkill.system },
+            );
         }
 
-        let createMorale = game.settings.get("sohl", "recordTrauma");
-        if (!testResult.isSuccess && createMorale !== "disable") {
-            if (createMorale === "ask") {
-                createMorale = await Dialog.confirm({
-                    title: `Create ${testResult.item.label}`,
-                    content: `<p>Do you wish to create the ${testResult.item.label} on ${this.actor.name}?</p>`,
-                    yes: () => {
-                        return "enable";
-                    },
-                });
-            }
-
-            if (createMorale === "enable") {
-                SohlItem.create(testResult.item.toObject(), {
-                    parent: this.item,
-                    clean: true,
-                });
-            }
-        }
-
-        testResult = testResult.item.system.successTest({
-            skipDialog,
-            noChat,
-            type,
-            title,
-            testResult,
-        });
-
-        return testResult;
+        scope.testResult = scope.testResult.item.system.successTest(scope);
+        return this._createTestItem(scope);
     }
 
     async fearTest(speaker, actor, token, character, scope = {}) {
-        let {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.name}-fear-test`,
-            title = `${this.name} Fear Test`,
-            testResult,
-        } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3896,64 +6391,59 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        if (!testResult) {
+        if (!scope.testResult) {
             const initSkill = this.actor.getItem("init", { types: ["skill"] });
             if (!initSkill) return null;
-            testResult = SuccessTestResult.fromData({
-                speaker,
-                item: initSkill,
-                rollMode: game.settings.get("core", "rollMode"),
-                type,
-                title,
-                situationalModifier: 0,
-                typeLabel: initSkill.system.constructor.typeLabel,
-                mlMod: MasteryLevelModifier.create(
-                    initSkill.system.$masteryLevel,
-                    initSkill.system,
-                ),
-            });
+            scope.testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    testType: SuccessTestResult.TEST_TYPE.FEAR,
+                    mlMod: Utility.deepClone(initSkill.system.$masteryLevel),
+                },
+                { parent: initSkill.system },
+            );
         }
 
-        testResult = testResult.item.system.successTest({
-            skipDialog,
-            noChat,
-            type,
-            title,
-            testResult,
-        });
+        scope.testResult = scope.testResult.item.system.successTest(scope);
+        return this._createTestItem(scope);
+    }
 
-        let createFear = game.settings.get("sohl", "recordTrauma");
-        if (!testResult.isSuccess && createFear !== "disable") {
-            if (createFear === "ask") {
-                createFear = await Dialog.confirm({
-                    title: `Create ${testResult.item.label}`,
-                    content: `<p>Do you wish to create the ${testResult.item.label} on ${this.actor.name}?</p>`,
+    async _createTestItem(scope) {
+        let createItem = game.settings.get("sohl", "recordTrauma");
+        if (!scope.testResult.isSuccess && createItem !== "disable") {
+            if (createItem === "ask") {
+                createItem = await Dialog.confirm({
+                    title: _l(
+                        "SOHL.Actor.entity._createTestItem.dialog.title",
+                        {
+                            label: scope.testResult.item.label,
+                        },
+                    ),
+                    content: _l(
+                        "SOHL.Actor.entity._createTestItem.dialog.content",
+                        {
+                            label: scope.testResult.item.label,
+                            name: this.name,
+                        },
+                    ),
                     yes: () => {
                         return "enable";
                     },
                 });
             }
 
-            if (createFear === "enable") {
-                SohlItem.create(testResult.item.toObject(), {
+            if (createItem === "enable") {
+                await SohlItem.create(scope.testResult.item.toObject(), {
                     parent: this.item,
                     clean: true,
                 });
             }
         }
-
-        return testResult;
+        return scope.testResult;
     }
 
     async contractAfflictionTest(speaker, actor, token, character, scope = {}) {
-        let {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.name}-contract-affliction-test`,
-            title,
-            testResult = null,
-            afflictionObj = null,
-        } = scope;
+        let { afflictionObj } = scope;
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -3963,56 +6453,24 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        if (!testResult) {
+        if (!scope.testResult) {
             if (!afflictionObj) return null;
 
             const item = new SohlItem(afflictionObj);
             if (!item) return null;
 
-            testResult = SuccessTestResult.fromData({
-                speaker,
-                item: item,
-                rollMode: game.settings.get("core", "rollMode"),
-                type,
-                title: title || `${this.name} Contract ${item.label} Test`,
-                situationalModifier: 0,
-                typeLabel: item.system.constructor.typeLabel,
-                mlMod: MasteryLevelModifier.create(
-                    item.system.$masteryLevel,
-                    item.system,
-                ),
-            });
+            scope.testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    testType: SuccessTestResult.TEST_TYPE.AFFLICTIONCONTRACT,
+                    mlMod: Utility.deepClone(item.system.$masteryLevel),
+                },
+                { parent: item.system },
+            );
         }
 
-        testResult = testResult.item.system.successTest({
-            skipDialog,
-            noChat,
-            type,
-            title,
-            testResult,
-        });
-
-        let createAffliction = game.settings.get("sohl", "recordTrauma");
-        if (!testResult.isSuccess && createAffliction !== "disable") {
-            if (createAffliction === "ask") {
-                createAffliction = await Dialog.confirm({
-                    title: `Create ${testResult.item.label}`,
-                    content: `<p>Do you wish to create the ${testResult.item.label} on ${this.actor.name}?</p>`,
-                    yes: () => {
-                        return "enable";
-                    },
-                });
-            }
-
-            if (createAffliction === "enable") {
-                SohlItem.create(testResult.item.toObject(), {
-                    parent: this.item,
-                    clean: true,
-                });
-            }
-        }
-
-        return testResult;
+        scope.testResult = scope.testResult.item.system.successTest(scope);
+        return this._createTestItem(scope);
     }
 
     /**
@@ -4025,7 +6483,7 @@ export class AnimateEntityActorData extends SohlActorData {
      * @returns {OpposedTestResult} result of the test
      */
     async opposedTestResume(speaker, actor, token, character, scope = {}) {
-        let { opposedTestResult, testType } = scope;
+        let { opposedTestResult } = scope;
         if (!opposedTestResult) {
             throw new Error("Must supply opposedTestResult");
         }
@@ -4039,193 +6497,110 @@ export class AnimateEntityActorData extends SohlActorData {
             self: this,
         }));
 
-        opposedTestResult.testType ||= SuccessTestResult.TEST_TYPE.IGNORE;
+        const sourceItem = opposedTestResult.sourceTestResult.item;
 
-        if (testType === SuccessTestResult.TEST_TYPE.IGNORE) {
-            return await this.execute("ignoreResume", scope);
-        }
-
-        if (!opposedTestResult.targetTestResult.item) {
-            let opposedItems = [];
-            let defaultItemUuid = null;
-            let label = "Melee Strike Mode";
-            switch (testType) {
-                case SuccessTestResult.TEST_TYPE.SKILL:
-                    label = "Skill";
-                    for (const it of this.actor.allItems()) {
-                        if (
-                            it.system instanceof TraitItemData &&
-                            it.system.intensity === "attribute"
-                        ) {
-                            if (!it.system.$masteryLevel.disabled) {
-                                opposedItems.push({
-                                    name: `Attribute: ${it.name} (ML:${it.system.$masteryLevel.effective})`,
-                                    uuid: it.uuid,
-                                    value: it.system.$masteryLevel,
-                                    item: it,
-                                });
-                            }
-                        } else if (it.system instanceof SkillItemData) {
-                            if (!it.system.$masteryLevel.disabled) {
-                                opposedItems.push({
-                                    name: `Skill: ${it.name} (ML:${it.system.$masteryLevel.effective})`,
-                                    uuid: it.uuid,
-                                    value: it.system.$masteryLevel,
-                                    item: it,
-                                });
-                            }
-                        }
-                    }
-                    if (opposedItems.length) {
-                        opposedItems.sort((a, b) =>
-                            a.name.localeCompare(b.name),
-                        );
-                        const defaultItem = opposedItems.find(
-                            (oi) =>
-                                oi.item.type ===
-                                    opposedTestResult.sourceTestResult.item
-                                        .type &&
-                                oi.item.name ===
-                                    opposedTestResult.sourceTestResult.item
-                                        .name,
-                        );
-                        if (defaultItem) {
-                            defaultItemUuid = defaultItem.uuid;
-                        } else {
-                            defaultItemUuid = opposedItems[0].uuid;
-                        }
-                        defaultItemUuid = opposedItems[0].uuid;
-                    }
-                    break;
-
-                case SuccessTestResult.TEST_TYPE.BLOCK:
-                    opposedItems = this.actor.itemTypes.meleestrikemode.reduce(
-                        (ary, it) => {
-                            if (!it.system.$defense.block.disabled) {
-                                ary.push({
-                                    name: it.name,
-                                    uuid: it.uuid,
-                                    value: it.system.$defense.block,
-                                    item: it,
-                                });
-                            }
-                            return ary;
+        const skill = await Utility.getOpposedItem({
+            actor: this.parent,
+            label: _l(
+                "SOHL.Actor.entity.opposedTestResume.getOpposedItem.label",
+            ),
+            title: _l(
+                "SOHL.Actor.entity.opposedTestResume.getOpposedItem.title",
+                {
+                    name: token.name,
+                },
+            ),
+            func: (it) => {
+                let result = false;
+                if (
+                    (it.system instanceof TraitItemData &&
+                        it.system.intensity === "attribute" &&
+                        !it.system.$masteryLevel.disabled) ||
+                    it.system instanceof SkillItemData
+                ) {
+                    const name = _l(
+                        "SOHL.Actor.entity.opposedTestResume.getOpposedItem.attributeLabel",
+                        {
+                            name: it.name,
+                            ml: it.system.$masteryLevel.effective,
                         },
-                        [],
                     );
-                    if (opposedItems.length) {
-                        opposedItems.sort(
-                            (a, b) => b.value.effective - a.value.effective,
-                        );
-                        defaultItemUuid = opposedItems[0].uuid;
-                    }
-                    break;
-
-                case SuccessTestResult.TEST_TYPE.DODGE:
-                    {
-                        const dodgeSkill = this.actor.getItem("dge", {
-                            types: ["skill"],
-                        });
-                        opposedItems.push({
-                            name: dodgeSkill.name,
-                            uuid: dodgeSkill.uuid,
-                            value: dodgeSkill.system.$masteryLevel,
-                            item: dodgeSkill,
-                        });
-                    }
-                    if (opposedItems.length) {
-                        defaultItemUuid = opposedItems[0].uuid;
-                    }
-                    break;
-
-                case SuccessTestResult.TEST_TYPE.COUNTERSTRIKE:
-                    opposedItems = this.actor.itemTypes.meleestrikemode.reduce(
-                        (ary, it) => {
-                            ary.push({
-                                name: it.name,
-                                uuid: it.uuid,
-                                value: it.system.$defense.counterstrike,
-                                item: it,
-                            });
-                            return ary;
+                    result = {
+                        key: name,
+                        value: {
+                            name,
+                            uuid: it.uuid,
+                            value: it.system.$masteryLevel,
+                            item: it,
                         },
-                        [],
-                    );
-                    opposedItems.sort(
-                        (a, b) => b.value.effective - a.value.effective,
-                    );
-                    defaultItemUuid = opposedItems[0].uuid;
-                    break;
-            }
+                    };
+                }
+                return result;
+            },
+            compareFn: (a, b) => {
+                if (
+                    a.value.item.type === sourceItem.type &&
+                    a.value.item.name === sourceItem.name
+                )
+                    return -1; // Move item to the front
+                if (
+                    b.value.item.type === sourceItem.type &&
+                    b.value.item.name === sourceItem.name
+                )
+                    return -1; // Move item to the front
+                return 0; // Keep relative order for other items
+            },
+        });
 
-            if (!opposedItems.length) {
-                ui.notifications.warn("No items available for opposing test");
-                return null;
-            } else if (opposedItems.length === 1) {
-                opposedTestResult.targetTestResult.item = opposedItems[0].item;
-            } else {
-                const dialogOptions = {
-                    variant: "legendary",
-                    type: "opposed-item-select",
-                    title: `${token.name} select ${label} vs. ${opposedTestResult.sourceTestResult.token.name} ${opposedTestResult.sourceTestResult.title}`,
-                    opposedItems,
-                    defaultItem: defaultItemUuid,
-                };
-                const compiled = Handlebars.compile(`<form id="select-token">
-                    <div class="form-group">
-                    <span>${opposedTestResult.sourceTestResult.token.name} using ${opposedTestResult.sourceTestResult.title}</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Select which ${label} to use:</label>
-                        <select name="opposedItemUuid">
-                        {{selectOptions opposedItems selected=defaultItem valueAttr="uuid" labelAttr="name"}}
-                        </select>
-                    </div></form>`);
-                const dlgHtml = compiled(dialogOptions, {
-                    allowProtoMethodsByDefault: true,
-                    allowProtoPropertiesByDefault: true,
-                });
-                opposedTestResult.targetTestResult.item = await Dialog.prompt({
-                    title: `Choose ${label}`,
-                    content: dlgHtml,
-                    label: "OK",
-                    callback: async (html) => {
-                        const form = html.querySelector("form");
-                        const fd = new FormDataExtended(form);
-                        const formdata = foundry.utils.expandObject(fd.object);
-                        const opposedItem = opposedItems.find(
-                            (obj) => obj.uuid === formdata.opposedItemUuid,
-                        );
-                        return opposedItem?.item;
-                    },
-                    options: { jQuery: false },
-                    rejectClose: false,
-                });
-            }
-            if (!opposedTestResult.targetTestResult.item) return null;
+        if (skill === null) {
+            return null;
+        } else if (skill === false) {
+            ui.notifications.warn(
+                _l(
+                    "SOHL.Actor.entity.opposedTestResume.getOpposedItem.noUsableSkills",
+                    { name: token.name },
+                ),
+            );
+            return null;
+        } else {
+            skill.system.execute("opposedTestResume", scope);
         }
-
-        return opposedTestResult.targetTestResult.item.system.execute(
-            "opposedTestResume",
-            scope,
-        );
     }
 
     prepareBaseData() {
+        class HealthModifier extends CONFIG.SOHL.class.ValueModifier {
+            static defineSchema() {
+                return foundry.utils.mergeObject(super.defineSchema(), {
+                    max: new fields.NumberField({
+                        integer: true,
+                        nullable: false,
+                        initial: 0,
+                        min: 0,
+                    }),
+                    pct: new SohlFunctionField({
+                        initial: (thisVM) =>
+                            Math.round(
+                                (thisVM.effective /
+                                    (thisVM.max || Number.EPSILON)) *
+                                    100,
+                            ),
+                    }),
+                });
+            }
+        }
         super.prepareBaseData();
-        this.$health = new ValueModifier(this, {
-            max: 0,
-            value: (thisVM) => thisVM.effective,
-            pct: (thisVM) =>
-                Math.round(
-                    (thisVM.effective / (thisVM.max || Number.EPSILON)) * 100,
-                ),
-        });
-        this.$healingBase = new ValueModifier(this);
+        this.$health = new HealthModifier({}, { parent: this });
+        this.$healingBase = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$zoneSum = 0;
         this.$isSetup = true;
-        this.$shockState = SOHL.CONST.SHOCK.None;
-        this.$engagedOpponents = new ValueModifier(this);
+        this.$shockState = InjuryItemData.SHOCK.NONE;
+        this.$engagedOpponents = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$engagedOpponents.setBase(0);
         this.$domains = Object.fromEntries(
             Object.keys(PhilosophyItemData.categories).map((c) => [c, []]),
@@ -4234,23 +6609,25 @@ export class AnimateEntityActorData extends SohlActorData {
 }
 
 export class InanimateObjectActorData extends SohlActorData {
-    static get typeName() {
-        return "object";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "object",
+                locId: "OBJECT",
+                label: "TYPES.Actor.object",
+                labelPlural: "TYPES.Actor.objectPl",
+                iconCssClass: "fas fa-treasure-chest",
+                img: "icons/svg/item-bag.svg",
+                sheet: "systems/sohl/templates/actor/actor-sheet.html",
+                effectKeys: {},
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
-    static get typeLabel() {
-        return {
-            singular: "Inanimate Object",
-            plural: "Inanimate Objects",
-        };
-    }
-
-    /**
-     * Defines the schema for a specific object by merging the schema defined by the superclass with additional properties. The resulting schema includes a capacityBase field that contains a number field with integer set to true and initial value set to 0. The merging operation is performed non-destructively by setting inplace to false.
-     *
-     * @static
-     * @returns {*}
-     */
     static defineSchema() {
         return foundry.utils.mergeObject(
             super.defineSchema(),
@@ -4272,8 +6649,32 @@ export class InanimateObjectActorData extends SohlActorData {
 
 function SubtypeMixin(Base) {
     return class SubtypeExtension extends Base {
-        static get subTypes() {
-            return new Error(`Subclasses must define subtypes`);
+        /** @inheritdoc */
+        static metadata = Object.freeze(
+            foundry.utils.mergeObject(
+                super.metadata,
+                {
+                    subTypes: "",
+                },
+                { inplace: false },
+            ),
+        );
+        static get SUBTYPE() {
+            return this.metadata.subType;
+        }
+
+        get SUBTYPE() {
+            return this.constructor.SUBTYPE;
+        }
+
+        get label() {
+            return game.i18n.format("SOHL.SohlBaseData.labelWithSubtype", {
+                name: this.parent.name,
+                typeLabel: _l(this.constructor.metadata.label),
+                subType: _l(
+                    `SOHL.${this.constructor.metadata.locId}.SUBTYPE.${this.subType}`,
+                ),
+            });
         }
 
         static defineSchema() {
@@ -4281,10 +6682,12 @@ function SubtypeMixin(Base) {
                 super.defineSchema(),
                 {
                     subType: new fields.StringField({
-                        initial: Object.keys(this.subTypes)[0],
-                        blank: false,
-                        label: "Sub-type",
-                        choices: this.subTypes,
+                        initial: this.metadata.defaultSubtype,
+                        required: true,
+                        choices: Utility.getChoicesMap(
+                            this.metadata.subTypes,
+                            `SOHL.${this.metadata.locId}.SUBTYPE`,
+                        ),
                     }),
                 },
                 { inplace: false },
@@ -4297,63 +6700,56 @@ export class ProtectionItemData extends SubtypeMixin(SohlItemData) {
     $protection;
     $bodyLocations;
 
-    static get typeName() {
-        return "protection";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Protection",
-            plural: "Protections",
-        };
-    }
-
-    static get subTypes() {
-        return SOHL_VARIANTS;
-    }
-
-    /** @override */
-    static get nestOnly() {
-        return true;
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "protection",
+                locId: "PROTECTION",
+                label: "TYPES.Item.protection",
+                labelPlural: "TYPES.Item.protectionPl",
+                iconCssClass: "fas fa-shield",
+                img: "systems/sohl/assets/icons/shield.svg",
+                sheet: "systems/sohl/templates/item/protection-sheet.html",
+                nestOnly: true,
+                effectKeys: {},
+                defaultSubType: SOHL_VARIANTS.legendary,
+                subTypes: SOHL_VARIANTS,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     get transferToActor() {
-        return this.subType === SOHL.sysVer.id && super.transferToActor;
+        return this.subType === CONFIG.SOHL.id && super.transferToActor;
     }
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            protectionBase: new fields.SchemaField(
-                {
-                    blunt: new fields.NumberField({
-                        integer: true,
-                        initial: 0,
-                        min: 0,
-                        label: "Blunt",
-                    }),
-                    edged: new fields.NumberField({
-                        integer: true,
-                        initial: 0,
-                        min: 0,
-                        label: "Edged",
-                    }),
-                    piercing: new fields.NumberField({
-                        integer: true,
-                        initial: 0,
-                        min: 0,
-                        label: "Piercing",
-                    }),
-                    fire: new fields.NumberField({
-                        integer: true,
-                        initial: 0,
-                        min: 0,
-                        label: "Fire",
-                    }),
-                },
-                {
-                    label: "Protection",
-                },
-            ),
+            protectionBase: new fields.SchemaField({
+                blunt: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+                edged: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+                piercing: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+                fire: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+            }),
         });
     }
 
@@ -4362,18 +6758,28 @@ export class ProtectionItemData extends SubtypeMixin(SohlItemData) {
         super.prepareBaseData();
         this.$bodyLocations = [];
         this.$protection = {
-            blunt: new ValueModifier(this).setBase(this.protectionBase.blunt),
-            edged: new ValueModifier(this).setBase(this.protectionBase.edged),
-            piercing: new ValueModifier(this).setBase(
-                this.protectionBase.piercing,
-            ),
-            fire: new ValueModifier(this).setBase(this.protectionBase.fire),
+            blunt: new CONFIG.SOHL.class.ValueModifier(
+                {},
+                { parent: this },
+            ).setBase(this.protectionBase.blunt),
+            edged: new CONFIG.SOHL.class.ValueModifier(
+                {},
+                { parent: this },
+            ).setBase(this.protectionBase.edged),
+            piercing: new CONFIG.SOHL.class.ValueModifier(
+                {},
+                { parent: this },
+            ).setBase(this.protectionBase.piercing),
+            fire: new CONFIG.SOHL.class.ValueModifier(
+                {},
+                { parent: this },
+            ).setBase(this.protectionBase.fire),
         };
     }
 
     processSiblings() {
         super.processSiblings();
-        if (!this.item.nestedIn || this.subType !== SOHL.sysVer.id) return;
+        if (!this.item.nestedIn || this.subType !== CONFIG.SOHL.id) return;
 
         let armorGearData = null;
         if (
@@ -4382,7 +6788,7 @@ export class ProtectionItemData extends SubtypeMixin(SohlItemData) {
         ) {
             armorGearData = this.item.nestedIn.system;
             this.$bodyLocations = this.actor.itemTypes[
-                BodyLocationItemData.typeName
+                BodyLocationItemData.TYPE_NAME
             ].filter(
                 (i) =>
                     armorGearData.locations.flexible.includes(i.name) ||
@@ -4425,129 +6831,103 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
     $defense;
     $durability;
 
-    static get subTypes() {
-        return SOHL_VARIANTS;
-    }
-
-    /** @override */
-    static get nestOnly() {
-        return true;
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                locId: "STRIKEMODE",
+                nestOnly: true,
+                effectKeys: {
+                    "mod:system.$impact": {
+                        label: "SOHL.STRIKEMODE.effectKeys.impact",
+                        abbrev: "Imp",
+                    },
+                    "mod:system.$attack": {
+                        label: "SOHL.STRIKEMODE.effectKeys.attack",
+                        abbrev: "Atk",
+                    },
+                    "system.$defense.block": {
+                        label: "SOHL.STRIKEMODE.effectKeys.block",
+                        abbrev: "Blk",
+                    },
+                    "system.$defense.counterstrike": {
+                        label: "SOHL.STRIKEMODE.effectKeys.counterstrike",
+                        abbrev: "CXMod",
+                    },
+                    "system.$traits.noAttack": {
+                        label: "SOHL.STRIKEMODE.effectKeys.noAttack",
+                        abbrev: "NoAtk",
+                    },
+                    "system.$traits.noBlock": {
+                        label: "SOHL.STRIKEMODE.effectKeys.noBlock",
+                        abbrev: "NoBlk",
+                    },
+                },
+                subTypes: SOHL_VARIANTS,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     get transferToActor() {
-        return this.subType === SOHL.sysVer.id && super.transferToActor;
+        return this.subType === CONFIG.SOHL.id && super.transferToActor;
     }
 
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "mod:system.$impact": { label: "Impact", abbrev: "Imp" },
-            "mod:system.$attack": { label: "Attack", abbrev: "Atk" },
-            "system.$defense.block": { label: "Block", abbrev: "Blk" },
-            "system.$defense.counterstrike": {
-                label: "Counterstrike",
-                abbrev: "CXMod",
-            },
-            "system.$traits.noAttack": {
-                label: "No Attack",
-                abbrev: "NoAtk",
-            },
-            "system.$traits.noBlock": {
-                label: "No Blocking",
-                abbrev: "NoBlk",
-            },
-        });
+    get group() {
+        throw new Error("Subclass must define group");
     }
 
-    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
-        return super.getIntrinsicActions(
-            _data,
-            defaultAction,
-            Utility.uniqueActions(actions, [
-                {
-                    functionName: "opposedTestStart",
-                    name: "Automated Attack",
-                    contextIconClass: "fas fa-sword",
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$attack.disabled;
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "opposedTestResume",
-                    name: "Attack Resume",
-                    contextIconClass: "fas fa-gears",
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$impact.disabled;
-                    },
-                    contextGroup: "hidden",
-                },
-            ]),
-        );
+    get strikeModeLabel() {
+        return `${this.item.nestedIn?.name} ${this.name}`;
     }
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            mode: new fields.StringField({
-                initial: "",
-                label: "Mode",
-                hint: "Name of the attack mode",
-            }),
+            mode: new fields.StringField(),
             minParts: new fields.NumberField({
                 integer: true,
                 initial: 1,
                 min: 0,
-                label: "Min Parts",
-                hint: "Minimum number of body parts needed for this strike mode",
             }),
-            assocSkillName: new fields.StringField({
-                initial: "",
-                label: "Assoc Skill",
-                hint: "Skill that is used to perform this strike mode",
-            }),
+            assocSkillName: new fields.StringField(),
             impactBase: new fields.SchemaField({
                 numDice: new fields.NumberField({
                     integer: true,
                     initial: 0,
                     min: 0,
-                    label: "# of Dice",
                 }),
                 die: new fields.NumberField({
                     integer: true,
                     initial: 6,
                     min: 0,
-                    label: "Die",
                 }),
                 modifier: new fields.NumberField({
                     integer: true,
                     initial: 0,
-                    label: "Modifier",
                 }),
                 aspect: new fields.StringField({
-                    initial: "blunt",
-                    blank: false,
-                    label: "Aspect",
+                    initial: ImpactModifier.ASPECT.BLUNT,
+                    required: true,
+                    choices: Utility.getChoicesMap(
+                        ImpactModifier.ASPECT,
+                        "SOHL.IMPACTMODIFIER.ASPECT",
+                    ),
                 }),
             }),
         });
     }
 
-    async _preOpposedSuccessTest(speaker, actor, token, character, scope) {
-        let result = super._preOpposedSuccessTest(
+    async _preOpposedSuccessTest(speaker, actor, token, character, scope = {}) {
+        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
             token,
             character,
-            (scope = {}),
-        );
-        if (!result) return;
+            needsToken: true,
+            self: this,
+        }));
 
         let { targetToken, sourceTestResult } = scope;
 
@@ -4558,171 +6938,43 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
         };
     }
 
-    async opposedTestStart(speaker, actor, token, character, scope) {
-        let {
-            skipDialog = false,
-            noChat = false,
-            testType = SuccessTestResult.TEST_TYPE.ATTACK,
-        } = scope;
-
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-        }));
-
-        const sourceTestResult = this.successTest(
-            speaker,
-            actor,
-            token,
-            character,
-            {
-                skipDialog,
-                noChat: true,
-                testType,
-            },
-        );
-        if (!sourceTestResult) return;
-
-        const opposedTestResultData =
-            await this._calcOpposedTestResultData(scope);
-        if (!opposedTestResultData) return null;
-
-        const opposedTestResult = OpposedTestResult.fromData(
-            opposedTestResultData,
-        );
-
-        // Note that in the opposed test start, we specifically do not
-        // call the evaluate() method of opposedTestResult, since
-        // we have not finished creating it yet (no targetTestResult)
-
-        if (!noChat) {
-            opposedTestResult.toChat();
-        }
-
-        return opposedTestResult;
-    }
-
-    /**
-     * Continue the opposed test. Only valid testTypes are "block" and "counterstrike".
-     *
-     * @param {object} scope
-     * @param {string} [scope.sourceTestResult]
-     * @param {number} [scope.testType]
-     * @returns {OpposedTestResult} result of the test
-     */
-    async opposedTestResume(speaker, actor, token, character, scope = {}) {
-        let { noChat = false, opposedTestResult, testType } = scope;
-
-        if (!opposedTestResult) {
-            throw new Error("Must supply opposedTestResult");
-        } else if (!(opposedTestResult instanceof OpposedTestResult)) {
-            opposedTestResult = OpposedTestResult.fromData(opposedTestResult);
-        }
-
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-            needsToken: true,
-            self: this,
-        }));
-
-        if (!opposedTestResult.targetTestResult) {
-            opposedTestResult.targetTestResult = this.successTest({
-                noChat: true,
-                testType: testType,
-            });
-            if (!opposedTestResult.targetTestResult) return null;
-        } else {
-            opposedTestResult = opposedTestResult.fromData(opposedTestResult);
-
-            // In this situation, where the targetTestResult is provided,
-            // the GM is modifying the result of a prior opposedTest.
-            // Therefore, we re-display the dialog for each of the prior
-            // successTests.
-            opposedTestResult.sourceTestResult =
-                opposedTestResult.sourceTestResult.item.successTest({
-                    noChat: true,
-                    successTestResult: opposedTestResult.sourceTestResult,
-                });
-            opposedTestResult.targetTestResult =
-                opposedTestResult.targetTestResult.item.successTest({
-                    noChat: true,
-                    successTestResult: opposedTestResult.targetTestResult,
-                });
-        }
-
-        opposedTestResult.evaluate();
-
-        if (!noChat) {
-            opposedTestResult.toChat();
-        }
-
-        return opposedTestResult;
-    }
-
-    async attackTest(speaker, actor, token, character, scope) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-            needsActor: true,
-            self: this,
-        }));
-        scope.mlMod = CombatModifier.create(this.$attack);
-        scope.testType ||= SuccessTestResult.TEST_TYPE.ATTACK;
-        return this.successTest(speaker, actor, token, character, scope);
-    }
-
-    async blockTest(speaker, actor, token, character, scope) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-            needsActor: true,
-            self: this,
-        }));
-        scope.mlMod = CombatModifier.create(this.$defense.block);
-        scope.testType = SuccessTestResult.TEST_TYPE.BLOCK;
-        return this.successTest(speaker, actor, token, character, scope);
-    }
-
-    async counterstrikeTest(speaker, actor, token, character, scope) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-            needsActor: true,
-            self: this,
-        }));
-        scope.mlMod = CombatModifier.create(this.$defense.counterstrike);
-        scope.testType = SuccessTestResult.TEST_TYPE.COUNTERSTRIKE;
-        return this.successTest(speaker, actor, token, character, scope);
-    }
-
     /** @override */
     prepareBaseData() {
         super.prepareBaseData();
-        this.$durability = new ValueModifier(this);
-        this.$length = new ValueModifier(this);
-        this.$attack = new CombatModifier(this);
+        this.$durability = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
+        this.$length = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
+        this.$attack = new CONFIG.SOHL.class.CombatModifier(
+            {},
+            { parent: this },
+        );
         this.$defense = {
-            block: new CombatModifier(this),
-            counterstrike: new CombatModifier(this),
+            block: new CONFIG.SOHL.class.CombatModifier({}, { parent: this }),
+            counterstrike: new CONFIG.SOHL.class.CombatModifier(
+                {},
+                { parent: this },
+            ),
         };
-        this.$impact = new ImpactModifier(this, {
-            numDice: this.impactBase.numDice,
-            aspect: this.impactBase.aspect,
-            die: this.impactBase.die,
-        });
+        this.$impact = new CONFIG.SOHL.class.ImpactModifier(
+            {
+                properties: {
+                    numDice: this.impactBase.numDice,
+                    aspect: this.impactBase.aspect,
+                    die: this.impactBase.die,
+                },
+            },
+            { parent: this },
+        );
         if (!this.impactBase.modifier && !this.impactBase.die) {
-            this.$impact.setDisabled("No modifier or no die", "NMND");
+            this.$impact.setDisabled(
+                "SOHL.StrikeModeItemData.NoModifierNoDieDisabled",
+                "NMND",
+            );
         } else {
             this.$impact.setBase(this.impactBase.modifier);
         }
@@ -4735,20 +6987,20 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
     setupVirtualItems() {
         super.setupVirtualItems();
         this.$assocSkill = this.actor.getItem(this.assocSkillName, {
-            types: [SkillItemData.typeName],
+            types: [SkillItemData.TYPE_NAME],
             isName: true,
         });
         if (!this.$assocSkill) {
-            const msg = `${this.constructor.typeLabel.singular} ${this.name} requires skill ${this.assocSkillName} but it does not exist, creating a dummy skill with ML 0`;
-            if (ui.notifications) {
-                ui.notifications.warn(msg);
-            } else {
-                console.warn(msg);
-            }
+            ui.notifications?.warn(
+                _l("SOHL.StrikeModeItemData.NoAssocSkillWarning", {
+                    label: _l(this.constructor.metadata.label),
+                    skillName: this.assocSkillName,
+                }),
+            );
             this.$assocSkill = new SohlItem(
                 {
                     name: this.assocSkillName,
-                    type: "skill",
+                    type: SkillItemData.TYPE_NAME,
                     _id: foundry.utils.randomID(),
                     system: {
                         masteryLevelBase: 0,
@@ -4767,10 +7019,13 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
                 includeBase: true,
             });
         } else {
-            this.$durability.setDisabled("Not Nested In Gear", "NNiG");
+            this.$durability.setDisabled(
+                "SOHL.StrikeModeItemData.NoAssocSkillWarning",
+                "NNiG",
+            );
         }
         this.$assocSkill = this.actor.getItem(this.assocSkillName, {
-            types: [SkillItemData.typeName],
+            types: [SkillItemData.TYPE_NAME],
             isName: true,
         });
         if (this.$assocSkill) {
@@ -4784,7 +7039,10 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
                 },
             );
         } else {
-            this.$attack.setDisabled("No Associated Skill", "NoSkill");
+            this.$attack.setDisabled(
+                "SOHL.StrikeModeItemData.NoAssocSkillWarning",
+                "NoSkill",
+            );
         }
     }
 }
@@ -4792,144 +7050,112 @@ export class StrikeModeItemData extends SubtypeMixin(SohlItemData) {
 export class MeleeWeaponStrikeModeItemData extends StrikeModeItemData {
     $length;
 
-    static get typeName() {
-        return "meleestrikemode";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Melee Strike Mode",
-            plural: "Melee Strike Modes",
-        };
-    }
-
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "mod:system.$length": { label: "Length", abbrev: "Len" },
-            "mod:system.$defense.block": { label: "Block", abbrev: "Blk" },
-            "mod:system.$defense.counterstrike": {
-                label: "Counterstrike",
-                abbrev: "CX",
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "meleestrikemode",
+                locId: "MELEESTRIKEMODE",
+                label: "TYPES.Item.meleestrikemode",
+                labelPlural: "TYPES.Item.meleestrikemodePl",
+                iconCssClass: "fas fa-sword",
+                img: "systems/sohl/assets/icons/sword.svg",
+                sheet: "systems/sohl/templates/item/meleestrikemode-sheet.html",
+                nestOnly: true,
+                group: "melee",
+                effectKeys: foundry.utils.mergeObject(super.effectKeys, {
+                    "mod:system.$length": {
+                        label: "SOHL.Length",
+                        abbrev: "Len",
+                    },
+                    "mod:system.$defense.block": {
+                        label: "SOHL.Block",
+                        abbrev: "Blk",
+                    },
+                    "mod:system.$defense.counterstrike": {
+                        label: "SOHL.Counterstrike",
+                        abbrev: "CX",
+                    },
+                }),
+                subTypes: SOHL_VARIANTS,
+                schemaVersion: "0.5.6",
             },
-        });
-    }
+            { inplace: false },
+        ),
+    );
 
     getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
         return super.getIntrinsicActions(
             _data,
             defaultAction,
-            Utility.uniqueActions(actions, [
-                {
-                    functionName: "assistedBlockTest",
-                    name: "Block Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.BLOCK
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$defense.block.disabled;
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "assistedCounterstrikeTest",
-                    name: "Counterstrike Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.COUNTERSTRIKE
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return (
-                            item && !item.system.$defense.counterstrike.disabled
-                        );
-                    },
-                    contextGroup: "essential",
-                },
-            ]),
+            Utility.uniqueActions(
+                actions,
+                [
+                    CombatTestResult.TEST_TYPE.MELEEATTACK,
+                    CombatTestResult.TEST_TYPE.BLOCK,
+                    CombatTestResult.TEST_TYPE.COUNTERSTRIKE,
+                ].map((a) => CombatTestResult.testTypes[a]),
+            ),
         );
     }
 
-    assistedBlockTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-block-test`,
-            title = `${this.item.label} Block Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+    async attackTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = Utility.deepClone(this.$attack);
+        scope.impactMod = Utility.deepClone(this.$impact);
+        scope.testType = CombatTestResult.TEST_TYPE.MELEEATTACK;
+        scope.title = _l("{weapon} {strikeModeName} Melee Attack Test", {
+            weapon: this.item.nestedIn.name,
+            strikeModeName: this.name,
+        });
+        return await CONFIG.SOHL.class.SuccessTestResult.createMacroTest(
             speaker,
             actor,
             token,
             character,
-            needsActor: true,
-            self: this,
-        }));
-
-        const chatResult = this.$defense.block.test({
-            skipDialog,
-            noChat,
-            type,
-            title,
-        });
-
-        return chatResult;
+            scope,
+        );
     }
 
-    assistedCounterstrikeTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-counterstrike-test`,
-            title = `${this.item.label} Counterstrike Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+    async blockTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = Utility.deepClone(this.$defense.block);
+        scope.testType = CombatTestResult.TEST_TYPE.BLOCK;
+        scope.title = _l("{weapon} {strikeModeName} Block Test", {
+            weapon: this.item.nestedIn.name,
+            strikeModeName: this.name,
+        });
+        return await CONFIG.SOHL.class.SuccessTestResult.createMacroTest(
             speaker,
             actor,
             token,
             character,
-            needsActor: true,
-            self: this,
-        }));
-        skipDialog ??= false;
-        noChat ??= false;
-        type = `${this.type}-${this.name}-counterstrike-test`;
-        title = `${this.item.label} Counterstrike Test`;
+            scope,
+        );
+    }
 
-        const chatResult = this.$defense.counterstrike.test({
-            skipDialog,
-            noChat,
-            type,
-            title,
+    async counterstrikeTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = Utility.deepClone(this.$defense.counterstrike);
+        scope.impactMod = Utility.deepClone(this.$impact);
+        scope.testType = CombatTestResult.TEST_TYPE.COUNTERSTRIKE;
+        scope.title = _l("{weapon} {strikeModeName} Counterstrike Test", {
+            weapon: this.item.nestedIn.name,
+            strikeModeName: this.name,
         });
-
-        return chatResult;
+        return await CONFIG.SOHL.class.SuccessTestResult.createMacroTest(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
+        );
     }
 
     prepareBaseData() {
         super.prepareBaseData();
-        this.$length = new ValueModifier(this);
+        this.$length = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
 
         // Length is only set if this Strike Mode is nested in a WeaponGear
         if (this.item.nestedIn instanceof WeaponGearItemData) {
@@ -4958,13 +7184,11 @@ export class MeleeWeaponStrikeModeItemData extends StrikeModeItemData {
         // If outnumbered, then add the outnumbered penalty to the defend "bonus" (in this case a penalty)
         if (this.outnumberedPenalty) {
             this.$defense.block.add(
-                "Outnumbered",
-                "OutN",
+                CONFIG.SOHL.MOD.OUTNUMBERED,
                 this.outnumberedPenalty,
             );
             this.$defense.counterstrike.add(
-                "Outnumbered",
-                "OutN",
+                CONFIG.SOHL.MOD.OUTNUMBERED,
                 this.outnumberedPenalty,
             );
         }
@@ -4972,34 +7196,74 @@ export class MeleeWeaponStrikeModeItemData extends StrikeModeItemData {
 }
 
 export class MissileWeaponStrikeModeItemData extends StrikeModeItemData {
-    static get typeName() {
-        return "missilestrikemode";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Missile Strike Mode",
-            plural: "Missile Strike Modes",
-        };
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "missilestrikemode",
+                locId: "MISSLESTRIKEMODE",
+                label: "TYPES.Item.missilestrikemode",
+                labelPlural: "TYPES.Item.missilestrikemodePl",
+                iconCssClass: "fas fa-bow-arrow",
+                img: "systems/sohl/assets/icons/longbow.svg",
+                sheet: "systems/sohl/templates/item/missilestrikemode-sheet.html",
+                nestOnly: true,
+                group: "missile",
+                effectKeys: {},
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
             projectileType: new fields.StringField({
-                initial: "none",
-                blank: false,
-                label: "Projectile Type",
-                choices: ProjectileGearItemData.subTypes,
-                hint: "Projectile type used by this strike mode",
+                initial: ProjectileGearItemData.SUBTYPE.NONE,
+                required: true,
+                choices: Utility.getChoicesMap(
+                    ProjectileGearItemData.SUBTYPE,
+                    "SOHL.PROJECTILEGEAR.SUBTYPE",
+                ),
             }),
         });
     }
 
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            Utility.uniqueActions(
+                actions,
+                [CombatTestResult.TEST_TYPE.MISSILEATTACK].map(
+                    (a) => CombatTestResult.testTypes[a],
+                ),
+            ),
+        );
+    }
+
+    async attackTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = Utility.deepClone(this.$attack);
+        scope.testType = CombatTestResult.TEST_TYPE.MISSILEATTACK;
+        scope.title = _l("{weapon} {strikeModeName} Block Test", {
+            weapon: this.item.nestedIn.name,
+            strikeModeName: this.name,
+        });
+        return await CONFIG.SOHL.class.SuccessTestResult.createMacroTest(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
+        );
+    }
+
     prepareBaseData() {
         super.prepareBaseData();
-        this.$defense.block.setDisabled("No Blocking Allowed", "NoBlk");
+        this.$defense.block.setDisabled(_l("No Blocking Allowed"), "NoBlk");
         this.$defense.counterstrike.setDisabled(
-            "No Counterstrike Allowed",
+            _l("No Counterstrike Allowed"),
             "NoCX",
         );
     }
@@ -5008,67 +7272,52 @@ export class MissileWeaponStrikeModeItemData extends StrikeModeItemData {
 export class CombatTechniqueStrikeModeItemData extends StrikeModeItemData {
     $length;
 
-    static get typeName() {
-        return "combattechniquestrikemode";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Combat Technique",
-            plural: "Combat Techniques",
-        };
-    }
-
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "mod:system.$defense.block": { label: "Block", abbrev: "Blk" },
-            "mod:system.$defense.counterstrike": {
-                label: "Counterstrike",
-                abbrev: "CX",
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "combattechniquestrikemode",
+                locId: "COMBATTECHNIQUE",
+                label: "TYPES.Item.combattechniquestrikemode",
+                labelPlural: "TYPES.Item.combattechniquestrikemodePl",
+                iconCssClass: "fas fa-hand-fist",
+                img: "systems/sohl/assets/icons/punch.svg",
+                sheet: "systems/sohl/templates/item/combattechniquestrikemode-sheet.html",
+                nestOnly: true,
+                group: "melee",
+                effectKeys: {
+                    "mod:system.$length": {
+                        label: "SOHL.Length",
+                        abbrev: "Len",
+                    },
+                    "mod:system.$defense.block": {
+                        label: "SOHL.Block",
+                        abbrev: "Blk",
+                    },
+                    "mod:system.$defense.counterstrike": {
+                        label: "SOHL.Counterstrike",
+                        abbrev: "CX",
+                    },
+                },
+                schemaVersion: "0.5.6",
             },
-        });
-    }
+            { inplace: false },
+        ),
+    );
 
     getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
         return super.getIntrinsicActions(
             _data,
             defaultAction,
-            Utility.uniqueActions(actions, [
-                {
-                    functionName: "assistedBlockTest",
-                    name: "Block Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.BLOCK
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$defense.block.disabled;
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "assistedCounterstrikeTest",
-                    name: "Counterstrike Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.COUNTERSTRIKE
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return (
-                            item && !item.system.$defense.counterstrike.disabled
-                        );
-                    },
-                    contextGroup: "essential",
-                },
-            ]),
+            Utility.uniqueActions(
+                actions,
+                [
+                    CombatTestResult.TEST_TYPE.MELEEATTACK,
+                    CombatTestResult.TEST_TYPE.BLOCK,
+                    CombatTestResult.TEST_TYPE.COUNTERSTRIKE,
+                ].map((a) => CombatTestResult.testTypes[a]),
+            ),
         );
     }
 
@@ -5078,85 +7327,65 @@ export class CombatTechniqueStrikeModeItemData extends StrikeModeItemData {
                 integer: true,
                 initial: 0,
                 min: 0,
-                label: "Length",
             }),
         });
     }
 
-    assistedBlockTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-block-test`,
-            title = `${this.item.label} Block Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+    async attackTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = Utility.deepClone(this.$attack);
+        scope.testType = CombatTestResult.TEST_TYPE.MELEEATTACK;
+        scope.title = _l("{weapon} {strikeModeName} Melee Attack Test", {
+            weapon: this.item.nestedIn.name,
+            strikeModeName: this.name,
+        });
+        return await CONFIG.SOHL.class.SuccessTestResult.createMacroTest(
             speaker,
             actor,
             token,
             character,
-            needsActor: true,
-            self: this,
-        }));
-
-        const chatResult = this.$defense.block.test({
-            skipDialog,
-            noChat,
-            type,
-            title,
-        });
-
-        return chatResult;
+            scope,
+        );
     }
 
-    assistedCounterstrikeTest(
-        speaker,
-        actor,
-        token,
-        character,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-counterstrike-test`,
-            title = `${this.item.label} Counterstrike Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
+    async blockTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = Utility.deepClone(this.$defense.block);
+        scope.testType = CombatTestResult.TEST_TYPE.BLOCK;
+        scope.title = _l("{weapon} {strikeModeName} Block Test", {
+            weapon: this.item.nestedIn.name,
+            strikeModeName: this.name,
+        });
+        return await CONFIG.SOHL.class.SuccessTestResult.createMacroTest(
             speaker,
             actor,
             token,
             character,
-            needsActor: true,
-            self: this,
-        }));
-        skipDialog ??= false;
-        noChat ??= false;
-        type = `${this.type}-${this.name}-attack-test`;
-        title = `${this.item.label} Attack Test`;
+            scope,
+        );
+    }
 
-        const chatResult = this.$defense.counterstrike.test({
-            skipDialog,
-            noChat,
-            type,
-            title,
+    async counterstrikeTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = Utility.deepClone(this.$defense.counterstrike);
+        scope.testType = CombatTestResult.TEST_TYPE.COUNTERSTRIKE;
+        scope.title = _l("{weapon} {strikeModeName} Counterstrike Test", {
+            weapon: this.item.nestedIn.name,
+            strikeModeName: this.name,
         });
-
-        return chatResult;
+        return await CONFIG.SOHL.class.SuccessTestResult.createMacroTest(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
+        );
     }
 
     /** @override */
     prepareBaseData() {
         super.prepareBaseData();
-        this.$length = new ValueModifier(this);
+        this.$length = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$length.setBase(this.lengthBase);
     }
 
@@ -5176,13 +7405,11 @@ export class CombatTechniqueStrikeModeItemData extends StrikeModeItemData {
         // If outnumbered, then add the outnumbered penalty to the defend "bonus" (in this case a penalty)
         if (this.outnumberedPenalty) {
             this.$defense.block.add(
-                "Outnumbered",
-                "OutN",
+                CONFIG.SOHL.MOD.OUTNUMBERED,
                 this.outnumberedPenalty,
             );
             this.$defense.counterstrike.add(
-                "Outnumbered",
-                "OutN",
+                CONFIG.SOHL.MOD.OUTNUMBERED,
                 this.outnumberedPenalty,
             );
         }
@@ -5190,20 +7417,25 @@ export class CombatTechniqueStrikeModeItemData extends StrikeModeItemData {
 }
 
 export class CombatManeuverItemData extends SohlItemData {
-    static get typeName() {
-        return "combatmaneuver";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Combat Maneuver",
-            plural: "Combat Maneuvers",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/sparkle.svg";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "combatmaneuver",
+                locId: "COMBATMANEUVER",
+                label: "TYPES.Item.combatmaneuver",
+                labelPlural: "TYPES.Item.combatmaneuverPl",
+                iconCssClass: "fas fa-hand-fist",
+                img: "systems/sohl/assets/icons/sparkle.svg",
+                sheet: "systems/sohl/templates/item/combatmaneuver-sheet.html",
+                nestOnly: false,
+                effectKeys: {},
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 }
 
 export class MasteryLevelItemData extends SohlItemData {
@@ -5211,16 +7443,35 @@ export class MasteryLevelItemData extends SohlItemData {
     $skillBase;
     $masteryLevel;
 
-    static get isMasteryLevelItemData() {
-        return true;
-    }
-
-    get successValueTable() {
-        return (
-            this.item.getFlag("sohl", "successValueTable") ||
-            SOHL.sysVer.CONST.SUCCESS_VALUE_TABLE
-        );
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                locId: "MASTERYLEVEL",
+                effectKeys: {
+                    "system.$boosts": {
+                        label: "SOHL.MasteryBoost",
+                        abbrev: "MBoost",
+                    },
+                    "mod:system.$masteryLevel": {
+                        label: "SOHL.MasteryLevel",
+                        abbrev: "ML",
+                    },
+                    "mod:system.$masteryLevel.fate": {
+                        label: "SOHL.Fate",
+                        abbrev: "Fate",
+                    },
+                    "system.$masteryLevel.successLevelMod": {
+                        label: "SOHL.SuccessLevel",
+                        abbrev: "SL",
+                    },
+                },
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     get fateSkills() {
         return this.item.getFlag("sohl", "fateSkills") || [];
@@ -5228,24 +7479,6 @@ export class MasteryLevelItemData extends SohlItemData {
 
     get magicMod() {
         return 0;
-    }
-
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "system.$boosts": { label: "Mastery Boost", abbrev: "MBoost" },
-            "mod:system.$masteryLevel": {
-                label: "Mastery Level",
-                abbrev: "ML",
-            },
-            "mod:system.$masteryLevel.fate": {
-                label: "Fate",
-                abbrev: "Fate",
-            },
-            "system.$masteryLevel.successLevelMod": {
-                label: "Success Level",
-                abbrev: "SL",
-            },
-        });
     }
 
     get boosts() {
@@ -5265,7 +7498,7 @@ export class MasteryLevelItemData extends SohlItemData {
             for (const it of this.actor.allItems()) {
                 if (
                     it.system instanceof MysteryItemData &&
-                    it.system.subType === "fate"
+                    it.system.subType === MysteryItemData.CATEGORY.FATE
                 ) {
                     const fateSkills = this.fateSkills;
                     // If a fate item has a list of fate skills, then that fate
@@ -5290,7 +7523,8 @@ export class MasteryLevelItemData extends SohlItemData {
             for (const it of this.actor.allItems()) {
                 if (
                     it.system instanceof MysteryItemData &&
-                    it.system.subType === "fateBonus"
+                    it.system.config.category ===
+                        MysteryItemData.CATEGORY.FATEBONUS
                 ) {
                     const skills = it.fateSkills;
                     if (!skills || skills.includes(this.item.name)) {
@@ -5327,137 +7561,43 @@ export class MasteryLevelItemData extends SohlItemData {
         return 1;
     }
 
+    get defaultAction() {
+        return SuccessTestResult.TEST_TYPE.SKILL;
+    }
+
     getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
-        return super
-            .getIntrinsicActions(
-                _data,
-                defaultAction || "successTest",
-                Utility.uniqueActions(actions, [
-                    {
-                        functionName: "successTest",
-                        name: "Success Test",
-                        contextIconClass:
-                            SuccessTestResult.testTypes[
-                                SuccessTestResult.TEST_TYPE.SKILL
-                            ].icon,
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            return item && !item.system.$masteryLevel.disabled;
-                        },
-                        contextGroup: "essential",
-                    },
-                    {
-                        functionName: "opposedTestStart",
-                        name: "Opposed Test",
-                        contextIconClass:
-                            "fas fa-arrow-down-left-and-arrow-up-right-to-center",
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            if (!item) return false;
-                            const token = item.actor?.getToken();
-                            return token && !item.system.$masteryLevel.disabled;
-                        },
-                        contextGroup: "essential",
-                    },
-                    {
-                        functionName: "opposedTestResume",
-                        name: "Opposed Test Resume",
-                        contextIconClass: "far fa-gears",
-                        contextCondition: false,
-                        contextGroup: "hidden",
-                    },
-                    {
-                        functionName: "setImproveFlag",
-                        name: "Set Skill Dev Flag",
-                        contextIconClass: "fas fa-star",
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            return (
-                                item &&
-                                item.system.canImprove &&
-                                !item.system.improveFlag
-                            );
-                        },
-                        contextGroup: "general",
-                    },
-                    {
-                        functionName: "unsetImproveFlag",
-                        name: "Unset Skill Dev Flag",
-                        contextIconClass: "far fa-star",
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            return (
-                                item &&
-                                item.system.canImprove &&
-                                item.system.improveFlag
-                            );
-                        },
-                        contextGroup: "general",
-                    },
-                    {
-                        functionName: "improveWithSDR",
-                        name: "Improve Mastery using SDR",
-                        contextIconClass: "fas fa-star",
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            return (
-                                item?.system.canImprove &&
-                                item.system.improveFlag
-                            );
-                        },
-                        contextGroup: "general",
-                    },
-                ]),
-            )
-            .sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            Utility.uniqueActions(
+                actions,
+                [
+                    SuccessTestResult.TEST_TYPE.SKILL,
+                    SuccessTestResult.TEST_TYPE.SETIMPROVEFLAG,
+                    SuccessTestResult.TEST_TYPE.UNSETIMPROVEFLAG,
+                    SuccessTestResult.TEST_TYPE.IMPROVESDR,
+                ].map((a) => SuccessTestResult.testTypes[a]),
+            ),
+        );
     }
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            abbrev: new fields.StringField({
-                initial: "",
-                label: "Abbreviation",
-            }),
-            skillBaseFormula: new fields.StringField({
-                initial: "",
-                nullable: false,
-                label: "Skill Base Formula",
-            }),
+            abbrev: new fields.StringField(),
+            skillBaseFormula: new fields.StringField(),
             masteryLevelBase: new fields.NumberField({
                 initial: 0,
                 min: 0,
-                label: "Mastery Level",
             }),
-            improveFlag: new fields.BooleanField({
-                initial: false,
-                label: "Flag for Mastery Improvement",
-            }),
+            improveFlag: new fields.BooleanField({ initial: false }),
         });
+    }
+
+    async successTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = Utility.deepClone(this.$masteryLevel);
+        scope.type = `${this.item.type}-${this.item.name}-success-test`;
+        scope.title = _l("{label} Test", { label: this.item.label });
+        return await super.successTest(speaker, actor, token, character, scope);
     }
 
     /**
@@ -5465,7 +7605,7 @@ export class MasteryLevelItemData extends SohlItemData {
      * @param {object} options
      * @returns {SuccessTestChatData}
      */
-    async opposedTestStart(speaker, actor, token, character, scope) {
+    async opposedTestStart(speaker, actor, token, character, scope = {}) {
         ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
             speaker,
             actor,
@@ -5477,7 +7617,7 @@ export class MasteryLevelItemData extends SohlItemData {
         let {
             skipDialog = false,
             type = `${this.item.type}-${this.item.name}-source-opposedtest`,
-            title = `${this.item.label} Test`,
+            title = _l("{label} Opposed Test", { label: this.item.label }),
             targetToken,
         } = scope;
 
@@ -5485,35 +7625,64 @@ export class MasteryLevelItemData extends SohlItemData {
         if (!targetToken) return null;
 
         if (!token) {
-            ui.notifications.warn(`No attacker token identified.`);
+            ui.notifications.warn(_l("No attacker token identified."));
             return null;
         }
 
         if (!token.isOwner) {
             ui.notifications.warn(
-                `You do not have permissions to perform this operation on ${token.name}`,
+                _l(
+                    "You do not have permissions to perform this operation on {name}",
+                    { name: token.name },
+                ),
             );
             return null;
         }
 
-        const sourceTestResult = await this.successTest({
-            speaker,
-            skipDialog,
-            type,
-            title,
-            noChat: true,
-        });
+        let sourceTestResult = new CONFIG.SOHL.class.SuccessTestResult(
+            {
+                speaker,
+                item: this.item,
+                rollMode: game.settings.get("core", "rollMode"),
+                type,
+                title:
+                    title ||
+                    _l("{name} {label} Test", {
+                        name: token?.name || actor?.name,
+                        label: this.item.label,
+                    }),
+                situationalModifier: 0,
+                mlMod: Utility.deepClone(this.$masteryLevel),
+            },
+            { parent: this },
+        );
 
-        const opposedTest = OpposedTestResult.fromData({
+        sourceTestResult = await this.successTest(
             speaker,
-            targetToken,
-            sourceTestResult,
-        });
+            actor,
+            token,
+            character,
+            {
+                skipDialog,
+                type,
+                title,
+                noChat: true,
+            },
+        );
 
-        return opposedTest.toChat();
+        const opposedTest = new CONFIG.SOHL.class.OpposedTestResult(
+            {
+                speaker,
+                targetToken,
+                sourceTestResult,
+            },
+            { parent: this },
+        );
+
+        return opposedTest.toRequestChat();
     }
 
-    async opposedTestResume(speaker, actor, token, character, scope) {
+    async opposedTestResume(speaker, actor, token, character, scope = {}) {
         let {
             noChat = false,
             opposedTestResult,
@@ -5534,6 +7703,24 @@ export class MasteryLevelItemData extends SohlItemData {
         }));
 
         if (!opposedTestResult.targetTestResult) {
+            opposedTestResult.targetTestResult =
+                new CONFIG.SOHL.class.SuccessTestResult(
+                    {
+                        speaker,
+                        item: this.item,
+                        rollMode: game.settings.get("core", "rollMode"),
+                        type: SuccessTestResult.TEST_TYPE.SKILL,
+                        title: _l("Opposed {label} Test", {
+                            label: this.item.label,
+                        }),
+                        situationalModifier: 0,
+                        mlMod: Utility.deepClone(
+                            this.item.system.$masteryLevel,
+                        ),
+                    },
+                    { parent: this },
+                );
+
             opposedTestResult.targetTestResult = this.successTest({
                 noChat: true,
                 testType,
@@ -5556,22 +7743,90 @@ export class MasteryLevelItemData extends SohlItemData {
                 });
         }
 
-        opposedTestResult.evaluate();
+        let allowed = await opposedTestResult.evaluate();
 
-        if (!noChat) {
-            opposedTestResult.toChat();
+        if (allowed && !noChat) {
+            opposedTestResult.toChat({
+                template:
+                    "systems/sohl/templates/chat/opposed-result-card.html",
+                title: _l("Opposed Action Result"),
+            });
         }
 
-        return opposedTestResult;
+        return allowed ? opposedTestResult : false;
+    }
+
+    async improveWithSDR(speaker) {
+        const updateData = { "system.improveFlag": false };
+        let roll = await Roll.create(`1d100 + ${this.skillBase.value}`);
+        const isSuccess = roll.total > this.$masteryLevel.base;
+
+        if (isSuccess) {
+            updateData["system.masteryLevelBase"] =
+                this.masteryLevelBase + this.sdrIncr;
+        }
+        let prefix = _l("{subType} {label}", {
+            subType: this.constructor.subTypes[this.subType],
+            label: _l(this.constructor.metadata.label),
+        });
+        const chatTemplate =
+            "systems/sohl/templates/chat/standard-test-card.html";
+        const chatTemplateData = {
+            variant: CONFIG.SOHL.id,
+            type: `${this.type}-${this.name}-improve-sdr`,
+            title: _l("{label} Development Roll", { label: this.item.label }),
+            effTarget: this.$masteryLevel.base,
+            isSuccess: isSuccess,
+            rollValue: roll.total,
+            rollResult: roll.result,
+            showResult: true,
+            resultText: isSuccess
+                ? _l("{prefix} Increase", { prefix })
+                : _l("No {prefix} Increase", { prefix }),
+            resultDesc: isSuccess
+                ? _l("{label} increased by {incr} to {final}", {
+                      label: this.item.label,
+                      incr: this.sdrIncr,
+                      final: this.$masteryLevel.base + this.sdrIncr,
+                  })
+                : "",
+            description: isSuccess
+                ? SuccessTestResult.SUCCESS_TEXT.SUCCESS
+                : SuccessTestResult.SUCCESS_TEXT.FAILURE,
+            notes: "",
+            sdrIncr: this.sdrIncr,
+        };
+
+        const chatHtml = await renderTemplate(chatTemplate, chatTemplateData);
+
+        const messageData = {
+            user: game.user.id,
+            speaker,
+            content: chatHtml.trim(),
+            sound: CONFIG.sounds.dice,
+        };
+
+        ChatMessage.applyRollMode(messageData, "roll");
+
+        // Create a chat message
+        await ChatMessage.create(messageData);
     }
 
     /** @override */
     prepareBaseData() {
         super.prepareBaseData();
         this.$boosts = 0;
-        this.$masteryLevel = new MasteryLevelModifier(this, {
-            fate: new MasteryLevelModifier(this),
-        });
+        this.$masteryLevel = new CONFIG.SOHL.class.MasteryLevelModifier(
+            {
+                properties: {
+                    fate: new CONFIG.SOHL.class.MasteryLevelModifier(
+                        {},
+                        { parent: this },
+                    ),
+                },
+            },
+            { parent: this },
+        );
         this.$masteryLevel.setBase(this.masteryLevelBase);
         if (this.actor) {
             const fateSetting = game.settings.get("sohl", "optionFate");
@@ -5583,13 +7838,13 @@ export class MasteryLevelItemData extends SohlItemData {
                     this.$masteryLevel.fate.setBase(50);
                 } else {
                     this.$masteryLevel.fate.setDisabled(
-                        "Non-Player Character/Creature",
+                        _l("Non-Player Character/Creature"),
                         "NPC",
                     );
                 }
             } else {
                 this.$masteryLevel.fate.setDisabled(
-                    "Fate Disabled in Settings",
+                    _l("Fate Disabled in Settings"),
                     "NoFate",
                 );
             }
@@ -5621,7 +7876,7 @@ export class MasteryLevelItemData extends SohlItemData {
         if (this.skillBase.attributes.includes("Aura")) {
             // Any skill that has Aura in its SB formula cannot use fate
             this.$masteryLevel.fate.setDisabled(
-                "Aura-Based, No Fate",
+                _l("Aura-Based, No Fate"),
                 "AurBsd",
             );
         }
@@ -5632,8 +7887,8 @@ export class MasteryLevelItemData extends SohlItemData {
         super.postProcess();
         if (this.$masteryLevel.disabled) {
             this.$masteryLevel.fate.setDisabled(
-                "Mastery Level Disabled",
-                "MLDsbl",
+                CONFIG.SOHL.MOD.MLDSBL.name,
+                CONFIG.SOHL.MOD.MLDSBL.abbrev,
             );
         }
         if (!this.$masteryLevel.fate.disabled) {
@@ -5649,152 +7904,168 @@ export class MasteryLevelItemData extends SohlItemData {
             // Apply magic modifiers
             if (this.magicMod) {
                 this.$masteryLevel.fate.add(
-                    "Magic Modifier",
-                    "MagicMod",
+                    CONFIG.SOHL.MOD.MAGICMOD,
                     this.magicMod,
                 );
             }
 
             this.fateBonusItems.forEach((it) => {
                 this.$masteryLevel.fate.add(
-                    it.label,
-                    "FateBns",
+                    CONFIG.SOHL.MOD.FATEBNS,
                     it.system.$level.effective,
+                    { skill: it.label },
                 );
             });
             if (!this.availableFate.length) {
-                this.$masteryLevel.fate.setDisabled(
-                    "No Fate Available",
-                    "NoFateAvail",
-                );
+                this.$masteryLevel.fate.setDisabled(CONFIG.SOHL.MOD.NOFATE);
             }
         }
     }
 }
 
-export class MysteryItemData extends SubtypeMixin(SohlItemData) {
+export class MysteryItemData extends SohlItemData {
     $level;
     $charges;
     $domainLabel;
     $paramLabel;
 
-    static get typeName() {
-        return "mystery";
-    }
+    static CATEGORY = Object.freeze({
+        GRACE: "grace",
+        PIETY: "piety",
+        FATE: "fate",
+        FATEBONUS: "fateBonus",
+        FATEPOINTBONUS: "fatePointBonus",
+        BLESSING: "blessing",
+        ANCESTOR: "ancestor",
+        TOTEM: "totem",
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Mystery",
-            plural: "Mysteries",
-        };
-    }
+    static DOMAIN_VALUE = Object.freeze({
+        DIVINE: "divinedomain",
+        SKILL: "skill",
+        CREATURE: "creature",
+        NONE: "none",
+    });
 
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/sparkles.svg";
-    }
+    static DOMAINMAP = Object.freeze({
+        [this.GRACE]: this.DOMAIN_VALUE.DIVINE,
+        [this.PIETY]: this.DOMAIN_VALUE.DIVINE,
+        [this.FATE]: this.DOMAIN_VALUE.SKILL,
+        [this.FATEBONUS]: this.DOMAIN_VALUE.SKILL,
+        [this.FATEPOINTBONUS]: this.DOMAIN_VALUE.NONE,
+        [this.BLESSING]: this.DOMAIN_VALUE.DIVINE,
+        [this.ANCESTOR]: this.DOMAIN_VALUE.SKILL,
+        [this.TOTEM]: this.DOMAIN_VALUE.CREATURE,
+    });
 
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "system.$charges": { label: "Charges", abbrev: "Cgs" },
-            "system.$charges.max": {
-                label: "Max Charges",
-                abbrev: "MaxCgs",
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "mystery",
+                locId: "MYSTERY",
+                label: "TYPES.Item.mystery",
+                labelPlural: "TYPES.Item.mysteryPl",
+                iconCssClass: "fas fa-sparkles",
+                img: "systems/sohl/assets/icons/sparkles.svg",
+                sheet: "systems/sohl/templates/item/mystery-sheet.html",
+                nestOnly: false,
+                effectKeys: {
+                    "system.$charges": { label: "SOHL.Charges", abbrev: "Cgs" },
+                    "system.$charges.max": {
+                        label: "SOHL.MaximumCharges",
+                        abbrev: "MaxCgs",
+                    },
+                },
             },
-        });
-    }
-
-    static get subTypes() {
-        return {
-            grace: "Grace",
-            piety: "Piety",
-            fate: "Fate",
-            fateBonus: "Fate Bonus",
-            fatePointIncreaseBonus: "Fate Point Increase Bonus",
-            blessing: "Blessing",
-            ancestor: "Ancestor Insight",
-            totem: "Totem Attunement",
-        };
-    }
-
-    static get fieldName() {
-        return {
-            grace: "Domain",
-            piety: "Domain",
-            fate: "Skills",
-            fateBonus: "Skills",
-            fatePointIncreaseBonus: "",
-            blessing: "Skills",
-            ancestor: "Skills",
-            totem: "Creature",
-        };
-    }
+            { inplace: false },
+        ),
+    );
 
     get fieldData() {
-        if (this.constructor.fieldName[this.subType] === "Skills") {
-            if (this.skills.size) {
-                return Array.from(this.skills.values())
-                    .sort((a, b) => a.localeCompare(b))
-                    .join(", ");
-            } else {
-                return "All Skills";
-            }
-        } else {
-            if (!this.item.actor) return this.domain;
-            let field;
-            if (["grace", "piety"].includes(this.subType)) {
+        const domainValueKey =
+            this.constructor.DOMAIN_MAP[this.config.category];
+
+        let field = "";
+        switch (domainValueKey) {
+            case this.DOMAIN_VALUE.SKILLS:
+                if (this.skills.size) {
+                    const formatter = game.i18n.getListFormatter();
+
+                    field = formatter.format(
+                        Utility.sortStrings(Array.from(this.skills.values())),
+                    );
+                } else {
+                    field = _l("SOHL.AllSkills");
+                }
+                break;
+
+            case this.DOMAIN_VALUE.DIVINE:
+                if (!this.item.actor) return this.domain;
                 field = this.item.actor.system.$domains.divine.find(
                     (d) => d.system.abbrev === this.domain,
                 )?.name;
-            } else if (this.subType === "totem") {
+                break;
+
+            case this.DOMAIN_VALUE.CREATURE:
+                if (!this.item.actor) return this.domain;
                 field = this.item.actor.system.$domains.spirit.find(
                     (d) => d.system.abbrev === this.domain,
                 )?.name;
-            }
-            return field || `Unknown (${this.domain})`;
+                break;
         }
+        return (
+            field ||
+            _l("SOHL.MYSTERY.UnknownDomain", { domainName: this.domain })
+        );
     }
+
+    static LOCALIZATION_PREFIXES = [
+        ...super.LOCALIZATION_PREFIXES,
+        "SOHL.MYSTERY",
+    ];
 
     static defineSchema() {
         return foundry.utils.mergeObject(
             super.defineSchema(),
             {
-                domain: new fields.StringField({
-                    initial: "",
-                    label: "Domain",
+                config: new fields.SchemaField({
+                    usesCharges: new fields.BooleanField({ initial: false }),
+                    usesSkills: new fields.BooleanField({ initial: false }),
+                    assocPhilosophy: new fields.StringField(),
+                    category: new fields.StringField({
+                        initial: this.CATEGORY.GRACE,
+                        required: true,
+                        choices: Utility.getChoicesMap(
+                            this.CATEGORY,
+                            "SOHL.MASTERYLEVEL.CATEGORY",
+                        ),
+                    }),
                 }),
+                domain: new fields.StringField(),
                 skills: new fields.ArrayField(
                     new fields.StringField({
-                        required: "true",
+                        required: true,
                         blank: false,
-                        label: "Skill",
                     }),
-                    { label: "Skills" },
                 ),
                 levelBase: new fields.NumberField({
                     integer: true,
                     initial: 0,
                     min: 0,
-                    label: "Level",
                 }),
                 charges: new fields.SchemaField({
-                    usesCharges: new fields.BooleanField({
-                        initial: false,
-                        label: "Uses Charges",
-                    }),
                     value: new fields.NumberField({
                         integer: true,
                         initial: 0,
                         min: 0,
-                        label: "Charges",
-                        hint: "Current number of charges available",
                     }),
                     // Note: if max charges is 0, then there is no maximum
                     max: new fields.NumberField({
                         integer: true,
                         initial: 0,
                         min: 0,
-                        label: "Max Charges",
-                        hint: "Maximum number of charges possible",
                     }),
                 }),
             },
@@ -5806,125 +8077,101 @@ export class MysteryItemData extends SubtypeMixin(SohlItemData) {
     prepareBaseData() {
         super.prepareBaseData();
         this.$label = "";
-        this.$charges = new ValueModifier(this, {
-            max: new ValueModifier(this),
-        });
+        this.$charges = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    max: new CONFIG.SOHL.class.ValueModifier(
+                        {},
+                        { parent: this },
+                    ),
+                },
+            },
+            { parent: this },
+        );
         if (!this.charges.usesCharges) {
-            this.$charges.setDisabled("Doesn't Use Charges", "NoChrg");
-            this.$charges.max.setDisabled("Doesn't Use Charges", "NoChrg");
+            this.$charges.setDisabled(
+                "SOHL.MYSTERY.DoesNotUseCharges",
+                "NoChrg",
+            );
+            this.$charges.max.setDisabled(
+                "SOHL.MYSTERY.DoesNotUseCharges",
+                "NoChrg",
+            );
         } else {
             this.$charges.setBase(this.charges.value);
             this.$charges.max.setBase(this.charges.max);
         }
-        this.$level = new ValueModifier(this, {
-            roman: (thisVM) => Utility.romanize(thisVM.effective),
-        });
+        this.$level = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    roman: (thisVM) => Utility.romanize(thisVM.effective),
+                },
+            },
+            { parent: this },
+        );
         this.$level.setBase(this.levelBase);
     }
 }
 
-export class MysticalAbilityItemData extends SubtypeMixin(
-    MasteryLevelItemData,
-) {
+export class MysticalAbilityItemData extends MasteryLevelItemData {
     $charges;
     $maxCharges;
     $affectedSkill;
     $fatigue;
     $level;
+    $canImprove;
 
-    static get typeName() {
-        return "mysticalability";
-    }
+    static CATEGORY = Object.freeze({
+        SHAMANICRITE: "shamanicrite",
+        SPIRITACTION: "spiritaction",
+        SPIRITPOWER: "spiritpower",
+        BENEDICTION: "benediction",
+        DIVINEDEVOTION: "divinedevotion",
+        DIVINEINCANTATION: "divineincantation",
+        ARCANEINCANTATION: "arcaneincantation",
+        ARCANEINVOCATION: "arcaneinvocation",
+        ARCANETALENT: "arcanetalent",
+        ALCHEMY: "alchemy",
+        DIVINATION: "divination",
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Mystical Ability",
-            plural: "Mystical Abilities",
-        };
-    }
+    static DOMAIN_DEGREE = Object.freeze({
+        PRIMARY: { name: "primary", value: 0 },
+        SECONDARY: { name: "secondary", value: 1 },
+        NEUTRAL: { name: "neutral", value: 2 },
+        TERTIARY: { name: "tertiary", value: 3 },
+        DIAMETRIC: { name: "diametric", value: 4 },
+    });
 
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/hand-sparkles.svg";
-    }
-
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "system.$charges": { label: "Charges", abbrev: "Cgs" },
-            "system.$charges.max": {
-                label: "Max Charges",
-                abbrev: "MaxCgs",
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "mysticalability",
+                locId: "MYSTICALABILITY",
+                label: "TYPES.Item.mysticalability",
+                labelPlural: "TYPES.Item.mysticalabilityPl",
+                iconCssClass: "fas fa-hand-sparkles",
+                img: "systems/sohl/assets/icons/hand-sparkles.svg",
+                sheet: "systems/sohl/templates/item/mysticalability-sheet.html",
+                nestOnly: false,
+                effectKeys: {
+                    "system.$charges": { label: "SOHL.Charges", abbrev: "Cgs" },
+                    "system.$charges.max": {
+                        label: "SOHL.MaximumCharges",
+                        abbrev: "MaxCgs",
+                    },
+                    "system.$canImprove": {
+                        label: "SOHL.CanImproveMastery",
+                        abbrev: "Imp",
+                    },
+                },
+                schemaVersion: "0.5.6",
             },
-        });
-    }
-
-    static get subTypes() {
-        return {
-            energy: "Energy Spirit Power",
-            ceremony: "Ritual Ceremony",
-            festival: "Ritual Festival",
-            ordeal: "Ritual Ordeal",
-            devotion: "Ritual Devotion",
-            alchemy: "Alchemy",
-            divination: "Divination",
-            arcaneincantation: "Arcane Incantation",
-            arcaneinvocation: "Arcane Invocation",
-            divineincantation: "Divine Incantation",
-            arcanetalent: "Arcane Talent",
-        };
-    }
-
-    static get actionLabel() {
-        return {
-            energy: "Manipulate Element",
-            ceremony: "Perform Benediction",
-            festival: "Perform Benediction",
-            ordeal: "Complete Ordeal",
-            devotion: "Perform Ritual Devotion",
-            divination: "Perform Divination",
-            arcaneincantation: "Cast Spell",
-            arcaneinvocation: "Invoke Arcane Effect",
-            divineincantation: "Beseech Divine Aid",
-            arcanetalent: "Perform Arcane Talent",
-        };
-    }
-
-    static get improvableSubTypes() {
-        return ["arcaneincantation", "arcanetalent"];
-    }
-
-    static get domainLabel() {
-        return {
-            energy: "Element",
-            ceremony: "Ritual",
-            festival: "Ritual",
-            ordeal: "Domain",
-            devotion: "Ritual",
-            foretelling: "Skill",
-            arcaneincanting: "Domain",
-            arcaneinvocation: "Domain",
-            divineincanting: "Ritual",
-            arcanetalent: "Domain",
-        };
-    }
-
-    static get energySpiritPowerTypes() {
-        return {
-            air: "Air",
-            earth: "Earth",
-            water: "Water",
-            fire: "Fire",
-        };
-    }
-
-    static get domainDegree() {
-        return {
-            primary: { name: "Primary", value: 0 },
-            secondary: { name: "Secondary", value: 1 },
-            neutral: { name: "Neutral", value: 2 },
-            tertiary: { name: "Tertiary", value: 3 },
-            diametric: { name: "Diametric", value: 4 },
-        };
-    }
+            { inplace: false },
+        ),
+    );
 
     get availableFate() {
         // All of the Mystical Abilities are essentially aura based, so none of them
@@ -5941,9 +8188,7 @@ export class MysticalAbilityItemData extends SubtypeMixin(
      * @type {*}
      */
     get canImprove() {
-        const result =
-            super.canImprove &&
-            this.constructor.improvableSubTypes.includes(this.subType);
+        const result = super.canImprove && this.$canImprove;
         return result;
     }
 
@@ -5957,35 +8202,30 @@ export class MysticalAbilityItemData extends SubtypeMixin(
         return foundry.utils.mergeObject(
             super.defineSchema(),
             {
-                domain: new fields.StringField({
-                    initial: "",
-                    label: "Domain",
+                config: new fields.SchemaField({
+                    isImprovable: new fields.BooleanField({ initial: false }),
+                    assocSkill: new fields.StringField(),
+                    category: new fields.StringField(),
+                    assocPhilosophy: new fields.StringField(),
+                    usesCharges: new fields.BooleanField({ initial: false }),
                 }),
+                domain: new fields.StringField(),
                 levelBase: new fields.NumberField({
                     integer: true,
                     initial: 0,
                     min: 0,
-                    label: "Level",
                 }),
                 charges: new fields.SchemaField({
-                    usesCharges: new fields.BooleanField({
-                        initial: false,
-                        label: "Uses Charges",
-                    }),
                     value: new fields.NumberField({
                         integer: true,
                         initial: 0,
                         min: 0,
-                        label: "Charges",
-                        hint: "Current number of charges available",
                     }),
                     // Note: if max charges is 0, then there is no maximum
                     max: new fields.NumberField({
                         integer: true,
                         initial: 0,
                         min: 0,
-                        label: "Max Charges",
-                        hint: "Maximum number of charges possible",
                     }),
                 }),
             },
@@ -5993,79 +8233,52 @@ export class MysticalAbilityItemData extends SubtypeMixin(
         );
     }
 
-    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
-        return super.getIntrinsicActions(
-            _data,
-            defaultAction || "perform",
-            Utility.uniqueActions(actions, [
-                {
-                    functionName: "perform",
-                    name: `Perform ${this.constructor.subTypes[this.subType]}`,
-                    contextIconClass: "far fa-hand-sparkles",
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$masteryLevel.disabled;
-                    },
-                    contextGroup: "essential",
-                },
-            ]),
-        );
-    }
-
-    perform(
-        speaker,
-        actor,
-        token,
-        character,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-perform`,
-            title = `${this.item.label} Perform`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        } = {},
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-            needsActor: true,
-            self: this,
-        }));
-        // TODO - Mystical Ability Perform
-        ui.notifications.warn("Mystical Ability Perform Not Implemented");
-    }
-
     /** @override */
     prepareBaseData() {
         super.prepareBaseData();
-        this.$charges = new ValueModifier(this, {
-            max: new ValueModifier(this),
-        });
+        this.$charges = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    max: new CONFIG.SOHL.class.ValueModifier(
+                        {},
+                        { parent: this },
+                    ),
+                },
+            },
+            { parent: this },
+        );
         if (!this.charges.usesCharges) {
-            this.$charges.setDisabled("Doesn't Use Charges", "NoChrg");
-            this.$charges.max.setDisabled("Doesn't Use Charges", "NoChrg");
+            this.$charges.setDisabled("SOHL.DoesNotUseCharges", "NoChrg");
+            this.$charges.max.setDisabled("SOHL.DoesNotUseCharges", "NoChrg");
         } else {
             this.$charges.setBase(this.charges.value);
             this.$charges.max.setBase(this.charges.max);
         }
-        this.$level = new ValueModifier(this, {
-            roman: (thisVM) => Utility.romanize(thisVM.effective),
-        });
+        this.$level = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    roman: (thisVM) => Utility.romanize(thisVM.effective),
+                },
+            },
+            { parent: this },
+        );
         this.$level.setBase(this.levelBase);
-        this.$fatigue = new ValueModifier(this);
+        this.$fatigue = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$fatigue.setBase(this.fatigueBase);
+        this.$isImprovable = this.isImprovable;
     }
 
     setupVirtualItems() {
         super.setupVirtualItems();
         const domain = this.domain.trim();
-        if (this.subType === "ancestor" && domain) {
+        if (
+            this.config.category ===
+                MysticalAbilityItemData.CATEGORY.ANCESTOR &&
+            domain
+        ) {
             /*
              * Ancestor Spirit Powers are granted as bonuses to a particular skill, whose name
              * is in the "domain" field.  We expect that such a skill must be currently available
@@ -6097,7 +8310,7 @@ export class MysticalAbilityItemData extends SubtypeMixin(
                     // create a new one from scratch.
                     itemData = {
                         name: domain,
-                        type: SkillItemData.typeName,
+                        type: SkillItemData.TYPE_NAME,
                     };
                 }
 
@@ -6122,7 +8335,7 @@ export class MysticalAbilityItemData extends SubtypeMixin(
     /** @override */
     postProcess() {
         super.postProcess();
-        if (this.subType === "ancestor") {
+        if (this.category === MysticalAbilityItemData.CATEGORY.ANCESTOR) {
             if (this.$affectedSkill) {
                 const ml = this.$affectedSkill.system.$masteryLevel;
                 let numBoosts = this.$level.effective;
@@ -6138,60 +8351,69 @@ export class MysticalAbilityItemData extends SubtypeMixin(
 }
 
 export class PhilosophyItemData extends SohlItemData {
-    static get typeName() {
-        return "philosophy";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "philosophy",
+                locId: "PHILOSOPHY",
+                label: "TYPES.Item.philosophy",
+                labelPlural: "TYPES.Item.philosophyPl",
+                iconCssClass: "fas fa-sparkle",
+                img: "systems/sohl/assets/icons/sparkle.svg",
+                sheet: "systems/sohl/templates/item/philosophy-sheet.html",
+                nestOnly: false,
+                effectKeys: {},
+                subTypes: SOHL_VARIANTS,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
-    static get typeLabel() {
-        return {
-            singular: "Philosophy",
-            plural: "Philosophies",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/sparkle.svg";
-    }
-
-    static get categories() {
-        return {
-            arcane: "Arcane",
-            divine: "Divine",
-            spirit: "Spirit",
-            astral: "Astral",
-            natural: "Natural",
-        };
-    }
+    static CATEGORY = Object.freeze({
+        ARCANE: "arcane",
+        DIVINE: "divine",
+        SPIRIT: "spirit",
+        ASTRAL: "astral",
+        NATURAL: "natural",
+    });
 
     get categoriesLabel() {
-        return Array.from(this.categories.values()).sort().join(", ");
+        const formatter = game.i18n.getListFormatter();
+        const list = Utility.sortStrings(
+            this.constructor.CATEGORY.values().map((v) =>
+                _l(`SOHL.PHILOSOPHY.CATEGORY.${v}`),
+            ),
+        );
+        return formatter.format(list);
     }
 
-    static get divineEmbodiments() {
-        return {
-            dreams: "Dreams",
-            death: "Death",
-            storms: "Storms",
-            fertility: "Fertility",
-            order: "Order",
-            knowledge: "Knowledge",
-            prosperity: "Prosperity",
-            fire: "Fire",
-            creation: "Creation",
-            voyager: "Voyager",
-            decay: "Decay",
-        };
-    }
+    static DIVINE_EMBODIMENT = Object.freeze({
+        DREAMS: "dreams",
+        DEATH: "death",
+        VIOLENCE: "violence",
+        PEACE: "peace",
+        FERTILITY: "fertility",
+        ORDER: "order",
+        KNOWLEDGE: "knowledge",
+        PROSPERITY: "prosperity",
+        FIRE: "fire",
+        CREATION: "creation",
+        VOYAGER: "voyager",
+        DECAY: "decay",
+    });
 
-    static get elements() {
+    static get ELEMENT() {
         return {
-            fire: "Fire",
-            water: "Water",
-            earth: "Earth",
-            spirit: "Spirit",
-            wind: "Wind",
-            metal: "Metal",
-            arcana: "Arcana",
+            FIRE: "fire",
+            WATER: "water",
+            EARTH: "earth",
+            SPIRIT: "spirit",
+            WIND: "wind",
+            METAL: "metal",
+            ARCANA: "arcana",
         };
     }
 
@@ -6200,9 +8422,9 @@ export class PhilosophyItemData extends SohlItemData {
             super.defineSchema(),
             {
                 category: new fields.StringField({
-                    required: "true",
+                    required: true,
                     blank: false,
-                    label: "Category",
+                    label: _l("Category"),
                     choices: PhilosophyItemData.categories,
                 }),
             },
@@ -6214,37 +8436,25 @@ export class PhilosophyItemData extends SohlItemData {
 export class DomainItemData extends SohlItemData {
     $category;
 
-    static get typeName() {
-        return "domain";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Domain",
-            plural: "Domains",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/sparkle.svg";
-    }
-
-    /** @override */
-    static get nestOnly() {
-        return true;
-    }
-
-    get cusp() {
-        return !!this.item.getFlag("sohl", "cusp");
-    }
-
-    get magicMod() {
-        return this.item.getFlag("sohl", "magicMod") || {};
-    }
-
-    get embodiments() {
-        return this.item.getFlag("sohl", "embodiments") || [];
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "domain",
+                locId: "DOMAIN",
+                label: "TYPES.Item.domain",
+                labelPlural: "TYPES.Item.domainPl",
+                iconCssClass: "fas fa-sparkle",
+                img: "systems/sohl/assets/icons/sparkle.svg",
+                sheet: "systems/sohl/templates/item/domain-sheet.html",
+                nestOnly: true,
+                effectKeys: {},
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(
@@ -6252,8 +8462,11 @@ export class DomainItemData extends SohlItemData {
             {
                 abbrev: new fields.StringField({
                     initial: "",
-                    label: "Abbreviation",
+                    label: _l("Abbreviation"),
                 }),
+                cusp: new fields.StringField(),
+                magicMod: new fields.ArrayField(),
+                embodiments: new fields.ArrayField(),
             },
             { inplace: false },
         );
@@ -6283,67 +8496,67 @@ export class InjuryItemData extends SohlItemData {
     $injuryLevel;
     $bodyLocation;
 
-    static get typeName() {
-        return "injury";
-    }
+    /** @enum */
+    static SHOCK = Object.freeze({
+        NONE: 0,
+        STUNNED: 1,
+        INCAPACITATED: 2,
+        UNCONCIOUS: 3,
+        KILLED: 4,
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Injury",
-            plural: "Injuries",
-        };
-    }
+    static EVENT = Object.freeze({
+        NEXT_HEALING_TEST: "nexthealingtest",
+    });
 
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/injury.svg";
-    }
+    static UNTREATED = Object.freeze({
+        hr: 4,
+        infect: true,
+        impair: false,
+        bleed: false,
+        newInj: -1,
+    });
 
-    static get aspectTypes() {
-        return {
-            blunt: "Blunt",
-            edged: "Edged",
-            piercing: "Piercing",
-            fire: "Fire",
-        };
-    }
+    static INJURY_LEVELS = Object.freeze(["NA", "M1", "S2", "S3", "G4", "G5"]);
 
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "system._healingRate": { label: "Healing Rate", abbrev: "HR" },
-            "system._injuryLevel": {
-                label: "Injury Level",
-                abbrev: "InjLvl",
-            },
-        });
-    }
-
-    static get injuryLevels() {
-        return ["NA", "M1", "S2", "S3", "G4", "G5"];
-    }
-
-    static get eventTags() {
-        return foundry.utils.mergeObject(
-            super.eventTags,
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
             {
-                nextHealingTest: "Next Healing Test",
+                name: "injury",
+                locId: "INJURY",
+                label: "TYPES.Item.injury",
+                labelPlural: "TYPES.Item.injuryPl",
+                iconCssClass: "fas fa-user-injured",
+                img: "systems/sohl/assets/icons/injury.svg",
+                sheet: "systems/sohl/templates/item/injury-sheet.html",
+                nestOnly: false,
+                defaultAction: SuccessTestResult.TEST_TYPE.HEAL,
+                actionTypes: Object.fromEntries(
+                    [
+                        SuccessTestResult.TEST_TYPE.TREATMENT,
+                        SuccessTestResult.TEST_TYPE.HEAL,
+                        SuccessTestResult.TEST_TYPE.BLEEDINGSTOPPAGE,
+                        SuccessTestResult.TEST_TYPE.BLOODLOSSADVANCE,
+                    ].map((a) => SuccessTestResult.testTypes[a]),
+                ),
+                events: [this.EVENT.NEXT_HEALING_TEST],
+                effectKeys: {
+                    "system._healingRate": {
+                        label: "Healing Rate",
+                        abbrev: "HR",
+                    },
+                    "system._injuryLevel": {
+                        label: "Injury Level",
+                        abbrev: "InjLvl",
+                    },
+                },
+                schemaVersion: "0.5.6",
             },
             { inplace: false },
-        );
-    }
-
-    get nextHealingTest() {
-        return this.getEvent("nextHealingTest")?.system;
-    }
-
-    get untreatedHealing() {
-        return {
-            hr: 4,
-            infect: true,
-            impair: false,
-            bleed: false,
-            newInj: -1,
-        };
-    }
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(
@@ -6353,127 +8566,29 @@ export class InjuryItemData extends SohlItemData {
                     integer: true,
                     initial: 0,
                     min: 0,
-                    label: "Injury Level",
                 }),
                 healingRateBase: new fields.NumberField({
                     integer: true,
                     initial: 0,
                     min: 0,
-                    label: "Healing Rate",
                 }),
                 aspect: new fields.StringField({
-                    initial: "blunt",
-                    blank: false,
-                    label: "Aspect",
-                    choices: InjuryItemData.aspectTypes,
+                    initial: ImpactModifier.IMPACT.BLUNT,
+                    choices: Utility.getChoicesMap(
+                        ImpactModifier.ASPECT,
+                        "SOHL.IMPACTMODIFIER.ASPECT",
+                    ),
                 }),
-                isTreated: new fields.BooleanField({
-                    initial: false,
-                    label: "Treated",
-                }),
-                isBleeding: new fields.BooleanField({
-                    initial: false,
-                    label: "Bleeding",
-                }),
-                bodyLocationUuid: new fields.StringField({
-                    initial: "",
-                    label: "Body Location",
-                }),
+                isTreated: new fields.BooleanField({ initial: false }),
+                isBleeding: new fields.BooleanField({ initial: false }),
+                bodyLocationUuid: new fields.StringField(),
             },
             { inplace: false },
         );
     }
 
-    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
-        return super.getIntrinsicActions(
-            _data,
-            defaultAction || "healTest",
-            Utility.uniqueActions(actions, [
-                {
-                    functionName: "bleedingStoppageTest",
-                    name: "Bleeding Stoppage Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.BLEEDINGSTOPAGE
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        if (!item?.system.isBleeding) return false;
-                        const physician = item?.actor?.getSkillByAbbrev("pysn");
-                        return (
-                            physician &&
-                            !physician.system.$masteryLevel.disabled
-                        );
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "bloodLossAdvanceTest",
-                    name: "Blood Loss Advance Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.BLOODLESSADVANCE
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        if (!item || !item.system.isBleeding) return false;
-                        const strength = item?.actor?.getTraitByAbbrev("str");
-                        return (
-                            strength && !strength.system.$masteryLevel?.disabled
-                        );
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "treatmentTest",
-                    name: "Treatment Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.TREATMENT
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        if (item?.system.isBleeding) return false;
-                        const physician = item?.actor?.getSkillByAbbrev("pysn");
-                        return (
-                            physician &&
-                            !physician.system.$masteryLevel.disabled
-                        );
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "healTest",
-                    name: "Heal Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.HEAL
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        if (item?.system.isBleeding) return false;
-                        const endurance = item?.actor?.getTraitByAbbrev("end");
-                        return (
-                            endurance &&
-                            !endurance.system.$masteryLevel.disabled
-                        );
-                    },
-                    contextGroup: "essential",
-                },
-            ]),
-        );
+    get nextHealingTest() {
+        return this.getEvent("nextHealingTest")?.system;
     }
 
     treatmentTest(
@@ -6528,56 +8643,6 @@ export class InjuryItemData extends SohlItemData {
 
         // TODO - Injury Heal Test
         ui.notifications.warn("Injury Heal Test Not Implemented");
-    }
-
-    bleedingStoppageTest(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-bleed-stop-test`,
-            title = `${this.item.label} Bleeding Stoppage Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        },
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-        }));
-
-        // TODO - Injury Bleeding Stoppage Test
-        ui.notifications.warn("Injury Bleeding Stoppage Test Not Implemented");
-    }
-
-    bloodlossAdvanceTest(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        {
-            skipDialog = false,
-            noChat = false,
-            type = `${this.type}-${this.name}-bloodloss-advance-test`,
-            title = `${this.item.label} Bloodloss Advance Test`,
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            ...scope
-        },
-    ) {
-        ({ speaker, actor, token, character } = SohlMacro.getExecuteDefaults({
-            speaker,
-            actor,
-            token,
-            character,
-        }));
-
-        // TODO - Injury Bloodloss Advance Test
-        ui.notifications.warn("Injury Bloodloss Advance Test Not Implemented");
     }
 
     /** @override */
@@ -6639,13 +8704,20 @@ export class InjuryItemData extends SohlItemData {
     prepareBaseData() {
         super.prepareBaseData();
 
-        this.$healingRate = new ValueModifier(this);
-        this.$injuryLevel = new ValueModifier(this, {
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            severity: (thisVM) => {
-                return "0";
+        this.$healingRate = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
+        this.$injuryLevel = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    severity: () => {
+                        return "0";
+                    },
+                },
             },
-        });
+            { parent: this },
+        );
 
         this.$injuryLevel.setBase(this.injuryLevelBase);
         this.$healingRate.setBase(
@@ -6654,7 +8726,7 @@ export class InjuryItemData extends SohlItemData {
     }
 
     processSiblings() {
-        this.$bodyLocation = fromUuidSync(this.bodyLocationUuid);
+        this.$bodyLocation = this.actor.getItem(this.bodyLocationUuid);
     }
 
     postProcess() {
@@ -6671,113 +8743,137 @@ export class AfflictionItemData extends SubtypeMixin(SohlItemData) {
     static AFFLICTON_DEFEATED_HR = 6;
     static SUBJECT_DEAD_HR = 0;
     static UNDEFINED_HR = -1;
+    static TRANSMISSION = Object.freeze({
+        NONE: "none",
+        AIRBORNE: "airborne",
+        CONTACT: "contact",
+        BODYFLUID: "bodyfluid",
+        INJESTED: "injested",
+        PROXIMITY: "proximity",
+        VECTOR: "vector",
+        PERCEPTION: "perception",
+        ARCANE: "arcane",
+        DIVINE: "divine",
+        SPIRIT: "spirit",
+    });
 
-    static get typeName() {
-        return "affliction";
-    }
+    static FATIGUE = Object.freeze({
+        WINDEDNESS: "windedness",
+        WEARINESS: "weariness",
+        WEAKNESS: "weakness",
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Affliction",
-            plural: "Afflictions",
-        };
-    }
+    static PRIVATION = Object.freeze({
+        ASPHIXIA: "asphixia",
+        COLD: "cold",
+        HEAT: "heat",
+        STARVATION: "starvation",
+        DEHYDRATION: "dehydration",
+        SLEEP_DEPRIVATION: "nosleep",
+    });
 
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/sick.svg";
-    }
+    static FEAR_LEVEL = Object.freeze({
+        NONE: "none",
+        BRAVE: "brave",
+        STEADY: "steady",
+        AFRAID: "afraid",
+        TERRIFIED: "terrified",
+        CATATONIC: "catatonic",
+    });
 
-    static get subTypes() {
-        return {
-            privation: "Privation",
-            fatigue: "Fatigue",
-            disease: "Disease",
-            infection: "Infection",
-            poisontoxin: "Poison/Toxin",
-            fear: "Fear",
-            morale: "Morale",
-            shadow: "Shadow",
-            psyche: "Psyche Stress",
-            auralshock: "Aural Shock",
-        };
-    }
+    static MORALE_LEVEL = Object.freeze({
+        NONE: "none",
+        BRAVE: "brave",
+        STEADY: "steady",
+        WITHDRAWING: "withdraw",
+        ROUTED: "routed",
+        CATATONIC: "catatonic",
+    });
 
-    static get subTypeAbbreviation() {
-        return {
-            privation: "Prv",
-            fatigue: "Fatg",
-            disease: "Disz",
-            infection: "Inft",
-            poisontoxin: "PsnTxn",
-            fear: "Fear",
-            morale: "Morl",
-            shadow: "Shdw",
-            psyche: "Psy",
-            auralshock: "AShk",
-        };
-    }
-    static get transmissionTypes() {
-        return {
-            none: "Noncommunicable",
-            airborne: "Airborne",
-            contact: "Contact",
-            bodyfluid: "Body Fluid",
-            injested: "Injested",
-            proximity: "Proximity",
-            vector: "Vector",
-            perception: "Perception",
-            arcane: "Arcane",
-            divine: "Divine",
-            spirit: "Spirit",
-        };
-    }
+    static EVENT = Object.freeze({
+        NEXT_COURSE_TEST: "nextcoursetest",
+        NEXT_RECOVERY_TEST: "nextrecoverytest",
+    });
 
-    static get fatigueKinds() {
-        return {
-            windedness: "Windedness",
-            weariness: "Weariness",
-            weakness: "Weakness",
-        };
-    }
-
-    static get privationKinds() {
-        return {
-            asphixia: "Asphixia",
-            cold: "Cold Exposure",
-            heat: "Heat Exposure",
-            starvation: "Starvation",
-            dehydration: "Dehydration",
-            nosleep: "Sleep Deprivation",
-        };
-    }
-    static get fearLevels() {
-        return {
-            none: "No Effect",
-            brave: "Brave",
-            steady: "Steady",
-            afraid: "Afraid",
-            terrified: "Terrified",
-            catatonic: "Catatonic",
-        };
-    }
-
-    static get moraleLevels() {
-        return {
-            none: "No Effect",
-            brave: "Brave",
-            steady: "Steady",
-            withdraw: "Withdrawing",
-            routed: "Routed",
-            catatonic: "Catatonic",
-        };
-    }
-
-    static get eventTags() {
-        return foundry.utils.mergeObject(
-            super.eventTags,
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
             {
-                nextCourseTest: "Next Course Test",
-                nextRecoveryTest: "Next Recovery Test",
+                name: "affliction",
+                locId: "AFFLICTION",
+                label: "TYPES.Item.affliction",
+                labelPlural: "TYPES.Item.afflictionPl",
+                iconCssClass: "fas fa-face-nauseated",
+                img: "systems/sohl/assets/icons/sick.svg",
+                sheet: "systems/sohl/templates/item/affliction-sheet.html",
+                nestOnly: false,
+                effectKeys: {},
+                defaultAction: SuccessTestResult.TEST_TYPE.AFFLICTIONTRANSMIT,
+                actionTypes: Object.fromEntries(
+                    [
+                        SuccessTestResult.TEST_TYPE.AFFLICTIONTRANSMIT,
+                        SuccessTestResult.TEST_TYPE.AFFLICTIONCOURSE,
+                        SuccessTestResult.TEST_TYPE.DIAGNOSIS,
+                        SuccessTestResult.TEST_TYPE.TREATMENT,
+                        SuccessTestResult.TEST_TYPE.HEAL,
+                    ].map((a) => SuccessTestResult.testTypes[a]),
+                ),
+                events: [
+                    this.EVENT.NEXT_COURSE_TEST,
+                    this.EVENT.NEXT_RECOVERY_TEST,
+                ],
+                subTypes: {
+                    PRIVATION: "privation",
+                    FATIGUE: "fatigue",
+                    DISEASE: "disease",
+                    INFECTION: "infection",
+                    POISONTOXIN: "poisontoxin",
+                    FEAR: "fear",
+                    MORALE: "morale",
+                    SHADOW: "shadow",
+                    PSYCHE: "psyche",
+                    AURALSHOCK: "auralshock",
+                },
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
+
+    static defineSchema() {
+        return foundry.utils.mergeObject(
+            super.defineSchema(),
+            {
+                isDormant: new fields.BooleanField({ initial: false }),
+                isTreated: new fields.BooleanField({ initial: false }),
+                diagnosisBonusBase: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                }),
+                levelBase: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+                healingRateBase: new fields.NumberField({
+                    integer: true,
+                    initial: this.UNDEFINED_HR,
+                    min: this.UNDEFINED_HR,
+                }),
+                contagionIndexBase: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+                transmission: new fields.StringField({
+                    initial: this.TRANSMISSION.NONE,
+                    required: true,
+                    choices: Utility.getChoicesMap(
+                        this.TRANSMISSION,
+                        "SOHL.AFFLICTION.TRANSMISSION",
+                    ),
+                }),
             },
             { inplace: false },
         );
@@ -6789,156 +8885,6 @@ export class AfflictionItemData extends SubtypeMixin(SohlItemData) {
 
     get nextRecoveryTest() {
         return this.getEvent("nextRecoveryTest")?.system;
-    }
-
-    static defineSchema() {
-        return foundry.utils.mergeObject(
-            super.defineSchema(),
-            {
-                isDormant: new fields.BooleanField({
-                    initial: false,
-                    label: "Dormant",
-                    hint: "Doesn't affect carrier, but may be contagious or reactivate",
-                }),
-                isTreated: new fields.BooleanField({
-                    initial: false,
-                    label: "Treated",
-                }),
-                diagnosisBonusBase: new fields.NumberField({
-                    integer: true,
-                    initial: 0,
-                    label: "Diagnosis Bonus",
-                    hint: "Modifier to treatment test from diagnosis",
-                }),
-                levelBase: new fields.NumberField({
-                    integer: true,
-                    initial: 0,
-                    min: 0,
-                    label: "Level",
-                    hint: "Magnitude of Affliction",
-                }),
-                healingRateBase: new fields.NumberField({
-                    integer: true,
-                    initial: this.UNDEFINED_HR,
-                    min: this.UNDEFINED_HR,
-                    label: "Healing Rate",
-                    hint: "Virulence of Affliction",
-                }),
-                contagionIndexBase: new fields.NumberField({
-                    integer: true,
-                    initial: 0,
-                    min: 0,
-                    label: "Contagion Index",
-                }),
-                transmission: new fields.StringField({
-                    initial: "none",
-                    blank: false,
-                    label: "Transmission",
-                    choices: this.transmissionTypes,
-                }),
-            },
-            { inplace: false },
-        );
-    }
-
-    getIntrinsicActions(_data = this, defaultAction, actions = []) {
-        return super.getIntrinsicActions(
-            _data,
-            defaultAction || "transmit",
-            Utility.uniqueActions(actions, [
-                {
-                    functionName: "transmit",
-                    name: "Transmit Affliction",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.AFFLICTIONTRANSMIT
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item?.system.canTransmit;
-                    },
-
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "courseTest",
-                    name: "Course Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.AFFLICTIONCOURSE
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        if (item.system.isDormant) return false;
-                        const endurance = item?.actor?.getTraitByAbbrev("end");
-                        return (
-                            endurance &&
-                            !endurance.system.$masteryLevel.disabled
-                        );
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "diagnosisTest",
-                    name: "Diagnosis Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.DIAGNOSIS
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.isTreated;
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "treatmentTest",
-                    name: "Treatment Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.TREATMENT
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.isTreated;
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "healingTest",
-                    name: "Healing Test",
-                    contextIconClass:
-                        SuccessTestResult.testTypes[
-                            SuccessTestResult.TEST_TYPE.HEAL
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        if (item?.system.$healingRate.disabled) return false;
-                        const endurance = item?.actor?.getTraitByAbbrev("end");
-                        return (
-                            endurance &&
-                            !endurance.system.$masteryLevel.disabled
-                        );
-                    },
-                    contextGroup: "essential",
-                },
-            ]),
-        );
     }
 
     /** @override */
@@ -7219,16 +9165,23 @@ export class AfflictionItemData extends SubtypeMixin(SohlItemData) {
     /** @override */
     prepareBaseData() {
         super.prepareBaseData();
-        this.$healingRate = new ValueModifier(this);
+        this.$healingRate = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         if (this.healingRateBase === -1) {
             this.$healingRate.setDisabled("No Healing Rate", "NoHeal");
         } else {
             this.$healingRate.setBase(this.healingRateBase);
         }
-        this.$contagionIndex = new ValueModifier(this).setBase(
-            this.contagionIndexBase,
-        );
-        this.$level = new ValueModifier(this).setBase(this.levelBase);
+        this.$contagionIndex = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        ).setBase(this.contagionIndexBase);
+        this.$level = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        ).setBase(this.levelBase);
     }
 }
 
@@ -7236,45 +9189,44 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
     $valueDesc;
     $score;
 
-    static get typeName() {
-        return "trait";
-    }
+    static INTENSITY = Object.freeze({
+        TRAIT: "trait",
+        IMPULSE: "impulse",
+        DISORDER: "disorder",
+        ATTRIBUTE: "attribute",
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Trait",
-            plural: "Traits",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/user-gear.svg";
-    }
-
-    static get subTypes() {
-        return {
-            physique: "Physique",
-            personality: "Personality",
-            transcendent: "Transcendent",
-        };
-    }
-
-    static get intensities() {
-        return {
-            trait: "Trait",
-            impulse: "Impulse",
-            disorder: "Disorder",
-            attribute: "Attribute",
-        };
-    }
-
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "system.$score": { label: "Score", abbrev: "Score" },
-            "system.$masteryLevel": { label: "Mastery Level", abbrev: "ML" },
-            "system.textValue": { label: "Text", abbrev: "Text" },
-        });
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "trait",
+                locId: "TRAIT",
+                label: "TYPES.Item.trait",
+                labelPlural: "TYPES.Item.traitPl",
+                iconCssClass: "fas fa-user-gear",
+                img: "systems/sohl/assets/icons/user-gear.svg",
+                sheet: "systems/sohl/templates/item/trait-sheet.html",
+                nestOnly: false,
+                effectKeys: {
+                    "system.$score": { label: "Score", abbrev: "Score" },
+                    "system.$masteryLevel": {
+                        label: "Mastery Level",
+                        abbrev: "ML",
+                    },
+                    "system.textValue": { label: "Text", abbrev: "Text" },
+                },
+                subTypes: {
+                    PHYSIQUE: "physique",
+                    PERSONALITY: "personality",
+                    TRANSCENDENT: "transcendent",
+                },
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     get displayVal() {
         let result = this.textValue;
@@ -7286,19 +9238,22 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
         return result;
     }
 
-    getIntrinsicActions(_data = this, defaultAction = null, options = []) {
-        if (this.intensity === "attribute" && this.isNumeric) {
-            return super.getIntrinsicActions(_data, defaultAction, options);
-        } else {
-            // If this is not a numeric attribute, then targetlevel is
-            // actually not used, so don't include its intrinsic actions
-            // and instead use the intrinsic actions for SohlItemData.
+    get defaultAction() {
+        if (!(this.intensity === "attribute" && this.isNumeric)) {
+            return SohlItemData.prototype.defaultAction;
+        }
+        return super.defaultAction;
+    }
+
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        if (!(this.intensity === "attribute" && this.isNumeric)) {
             return SohlItemData.prototype.getIntrinsicActions(
                 _data,
                 defaultAction,
-                options,
+                actions,
             );
         }
+        return super.getIntrinsicActions(_data, defaultAction, actions);
     }
 
     /**
@@ -7322,43 +9277,35 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
      */
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            textValue: new fields.StringField({
-                initial: "",
-                label: "Value",
-            }),
+            textValue: new fields.StringField(),
             max: new fields.NumberField({
                 integer: true,
                 nullable: true,
                 initial: null,
-                label: "Maximum value",
             }),
-            isNumeric: new fields.BooleanField({
-                initial: false,
-                label: "Is Numeric",
-                hint: "Is value numeric",
-            }),
+            isNumeric: new fields.BooleanField({ initial: false }),
             intensity: new fields.StringField({
-                initial: "trait",
-                blank: false,
-                label: "Intensity",
-                choices: this.intensities,
+                initial: this.INTENSITY.TRAIT,
+                required: true,
+                choices: Utility.getChoicesMap(
+                    this.INTENSITY,
+                    "SOHL.TRAIT.INTENSITY",
+                ),
             }),
             valueDesc: new fields.ArrayField(
                 new fields.SchemaField({
                     label: new fields.StringField({
-                        initial: "",
-                        label: "Value Label",
+                        blank: false,
+                        required: true,
                     }),
                     maxValue: new fields.NumberField({
                         integer: true,
+                        required: true,
                         initial: 0,
-                        label: "The highest attribute value where this label applies",
                     }),
                 }),
             ),
-            choices: new fields.ObjectField({
-                label: "Choices",
-            }),
+            choices: new fields.ObjectField(),
         });
     }
 
@@ -7368,29 +9315,36 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
         this.$valueDesc = this.valueDesc
             .concat()
             .sort((a, b) => a.maxValue - b.maxValue);
-        this.$score = new ValueModifier(this, {
-            valueDesc: (thisVM) => {
-                let desc = "";
-                const len = this.$valueDesc.length;
-                for (let i = 0; !desc && i < len; i++) {
-                    if (thisVM.effective <= this.$valueDesc[i].maxValue) {
-                        desc = this.$valueDesc[i].label;
-                        break;
-                    }
-                }
-                return desc;
+        this.$score = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    valueDesc: (thisVM) => {
+                        let desc = "";
+                        const len = this.$valueDesc.length;
+                        for (let i = 0; !desc && i < len; i++) {
+                            if (
+                                thisVM.effective <= this.$valueDesc[i].maxValue
+                            ) {
+                                desc = this.$valueDesc[i].label;
+                                break;
+                            }
+                        }
+                        return desc;
+                    },
+                    max: this.max,
+                    displayVal: (thisVM) => {
+                        let result = thisVM.effective;
+                        const traitDesc = thisVM.valueDesc;
+                        if (traitDesc) result += ` (${traitDesc})`;
+                        if (typeof thisVM.max === "number") {
+                            result += ` [max: ${thisVM.max}]`;
+                        }
+                        return result;
+                    },
+                },
             },
-            max: this.max,
-            displayVal: (thisVM) => {
-                let result = thisVM.effective;
-                const traitDesc = thisVM.valueDesc;
-                if (traitDesc) result += ` (${traitDesc})`;
-                if (typeof thisVM.max === "number") {
-                    result += ` [max: ${thisVM.max}]`;
-                }
-                return result;
-            },
-        });
+            { parent: this },
+        );
 
         if (this.isNumeric) {
             const scoreVal = Number.parseInt(this.textValue, 10);
@@ -7451,26 +9405,23 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
                                 (a) => a === this.item.name,
                             ).length;
                             it.system.$masteryLevel.add(
-                                `${this.item.name} Increase`,
-                                `${this.abbr}Inc`,
+                                CONST.SOHL.MOD.MLATTRBOOST
+                                    .name`${this.abbr}Inc`,
                                 this.$score.modifier * numOccurances * 5,
+                                { attr: this.item.name },
                             );
                         }
                     }
                 }
             }
         } else {
-            this.$masteryLevel.setDisabled(
-                "Non-attribute traits don't have ML",
-                "NoML",
-            );
+            this.$masteryLevel.setDisabled(CONST.SOHL.MOD.NOTATTRNOML);
         }
 
         if (this.abbrev === "fate") {
             if (this.actor.system.$magicMod.spirit) {
                 this.$masteryLevel.add(
-                    "Sunsign Modifier",
-                    "SS",
+                    CONFIG.SOHL.MOD.SSMOD,
                     this.actor.system.$magicMod.spirit,
                 );
             }
@@ -7479,78 +9430,76 @@ export class TraitItemData extends SubtypeMixin(MasteryLevelItemData) {
 }
 
 export class SkillItemData extends SubtypeMixin(MasteryLevelItemData) {
-    static get typeName() {
-        return "skill";
-    }
+    static COMBAT = Object.freeze({
+        NONE: "none",
+        ALL: "all",
+        MELEE: "melee",
+        MISSILE: "missile",
+        MELEEMISSILE: "meleemissile",
+        MANEUVER: "maneuver",
+        MELEEMANEUVER: "meleemaneuver",
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Skill",
-            plural: "Skills",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/head-gear.svg";
-    }
-
-    /** @enum */
-    static get subTypes() {
-        return {
-            social: "Social",
-            nature: "Nature",
-            craft: "Craft",
-            lore: "Lore",
-            language: "Language",
-            script: "Script",
-            ritual: "Ritual",
-            physical: "Physical",
-            combat: "Combat",
-            esoteric: "Esoteric",
-        };
-    }
-
-    /** @enum */
-    static get combatTypes() {
-        return {
-            none: "None",
-            all: "All Weapon Types",
-            melee: "Melee",
-            missile: "Missile",
-            meleemissile: "Melee & Missile",
-            maneuver: "Combat Maneuver",
-            meleemaneuver: "Melee & Combat Maneuver",
-        };
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "skill",
+                locId: "SKILL",
+                label: "TYPES.Item.skill",
+                labelPlural: "TYPES.Item.skillPl",
+                iconCssClass: "fas fa-head-side-gear",
+                img: "systems/sohl/assets/icons/head-gear.svg",
+                sheet: "systems/sohl/templates/item/skill-sheet.html",
+                nestOnly: false,
+                effectKeys: {},
+                subTypes: {
+                    SOCIAL: "social",
+                    NATURE: "nature",
+                    CRAFT: "craft",
+                    LORE: "lore",
+                    LANGUAGE: "language",
+                    SCRIPT: "script",
+                    RITUAL: "ritual",
+                    PHYSICAL: "physical",
+                    COMBAT: "combat",
+                    ESOTERIC: "esoteric",
+                },
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     get magicMod() {
         let mod;
         switch (this.subType) {
-            case "social":
+            case this.SUBTYPE.SOCIAL:
                 mod = this.actor.system.$magicMod.water;
                 break;
-            case "nature":
+            case this.SUBTYPE.NATURE:
                 mod = this.actor.system.$magicMod.earth;
                 break;
-            case "craft":
+            case this.SUBTYPE.CRAFT:
                 mod = this.actor.system.$magicMod.metal;
                 break;
-            case "lore":
+            case this.SUBTYPE.LORE:
                 mod = this.actor.system.$magicMod.spirit;
                 break;
-            case "language":
+            case this.SUBTYPE.LANGUAGE:
                 mod = this.actor.system.$magicMod.social;
                 break;
-            case "script":
+            case this.SUBTYPE.SCRIPT:
                 mod = this.actor.system.$magicMod.lore;
                 break;
-            case "ritual":
+            case this.SUBTYPE.RITUAL:
                 mod = this.actor.system.$magicMod.lore;
                 break;
-            case "physical":
+            case this.SUBTYPE.PHYSICAL:
                 mod = this.actor.system.$magicMod.air;
                 break;
-            case "combat":
+            case this.SUBTYPE.COMBAT:
                 mod = this.actor.system.$magicMod.fire;
                 break;
         }
@@ -7568,21 +9517,15 @@ export class SkillItemData extends SubtypeMixin(MasteryLevelItemData) {
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
             weaponGroup: new fields.StringField({
-                initial: "none",
+                initial: this.COMBAT.NONE,
                 blank: false,
-                label: "Weapon Group",
-                choices: this.combatTypes,
+                choices: Utility.getChoicesMap(
+                    this.COMBAT,
+                    "SOHL.SKILL.COMBAT",
+                ),
             }),
-            baseSkill: new fields.StringField({
-                initial: "",
-                label: "Base Skill",
-                hint: "If this is a specialization, then the name of the base skill, otherwise blank",
-            }),
-            domain: new fields.StringField({
-                initial: "",
-                label: "Domain",
-                hint: "Domain associated with this skill, if any",
-            }),
+            baseSkill: new fields.StringField(),
+            domain: new fields.StringField(),
         });
     }
 
@@ -7595,42 +9538,36 @@ export class SkillItemData extends SubtypeMixin(MasteryLevelItemData) {
 }
 
 export class AffiliationItemData extends SohlItemData {
-    static get typeName() {
-        return "affiliation";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Affiliation",
-            plural: "Affiliations",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/people-group.svg";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "affiliation",
+                locId: "AFFILIATION",
+                label: "TYPES.Item.affiliation",
+                labelPlural: "TYPES.Item.affiliationPl",
+                iconCssClass: "fa-duotone fa-people-group",
+                img: "systems/sohl/assets/icons/people-group.svg",
+                sheet: "systems/sohl/templates/item/affiliation-sheet.html",
+                nestOnly: false,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(
             super.defineSchema(),
             {
-                society: new fields.StringField({
-                    initial: "",
-                    label: "Society",
-                }),
-                office: new fields.StringField({
-                    initial: "",
-                    label: "Office",
-                }),
-                title: new fields.StringField({
-                    initial: "",
-                    label: "Title",
-                }),
+                society: new fields.StringField(),
+                office: new fields.StringField(),
+                title: new fields.StringField(),
                 level: new fields.NumberField({
                     integer: true,
                     initial: 0,
                     min: 0,
-                    label: "Level",
                 }),
             },
             { inplace: false },
@@ -7641,51 +9578,51 @@ export class AffiliationItemData extends SohlItemData {
 export class AnatomyItemData extends SohlItemData {
     $sum;
 
-    static get typeName() {
-        return "anatomy";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Anatomy",
-            plural: "Anatomies",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/person.svg";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "anatomy",
+                locId: "ANATOMY",
+                label: "TYPES.Item.anatomy",
+                labelPlural: "TYPES.Item.anatomyPl",
+                iconCssClass: "fas fa-person",
+                img: "systems/sohl/assets/icons/person.svg",
+                sheet: "systems/sohl/templates/item/anatomy-sheet.html",
+                nestOnly: false,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 }
 
 export class BodyZoneItemData extends SohlItemData {
     $bodyParts;
 
-    static get typeName() {
-        return "bodyzone";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Body Zone",
-            plural: "Body Zones",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/person.svg";
-    }
-
-    /** @override */
-    static get nestOnly() {
-        return true;
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "bodyzone",
+                locId: "BODYZONE",
+                label: "TYPES.Item.bodyzone",
+                labelPlural: "TYPES.Item.bodyzonePl",
+                iconCssClass: "fa-duotone fa-person",
+                img: "systems/sohl/assets/icons/person.svg",
+                sheet: "systems/sohl/templates/item/bodyzone-sheet.html",
+                nestOnly: true,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            abbrev: new fields.StringField({
-                initial: "",
-                label: "Abbreviation",
-            }),
+            abbrev: new fields.StringField(),
         });
     }
 
@@ -7723,41 +9660,30 @@ export class BodyPartItemData extends SohlItemData {
     $bodyLocations;
     $health;
 
-    static get typeName() {
-        return "bodypart";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Body Part",
-            plural: "Body Parts",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/ribcage.svg";
-    }
-
-    /** @override */
-    static get nestOnly() {
-        return true;
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "bodypart",
+                locId: "BODYPART",
+                label: "TYPES.Item.bodypart",
+                labelPlural: "TYPES.Item.bodypartPl",
+                iconCssClass: "fa-duotone fa-skeleton-ribs",
+                img: "systems/sohl/assets/icons/ribcage.svg",
+                sheet: "systems/sohl/templates/item/bodypart-sheet.html",
+                nestOnly: true,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            abbrev: new fields.StringField({
-                initial: "",
-                label: "Abbreviation",
-            }),
-            canHoldItem: new fields.BooleanField({
-                initial: false,
-                label: "Can Hold Item",
-                hint: "Whether this body part can hold an item",
-            }),
-            heldItemId: new fields.StringField({
-                initial: "",
-                label: "Held Item Id",
-            }),
+            abbrev: new fields.StringField(),
+            canHoldItem: new fields.BooleanField({ initial: false }),
+            heldItemId: new fields.StringField(),
         });
     }
 
@@ -7805,9 +9731,14 @@ export class BodyPartItemData extends SohlItemData {
                 this.$heldItem.system.$isHeldBy.push(this.item.id);
             } else {
                 const heldItemType =
-                    SohlItem.types[this.$heldItem.type].typeLabel.singular;
+                    SohlItem.types[this.$heldItem.type].constructor.metadata
+                        .label;
                 ui.notifications.warn(
-                    `${heldItemType} ${this.$heldItem.name} is not carried, so dropping it from ${this.item.name}`,
+                    _l("SOHL.BODYPART.NotCarriedWarning", {
+                        heldItemType,
+                        heldItemName: this.$heldItem.name,
+                        itemName: this.item.name,
+                    }),
                 );
                 this.update({ "system.heldItem": "" });
             }
@@ -7820,43 +9751,34 @@ export class BodyLocationItemData extends SohlItemData {
     $layers;
     $traits;
 
-    static get typeName() {
-        return "bodylocation";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Body Location",
-            plural: "Body Locations",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/hand.svg";
-    }
-
-    static get effectKeys() {
-        const aspects = Object.keys(ImpactModifier.aspectTypes).reduce(
-            (obj, key) => {
-                obj[`system.armorBase.${key}`] = [key, key];
-                return obj;
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "bodylocation",
+                locId: "BODYLOCATION",
+                label: "TYPES.Item.bodylocation",
+                labelPlural: "TYPES.Item.bodylocationPl",
+                iconCssClass: "fa-solid fa-hand",
+                img: "systems/sohl/assets/icons/hand.svg",
+                sheet: "systems/sohl/templates/item/bodylocation-sheet.html",
+                effectKeys: Object.fromEntries(
+                    Object.values(ImpactModifier.ASPECT).map((v) => [
+                        `system.armorBase.${v}`,
+                        { label: `SOHL.IMPACTMODIFIER.ASPECT.${v}`, abbrev: v },
+                    ]),
+                ),
+                nestOnly: true,
+                schemaVersion: "0.5.6",
             },
-            {},
-        );
-        return Utility.simpleMerge(super.effectKeys, aspects);
-    }
-
-    /** @override */
-    static get nestOnly() {
-        return true;
-    }
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            abbrev: new fields.StringField({
-                initial: "",
-                label: "Abbreviation",
-            }),
+            abbrev: new fields.StringField(),
         });
     }
 
@@ -7885,77 +9807,65 @@ export class BodyLocationItemData extends SohlItemData {
     }
 }
 
-export class MysticalDeviceItemData extends SubtypeMixin(SohlItemData) {
-    static get typeName() {
-        return "mysticaldevice";
-    }
+export class MysticalDeviceItemData extends SohlItemData {
+    static CATEGORY = Object.freeze({
+        ARTIFACT: "artifact",
+        ANCESTOR_TALISMAN: "ancestortalisman",
+        TOTEM_TALISMAN: "totemtalisman",
+        REMNANT: "remnant",
+        RELIC: "relic",
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Mystical Device",
-            plural: "Mystical Devices",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/magic-wand.svg";
-    }
-
-    /** @enum */
-    static get subTypes() {
-        return {
-            artifact: "Arcane Artifact",
-            talisman: "Shamanic Talisman",
-            remnant: "Earthmaster Remnant",
-            relic: "Divine Relic",
-        };
-    }
-
-    static get talismanTypes() {
-        return {
-            ancestor: "Ancestor Spirit Power",
-            totem: "Totem Spirit Power",
-        };
-    }
-
-    /** @override */
-    static get nestOnly() {
-        return true;
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "mysticaldevice",
+                locId: "MYSTICALDEVICE",
+                label: "TYPES.Item.mysticaldevice",
+                labelPlural: "TYPES.Item.mysticaldevicePl",
+                iconCssClass: "fas fa-wand-sparkles",
+                img: "systems/sohl/assets/icons/magic-wand.svg",
+                sheet: "systems/sohl/templates/item/mysticaldevice-sheet.html",
+                effectKeys: {},
+                nestOnly: true,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            isAttuned: new fields.BooleanField({
-                initial: false,
-                label: "Attuned",
+            config: new fields.SchemaField({
+                requiresAttunement: new fields.BooleanField({ initial: false }),
+                usesVolition: new fields.BooleanField({ initial: false }),
+                category: new fields.StringField({
+                    required: true,
+                    initial: this.CATEGORY.ARTIFACT,
+                    choices: Utility.getChoicesMap(
+                        this.CATEGORY,
+                        "SOHL.MYSTICALDEVICE.CATEGORY",
+                    ),
+                }),
+                assocPhilosophy: new fields.StringField(),
             }),
-            requiresAttunement: new fields.BooleanField({
-                initial: false,
-                label: "Requires Attunement",
+            domain: new fields.StringField(),
+            isAttuned: new fields.BooleanField({ initial: false }),
+            volition: new fields.SchemaField({
+                ego: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+                morality: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+                purpose: new fields.StringField(),
             }),
-            volition: new fields.SchemaField(
-                {
-                    ego: new fields.NumberField({
-                        integer: true,
-                        initial: 0,
-                        min: 0,
-                        label: "Ego",
-                    }),
-                    morality: new fields.NumberField({
-                        integer: true,
-                        initial: 0,
-                        min: 0,
-                        label: "Morality",
-                    }),
-                    purpose: new fields.StringField({
-                        initial: "",
-                        label: "Purpose",
-                    }),
-                },
-                {
-                    label: "Volition",
-                },
-            ),
         });
     }
 }
@@ -7970,14 +9880,35 @@ export class GearItemData extends SohlItemData {
     $skillItem;
     $traits;
 
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "system.$value": { label: "Value", abbrev: "Val" },
-            "system.$weight": { label: "Weight", abbrev: "Wt" },
-            "system.$quality": { label: "Quality", abbrev: "Qal" },
-            "system.$durability": { label: "Durability", abbrev: "Dur" },
-        });
-    }
+    static TYPE = Object.freeze({
+        MISC: MiscGearItemData.TYPE_NAME,
+        CONTAINER: ContainerGearItemData.TYPE_NAME,
+        ARMOR: ArmorGearItemData.TYPE_NAME,
+        WEAPON: WeaponGearItemData.TYPE_NAME,
+        PROJECTILE: ProjectileGearItemData.TYPE_NAME,
+        CONCOCTION: ConcoctionGearItemData.TYPE_NAME,
+    });
+
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                locId: "GEAR",
+                effectKeys: {
+                    "system.$value": { label: "Value", abbrev: "Val" },
+                    "system.$weight": { label: "Weight", abbrev: "Wt" },
+                    "system.$quality": { label: "Quality", abbrev: "Qal" },
+                    "system.$durability": {
+                        label: "Durability",
+                        abbrev: "Dur",
+                    },
+                },
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static get mods() {
         return foundry.utils.mergeObject(super.mods, {
@@ -8007,45 +9938,31 @@ export class GearItemData extends SohlItemData {
         return foundry.utils.mergeObject(
             super.defineSchema(),
             {
-                abbrev: new fields.StringField({
-                    initial: "",
-                    label: "Abbreviation",
-                }),
+                abbrev: new fields.StringField(),
                 quantity: new fields.NumberField({
                     integer: true,
                     initial: 1,
                     min: 0,
-                    label: "Quantity",
                 }),
                 weightBase: new fields.NumberField({
                     initial: 0,
                     min: 0,
-                    label: "Weight",
                 }),
                 valueBase: new fields.NumberField({
                     initial: 0,
                     min: 0,
-                    label: "Value",
                 }),
-                isCarried: new fields.BooleanField({
-                    initial: true,
-                    label: "Carried",
-                }),
-                isEquipped: new fields.BooleanField({
-                    initial: false,
-                    label: "Equipped",
-                }),
+                isCarried: new fields.BooleanField({ initial: true }),
+                isEquipped: new fields.BooleanField({ initial: false }),
                 qualityBase: new fields.NumberField({
                     integer: true,
                     initial: 0,
                     min: 0,
-                    label: "Quality",
                 }),
                 durabilityBase: new fields.NumberField({
                     integer: true,
                     initial: 0,
                     min: 0,
-                    label: "Durability",
                 }),
             },
             { inplace: false },
@@ -8057,15 +9974,27 @@ export class GearItemData extends SohlItemData {
         super.prepareBaseData();
         this.$isHeldBy = [];
         this.$skillItem = null;
-        this.$value = new ValueModifier(this);
+        this.$value = new CONFIG.SOHL.class.ValueModifier({}, { parent: this });
         this.$value.setBase(this.valueBase);
-        this.$weight = new ValueModifier(this);
+        this.$weight = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$weight.setBase(this.weightBase);
-        this.$quality = new ValueModifier(this);
+        this.$quality = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$quality.setBase(this.qualityBase);
-        this.$durability = new ValueModifier(this);
+        this.$durability = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$durability.setBase(this.durabilityBase);
-        this._totalWeight = new ValueModifier(this);
+        this._totalWeight = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
 
         // If the gear is inside of a container, then the "carried"
         // flag is inherited from the container.
@@ -8099,98 +10028,107 @@ export class GearItemData extends SohlItemData {
 }
 
 export class ConcoctionGearItemData extends SubtypeMixin(GearItemData) {
-    static get typeName() {
-        return "concoctiongear";
-    }
+    static POTENCY = Object.freeze({
+        NOT_APPLICABLE: "na",
+        MILD: "mild",
+        STRONG: "strong",
+        GREAT: "great",
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Concoction",
-            plural: "Concoctions",
-        };
-    }
-
-    static get subTypes() {
-        return {
-            mundane: "Mundane",
-            exotic: "Exotic",
-            elixir: "Elixir",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/potion.svg";
-    }
-
-    static get potencyTypes() {
-        return {
-            na: "NA",
-            mild: "Mild",
-            strong: "Strong",
-            great: "Great",
-        };
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "concoctiongear",
+                locId: "CONCOCTIONGEAR",
+                label: "TYPES.Item.concoctiongear",
+                labelPlural: "TYPES.Item.concoctiongearPl",
+                iconCssClass: "fas fa-flask-round-potion",
+                img: "systems/sohl/assets/icons/potion.svg",
+                sheet: "systems/sohl/templates/item/concoctiongear-sheet.html",
+                effectKeys: {},
+                subTypes: {
+                    MUNDANE: "mundane",
+                    EXOTIC: "exotic",
+                    ELIXIR: "elixir",
+                },
+                nestOnly: false,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
             potency: new fields.StringField({
-                initial: "na",
-                blank: false,
-                label: "Potency",
-                choices: this.potencyTypes,
+                initial: this.POTENCY.NOT_APPLICABLE,
+                required: true,
+                choices: Utility.getChoicesMap(
+                    this.POTENCY,
+                    "SOHL.CONCOCTION.POTENCY",
+                ),
             }),
             strength: new fields.NumberField({
                 integer: true,
                 initial: 0,
                 min: 0,
-                label: "Strength",
             }),
         });
     }
 }
 
 export class MiscGearItemData extends GearItemData {
-    static get typeName() {
-        return "miscgear";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Misc Gear",
-            plural: "Misc Gear",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/miscgear.svg";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "miscgear",
+                locId: "MISCGEAR",
+                label: "TYPES.Item.miscgear",
+                labelPlural: "TYPES.Item.miscgearPl",
+                iconCssClass: "fas fa-ball-pile",
+                img: "systems/sohl/assets/icons/miscgear.svg",
+                sheet: "systems/sohl/templates/item/miscgear-sheet.html",
+                effectKeys: {},
+                nestOnly: false,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 }
 
 export class ContainerGearItemData extends GearItemData {
     $capacity;
 
-    static get typeName() {
-        return "containergear";
-    }
+    static STATUS = Object.freeze({
+        OK: 0,
+        OVER_ENCUMBERED: 1,
+        OVER_MAX: 2,
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Container",
-            plural: "Containers",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/sack.svg";
-    }
-
-    static get status() {
-        return {
-            Ok: 0,
-            OverEncumbered: 1,
-            OverMax: 2,
-        };
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "containergear",
+                locId: "CONTAINERGEAR",
+                label: "TYPES.Item.containergear",
+                labelPlural: "TYPES.Item.containergearPl",
+                iconCssClass: "fas fa-sack",
+                img: "systems/sohl/assets/icons/sack.svg",
+                sheet: "systems/sohl/templates/item/containergear-sheet.html",
+                effectKeys: {},
+                nestOnly: false,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
@@ -8198,27 +10136,42 @@ export class ContainerGearItemData extends GearItemData {
                 integer: true,
                 initial: 0,
                 min: 0,
-                label: "Max Capacity",
             }),
         });
     }
 
     /** @override */
     prepareBaseData() {
+        class CapacityModifier extends ValueModifier {
+            static defineSchema() {
+                return foundry.utils.mergeObject(super.defineSchema(), {
+                    max: new fields.NumberField({
+                        initial: 0,
+                        min: 0,
+                    }),
+                    value: new SohlFunctionField({
+                        initial: (thisVM) => {
+                            return Math.round(thisVM.effective * 1000) / 1000;
+                        },
+                    }),
+                    status: new SohlFunctionField({
+                        initial: (thisVM) => {
+                            if (
+                                thisVM.parent.totalWeight.modifier >
+                                thisVM.max.effective
+                            ) {
+                                return this.STATUS.OVER_MAX;
+                            } else {
+                                return this.STATUS.OK;
+                            }
+                        },
+                    }),
+                });
+            }
+        }
+
         super.prepareBaseData();
-        this.$capacity = new ValueModifier(this, {
-            max: new ValueModifier(this),
-            value: (thisVM) => {
-                return Math.round(thisVM.effective * 1000) / 1000;
-            },
-            status: (thisVM) => {
-                if (thisVM.parent.totalWeight.modifier > thisVM.max.effective) {
-                    return ContainerGearItemData.status.OverMax;
-                } else {
-                    return ContainerGearItemData.status.Ok;
-                }
-            },
-        });
+        this.$capacity = new CapacityModifier({}, { parent: this });
         this.$capacity.max.setBase(this.maxCapacityBase);
     }
 
@@ -8230,9 +10183,9 @@ export class ContainerGearItemData extends GearItemData {
                 }
 
                 this.totalWeight.add(
-                    this.name,
-                    `${this.abbrev}Wt`,
+                    CONFIG.SOHL.MOD.ITEMWT.name`${this.abbrev}Wt`,
                     it.system.totalWeight.effective,
+                    { item: this.name },
                 );
             }
         });
@@ -8249,20 +10202,25 @@ export class ArmorGearItemData extends GearItemData {
     $protection;
     $traits;
 
-    static get typeName() {
-        return "armorgear";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Armor",
-            plural: "Armor",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/armor.svg";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "armorgear",
+                locId: "ARMORGEAR",
+                label: "TYPES.Item.armorgear",
+                labelPlural: "TYPES.Item.armorgearPl",
+                iconCssClass: "fas fa-shield-halved",
+                img: "systems/sohl/assets/icons/armor.svg",
+                sheet: "systems/sohl/templates/item/armorgear-sheet.html",
+                effectKeys: {},
+                nestOnly: false,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     get equipped() {
         return this.isEquipped;
@@ -8270,33 +10228,11 @@ export class ArmorGearItemData extends GearItemData {
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            material: new fields.StringField({
-                initial: "",
-                label: "Material",
+            material: new fields.StringField(),
+            locations: new fields.SchemaField({
+                flexible: new fields.ArrayField(new fields.StringField()),
+                rigid: new fields.ArrayField(new fields.StringField()),
             }),
-            locations: new fields.SchemaField(
-                {
-                    flexible: new fields.ArrayField(
-                        new fields.StringField({
-                            initial: "",
-                        }),
-                        {
-                            label: "Flexible",
-                        },
-                    ),
-                    rigid: new fields.ArrayField(
-                        new fields.StringField({
-                            initial: "",
-                        }),
-                        {
-                            label: "Rigid",
-                        },
-                    ),
-                },
-                {
-                    label: "Locations",
-                },
-            ),
         });
     }
 
@@ -8311,20 +10247,25 @@ export class WeaponGearItemData extends GearItemData {
     $heldBy;
     $heldByFavoredPart;
 
-    static get typeName() {
-        return "weapongear";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Weapon",
-            plural: "Weapons",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/sword.svg";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "weapongear",
+                locId: "WEAPONGEAR",
+                label: "TYPES.Item.weapongear",
+                labelPlural: "TYPES.Item.weapongearPl",
+                iconCssClass: "fas fa-sword",
+                img: "systems/sohl/assets/icons/sword.svg",
+                sheet: "systems/sohl/templates/item/weapongear-sheet.html",
+                effectKeys: {},
+                nestOnly: false,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
@@ -8332,7 +10273,6 @@ export class WeaponGearItemData extends GearItemData {
                 integer: true,
                 initial: 0,
                 min: 0,
-                label: "Length",
             }),
         });
     }
@@ -8350,7 +10290,7 @@ export class WeaponGearItemData extends GearItemData {
         let favParts = this.actor.getTraitByAbbrev("favparts");
         favParts &&= favParts.system.textValue.split(",").map((v) => v.trim());
         this.$heldByFavoredPart = false;
-        this.$heldBy = this.actor.itemTypes[BodyPartItemData.typeName].reduce(
+        this.$heldBy = this.actor.itemTypes[BodyPartItemData.TYPE_NAME].reduce(
             (ary, it) => {
                 if (it.system.heldItemId === this.item.id) {
                     ary.push(it);
@@ -8368,77 +10308,71 @@ export class ProjectileGearItemData extends SubtypeMixin(GearItemData) {
     $attack;
     $impact;
 
-    static get typeName() {
-        return "projectilegear";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Projectile",
-            plural: "Projectiles",
-        };
-    }
-
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/arrow.svg";
-    }
-
-    static get effectKeys() {
-        return Utility.simpleMerge(super.effectKeys, {
-            "system.$traits.blunt": {
-                label: "Blunt Impact",
-                abbrev: "ProjBlunt",
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "projectilegear",
+                locId: "PROJECTILEGEAR",
+                label: "TYPES.Item.projectilegear",
+                labelPlural: "TYPES.Item.projectilegearPl",
+                iconCssClass: "fas fa-bow-arrow",
+                img: "systems/sohl/assets/icons/arrow.svg",
+                sheet: "systems/sohl/templates/item/projectilegear-sheet.html",
+                effectKeys: {
+                    "system.$traits.blunt": {
+                        label: "Blunt Impact",
+                        abbrev: "ProjBlunt",
+                    },
+                    "system.$traits.bleed": {
+                        label: "Bleeding",
+                        abbrev: "ProjBld",
+                    },
+                },
+                subTypes: {
+                    NONE: "none",
+                    ARROW: "arrow",
+                    BOLT: "bolt",
+                    BULLET: "bullet",
+                    DART: "dart",
+                    OTHER: "other",
+                },
+                nestOnly: false,
+                schemaVersion: "0.5.6",
             },
-            "system.$traits.bleed": { label: "Bleeding", abbrev: "ProjBld" },
-        });
-    }
-
-    /** @enum */
-    static get subTypes() {
-        return {
-            none: "None",
-            arrow: "Arrow",
-            bolt: "Bolt",
-            bullet: "Bullet",
-            dart: "Dart",
-            other: "Other",
-        };
-    }
+            { inplace: false },
+        ),
+    );
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            shortName: new fields.StringField({
-                initial: "",
-                label: "Short Name",
+            shortName: new fields.StringField(),
+            impactBase: new fields.SchemaField({
+                numDice: new fields.NumberField({
+                    integer: true,
+                    initial: 0,
+                    min: 0,
+                }),
+                die: new fields.NumberField({
+                    integer: true,
+                    initial: 6,
+                    min: 1,
+                }),
+                modifier: new fields.NumberField({
+                    integer: true,
+                    initial: -1,
+                    min: -1,
+                }),
+                aspect: new fields.StringField({
+                    initial: ImpactModifier.ASPECT.BLUNT,
+                    requried: true,
+                    choices: Utility.getChoicesMap(
+                        ImpactModifier.ASPECT,
+                        "SOHL.IMPACTMODIFIER.ASPECT",
+                    ),
+                }),
             }),
-            impactBase: new fields.SchemaField(
-                {
-                    numDice: new fields.NumberField({
-                        integer: true,
-                        initial: 0,
-                        min: 0,
-                        label: "# of Dice",
-                    }),
-                    die: new fields.NumberField({
-                        integer: true,
-                        initial: 6,
-                        min: 1,
-                        label: "Die",
-                    }),
-                    modifier: new fields.NumberField({
-                        integer: true,
-                        initial: -1,
-                        min: -1,
-                        label: "Modifier",
-                    }),
-                    aspect: new fields.StringField({
-                        initial: "blunt",
-                        blank: false,
-                        label: "Aspect",
-                    }),
-                },
-                { label: "Impact" },
-            ),
         });
     }
 
@@ -8450,12 +10384,20 @@ export class ProjectileGearItemData extends SubtypeMixin(GearItemData) {
             halfImpact: false,
             extraBleedRisk: false,
         };
-        this.$attack = new CombatModifier(this);
-        this.$impact = new ImpactModifier(this, {
-            numDice: this.impactBase.numDice,
-            die: this.impactBase.die,
-            aspect: this.impactBase.aspect,
-        });
+        this.$attack = new CONFIG.SOHL.class.CombatModifier(
+            {},
+            { parent: this },
+        );
+        this.$impact = new CONFIG.SOHL.class.ImpactModifier(
+            {
+                properties: {
+                    numDice: this.impactBase.numDice,
+                    die: this.impactBase.die,
+                    aspect: this.impactBase.aspect,
+                },
+            },
+            { parent: this },
+        );
         this.$impact.setBase(this.impactBase.modifier);
     }
 }
@@ -8463,105 +10405,89 @@ export class ProjectileGearItemData extends SubtypeMixin(GearItemData) {
 export class EventItemData extends SohlItemData {
     $targetUuid;
 
-    static get typeName() {
-        return "event";
-    }
+    static TERM = Object.freeze({
+        DURATION: "duration",
+        INDEFINITE: "indefinite",
+        PERMANENT: "permanent",
+        IMMEDIATE: "immediate",
+    });
 
-    static get typeLabel() {
-        return {
-            singular: "Event",
-            plural: "Events",
-        };
-    }
+    static ACTION_SCOPE = Object.freeze({
+        SELF: "self",
+        ITEM: "item",
+        ACTOR: "actor",
+        OTHER: "other",
+    });
 
-    static get defaultImage() {
-        return "systems/sohl/assets/icons/gear.svg";
-    }
+    /** @inheritdoc */
+    static metadata = Object.freeze(
+        foundry.utils.mergeObject(
+            super.metadata,
+            {
+                name: "event",
+                locId: "EVENT",
+                label: "TYPES.Item.event",
+                labelPlural: "TYPES.Item.eventPl",
+                iconCssClass: "fas fa-gear",
+                img: "systems/sohl/assets/icons/gear.svg",
+                sheet: "systems/sohl/templates/item/event-sheet.html",
+                effectKeys: {},
+                nestOnly: false,
+                schemaVersion: "0.5.6",
+            },
+            { inplace: false },
+        ),
+    );
 
-    static get operators() {
-        return {
-            duration: "Duration",
-            indefinite: "Indefinite",
-            now: "Now",
-        };
-    }
-
-    static get actionScopes() {
-        return {
-            self: "Event",
-            item: "Parent Item",
-            actor: "Parent Actor",
-            other: "Other",
-        };
-    }
-
-    static get autoRestartStates() {
-        return {
-            never: "Never",
-            once: "Once",
-            always: "Always",
-        };
-    }
+    static AUTO_RESTART = Object.freeze({
+        NEVER: "never",
+        ONCE: "once",
+        ALWAYS: "always",
+    });
 
     static defineSchema() {
         return foundry.utils.mergeObject(super.defineSchema(), {
-            tag: new fields.StringField({
-                initial: "",
-                label: "Purpose Tag",
-                hint: "Identifies the purpose of this event",
-            }),
-            actionName: new fields.StringField({
-                initial: "",
-                label: "Action",
-                hint: "Action to perform when time expires",
-            }),
+            tag: new fields.StringField(),
+            actionName: new fields.StringField(),
             isEnabled: new fields.BooleanField({ initial: true }),
-            activation: new fields.SchemaField(
-                {
-                    scope: new fields.StringField({
-                        initial: "self",
-                        blank: false,
-                        choices: EventItemData.actionScopes,
-                        label: "Action Scope",
-                        hint: "Where the action will run",
-                    }),
-                    targetUuid: new fields.StringField({
-                        initial: "",
-                        label: "Target UUID",
-                        hint: "If action scope is other, this is the UUID of the document where the action will run",
-                    }),
-                    duration: new fields.NumberField({
-                        integer: true,
-                        initial: 0,
-                        min: 0,
-                        label: "Duration",
-                        hint: "Number of seconds after start time until the action is triggered",
-                    }),
-                    startTime: new fields.NumberField({
-                        integer: true,
-                        initial: Number.MAX_SAFE_INTEGER,
-                        min: 0,
-                        label: "Start Time",
-                        hint: "Game time when the event timer started",
-                    }),
-                    oper: new fields.StringField({
-                        initial: "gte",
-                        blank: false,
-                        choices: EventItemData.operators,
-                        label: "Operator",
-                    }),
-                    autoRestart: new fields.StringField({
-                        initial: "never",
-                        blank: false,
-                        choices: EventItemData.autoRestartStates,
-                        label: "Auto Restart",
-                        hint: "Whether the event should automatically restart when triggered",
-                    }),
-                },
-                {
-                    label: "Activation",
-                },
-            ),
+            activation: new fields.SchemaField({
+                scope: new fields.StringField({
+                    initial: this.ACTION_SCOPE.SELF,
+                    required: true,
+                    choices: Utility.getChoicesMap(
+                        this.ACTION_SCOPE,
+                        "SOHL.EVENT.ACTION_SCOPE",
+                    ),
+                }),
+                targetUuid: new fields.StringField(),
+                duration: new fields.NumberField({
+                    integer: true,
+                    nullable: true,
+                    initial: null,
+                    min: 0,
+                }),
+                startTime: new fields.NumberField({
+                    integer: true,
+                    initial: Number.MAX_SAFE_INTEGER,
+                    min: 0,
+                }),
+                term: new fields.StringField({
+                    initial: this.TERM.INDEFINITE,
+                    required: true,
+                    choices: Utility.getChoicesMap(
+                        this.TERM,
+                        "SOHL.EVENT.TERM",
+                    ),
+                }),
+                autoRestart: new fields.StringField({
+                    initial: this.AUTO_RESTART.NEVER,
+                    required: true,
+                    choices: Utility.getChoicesMap(
+                        this.AUTO_RESTART,
+                        "SOHL.EVENT.AUTO_RESTART",
+                    ),
+                }),
+            }),
         });
     }
 
@@ -8605,10 +10531,10 @@ export class EventItemData extends SohlItemData {
     get activateTime() {
         let worldDate;
         let time;
-        if (this.activation.oper === "indefinite") {
+        if (this.activation.term === EventItemData.TERM.INDEFINITE) {
             worldDate = "Indefinite";
             time = Number.MAX_SAFE_INTEGER;
-        } else if (this.activation.oper === "now") {
+        } else if (this.activation.term === EventItemData.TERM.IMMEDIATE) {
             worldDate = EventItemData.getWorldDateLabel(game.time.worldTime);
             time = game.time.worldTime;
         } else {
@@ -8622,10 +10548,10 @@ export class EventItemData extends SohlItemData {
 
     get totalDuration() {
         let label, value;
-        if (this.activation.oper === "indefinite") {
+        if (this.activation.term === EventItemData.TERM.INDEFINITE) {
             label = "Indefinite";
             value = Number.MAX_SAFE_INTEGER;
-        } else if (this.activation.oper === "now") {
+        } else if (this.activation.term === EventItemData.TERM.IMMEDIATE) {
             label = "Now";
             value = 0;
         } else {
@@ -8640,10 +10566,10 @@ export class EventItemData extends SohlItemData {
         if (!this.started) {
             label = "Not Initiated";
             value = 0;
-        } else if (this.activation.oper === "indefinite") {
+        } else if (this.activation.term === EventItemData.TERM.INDEFINITE) {
             label = "Indefinite";
             value = Number.MAX_SAFE_INTEGER;
-        } else if (this.activation.oper === "now") {
+        } else if (this.activation.term === EventItemData.TERM.IMMEDIATE) {
             label = "Now";
             value = 0;
         } else {
@@ -8693,8 +10619,9 @@ export class EventItemData extends SohlItemData {
             "system.isEnabled": true,
         };
 
-        if (item.system.activation.autoRestart === "once") {
-            updateData["system.activation.autoRestart"] = "never";
+        if (item.system.activation.autoRestart === this.AUTO_RESTART.ONCE) {
+            updateData["system.activation.autoRestart"] =
+                this.AUTO_RESTART.NEVER;
         }
 
         return updateData;
@@ -8717,15 +10644,15 @@ export class EventItemData extends SohlItemData {
 
         let isActivated = false;
         switch (EventItemData.operators[this.activation.oper]) {
-            case "duration":
+            case this.constructor.TERM.DURATION:
                 isActivated = !this.remainingDuration.value;
                 break;
 
-            case "indefinite":
+            case this.constructor.TERM.INDEFINITE:
                 isActivated = false;
                 break;
 
-            case "now":
+            case this.constructor.TERM.IMMEDIATE:
                 isActivated = true;
                 break;
 
@@ -8741,17 +10668,17 @@ export class EventItemData extends SohlItemData {
             await target.system.execute(this.actionName);
             let updateData = [];
             if (
-                this.activation.autoRestart ===
-                EventItemData.autoRestartStates.never
+                this.activation.autoRestart === EventItemData.AUTO_RESTART.NEVER
             ) {
                 await this.item.delete();
             } else {
                 updateData = EventItemData._start(this.item);
                 if (
                     this.activation.autoRestart ===
-                    EventItemData.autoRestartStates.once
+                    EventItemData.AUTO_RESTART.ONCE
                 ) {
-                    updateData["system.activation.autoRestart"] = "never";
+                    updateData["system.activation.autoRestart"] =
+                        EventItemData.AUTO_RESTART.NEVER;
                 }
             }
             updateData["system.isEnabled"] = false;
@@ -8816,8 +10743,8 @@ export class SkillBase {
         const attributes = [];
         for (const it of items) {
             if (
-                it.type === "trait" &&
-                it.system.intensity === "attribute" &&
+                it.type === TraitItemData.DATA_TYPE &&
+                it.system.intensity === TraitItemData.INTENSITY.ATTRIBUTE &&
                 it.system.isNumeric
             )
                 attributes.push(it);
@@ -9021,1031 +10948,44 @@ export class SkillBase {
     }
 }
 
-export class Utility {
-    static *combine(...iterators) {
-        for (let it of iterators) yield* it;
-    }
+export class SohlActiveEffectData extends NestableDataModelMixin(
+    foundry.abstract.TypeDataModel,
+) {
+    static TARGET_TYPE = Object.freeze({
+        THIS: "this",
+        ACTOR: "actor",
+    });
 
-    /**
-     * Ensures the resulting actions array has only unique actions.
-     * Keeps all items in newActions, and only those items in oldActions that are not already in newActions.
-     * @param {*} oldActions Array of actions to only keep if it is not already in newActions
-     * @param {*} newActions Array of actions to keep
-     * @returns
-     */
-    static uniqueActions(newActions, oldActions) {
-        return oldActions.reduce((ary, a) => {
-            if (!ary.some((i) => i.functionName === a.functionName))
-                ary.push(a);
-            return ary;
-        }, newActions);
-    }
+    static metadata = Object.freeze({
+        name: "sohlactiveeffect",
+        locId: "ACTIVEEFFECT",
+        label: "SOHL.ACTIVEEFFECT.label",
+        labelPlural: "SOHL.ACTIVEEFFECT.labelPl",
+        img: "icons/svg/aura.svg",
+        iconCssClass: "",
+        sheet: "",
+        schemaVersion: "0.5.6",
+    });
 
-    static listToText(ary) {
-        if (!ary?.length) return "";
-        if (ary.length === 1) {
-            return ary[0];
-        } else if (ary.length === 2) {
-            return `${ary[0]} or ${ary[1]}`;
-        } else {
-            let str = "";
-            for (let i = 0; i < ary.length - 1; i++) {
-                str += `${ary[i]}, `;
-            }
-            str += `or ${ary.at(-1)}`;
-            return str;
-        }
-    }
-
-    // A very simple object merge method that doesn't try to do
-    // anything fancy.  Always modifies target.
-    static simpleMerge(target, changes) {
-        return Object.entries(changes).reduce((obj, [k, v]) => {
-            obj[k] = v;
-            return obj;
-        }, target);
-    }
-
-    /**
-     * Determines the identity of the current token/actor that is in combat. If token
-     * is specified, tries to use token (and will allow it regardless if user is GM.),
-     * otherwise returned token will be the combatant whose turn it currently is.
-     *
-     * @param {Token} token
-     */
-    static getTokenInCombat(token = null, forceAllow = false) {
-        if (token && (game.user.isGM || forceAllow)) {
-            const result = { token: token, actor: token.actor };
-            return result;
-        }
-
-        if (!game.combat?.started) {
-            ui.notifications.warn("No active combat.");
-            return null;
-        }
-
-        if (game.combat.combatants.size === 0) {
-            ui.notifications.warn(`No combatants.`);
-            return null;
-        }
-
-        const combatant = game.combat.combatant;
-
-        if (combatant.isDefeated) {
-            ui.notifications.warn(
-                `Combatant ${combatant.token.name} has been defeated`,
-            );
-            return null;
-        }
-
-        if (token && token.id !== combatant.token.id) {
-            ui.notifications.warn(
-                `${combatant.token.name} is not the current combatant`,
-            );
-            return null;
-        }
-
-        if (!combatant.actor.isOwner) {
-            ui.notifications.warn(
-                `You do not have permissions to control the combatant ${combatant.token.name}.`,
-            );
-            return null;
-        }
-
-        token = canvas.tokens.get(combatant.token.id);
-        return { token: token, actor: combatant.actor };
-    }
-
-    static getUserTargetedToken(combatant) {
-        const targets = game.user.targets;
-        if (!targets?.size) {
-            ui.notifications.warn(
-                `No targets selected, you must select exactly one target, combat aborted.`,
-            );
-            return null;
-        } else if (targets.size > 1) {
-            ui.notifications.warn(
-                `${targets} targets selected, you must select exactly one target, combat aborted.`,
-            );
-        }
-
-        const targetToken = Array.from(game.user.targets)[0];
-
-        if (combatant?.token && targetToken.id === combatant.token.id) {
-            ui.notifications.warn(
-                `You have targetted the combatant, they cannot attack themself, combat aborted.`,
-            );
-            return null;
-        }
-
-        return targetToken;
-    }
-
-    static getActor({ item, actor, speaker } = {}) {
-        const result = { item, actor, speaker };
-        if (item?.actor) {
-            result.actor = item.actor;
-            result.speaker = ChatMessage.getSpeaker({ actor: result.actor });
-        } else {
-            // If actor is an Actor, just return it
-            if (result.actor instanceof Actor) {
-                result.speaker ||= ChatMessage.getSpeaker({
-                    actor: result.actor,
-                });
-            } else {
-                if (!result.actor) {
-                    // If actor was null, lets try to figure it out from the Speaker
-                    result.speaker = ChatMessage.getSpeaker();
-                    if (result.speaker?.token) {
-                        const token = canvas.tokens.get(result.speaker.token);
-                        result.actor = token.actor;
-                    } else {
-                        result.actor = result.speaker?.actor;
-                    }
-                    if (!result.actor) {
-                        ui.notifications.warn(
-                            `No actor selected, roll ignored.`,
-                        );
-                        return null;
-                    }
-                } else {
-                    result.actor = fromUuidSync(result.actor);
-                    result.speaker = ChatMessage.getSpeaker({
-                        actor: result.actor,
-                    });
-                }
-
-                if (!result.actor) {
-                    ui.notifications.warn(`No actor selected, roll ignored.`);
-                    return null;
-                }
-            }
-        }
-
-        if (!result.actor.isOwner) {
-            ui.notifications.warn(
-                `You do not have permissions to control ${result.actor.name}.`,
-            );
-            return null;
-        }
-
-        return result;
-    }
-
-    /*
-    cyrb53 (c) 2018 bryc (github.com/bryc)
-    License: Public domain (or MIT if needed). Attribution appreciated.
-    A fast and simple 53-bit string hash function with decent collision resistance.
-    Largely inspired by MurmurHash2/3, but with a focus on speed/simplicity.
-    https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
-    */
-    static cyrb53(str, seed = 0) {
-        let h1 = 0xdeadbeef ^ seed,
-            h2 = 0x41c6ce57 ^ seed;
-        for (let i = 0, ch; i < str.length; i++) {
-            ch = str.charCodeAt(i);
-            h1 = Math.imul(h1 ^ ch, 2654435761);
-            h2 = Math.imul(h2 ^ ch, 1597334677);
-        }
-        h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
-        h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-        h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
-        h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-        return 4294967296 * (2097151 & h2) + (h1 >>> 0);
-    }
-
-    static async onAlterTime(
-        time,
-        { days = 0, hours = 0, mins = 0, secs = 0 } = {},
-    ) {
-        const currentWorldTime = game.time.worldTime;
-        const gameStartTime = 0;
-        const dialogData = {
-            variant: SOHL.sysVer.id,
-            timeBases: {
-                world: "Current World Time",
-                existing: "From Existing Time",
-                epoch: "From Game Start Time",
-            },
-            timeDirections: {
-                future: "Toward the Future",
-                past: "Toward the Past",
-            },
-            timeBase: "world",
-            setTime: time,
-            days,
-            hours,
-            mins,
-            secs,
-        };
-
-        let dlgTemplate = "systems/sohl/templates/dialog/time-dialog.html";
-        const html = await renderTemplate(dlgTemplate, dialogData);
-
-        const dlgResult = await Dialog.prompt({
-            title: "Adjust Time",
-            content: html.trim(),
-            label: `Adjust Time`,
-            render: (html) => {
-                html.querySelector('[name="timeBase"]').addEventListener(
-                    "change",
-                    (e) => {
-                        const time = html.querySelector("#time");
-                        let newValue =
-                            e.target.value === "existing"
-                                ? Utility.htmlWorldTime(time)
-                                : e.target.value === "world"
-                                  ? Utility.htmlWorldTime(currentWorldTime)
-                                  : Utility.htmlWorldTime(gameStartTime);
-                        time.innerHTML = newValue;
-                    },
-                );
-            },
-            callback: (html) => {
-                const form = html.querySelector("form");
-                const fd = new FormDataExtended(form);
-                const formData = foundry.utils.expandObject(fd.object);
-                const timeBase = formData.timeBase;
-                const direction = formData.direction;
-                const days = Number.parseInt(formData.days, 10);
-                const hours = Number.parseInt(formData.hours, 10);
-                const mins = Number.parseInt(formData.mins, 10);
-                const secs = Number.parseInt(formData.secs, 10);
-                let newTime =
-                    timeBase === "world"
-                        ? game.time.worldTime
-                        : timeBase === "existing"
-                          ? dialogData.setTime
-                          : 0;
-                const diff = days * 86400 + hours * 3600 + mins * 60 + secs;
-                newTime += direction === "future" ? diff : -diff;
-                return newTime;
-            },
-            rejectClose: false,
-            options: { jQuery: false },
-        });
-
-        return dlgResult;
-    }
-
-    /**
-     * Coerces value to the specified maximum precision.  If the value has greater than
-     * the specified precision, then rounds the value to the specified precision.  If
-     * the value has less than or equal to the specified precision, the value is unchanged.
-     *
-     * @param {number} value Source value to be evaluated
-     * @param {number} [precision=0] Maximum number of characters after decimal point
-     * @returns {number} value rounded to the specified precision
-     */
-    static maxPrecision(value, precision = 0) {
-        return +parseFloat(value).toFixed(precision);
-    }
-
-    static async moveQtyDialog(item, dest) {
-        // Render modal dialog
-        let dlgData = {
-            itemName: item.name,
-            targetName: dest.name || this.actor.name,
-            maxItems: item.system.quantity,
-        };
-
-        if (item.nestedIn) {
-            dlgData.sourceName = `${item.nestedIn.label}`;
-        } else {
-            dlgData.sourceName = this.actor.name;
-        }
-
-        const compiled = Handlebars.compile(`<form id="items-to-move">
-            <p>Moving ${dlgData.itemName} from ${dlgData.sourceName} to ${dlgData.targetName}</p>
-            <div class="form-group">
-                <label>How many (0-${dlgData.maxItems})?</label>
-                {{numberInput ${dlgData.maxItems} name="itemstomove" step=1 min=0 max=${dlgData.maxItems}}}
-            </div>
-            </form>`);
-        const dlghtml = compiled(dlgData, {
-            allowProtoMethodsByDefault: true,
-            allowProtoPropertiesByDefault: true,
-        });
-
-        // Create the dialog window
-        const result = await Dialog.prompt({
-            title: "Move Items",
-            content: dlghtml,
-            label: "OK",
-            callback: async (html) => {
-                const form = html.querySelector("form");
-                const fd = new FormDataExtended(form);
-                const formdata = foundry.utils.expandObject(fd.object);
-                let formQtyToMove = Number.parseInt(formdata.itemstomove) || 0;
-
-                return formQtyToMove;
-            },
-            options: { jQuery: false },
-            rejectClose: false,
-        });
-
-        return result || 0;
-    }
-
-    static createAction(event, parent) {
-        if (event.preventDefault) event.preventDefault();
-        const dataset = event.currentTarget.dataset;
-        const isChat = dataset.type === "chat";
-
-        let dlghtml = `<form>
-            <div class="form-group">
-                <label>Action Name:</label>
-                <input name="name" type="text" placeholder="Action Name"/>
-            </div>
-            <div class="form-group">
-                <label>Macro Type:</label>
-                <select name="type">
-                    <option value="script" ${!isChat ? "selected" : ""}>Script</option>
-                    <option value="chat" ${isChat ? "selected" : ""}>Chat</option>
-                </select>
-            </div>
-        </form>`;
-
-        // Create the dialog window
-        return Dialog.prompt({
-            title: "Create Action",
-            content: dlghtml,
-            label: "Create",
-            callback: async (html) => {
-                const form = html.querySelector("form");
-                const fd = new FormDataExtended(form);
-                const formData = foundry.utils.expandObject(fd.object);
-
-                const hasAction = parent.system.actions.some(
-                    (it) => !it.isIntrinsicAction && it.name === formData.name,
-                );
-                if (hasAction) {
-                    ui.notifications.error(
-                        `An action named ${formData.name} already exists on ${parent.label}`,
-                    );
-                    return null;
-                }
-
-                const action = await SohlMacro.create(
-                    { name: formData.name, type: formData.type },
-                    { nestedIn: parent },
-                );
-                action.sheet.render(true);
-                return action;
-            },
-            options: { jQuery: false },
-            rejectClose: false,
-        });
-    }
-
-    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-    static deleteAction(event, action) {
-        if (!action) {
-            console.error(`SoHL | Delete aborted, action not specified.`);
-            return null;
-        }
-
-        return Dialog.confirm({
-            title: `Delete Action: ${action.name}`,
-            content:
-                "<p>Are You Sure?</p><p>This action will be deleted and cannot be recovered.</p>",
-            yes: () => {
-                return action.delete();
-            },
-        });
-    }
-
-    /**
-     * Generates a unique name by appending numerical suffixes to the specified prefix if necessary. Iterates over the provided items to ensure the generated name does not already exist in the list.
-     *
-     * @static
-     * @param {*} prefix
-     * @param {*} items
-     * @returns {*}
-     */
-    static uniqueName(prefix, items) {
-        let candidate = prefix;
-        if (items instanceof Map || items instanceof Array) {
-            let ord = 0;
-            while (items.some((n) => n.name === candidate)) {
-                ord++;
-                candidate = `${prefix} ${ord}`;
-            }
-        }
-
-        return candidate;
-    }
-
-    static htmlWorldTime(value) {
-        const worldDateLabel = EventItemData.getWorldDateLabel(value);
-        const remainingDurationLabel = Utility.formatDuration(
-            value - game.time.worldTime,
-        );
-        const html = `<span data-tooltip="${worldDateLabel}">${remainingDurationLabel}</span>`;
-        return html;
-    }
-
-    static formatDuration(age) {
-        const duration = Math.abs(age);
-        const days = Math.floor(duration / 86400);
-        const hours = Math.floor((duration % 86400) / 3600);
-        const min = Math.floor((duration % 3600) / 60);
-        const sec = duration % 60;
-        let result = days ? `${days}d ` : "";
-        result += hours ? `${hours}h ` : "";
-        result += min ? `${min}m ` : "";
-        result += !result || sec ? `${sec}s` : "";
-        result += age > 0 ? " in the future" : age < 0 ? " ago" : "";
-        return result;
-    }
-
-    /**
-     * A static method that converts a given number of seconds to a normalized time format. It calculates the normalized hours, minutes, and seconds based on the input seconds value and constructs a formatted time string. Returns an object with 'label' property containing the formatted time string and 'inFuture' property indicating whether the input seconds value is negative.
-     *
-     * @static
-     * @param {*} seconds
-     * @returns {{ label: string; inFuture: boolean; }}
-     */
-    static toNormTime(seconds) {
-        const asecs = Math.abs(seconds);
-        const normHours = Math.floor(asecs / 3600);
-        const remSeconds = asecs % 3600;
-        const normMinutes = Number(Math.floor(remSeconds / 60))
-            .toString()
-            .padStart(2, "0");
-        const normSeconds = Number(remSeconds % 60)
-            .toString()
-            .padStart(2, "0");
+    /** @override */
+    static defineSchema() {
         return {
-            label: `${normHours}:${normMinutes}:${normSeconds}`,
-            inFuture: seconds < 0,
+            targetName: new fields.StringField(),
+            targetType: new fields.StringField({
+                initial: this.TARGET_TYPE.THIS,
+                blank: false,
+                required: true,
+            }),
         };
     }
 
-    /**
-     * Convert an integer into a roman numeral.  Taken from:
-     * http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
-     *
-     * @param {Integer} num
-     */
-    static romanize(num) {
-        if (isNaN(num)) return NaN;
-        var digits = String(+num).split(""),
-            key = [
-                "",
-                "C",
-                "CC",
-                "CCC",
-                "CD",
-                "D",
-                "DC",
-                "DCC",
-                "DCCC",
-                "CM",
-                "",
-                "X",
-                "XX",
-                "XXX",
-                "XL",
-                "L",
-                "LX",
-                "LXX",
-                "LXXX",
-                "XC",
-                "",
-                "I",
-                "II",
-                "III",
-                "IV",
-                "V",
-                "VI",
-                "VII",
-                "VIII",
-                "IX",
-            ],
-            roman = "",
-            i = 3;
-        while (i--) roman = (key[+digits.pop() + i * 10] || "") + roman;
-        return Array(+digits.join("") + 1).join("M") + roman;
-    }
-
-    /**
-     * @typedef {Object} RollResult
-     * @property {number} origTarget
-     * @property {number} target
-     * @property {boolean} isCapped
-     * @property {number} rollTotal
-     * @property {Roll} rollObj
-     * @property {boolean} isCritical
-     * @property {boolean} isSuccess
-     * @property {number} lastDigit
-     * @property {number} successLevel
-     * @property {string} description
-     */
-
-    /**
-     * Perform a generic dice roll
-     *
-     * @param {string} rollFormula Dice formula (e.g., "1d3+4")
-     * @param {number} target Target value to test against
-     * @param {number} successLevelMod Success Level Modifier
-     * @param {data} context replacement data for roll formula
-     * @returns {RollResult} Object containing results of the roll
-     */
-    static async rollTest(
-        rollFormula,
-        {
-            target = 0,
-            critFailure = [],
-            critSuccess = [],
-            successLevelMod = 0,
-            minResult = Number.MIN_VALUE,
-            maxResult = Number.MAX_VALUE,
-            context = {},
-        } = {},
-    ) {
-        const rollObj = new Roll(rollFormula, context);
-        const roll = await rollObj.evaluate();
-        if (!roll) {
-            throw new Error(
-                `SoHL | Roll evaluation failed, diceSpec=${rollFormula}`,
-            );
-        }
-
-        const lastDigit = roll.total % 10;
-        const cappedTarget = Math.max(Math.min(target, maxResult), minResult);
-        let rollResults = {
-            origTarget: target,
-            target: cappedTarget,
-            isCapped: target !== cappedTarget,
-            rollTotal: roll.total,
-            rollObj: roll,
-            isCritical: false,
-            isSuccess: false,
-            lastDigit: lastDigit,
-            successLevel: 0,
-            description: "",
-        };
-
-        rollResults.successLevel =
-            roll.total <= rollResults.target
-                ? SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS
-                : SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
-        rollResults.successLevel += successLevelMod;
-        rollResults.isSuccess =
-            rollResults.successLevel >=
-            SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
-
-        if (critSuccess.length || critFailure.length) {
-            rollResults.isCritical = rollResults.isSuccess
-                ? critSuccess.includes(lastDigit)
-                : critFailure.includes(lastDigit);
-            if (rollResults.isCritical) {
-                rollResults.description = rollResults.isSuccess
-                    ? "Critical Success"
-                    : "Critical Failure";
-            } else {
-                rollResults.description = rollResults.isSuccess
-                    ? "Marginal Success"
-                    : "Marginal Failure";
-            }
-
-            // If success level is greater than critical success or less than critical failure
-            // then add the amount to the end of the description
-            let successLevelIncr = 0;
-            if (rollResults.isCritical) {
-                successLevelIncr =
-                    rollResults.successLevel -
-                    (rollResults.isSuccess
-                        ? SuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS
-                        : SuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE);
-            }
-            if (successLevelIncr > 1 || successLevelIncr < -1) {
-                rollResults.description = `${rollResults.description} (${
-                    (successLevelIncr > 0 ? "+" : "") + successLevelIncr
-                })`;
-            }
-        } else {
-            rollResults.successLevel = Math.max(
-                Math.min(
-                    rollResults.successLevel,
-                    SuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
-                ),
-                SuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE,
-            );
-            rollResults.description = rollResults.isSuccess
-                ? "Success"
-                : "Failure";
-        }
-
-        return rollResults;
-    }
-
-    /**
-     * Calculates the distance from sourceToken to targetToken in "scene" units (e.g., feet).
-     *
-     * @param {Token} sourceToken
-     * @param {Token} targetToken
-     * @param {Boolean} gridUnits If true, return in grid units, not "scene" units
-     */
-    static rangeToTarget(sourceToken, targetToken, gridUnits = false) {
-        if (!sourceToken) {
-            throw new Error(`sourceToken not provided`);
-        }
-        if (!targetToken) {
-            throw new Error(`target not provided`);
-        }
-        if (!canvas.scene?.grid) {
-            ui.notifications.warn(`No scene active`);
-            return null;
-        }
-        if (!gridUnits && !["feet", "ft"].includes(canvas.scene.grid.units)) {
-            ui.notifications.warn(
-                `Scene uses units of ${canvas.scene.grid.units} but only feet are supported, distance calculation not possible`,
-            );
-            return null;
-        }
-
-        // If the current scene is marked "Theatre of the Mind", then range is always 0
-        if (canvas.scene.getFlag("sohl", "isTotm")) return 0;
-
-        const source = sourceToken.center;
-        const dest = targetToken.center;
-
-        const segments = [];
-        const ray = new Ray(source, dest);
-        segments.push({ ray });
-        const distances = canvas.grid.measureDistances(segments, {
-            gridSpaces: true,
-        });
-
-        if (gridUnits)
-            return Math.round(distances[0] / canvas.dimensions.distance);
-        return distances[0];
-    }
-
-    /**
-     * Returns the single selected token if there is exactly one token selected
-     * on the canvas, otherwise issue a warning.
-     *
-     * @static
-     * @param {object} [options]
-     * @param {boolean} [options.quiet=false] suppress warning messages
-     * @returns {Token|null} The currently selected token, or null if there is not exactly one selected token
-     */
-    static getSingleSelectedToken({ quiet = false } = {}) {
-        const numTargets = canvas.tokens?.controlled?.length;
-        if (!numTargets) {
-            if (!quiet)
-                ui.notifications.warn(`No selected tokens on the canvas.`);
-            return null;
-        }
-
-        if (numTargets > 1) {
-            if (!quiet)
-                ui.notifications.warn(
-                    `There are ${numTargets} selected tokens on the canvas, please select only one`,
-                );
-            return null;
-        }
-
-        return canvas.tokens.controlled[0].document;
-    }
-
-    static async asyncForEach(array, callback) {
-        for (let index = 0; index < array.length; index++) {
-            await callback(array[index], index, array);
-        }
-    }
-
-    static async getDocsFromPacks(
-        packNames,
-        { documentName = "Item", docType },
-    ) {
-        let allDocs = [];
-        for (let packName of packNames) {
-            const pack = game.packs.get(packName);
-            if (!pack) continue;
-            if (pack.documentName !== documentName) continue;
-            const query = {};
-            if (docType) {
-                query["type"] = docType;
-            }
-            const items = await pack.getDocuments(query);
-            allDocs.push(...items.map((it) => it.toObject()));
-        }
-        return allDocs;
-    }
-
-    /**
-     * A static asynchronous function that retrieves an item from the specified
-     * packs based on the item name, pack names, and optionally item type.
-     * It iterates over each pack name, gets the pack object from the game data,
-     * constructs a query object based on the item name and optional item type,
-     * and fetches documents that match the query from the pack. If any results
-     * are found, the first result is assigned to the variable 'result' and the
-     * iteration stops. Finally, it returns the found item or null if no item is found.
-     *
-     * @static
-     * @async
-     * @param {string} docName
-     * @param {string[]} packNames
-     * @param {object} options
-     * @param {string} [options.itemType]
-     * @param {boolean} [options.keepId]
-     * @returns {object} data representing a document from the compendium
-     */
-    static async getDocumentFromPacks(
-        docName,
-        packNames,
-        { documentName = "Item", docType, keepId } = {},
-    ) {
-        let data = null;
-        const allDocs = await Utility.getDocsFromPacks(packNames, {
-            documentName,
-            docType,
-        });
-        const doc = allDocs?.find((it) => it.name === docName);
-        if (doc) {
-            // Cleanup item data
-            data = doc.toObject();
-            if (!keepId) data._id = foundry.utils.randomID();
-            delete data.folder;
-            delete data.sort;
-            if (doc.pack)
-                foundry.utils.setProperty(
-                    data,
-                    "_stats.compendiumSource",
-                    doc.uuid,
-                );
-            if ("ownership" in data) {
-                data.ownership = {
-                    default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-                    [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-                };
-            }
-            if (doc.effects) {
-                data.effects = doc.effects.contents.map((e) => e.toObject());
-            }
-        }
-
-        return data;
-    }
-
-    /**
-     * Creates a 16-digit sequence of hexadecimal digits, suitable for use as
-     * an ID, but such that the same input string will produce the same output
-     * every time.
-     *
-     * @param {string} str Input string to convert to hash
-     * @returns Sequence of 16 hexadecimal digits as a string
-     */
-    static createHash16(str) {
-        const chars =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        const ary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        for (let i = 0; i < str.length; i++) {
-            ary[i % 16] += str.codePointAt(i);
-        }
-        let id = "";
-        for (let i = 0; i < 16; i++) id += chars[ary[i] % chars.length];
-        return id;
-    }
-
-    /**
-     * Loads a JSON file and returns an object representing the JSON structure.
-     *
-     * @param {string} filepath path to the JSON file
-     * @returns {object} The parsed JSON structure
-     */
-    static async loadJSONFromFile(filepath) {
-        const json = await foundry.utils.fetchJsonWithTimeout(
-            foundry.utils.getRoute(filepath, { prefix: ROUTE_PREFIX }),
-        );
-        return json;
-    }
-
-    static async createItemFromJson(filepath) {
-        const descObj = await Utility.loadJSONFromFile(filepath);
-
-        const createData = foundry.utils.deepClone(descObj.template);
-        createData._id ||= foundry.utils.randomID();
-
-        if (descObj.nestedItems) {
-            foundry.utils.mergeObject(createData, {
-                system: {
-                    nestedItems: [],
-                },
-            });
-
-            for (let [name, type] of descObj.nestedItems) {
-                const itemData = await Utility.getItemFromPacks(
-                    name,
-                    SOHL.sysVer.CONFIG.Item.compendiums,
-                    { itemType: type },
-                );
-                if (itemData) {
-                    itemData._id = foundry.utils.randomID();
-                    delete itemData.folder;
-                    delete itemData.sort;
-                    delete itemData._stats;
-                    delete itemData.pack;
-                    createData.system.nestedItems.push(itemData);
-                }
-            }
-        }
-        const result = await SohlItem.create(createData, { clean: true });
-        console.log(`Item with name ${descObj.name} created`);
-        return result;
-    }
-
-    /**
-     * Handles combat fatigue for each combatant in a combat. Calculates the distance a combatant has moved since the start of combat and applies combat fatigue to the combatant's actor. Updates flags to mark that the combatant has not participated in combat and sets the start location for the next combat round.
-     *
-     * @static
-     * @param {*} combat
-     */
-    static handleCombatFatigue(combat) {
-        combat.turns.forEach((combatant) => {
-            const actor = combatant.token.actor;
-            const didCombat = combatant.getFlag("sohl", "didCombat");
-
-            if (didCombat) {
-                // Calculate distance combatant has moved
-                const startLocation = combatant.getFlag(
-                    "sohl",
-                    "startLocation",
-                );
-                const dist = startLocation
-                    ? combat.getDistance(startLocation, combatant.token.center)
-                    : 0;
-
-                actor?.system.applyCombatFatigue(dist);
-            }
-
-            combatant.update({
-                "flags.sohl.didCombat": false,
-                "flags.sohl.startLocation": combatant.token.center,
-            });
-        });
-    }
-
-    /**
-     * Optionally hide the display of chat card action buttons which cannot be performed by the user
-     */
-
-    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-    static displayChatActions(message, html, data) {
-        const chatCard = html.find(".chat-card");
-        if (chatCard.length > 0) {
-            // If the user is the GM, proceed
-            if (game.user.isGM) return;
-
-            // Conceal edit link
-            const editAnchor = chatCard.find("a.edit-action");
-            editAnchor.style.display = "none";
-
-            // Conceal action buttons
-            const buttons = chatCard.find("button[data-action]");
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            buttons.each((i, btn) => {
-                if (btn.dataset?.handlerActorUuid) {
-                    let actor = fromUuidSync(btn.dataset.handlerActorUuid);
-                    if (!actor || !actor.isOwner) {
-                        btn.style.display = "none";
-                    }
-                }
-            });
-        }
-    }
-
-    static async onChatCardEditAction(event) {
-        event.preventDefault();
-        return await Utility._executeAction(event.currentTarget.dataset);
-    }
-
-    static async onChatCardButton(event) {
-        event.preventDefault();
-        const button = event.currentTarget;
-        button.disabled = true;
-        const result = await Utility._executeAction(button.dataset);
-        button.disabled = false;
-        return result;
-    }
-
-    static async _executeAction(dataset) {
-        const options = {};
-        for (const key in dataset) {
-            if (key.endsWith("Json")) {
-                const newKey = key.slice(0, -4);
-                options[newKey] = JSON.parse(dataset[key]);
-            } else {
-                options[key] = dataset[key];
-            }
-        }
-        let doc = await fromUuid(options.actionHandlerUuid);
-        if (doc instanceof Token) {
-            options.token = doc.document;
-            options.actor = doc.actor;
-            doc = options.actor;
-        } else if (doc instanceof TokenDocument) {
-            options.token = doc;
-            options.actor = doc.actor;
-            doc = options.actor;
-        } else if (doc instanceof SohlActor) {
-            options.token = doc.getToken(options.defTokenUuid);
-            options.actor = doc;
-        } else if (doc instanceof SohlItem) {
-            options.actor = doc.actor;
-            options.token = doc.actor.getToken(options.defTokenUuid);
-        } else {
-            throw new Error(
-                `targetUuid ${options.targetUuid} is not a Token, TokenDocument, Actor, or Item UUID`,
-            );
-        }
-
-        return await doc.system.execute(options.action, options);
-    }
-}
-
-export class SohlContextMenu extends ContextMenu {
-    static get sortGroups() {
-        return {
-            default: "Default",
-            essential: "Essential",
-            general: "General",
-            hidden: "Hidden",
-        };
-    }
-
-    _setPosition(html, target, { event } = {}) {
-        //const container = target[0].parentElement;
-        let container = target.parents("div.app");
-
-        // Append to target and get the context bounds
-        target.css("position", "relative");
-        html.css("visibility", "hidden");
-        html.css("width", "fit-content");
-        container.append(html);
-
-        const contextRect = html[0].getBoundingClientRect();
-        const containerRect = container[0].getBoundingClientRect();
-        const mouseX = event.pageX - containerRect.left;
-        const mouseY = event.pageY - containerRect.top;
-
-        const contextTopOffset = mouseY;
-        let contextLeftOffset = Math.min(
-            containerRect.width - contextRect.width,
-            mouseX,
-        );
-
-        // Determine whether to expand upwards
-        const contextTopMax = mouseY - contextRect.height;
-        const contextBottomMax = mouseY + contextRect.height;
-        const canOverflowUp =
-            contextTopMax > containerRect.top ||
-            getComputedStyle(container[0]).overflowY === "visible";
-
-        // If it overflows the container bottom, but not the container top
-        this._expandUp =
-            contextBottomMax > containerRect.height &&
-            (contextTopMax >= 0 || canOverflowUp);
-
-        const contextTop = this._expandUp
-            ? contextTopOffset - contextRect.height
-            : contextTopOffset;
-        const contextBottom = contextTop + contextRect.height;
-
-        // Display the menu
-        html.toggleClass("expand-up", this._expandUp);
-        html.toggleClass("expand-down", !this._expandUp);
-
-        html.css("top", `${contextTop}px`);
-        html.css("bottom", `${contextBottom}px`);
-        if (contextLeftOffset) html.css("left", `${contextLeftOffset}px`);
-        html.css("visibility", "");
-        target.addClass("context");
-    }
-}
-
-export class SohlActiveEffectData extends foundry.abstract.TypeDataModel {
-    static get typeName() {
-        return "sohlactiveeffect";
-    }
-
-    static get typeLabel() {
-        return {
-            singular: "Injury",
-            plural: "Injuries",
-        };
-    }
-
-    static get defaultImage() {
-        return "icons/svg/aura.svg";
+    static get parentDocumentClass() {
+        return SohlActiveEffect;
     }
 
     get targetLabel() {
-        const targetType = this.targetType || "actor";
+        const targetType =
+            this.targetType || SohlActiveEffectData.TARGET_TYPE.THIS;
         const targetName = this.targetName || "";
         const attrs = this.targetHasAttr?.split(",");
         const actor =
@@ -10054,24 +10994,39 @@ export class SohlActiveEffectData extends foundry.abstract.TypeDataModel {
                 : this.parent.parent.actor;
 
         let result;
-        if (targetType === "actor") {
-            result = `This Actor: ${
-                actor.isToken ? actor.token.name : actor.name
-            }`;
-        } else if (targetType === "this") {
+        if (targetType === SohlActiveEffectData.TARGET_TYPE.ACTOR) {
+            const actorName = actor.isToken ? actor.token.name : actor.name;
+            result = _l("SOHL.ACTIVE_EFFECT.targetLabel.ThisActor", {
+                actorName,
+            });
+        } else if (targetType === SohlActiveEffectData.TARGET_TYPE.THIS) {
             if (this.parent.parent instanceof SohlItem) {
-                result = `This ${this.parent.parent.system.constructor.typeLabel.singular}`;
+                result = _l("SOHL.ACTIVE_EFFECT.targetLabel.ThisItem", {
+                    itemName: _l(
+                        `TYPE.Item.${this.parent.parent.system.constructor.name}.labelPl`,
+                    ),
+                });
             } else if (actor) {
-                result = `This Actor: ${
-                    actor.isToken ? actor.token.name : actor.name
-                }`;
+                const actorName = actor.isToken ? actor.token.name : actor.name;
+                result = _l("SOHL.ACTIVE_EFFECT.targetLabel.ThisActor", {
+                    actorName,
+                });
             }
         } else if (attrs?.length) {
-            result = `SB Formula Has: ${attrs.join(" or ")}`;
+            const formatter = game.i18n.getListFormatter();
+
+            result = _l("SOHL.ACTIVE_EFFECT.targetLabel.HasAttr", {
+                attributes: formatter(attrs),
+            });
         } else if (this.targetNameRE === ".+") {
-            result = `All ${SOHL.sysVer.CONFIG.Item.dataModels[this.targetType].typeLabel.plural}`;
+            result = _l("SOHL.ACTIVE_EFFECT.targetLabel.AllOfSpecificItem", {
+                targetItemPlural: _l(`TYPES.Item.${targetType}.labelPl`),
+            });
         } else {
-            result = `${SOHL.sysVer.CONFIG.Item.dataModels[this.targetType].typeLabel.singular}: ${targetName}`;
+            result = _l("SOHL.ACTIVE_EFFECT.targetLabel.ItemsMatching", {
+                targetItemSingular: _l(`TYPES.Item.${targetType}.label`),
+                targetName,
+            });
         }
         return result;
     }
@@ -10139,8 +11094,7 @@ export class SohlActiveEffectData extends foundry.abstract.TypeDataModel {
 
             // If "target has an attribute" is defined, find all of the sibling items with that attribute in their SB Formula
             const targetHasAttr = this.targetHasAttr;
-            const targetDM =
-                SOHL.sysVer.CONFIG.Item.dataModels[this.targetType];
+            const targetDM = CONFIG.Item.dataModels[this.targetType];
             const targetDMIsML = targetDM.isMasteryLevelItemData;
             if (targetHasAttr && targetDMIsML) {
                 const targetAttrNames = this.targetHasAttr.split(",");
@@ -10152,7 +11106,7 @@ export class SohlActiveEffectData extends foundry.abstract.TypeDataModel {
                 });
             } else if (
                 this.targetHasPrimaryAttr &&
-                SOHL.sysVer.CONFIG.Item.dataModels[this.targetType] instanceof
+                CONFIG.Item.dataModels[this.targetType] instanceof
                     MasteryLevelItemData
             ) {
                 const targetAttrNames = this.targetHasPrimaryAttr.split(",");
@@ -10176,7 +11130,7 @@ export class SohlActiveEffectData extends foundry.abstract.TypeDataModel {
             // Find all actor's item targets
             if (
                 this.targetHasAttr &&
-                SOHL.sysVer.CONFIG.Item.dataModels[this.targetType] instanceof
+                CONFIG.Item.dataModels[this.targetType] instanceof
                     MasteryLevelItemData
             ) {
                 const targetAttrNames = this.targetHasAttr.split(",");
@@ -10187,7 +11141,7 @@ export class SohlActiveEffectData extends foundry.abstract.TypeDataModel {
                 });
             } else if (
                 this.targetHasPrimaryAttr &&
-                SOHL.sysVer.CONFIG.Item.dataModels[this.targetType] instanceof
+                CONFIG.Item.dataModels[this.targetType] instanceof
                     MasteryLevelItemData
             ) {
                 const targetAttrNames = this.targetHasPrimaryAttr.split(",");
@@ -10206,20 +11160,6 @@ export class SohlActiveEffectData extends foundry.abstract.TypeDataModel {
         }
 
         return targets;
-    }
-
-    /** @override */
-    static defineSchema() {
-        return {
-            targetName: new fields.StringField({
-                initial: "",
-                label: "Target Name",
-            }),
-            targetType: new fields.StringField({
-                initial: "this",
-                label: "Target Type",
-            }),
-        };
     }
 
     /**
@@ -10522,21 +11462,11 @@ export class SohlActiveEffect extends ActiveEffect {
             super.defineSchema(),
             {
                 type: new fields.DocumentTypeField(this, {
-                    initial: SohlActiveEffectData.typeName,
+                    initial: SohlActiveEffectData.TYPE_NAME,
                 }),
             },
             { inplace: false },
         );
-    }
-
-    get item() {
-        return this.parent instanceof SohlItem && this.parent;
-    }
-
-    get actor() {
-        return this.parent instanceof SohlActor
-            ? this.parent
-            : this.item?.actor;
     }
 
     get modifiesActor() {
@@ -10614,7 +11544,7 @@ export class SohlActiveEffect extends ActiveEffect {
                         );
                     }
                 },
-                group: "general",
+                group: SohlContextMenu.SORT_GROUPS.GENERAL,
             },
             {
                 name: "Delete",
@@ -10647,7 +11577,7 @@ export class SohlActiveEffect extends ActiveEffect {
                         );
                     }
                 },
-                group: "general",
+                group: SohlContextMenu.SORT_GROUPS.GENERAL,
             },
             {
                 name: "Toggle",
@@ -10673,7 +11603,7 @@ export class SohlActiveEffect extends ActiveEffect {
                         );
                     }
                 },
-                group: "general",
+                group: SohlContextMenu.SORT_GROUPS.GENERAL,
             },
         ];
         return result;
@@ -10781,11 +11711,9 @@ export class SohlActiveEffect extends ActiveEffect {
         let targetType = this.system.targetType || "this";
         if (this.parent instanceof SohlActor) {
             if (["this", "actor"].includes(targetType)) {
-                result = this.parent.system.constructor.typeName;
+                result = this.parent.system.TYPE_NAME;
             } else {
-                result =
-                    SOHL.sysVer.CONFIG.Item.dataModels?.[targetType]
-                        .effectKeys?.[key];
+                result = CONFIG.Item.dataModels?.[targetType].effectKeys?.[key];
             }
         } else if (this.parent instanceof SohlItem) {
             if (targetType === "actor") {
@@ -10793,9 +11721,7 @@ export class SohlActiveEffect extends ActiveEffect {
             } else if (targetType === "this") {
                 result = this.parent.system.constructor.effectKeys[key];
             } else {
-                result =
-                    SOHL.sysVer.CONFIG.Item.dataModels?.[targetType]
-                        .effectKeys?.[key];
+                result = CONFIG.Item.dataModels?.[targetType].effectKeys?.[key];
             }
         }
         return result || { label: "Unknown", abbrev: "UNKNOWN" };
@@ -10808,9 +11734,7 @@ export class SohlActiveEffect extends ActiveEffect {
             if (["this", "actor"].includes(targetType)) {
                 result = this.parent.system.constructor.effectKeys;
             } else {
-                result =
-                    SOHL.sysVer.CONFIG.Item.dataModels?.[targetType]
-                        .effectKeys || [];
+                result = CONFIG.Item.dataModels?.[targetType].effectKeys || [];
             }
         } else if (this.parent instanceof SohlItem) {
             if (targetType === "actor") {
@@ -10818,9 +11742,7 @@ export class SohlActiveEffect extends ActiveEffect {
             } else if (targetType === "this") {
                 result = this.parent.system.constructor.effectKeys;
             } else {
-                result =
-                    SOHL.sysVer.CONFIG.Item.dataModels?.[targetType]
-                        .effectKeys || [];
+                result = CONFIG.Item.dataModels?.[targetType].effectKeys || [];
             }
         }
         return result;
@@ -10849,13 +11771,13 @@ export class SohlActiveEffect extends ActiveEffect {
                             val,
                         )}`;
                     case modes.MULTIPLY:
-                        return `${prefix} ${SOHL.CONST.CHARS.TIMES} ${val}`;
+                        return `${prefix} ${SOHL.CHARS.TIMES} ${val}`;
                     case modes.OVERRIDE:
                         return `${prefix} = ${val}`;
                     case modes.UPGRADE:
-                        return `${prefix} ${SOHL.CONST.CHARS.GREATERTHANOREQUAL} ${val}`;
+                        return `${prefix} ${SOHL.CHARS.GREATERTHANOREQUAL} ${val}`;
                     case modes.DOWNGRADE:
-                        return `${prefix} ${SOHL.CONST.CHARS.LESSTHANOREQUAL} ${val}`;
+                        return `${prefix} ${SOHL.CHARS.LESSTHANOREQUAL} ${val}`;
                     default:
                         return !val ? `${prefix}` : `${prefix} ~ ${val}`;
                 }
@@ -10955,10 +11877,128 @@ export class SohlActiveEffect extends ActiveEffect {
     async _preCreate(newData, options, user) {
         let origin = newData.origin || this.parent?.uuid;
         this.updateSource({
-            type: SohlActiveEffectData.typeName,
+            type: SohlActiveEffectData.TYPE_NAME,
             origin: origin,
         });
         return super._preCreate(newData, options, user);
+    }
+
+    /** @inheritdoc */
+    static async createDocuments(dataAry = [], context = {}) {
+        if (!context?.parent?.isNested)
+            return super.createDocuments(dataAry, context);
+        if (!Array.isArray(dataAry)) dataAry = [dataAry];
+        const result = [];
+        for (let data of dataAry) {
+            if (!(data._id && context.keepId)) {
+                data._id = foundry.utils.randomID();
+            }
+
+            if (!("ownership" in data)) {
+                data.ownership = {
+                    default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+                };
+            }
+            const doc = new this.impelementation(data, context);
+            if (!doc) throw new Error(`${this.documentName} creation failed`);
+
+            const collection = context.parent.system.getNestedCollection(
+                this.documentName,
+            );
+            const newAry = collection.toObject();
+
+            // Set sort property
+            let maxSort = newAry.reduce(
+                (max, obj) => Math.max(max, obj.sort),
+                0,
+            );
+            maxSort += CONST.SORT_INTEGER_DENSITY;
+            doc.sort = maxSort;
+
+            const docExists = newAry.some((obj) => obj._id === doc.id);
+            if (docExists) {
+                if (!context.keepId) {
+                    throw new Error(
+                        `${this.documentName} with id ${doc.id} already exists in ${context.parent.label}`,
+                    );
+                }
+            } else {
+                newAry.push(doc.toObject());
+                const collectionName =
+                    context.parent.system.constructor.getCollectionName(
+                        this.documentName,
+                    );
+                context.parent.updateSource({
+                    [`system.${collectionName}`]: newAry,
+                });
+            }
+            result.push(doc);
+        }
+        return result;
+    }
+
+    /** @inheritdoc */
+    static async updateDocuments(updates = [], context = {}) {
+        if (!(context?.parent instanceof SohlItem))
+            return super.updateDocuments(updates, context);
+        if (!Array.isArray(updates)) updates = [updates];
+        const collection = context.parent.system.getNestedCollection(
+            this.documentName,
+        );
+        const newAry = collection.map((it) => it.toObject());
+        const result = [];
+        for (let update of updates) {
+            // Expand the object, if dot-notation keys are provided
+            if (Object.keys(update).some((k) => /\./.test(k))) {
+                const expandedUpdate = foundry.utils.expandObject(update);
+                for (const key in update) delete update[key];
+                Object.assign(update, expandedUpdate);
+            }
+            const itemIdx = newAry.findIndex((it) => it._id === update?._id);
+            if (itemIdx >= 0) {
+                const id = update._id;
+                delete update._id;
+                foundry.utils.mergeObject(newAry[itemIdx], update);
+                result.push(id);
+            } else {
+                console.error(
+                    `Can't find item with id ${update._id} in nested collection`,
+                );
+                continue;
+            }
+        }
+        const collectionName =
+            context.parent.system.constructor.getCollectionName(
+                this.documentName,
+            );
+        context.parent.updateSource({
+            [`system.${collectionName}`]: newAry,
+        });
+        const changedDocs = collection.filter((it) => result.includes(it.id));
+        changedDocs.forEach((doc) => doc.render());
+        context.parent.render();
+        return changedDocs;
+    }
+
+    /** @inheritdoc */
+    static async deleteDocuments(ids = [], operation = {}) {
+        if (!(operation?.parent instanceof SohlItem))
+            return super.deleteDocuments(ids, operation);
+        if (!Array.isArray(ids)) ids = [ids];
+        const collection = operation.parent.system.getNestedCollection(
+            this.documentName,
+        );
+        let newAry = collection.map((it) => it.toObject());
+        newAry = newAry.filter((it) => !ids.includes(it._id));
+        const collectionName =
+            operation.parent.system.constructor.getCollectionName(
+                this.documentName,
+            );
+        operation.parent.updateSource({
+            [`system.${collectionName}`]: newAry,
+        });
+        operation.parent.render();
+        return ids;
     }
 
     static async create(data, options = {}) {
@@ -10986,10 +12026,9 @@ export class SohlActiveEffect extends ActiveEffect {
         }
 
         // If nestedIn is specified, use update() on the nestedIn
-        if (options.parent?.nestedIn) {
-            let doc = options.parent.nestedIn.system.nestedItems.find(
-                (it) => (it._id = options.parent.id),
-            );
+        if (options.parent?.isNested) {
+            const effectsAry = options.parent.effects.toObject();
+            let doc = effectsAry.find((it) => (it._id = options.parent.id));
             let newAry = foundry.utils.deepClone(doc.effects);
 
             const effectExists = newAry.some((obj) => obj._id === newData._id);
@@ -11092,7 +12131,7 @@ export class SohlActiveEffectConfig extends ActiveEffectConfig {
     // biome-ignore lint/correctness/noUnusedVariables: <explanation>
     async getData(options) {
         const context = await super.getData();
-        (context.variant = SOHL.sysVer.id),
+        (context.variant = CONFIG.SOHL.id),
             (context.keyChoices = this.object.getEffectKeyChoices());
         context.sourceName = await this.object.sourceName;
 
@@ -11101,17 +12140,15 @@ export class SohlActiveEffectConfig extends ActiveEffectConfig {
         if (this.object.parent instanceof Actor) {
             context.targetTypes["this"] = "This Actor";
         } else {
-            context.targetTypes["this"] =
-                `This ${this.object.parent.system.constructor.typeLabel.singular}`;
+            context.targetTypes["this"] = _l("This {itemType}", {
+                itemType: _l(this.object.parent.system.constructor.label),
+            });
             context.targetTypes["actor"] = "Actor";
         }
-        Object.entries(SOHL.sysVer.CONFIG.Item.dataModels).reduce(
-            (obj, [key, clazz]) => {
-                obj[key] = clazz.typeLabel.singular;
-                return obj;
-            },
-            context.targetTypes,
-        );
+        Object.entries(CONFIG.Item.dataModels).reduce((obj, [key, clazz]) => {
+            obj[key] = _l(clazz.metadata.label);
+            return obj;
+        }, context.targetTypes);
 
         if (SOHL.hasSimpleCalendar) {
             context.startTimeText = EventItemData.getWorldDateLabel(
@@ -11129,25 +12166,29 @@ export class SohlActiveEffectConfig extends ActiveEffectConfig {
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
+        // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+        const element = html instanceof jQuery ? html[0] : html;
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
-        html.find(".alter-time").click((ev) => {
-            const property = ev.currentTarget.dataset.property;
-            let time = Number.parseInt(ev.currentTarget.dataset.time, 10);
-            if (Number.isNaN(time)) time = 0;
-            Utility.onAlterTime(time).then((result) => {
-                if (result !== null) {
-                    const updateData = { [property]: result };
-                    this.object.update(updateData);
-                }
+        this.form
+            .querySelector(".alter-time")
+            ?.addEventListener("click", (ev) => {
+                const property = ev.currentTarget.dataset.property;
+                let time = Number.parseInt(ev.currentTarget.dataset.time, 10);
+                if (Number.isNaN(time)) time = 0;
+                Utility.onAlterTime(time).then((result) => {
+                    if (result !== null) {
+                        const updateData = { [property]: result };
+                        this.object.update(updateData);
+                    }
+                });
             });
-        });
     }
 }
 
-export class SohlMacro extends Macro {
+export class SohlMacro extends NestableDocumentMixin(Macro) {
     /** @override */
     _configure(options) {
         if (this.parent && !(this.parent instanceof SohlActor)) {
@@ -11173,46 +12214,6 @@ export class SohlMacro extends Macro {
         });
     }
 
-    _initialize(options = {}) {
-        super._initialize(options);
-        if (options.cause) this._cause = options.cause;
-    }
-
-    get cause() {
-        return this._cause || this.nestedIn;
-    }
-
-    set cause(item) {
-        if (!this.actor) return;
-        if (!(item instanceof SohlItem))
-            throw new Error("must provide a valid cause");
-        this._cause = item;
-        if (!this.actor.system.virtualItems.has(this.id)) {
-            this.actor.system.virtualItems.set(this.id, this);
-        }
-    }
-
-    get isNested() {
-        return !!this.nestedIn;
-    }
-
-    get item() {
-        if (this.nestedIn instanceof SohlItem) {
-            return this.nestedIn;
-        }
-        return null;
-    }
-
-    get actor() {
-        if (this.nestedIn instanceof SohlActor) {
-            return this.parent;
-        } else if (this.nestedIn instanceof SohlItem) {
-            return this.nestedIn.actor;
-        } else {
-            return null;
-        }
-    }
-
     get notes() {
         return this.getFlag("sohl", "notes") || "";
     }
@@ -11230,23 +12231,11 @@ export class SohlMacro extends Macro {
     }
 
     get useAsync() {
-        return this.getFlag("sohl", "useAsync") || true;
+        return this.getFlag("sohl", "useAsync");
     }
 
     set useAsync(val) {
         this.setFlag("sohl", "useAsync", !!val);
-    }
-
-    get nameParts() {
-        const index = this.functionName.indexOf("$");
-        if (index < 0) return { prefix: "", functionName: this.functionName };
-        const prefix = this.functionName.slice(0, index);
-        const fnName = this.functionName.slice(index + 1);
-        return { prefix, functionName: fnName };
-    }
-
-    get params() {
-        return this.getFlag("sohl", "params") || {};
     }
 
     get functionName() {
@@ -11289,6 +12278,10 @@ export class SohlMacro extends Macro {
         this.setFlag("sohl", "contextGroup", value);
     }
 
+    get params() {
+        return this.getFlag("sohl", "params") || {};
+    }
+
     setParam(name, value) {
         if (!name || Number.isNumeric(name)) {
             throw new Error(
@@ -11318,6 +12311,14 @@ export class SohlMacro extends Macro {
         }, "");
     }
 
+    get nameParts() {
+        const index = this.functionName.indexOf("$");
+        if (index < 0) return { prefix: "", functionName: this.functionName };
+        const prefix = this.functionName.slice(0, index);
+        const fnName = this.functionName.slice(index + 1);
+        return { prefix, functionName: fnName };
+    }
+
     /** @override */
     get uuid() {
         if (!this._uuid) {
@@ -11338,7 +12339,7 @@ export class SohlMacro extends Macro {
         const opts = [
             {
                 name: "Execute",
-                icon: `<i class="fas fa-gears"></i>`,
+                contextIconClass: `<i class="far fa-gears"></i>`,
                 condition: this.canExecute,
                 callback: (header) => {
                     header = header instanceof HTMLElement ? header : header[0];
@@ -11347,11 +12348,11 @@ export class SohlMacro extends Macro {
                     const action = parent.system.actions.get(li.dataset.itemId);
                     action.execute();
                 },
-                group: "default",
+                group: SohlContextMenu.SORT_GROUPS.ESSENTIAL,
             },
             {
                 name: "Edit",
-                icon: `<i class="fas fa-edit"></i>`,
+                contextIconClass: `<i class="fas fa-edit"></i>`,
                 condition: !this.isIntrinsicAction,
                 callback: (header) => {
                     header = header instanceof HTMLElement ? header : header[0];
@@ -11360,11 +12361,11 @@ export class SohlMacro extends Macro {
                     const action = parent.system.actions.get(li.dataset.itemId);
                     action.sheet.render(true);
                 },
-                group: "general",
+                group: SohlContextMenu.SORT_GROUPS.GENERAL,
             },
             {
                 name: "Delete",
-                icon: `<i class="fas fa-trash"></i>`,
+                contextIconClass: `<i class="fas fa-trash"></i>`,
                 condition: !this.isIntrinsicAction && this.isOwner,
                 callback: (header) => {
                     header = header instanceof HTMLElement ? header : header[0];
@@ -11380,7 +12381,7 @@ export class SohlMacro extends Macro {
                         },
                     });
                 },
-                group: "general",
+                group: SohlContextMenu.SORT_GROUPS.GENERAL,
             },
         ];
 
@@ -11403,7 +12404,7 @@ export class SohlMacro extends Macro {
                         functionName: "",
                         contextIconClass: "",
                         contextCondition: false,
-                        contextGroup: "hidden",
+                        contextGroup: SohlContextMenu.SORT_GROUPS.HIDDEN,
                         isIntrinsicAction: false,
                         useAsync: true,
                     },
@@ -11425,6 +12426,13 @@ export class SohlMacro extends Macro {
         needsToken = false,
         self = null,
     }) {
+        if (token instanceof Token) token = token.document;
+        if (speaker && !speaker.scene && speaker.token) {
+            const tok = canvas.ready
+                ? canvas.tokens.get(speaker.token)?.document
+                : null;
+            speaker.scene = tok?.scene?.id;
+        }
         if (speaker && actor && token && character)
             return { speaker, actor, token, character };
         actor = actor || token?.actor;
@@ -11436,7 +12444,9 @@ export class SohlMacro extends Macro {
         // Add variables to the evaluation scope.
         speaker ||= ChatMessage.getSpeaker({ actor, token });
         character ||= game.user.character;
-        token ||= canvas.ready ? canvas.tokens.get(speaker.token) : null;
+        token ||= canvas.ready
+            ? canvas.tokens.get(speaker.token)?.document
+            : null;
         actor ||= token?.actor || game.actors.get(speaker.actor);
 
         if (needsToken && !token) {
@@ -11517,7 +12527,7 @@ export class SohlMacro extends Macro {
             } catch (err) {
                 Hooks.onError("SohlMacro#execute", err, {
                     msg: `Error executing action ${this.name} on ${
-                        self.constructor.typeLabel?.singular || "SohlMacro"
+                        _l(self.constructor.metadata.label) || "SohlMacro"
                     } ${self.name}`,
                     log: "error",
                 });
@@ -11525,108 +12535,6 @@ export class SohlMacro extends Macro {
         }
 
         return null;
-    }
-
-    /**
-     * Creates a new instance based on the provided data and context. If the context has a parent, a new instance of SohlMacro is created using the data and context. If the data does not have an _id property or if context.keepId is not true, a unique _id is generated using foundry.utils.randomID(). The macro is then checked for existence in the parent system's macros array. If the macro already exists, an error is thrown. If the macro is new, it is added to the macros array and parent is updated. Returns the created macro instance if successful, otherwise delegates creation to the superclass.
-     *
-     * @static
-     * @async
-     * @param {*} data
-     * @param {{}} [context={}]
-     * @returns {unknown}
-     */
-    static async create(data, context = {}) {
-        if (context.nestedIn) {
-            if (!(data._id && context.keepId)) {
-                data._id = foundry.utils.randomID();
-            }
-
-            if (!("ownership" in data)) {
-                data.ownership = {
-                    default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-                };
-            }
-            const macro = new SohlMacro(data, context);
-            if (!macro) throw new Error(`Macro creation failed`);
-
-            const macroData = macro.toObject();
-
-            const newAry = foundry.utils.deepClone(
-                macro.nestedIn.system.macros,
-            );
-
-            // Set sort property
-            let maxSort = newAry.reduce(
-                (max, obj) => Math.max(max, obj.sort),
-                0,
-            );
-            maxSort += CONST.SORT_INTEGER_DENSITY;
-            macroData.sort = maxSort;
-
-            const macroExists = newAry.some((obj) => obj._id === macro.id);
-            if (macroExists) {
-                if (!context.keepId) {
-                    throw new Error(
-                        `Macro with id ${macro.id} already exists in ${macro.nestedIn.label}`,
-                    );
-                }
-            } else {
-                newAry.push(macroData);
-                await macro.nestedIn.update(
-                    { "system.macros": newAry },
-                    context,
-                );
-            }
-            return macro;
-        } else {
-            return await super.create(data, context);
-        }
-    }
-
-    async update(data = [], context = {}) {
-        if (this.nestedIn) {
-            let result = null;
-            const idx = this.nestedIn.system.macros.findIndex(
-                (obj) => obj._id === this.id,
-            );
-            if (idx >= 0) {
-                this.updateSource(data, context);
-                const newAry = foundry.utils.deepClone(
-                    this.nestedIn.system.macros,
-                );
-                newAry[idx] = this.toObject();
-                newAry.sort((a, b) => a.sort - b.sort);
-                result = await this.nestedIn.update(
-                    { "system.macros": newAry },
-                    context,
-                );
-                this.sheet.render();
-            } else {
-                console.error(
-                    `Update called on SohlMacro that doesn't exist in ${this.nestedIn.name}, id=${this.id}`,
-                );
-            }
-            return result;
-        } else if (!this.cause) {
-            return super.update(data, context);
-        }
-    }
-
-    async delete(context = {}) {
-        if (this.nestedIn) {
-            const filtered = this.nestedIn.system.macros.filter(
-                (obj) => obj._id !== this.id,
-            );
-            await this.nestedIn.update({ "system.macros": filtered }, context);
-            this.sheet.close();
-            return this;
-        } else if (this.cause) {
-            this.cause.system.actions.delete(this.id);
-            this.cause.sheet.render();
-        } else {
-            return super.delete(context);
-        }
     }
 }
 
@@ -11650,19 +12558,19 @@ export class SohlMacroConfig extends MacroConfig {
     /** @override */
     getData(options = {}) {
         const data = super.getData(options);
-        (data.variant = SOHL.sysVer.id),
+        (data.variant = CONFIG.SOHL.id),
             (data.macroTypes = game.documentTypes.Macro.reduce((obj, t) => {
                 if (
                     t === CONST.MACRO_TYPES.SCRIPT &&
                     !game.user.can("MACRO_SCRIPT")
                 )
                     return obj;
-                obj[t] = game.i18n.localize(CONFIG.Macro.typeLabels[t]);
+                obj[t] = _l(CONFIG.Macro.typeLabels[t]);
                 return obj;
             }, {}));
         data.editable = this.isEditable;
-        data.const = SOHL.sysVer.CONST;
-        data.config = SOHL.sysVer.CONFIG;
+        data.const = SOHL;
+        data.config = CONFIG.SOHL;
         data.flags = data.document.flags;
         data.isAction = data.document.cause;
         data.contextGroupChoices = SohlContextMenu.sortGroups;
@@ -11720,7 +12628,7 @@ export class SohlCombatant extends Combatant {
     }
 }
 
-export class SohlActor extends Actor {
+export class SohlActor extends NestableDocumentMixin(Actor) {
     $speaker;
 
     get speaker() {
@@ -11741,6 +12649,34 @@ export class SohlActor extends Actor {
         for (let it of this.system.virtualItems.values()) yield it;
     }
 
+    /**
+     * Version of the allItems generator that handles dynamically adding
+     * items to the virtualItems collection.
+     */
+    *dynamicAllItems() {
+        const yielded = new Set();
+
+        // Yield all initial items
+        for (let it of this.items.values()) {
+            yield it;
+            yielded.add(it.id);
+        }
+
+        // Continuously check for new items
+        let newItemsFound = !!this.system.virtualItems.size;
+        while (newItemsFound) {
+            newItemsFound = false;
+
+            for (let it of this.system.virtualItems.values()) {
+                if (!yielded.has(it.id)) {
+                    yield it;
+                    yielded.add(it.id);
+                    newItemsFound = true;
+                }
+            }
+        }
+    }
+
     /** @override */
     get itemTypes() {
         const types = Object.fromEntries(
@@ -11756,11 +12692,11 @@ export class SohlActor extends Actor {
     }
 
     get itemSubtypes() {
-        const result = Object.values(SOHL.sysVer.CONFIG.Item.dataModels).reduce(
+        const result = Object.values(CONFIG.Item.dataModels).reduce(
             (ist, clazz) => {
                 // Only create a subtype list if there are, in fact, subtypes defined
                 if (clazz.subTypes) {
-                    ist[clazz.typeName] = Object.fromEntries(
+                    ist[clazz.TYPE_NAME] = Object.fromEntries(
                         Object.keys(clazz.subTypes).map((key) => [
                             key,
                             { label: clazz.subTypes[key], items: [] },
@@ -11794,10 +12730,6 @@ export class SohlActor extends Actor {
         });
 
         return result;
-    }
-
-    get label() {
-        return `Actor ${this.name}`;
     }
 
     get sunsign() {
@@ -11863,36 +12795,38 @@ export class SohlActor extends Actor {
      * will only be one linked token anyway).
      *
      * @param {*} targetTokenUuid Prospective token UUID to use if a linked token
-     * @returns {Token} the token associated with this actor
+     * @returns {TokenDocument} the TokenDocument associated with this actor
      */
 
     getToken(targetTokenUuid) {
         // If this is a synthetic actor, then get the token associated with the actor
-        let token = this.token;
+        let tokenDocument = this.token;
 
         // Actor is a linked token
-        if (!token && targetTokenUuid) {
-            token = fromUuidSync(targetTokenUuid);
+        if (!tokenDocument && targetTokenUuid) {
+            tokenDocument = fromUuidSync(targetTokenUuid)?.document;
         }
 
-        if (!token && canvas.tokens) {
+        if (!tokenDocument && canvas.tokens) {
             // Case 1: A single token is selected, and it is the actor we are looking for
             if (
                 canvas.tokens.controlled?.length == 1 &&
                 canvas.tokens.controlled[0].actor.id === this.id
             ) {
-                token = canvas.tokens.controlled[0];
+                tokenDocument = canvas.tokens.controlled[0].document;
             }
 
-            if (!token) {
+            if (!tokenDocument) {
                 // Case 2: Search all tokens on the active scene, and select the first
                 // one found where the token's actor is the one we are looking for
-                token ||= canvas.scene?.tokens.find(
+                const token = canvas.scene?.tokens.find(
                     (t) => t.actor.id === this.id,
                 );
+                tokenDocument = token.document;
             }
         }
-        return token;
+
+        return tokenDocument;
     }
 
     /**
@@ -11931,25 +12865,25 @@ export class SohlActor extends Actor {
         if (actors.length === 0) return null;
         if (actors.length === 1) return actors[0].value;
 
-        let dlghtml = `<form>
+        let dlgHtml = `<form>
                 <div class="form-group">
                     <label>Animate Entities:</label>
                     <select name="entity">`;
 
         actors.forEach((a, i) => {
-            dlghtml += `<option value="${a.uuid}"${!i ? " selected" : ""}>${
+            dlgHtml += `<option value="${a.uuid}"${!i ? " selected" : ""}>${
                 a.name
             }</option>`;
         });
-        dlghtml += `</select></div></form>`;
+        dlgHtml += `</select></div></form>`;
 
         // Pop up the dialog to get the character selection
         const dlgResult = await Dialog.prompt({
             title: "Select Animate Entity",
-            content: dlghtml.trim(),
+            content: dlgHtml.trim(),
             label: "OK",
-            callback: (html) => {
-                const form = html.querySelector("form");
+            callback: (element) => {
+                const form = element.querySelector("form");
                 const fd = new FormDataExtended(form);
                 const formData = foundry.utils.expandObject(fd.object);
                 const actor = fromUuidSync(formData.entity);
@@ -12033,13 +12967,14 @@ export class SohlActor extends Actor {
                                 ? obj.flags?.sohl?.diceFormula
                                 : options.rollFormula) || "0";
 
-                        let roll = await Roll.create(rollFormula).evaluate();
-                        if (!roll) {
-                            ui.notifications.error(
-                                `Roll formula "${rollFormula}" is invalid`,
-                            );
+                        let roll = Roll.create(rollFormula);
+                        roll = await roll.evaluate().catch((err) => {
+                            Hooks.onError("SohlActor#_preCreate", err, {
+                                msg: `Roll formula "${rollFormula}" is invalid`,
+                                log: "error",
+                            });
                             return false;
-                        }
+                        });
                         obj.system.textValue = roll.total.toString();
                     }
                 }
@@ -12139,12 +13074,8 @@ export class SohlActor extends Actor {
         // all of the "owned" items and request them to setup any virtual items they need.
         // Any of those items that setup virtual items will have "setupVirtualItems" called
         // when they are added to the Virtual Items list.
-        for (const it of this.allItems()) {
+        for (const it of this.dynamicAllItems()) {
             it.system.execute("Setup Virtual Items", { inPrepareData: true });
-            if (it instanceof GearItemData) {
-                Hooks.callAll(`gearSetupVirtualItems`, it.system);
-            }
-            Hooks.callAll(`${it.type}SetupVirtualItems`, it.system);
         }
 
         // Apply item active effects
@@ -12274,17 +13205,26 @@ export class SohlActor extends Actor {
             throw new Error(`Must specify a name, id, or UUID`);
         }
 
+        const formatter = game.i18n.getListFormatter();
         const typeNames =
-            types
-                .map((t) =>
-                    game.i18n.localize(SOHL.sysVer.CONFIG.Item.typeLabels[t]),
-                )
-                .join(" or ") || "item";
+            formatter.format(types.map((t) => _l(CONFIG.Item.typeLabels[t]))) ||
+            _l("item");
 
         let item = null;
         if (itemName.includes(".")) {
             // The name may be a UUID since it contains a dot
-            item = fromUuidSync(itemName);
+
+            // First, check all items on this actor
+            for (let it of this.allItems()) {
+                if (it.uuid === itemName) {
+                    item = it;
+                    break;
+                }
+            }
+
+            // If item wasn't found, then perform a more general search for the UUID
+            if (!item) item = fromUuidSync(itemName);
+
             if (
                 item &&
                 !(item instanceof SohlItem && item.actor.id === this.id)
@@ -12353,17 +13293,11 @@ export class SohlActor extends Actor {
         }
 
         if (!types.includes(item.type)) {
+            const formatter = game.i18n.getListFormatter();
             throw new Error(
-                game.i18n.localize(
-                    `Item ${item.system.typeLabel.singular} must be one of "${types
-                        .map(
-                            (t) =>
-                                game.i18SOHL.sysVer.CONFIG.Item.typeLabels[t],
-                        )
-                        .join(", ")}" but type is ${
-                        SOHL.sysVer.CONFIG.Item.typeLabels[item.type]
-                    }`,
-                ),
+                `Item ${item.system.metadata.label} must be one of "${formatter(
+                    types.map((t) => _l(`TYPES.Item.${t}.label`)),
+                )}")}`,
             );
         }
     }
@@ -12515,6 +13449,55 @@ export class SohlActor extends Actor {
         }
         return document;
     }
+
+    static async importActors(jsonFilename, folderName) {
+        const response = await fetch(jsonFilename);
+        const content = await response.json();
+
+        let actorFolder = game.folders.find(
+            (f) => f.name === folderName && f.type === "Actor",
+        );
+        if (actorFolder) {
+            const msg = `Folder ${folderName} exists, delete it before proceeding`;
+            console.error(msg);
+            return;
+        }
+
+        actorFolder = await Folder.create({ type: "Actor", name: folderName });
+
+        await Utility.asyncForEach(content.Actor, async (f) => {
+            console.log("Processing Actor ${f.name}");
+            const actor = await this.create({ name: f.name });
+            const updateData = [];
+            const itemData = [];
+            // Fill in attribute values
+            Object.keys(f.system.attributes).forEach((attr) => {
+                const attrItem = actor.items.find(
+                    (it) =>
+                        it.system instanceof TraitItemData &&
+                        it.name.toLowerCase() === attr,
+                );
+                if (attrItem)
+                    itemData.push({
+                        _id: attrItem.id,
+                        "system.textValue": f.system.attributes[attr].base,
+                    });
+            });
+
+            updateData.push({
+                "system.description": f.system.description,
+                "system.bioImage": f.system.bioImage,
+                "system.biography": f.system.biography,
+                "prototypeToken.actorLink": f.prototypeToken.actorLink,
+                "prototypeToken.name": f.prototypeToken.name,
+                "prototypeToken.texture.src": f.prototypeToken.texture.src,
+                folder: actorFolder.id,
+                items: itemData,
+            });
+
+            await actor.update(updateData);
+        });
+    }
 }
 
 function SohlSheetMixin(Base) {
@@ -12541,14 +13524,15 @@ function SohlSheetMixin(Base) {
 
         getData() {
             const data = super.getData();
-            (data.variant = SOHL.sysVer.id), (data.const = SOHL.sysVer.CONST);
-            data.config = SOHL.sysVer.CONFIG;
+            data.variant = CONFIG.SOHL.id;
+            data.const = SOHL;
+            data.config = CONFIG.SOHL;
             data.owner = this.document.isOwner;
             data.limited = this.document.limited;
             data.options = this.options;
             data.editable = this.isEditable;
             data.cssClass = data.owner ? "editable" : "locked";
-            data.variant = SOHL.sysVer.id;
+            data.variant = CONFIG.SOHL.id;
             data.isAnimateEntity =
                 this.document.system instanceof AnimateEntityActorData;
             data.isInanimateObject =
@@ -12579,9 +13563,11 @@ function SohlSheetMixin(Base) {
         // biome-ignore lint/correctness/noUnusedVariables: <explanation>
         _onSearchFilter(event, query, rgx, html) {
             if (!html) return;
+            const element = html instanceof jQuery ? html[0] : html;
+
             const visibleCategories = new Set();
 
-            for (const entry of html.querySelectorAll(".item")) {
+            for (const entry of element.querySelectorAll(".item")) {
                 if (!query) {
                     entry.classList.remove("hidden");
                     continue;
@@ -12596,7 +13582,7 @@ function SohlSheetMixin(Base) {
                     );
             }
 
-            for (const category of html.querySelectorAll(".category")) {
+            for (const category of element.querySelectorAll(".category")) {
                 category.classList.toggle(
                     "hidden",
                     query && !visibleCategories.has(category.dataset.category),
@@ -12604,27 +13590,30 @@ function SohlSheetMixin(Base) {
             }
         }
 
-        _contextMenu(html) {
-            new SohlContextMenu(html, ".item", [], {
+        _contextMenu(element) {
+            new SohlContextMenu(element, ".item", [], {
                 onOpen: this._onItemContextMenuOpen.bind(this),
+                jQuery: false,
             });
-            new SohlContextMenu(html, ".item-contextmenu", [], {
+            new SohlContextMenu(element, ".item-contextmenu", [], {
                 eventName: "click",
                 onOpen: this._onItemContextMenuOpen.bind(this),
+                jQuery: false,
             });
-            new SohlContextMenu(html, ".effect", [], {
+            new SohlContextMenu(element, ".effect", [], {
                 onOpen: this._onEffectContextMenuOpen.bind(this),
+                jQuery: false,
             });
-            new SohlContextMenu(html, ".effect-contextmenu", [], {
+            new SohlContextMenu(element, ".effect-contextmenu", [], {
                 eventName: "click",
                 onOpen: this._onEffectContextMenuOpen.bind(this),
+                jQuery: false,
             });
         }
 
         _onItemContextMenuOpen(element) {
             let ele = element.closest("[data-item-id]");
             if (!ele) return;
-            ele = ele instanceof HTMLElement ? ele : ele[0];
             const actionName = ele?.dataset.actionName;
             const docId = ele?.dataset.itemId;
             let doc;
@@ -12646,7 +13635,6 @@ function SohlSheetMixin(Base) {
         _onEffectContextMenuOpen(element) {
             let ele = element.closest("[data-effect-id]");
             if (!ele) return;
-            ele = ele instanceof HTMLElement ? ele : ele[0];
             const effectId = ele?.dataset.effectId;
             const effect = this.document.effects.get(effectId);
             ui.context.menuItems = effect
@@ -12667,13 +13655,14 @@ function SohlSheetMixin(Base) {
                     ? doc.system._getContextOptions()
                     : doc._getContextOptions();
 
-            result = result.filter((co) => co.group !== "hidden");
+            result = result.filter(
+                (co) => co.group !== SohlContextMenu.SORT_GROUPS.HIDDEN,
+            );
 
             // Sort the menu items according to group.  Expect items with no group
             // at the top, items in the "primary" group next, and items in the
             // "secondary" group last.
-            const collator = new Intl.Collator("en-US");
-            result.sort(collator.compare);
+            Utility.sortStrings(result);
             return result;
         }
 
@@ -12691,7 +13680,7 @@ function SohlSheetMixin(Base) {
             }
             const aeData = {
                 name,
-                type: SohlActiveEffectData.typeName,
+                type: SohlActiveEffectData.TYPE_NAME,
                 icon: SohlActiveEffectData.defaultImage,
                 origin: this.document.uuid,
             };
@@ -12743,60 +13732,9 @@ function SohlSheetMixin(Base) {
             if (!droppedItem) return false;
 
             if (droppedItem.system instanceof GearItemData) {
-                const destContainerId = event.target.closest(
-                    "[data-container-id]",
-                )?.dataset.containerId;
-
-                // If no other container is specified, use this item
-                let destContainer;
-                if (this.document instanceof SohlItem) {
-                    destContainer = !destContainerId
-                        ? this.document
-                        : this.document.actor?.items.get(destContainerId) ||
-                          this.document.getNestedItemById(destContainerId) ||
-                          this.document;
-                } else {
-                    destContainer = !destContainerId
-                        ? this.document
-                        : this.document.items.get(destContainerId);
-                }
-
-                return await this._onDropGearItem(
-                    event,
-                    droppedItem,
-                    destContainer,
-                );
+                return this._onDropGear(event, droppedItem);
             } else {
-                // Dropped item is not gear
-                if (
-                    droppedItem.nestedIn?.id === this.document.id ||
-                    droppedItem.parent?.id === this.document.id
-                ) {
-                    // Sort items
-                    return this.document._onSortItem(
-                        event,
-                        droppedItem.toObject(),
-                    );
-                } else {
-                    if (this.document instanceof SohlActor) {
-                        const newItem = await SohlItem.create(
-                            droppedItem.toObject(),
-                            {
-                                parent: this.document,
-                            },
-                        );
-                        if (!droppedItem.fromCompendiumOrWorld) {
-                            await droppedItem.delete();
-                        }
-                        return newItem;
-                    } else {
-                        // Nest the dropped item into this item
-                        return await droppedItem.nestIn(this.document, {
-                            droppedItem,
-                            destructive: !droppedItem.fromCompendiumOrWorld,
-                        });
-                    }
-                }
+                return this._onDropNonGear(event, droppedItem);
             }
         }
 
@@ -12816,24 +13754,20 @@ function SohlSheetMixin(Base) {
                 // in an Anatomy object instead
                 if (isActor && itemData.type.startsWith("body")) {
                     ui.notifications.warn(
-                        game.i18n.localize(
-                            `You may not drop a ${
-                                SOHL.sysVer.CONFIG.Item.typeLabels[
-                                    itemData.type
-                                ]
-                            } onto an Actor`,
-                        ),
+                        _l("You may not drop a {itemType} onto an Actor", {
+                            itemType: _l(`TYPES.Item.${itemData.type}.label`),
+                        }),
                     );
                     return false;
                 }
 
                 // Determine if a similar item exists
                 let similarItem;
-                if (isActor && itemData.type === AnatomyItemData.typeName) {
+                if (isActor && itemData.type === AnatomyItemData.TYPE_NAME) {
                     // Only one Anatomy item is allowed to be on an actor at any time,
                     // so any existing one will be considered "similar".
                     similarItem = items.find(
-                        (it) => it.type === AnatomyItemData.typeName,
+                        (it) => it.type === AnatomyItemData.TYPE_NAME,
                     );
                 }
 
@@ -12880,7 +13814,24 @@ function SohlSheetMixin(Base) {
             return super._onDropItemCreate(toCreate, event);
         }
 
-        async _onDropGearItem(event, droppedItem, destContainer) {
+        async _onDropGear(event, droppedItem) {
+            const destContainerId = event.target.closest("[data-container-id]")
+                ?.dataset.containerId;
+
+            // If no other container is specified, use this item
+            let destContainer;
+            if (this.document instanceof SohlItem) {
+                destContainer = !destContainerId
+                    ? this.document
+                    : this.document.actor?.items.get(destContainerId) ||
+                      this.document.getNestedItemById(destContainerId) ||
+                      this.document;
+            } else {
+                destContainer = !destContainerId
+                    ? this.document
+                    : this.document.items.get(destContainerId);
+            }
+
             if (
                 (destContainer instanceof SohlItem &&
                     destContainer.id === droppedItem.nestedIn?.id) ||
@@ -12935,6 +13886,35 @@ function SohlSheetMixin(Base) {
             });
         }
 
+        async _onDropNonGear(event, droppedItem) {
+            if (
+                droppedItem.nestedIn?.id === this.document.id ||
+                droppedItem.parent?.id === this.document.id
+            ) {
+                // Sort items
+                return this.document._onSortItem(event, droppedItem.toObject());
+            } else {
+                if (this.document instanceof SohlActor) {
+                    const newItem = await SohlItem.create(
+                        droppedItem.toObject(),
+                        {
+                            parent: this.document,
+                        },
+                    );
+                    if (!droppedItem.fromCompendiumOrWorld) {
+                        await droppedItem.delete();
+                    }
+                    return newItem;
+                } else {
+                    const result = this._onDropItemCreate(
+                        droppedItem.toObject(),
+                        event,
+                    );
+                    return result;
+                }
+            }
+        }
+
         async _addPrimitiveArrayItem(event, { allowDuplicates = false } = {}) {
             const dataset = event.currentTarget.dataset;
             let oldArray = foundry.utils.getProperty(
@@ -12969,17 +13949,17 @@ function SohlSheetMixin(Base) {
                     {{/if}}
                 </div>
                 </form>`);
-                const html = compiled(dialogData, {
+                const dlgHtml = compiled(dialogData, {
                     allowProtoMethodsByDefault: true,
                     allowProtoPropertiesByDefault: true,
                 });
 
                 const dlgResult = await Dialog.prompt({
                     title: dataset.title,
-                    content: html.trim(),
+                    content: dlgHtml.trim(),
                     label: `Add ${dataset.title}`,
-                    callback: (html) => {
-                        const form = html.querySelector("form");
+                    callback: (element) => {
+                        const form = element.querySelector("form");
                         const fd = new FormDataExtended(form);
                         const formData = foundry.utils.expandObject(fd.object);
                         let formValue = formData.newValue;
@@ -13020,7 +14000,7 @@ function SohlSheetMixin(Base) {
             });
             formTemplate += `</select></div></form>`;
             const compiled = Handlebars.compile(formTemplate);
-            const html = compiled(
+            const dlgHtml = compiled(
                 {},
                 {
                     allowProtoMethodsByDefault: true,
@@ -13030,10 +14010,10 @@ function SohlSheetMixin(Base) {
 
             const dlgResult = await Dialog.prompt({
                 title: dataset.title,
-                content: html.trim(),
+                content: dlgHtml.trim(),
                 label: `Add ${dataset.title}`,
-                callback: (html) => {
-                    const form = html.querySelector("form");
+                callback: (element) => {
+                    const form = element.querySelector("form");
                     const fd = new FormDataExtended(form);
                     const formData = foundry.utils.expandObject(fd.object);
                     return formData.choice;
@@ -13072,7 +14052,7 @@ function SohlSheetMixin(Base) {
                 <label>Prob Weight Base</label>
                 {{numberInput 0 name="probWeightBase" min=0 step=1}}
             </div></div></form>`);
-            const html = compiled(
+            const dlgHtml = compiled(
                 {},
                 {
                     allowProtoMethodsByDefault: true,
@@ -13082,10 +14062,10 @@ function SohlSheetMixin(Base) {
 
             const dlgResult = await Dialog.prompt({
                 title: dataset.title,
-                content: html.trim(),
+                content: dlgHtml.trim(),
                 label: `Add ${dataset.title}`,
-                callback: (html) => {
-                    const form = html.querySelector("form");
+                callback: (element) => {
+                    const form = element.querySelector("form");
                     const fd = new FormDataExtended(form);
                     const formData = foundry.utils.expandObject(fd.object);
                     const result = {
@@ -13129,7 +14109,7 @@ function SohlSheetMixin(Base) {
                         <label>Max Value</label>
                         {{numberInput 0 name="maxValue" min=0 step=1}}
                     </div></div></form>`);
-            const html = compiled(
+            const dlgHtml = compiled(
                 {},
                 {
                     allowProtoMethodsByDefault: true,
@@ -13139,10 +14119,10 @@ function SohlSheetMixin(Base) {
 
             const dlgResult = await Dialog.prompt({
                 title: dataset.title,
-                content: html.trim(),
+                content: dlgHtml.trim(),
                 label: `Add ${dataset.title}`,
-                callback: (html) => {
-                    const form = html.querySelector("form");
+                callback: (element) => {
+                    const form = element.querySelector("form");
                     const fd = new FormDataExtended(form);
                     const formData = foundry.utils.expandObject(fd.object);
                     const result = {
@@ -13217,21 +14197,21 @@ function SohlSheetMixin(Base) {
             );
 
             const dialogData = {
-                variant: SOHL.sysVer.id,
+                variant: CONFIG.SOHL.id,
                 newKey: "",
                 newValue: "",
             };
 
             let dlgTemplate =
                 "systems/sohl/templates/dialog/keyvalue-dialog.html";
-            const html = await renderTemplate(dlgTemplate, dialogData);
+            const dlgHtml = await renderTemplate(dlgTemplate, dialogData);
 
             const dlgResult = await Dialog.prompt({
                 title: dataset.title,
-                content: html.trim(),
+                content: dlgHtml.trim(),
                 label: `Add ${dataset.title}`,
-                callback: (html) => {
-                    const form = html.querySelector("form");
+                callback: (element) => {
+                    const form = element.querySelector("form");
                     const fd = new FormDataExtended(form);
                     const formData = foundry.utils.expandObject(fd.object);
                     let formKey = formData.newKey;
@@ -13285,106 +14265,130 @@ function SohlSheetMixin(Base) {
         /** @override */
         activateListeners(html) {
             super.activateListeners(html);
+            const element = html instanceof jQuery ? html[0] : html;
 
             // Everything below here is only needed if the sheet is editable
             if (!this.options.editable) return;
 
             // Ensure all text is selected when entering text input field
-            html.on("click", "input[type='text']", (ev) => {
-                if (!ev.currentTarget.dataset?.type) ev.currentTarget.select();
-            });
-
-            html.find(".effect-create").click(this._onEffectCreate.bind(this));
-
-            html.find(".effect-toggle").click(this._onEffectToggle.bind(this));
-
-            html.find(".alter-time").click((ev) => {
-                const property = ev.currentTarget.dataset.property;
-                let time = Number.parseInt(ev.currentTarget.dataset.time, 10);
-                if (Number.isNaN(time)) time = 0;
-                Utility.onAlterTime(time).then((result) => {
-                    if (result !== null) {
-                        const updateData = { [property]: result };
-                        this.item.update(updateData);
+            this.form
+                .querySelector("input[type='text']")
+                ?.addEventListener("click", (ev) => {
+                    const target = ev.target;
+                    if (!target.dataset?.type) {
+                        target.select();
                     }
                 });
-            });
+
+            this.form
+                .querySelector(".effect-create")
+                ?.addEventListener("click", this._onEffectCreate.bind(this));
+
+            this.form
+                .querySelector(".effect-toggle")
+                ?.addEventListener("click", this._onEffectToggle.bind(this));
+
+            this.form
+                .querySelector(".alter-time")
+                ?.addEventListener("click", (ev) => {
+                    const property = ev.currentTarget.dataset.property;
+                    let time = Number.parseInt(
+                        ev.currentTarget.dataset.time,
+                        10,
+                    );
+                    if (Number.isNaN(time)) time = 0;
+                    Utility.onAlterTime(time).then((result) => {
+                        if (result !== null) {
+                            const updateData = { [property]: result };
+                            this.item.update(updateData);
+                        }
+                    });
+                });
 
             // Add/delete Object Key
-            html.find(".add-array-item").click(this._addArrayItem.bind(this));
-            html.find(".delete-array-item").click(
-                this._deleteArrayItem.bind(this),
-            );
+            this.form
+                .querySelector(".add-array-item")
+                ?.addEventListener("click", this._addArrayItem.bind(this));
+            this.form
+                .querySelector(".delete-array-item")
+                ?.addEventListener("click", this._deleteArrayItem.bind(this));
 
             // Add/delete Object Key
-            html.find(".add-object-key").click(this._addObjectKey.bind(this));
-            html.find(".delete-object-key").click(
-                this._deleteObjectKey.bind(this),
-            );
+            this.form
+                .querySelector(".add-object-key")
+                ?.addEventListener("click", this._addObjectKey.bind(this));
+            this.form
+                .querySelector(".delete-object-key")
+                ?.addEventListener("click", this._deleteObjectKey.bind(this));
 
-            // Active Effect management (deprecated)
-            // html.find(".effect-control").click((ev) =>
-            //     SohlActiveEffect.onManageActiveEffect(ev, this.document),
-            // );
+            this.form
+                .querySelector(".action-create")
+                ?.addEventListener("click", (ev) => {
+                    return Utility.createAction(ev, this.document);
+                });
 
-            html.find(".action-create").click((ev) => {
-                return Utility.createAction(ev, this.document);
-            });
+            this.form
+                .querySelector(".action-execute")
+                ?.addEventListener("click", (ev) => {
+                    const li = ev.currentTarget.closest(".action-item");
+                    const itemId = li.dataset.itemId;
+                    const action = this.document.system.actions.get(itemId);
+                    action.execute({ event: ev, dataset: li.dataset });
+                });
 
-            html.find(".action-execute").click((ev) => {
-                const li = ev.currentTarget.closest(".action-item");
-                const itemId = li.dataset.itemId;
-                const action = this.document.system.actions.get(itemId);
-                action.execute();
-            });
-
-            html.find(".action-edit").click((ev) => {
-                const li = ev.currentTarget.closest(".action-item");
-                const itemId = li.dataset.itemId;
-                const action = this.document.system.actions.get(itemId);
-                if (!action) {
-                    throw new Error(
-                        `Action ${itemId} not found on ${this.document.name}.`,
-                    );
-                }
-                action.sheet.render(true);
-            });
-
-            html.find(".action-delete").click((ev) => {
-                const li = ev.currentTarget.closest(".action-item");
-                const itemId = li.dataset.itemId;
-                const action = this.document.system.actions.get(itemId);
-                if (!action) {
-                    throw new Error(
-                        `Action ${itemId} not found on ${this.document.name}.`,
-                    );
-                }
-                return Utility.deleteAction(ev, action);
-            });
-
-            html.find(".default-action").click((ev) => {
-                const li = ev.currentTarget.closest(".item");
-                const itemId = li.dataset.itemId;
-                let item;
-                if (this.document instanceof SohlActor) {
-                    item = this.actor.getItem(itemId);
-                } else {
-                    item = this.item.system.items.get(itemId);
-                }
-                if (item) {
-                    const defaultAction = item.system.getDefaultAction(li);
-                    if (defaultAction?.callback instanceof Function) {
-                        defaultAction.callback();
-                    } else {
-                        ui.notifications.warn(
-                            `${item.label} has no available default action`,
+            this.form
+                .querySelector(".action-edit")
+                ?.addEventListener("click", (ev) => {
+                    const li = ev.currentTarget.closest(".action-item");
+                    const itemId = li.dataset.itemId;
+                    const action = this.document.system.actions.get(itemId);
+                    if (!action) {
+                        throw new Error(
+                            `Action ${itemId} not found on ${this.document.name}.`,
                         );
                     }
-                }
-            });
+                    action.sheet.render(true);
+                });
+
+            this.form
+                .querySelector(".action-delete")
+                ?.addEventListener("click", (ev) => {
+                    const li = ev.currentTarget.closest(".action-item");
+                    const itemId = li.dataset.itemId;
+                    const action = this.document.system.actions.get(itemId);
+                    if (!action) {
+                        throw new Error(
+                            `Action ${itemId} not found on ${this.document.name}.`,
+                        );
+                    }
+                    return Utility.deleteAction(ev, action);
+                });
+
+            this.form
+                .querySelector(".default-action")
+                ?.addEventListener("click", (ev) => {
+                    const li = ev.currentTarget.closest(".item");
+                    const itemId = li.dataset.itemId;
+                    let item;
+                    if (this.document instanceof SohlActor) {
+                        item = this.actor.getItem(itemId);
+                    } else {
+                        item = this.item.system.items.get(itemId);
+                    }
+                    if (item) {
+                        const defaultAction = item.system.getDefaultAction(li);
+                        if (defaultAction?.callback instanceof Function) {
+                            defaultAction.callback();
+                        } else {
+                            ui.notifications.warn(
+                                `${item.label} has no available default action`,
+                            );
+                        }
+                    }
+                });
 
             // Activate context menu
-            this._contextMenu(html);
+            this._contextMenu(element);
         }
     };
 }
@@ -13453,7 +14457,7 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
     /** @override */
     getData() {
         const data = super.getData();
-        (data.variant = SOHL.sysVer.id), (data.adata = this.actor.system);
+        (data.variant = CONFIG.SOHL.id), (data.adata = this.actor.system);
         data.labels = this.actor.labels || {};
         data.itemTypes = this.actor.itemTypes;
         data.itemSubtypes = this.actor.itemSubtypes;
@@ -13515,9 +14519,9 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
             // with the current version.
             if (
                 it.type.endsWith("strikemode") &&
-                it.system.subType === SOHL.sysVer.id
+                it.system.subType === CONFIG.SOHL.id
             ) {
-                if (it.type === CombatTechniqueStrikeModeItemData.typeName) {
+                if (it.type === CombatTechniqueStrikeModeItemData.TYPE_NAME) {
                     const maneuver = it.cause;
 
                     if (maneuver?.system instanceof CombatManeuverItemData) {
@@ -13527,7 +14531,9 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
                         };
                         cmData[maneuver.name].strikeModes.push(it);
                     }
-                } else if (it.type === MeleeWeaponStrikeModeItemData.typeName) {
+                } else if (
+                    it.type === MeleeWeaponStrikeModeItemData.TYPE_NAME
+                ) {
                     const weapon = it.cause;
                     if (
                         weapon?.system instanceof WeaponGearItemData &&
@@ -13540,7 +14546,7 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
                         wpnData[weapon.name].strikeModes.push(it);
                     }
                 } else if (
-                    it.type === MissileWeaponStrikeModeItemData.typeName
+                    it.type === MissileWeaponStrikeModeItemData.TYPE_NAME
                 ) {
                     const weapon = it.cause;
                     if (
@@ -13579,7 +14585,7 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
             p.domains.sort((a, b) => a.sort - b.sort),
         );
 
-        let smKeys = Object.keys(cmData).sort((a, b) => a.localeCompare(b));
+        let smKeys = Utility.sortStrings(Object.keys(cmData));
         if (smKeys.includes("Unarmed")) {
             smKeys = smKeys.filter((k) => k !== "Unarmed");
             smKeys.unshift("Unarmed");
@@ -13590,14 +14596,14 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
             return ary;
         }, []);
 
-        smKeys = Object.keys(wpnData).sort((a, b) => a.localeCompare(b));
+        smKeys = Utility.sortStrings(Object.keys(wpnData));
         data.meleeweapons = smKeys.reduce((ary, key) => {
             wpnData[key].strikeModes.sort((a, b) => a.sort - b.sort);
             ary.push(wpnData[key]);
             return ary;
         }, []);
 
-        smKeys = Object.keys(mslData).sort((a, b) => a.localeCompare(b));
+        smKeys = Utility.sortStrings(Object.keys(mslData));
         data.missileweapons = smKeys.reduce((ary, key) => {
             mslData[key].strikeModes.sort((a, b) => a.sort - b.sort);
             ary.push(mslData[key]);
@@ -13697,11 +14703,11 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
         win.location.hash = "print";
         win._rootWindow = window;
 
-        const html = await renderTemplate(
+        const sheetHtml = await renderTemplate(
             this.template,
             foundry.utils.mergeObject({ printable: true }, this.getData()),
         );
-        win.document.write(html);
+        win.document.write(sheetHtml);
     }
 
     async _onItemCreate(event) {
@@ -13716,13 +14722,16 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
         };
         if (dataset.type) {
             if (dataset.type === "gear") {
-                options.types = SOHL.CONST.GEARTYPES;
-                data.type = options.types[0];
+                options.types = Utility.getChoicesMap(
+                    GearItemData.TYPE,
+                    "SOHL.GEAR.TYPE",
+                );
+                data.type = GearItemData.TYPE.MISC;
             } else if (dataset.type === "body") {
                 options.types = [
-                    BodyLocationItemData.typeName,
-                    BodyPartItemData.typeName,
-                    BodyZoneItemData.typeName,
+                    BodyLocationItemData.TYPE_NAME,
+                    BodyPartItemData.TYPE_NAME,
+                    BodyZoneItemData.TYPE_NAME,
                 ];
                 data.type = options.types[0];
             } else {
@@ -13735,14 +14744,14 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
     }
 
     _improveToggleDialog(item) {
-        const dlghtml =
+        const dlgHtml =
             "<p>Do you want to perform a Skill Development Roll (SDR), or just disable the flag?</p>";
 
         // Create the dialog window
         return new Promise((resolve) => {
             new Dialog({
                 title: "Skill Development Toggle",
-                content: dlghtml.trim(),
+                content: dlgHtml.trim(),
                 buttons: {
                     performSDR: {
                         label: "Perform SDR",
@@ -13766,92 +14775,108 @@ export class SohlActorSheet extends SohlSheetMixin(ActorSheet) {
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
+        // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+        const element = html instanceof jQuery ? html[0] : html;
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
         // Add Inventory Item
-        html.find(".item-create").click(this._onItemCreate.bind(this));
+        this.form
+            .querySelector(".item-create")
+            ?.addEventListener("click", this._onItemCreate.bind(this));
 
         // Toggle Active Effects
-        html.find(".toggle-status-effect").click((ev) => {
-            const statusId = ev.currentTarget.dataset.statusId;
-            const effect = this.actor.effects.find((e) =>
-                e.statuses.has(statusId),
-            );
-            if (effect) {
-                effect.delete();
-            } else {
-                let effectData = CONFIG.statusEffects.find(
-                    (e) => e.id === statusId,
+        this.form
+            .querySelector(".toggle-status-effect")
+            ?.addEventListener("click", (ev) => {
+                const statusId = ev.currentTarget.dataset.statusId;
+                const effect = this.actor.effects.find((e) =>
+                    e.statuses.has(statusId),
                 );
-                const updateData = {
-                    img: effectData.img,
-                    name: game.i18n.localize(effectData.name),
-                    statuses: effectData.id,
-                };
-                ActiveEffect.create(updateData, { parent: this.actor });
-            }
-        });
+                if (effect) {
+                    effect.delete();
+                } else {
+                    let effectData = CONFIG.statusEffects.find(
+                        (e) => e.id === statusId,
+                    );
+                    const updateData = {
+                        img: effectData.img,
+                        name: _l(effectData.name),
+                        statuses: effectData.id,
+                    };
+                    ActiveEffect.create(updateData, { parent: this.actor });
+                }
+            });
 
         // Hide all hideable elements
-        html.find(".showhide").prop("disabled", false);
-
-        html.find(".toggle-visibility").click((ev) => {
-            const filter = ".showhide";
-            // (limitToClass ? `.${limitToClass}` : "") + ".showhide";
-            const start = ev.currentTarget.closest(".item-list");
-            const targets = start.find(filter);
-            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-            targets.prop("disabled", (i, val) => !val);
+        this.form.querySelectorAll(".showhide").forEach((element) => {
+            element.disabled = false;
         });
+
+        this.form
+            .querySelector(".toggle-visibility")
+            ?.addEventListener("click", (ev) => {
+                const filter = ".showhide";
+                // (limitToClass ? `.${limitToClass}` : "") + ".showhide";
+                const start = ev.currentTarget.closest(".item-list");
+                const targets = start.find(filter);
+                // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+                targets.prop("disabled", (i, val) => !val);
+            });
 
         // Toggle carry state
-        html.find(".item-carry").click((ev) => {
-            ev.preventDefault();
-            const itemId = ev.currentTarget.closest(".item").dataset.itemId;
-            const item = this.actor.getItem(itemId);
+        this.form
+            .querySelector(".item-carry")
+            ?.addEventListener("click", (ev) => {
+                ev.preventDefault();
+                const itemId = ev.currentTarget.closest(".item").dataset.itemId;
+                const item = this.actor.getItem(itemId);
 
-            // Only process inventory items, otherwise ignore
-            if (item.system instanceof GearItemData) {
-                const attr = "system.isCarried";
-                return item.update({
-                    [attr]: !foundry.utils.getProperty(item, attr),
-                });
-            }
+                // Only process inventory items, otherwise ignore
+                if (item.system instanceof GearItemData) {
+                    const attr = "system.isCarried";
+                    return item.update({
+                        [attr]: !foundry.utils.getProperty(item, attr),
+                    });
+                }
 
-            return null;
-        });
+                return null;
+            });
 
         // Toggle equip state
-        html.find(".item-equip").click((ev) => {
-            ev.preventDefault();
-            const itemId = ev.currentTarget.closest(".item").dataset.itemId;
-            const item = this.actor.getItem(itemId);
+        this.form
+            .querySelector(".item-equip")
+            ?.addEventListener("click", (ev) => {
+                ev.preventDefault();
+                const itemId = ev.currentTarget.closest(".item").dataset.itemId;
+                const item = this.actor.getItem(itemId);
 
-            // Only process inventory items, otherwise ignore
-            if (item.system instanceof GearItemData) {
-                const attr = "system.isEquipped";
-                return item.update({
-                    [attr]: !foundry.utils.getProperty(item, attr),
-                });
-            }
+                // Only process inventory items, otherwise ignore
+                if (item.system instanceof GearItemData) {
+                    const attr = "system.isEquipped";
+                    return item.update({
+                        [attr]: !foundry.utils.getProperty(item, attr),
+                    });
+                }
 
-            return null;
-        });
+                return null;
+            });
 
         // Toggle improve flag
-        html.find(".toggle-improve-flag").click((ev) => {
-            ev.preventDefault();
-            const itemId = ev.currentTarget.closest(".item").dataset.itemId;
-            const item = this.actor.getItem(itemId);
+        this.form
+            .querySelector(".toggle-improve-flag")
+            ?.addEventListener("click", (ev) => {
+                ev.preventDefault();
+                const itemId = ev.currentTarget.closest(".item").dataset.itemId;
+                const item = this.actor.getItem(itemId);
 
-            // Only process MasteryLevel items
-            if (item?.system.isMasteryLevelItemData && !item.isVirtual) {
-                return item.system.toggleImproveFlag();
-            }
-            return null;
-        });
+                // Only process MasteryLevel items
+                if (item?.system.isMasteryLevelItemData && !item.isVirtual) {
+                    return item.system.toggleImproveFlag();
+                }
+                return null;
+            });
     }
 }
 
@@ -13888,7 +14913,7 @@ export class SohlItemSheet extends SohlSheetMixin(ItemSheet) {
     /** @override */
     getData() {
         const data = super.getData();
-        data.variant = SOHL.sysVer.id;
+        data.variant = CONFIG.SOHL.id;
 
         // Re-define the template data references (backwards compatible)
         data.item = this.item;
@@ -13972,8 +14997,8 @@ export class SohlItemSheet extends SohlSheetMixin(ItemSheet) {
                         `Unknown (${this.item.system.domain})`,
                     ]);
 
-                tmpAry.sort((a, b) => a[1].localeCompare(b[1])),
-                    (obj[cat] = Object.fromEntries(tmpAry));
+                Utility.sortStrings(tmpAry);
+                obj[cat] = Object.fromEntries(tmpAry);
                 return obj;
             }, {});
 
@@ -14193,8 +15218,11 @@ export class SohlItemSheet extends SohlSheetMixin(ItemSheet) {
         const options = { nestedIn: this.item, parent: this.item.actor };
         const data = { name: "" };
         if (dataset.type === "gear") {
-            options.types = SOHL.CONST.GEARTYPES;
-            data.type = options.types[0];
+            options.types = Utility.getChoicesMap(
+                GearItemData.TYPE,
+                "SOHL.GEAR.TYPE",
+            );
+            data.type = GearItemData.TYPE.MISC;
         } else if (dataset.type) {
             data.type = dataset.type;
         }
@@ -14239,29 +15267,34 @@ export class SohlItemSheet extends SohlSheetMixin(ItemSheet) {
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
+        // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+        const element = html instanceof jQuery ? html[0] : html;
 
-        html.on("keypress", ".properties", (ev) => {
-            var keycode = ev.keyCode ? ev.keyCode : ev.which;
-            if (keycode == "13") {
+        this.form.addEventListener("keypress", (ev) => {
+            const target = ev.target;
+            // Check if the event was triggered by an element with the class 'properties'
+            if (target.classList.contains("properties") && ev.key === "Enter") {
                 super.close();
             }
         });
 
         // Create/edit/delete Nested Item
-        html.find(".nested-item-create").click(
-            this._createNestedItem.bind(this),
-        );
+        this.form
+            .querySelector(".nested-item-create")
+            ?.addEventListener("click", this._createNestedItem.bind(this));
 
-        html.find(".nested-item-edit").click((ev) => {
-            const li = ev.currentTarget.closest(".item");
-            const itemId = li.dataset.itemId;
-            const nestedItem = this.item.getNestedItemById(itemId);
-            nestedItem.sheet.render(true);
-        });
+        this.form
+            .querySelector(".nested-item-edit")
+            ?.addEventListener("click", (ev) => {
+                const li = ev.currentTarget.closest(".item");
+                const itemId = li.dataset.itemId;
+                const nestedItem = this.item.getNestedItemById(itemId);
+                nestedItem.sheet.render(true);
+            });
 
-        html.find(".nested-item-delete").click(
-            this._deleteNestedItem.bind(this),
-        );
+        this.form
+            .querySelector(".nested-item-delete")
+            ?.addEventListener("click", this._deleteNestedItem.bind(this));
     }
 }
 
@@ -14565,7 +15598,7 @@ export class MersenneTwister {
      * @returns {number}
      */
     static int() {
-        return SOHL.CONST.twist.int();
+        return SOHL.TWIST.int();
     }
 
     /**
@@ -14573,7 +15606,7 @@ export class MersenneTwister {
      * @returns {number}
      */
     static random() {
-        return SOHL.CONST.twist.random();
+        return SOHL.TWIST.random();
     }
 
     /**
@@ -14581,230 +15614,53 @@ export class MersenneTwister {
      * @return {number}
      */
     static normal(...args) {
-        return SOHL.CONST.twist.normal(...args);
+        return SOHL.TWIST.normal(...args);
     }
 }
 
 // Create Global Singleton
-SOHL.CONST.twist = new MersenneTwister(Date.now());
+Object.defineProperty(SOHL, "TWIST", {
+    value: new MersenneTwister(Date.now()),
+    writeable: false,
+    enumerable: false,
+});
 
-export class Commands {
-    /**
-     * If the current combatant is controllable by the player, then perform an automated attack.
-     * If only one strike mode is possible, it is selected, otherwise a dialog is provided with all
-     * available strike modes ordered by median impact.
-     *
-     * @param {*} speaker
-     * @param {*} actor
-     * @param {*} token
-     * @param {*} character
-     * @param {*} scope
-     * @returns
-     */
-    static async currentCombatantAttack(
-        _speaker,
-        _actor,
-        _token,
-        _character,
-        scope = {},
-    ) {
-        let { skipDialog = false, groups = [], aspect = null } = scope;
+export const SohlActorDataModels = Object.freeze({
+    [AnimateEntityActorData.TYPE_NAME]: AnimateEntityActorData,
+    [InanimateObjectActorData.TYPE_NAME]: InanimateObjectActorData,
+});
 
-        const combatant = Utility.getTokenInCombat();
-        if (!combatant) return;
-
-        const candidates = [];
-        for (let it of combatant.actor.allItems()) {
-            if (it.type.endsWith("strikemode")) {
-                if (groups.length && !groups.includes(it.system.group))
-                    continue;
-
-                // Ignore any disabled strike modes
-                if (it.system.$attack.disabled) continue;
-
-                if (it.type === CombatTechniqueStrikeModeItemData.typeName) {
-                    // Combat Techniques must be nested in Combat Maneuvers, otherwise ignore
-                    if (
-                        !(it.nestedIn?.type === CombatManeuverItemData.typeName)
-                    )
-                        continue;
-                    if (!aspect || it.system.$impact.aspect === aspect) {
-                        if (!candidates.some((c) => c.id === it.id))
-                            candidates.push(it);
-                    }
-                } else {
-                    // All other Strike Modes must be nested in Weapon Gear, otherwise ignore
-                    if (!(it.nestedIn?.type === WeaponGearItemData.typeName))
-                        continue;
-
-                    // Strike mode weapon must be held, otherwise ignore
-                    if (!it.nestedIn.system.$heldBy) continue;
-
-                    if (!aspect || it.system.$impact.aspect === aspect) {
-                        if (!candidates.some((c) => c.id === it.id))
-                            candidates.push(it);
-                    }
-                }
-            }
-        }
-
-        if (!candidates.length) {
-            ui.notifications.warn(
-                `${combatant.token.name} has no usable strike modes, cannot attack`,
-            );
-            return null;
-        }
-
-        // Sort candidates by highest to lowest median impact
-        candidates.sort(
-            (a, b) => b.system.$impact.median - a.system.$impact.median,
-        );
-
-        // get the strikemode with the highest median impact as default
-        let strikeMode = candidates[0];
-
-        if (!skipDialog) {
-            let dlgHtml = `<form id="select-strikemode">
-                <div class="form-group">
-                    <label>Select which Strike Mode to use for ${combatant.token.name}:</label>
-                    <select name="strikemodeId">`;
-            candidates.forEach((sm, idx) => {
-                dlgHtml += `<option value=${sm.id}${!idx ? " selected" : ""}>${sm.nestedIn.name} ${sm.name} (${sm.system.$impact.label})</option>`;
-            });
-            dlgHtml += `</select></div></form>`;
-            strikeMode = await Dialog.prompt({
-                title: `Choose Strike Mode for ${combatant.token.name}`,
-                content: dlgHtml,
-                label: "OK",
-                callback: async (html) => {
-                    const form = html.querySelector("form");
-                    const fd = new FormDataExtended(form);
-                    const formdata = foundry.utils.expandObject(fd.object);
-                    const selection = candidates.find(
-                        (sm) => sm.id === formdata.strikemodeId,
-                    );
-                    return selection;
-                },
-                options: { jQuery: false },
-                rejectClose: false,
-            });
-        }
-        if (!strikeMode) return null;
-        strikeMode.system.execute("opposedTestStart", scope);
-    }
-}
-
-export const SohlActorDataModels = {
-    [AnimateEntityActorData.typeName]: AnimateEntityActorData,
-    [InanimateObjectActorData.typeName]: InanimateObjectActorData,
-};
-
-export const SohlActorTypeLabels = {
-    [AnimateEntityActorData.typeName]: "TYPES.Actor.entity",
-    [InanimateObjectActorData.typeName]: "TYPES.Actor.object",
-};
-
-export const SohlActorTypeIcons = {
-    [AnimateEntityActorData.typeName]: "fas fa-person",
-    [InanimateObjectActorData.typeName]: "fas fa-treasure-chest",
-};
-
-export const SohlItemDataModels = {
-    [AffiliationItemData.typeName]: AffiliationItemData,
-    [AfflictionItemData.typeName]: AffiliationItemData,
-    [AnatomyItemData.typeName]: AnatomyItemData,
-    [ArmorGearItemData.typeName]: ArmorGearItemData,
-    [BodyLocationItemData.typeName]: BodyLocationItemData,
-    [BodyPartItemData.typeName]: BodyPartItemData,
-    [BodyZoneItemData.typeName]: BodyZoneItemData,
-    [CombatTechniqueStrikeModeItemData.typeName]:
+export const SohlItemDataModels = Object.freeze({
+    [AffiliationItemData.TYPE_NAME]: AffiliationItemData,
+    [AfflictionItemData.TYPE_NAME]: AffiliationItemData,
+    [AnatomyItemData.TYPE_NAME]: AnatomyItemData,
+    [ArmorGearItemData.TYPE_NAME]: ArmorGearItemData,
+    [BodyLocationItemData.TYPE_NAME]: BodyLocationItemData,
+    [BodyPartItemData.TYPE_NAME]: BodyPartItemData,
+    [BodyZoneItemData.TYPE_NAME]: BodyZoneItemData,
+    [CombatTechniqueStrikeModeItemData.TYPE_NAME]:
         CombatTechniqueStrikeModeItemData,
-    [CombatManeuverItemData.typeName]: CombatManeuverItemData,
-    [ConcoctionGearItemData.typeName]: ConcoctionGearItemData,
-    [ContainerGearItemData.typeName]: ContainerGearItemData,
-    [EventItemData.typeName]: EventItemData,
-    [InjuryItemData.typeName]: InjuryItemData,
-    [MeleeWeaponStrikeModeItemData.typeName]: MeleeWeaponStrikeModeItemData,
-    [MiscGearItemData.typeName]: MiscGearItemData,
-    [MissileWeaponStrikeModeItemData.typeName]: MissileWeaponStrikeModeItemData,
-    [MysteryItemData.typeName]: MysteryItemData,
-    [MysticalAbilityItemData.typeName]: MysticalAbilityItemData,
-    [PhilosophyItemData.typeName]: PhilosophyItemData,
-    [DomainItemData.typeName]: DomainItemData,
-    [MysticalDeviceItemData.typeName]: MysticalDeviceItemData,
-    [ProjectileGearItemData.typeName]: ProjectileGearItemData,
-    [SkillItemData.typeName]: SkillItemData,
-    [TraitItemData.typeName]: TraitItemData,
-    [WeaponGearItemData.typeName]: WeaponGearItemData,
-};
+    [CombatManeuverItemData.TYPE_NAME]: CombatManeuverItemData,
+    [ConcoctionGearItemData.TYPE_NAME]: ConcoctionGearItemData,
+    [ContainerGearItemData.TYPE_NAME]: ContainerGearItemData,
+    [EventItemData.TYPE_NAME]: EventItemData,
+    [InjuryItemData.TYPE_NAME]: InjuryItemData,
+    [MeleeWeaponStrikeModeItemData.TYPE_NAME]: MeleeWeaponStrikeModeItemData,
+    [MiscGearItemData.TYPE_NAME]: MiscGearItemData,
+    [MissileWeaponStrikeModeItemData.TYPE_NAME]:
+        MissileWeaponStrikeModeItemData,
+    [MysteryItemData.TYPE_NAME]: MysteryItemData,
+    [MysticalAbilityItemData.TYPE_NAME]: MysticalAbilityItemData,
+    [PhilosophyItemData.TYPE_NAME]: PhilosophyItemData,
+    [DomainItemData.TYPE_NAME]: DomainItemData,
+    [MysticalDeviceItemData.TYPE_NAME]: MysticalDeviceItemData,
+    [ProjectileGearItemData.TYPE_NAME]: ProjectileGearItemData,
+    [SkillItemData.TYPE_NAME]: SkillItemData,
+    [TraitItemData.TYPE_NAME]: TraitItemData,
+    [WeaponGearItemData.TYPE_NAME]: WeaponGearItemData,
+});
 
-export const SohlItemTypeIcons = {
-    [AffiliationItemData.typeName]: "fa-duotone fa-people-group",
-    [AfflictionItemData.typeName]: "fas fa-face-nauseated",
-    [AnatomyItemData.typeName]: "fas fa-person",
-    [ProtectionItemData.typeName]: "fas fa-shield",
-    [ArmorGearItemData.typeName]: "fas fa-shield-halved",
-    [BodyLocationItemData.typeName]: "fa-solid fa-hand",
-    [BodyPartItemData.typeName]: "fa-duotone fa-skeleton-ribs",
-    [BodyZoneItemData.typeName]: "fa-duotone fa-person",
-    [CombatTechniqueStrikeModeItemData.typeName]: "fas fa-hand-fist",
-    [CombatManeuverItemData.typeName]: "fas fa-hand-fist",
-    [ConcoctionGearItemData.typeName]: "fas fa-flask-round-potion",
-    [ContainerGearItemData.typeName]: "fas fa-sack",
-    [EventItemData.typeName]: "fas fa-gear",
-    [InjuryItemData.typeName]: "fas fa-user-injured",
-    [MeleeWeaponStrikeModeItemData.typeName]: "fas fa-sword",
-    [MiscGearItemData.typeName]: "fas fa-ball-pile",
-    [MissileWeaponStrikeModeItemData.typeName]: "fas fa-bow-arrow",
-    [MysteryItemData.typeName]: "fas fa-sparkles",
-    [MysticalAbilityItemData.typeName]: "fas fa-hand-sparkles",
-    [PhilosophyItemData.typeName]: "fas fa-sparkle",
-    [DomainItemData.typeName]: "fas fa-sparkle",
-    [MysticalDeviceItemData.typeName]: "fas fa-wand-sparkles",
-    [ProjectileGearItemData.typeName]: "fas fa-bow-arrow",
-    [SkillItemData.typeName]: "fas fa-head-side-gear",
-    [TraitItemData.typeName]: "fas fa-user-gear",
-    [WeaponGearItemData.typeName]: "fas fa-sword",
-};
-
-export const SohlModifiers = {
-    MasteryLevelModifier: MasteryLevelModifier,
-    ImpactModifier: ImpactModifier,
-    ValueModifier: ValueModifier,
-    CombatModifier: CombatModifier,
-};
-
-export const SohlItemTypeLabels = {
-    [AffiliationItemData.typeName]: "TYPES.Item.affiliation",
-    [AfflictionItemData.typeName]: "TYPES.Item.affliction",
-    [AnatomyItemData.typeName]: "TYPES.Item.anatomy",
-    [ArmorGearItemData.typeName]: "TYPES.Item.armorgear",
-    [BodyLocationItemData.typeName]: "TYPES.Item.bodylocation",
-    [BodyPartItemData.typeName]: "TYPES.Item.bodypart",
-    [BodyZoneItemData.typeName]: "TYPES.Item.bodyzone",
-    [CombatTechniqueStrikeModeItemData.typeName]:
-        "TYPES.Item.combattechniquestrikemode",
-    [CombatManeuverItemData.typeName]: "TYPES.Item.combatmaneuver",
-    [ConcoctionGearItemData.typeName]: "TYPES.Item.concoctiongear",
-    [ContainerGearItemData.typeName]: "TYPES.Item.containergear",
-    [EventItemData.typeName]: "TYPES.Item.event",
-    [InjuryItemData.typeName]: "TYPES.Item.injury",
-    [ProtectionItemData.typeName]: "TYPES.Item.protection",
-    [MeleeWeaponStrikeModeItemData.typeName]: "TYPES.Item.meleestrikemode",
-    [MiscGearItemData.typeName]: "TYPES.Item.miscgear",
-    [MissileWeaponStrikeModeItemData.typeName]: "TYPES.Item.missilestrikemode",
-    [MysteryItemData.typeName]: "TYPES.Item.mystery",
-    [MysticalAbilityItemData.typeName]: "TYPES.Item.mysticalability",
-    [PhilosophyItemData.typeName]: "TYPES.Item.philosophy",
-    [DomainItemData.typeName]: "TYPES.Item.domain",
-    [MysticalDeviceItemData.typeName]: "TYPES.Item.mysticaldevice",
-    [ProjectileGearItemData.typeName]: "TYPES.Item.projectilegear",
-    [SkillItemData.typeName]: "TYPES.Item.skill",
-    [TraitItemData.typeName]: "TYPES.Item.trait",
-    [WeaponGearItemData.typeName]: "TYPES.Item.weapongear",
-};
-
-SOHL.class = {
+SOHL.classes = Object.freeze({
     SohlActor,
     SohlItem,
     SohlMacro,
@@ -14816,14 +15672,12 @@ SOHL.class = {
     SohlActorSheet,
     SohlItemSheet,
     NestedItemSheet,
-    Commands,
-};
-
-SOHL.CONST.GEARTYPES = [
-    MiscGearItemData.typeName,
-    ContainerGearItemData.typeName,
-    ArmorGearItemData.typeName,
-    WeaponGearItemData.typeName,
-    ProjectileGearItemData.typeName,
-    ConcoctionGearItemData.typeName,
-];
+    ValueModifier,
+    ImpactModifier,
+    MasteryLevelModifier,
+    CombatModifier,
+    SuccessTestResult,
+    OpposedTestResult,
+    CombatTestResult,
+    ImpactResult,
+});

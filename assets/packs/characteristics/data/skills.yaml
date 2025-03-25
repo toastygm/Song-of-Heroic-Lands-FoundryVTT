@@ -198,7 +198,7 @@
   id: 31ZqIOMd9sPbgiqe
   img: systems/sohl/assets/icons/agriculture.svg
   subType: nature
-  skillBaseFormula: '@per, @rea'
+  skillBaseFormula: '@per, @wil'
   weaponGroup: none
   domain: ''
   macros: []
@@ -303,7 +303,7 @@
   id: kZYgzXpACwVlWCzL
   img: systems/sohl/assets/icons/ceramics.svg
   subType: craft
-  skillBaseFormula: '@per, @dex'
+  skillBaseFormula: '@dex, @per'
   weaponGroup: none
   domain: ''
   macros: []
@@ -378,7 +378,7 @@
   id: SDwtBltYD0tQAXRG
   img: systems/sohl/assets/icons/dance.svg
   subType: physical
-  skillBaseFormula: '@agl, @end'
+  skillBaseFormula: '@agl, @cre'
   weaponGroup: none
   domain: ''
   macros: []
@@ -423,7 +423,7 @@
   id: WaeJaU0YihDlJ2pY
   img: systems/sohl/assets/icons/drawing.svg
   subType: craft
-  skillBaseFormula: '@per, @dex'
+  skillBaseFormula: '@dex, @cre'
   weaponGroup: none
   domain: ''
   macros: []
@@ -468,7 +468,7 @@
   id: cyyEUOoomBDdXda9
   img: systems/sohl/assets/icons/fishing.svg
   subType: nature
-  skillBaseFormula: '@per, @rea'
+  skillBaseFormula: '@per, @wil'
   weaponGroup: none
   domain: ''
   macros: []
@@ -483,7 +483,7 @@
   id: tXcVbkB8qJsiBENc
   img: systems/sohl/assets/icons/arrow.svg
   subType: craft
-  skillBaseFormula: '@per, @dex'
+  skillBaseFormula: '@dex, @per'
   weaponGroup: none
   domain: ''
   macros: []
@@ -573,7 +573,7 @@
   id: 79p8qOAYPvErPBrG
   img: systems/sohl/assets/icons/hidework.svg
   subType: craft
-  skillBaseFormula: '@per, @dex'
+  skillBaseFormula: '@dex, @per'
   weaponGroup: none
   domain: ''
   macros: []
@@ -708,7 +708,7 @@
   id: NPPfr5uMfRCDsch3
   img: systems/sohl/assets/icons/lock.svg
   subType: craft
-  skillBaseFormula: '@per, @dex'
+  skillBaseFormula: '@dex, @per'
   weaponGroup: none
   domain: ''
   macros: []
@@ -723,7 +723,7 @@
   id: kL8SqiGClE8YL98r
   img: systems/sohl/assets/icons/masonry.svg
   subType: craft
-  skillBaseFormula: '@per, @str'
+  skillBaseFormula: '@dex, @str'
   weaponGroup: none
   domain: ''
   macros: []
@@ -798,7 +798,7 @@
   id: LafJjnaJfjef6cJI
   img: systems/sohl/assets/icons/coins.svg
   subType: lore
-  skillBaseFormula: '@per, @rea'
+  skillBaseFormula: '@rea, @per'
   weaponGroup: none
   domain: ''
   macros: []
@@ -813,7 +813,7 @@
   id: AuTAhJALpmkM0BJL
   img: systems/sohl/assets/icons/metal-bar.svg
   subType: craft
-  skillBaseFormula: '@per, @str'
+  skillBaseFormula: '@dex, @str'
   weaponGroup: none
   domain: ''
   macros: []
@@ -858,7 +858,7 @@
   id: qXqSLyV8VRxs6p8o
   img: systems/sohl/assets/icons/harp.svg
   subType: craft
-  skillBaseFormula: '@per, @dex'
+  skillBaseFormula: '@per, @cre'
   weaponGroup: none
   domain: ''
   macros: []
@@ -993,7 +993,7 @@
   id: jjf3TziTW0L8DMgz
   img: systems/sohl/assets/icons/anchor.svg
   subType: nature
-  skillBaseFormula: '@per, @wil'
+  skillBaseFormula: '@wil, @per'
   weaponGroup: none
   domain: ''
   macros: []
@@ -1068,7 +1068,7 @@
   id: YU9rN2c3R8eiC6Ih
   img: systems/sohl/assets/icons/stealth.svg
   subType: physical
-  skillBaseFormula: '@agl, @per'
+  skillBaseFormula: '@agl, @wil'
   weaponGroup: none
   domain: ''
   macros: []
@@ -1098,7 +1098,7 @@
   id: OmfV1VgsGMZ1LJg7
   img: systems/sohl/assets/icons/survival.svg
   subType: nature
-  skillBaseFormula: '@per, @wil'
+  skillBaseFormula: '@wil, @rea'
   weaponGroup: none
   domain: ''
   macros: []
@@ -1113,7 +1113,7 @@
   id: U1qbcjqVcFyiyaDe
   img: systems/sohl/assets/icons/swimming.svg
   subType: physical
-  skillBaseFormula: '@end, @agl'
+  skillBaseFormula: '@agl, @end'
   weaponGroup: none
   domain: ''
   macros: []
@@ -1158,7 +1158,7 @@
   id: CpzEUUXa7DSyqoEs
   img: systems/sohl/assets/icons/textilecraft.svg
   subType: craft
-  skillBaseFormula: '@per, @dex'
+  skillBaseFormula: '@dex, @per'
   weaponGroup: none
   domain: ''
   macros: []
@@ -1218,7 +1218,7 @@
   id: r84g3zzaBmp1zDl4
   img: systems/sohl/assets/icons/tracking.svg
   subType: nature
-  skillBaseFormula: '@per, @rea'
+  skillBaseFormula: '@rea, @per'
   weaponGroup: none
   domain: ''
   macros: []
@@ -1263,7 +1263,7 @@
   id: Zf8Z9rMwNJC0qFRe
   img: systems/sohl/assets/icons/sword-smithing.svg
   subType: craft
-  skillBaseFormula: '@per, @str'
+  skillBaseFormula: '@dex, @str'
   weaponGroup: none
   domain: ''
   macros: []
@@ -1278,7 +1278,7 @@
   id: sOVLNMohekLbnHs7
   img: systems/sohl/assets/icons/woodcraft.svg
   subType: craft
-  skillBaseFormula: '@per, @dex'
+  skillBaseFormula: '@dex, @str'
   weaponGroup: none
   domain: ''
   macros: []

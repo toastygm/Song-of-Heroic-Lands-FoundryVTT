@@ -1,6 +1,6 @@
 #!/bin/bash
 # Build Items first
-for i in characteristics mysteries possessions; do
+for i in characteristics mysteries possessions macros journals; do
     ./build-pack.sh $i
     [ $? ] || exit 1
 done

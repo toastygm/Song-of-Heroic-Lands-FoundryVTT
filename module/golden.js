@@ -83,7 +83,7 @@ export const verData = {
             documentSheet: sohl.SohlMacroConfig,
         },
     },
-    CONST: foundry.utils.mergeObject(sohl.SOHL.CONST, GOLD.CONST, {
+    CONST: foundry.utils.mergeObject(CONFIG.SOHL.CONST, GOLD.CONST, {
         inplace: false,
     }),
 };

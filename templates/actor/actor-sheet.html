@@ -145,7 +145,7 @@
                         {{!-- Attributes --}}
                         <ul class="grid grid-6col attribute-scores item-list" data-category="attribute">
                             {{#each attributes as |attribute| }}
-                            <li class="attribute item" data-attribute="{{attribute.name}}" data-item-id="{{attribute.id}}" data-uuid="{{attribute.item.uuid}}">
+                            <li class="attribute item" data-attribute="{{attribute.name}}" data-item-id="{{attribute.id}}" data-uuid="{{attribute.uuid}}">
                                 <div class="flexrow">
                                     <div></div>
                                     <h4 class="name box-title">{{attribute.name}}</h4>
@@ -545,20 +545,14 @@
                                     <h4 data-tooltip="{{item.name}}">{{item.name}}</h4>
                                 </div>
                                 <div class="detail ele" data-tooltip="{{system.$pull.abbrev}}">{{system.$pull.effective}}</div>
-                                <div class="detail ele" 
-                                    {{#unless system.$canDraw}}
-                                        data-tooltip="Pull ({{system.$pull.effective}}) < Draw"
-                                    {{else}}
-                                        data-tooltip="Pull ({{system.$pull.effective}})"
-                                    {{/unless}}
-                                    >{{system.$draw.effective}}
-                                </div>
+                                <div class="detail ele" data-tooltip="{{system.$draw.abbrev}}">{{system.$draw.effective}}</div>
                                 <div class="detail ele">{{system.$baseRange.effective}}</div>
                                 <div class="detail ele">{{system.maxVolleyMult}}</div>
                                 <div class="detail impact" data-tooltip="{{impact.abbrev}}">
                                     {{system.$impact.label}}
                                 </div>
-                                <div class="detail ele" data-tooltip="{{#if system.$canDraw}}{{attack.abbrev}}{{else}}Too weak to draw weapon{{/if}}">
+                                {{!-- genML system.$attack class="detail ele" tooltip="{{system.$attack.abbrev}}" disabled-icon="fas fa-xmark fa-lg" --}}
+                                <div class="detail ele" data-tooltip="{{system.$attack.abbrev}}">
                                     {{#unless system.$attack.disabled}}
                                     {{system.$attack.effective}}
                                     {{else}}

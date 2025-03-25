@@ -25,20 +25,20 @@ const ISLE = {
 ISLE.allowedRanges = ["Short", "Medium", "Long", "Extreme"];
 
 ISLE.ITEM_TYPE_LABEL = {
-    skill: { singular: "Skill", plural: "Skills" },
-    spell: { singular: "Spell", plural: "Spells" },
-    weapongear: { singular: "Melee Weapon", plural: "Melee Weapons" },
-    missilegear: { singular: "Missile", plural: "Missiles" },
-    armorgear: { singular: "Armor", plural: "Armor" },
-    miscgear: { singular: "Misc Item", plural: "Misc Items" },
-    containergear: { singular: "Container", plural: "Containers" },
-    injury: { singular: "Injury", plural: "Injuries" },
-    armorlocation: { singular: "Armor Location", plural: "Armor Locations" },
-    trait: { singular: "Trait", plural: "Traits" },
-    psionic: { singular: "Psionic", plural: "Psionics" },
+    skill: { SINGULAR: "Skill", PLURAL: "Skills" },
+    spell: { SINGULAR: "Spell", PLURAL: "Spells" },
+    weapongear: { SINGULAR: "Melee Weapon", PLURAL: "Melee Weapons" },
+    missilegear: { SINGULAR: "Missile", PLURAL: "Missiles" },
+    armorgear: { SINGULAR: "Armor", PLURAL: "Armor" },
+    miscgear: { SINGULAR: "Misc Item", PLURAL: "Misc Items" },
+    containergear: { SINGULAR: "Container", PLURAL: "Containers" },
+    injury: { SINGULAR: "Injury", PLURAL: "Injuries" },
+    armorlocation: { SINGULAR: "Armor Location", PLURAL: "Armor Locations" },
+    trait: { SINGULAR: "Trait", PLURAL: "Traits" },
+    psionic: { SINGULAR: "Psionic", PLURAL: "Psionics" },
     incantation: {
-        singular: "Ritual Incantation",
-        plural: "Ritual Incantations",
+        SINGULAR: "Ritual Incantation",
+        PLURAL: "Ritual Incantations",
     },
 };
 
@@ -1285,62 +1285,10 @@ export class IsleTour extends Tour {
     }
 }
 
-export class IsleCommands extends sohl.Commands {
-    static async importActors(jsonFilename, folderName) {
-        const response = await fetch(jsonFilename);
-        const content = await response.json();
-
-        let actorFolder = game.folders.find(
-            (f) => f.name === folderName && f.type === "Actor",
-        );
-        if (actorFolder) {
-            const msg = `Folder ${folderName} exists, delete it before proceeding`;
-            console.error(msg);
-            return;
-        }
-
-        actorFolder = await Folder.create({ type: "Actor", name: folderName });
-
-        await sohl.Utility.asyncForEach(content.Actor, async (f) => {
-            console.log("Processing Animate Entity ${f.name}");
-            const actor = await sohl.SohlActor.create({ name: f.name });
-            const updateData = [];
-            const itemData = [];
-            // Fill in attribute values
-            Object.keys(f.system.attributes).forEach((attr) => {
-                const attrItem = actor.items.find(
-                    (it) =>
-                        it.system instanceof sohl.TraitItemData &&
-                        it.name.toLowerCase() === attr,
-                );
-                if (attrItem)
-                    itemData.push({
-                        _id: attrItem.id,
-                        "system.textValue": f.system.attributes[attr].base,
-                    });
-            });
-
-            updateData.push({
-                "system.description": f.system.description,
-                "system.bioImage": f.system.bioImage,
-                "system.biography": f.system.biography,
-                "prototypeToken.actorLink": f.prototypeToken.actorLink,
-                "prototypeToken.name": f.prototypeToken.name,
-                "prototypeToken.texture.src": f.prototypeToken.texture.src,
-                folder: actorFolder.id,
-                items: itemData,
-            });
-
-            await actor.update(updateData);
-        });
-    }
-}
-sohl.SOHL.cmds = IsleCommands;
-
 const IsleActorDataModels = foundry.utils.mergeObject(
     sohl.SohlActorDataModels,
     {
-        [sohl.AnimateEntityActorData.typeName]: IsleAnimateEntityActorData,
+        [sohl.AnimateEntityActorData.TYPE_NAME]: IsleAnimateEntityActorData,
     },
     { inplace: false },
 );
@@ -1348,17 +1296,17 @@ const IsleActorDataModels = foundry.utils.mergeObject(
 const IsleItemDataModels = foundry.utils.mergeObject(
     sohl.SohlItemDataModels,
     {
-        [sohl.ProtectionItemData.typeName]: IsleProtectionItemData,
-        [sohl.AnatomyItemData.typeName]: IsleAnatomyItemData,
-        [sohl.BodyLocationItemData.typeName]: IsleBodyLocationItemData,
-        [sohl.InjuryItemData.typeName]: IsleInjuryItemData,
-        [sohl.AfflictionItemData.typeName]: IsleAfflictionItemData,
-        [sohl.SkillItemData.typeName]: IsleSkillItemData,
-        [sohl.MeleeWeaponStrikeModeItemData.typeName]:
+        [sohl.ProtectionItemData.TYPE_NAME]: IsleProtectionItemData,
+        [sohl.AnatomyItemData.TYPE_NAME]: IsleAnatomyItemData,
+        [sohl.BodyLocationItemData.TYPE_NAME]: IsleBodyLocationItemData,
+        [sohl.InjuryItemData.TYPE_NAME]: IsleInjuryItemData,
+        [sohl.AfflictionItemData.TYPE_NAME]: IsleAfflictionItemData,
+        [sohl.SkillItemData.TYPE_NAME]: IsleSkillItemData,
+        [sohl.MeleeWeaponStrikeModeItemData.TYPE_NAME]:
             IsleMeleeWeaponStrikeModeItemData,
-        [sohl.MissileWeaponStrikeModeItemData.typeName]:
+        [sohl.MissileWeaponStrikeModeItemData.TYPE_NAME]:
             IsleMissileWeaponStrikeModeItemData,
-        [sohl.CombatTechniqueStrikeModeItemData.typeName]:
+        [sohl.CombatTechniqueStrikeModeItemData.TYPE_NAME]:
             IsleCombatTechniqueStrikeModeItemData,
     },
     { inplace: false },
@@ -1367,7 +1315,6 @@ const IsleItemDataModels = foundry.utils.mergeObject(
 export const verData = {
     id: "mistyisle",
     label: "Song of Heroic Lands: Misty Island",
-    cmds: IsleCommands,
     CONFIG: {
         displayChatActionButtons: sohl.Utility.displayChatActionButtons,
         onChatCardAction: sohl.Utility.onChatCardAction,
@@ -1387,7 +1334,7 @@ export const verData = {
             typeLabels: sohl.SohlActorTypeLabels,
             typeIcons: sohl.SohlActorTypeIcons,
             types: Object.keys(IsleActorDataModels),
-            defaultType: sohl.AnimateEntityActorData.typeName,
+            defaultType: sohl.AnimateEntityActorData.TYPE_NAME,
             compendiums: ["sohl.leg-characters", "sohl.leg-creatures"],
         },
         Item: {
@@ -1396,12 +1343,12 @@ export const verData = {
                 {
                     cls: sohl.SohlItemSheet,
                     types: Object.keys(IsleItemDataModels).filter(
-                        (t) => t !== sohl.ContainerGearItemData.typeName,
+                        (t) => t !== sohl.ContainerGearItemData.TYPE_NAME,
                     ),
                 },
                 {
                     cls: sohl.SohlContainerGearItemSheet,
-                    types: [sohl.ContainerGearItemData.typeName],
+                    types: [sohl.ContainerGearItemData.TYPE_NAME],
                 },
             ],
             dataModels: IsleItemDataModels,
@@ -1417,14 +1364,17 @@ export const verData = {
         ActiveEffect: {
             documentClass: sohl.SohlActiveEffect,
             dataModels: {
-                [sohl.SohlActiveEffectData.typeName]: sohl.SohlActiveEffectData,
+                [sohl.SohlActiveEffectData.TYPE_NAME]:
+                    sohl.SohlActiveEffectData,
             },
             typeLabels: {
-                [sohl.SohlActiveEffectData.typeName]:
-                    sohl.SohlActiveEffectData.typeLabel.singular,
+                [sohl.SohlActiveEffectData.TYPE_NAME]:
+                    sohl.SohlActiveEffectData.TYPE_LABEL.SINGULAR,
             },
-            typeIcons: { [sohl.SohlActiveEffectData.typeName]: "fas fa-gears" },
-            types: [sohl.SohlActiveEffectData.typeName],
+            typeIcons: {
+                [sohl.SohlActiveEffectData.TYPE_NAME]: "fas fa-gears",
+            },
+            types: [sohl.SohlActiveEffectData.TYPE_NAME],
             legacyTransferral: false,
         },
         Combatant: {
@@ -1435,7 +1385,4 @@ export const verData = {
             documentSheet: sohl.SohlMacroConfig,
         },
     },
-    CONST: foundry.utils.mergeObject(sohl.SOHL.CONST, ISLE.CONST, {
-        inplace: false,
-    }),
 };

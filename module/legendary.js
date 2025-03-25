@@ -7,86 +7,9 @@ import * as sohl from "./sohl-common.js";
 
 const fields = foundry.data.fields;
 
-const LGND = {
-    CONST: {
-        // Legendary init message with ASCII Artwork (Doom font)
-        initVersionMessage: ` _                               _
-| |                             | |
-| |     ___  __ _  ___ _ __   __| | __ _ _ __ _   _
-| |    / _ \\/ _\` |/ _ \\ '_ \\ / _\` |/ _\` | '__| | | |
-| |___|  __/ (_| |  __/ | | | (_| | (_| | |  | |_| |
-\\_____/\\___|\\__, |\\___|_| |_|\\__,_|\\__,_|_|   \\__, |
-             __/ |                             __/ |
-            |___/                             |___/
-===========================================================`,
-
-        VERSETTINGS: {
-            legEncIncr: {
-                key: "legEncIncr",
-                data: {
-                    name: "Encumbrance tracking increment",
-                    hint: "Calculate encumbrance by specified steps",
-                    scope: "world",
-                    config: true,
-                    type: new fields.NumberField({
-                        required: true,
-                        nullable: false,
-                        initial: 5,
-                        min: 1,
-                    }),
-                },
-            },
-            legAttrSecModIncr: {
-                key: "legAttrSecModIncr",
-                data: {
-                    name: "Attribute secondary modifier increment",
-                    hint: "Calculate attribute secondary modifier by specified steps",
-                    scope: "world",
-                    config: true,
-                    type: new fields.NumberField({
-                        required: true,
-                        nullable: false,
-                        initial: 5,
-                        min: 1,
-                    }),
-                },
-            },
-            optionGearDamage: {
-                key: "optionGearDamage",
-                data: {
-                    name: "Gear Damage",
-                    hint: "Enable combat rule that allows gear (weapons and armor) to be damaged or destroyed on successful block",
-                    scope: "world",
-                    config: true,
-                    type: new fields.BooleanField({ initial: false }),
-                },
-            },
-            animateActorPacks: {
-                key: "animateActorPacks",
-                data: {
-                    name: "Animate Actor Compendiums",
-                    hint: "list of Compendiums containing Animate Actors that will be searched for template actors, comma separated, in order",
-                    scope: "world",
-                    config: true,
-                    type: new fields.StringField({
-                        nullable: false,
-                        initial: "sohl.leg-characters",
-                    }),
-                },
-            },
-            optionBothOnCounterstrike: {
-                key: "optionBothOnCounterstrike",
-                data: {
-                    name: 'Support "Both" Option on Counterstrike',
-                    hint: "Enable combat option that allows both attacker and defender to hit on tied counterstrike defense",
-                    scope: "world",
-                    config: true,
-                    type: new fields.BooleanField({ initial: false }),
-                },
-            },
-        },
-    },
-};
+function _l(stringId, data = {}) {
+    return sohl.SohlLocalize.format(stringId, data);
+}
 
 class LgndImpactModifier extends sohl.ImpactModifier {
     // List of possible dice for impact dice.
@@ -103,38 +26,28 @@ class LgndImpactModifier extends sohl.ImpactModifier {
 
     get impactTA() {
         let result = this.getProperty("impactTAOverride");
-        if (!Number.isInteger(result)) {
+        if (!result || !Number.isInteger(result)) {
             switch (this.aspect) {
                 case "blunt":
-                    result = 3;
-                    break;
-
+                    return 3;
                 case "edged":
-                    result = 5;
-                    break;
-
+                    return 5;
                 case "piercing":
-                    result = 4;
-                    break;
-
+                    return 4;
                 case "fire":
-                    result = 2;
-                    break;
-
+                    return 2;
                 default:
-                    result = 0;
-                    break;
+                    return 0;
             }
         }
         return result;
     }
 
-    constructor(parent, initProperties = {}) {
-        super(
-            parent,
-            foundry.utils.mergeObject(
-                initProperties,
-                {
+    constructor(data = {}, context = {}) {
+        foundry.utils.mergeObject(
+            data,
+            {
+                properties: {
                     armorReduction: 0,
                     extraBleedRisk: false,
                     zoneDie: 0,
@@ -143,11 +56,31 @@ class LgndImpactModifier extends sohl.ImpactModifier {
                     bodyLocationId: "",
                     impactTAOverride: null,
                 },
-                { inplace: false, recursive: false },
-            ),
+            },
+            { overwrite: false },
         );
+        super(data, context);
     }
 }
+
+class LgndMasteryLevelModifier extends sohl.MasteryLevelModifier {
+    constructor(data = {}, context = {}) {
+        foundry.utils.mergeObject(
+            data,
+            {
+                properties: {
+                    secMod: (thisVM) => {
+                        return (thisVM.index - 5) * 5;
+                    },
+                },
+            },
+            { overwrite: false },
+        );
+        super(data, context);
+    }
+}
+
+class LgndCombatModifier extends sohl.CombatModifier {}
 
 /**
  * @typedef LgndSuccessTestResult
@@ -177,159 +110,177 @@ class LgndImpactModifier extends sohl.ImpactModifier {
  */
 
 class LgndSuccessTestResult extends sohl.SuccessTestResult {
-    speaker;
-    mlMod;
     aim;
     defaultAim;
-    impactMod;
-    item;
-    _typeLabel;
-    _roll;
-    rollMode;
-    type;
-    testType;
-    title;
-    _successValue;
-    _svBonus;
-    situationalModifier;
-    impactSituationalModifier;
-    _successLevel;
-    resultText;
-    resultDesc;
     svSuccess;
-    _description;
-    targetMovement;
     cxBothOption;
+    _successValue;
+    _isSuccessValue;
+    _svBonus;
 
     static get TEST_TYPE() {
-        return foundry.utils.mergeObject(
-            super.TEST_TYPE,
+        if (!this._TEST_TYPE) {
+            this._TEST_TYPE = foundry.utils.mergeObject(
+                super.TEST_TYPE,
+                {
+                    SUCCESSVALUE: "successvalue",
+                    IMPROVEXP: "improvexp",
+                    FATE: "fate",
+                },
+                { inplace: false },
+            );
+        }
+
+        return this._TEST_TYPE;
+    }
+
+    static get SUCCESS_VALUE_TABLE() {
+        return [
             {
-                DIRECT: "direct",
-                VOLLEY: "volley",
-                STILL: "still",
-                MOVING: "moving",
-                EVADING: "evading",
-                FATE: "fate",
+                maxValue: 0,
+                result: 0,
+                limited: [],
+                success: false,
+                label: "No Value",
+                description: "Test fails to produce a usable result",
             },
-            { inplace: false },
-        );
+            {
+                maxValue: 2,
+                result: 0,
+                limited: [],
+                success: false,
+                label: "Little Value",
+                description: "Test produces a limited or flawed result",
+            },
+            {
+                maxValue: 4,
+                result: 0,
+                limited: [],
+                success: true,
+                label: "Base Value",
+                description: "Test produces an average result",
+            },
+            {
+                maxValue: 8,
+                result: (chatData) => chatData.successValue - 4,
+                limited: [],
+                success: true,
+                label: (chatData) =>
+                    "\u2605".repeat(chatData.successValue - 4) + " Bonus Value",
+                description: "Test produces a superior result",
+            },
+            {
+                maxValue: 999,
+                result: 5,
+                limited: [],
+                success: true,
+                label: "\u2605".repeat(5) + " Bonus Value",
+                description: "Test produces a superior result",
+            },
+        ];
     }
 
     static get testTypes() {
-        return foundry.utils.mergeObject(
-            super.testTypes,
-            {
-                [this.TEST_TYPE.DIRECT]: {
-                    type: this.TEST_TYPE.DIRECT,
-                    label: "Direct Missile Attack",
-                    icon: "fas fa-location-arrow-up fa-rotate-90",
+        if (!this._testTypes) {
+            this._testTypes = foundry.utils.mergeObject(
+                super.testTypes,
+                {
+                    [this.TEST_TYPE.SUCCESSVALUE]: {
+                        type: this.TEST_TYPE.SUCCESSVALUE,
+                        name: "Success Value Test",
+                        contextIconClass: "far fa-list",
+                        functionName: "successValueTest",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return item && !item.system.$masteryLevel.disabled;
+                        },
+                        contextGroup:
+                            sohl.SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+                    },
+                    [this.TEST_TYPE.IMPROVEXP]: {
+                        type: this.TEST_TYPE.IMPROVEXP,
+                        name: "Improve Mastery using XP",
+                        contextIconClass: "fas fa-lightbulb-on",
+                        functionName: "improveWithXP",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            if (!item || !item.system.canImprove) return false;
+                            if (item.system.$masteryLevel.disabled)
+                                return false;
+                            const xpItem = item.actor?.getTraitByAbbrev("xp");
+                            const xpVal =
+                                (xpItem &&
+                                    !xpItem?.system.$score?.disabled &&
+                                    xpItem?.system.$score.effective) ||
+                                -1;
+                            return (
+                                xpItem &&
+                                xpVal >= item.system.$masteryLevel.index
+                            );
+                        },
+                        contextGroup: sohl.SohlContextMenu.SORT_GROUPS.GENERAL,
+                    },
+                    [this.TEST_TYPE.FATE]: {
+                        type: this.TEST_TYPE.FATE,
+                        name: "Fate Test",
+                        contextIconClass: "fas fa-stars",
+                        functionName: "fateTest",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            return (
+                                item &&
+                                !item.system.$masteryLevel.fate.disabled &&
+                                item.system.availableFate.length > 0
+                            );
+                        },
+                        contextGroup:
+                            sohl.SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+                    },
                 },
-                [this.TEST_TYPE.VOLLEY]: {
-                    type: this.TEST_TYPE.VOLLEY,
-                    label: "Volley Missile Attack",
-                    icon: "fas fa-location-arrow",
-                },
-                [this.TEST_TYPE.STILL]: {
-                    type: this.TEST_TYPE.STILL,
-                    label: "Still",
-                    icon: "fas fa-person",
-                },
-                [this.TEST_TYPE.MOVING]: {
-                    type: this.TEST_TYPE.MOVING,
-                    label: "Moving",
-                    icon: "fas fa-person-walking",
-                },
-                [this.TEST_TYPE.EVADING]: {
-                    type: this.TEST_TYPE.EVADING,
-                    label: "Evading",
-                    icon: "fas fa-person-running",
-                },
-                [this.TEST_TYPE.FATE]: {
-                    type: this.TEST_TYPE.FATE,
-                    label: "Fate",
-                    icon: "fas fa-stars",
-                },
-            },
-            { inplace: false },
-        );
+                { inplace: false },
+            );
+        }
+
+        return this._testTypes;
     }
 
-    constructor(data = {}) {
-        super(data);
+    constructor(data = {}, context = {}) {
+        super(data, context);
         let {
             aim,
             defaultAim,
-            impactSituationalModifier,
-            isSuccessValue = false,
-            svTable,
             targetMovement,
             cxBothOption = false,
+            isSuccessValue = false,
+            svTable,
         } = data;
         this.aim = aim;
         this.defaultAim = defaultAim;
-        this.impactSituationalModifier = impactSituationalModifier;
+        this._targetMovement = targetMovement;
+        this.cxBothOption = cxBothOption;
         this._svBonus = null;
         this._isSuccessValue = isSuccessValue;
-        this.targetMovement = targetMovement;
-        this.cxBothOption = cxBothOption;
-
-        // If the successValueTable is provided, then use that one,
-        // else use the one associated with the item (if available),
-        // and if neither of those are available, use the default one.
-        this.svTable = svTable || this.item.system.successValueTable;
-    }
-
-    get typeLabel() {
-        return this._typeLabel;
-    }
-
-    get roll() {
-        return this._roll;
+        this._successValue = 0;
+        this.svTable = svTable || this.mlMod.successValueTable;
     }
 
     get isSuccessValue() {
         return this._isSuccessValue;
-    }
-
-    get lastDigit() {
-        return this._roll.total % 10;
-    }
-
-    get isCapped() {
-        return this.mlMod.effective !== this.mlMod.constrainedEffective;
-    }
-
-    get successLevel() {
-        return this._successLevel;
-    }
-
-    get critAllowed() {
-        return !!(
-            this.mlMod.critSuccessDigits.length ||
-            this.mlMod.critFailureDigits.length
-        );
-    }
-
-    get isCritical() {
-        return (
-            this.critAllowed &&
-            (this.successLevel <=
-                LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE ||
-                this.successLevel >=
-                    LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS)
-        );
-    }
-
-    get isSuccess() {
-        return (
-            this.successLevel >=
-            LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS
-        );
-    }
-
-    get description() {
-        return this._description;
     }
 
     get successValue() {
@@ -340,209 +291,83 @@ class LgndSuccessTestResult extends sohl.SuccessTestResult {
         return this._svBonus;
     }
 
-    get scene() {
-        if (this.speaker?.scene && this.speaker.token) {
-            return game.scenes.get(this.speaker.scene);
-        }
-
-        return null;
+    get successValueTable() {
+        return (
+            this.item.getFlag("sohl", "legendary.successValueTable") ||
+            this.constructor.SUCCESS_VALUE_TABLE
+        );
     }
 
-    get token() {
-        return this.scene?.tokens.get(this.speaker.token);
-    }
-
-    get actor() {
-        return this.token?.actor || game.actors.get(this.speaker.actor);
-    }
-
-    evaluate() {
-        super.evaluate();
-        if (
-            this.mlMod.disabled ||
-            this.testType === LgndSuccessTestResult.TEST_TYPE.IGNORE
-        ) {
-            // Ignore tests always return critical failure (Roll = 100)
-            this._roll = new Roll("100").evaluateSync();
-        } else {
-            this._roll = new Roll("1d100").evaluateSync();
-        }
-        if (!this._roll) throw new Error(`Roll evaluation failed`);
-
-        if (this.critAllowed) {
-            if (this._roll.total <= this.mlMod.constrainedEffective) {
-                if (this.mlMod.critSuccessDigits.includes(this.lastDigit)) {
-                    this._successLevel =
-                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS;
-                } else {
-                    this._successLevel =
-                        LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
-                }
-            } else {
-                if (this.mlMod.critFailureDigits.includes(this.lastDigit)) {
-                    this._successLevel =
-                        LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE;
-                } else {
-                    this._successLevel =
-                        LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
-                }
+    async evaluate() {
+        let allowed = await super.evaluate();
+        if (allowed) {
+            let successLevelIncr = 0;
+            if (this.isCritical) {
+                successLevelIncr =
+                    this.successLevel -
+                    (this.isSuccess
+                        ? LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS
+                        : LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE);
             }
-        } else {
-            if (this._roll.total <= this.mlMod.constrainedEffective) {
-                this._successLevel =
-                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS;
-            } else {
-                this._successLevel =
-                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE;
+            if (successLevelIncr) {
+                this._description += ` (${successLevelIncr >= 0 ? "+" : ""}${successLevelIncr})`;
             }
-        }
-        this._successLevel += this.mlMod.successLevelMod;
-        if (!this.critAllowed) {
-            this._successLevel = Math.min(
-                Math.max(
-                    this._successLevel,
-                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE,
-                ),
-                LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
-            );
-        }
 
-        this._description = `${this.critAllowed ? (this.isCritical ? "Critical " : "Marginal ") : ""}${this.isSuccess ? "Success" : "Failure"}`;
+            if (this._isSuccessValue) {
+                this.successValueMod = this.successLevel - 1;
+                this._successValue = this.index + this.successValueMod;
+                const slSign = this.successValueMod < 0 ? "-" : "+";
+                this.successValueExpr = `${this.index} ${slSign} ${Math.abs(this.successValueMod)}`;
 
-        // If success level is greater than critical success or less than critical failure
-        // then add the amount to the end of the description
-        let successLevelIncr = 0;
-        if (this.isCritical) {
-            successLevelIncr =
-                this.successLevel -
-                (this.isSuccess
-                    ? LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_SUCCESS
-                    : LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE);
-        }
-        if (successLevelIncr) {
-            this._description += ` (${
-                (successLevelIncr > 0 ? "+" : "") + successLevelIncr
-            })`;
-        }
-
-        if (!this._isSuccessValue) {
-            // If there is a table providing detailed description of
-            // the results of this test, then process that table to
-            // extract the detailed result descriptions.  Many tests
-            // will not have these detailed descriptions, in which
-            // case only generic descriptions will be given.
-            if (this.mlMod.hasProperty("testDescTable")) {
+                // The meaning of the success value bonus ("svBonus") is
+                // unique to each type of success value.  Sometimes it
+                // represents the number of rolls on another table, or the
+                // increase in value or quality of a crafted item, or any
+                // other thing.  See the description of the specific test
+                // to determine the meaning of the bonus.
+                this._svBonus =
+                    LgndMasteryLevelModifier._handleDetailedDescription(
+                        this,
+                        this._successValue,
+                        this.svTable,
+                    );
+            } else if (this.mlMod.hasProperty("testDescTable")) {
+                // If there is a table providing detailed description of
+                // the results of this test, then process that table to
+                // extract the detailed result descriptions.  Many tests
+                // will not have these detailed descriptions, in which
+                // case only generic descriptions will be given.
                 LgndMasteryLevelModifier._handleDetailedDescription(
                     this,
                     this.successLevel,
                     this.mlMod.testDescTable,
                 );
             }
-        } else {
-            this.successValueMod = this.successLevel - 1;
-            this._successValue = this.index + this.successValueMod;
-            const slSign = this.successValueMod < 0 ? "-" : "+";
-            this.successValueExpr = `${
-                this.index
-            } ${slSign} ${Math.abs(this.successValueMod)}`;
-
-            // The meaning of the success value bonus ("svBonus") is
-            // unique to each type of success value.  Sometimes it
-            // represents the number of rolls on another table, or the
-            // increase in value or quality of a crafted item, or any
-            // other thing.  See the description of the specific test
-            // to determine the meaning of the bonus.
-            this._svBonus = LgndMasteryLevelModifier._handleDetailedDescription(
-                this,
-                this._successValue,
-                this.svTable,
-            );
         }
+        return allowed;
     }
 
-    async toChat() {
-        let speaker = this.speaker || ChatMessage.getSpeaker();
-        const testResultObj = this.toJSON();
-        const chatData = {
-            variant: "legendary",
-            testResultJson: JSON.stringify(testResultObj),
-            speaker,
-            mlMod: this.mlMod,
+    get chatData() {
+        return foundry.utils.mergeObject(super.chatData, {
             aim: this.aim,
             defaultAim: this.defaultAim,
-            impactMod: this.impactMod,
-            item: this.item,
-            typeLabel: this.typeLabel,
-            roll: this.roll,
-            rollMode: this.rollMode,
-            type: this.type,
-            title: this.title,
             successValue: this.successValue,
             svBonus: this.svBonus,
-            situationalModifier: this.situationalModifier,
-            impactSituationalModifier: this.impactSituationalModifier,
-            successLevel: this.successLevel,
-            resultText: this.resultText,
-            resultDesc: this.resultDesc,
             svSuccess: this.svSuccess,
-            description: this.description,
-        };
-
-        const chatTemplate =
-            "systems/sohl/templates/chat/standard-test-card.html";
-
-        const html = await renderTemplate(chatTemplate, chatData);
-
-        const messageData = {
-            user: game.user.id,
-            speaker,
-            content: html.trim(),
-            sound: CONFIG.sounds.dice,
-        };
-
-        ChatMessage.applyRollMode(messageData, this.rollMode);
-
-        // Create a chat message
-        return await ChatMessage.create(messageData);
+        });
     }
 
     toJSON() {
-        return {
-            speaker: this.speaker,
-            mlMod: this.mlMod.toJSON(),
-            situationalModifier: this.situationalModifier,
+        return foundry.utils.mergeObject(super.toJSON(), {
             aim: this.aim,
             defaultAim: this.defaultAim,
-            impactMod: this.impactMod ? this.impactMod.toJSON() : null,
-            impactSituationalModifier: this.impactSituationalModifier,
-            item: this.item.uuid,
-            typeLabel: this._typeLabel,
-            roll: this._roll ? this._roll.toJSON() : null,
-            rollMode: this.rollMode,
-            type: this.type,
-            title: this.title,
             isSuccessValue: this._isSuccessValue,
+            svSuccess: this.svSuccess,
             svTable: this.svTable,
-        };
-    }
-
-    static fromData(data = {}) {
-        return new LgndSuccessTestResult({
-            speaker: data.speaker,
-            mlMod: data.mlMod,
-            situationalModifier: data.situationalModifier,
-            aim: data.aim,
-            defaultAim: data.defaultAim,
-            impactMod: data.impactMod,
-            impactSituationalModifier: data.impactSituationalModifier,
-            item: data.item,
-            typeLabel: data.typeLabel,
-            roll: data.roll,
-            rollMode: data.rollMode,
-            type: data.type,
-            title: data.title,
-            isSuccessValue: data.isSuccessValue,
-            svTable: data.svTable,
+            movementOptions:
+                LgndMissileWeaponStrikeModeItemData.movementOptions,
+            targetMovement: this._targetMovement,
+            cxBothOption: this.cxBothOption,
         });
     }
 }
@@ -550,27 +375,9 @@ class LgndSuccessTestResult extends sohl.SuccessTestResult {
 class LgndOpposedTestResult extends sohl.OpposedTestResult {
     _victoryStars;
 
-    static get TACTICAL_ADVANTAGE() {
-        return {
-            IMPACT: "impact",
-            PRECISION: "precision",
-            ACTION: "action",
-            SETUP: "setup",
-        };
-    }
-
-    static get tacticalAdvantages() {
-        return {
-            [this.TACTICAL_ADVANTAGE.IMPACT]: "Impact",
-            [this.TACTICAL_ADVANTAGE.PRECISION]: "Precision",
-            [this.TACTICAL_ADVANTAGE.ACTION]: "Action",
-            [this.TACTICAL_ADVANTAGE.SETUP]: "Setup",
-        };
-    }
-
-    constructor(context) {
-        super(context);
-        let { victoryStars = 0 } = context;
+    constructor(data = {}, context = {}) {
+        super(data, context);
+        let { victoryStars = 0 } = data;
         if (!Number.isInteger(victoryStars))
             throw new Error("victoryStars must be an integer");
         this._victoryStars = victoryStars;
@@ -581,19 +388,19 @@ class LgndOpposedTestResult extends sohl.OpposedTestResult {
     }
 
     get bothFail() {
-        return (
-            !this.sourceTestResult.isSuccess && !this.targetTestResult.isSuccess
+        return !(
+            this.sourceTestResult.isSuccess || this.targetTestResult?.isSuccess
         );
     }
 
     get victoryStars() {
         if (this.bothFail) return 0;
         let vs = this._victoryStars;
-        if (this.isTied && this.breakTies) vs += this._tieBreak;
+        if (this.isTied && this.breakTies) vs += this.tieBreak;
         return vs;
     }
 
-    set victoryStarBase(val) {
+    set victoryStarsBase(val) {
         if (!Number.isInteger(val)) throw new Error("Value must be an integer");
         this._victoryStars = val;
     }
@@ -614,9 +421,9 @@ class LgndOpposedTestResult extends sohl.OpposedTestResult {
         ) {
             this._victoryStars = val;
         } else {
-            throw new Error("Invalid value: ${val}");
+            throw new Error(`Invalid value: ${val}`);
         }
-        this._tieBreak = 0;
+        this.tieBreak = 0;
     }
 
     get sourceWins() {
@@ -641,23 +448,394 @@ class LgndOpposedTestResult extends sohl.OpposedTestResult {
             result.isTarget = this.targetWins;
             result.vsList = new Array(result.vsAbs).fill(
                 result.isSource
-                    ? sohl.SOHL.CONST.CHARS.STARF
-                    : sohl.SOHL.CONST.CHARS.STAR,
+                    ? CONFIG.SOHL.CONST.CHARS.STARF
+                    : CONFIG.SOHL.CONST.CHARS.STAR,
             );
             result.text = result.vsList.join("");
         }
         return result;
     }
 
+    toJSON() {
+        return foundry.utils.mergeObject(super.toJSON(), {
+            victoryStars: this._victoryStars,
+        });
+    }
+
+    async evaluate() {
+        let allowed = await super.evaluate();
+        if (allowed && this.targetTestResult) {
+            // Skill tests (including dodge) always break ties
+            this.breakTies ||=
+                this.targetTestResult.testType.type ===
+                LgndSuccessTestResult.TEST_TYPE.SKILL;
+
+            if (!this.bothFail) {
+                this.victoryStarsBase =
+                    this.sourceTestResult.successLevel -
+                    this.targetTestResult.successLevel;
+            }
+
+            if (!this.victoryStarsBase) {
+                // We have a tie, so first try to break it by giving it to the one with the higher roll
+                this.tieBreak = Math.max(
+                    -1,
+                    Math.min(
+                        1,
+                        this.sourceTestResult.roll.total -
+                            this.targetTestResult.roll.total,
+                    ),
+                );
+                while (!this.tieBreak)
+                    this.tieBreak =
+                        Math.round(sohl.MersenneTwister.random() * 2) - 1;
+            }
+        }
+
+        return allowed;
+    }
+}
+
+export class LgndCombatTestResult extends sohl.CombatTestResult {
+    tacticalAdvantageChoices;
+    tacticalAdvantageChoicesText;
+    tacticalAdvantages;
+    addlTacAdvs;
+
+    static get TACTICAL_ADVANTAGE() {
+        return {
+            IMPACT: "impact",
+            PRECISION: "precision",
+            ACTION: "action",
+            SETUP: "setup",
+        };
+    }
+
+    static get tacticalAdvantageList() {
+        return {
+            [this.TACTICAL_ADVANTAGE.IMPACT]: "Impact",
+            [this.TACTICAL_ADVANTAGE.PRECISION]: "Precision",
+            [this.TACTICAL_ADVANTAGE.ACTION]: "Action",
+            [this.TACTICAL_ADVANTAGE.SETUP]: "Setup",
+        };
+    }
+
+    static get TEST_TYPE() {
+        // Since we need the test types in LgndSuccessTestResult, and it is not in our
+        // inheritance chain, we must specifically pull in the values.
+        if (!this._TEST_TYPE) {
+            const other = foundry.utils.mergeObject(
+                LgndSuccessTestResult.TEST_TYPE,
+                {
+                    DIRECT: "direct",
+                    VOLLEY: "volley",
+                    EVADING: "evading",
+                },
+                { inplace: false },
+            );
+
+            this._TEST_TYPE = foundry.utils.mergeObject(
+                super.TEST_TYPE,
+                other,
+                {
+                    inplace: false,
+                },
+            );
+        }
+
+        return this._TEST_TYPE;
+    }
+
+    static get testTypes() {
+        // Since we need the test types in LgndSuccessTestResult, and it is not in our
+        // inheritance chain, we must specifically pull in the values.
+        if (!this._testTypes) {
+            const other = foundry.utils.mergeObject(
+                LgndSuccessTestResult.testTypes,
+                {
+                    [this.TEST_TYPE.DIRECT]: {
+                        type: this.TEST_TYPE.DIRECT,
+                        name: "Direct Missile Attack",
+                        contextIconClass: "fas fa-bow-arrow",
+                        functionName: "directMissileAttack",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            if (!item) return false;
+                            return (
+                                item.type ===
+                                    LgndMissileWeaponStrikeModeItemData.TYPE_NAME &&
+                                item.system.group ===
+                                    LgndCombatTestResult.TEST_TYPE.DIRECT &&
+                                !item.system.$masteryLevel.disabled
+                            );
+                        },
+                        contextGroup:
+                            sohl.SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+                    },
+                    [this.TEST_TYPE.VOLLEY]: {
+                        type: this.TEST_TYPE.VOLLEY,
+                        name: "Volley Missile Attack",
+                        contextIconClass: "fas fa-bow-arrow",
+                        functionName: "volleyMissileAttack",
+                        contextCondition: (header) => {
+                            header =
+                                header instanceof HTMLElement
+                                    ? header
+                                    : header[0];
+                            const li = header.closest(".item");
+                            const item = fromUuidSync(li.dataset.uuid);
+                            if (!item) return false;
+                            return (
+                                item.type ===
+                                    LgndMissileWeaponStrikeModeItemData.TYPE_NAME &&
+                                item.system.group ===
+                                    LgndCombatTestResult.TEST_TYPE.VOLLEY &&
+                                !item.system.$masteryLevel.disabled
+                            );
+                        },
+                        contextGroup:
+                            sohl.SohlContextMenu.SORT_GROUPS.ESSENTIAL,
+                    },
+                    [this.TEST_TYPE.STILL]: {
+                        type: this.TEST_TYPE.STILL,
+                        name: "Still",
+                        contextIconClass: "fas fa-person",
+                        functionName: "missileStillResume",
+                        contextCondition: false,
+                        contextGroup: sohl.SohlContextMenu.SORT_GROUPS.HIDDEN,
+                    },
+                    [this.TEST_TYPE.MOVING]: {
+                        type: this.TEST_TYPE.MOVING,
+                        name: "Moving",
+                        contextIconClass: "fas fa-person-walking",
+                        functionName: "missileMovingResume",
+                        contextCondition: false,
+                        contextGroup: sohl.SohlContextMenu.SORT_GROUPS.HIDDEN,
+                    },
+                    [this.TEST_TYPE.EVADING]: {
+                        type: this.TEST_TYPE.EVADING,
+                        name: "Evading",
+                        contextIconClass: "fas fa-person-running",
+                        functionName: "missileEvadingResume",
+                        contextCondition: false,
+                        contextGroup: sohl.SohlContextMenu.SORT_GROUPS.HIDDEN,
+                    },
+                },
+                { inplace: false },
+            );
+
+            this._testTypes = foundry.utils.mergeObject(
+                super.testTypes,
+                other,
+                {
+                    inplace: false,
+                },
+            );
+        }
+
+        return this._testTypes;
+    }
+
+    get availResponses() {
+        let result;
+        if (
+            this.sourceTestResult.testType.type ===
+            LgndCombatTestResult.TEST_TYPE.AUTOCOMBATMISSILE
+        ) {
+            result = [
+                LgndCombatTestResult.TEST_TYPE.STILL,
+                LgndCombatTestResult.TEST_TYPE.MOVING,
+                LgndCombatTestResult.TEST_TYPE.EVADING,
+            ].map((t) => LgndCombatTestResult.testTypes[t]);
+        } else {
+            result = super.availResponses;
+        }
+
+        return result;
+    }
+
+    constructor(data = {}, context = {}) {
+        super(data, context);
+        let {
+            tacticalAdvantageChoices = [],
+            tacticalAdvantageChoicesText = "",
+            tacticalAdvantages = [],
+            addlTacAdvs = 0,
+        } = data;
+
+        this.tacticalAdvantageChoices = tacticalAdvantageChoices;
+        this.tacticalAdvantageChoicesText = tacticalAdvantageChoicesText;
+        this.tacticalAdvantages = tacticalAdvantages;
+        this.addlTacAdvs = addlTacAdvs;
+    }
+
+    calcMeleeCombatResult(opposedTestResult) {
+        super.calcMeleeCombatResult(opposedTestResult);
+        const attacker = opposedTestResult.sourceTestResult;
+        const defender = opposedTestResult.targetTestResult;
+        switch (this.testType.type) {
+            case LgndCombatTestResult.TEST_TYPE.IGNOREDEFENSE:
+                defender.testStumble = false;
+                defender.testFumble = false;
+                if (
+                    attacker.successLevel >=
+                    LgndCombatTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE
+                ) {
+                    attacker.addlTacAdvs = Math.min(
+                        0,
+                        opposedTestResult.sourceTestResult.successLevel -
+                            LgndSuccessTestResult.SUCCESS_LEVEL
+                                .MARGINAL_SUCCESS,
+                    );
+                }
+                break;
+
+            case LgndCombatTestResult.TEST_TYPE.BLOCKDEFENSE:
+                if (opposedTestResult.sourceWins) {
+                    attacker.addlTacAdvs = opposedTestResult.victoryStars - 1;
+                } else {
+                    defender.addlTacAdvs = -opposedTestResult.victoryStars - 1;
+                }
+
+                if (defender.addlTacAdvs) {
+                    defender.tacticalAdvantageChoices = [
+                        LgndCombatTestResult.TACTICAL_ADVANTAGE.ACTION,
+                        LgndCombatTestResult.TACTICAL_ADVANTAGE.SETUP,
+                    ];
+                }
+                break;
+
+            case LgndCombatTestResult.TEST_TYPE.CXDEFENSE:
+                if (defender.mlMod.has("CXBoth"))
+                    if (opposedTestResult.sourceWins) {
+                        attacker.addlTacAdvs =
+                            opposedTestResult.victoryStars - 1;
+                    } else {
+                        defender.addlTacAdvs =
+                            -opposedTestResult.victoryStars - 1;
+                    }
+
+                if (defender.addlTacAdvs) {
+                    defender.tacticalAdvantageChoices = [
+                        LgndCombatTestResult.TACTICAL_ADVANTAGE.IMPACT,
+                        LgndCombatTestResult.TACTICAL_ADVANTAGE.PRECISION,
+                    ];
+                }
+                break;
+        }
+
+        if (attacker.addlTacAdvs) {
+            attacker.tacticalAdvantageChoices = Array.from(
+                LgndCombatTestResult.TACTICAL_ADVANTAGE.values(),
+            );
+        }
+
+        const formatter = game.i18n.getListFormatter();
+        attacker.tacticalAdvantageChoicesText = formatter.format(
+            attacker.tacticalAdvantageChoices,
+        );
+        defender.tacticalAdvantageChoicesText = formatter.format(
+            defender.tacticalAdvantageChoices,
+        );
+    }
+
+    calcDodgeCombatResult(opposedTestResult) {
+        const attacker = opposedTestResult.sourceTestResult;
+        const defender = opposedTestResult.targetTestResult;
+
+        if (opposedTestResult.sourceWins) {
+            attacker.addlTacAdvs = opposedTestResult.victoryStars - 1;
+        } else {
+            defender.addlTacAdvs = -opposedTestResult.victoryStars - 1;
+        }
+
+        if (defender.addlTacAdvs) {
+            defender.tacticalAdvantageChoices = [
+                LgndCombatTestResult.TACTICAL_ADVANTAGE.IMPACT,
+                LgndCombatTestResult.TACTICAL_ADVANTAGE.PRECISION,
+            ];
+        }
+
+        if (attacker.addlTacAdvs) {
+            attacker.tacticalAdvantageChoices = Array.from(
+                LgndCombatTestResult.TACTICAL_ADVANTAGE.values(),
+            );
+        }
+
+        const formatter = game.i18n.getListFormatter();
+        attacker.tacticalAdvantageChoicesText = formatter.format(
+            attacker.tacticalAdvantageChoices,
+        );
+        defender.tacticalAdvantageChoicesText = formatter.format(
+            defender.tacticalAdvantageChoices,
+        );
+    }
+
+    async testDialog(data = {}, callback) {
+        return await super.testDialog(
+            foundry.utils.mergeObject(
+                data,
+                {
+                    tacticalAdvantageChoices: this.tacticalAdvantageChoices,
+                    tacticalAdvantageChoicesText:
+                        this.tacticalAdvantageChoicesText,
+                    tacticalAdvantages: this.tacticalAdvantages,
+                    addlTacAdvs: this.addlTacAdvs,
+                    tacticalAdvantageList: this.tacticalAdvantageList,
+                },
+                { overwrite: false },
+            ),
+            callback,
+        );
+    }
+
+    async toChat(data = {}) {
+        return super.toChat(
+            foundry.utils.mergeObject(
+                data,
+                {
+                    tacticalAdvantageChoices: this.tacticalAdvantageChoices,
+                    tacticalAdvantageChoicesText:
+                        this.tacticalAdvantageChoicesText,
+                    tacticalAdvantages: this.tacticalAdvantages,
+                    addlTacAdvs: this.addlTacAdvs,
+                },
+                { overwrite: false },
+            ),
+        );
+    }
+
+    toJSON() {
+        return foundry.utils.mergeObject(super.toJSON(), {
+            impactMod: this.impactMod ? this.impactMod.toJSON() : null,
+            impactSituationalModifier: this.situationalModifier,
+            deliversImpact: this.deliversImpact,
+            testFumble: this.testFumble,
+            testStumble: this.testStumble,
+            tacticalAdvantageChoices: this.tacticalAdvantageChoices,
+            tacticalAdvantageChoicesText: this.tacticalAdvantageChoicesText,
+            tacticalAdvantages: this.tacticalAdvantages,
+            addlTacAdvs: this.addlTacAdvs,
+            weaponBreak: this.weaponBreak,
+        });
+    }
+}
+export class LgndCombatTestResult2 extends LgndOpposedTestResult {
+    combatResult;
     calcMissileCombatResult() {
         const combatResult = {
             attacker: {
                 deliversImpact: false,
-                isFumble:
+                testFumble:
                     this.sourceTestResult.isCritical &&
                     !this.sourceTestResult.isSuccess &&
                     this.sourceTestResult.lastDigit === 0,
-                isStumble:
+                testStmble:
                     this.sourceTestResult.isCritical &&
                     !this.sourceTestResult.isSuccess &&
                     this.sourceTestResult.lastDigit === 5,
@@ -669,8 +847,8 @@ class LgndOpposedTestResult extends sohl.OpposedTestResult {
             },
             defender: {
                 deliversImpact: false,
-                isFumble: false,
-                isStumble: false,
+                testFumble: false,
+                testStmble: false,
                 tacticalAdvantageChoices: [],
                 tacticalAdvantageChoicesText: "",
                 tacticalAdvantages: [],
@@ -679,8 +857,8 @@ class LgndOpposedTestResult extends sohl.OpposedTestResult {
             },
         };
 
-        combatResult.defender.isStumble = false;
-        combatResult.defender.isFumble = false;
+        combatResult.defender.testStmble = false;
+        combatResult.defender.testFumble = false;
         if (this.sourceWins) {
             combatResult.attacker.addlTacAdvs = Math.min(
                 0,
@@ -688,23 +866,23 @@ class LgndOpposedTestResult extends sohl.OpposedTestResult {
                     LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_SUCCESS,
             );
             if (
-                this.targetTestResult.testType ===
-                LgndSuccessTestResult.TEST_TYPE.STILL
+                this.targetTestResult.testType.type ===
+                LgndCombatTestResult.TEST_TYPE.STILL
             ) {
                 combatResult.attacker.addlTacAdvs =
                     this.sourceTestResult.successLevel;
             }
         }
 
-        if (this.testType === LgndSuccessTestResult.TEST_TYPE.DIRECT) {
+        if (this.testType.type === LgndCombatTestResult.TEST_TYPE.DIRECT) {
             combatResult.attacker.deliversImpact = this.sourceWins;
 
             // For Direct, if there are TAs beyond the first, there is a choice between
             // impact and precision TAs for each
             if (combatResult.attacker.addlTacAdvs) {
                 combatResult.attacker.tacticalAdvantageChoices = [
-                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.IMPACT,
-                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.PRECISION,
+                    LgndCombatTestResult.TACTICAL_ADVANTAGE.IMPACT,
+                    LgndCombatTestResult.TACTICAL_ADVANTAGE.PRECISION,
                 ];
             }
         } else {
@@ -714,7 +892,7 @@ class LgndOpposedTestResult extends sohl.OpposedTestResult {
             // For Volley, all TAs are Precision TAs
             for (let i = 0; i < combatResult.attacker.addlTacAdvs; i++) {
                 combatResult.attacker.tacticalAdvantages.push(
-                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.PRECISION,
+                    LgndCombatTestResult.TACTICAL_ADVANTAGE.PRECISION,
                 );
             }
             combatResult.attacker.addlTacAdvs = 0;
@@ -722,311 +900,33 @@ class LgndOpposedTestResult extends sohl.OpposedTestResult {
         this.combatResult = combatResult;
     }
 
-    calcMeleeCombatResult() {
-        const combatResult = {
-            attacker: {
-                deliversImpact: false,
-                isFumble:
-                    this.sourceTestResult.isCritical &&
-                    !this.sourceTestResult.isSuccess &&
-                    this.sourceTestResult.lastDigit === 0,
-                isStumble:
-                    this.sourceTestResult.isCritical &&
-                    !this.sourceTestResult.isSuccess &&
-                    this.sourceTestResult.lastDigit === 5,
-                tacticalAdvantageChoices: [],
-                tacticalAdvantageChoicesText: "",
-                tacticalAdvantages: [],
-                addlTacAdvs: 0,
-                weaponBreak: false,
-            },
-            defender: {
-                deliversImpact: false,
-                isFumble:
-                    this.targetTestResult.isCritical &&
-                    !this.targetTestResult.isSuccess &&
-                    this.targetTestResult.lastDigit === 0,
-                isStumble:
-                    this.targetTestResult.isCritical &&
-                    !this.targetTestResult.isSuccess &&
-                    this.targetTestResult.lastDigit === 5,
-                tacticalAdvantageChoices: [],
-                tacticalAdvantageChoicesText: "",
-                tacticalAdvantages: [],
-                addlTacAdvs: 0,
-                weaponBreak: false,
-            },
-        };
-
-        switch (this.targetTestResult.testType) {
-            case LgndSuccessTestResult.TEST_TYPE.IGNORE:
-                combatResult.defender.isStumble = false;
-                combatResult.defender.isFumble = false;
-                if (
-                    this.sourceTestResult.successLevel >=
-                    LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE
-                ) {
-                    this.winner(LgndOpposedTestResult.TIE_BREAK.SOURCE);
-                    combatResult.attacker.deliversImpact = true;
-                    combatResult.attacker.addlTacAdvs = Math.min(
-                        0,
-                        this.sourceTestResult.successLevel -
-                            LgndSuccessTestResult.SUCCESS_LEVEL
-                                .MARGINAL_SUCCESS,
-                    );
-                }
-                break;
-
-            case LgndSuccessTestResult.TEST_TYPE.BLOCK:
-                if (this.sourceWins) {
-                    combatResult.attacker.addlTacAdvs = this.victoryStars - 1;
-                    combatResult.attacker.deliversImpact = true;
-                } else {
-                    if (this.isTied)
-                        this.winner(LgndOpposedTestResult.TIE_BREAK.TARGET);
-                    combatResult.defender.addlTacAdvs = -this.victoryStars - 1;
-                }
-
-                if (combatResult.defender.addlTacAdvs) {
-                    combatResult.defender.tacticalAdvantageChoices = [
-                        LgndOpposedTestResult.TACTICAL_ADVANTAGE.ACTION,
-                        LgndOpposedTestResult.TACTICAL_ADVANTAGE.SETUP,
-                    ];
-                }
-                break;
-
-            case LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE:
-                if (this.targetTestResult.mlMod.has("CXBoth"))
-                    if (this.isTied) {
-                        if (this.targetTestResult.mlMod.has("CXBoth")) {
-                            this.breakTies(true);
-                            if (this.targetWins)
-                                combatResult.defender.deliversImpact = true;
-                        } else {
-                            this.winner(LgndOpposedTestResult.TIE_BREAK.SOURCE);
-                        }
-                        combatResult.attacker.deliversImpact = true;
-                    } else if (this.sourceWins) {
-                        combatResult.attacker.addlTacAdvs =
-                            this.victoryStars - 1;
-                        combatResult.attacker.deliversImpact = true;
-                    } else {
-                        combatResult.defender.addlTacAdvs =
-                            -this.victoryStars - 1;
-                        combatResult.defender.deliversImpact = true;
-                    }
-
-                if (combatResult.defender.addlTacAdvs) {
-                    combatResult.defender.tacticalAdvantageChoices = [
-                        LgndOpposedTestResult.TACTICAL_ADVANTAGE.IMPACT,
-                        LgndOpposedTestResult.TACTICAL_ADVANTAGE.PRECISION,
-                    ];
-                }
-                break;
-        }
-
-        if (combatResult.attacker.addlTacAdvs) {
-            combatResult.attacker.tacticalAdvantageChoices = Array.from(
-                LgndOpposedTestResult.TACTICAL_ADVANTAGE.values(),
-            );
-        }
-
-        combatResult.attacker.tacticalAdvantageChoicesText =
-            sohl.Utility.listToText(
-                combatResult.attacker.tacticalAdvantageChoices,
-            );
-        combatResult.defender.tacticalAdvantageChoicesText =
-            sohl.Utility.listToText(
-                combatResult.defender.tacticalAdvantageChoices,
-            );
-
-        this.combatResult = combatResult;
-    }
-
-    calcDodgeCombatResult() {
-        const combatResult = {
-            attacker: {
-                deliversImpact: false,
-                isFumble:
-                    this.sourceTestResult.isCritical &&
-                    !this.sourceTestResult.isSuccess &&
-                    this.sourceTestResult.lastDigit === 0,
-                isStumble:
-                    this.sourceTestResult.isCritical &&
-                    !this.sourceTestResult.isSuccess &&
-                    this.sourceTestResult.lastDigit === 5,
-                tacticalAdvantageChoices: [],
-                tacticalAdvantageChoicesText: "",
-                addlTacAdvs: 0,
-                weaponBreak: false,
-            },
-            defender: {
-                deliversImpact: false,
-                isFumble: false,
-                isStumble:
-                    this.sourceTestResult.isCritical &&
-                    !this.sourceTestResult.isSuccess,
-                tacticalAdvantageChoices: [],
-                tacticalAdvantageChoicesText: "",
-                addlTacAdvs: 0,
-                weaponBreak: false,
-            },
-        };
-
-        if (this.sourceWins) {
-            combatResult.attacker.addlTacAdvs = this.victoryStars - 1;
-            combatResult.attacker.deliversImpact = true;
-        } else {
-            combatResult.defender.addlTacAdvs = -this.victoryStars - 1;
-        }
-
-        if (combatResult.defender.addlTacAdvs) {
-            combatResult.defender.tacticalAdvantageChoices = [
-                LgndOpposedTestResult.TACTICAL_ADVANTAGE.IMPACT,
-                LgndOpposedTestResult.TACTICAL_ADVANTAGE.PRECISION,
-            ];
-        }
-
-        if (combatResult.attacker.addlTacAdvs) {
-            combatResult.attacker.tacticalAdvantageChoices = Array.from(
-                LgndOpposedTestResult.TACTICAL_ADVANTAGE.values(),
-            );
-        }
-
-        combatResult.attacker.tacticalAdvantageChoicesText =
-            sohl.Utility.listToText(
-                combatResult.attacker.tacticalAdvantageChoices,
-            );
-        combatResult.defender.tacticalAdvantageChoicesText =
-            sohl.Utility.listToText(
-                combatResult.defender.tacticalAdvantageChoices,
-            );
-
-        this.combatResult = combatResult;
-    }
-
-    toJSON() {
-        return foundry.utils.mergeObject(super.toJSON(), {
-            victoryStars: this._victoryStars,
-        });
-    }
-
-    static create(data = {}) {
-        return new LgndOpposedTestResult(data);
-    }
-
-    evaluate() {
-        super.evaluate();
+    async evaluate() {
         // Skill tests (including dodge) always break ties
         if (
-            this.targetTestResult.testType ===
-                LgndSuccessTestResult.TEST_TYPE.SKILL ||
-            this.targetTestResult.testType ===
-                LgndSuccessTestResult.TEST_TYPE.DODGE
+            this.targetTestResult.testType.type ===
+            LgndSuccessTestResult.TEST_TYPE.DODGEDEFENSE
         ) {
             this.breakTies = true;
         }
 
-        if (
-            this.sourceTestResult.successLevel <=
-                LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE &&
-            this.targetTestResult.successLevel <=
-                LgndSuccessTestResult.SUCCESS_LEVEL.MARGINAL_FAILURE
-        ) {
-            this.victoryStars = null;
-        } else {
-            this.victoryStars =
-                this.sourceTestResult.successLevel -
-                this.targetTestResult.successLevel;
+        let allowed = await super.evaluate();
+
+        if (allowed) {
+            if (
+                [
+                    LgndCombatTestResult.TEST_TYPE.DIRECT,
+                    LgndCombatTestResult.TEST_TYPE.VOLLEY,
+                ].includes(this.sourceTestResult.testType.type)
+            ) {
+                this.calcMissileCombatResult();
+            }
         }
 
-        if (!this._victoryStars) {
-            // We have a tie, so first try to break it by giving it to the one with the higher roll
-            this._tieBreak = Math.max(
-                -1,
-                Math.min(
-                    1,
-                    this.sourceTestResult.roll.total -
-                        this.targetTestResult.roll.total,
-                ),
-            );
-            while (!this._tieBreak)
-                this._tieBreak =
-                    Math.round(sohl.MersenneTwister.random() * 2) - 1;
-        }
-
-        if (
-            [
-                LgndSuccessTestResult.TEST_TYPE.BLOCK,
-                LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE,
-                LgndSuccessTestResult.TEST_TYPE.IGNORE,
-            ].includes(this.targetTestResult.testType)
-        ) {
-            this.calcMeleeCombatResult();
-        } else if (
-            this.targetTestResult.testType ===
-            LgndSuccessTestResult.TEST_TYPE.DODGE
-        ) {
-            this.calcDodgeCombatResult();
-        } else if (
-            [
-                LgndSuccessTestResult.TEST_TYPE.DIRECT,
-                LgndSuccessTestResult.TEST_TYPE.VOLLEY,
-            ].includes(this.sourceTestResult.testType)
-        ) {
-            this.calcMissileCombatResult();
-        }
-    }
-
-    async toChat({
-        chatTemplate = "systems/sohl/templates/chat/opposed-result-card.html",
-        chatTemplateData = {},
-    } = {}) {
-        chatTemplateData = foundry.utils.mergeObject(
-            {
-                victoryStars: this._victoryStars,
-                victoryStarsText: this.victoryStarsText,
-            },
-            chatTemplateData,
-        );
-
-        return super.toChat({
-            chatTemplateData,
-            chatTemplate,
-        });
+        return allowed;
     }
 }
 
-class LgndImpactResult extends sohl.ImpactResult {
-    constructor(data = {}) {
-        const result = super(data);
-        result.impactMod = LgndImpactModifier.create(result.impactMod);
-    }
-
-    static fromData(data = {}) {
-        const result = super.fromData(data);
-        result.impactMod = LgndImpactModifier.create(result.impactMod);
-    }
-}
-
-class LgndMasteryLevelModifier extends sohl.MasteryLevelModifier {
-    constructor(parent, initProperties = {}) {
-        super(
-            parent,
-            foundry.utils.mergeObject(
-                initProperties,
-                {
-                    secMod: (thisVM) => {
-                        return (thisVM.index - 5) * 5;
-                    },
-                },
-                { inplace: false, recursive: false },
-            ),
-        );
-    }
-}
-
-class LgndCombatModifier extends sohl.CombatModifier {}
+class LgndImpactResult extends sohl.ImpactResult {}
 
 class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
     $combatReach;
@@ -1039,8 +939,243 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
         return super.getIntrinsicActions(
             _data,
             defaultAction,
-            sohl.Utility.uniqueActions(actions, []),
+            LgndUtility.uniqueActions(
+                actions,
+                [
+                    LgndCombatTestResult.TEST_TYPE.STILL,
+                    LgndCombatTestResult.TEST_TYPE.MOVING,
+                    LgndCombatTestResult.TEST_TYPE.EVADING,
+                    LgndCombatTestResult.TEST_TYPE.BLOCKDEFENSE,
+                    LgndCombatTestResult.TEST_TYPE.DODGEDEFENSE,
+                    LgndCombatTestResult.TEST_TYPE.CXDEFENSE,
+                    LgndCombatTestResult.TEST_TYPE.IGNOREDEFENSE,
+                    LgndCombatTestResult.TEST_TYPE.CALCIMPACT,
+                    LgndCombatTestResult.TEST_TYPE.OPPOSEDSKILLRESUME,
+                    LgndCombatTestResult.TEST_TYPE.SUCCESSVALUE,
+                    LgndCombatTestResult.TEST_TYPE.RESOLVEIMPACT,
+                    LgndCombatTestResult.TEST_TYPE.IMPROVEXP,
+                    LgndCombatTestResult.TEST_TYPE.FATE,
+                ].map((a) => LgndCombatTestResult.testTypes[a]),
+            ),
         );
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async missileStillResume(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async missileMovingResume(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async missileEvadingResume(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async blockResume(speaker, actor, token, character, scope = {}) {
+        const strikeMode = await LgndUtility.getOpposedItem({
+            actor,
+            skipDialog: false,
+            label: "Select which Strike Mode to use:",
+            title: `Choose Block Strike Mode for ${token.name}`,
+            func: (it) => {
+                let result = false;
+                if (
+                    [
+                        LgndMeleeWeaponStrikeModeItemData.TYPE_NAME,
+                        LgndCombatTechniqueStrikeModeItemData.TYPE_NAME,
+                    ].includes(it.type) &&
+                    !it.system.$defense.block.disabled
+                )
+                    result = {
+                        key: it.name,
+                        value: it,
+                    };
+                return result;
+            },
+            compareFn: (a, b) =>
+                b.system.$defense.block.median - a.system.$defense.block.median,
+        });
+
+        if (strikeMode === null) {
+            return null;
+        } else if (strikeMode === false) {
+            ui.notifications.warn(
+                `${token.name} has no usable block strike modes, cannot block`,
+            );
+            return null;
+        } else {
+            strikeMode.system.execute("blockResume", scope);
+        }
+    }
+
+    async dodgeResume(speaker, actor, token, character, scope = {}) {
+        const dodgeSkill = this.actor.getItem("dge", { types: ["skill"] });
+        if (!dodgeSkill) {
+            ui.notification.warn(
+                `${token?.name || actor?.name} has no dodge skill, cannot dodge`,
+            );
+            return null;
+        }
+        return dodgeSkill.opposedTestResume(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
+        );
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async counterstrikeResume(speaker, actor, token, character, scope = {}) {
+        const strikeMode = await LgndUtility.getOpposedItem({
+            actor,
+            skipDialog: false,
+            label: "Select which Strike Mode to use:",
+            title: `Choose Counterstrike Strike Mode for ${token.name}`,
+            func: (it) => {
+                let result = false;
+                if (
+                    !it.system.$defense.counterstrike.disabled &&
+                    [
+                        LgndMeleeWeaponStrikeModeItemData.TYPE_NAME,
+                        LgndCombatTechniqueStrikeModeItemData.TYPE_NAME,
+                    ].includes(it.type)
+                )
+                    result = {
+                        key: it.name,
+                        value: it,
+                    };
+                return result;
+            },
+            compareFn: (a, b) =>
+                b.system.$defense.counterstrike.median -
+                a.system.$defense.counterstrike.median,
+        });
+
+        if (strikeMode === null) {
+            return null;
+        } else if (strikeMode === false) {
+            ui.notifications.warn(
+                `${token.name} has no usable counterstrike strike modes, cannot counterstrike`,
+            );
+            return null;
+        } else {
+            strikeMode.system.execute("counterstrikeResume", scope);
+        }
+    }
+
+    /**
+     *
+     * @param {object} scope
+     * @param {string} [scope.sourceTestResult]
+     * @param {number} [scope.testType]
+     * @returns {OpposedTestResult} result of the test
+     */
+    async ignoreResume(speaker, actor, token, character, scope = {}) {
+        let { sourceTestResult } = scope;
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+                needsToken: true,
+                self: this,
+            }));
+
+        const targetTestResult = {
+            speaker,
+            mlMod: new CONFIG.SOHL.class.MasteryLevelModifier(
+                {},
+                { parent: this },
+            ).setBase(0),
+            impactMod: null,
+            aim: null,
+            item: null,
+            roll: LgndUtility.JSON_parse(
+                LgndSuccessTestResult.ROLL.CRITICAL_FAILURE,
+                { thisArg: this },
+            ),
+            lastDigit: 5,
+            isCapped: true,
+            type: null,
+            typeLabel: null,
+            rollMode: CONST.DICE_ROLL_MODES.PUBLIC,
+            critAllowed: true,
+            successLevel: LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE,
+            isCritical: true,
+            isSuccess: false,
+            description: "Critical Failure",
+            isSuccessValue: false,
+        };
+
+        let victoryStars = Math.max(
+            sourceTestResult.successLevel -
+                LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE,
+            0,
+        );
+        const opposedTestResult = {
+            sourceTestResult,
+            targetTestResult,
+            victoryStars: victoryStars,
+            sourceWins: victoryStars > 0,
+            targetWins: false,
+        };
+
+        if (victoryStars >= 2) {
+            sourceTestResult.addlTacAdvs = [];
+            sourceTestResult.addlTacticalAdvantages = victoryStars - 1 + 1;
+            sourceTestResult.tacticalAdvantageTypes = ["Impact", "Precision"];
+        }
+
+        if (sourceTestResult.isCritical && !sourceTestResult.isSuccess) {
+            if (sourceTestResult.lastDigit === 0) {
+                sourceTestResult.fumbleTest = true;
+            } else {
+                sourceTestResult.stumbleTest = true;
+            }
+        }
+
+        return await LgndMasteryLevelModifier.opposedTestToChat(
+            speaker,
+            actor,
+            token,
+            character,
+            {
+                speaker,
+                opposedTestResult,
+            },
+        );
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async opposedTestResume(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async successValueTest(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async resolveImpact(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async improveWithXP(speaker, actor, token, character, scope = {}) {
+        return;
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    async fateTest(speaker, actor, token, character, scope = {}) {
+        return;
     }
 
     async moraleTest(speaker, actor, token, character, scope = {}) {
@@ -1058,19 +1193,21 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
         if (!testResult) {
             const initSkill = this.actor.getItem("init", { types: ["skill"] });
             if (!initSkill) return null;
-            testResult = LgndSuccessTestResult.fromData({
-                speaker,
-                item: initSkill,
-                rollMode: game.settings.get("core", "rollMode"),
-                type,
-                title: title || `${this.name} Morale Test`,
-                situationalModifier: 0,
-                typeLabel: initSkill.system.constructor.typeLabel,
-                mlMod: LgndMasteryLevelModifier.create(
-                    initSkill.system.$masteryLevel,
-                    initSkill.system,
-                ),
-            });
+            testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    item: initSkill,
+                    rollMode: game.settings.get("core", "rollMode"),
+                    type,
+                    title: title || `${this.name} Morale Test`,
+                    situationalModifier: 0,
+                    typeLabel: initSkill.system.TYPE_LABEL,
+                    mlMod: LgndUtility.deepClone(
+                        initSkill.system.$masteryLevel,
+                    ),
+                },
+                { parent: initSkill.system },
+            );
             testResult.mlMod.testDescTable = [
                 {
                     maxValue:
@@ -1133,19 +1270,21 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
         if (!testResult) {
             const willTrait = this.actor.getItem("will", { types: ["trait"] });
             if (!willTrait) return null;
-            testResult = LgndSuccessTestResult.fromData({
-                speaker,
-                item: willTrait,
-                rollMode: game.settings.get("core", "rollMode"),
-                type,
-                title: title || `${this.name} Contract Fear Test`,
-                situationalModifier: 0,
-                typeLabel: willTrait.system.constructor.typeLabel,
-                mlMod: LgndMasteryLevelModifier.create(
-                    willTrait.system.$masteryLevel,
-                    willTrait.system,
-                ),
-            });
+            testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    item: willTrait,
+                    rollMode: game.settings.get("core", "rollMode"),
+                    type,
+                    title: title || `${this.name} Contract Fear Test`,
+                    situationalModifier: 0,
+                    typeLabel: willTrait.system.TYPE_LABEL,
+                    mlMod: LgndUtility.deepClone(
+                        willTrait.system.$masteryLevel,
+                    ),
+                },
+                { parent: willTrait.system },
+            );
             testResult.mlMod.testDescTable = [
                 {
                     maxValue:
@@ -1194,104 +1333,30 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
         return super.fearTest(speaker, actor, token, character, scope);
     }
 
-    /**
-     * Select the appropriate item to use for the opposed test, then delegate processing
-     * of the opposed request to that item.
-     *
-     * @param {object} scope
-     * @param {string} [scope.sourceTestResult]
-     * @param {number} [scope.testType]
-     * @returns {OpposedTestResult} result of the test
-     */
-    async ignoreResume(speaker, actor, token, character, scope = {}) {
-        let { sourceTestResult } = scope;
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-                needsToken: true,
-                self: this,
-            }));
-
-        const targetTestResult = {
-            speaker,
-            mlMod: new LgndMasteryLevelModifier(this).setBase(0),
-            impactMod: null,
-            aim: null,
-            item: null,
-            roll: new Roll("5").execute(),
-            lastDigit: 5,
-            isCapped: true,
-            type: null,
-            typeLabel: null,
-            rollMode: CONST.DICE_ROLL_MODES.PUBLIC,
-            critAllowed: true,
-            successLevel: sohl.SOHL.CONST.CriticalFailure,
-            isCritical: true,
-            isSuccess: false,
-            description: "Critical Failure",
-            isSuccessValue: false,
-        };
-
-        let victoryStars = Math.max(
-            sourceTestResult.successLevel -
-                LgndSuccessTestResult.SUCCESS_LEVEL.CRITICAL_FAILURE,
-            0,
-        );
-        const opposedTestResult = {
-            sourceTestResult,
-            targetTestResult,
-            victoryStars: victoryStars,
-            sourceWins: victoryStars > 0,
-            targetWins: false,
-        };
-
-        if (victoryStars >= 2) {
-            sourceTestResult.addlTacAdvs = [];
-            sourceTestResult.addlTacticalAdvantages = victoryStars - 1 + 1;
-            sourceTestResult.tacticalAdvantageTypes = ["Impact", "Precision"];
-        }
-
-        if (sourceTestResult.isCritical && !sourceTestResult.isSuccess) {
-            if (sourceTestResult.lastDigit === 0) {
-                sourceTestResult.fumbleTest = true;
-            } else {
-                sourceTestResult.stumbleTest = true;
-            }
-        }
-
-        return await LgndMasteryLevelModifier.opposedTestToChat(
-            speaker,
-            actor,
-            token,
-            character,
-            {
-                speaker,
-                opposedTestResult,
-            },
-        );
-    }
-
     prepareBaseData() {
         super.prepareBaseData();
         this.$maxZones = 0;
         this.$combatReach = -99;
         this.$hasAuralShock = false;
-        this.$encumbrance = new sohl.ValueModifier(this, {
-            total: (thisVM) => {
-                const encDiv = game.settings.get(
-                    "sohl",
-                    LGND.CONST.VERSETTINGS.legEncIncr.key,
-                );
-                let result = Math.round(
-                    Math.floor((thisVM.effective + Number.EPSILON) * encDiv) /
-                        encDiv,
-                );
-                return result;
+        this.$encumbrance = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    total: (thisVM) => {
+                        const encDiv = game.settings.get(
+                            "sohl",
+                            CONFIG.SOHL.CONST.VERSETTINGS.legEncIncr.key,
+                        );
+                        let result = Math.round(
+                            Math.floor(
+                                (thisVM.effective + Number.EPSILON) * encDiv,
+                            ) / encDiv,
+                        );
+                        return result;
+                    },
+                },
             },
-        });
+            { parent: this },
+        );
         this.$encumbrance.floor("Min Zero", "Min0", 0);
     }
 }
@@ -1299,6 +1364,12 @@ class LgndAnimateEntityActorData extends sohl.AnimateEntityActorData {
 class LgndProtectionItemData extends sohl.ProtectionItemData {}
 
 function LgndStrikeModeItemDataMixin(BaseMLID) {
+    if (!(BaseMLID.prototype instanceof sohl.StrikeModeItemData)) {
+        throw new Error(
+            `${BaseMLID.name} must be a subclass of StrikeModeItemData`,
+        );
+    }
+
     return class LgndStrikeModeItemData extends BaseMLID {
         $reach;
         $heft;
@@ -1311,285 +1382,234 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
             return this.item.getFlag("sohl", "legendary.zoneDie") || 0;
         }
 
+        static _TACADV;
+
+        static get TACADV() {
+            if (!this._TACADV) {
+                this._TACADV = {
+                    ACTION: "action",
+                    IMPACT: "impact",
+                    PRECISION: "precision",
+                };
+            }
+            return this._TACADV;
+        }
+
+        static _tacticalAdvangtages;
+
         static get tactialAdvantages() {
-            return {
-                action: "Action",
-                impact: "Impact",
-                precision: "Precision",
-            };
+            if (!this._tacticalAdvantages) {
+                this._tacticalAdvantages = {
+                    [this.TACADV.ACTION]: "Action",
+                    [this.TACADV.IMPACT]: "Impact",
+                    [this.TACADV.PRECISION]: "Precision",
+                };
+            }
+            return this._tacticalAdvantages;
         }
 
         static get effectKeys() {
-            return sohl.Utility.simpleMerge(super.effectKeys, {
-                "mod:system.$impact.armorReduction": {
-                    label: "Armor Reduction",
-                    abbrev: "AR",
-                },
-                "system.$defense.block.successLevelMod": {
-                    label: "Block Success Level",
-                    abbrev: "BlkSL",
-                },
-                "system.$defense.counterstrike.successLevelMod": {
-                    label: "Counterstrike Success Level",
-                    abbrev: "CXSL",
-                },
-                "system.$traits.opponentDef": {
-                    label: "Opponent Defense",
-                    abbrev: "OppDef",
-                },
-                "system.$traits.entangle": {
-                    label: "Entangle",
-                    abbrev: "Entangle",
-                },
-                "system.$traits.envelop": {
-                    label: "Envelop",
-                    abbrev: "Envlp",
-                },
-                "system.$traits.lowAim": {
-                    label: "High Strike",
-                    abbrev: "HiStrike",
-                },
-                "system.$traits.impactTA": {
-                    label: "Impact Tac Adv",
-                    abbrev: "ImpTA",
-                },
-                "system.$traits.notInClose": {
-                    label: "Not In Close",
-                    abbrev: "NotInCls",
-                },
-                "system.$traits.onlyInClose": {
-                    label: "Only In Close",
-                    abbrev: "OnlyInCls",
-                },
-                "system.$traits.lowStrike": {
-                    label: "Low Strike",
-                    abbrev: "LoStrike",
-                },
-                "system.$traits.deflectTN": {
-                    label: "Deflect TN",
-                    abbrev: "DeflTN",
-                },
-                "system.$traits.shieldMod": {
-                    label: "Shield Mod",
-                    abbrev: "ShldMod",
-                },
-                "system.$traits.extraBleedRisk": {
-                    label: "Extra Bleed Risk",
-                    abbrev: "XBldRsk",
-                },
-                "system.$traits.noStrMod": {
-                    label: "No STR Mod",
-                    abbrev: "NoStrMod",
-                },
-                "system.$traits.halfImpact": {
-                    label: "Half Impact",
-                    abbrev: "HlfImp",
-                },
-            });
+            if (!this._effectKeys) {
+                this._effectKeys = LgndUtility.simpleMerge(super.effectKeys, {
+                    "mod:system.$impact.armorReduction": {
+                        label: "Armor Reduction",
+                        abbrev: "AR",
+                    },
+                    "system.$defense.block.successLevelMod": {
+                        label: "Block Success Level",
+                        abbrev: "BlkSL",
+                    },
+                    "system.$defense.counterstrike.successLevelMod": {
+                        label: "Counterstrike Success Level",
+                        abbrev: "CXSL",
+                    },
+                    "system.$traits.opponentDef": {
+                        label: "Opponent Defense",
+                        abbrev: "OppDef",
+                    },
+                    "system.$traits.entangle": {
+                        label: "Entangle",
+                        abbrev: "Entangle",
+                    },
+                    "system.$traits.envelop": {
+                        label: "Envelop",
+                        abbrev: "Envlp",
+                    },
+                    "system.$traits.lowAim": {
+                        label: "High Strike",
+                        abbrev: "HiStrike",
+                    },
+                    "system.$traits.impactTA": {
+                        label: "Impact Tac Adv",
+                        abbrev: "ImpTA",
+                    },
+                    "system.$traits.notInClose": {
+                        label: "Not In Close",
+                        abbrev: "NotInCls",
+                    },
+                    "system.$traits.onlyInClose": {
+                        label: "Only In Close",
+                        abbrev: "OnlyInCls",
+                    },
+                    "system.$traits.lowStrike": {
+                        label: "Low Strike",
+                        abbrev: "LoStrike",
+                    },
+                    "system.$traits.deflectTN": {
+                        label: "Deflect TN",
+                        abbrev: "DeflTN",
+                    },
+                    "system.$traits.shieldMod": {
+                        label: "Shield Mod",
+                        abbrev: "ShldMod",
+                    },
+                    "system.$traits.extraBleedRisk": {
+                        label: "Extra Bleed Risk",
+                        abbrev: "XBldRsk",
+                    },
+                    "system.$traits.noStrMod": {
+                        label: "No STR Mod",
+                        abbrev: "NoStrMod",
+                    },
+                    "system.$traits.halfImpact": {
+                        label: "Half Impact",
+                        abbrev: "HlfImp",
+                    },
+                });
+            }
+            return this._effectKeys;
         }
 
         getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
             return super.getIntrinsicActions(
                 _data,
                 defaultAction,
-                sohl.Utility.uniqueActions(actions, [
-                    {
-                        functionName: "calcImpact",
-                        name: "Calculate Impact",
-                        contextIconClass: "fas fa-bullseye-arrow",
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            return item && !item.system.$impact.disabled;
-                        },
-                        contextGroup: "general",
-                    },
-                ]),
+                LgndUtility.uniqueActions(
+                    actions,
+                    [LgndCombatTestResult.TEST_TYPE.CALCIMPACT].map(
+                        (a) => LgndCombatTestResult.testTypes[a],
+                    ),
+                ),
             );
         }
 
-        /**
-         * Perform Success Test for this Item
-         *
-         * @param {object} options
-         * @returns {SuccessTestChatData}
-         */
-        async successTest(speaker, actor, token, character, scope) {
-            ({ speaker, actor, token, character } =
-                sohl.SohlMacro.getExecuteDefaults({
-                    speaker,
-                    actor,
-                    token,
-                    character,
-                    needsActor: true,
-                    self: this,
-                }));
-
+        _preSuccessTestDialog(scope) {
             let {
-                skipDialog = false,
-                noChat = false,
                 type,
                 title,
-                testType = LgndSuccessTestResult.TEST_TYPE.ATTACK,
+                testType = LgndCombatTestResult.TEST_TYPE.MELEE,
                 testResult,
                 mlMod,
+                impactMod = LgndUtility.deepClone(this.$impact),
                 targetMovement = null,
             } = scope;
 
-            if (
-                !Object.values(LgndSuccessTestResult.TEST_TYPE).includes(
-                    testType,
-                )
-            ) {
-                throw new Error(`Invalid testType=${testType}`);
-            }
-
-            type ??= `${this.type}-${this.name}-${testType}-test`;
-            if (testType === LgndSuccessTestResult.TEST_TYPE.DIRECT) {
+            type ??= `${this.item.type}-${this.item.name}-${testType}-test`;
+            if (testType === LgndCombatTestResult.TEST_TYPE.DIRECT) {
                 title ??= `${this.item.label} Direct Missile Attack Test`;
                 targetMovement = "Direct";
-            } else if (testType === LgndSuccessTestResult.TEST_TYPE.VOLLEY) {
+            } else if (testType === LgndCombatTestResult.TEST_TYPE.VOLLEY) {
                 title ??= `${this.item.label} Volley Missile Attack Test`;
                 targetMovement = "Volley";
             } else {
-                title ??= `${this.item.label} ${LgndSuccessTestResult.testTypes[testType].label} Test`;
+                title ??= `${this.strikeModeLabel} ${CONFIG.SOHL.class.SuccessTestResult.testTypes[testType].label}`;
             }
-            if (!token) {
+            if (!this.actor.token) {
                 ui.notifications.warn(`No attacker token identified.`);
                 return null;
             }
 
-            if (!token.isOwner) {
+            if (!this.actor.token.isOwner) {
                 ui.notifications.warn(
-                    `You do not have permissions to perform this operation on ${token.name}`,
+                    `You do not have permissions to perform this operation on ${this.actor.token.name}`,
                 );
                 return null;
             }
 
             if (!this.item.nestedIn.system.isHeld) {
-                ui.notification.warn(
-                    `For ${token.name} ${this.item.nestedIn.name} is not held.`,
+                ui.notifications.warn(
+                    `For ${this.actor.token.name} ${this.item.nestedIn.name} is not held.`,
                 );
                 return null;
             }
 
             if (testResult) {
-                testResult = LgndSuccessTestResult.fromData(testResult);
+                testResult = LgndUtility.JSON_reviver({
+                    thisArg: this,
+                })("", testResult);
             } else {
-                testResult = LgndSuccessTestResult.fromData({
-                    speaker,
-                    item: this.item,
-                    rollMode: game.settings.get("core", "rollMode"),
-                    type,
-                    title,
-                    situationalModifier: 0,
-                    typeLabel: this.constructor.typeLabel,
-                    testType,
-                    mlMod,
-                    targetMovement,
-                    cxBothOption: false,
-                });
-            }
-
-            if (!skipDialog) {
-                // Render modal dialog
-                let dlgTemplate =
-                    "systems/sohl/templates/dialog/standard-test-dialog.html";
-
-                let dialogData = {
-                    variant: "legendary",
-                    type: testResult.type,
-                    title: `${testResult.token ? testResult.token.name : testResult.actor.name} ${testResult.title}`,
-                    testType: testResult.testType,
-                    mlMod: testResult.mlMod,
-                    situationalModifier: testResult.situationalModifier,
-                    impactMod: testResult.impactMod,
-                    impactSituationalModifier:
-                        testResult.impactSituationalModifier,
-                    defaultAim: testResult.defaultAim,
-                    aimChoices: testResult.aimChoices,
-                    targetMovement: testResult.targetMovement,
-                    movementOptions:
-                        LgndMissileWeaponStrikeModeItemData.movementOptions,
-                    cxBothOption: testResult.cxBothOption,
-                    askCXBothOption: game.settings.get(
-                        "sohl",
-                        "optionBothOnCounterstrike",
-                    ),
-                    rollMode: testResult.rollMode,
-                    rollModes: Object.entries(CONFIG.Dice.rollModes).map(
-                        ([k, v]) => ({
-                            group: "CHAT.RollDefault",
-                            value: k,
-                            label: v,
-                        }),
-                    ),
-                };
-                const html = await renderTemplate(dlgTemplate, dialogData);
-
-                // Create the dialog window
-                const result = await Dialog.prompt({
-                    title: dialogData.title,
-                    content: html.trim(),
-                    label: "Roll",
-                    callback: (html) => {
-                        const form = html.querySelector("form");
-                        const fd = new FormDataExtended(form);
-                        const formData = fd.object;
-                        const formSituationalModifier =
-                            Number.parseInt(formData.situationalModifier, 10) ||
-                            0;
-                        const formImpactSituationalModifier =
-                            Number.parseInt(
-                                formData.impactSituationalModifier,
-                                10,
-                            ) || 0;
-                        const formAim = Number.parseInt(formData.aim, 10) || 0;
-
-                        if (
-                            testResult.impactMod &&
-                            formImpactSituationalModifier
-                        ) {
-                            testResult.impactMod.add(
-                                "SituationalModifier",
-                                "SitMod",
-                                formImpactSituationalModifier,
-                            );
-                            testResult.impactSituationalModifier =
-                                formImpactSituationalModifier;
-                        }
-
-                        if (formSituationalModifier) {
-                            testResult.mlMod.add(
-                                "Situational Modifier",
-                                "SitMod",
-                                formSituationalModifier,
-                            );
-                            testResult.situationalModifier =
-                                formSituationalModifier;
-                        }
-
-                        const formSuccessLevelMod = Number.parseInt(
-                            formData.successLevelMod,
-                            10,
-                        );
-                        testResult.cxBothOption = !!formData.cxBothOption;
-                        testResult.mlMod.successLevelMod = formSuccessLevelMod;
-                        testResult.aim = formAim;
-                        testResult.rollMode = formData.rollMode;
-                        if (dialogData.targetMovement)
-                            testResult.targetMovement = formData.targetMovement;
-                        return true;
+                testResult = new CONFIG.SOHL.class.SuccessTestResult(
+                    {
+                        speaker: scope.speaker,
+                        item: this.item,
+                        rollMode: game.settings.get("core", "rollMode"),
+                        type,
+                        title,
+                        situationalModifier: 0,
+                        typeLabel: this.TYPE_LABEL,
+                        testType,
+                        mlMod,
+                        impactMod,
+                        targetMovement,
+                        cxBothOption: false,
+                        askCXBothOption: game.settings.get(
+                            "sohl",
+                            "optionBothOnCounterstrike",
+                        ),
+                        movementOptions:
+                            LgndMissileWeaponStrikeModeItemData.movementOptions,
+                        rollModes: Object.entries(CONFIG.Dice.rollModes).map(
+                            ([k, v]) => ({
+                                group: "CHAT.RollDefault",
+                                value: k,
+                                label: v,
+                            }),
+                        ),
                     },
-                    rejectClose: false,
-                    options: { jQuery: false },
-                });
+                    { parent: this },
+                );
+            }
+            return testResult;
+        }
 
-                if (!result) return;
+        _postSuccessTestDialog(testResult, formData) {
+            if (formData) {
+                const formSituationalModifier =
+                    Number.parseInt(formData.situationalModifier, 10) || 0;
+                const formImpactSituationalModifier =
+                    Number.parseInt(formData.impactSituationalModifier, 10) ||
+                    0;
+                const formAim = Number.parseInt(formData.aim, 10) || 0;
+
+                if (testResult.impactMod && formImpactSituationalModifier) {
+                    testResult.impactMod.add(
+                        "SituationalModifier",
+                        "SitMod",
+                        formImpactSituationalModifier,
+                    );
+                    testResult.impactSituationalModifier =
+                        formImpactSituationalModifier;
+                }
+
+                if (formSituationalModifier) {
+                    testResult.mlMod.add(
+                        "Situational Modifier",
+                        "SitMod",
+                        formSituationalModifier,
+                    );
+                    testResult.situationalModifier = formSituationalModifier;
+                }
+
+                const formSuccessLevelMod = Number.parseInt(
+                    formData.successLevelMod,
+                    10,
+                );
+                testResult.cxBothOption = !!formData.cxBothOption;
+                testResult.mlMod.successLevelMod = formSuccessLevelMod;
+                testResult.aim = formAim;
+                testResult.rollMode = formData.rollMode;
+                if (formData.targetMovement)
+                    testResult.targetMovement = formData.targetMovement;
             }
 
             if (testResult.aim && testResult.aim !== testResult.defaultAim) {
@@ -1597,7 +1617,8 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
             }
 
             if (
-                testType === LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE &&
+                testResult.testType.type ===
+                    LgndSuccessTestResult.TEST_TYPE.CXDEFENSE &&
                 testResult.cxBothOption &&
                 !testResult.mlMod.has("CXBoth")
             ) {
@@ -1610,19 +1631,17 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
                 if (testResult.mlMod.has("CXBoth"))
                     testResult.mlMod.delete("CXBoth");
             }
-            testResult.evaluate();
-
-            if (!noChat) {
-                await this.successTestToChat({
-                    speaker,
-                    testResult,
-                });
-            }
             return testResult;
         }
 
-        async _preOpposedSuccessTest(speaker, actor, token, character, scope) {
-            let result = super._preOpposedSuccessTest(
+        async _preCombatSuccessTest(
+            speaker,
+            actor,
+            token,
+            character,
+            scope = {},
+        ) {
+            let result = await super._preOpposedSuccessTest(
                 speaker,
                 actor,
                 token,
@@ -1631,32 +1650,188 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
             );
             if (!result) return;
 
-            let { targetToken, testType } = scope;
+            let { targetToken } = scope;
 
             // Unique to the opposed test, we get the targeted token and determine
             // whether that token is inside our engagement zone
-            targetToken ||= sohl.Utility.getUserTargetedToken(token);
-            if (!targetToken) return;
+            result.targetToken =
+                targetToken || sohl.Utility.getUserTargetedToken(token);
+            if (!result.targetToken) return;
 
-            const targetRange = LgndUtility.rangeToTarget(token, targetToken);
+            const targetRange = LgndUtility.rangeToTarget(
+                token,
+                result.targetToken,
+            );
             if (
-                testType === LgndSuccessTestResult.TEST_TYPE.ATTACK &&
+                result.sourceTestResult.testType.type ===
+                    LgndCombatTestResult.TEST_TYPE.MELEE &&
                 targetRange >
                     LgndUtility.engagementZoneRange(this.$reach.effective)
             ) {
-                const msg = `Target ${targetToken.name} is outside of engagement zone for ${this.name}; distance = ${targetRange} feet, EZ = ${LgndUtility.engagementZoneRange(this.$reach.effective)} feet.`;
+                const msg = `Target ${result.targetToken.name} is outside of engagement zone for ${this.name}; distance = ${targetRange} feet, EZ = ${LgndUtility.engagementZoneRange(this.$reach.effective)} feet.`;
                 ui.notifications.warn(msg);
                 return;
             } else if (
-                testType === LgndSuccessTestResult.TEST_TYPE.DIRECT &&
+                result.sourceTestResult.testType.type ===
+                    LgndCombatTestResult.TEST_TYPE.DIRECT &&
                 targetRange > this.$maxDistance.effective
             ) {
-                const msg = `Target ${targetToken.name} is outside of ${this.range} range for ${this.name}; distance = ${targetRange} feet, max distance = ${this.$maxDistance} feet.`;
+                const msg = `Target ${result.targetToken.name} is outside of ${this.range} range for ${this.name}; distance = ${targetRange} feet, max distance = ${this.$maxDistance.effective} feet.`;
                 ui.notifications.warn(msg);
                 return;
             }
 
             return result;
+        }
+
+        async automatedCombatStart(speaker, actor, token, character, scope) {
+            scope.impactMod ||= LgndUtility.deepClone(this.$impact);
+            let {
+                skipDialog = false,
+                noChat = false,
+                testType = LgndSuccessTestResult.TEST_TYPE.AUTOCOMBATMELEE,
+                mlMod = LgndUtility.deepClone(this.$attack),
+            } = scope;
+
+            ({ speaker, actor, token, character } =
+                sohl.SohlMacro.getExecuteDefaults({
+                    speaker,
+                    actor,
+                    token,
+                    character,
+                }));
+
+            scope.sourceTestResult = await this.successTest(
+                speaker,
+                actor,
+                token,
+                character,
+                {
+                    skipDialog,
+                    noChat: true,
+                    testType,
+                    mlMod,
+                },
+            );
+            if (!scope.sourceTestResult) return;
+
+            const combatTestResultData = await this._preCombatSuccessTest(
+                speaker,
+                actor,
+                token,
+                character,
+                scope,
+            );
+            if (!combatTestResultData) return null;
+
+            let combatTestResult = new CONFIG.SOHL.class.LgndCombatTestResult(
+                combatTestResultData,
+                { parent: this },
+            );
+
+            // Note that in the opposed test start, we specifically do not
+            // call the evaluate() method of opposedTestResult, since
+            // we have not finished creating it yet (no targetTestResult)
+
+            if (!noChat) {
+                combatTestResult.toChat();
+            }
+
+            return combatTestResult;
+        }
+
+        /**
+         * Continue the opposed test. Only valid testTypes are "block" and "counterstrike".
+         *
+         * @param {object} scope
+         * @param {string} [scope.sourceTestResult]
+         * @param {number} [scope.testType]
+         * @returns {OpposedTestResult} result of the test
+         */
+        async automatedCombatResume(
+            speaker,
+            actor,
+            token,
+            character,
+            scope = {},
+        ) {
+            let { noChat = false, opposedTestResult, testType, mlMod } = scope;
+            if (!opposedTestResult)
+                throw new Error("Must supply an opposedTestResult");
+
+            if (!(opposedTestResult instanceof LgndCombatTestResult)) {
+                opposedTestResult = LgndUtility.JSON_reviver({
+                    thisArg: this,
+                })("", opposedTestResult);
+                if (!(opposedTestResult instanceof LgndCombatTestResult)) {
+                    throw new Error("Invalid combatTestResult");
+                }
+            }
+
+            ({ speaker, actor, token, character } =
+                sohl.SohlMacro.getExecuteDefaults({
+                    speaker,
+                    actor,
+                    token,
+                    character,
+                    needsToken: true,
+                    self: this,
+                }));
+
+            if (!opposedTestResult.targetTestResult) {
+                opposedTestResult.targetTestResult = await this.successTest(
+                    speaker,
+                    actor,
+                    token,
+                    character,
+                    {
+                        noChat: true,
+                        testType,
+                        mlMod,
+                        impactMod: LgndUtility.deepClone(this.$impact),
+                    },
+                );
+                if (!opposedTestResult.targetTestResult) return null;
+            } else {
+                // In this situation, where the targetTestResult is provided,
+                // the GM is modifying the result of a prior opposedTest.
+                // Therefore, we re-display the dialog for each of the prior
+                // successTests.
+                opposedTestResult.sourceTestResult =
+                    await opposedTestResult.sourceTestResult.item.system.successTest(
+                        speaker,
+                        actor,
+                        token,
+                        character,
+                        {
+                            noChat: true,
+                            testResult: opposedTestResult.sourceTestResult,
+                        },
+                    );
+                opposedTestResult.targetTestResult =
+                    await opposedTestResult.targetTestResult.item.system.successTest(
+                        speaker,
+                        actor,
+                        token,
+                        character,
+                        {
+                            noChat: true,
+                            testResult: opposedTestResult.targetTestResult,
+                        },
+                    );
+            }
+
+            let allowed = await opposedTestResult.evaluate();
+
+            if (allowed && !noChat) {
+                opposedTestResult.toChat({
+                    template:
+                        "systems/sohl/templates/chat/opposed-result-card.html",
+                    title: "Combat Resume",
+                });
+            }
+
+            return allowed ? opposedTestResult : false;
         }
 
         /**
@@ -1665,7 +1840,7 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
          * @param {object} options
          * @returns {SuccessTestChatData}
          */
-        async calcImpact(speaker, actor, token, character, scope) {
+        async calcImpact(speaker, actor, token, character, scope = {}) {
             ({ speaker, actor, token, character } =
                 sohl.SohlMacro.getExecuteDefaults({
                     speaker,
@@ -1691,16 +1866,21 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
             }
 
             if (!impactResult) {
-                impactResult = LgndImpactResult.fromData({
-                    speaker,
-                    item: this.item,
-                    impactMod: LgndImpactModifier.create(this.$impact),
-                });
-            } else if (!(impactResult instanceof LgndImpactResult)) {
-                impactResult = LgndImpactResult.fromData(impactResult);
-                impactResult.impactMod = LgndImpactModifier.create(
-                    impactResult.impactMod,
+                impactResult = new CONFIG.SOHL.class.ImpactResult(
+                    {
+                        speaker,
+                        itemUuid: this.item.uuid,
+                        impactMod: LgndUtility.deepClone(this.$impact),
+                    },
+                    { parent: this },
                 );
+            } else {
+                impactResult = LgndUtility.JSON_reviver({
+                    thisArg: this,
+                })("", impactResult);
+                if (!(impactResult instanceof LgndImpactResult)) {
+                    throw new Error("Invalid impactResult");
+                }
             }
 
             let dlgResult;
@@ -1733,8 +1913,8 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
                     title: dlgData.title,
                     content: dlgHtml.trim(),
                     label: "Roll",
-                    callback: (html) => {
-                        const form = html.querySelector("form");
+                    callback: (element) => {
+                        const form = element.querySelector("form");
                         const fd = new FormDataExtended(form);
                         const formData = fd.object;
                         const formSituationalImpact =
@@ -1775,29 +1955,29 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
                 );
             }
 
-            impactResult.roll = await impactResult.impactMod.evaluate();
+            let allowed = await impactResult.evaluate();
 
-            if (!noChat) {
+            if (allowed && !noChat) {
+                const item = impactResult.impactMod.parent.item;
                 const actor = token ? token.actor : actor;
-                const name = token ? token.name : actor?.name;
-                let title = `${name} ${dlgData.impactMod.parent.item.label} Impact`;
+                let title = `${item.nestedIn.name} ${item.name} Impact`;
                 if (targetToken) title += ` against ${targetToken.name}`;
                 const chatData = {
                     actor,
                     targetToken,
                     impactResult,
-                    impactResultJson: JSON.stringify(impactResult.toJSON()),
+                    impactResultJson: LgndUtility.JSON_stringify(impactResult),
                     title,
                 };
                 const chatTemplate =
                     "systems/sohl/templates/chat/damage-card.html";
 
-                const html = await renderTemplate(chatTemplate, chatData);
+                const chatHtml = await renderTemplate(chatTemplate, chatData);
 
                 const messageData = {
                     user: game.user.id,
                     speaker: speaker || ChatMessage.getSpeaker(),
-                    content: html.trim(),
+                    content: chatHtml.trim(),
                     sound: CONFIG.sounds.dice,
                 };
 
@@ -1805,22 +1985,28 @@ function LgndStrikeModeItemDataMixin(BaseMLID) {
                 await ChatMessage.create(messageData);
             }
 
-            return impactResult;
+            return allowed ? impactResult : false;
         }
 
         prepareBaseData() {
             super.prepareBaseData();
-            this.$attack = LgndCombatModifier.create(this.$attack);
+            this.$attack = LgndUtility.deepClone(this.$attack);
             this.$defense = {
-                block: LgndCombatModifier.create(this.$defense.block),
-                counterstrike: LgndCombatModifier.create(
+                block: LgndUtility.deepClone(this.$defense.block),
+                counterstrike: LgndUtility.deepClone(
                     this.$defense.counterstrike,
                 ),
             };
-            this.$impact = LgndImpactModifier.create(this.$impact);
+            this.$impact.zoneDie = this.zoneDie;
 
-            this.$reach = new sohl.ValueModifier(this);
-            this.$heft = new sohl.ValueModifier(this);
+            this.$reach = new CONFIG.SOHL.class.ValueModifier(
+                {},
+                { parent: this },
+            );
+            this.$heft = new CONFIG.SOHL.class.ValueModifier(
+                {},
+                { parent: this },
+            );
             foundry.utils.mergeObject(this.$traits, {
                 armorReduction: 0,
                 blockSLMod: 0,
@@ -1951,88 +2137,92 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
     sohl.MeleeWeaponStrikeModeItemData,
 ) {
     static get effectKeys() {
-        return sohl.Utility.simpleMerge(super.effectKeys, {
-            "mod:system.$heft": { label: "Heft", abbrev: "Hft" },
-            "system.$traits.couched": { label: "Couched", abbrev: "Couched" },
-            "system.$traits.slow": { label: "Slow", abbrev: "Slow" },
-            "system.$traits.thrust": { label: "Thrust", abbrev: "Thst" },
-            "system.$traits.swung": { label: "Swung", abbrev: "Swng" },
-            "system.$traits.halfSword": {
-                label: "Half Sword",
-                abbrev: "HlfSwd",
-            },
-            "system.$traits.twoPartLen": {
-                label: "2H Length",
-                abbrev: "2HLen",
-            },
-        });
+        if (!this._effectKeys) {
+            this._effectKeys = LgndUtility.simpleMerge(super.effectKeys, {
+                "mod:system.$heft": { label: "Heft", abbrev: "Hft" },
+                "system.$traits.couched": {
+                    label: "Couched",
+                    abbrev: "Couched",
+                },
+                "system.$traits.slow": { label: "Slow", abbrev: "Slow" },
+                "system.$traits.thrust": { label: "Thrust", abbrev: "Thst" },
+                "system.$traits.swung": { label: "Swung", abbrev: "Swng" },
+                "system.$traits.halfSword": {
+                    label: "Half Sword",
+                    abbrev: "HlfSwd",
+                },
+                "system.$traits.twoPartLen": {
+                    label: "2H Length",
+                    abbrev: "2HLen",
+                },
+            });
+        }
+        return this._effectKeys;
     }
 
-    static get tactialAdvantages() {
-        return {
-            action: "Action",
-            impact: "Impact",
-            precision: "Precision",
-            setup: "Setup",
-        };
+    get defaultAction() {
+        return LgndCombatTestResult.TEST_TYPE.AUTOCOMBATMELEE;
     }
 
     getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
         return super.getIntrinsicActions(
             _data,
-            defaultAction || "opposedTestStart",
-            sohl.Utility.uniqueActions(actions, [
+            defaultAction,
+            LgndUtility.uniqueActions(
+                actions,
+                [
+                    LgndCombatTestResult.TEST_TYPE.AUTOCOMBATMELEE,
+                    LgndCombatTestResult.TEST_TYPE.BLOCKDEFENSE,
+                    LgndCombatTestResult.TEST_TYPE.CXDEFENSE,
+                    LgndCombatTestResult.TEST_TYPE.IGNOREDEFENSE,
+                ].map((a) => LgndCombatTestResult.testTypes[a]),
+            ),
+        );
+    }
+
+    static get TACADV() {
+        if (!this._TACADV) {
+            this._TACADV = foundry.utils.mergeObject(super.TACADV, {
+                SETUP: "setup",
+            });
+        }
+        return this._TACADV;
+    }
+
+    static get tactialAdvantages() {
+        if (!this._tacticalAdvangtages) {
+            this._tacticalAdvangtages = foundry.utils.mergeObject(
+                super.TACADV,
                 {
-                    functionName: "attackTest",
-                    name: "Attack Test",
-                    contextIconClass:
-                        LgndSuccessTestResult.testTypes[
-                            LgndSuccessTestResult.TEST_TYPE.ATTACK
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$attack.disabled;
-                    },
-                    contextGroup: "general",
+                    [this.TACADV.SETUP]: "Setup",
                 },
-                {
-                    functionName: "blockTest",
-                    name: "Block Test",
-                    contextIconClass:
-                        LgndSuccessTestResult.testTypes[
-                            LgndSuccessTestResult.TEST_TYPE.BLOCK
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$defense.block.disabled;
-                    },
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "counterstrikeTest",
-                    name: "Counterstrike Test",
-                    contextIconClass:
-                        LgndSuccessTestResult.testTypes[
-                            LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return (
-                            item && !item.system.$defense.counterstrike.disabled
-                        );
-                    },
-                    contextGroup: "general",
-                },
-            ]),
+            );
+        }
+        return this._tacticalAdvangtages;
+    }
+
+    async blockResume(speaker, actor, token, character, scope = {}) {
+        scope.testType = LgndCombatTestResult.TEST_TYPE.BLOCKDEFENSE;
+        scope.mlMod = this.$defense.block;
+        return await this.automatedCombatResume(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
+        );
+    }
+
+    async counterstrikeResume(speaker, actor, token, character, scope = {}) {
+        scope.testType = LgndCombatTestResult.TEST_TYPE.CXDEFENSE;
+        scope.mlMod = this.$defense.counterstrike;
+        //scope.title
+        return await this.automatedCombatResume(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
         );
     }
 
@@ -2089,7 +2279,7 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
             halfSword: false,
             twoPartLen: 0,
         });
-        this.$range = new sohl.ValueModifier(this);
+        this.$range = new CONFIG.SOHL.class.ValueModifier({}, { parent: this });
     }
 
     processSiblings() {
@@ -2135,10 +2325,9 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
 ) {
     $range;
     $draw;
-    $canDraw;
     $pull;
 
-    static get MOVEMENT_OPTIONS() {
+    static get MOVEMENT_OPTION() {
         return {
             STILL: "still",
             MOVING: "moving",
@@ -2147,9 +2336,9 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
     }
     static get movementOptions() {
         return {
-            [this.MOVEMENT_OPTIONS.STILL]: "Still",
-            [this.MOVEMENT_OPTIONS.MOVING]: "Moving",
-            [this.MOVEMENT_OPTIONS.EVADING]: "Evading",
+            [this.MOVEMENT_OPTION.STILL]: "Still",
+            [this.MOVEMENT_OPTION.MOVING]: "Moving",
+            [this.MOVEMENT_OPTION.EVADING]: "Evading",
         };
     }
 
@@ -2177,22 +2366,27 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
         return {
             [this.RANGE.POINT_BLANK]: {
                 label: "PB",
+                group: LgndCombatTestResult.TEST_TYPE.DIRECT,
                 mult: 0.5,
             },
             [this.RANGE.DIRECT]: {
                 label: "Direct",
+                group: LgndCombatTestResult.TEST_TYPE.DIRECT,
                 mult: 1,
             },
             [this.RANGE.VOLLEY_2]: {
                 label: "V2",
+                group: LgndCombatTestResult.TEST_TYPE.VOLLEY,
                 mult: 2,
             },
             [this.RANGE.VOLLEY_3]: {
                 label: "V3",
+                group: LgndCombatTestResult.TEST_TYPE.VOLLEY,
                 mult: 3,
             },
             [this.RANGE.VOLLEY_4]: {
                 label: "V4",
+                group: LgndCombatTestResult.TEST_TYPE.VOLLEY,
                 mult: 4,
             },
         };
@@ -2217,84 +2411,57 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
         );
     }
 
-    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
-        return super.getIntrinsicActions(
-            _data,
-            defaultAction || "automatedAttack",
-            sohl.Utility.uniqueActions(actions, [
-                {
-                    functionName: "directAttackTest",
-                    name: "Direct Missile Attack Test",
-                    contextIconClass:
-                        LgndSuccessTestResult.testTypes[
-                            LgndSuccessTestResult.TEST_TYPE.DIRECT
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$attack.disabled;
-                    },
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "volleyAttackTest",
-                    name: "Volley Missile Attack Test",
-                    contextIconClass:
-                        LgndSuccessTestResult.testTypes[
-                            LgndSuccessTestResult.TEST_TYPE.VOLLEY
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$attack.disabled;
-                    },
-                    contextGroup: "primary",
-                },
-            ]),
+    get group() {
+        return (
+            LgndMissileWeaponStrikeModeItemData.ranges[this.range]?.group ||
+            LgndCombatTestResult.TEST_TYPE.DIRECT
         );
     }
 
-    async volleyAttackTest(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-        scope = {},
-    ) {
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-            }));
-
-        ui.notifications.warn(`Volley attacks not implemented`);
-        return null;
+    get defaultAction() {
+        return LgndSuccessTestResult.TEST_TYPE.AUTOCOMBATMISSILE;
     }
 
-    async directAttackTest(
-        speaker = null,
-        actor = null,
-        token = null,
-        character = null,
-        scope = {},
-    ) {
-        ({ speaker, actor, token, character } =
-            sohl.SohlMacro.getExecuteDefaults({
-                speaker,
-                actor,
-                token,
-                character,
-            }));
+    getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+        return super.getIntrinsicActions(
+            _data,
+            defaultAction,
+            LgndUtility.uniqueActions(
+                actions,
+                [
+                    LgndCombatTestResult.TEST_TYPE.AUTOCOMBATMISSILE,
+                    LgndCombatTestResult.TEST_TYPE.DIRECT,
+                    LgndCombatTestResult.TEST_TYPE.VOLLEY,
+                    LgndCombatTestResult.TEST_TYPE.STILL,
+                    LgndCombatTestResult.TEST_TYPE.MOVING,
+                    LgndCombatTestResult.TEST_TYPE.EVADING,
+                ].map((a) => LgndCombatTestResult.testTypes[a]),
+            ),
+        );
+    }
 
-        scope.testType = LgndSuccessTestResult.TEST_TYPE.DIRECT;
-        return super.attackTest(speaker, actor, token, character, scope);
+    async automatedCombatStart(speaker, actor, token, character, scope) {
+        scope.testType = LgndCombatTestResult.TEST_TYPE.AUTOCOMBATMISSILE;
+        return await super.automatedCombatStart(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
+        );
+    }
+
+    async attackTest(speaker, actor, token, character, scope = {}) {
+        scope.mlMod = LgndUtility.deepClone(this.$attack);
+        scope.testType ||= this.group;
+        scope.title = `${this.item.nestedIn.name} ${this.name} ${CONFIG.SOHL.class.SuccessTestResult.testTypes[this.group]?.label} Test`;
+        return await CONFIG.SOHL.class.SuccessTestResult.createMacroTest(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
+        );
     }
 
     /** @override */
@@ -2304,9 +2471,15 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
             armorReduction: 0,
             bleed: false,
         });
-        this.$maxDistance = new sohl.ValueModifier(this);
-        this.$draw = new sohl.ValueModifier(this).setBase(this.drawBase);
-        this.$pull = new sohl.ValueModifier(this);
+        this.$maxDistance = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
+        this.$draw = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        ).setBase(this.drawBase);
+        this.$pull = new CONFIG.SOHL.class.ValueModifier({}, { parent: this });
         this.$defense.block.setDisabled(
             "No Defense for Missile Attacks",
             "NoDfseMsl",
@@ -2359,10 +2532,12 @@ class LgndMissileWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
             );
         }
 
-        this.$canDraw =
-            !this.$pull.disabled &&
-            this.$pull.effective >= this.$draw.effective;
-        this.$attack.disabled ||= !this.$canDraw;
+        if (this.$pull.effective < this.$draw.effective) {
+            this.$attack.setDisabled(
+                `Too weak to draw missile weapon`,
+                "TooWeak",
+            );
+        }
     }
 }
 
@@ -2370,96 +2545,77 @@ class LgndCombatTechniqueStrikeModeItemData extends LgndStrikeModeItemDataMixin(
     sohl.CombatTechniqueStrikeModeItemData,
 ) {
     static get effectKeys() {
-        return sohl.Utility.simpleMerge(super.effectKeys, {
-            "system.$traits.strRoll": {
-                label: "Strength Roll",
-                abbrev: "StrRoll",
-            },
-        });
+        if (!this._effectKeys) {
+            this._effectKeys = LgndUtility.simpleMerge(super.effectKeys, {
+                "system.$traits.strRoll": {
+                    label: "Strength Roll",
+                    abbrev: "StrRoll",
+                },
+            });
+        }
+        return this._effectKeys;
+    }
+
+    static get TACADV() {
+        if (!this._TACADV) {
+            this._TACADV = foundry.utils.mergeObject(super.TACADV, {
+                SETUP: "setup",
+            });
+        }
+        return this._TACADV;
+    }
+
+    static get tactialAdvantages() {
+        if (!this._tacticalAdvangtages) {
+            this._tacticalAdvangtages = foundry.utils.mergeObject(
+                super.TACADV,
+                {
+                    [this.TACADV.SETUP]: "Setup",
+                },
+            );
+        }
+        return this._tacticalAdvangtages;
+    }
+
+    get defaultAction() {
+        return LgndSuccessTestResult.TEST_TYPE.AUTOCOMBATMELEE;
     }
 
     getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
         return super.getIntrinsicActions(
             _data,
-            defaultAction || "opposedTestStart",
-            sohl.Utility.uniqueActions(actions, [
-                {
-                    functionName: "opposedTestStart",
-                    name: "Automated Attack",
-                    contextIconClass: "fas fa-circle-half-stroke",
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$attack.disabled;
-                    },
-                    contextGroup: "essential",
-                },
-                {
-                    functionName: "opposedTestResume",
-                    name: "Attack Resume",
-                    contextIconClass: "",
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$impact.disabled;
-                    },
-                    contextGroup: "hidden",
-                },
-                {
-                    functionName: "attackTest",
-                    name: "Attack Test",
-                    contextIconClass:
-                        LgndSuccessTestResult.testTypes[
-                            LgndSuccessTestResult.TEST_TYPE.ATTACK
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$attack.disabled;
-                    },
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "blockTest",
-                    name: "Block Test",
-                    contextIconClass:
-                        LgndSuccessTestResult.testTypes[
-                            LgndSuccessTestResult.TEST_TYPE.BLOCK
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return item && !item.system.$defense.block.disabled;
-                    },
-                    contextGroup: "general",
-                },
-                {
-                    functionName: "counterstrikeTest",
-                    name: "Counterstrike Test",
-                    contextIconClass:
-                        LgndSuccessTestResult.testTypes[
-                            LgndSuccessTestResult.TEST_TYPE.COUNTERSTRIKE
-                        ].icon,
-                    contextCondition: (header) => {
-                        header =
-                            header instanceof HTMLElement ? header : header[0];
-                        const li = header.closest(".item");
-                        const item = fromUuidSync(li.dataset.uuid);
-                        return (
-                            item && !item.system.$defense.counterstrike.disabled
-                        );
-                    },
-                    contextGroup: "general",
-                },
-            ]),
+            defaultAction,
+            LgndUtility.uniqueActions(
+                actions,
+                [
+                    LgndCombatTestResult.TEST_TYPE.AUTOCOMBATMELEE,
+                    LgndCombatTestResult.TEST_TYPE.BLOCKDEFENSE,
+                    LgndCombatTestResult.TEST_TYPE.CXDEFENSE,
+                    LgndCombatTestResult.TEST_TYPE.IGNOREDEFENSE,
+                ].map((a) => LgndCombatTestResult.testTypes[a]),
+            ),
+        );
+    }
+
+    async blockResume(speaker, actor, token, character, scope = {}) {
+        scope.testType = LgndCombatTestResult.TEST_TYPE.BLOCKDEFENSE;
+        return await this.automatedCombatResume(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
+        );
+    }
+
+    async counterstrikeResume(speaker, actor, token, character, scope = {}) {
+        scope.testType = LgndCombatTestResult.TEST_TYPE.CXDEFENSE;
+        return await this.automatedCombatResume(
+            speaker,
+            actor,
+            token,
+            character,
+            scope,
         );
     }
 
@@ -2493,7 +2649,29 @@ class LgndCombatTechniqueStrikeModeItemData extends LgndStrikeModeItemDataMixin(
 /*===============================================================*/
 
 function LgndMasteryLevelItemDataMixin(BaseMLID) {
+    if (!(BaseMLID.prototype instanceof sohl.MasteryLevelItemData)) {
+        throw new Error(
+            `${BaseMLID.name} must be a subclass of MasteryLevelItemData`,
+        );
+    }
+
     return class LgndMasteryLevelItemData extends BaseMLID {
+        getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
+            const uniqueActions = LgndUtility.uniqueActions(
+                actions,
+                [
+                    LgndSuccessTestResult.TEST_TYPE.IMPROVEXP,
+                    LgndSuccessTestResult.TEST_TYPE.FATE,
+                    LgndSuccessTestResult.TEST_TYPE.SUCCESSVALUE,
+                ].map((a) => LgndSuccessTestResult.testTypes[a]),
+            );
+            return super.getIntrinsicActions(
+                _data,
+                defaultAction,
+                uniqueActions,
+            );
+        }
+
         get isFateAllowed() {
             return (
                 super.isFateAllowed &&
@@ -2515,79 +2693,6 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
         toggleImproveFlag() {
             if (this.improveFlag) this.unsetImproveFlag();
             else this.setImproveFlag();
-        }
-
-        getIntrinsicActions(_data = this, defaultAction = null, actions = []) {
-            return super.getIntrinsicActions(
-                _data,
-                defaultAction,
-                sohl.Utility.uniqueActions(actions, [
-                    {
-                        functionName: "successValueTest",
-                        name: "Success Value Test",
-                        contextIconClass: "far fa-list",
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            return item && !item.system.$masteryLevel.disabled;
-                        },
-                        contextGroup: "essential",
-                    },
-                    {
-                        functionName: "fateTest",
-                        name: "Fate Test",
-                        contextIconClass:
-                            LgndSuccessTestResult.testTypes[
-                                LgndSuccessTestResult.TEST_TYPE.FATE
-                            ].icon,
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            return (
-                                item &&
-                                !item.system.$masteryLevel.fate.disabled &&
-                                item.system.availableFate.length > 0
-                            );
-                        },
-                        contextGroup: "essential",
-                    },
-                    {
-                        functionName: "improveWithXP",
-                        name: "Improve Mastery using XP",
-                        contextIconClass: "fas fa-lightbulb-on",
-                        contextCondition: (header) => {
-                            header =
-                                header instanceof HTMLElement
-                                    ? header
-                                    : header[0];
-                            const li = header.closest(".item");
-                            const item = fromUuidSync(li.dataset.uuid);
-                            if (!item || !item.system.canImprove) return false;
-                            if (item.system.$masteryLevel.disabled)
-                                return false;
-                            const xpItem = item.actor?.getTraitByAbbrev("xp");
-                            const xpVal =
-                                (xpItem &&
-                                    !xpItem?.system.$score?.disabled &&
-                                    xpItem?.system.$score.effective) ||
-                                -1;
-                            return (
-                                xpItem &&
-                                xpVal >= item.system.$masteryLevel.index
-                            );
-                        },
-                        contextGroup: "general",
-                    },
-                ]),
-            );
         }
 
         /**
@@ -2624,129 +2729,12 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
         }
 
         /**
-         * Perform Success Test for this Item
-         *
-         * @param {object} options
-         * @returns {SuccessTestChatData}
-         */
-        async successTest(speaker, actor, token, character, scope) {
-            ({ speaker, actor, token, character } =
-                sohl.SohlMacro.getExecuteDefaults({
-                    speaker,
-                    actor,
-                    token,
-                    character,
-                    needsActor: true,
-                    self: this,
-                }));
-
-            let {
-                skipDialog = false,
-                type = `${this.type}-${this.name}-test`,
-                title = `${this.item.label} Test`,
-                testResult,
-                noChat = false,
-                mlMod,
-            } = scope;
-
-            if (testResult) {
-                testResult = LgndSuccessTestResult.fromData(testResult);
-            } else {
-                testResult = LgndSuccessTestResult.fromData({
-                    speaker,
-                    item: this.item,
-                    rollMode: game.settings.get("core", "rollMode"),
-                    type,
-                    title,
-                    situationalModifier: 0,
-                    typeLabel: this.constructor.typeLabel,
-                    mlMod:
-                        mlMod ||
-                        LgndMasteryLevelModifier.create(
-                            this.$masteryLevel,
-                            this,
-                        ),
-                });
-            }
-
-            if (!skipDialog) {
-                // Render modal dialog
-                let dlgTemplate =
-                    "systems/sohl/templates/dialog/standard-test-dialog.html";
-
-                let dialogData = {
-                    variant: "legendary",
-                    type: testResult.type,
-                    title: `${testResult.token ? testResult.token.name : testResult.actor.name} ${testResult.title}`,
-                    mlMod: testResult.mlMod,
-                    situationalModifier: testResult.situationalModifier,
-                    rollMode: testResult.rollMode,
-                    rollModes: Object.entries(CONFIG.Dice.rollModes).map(
-                        ([k, v]) => ({
-                            group: "CHAT.RollDefault",
-                            value: k,
-                            label: v,
-                        }),
-                    ),
-                };
-                const html = await renderTemplate(dlgTemplate, dialogData);
-
-                // Create the dialog window
-                const result = await Dialog.prompt({
-                    title: dialogData.title,
-                    content: html.trim(),
-                    label: "Roll",
-                    callback: (html) => {
-                        const form = html.querySelector("form");
-                        const fd = new FormDataExtended(form);
-                        const formData = fd.object;
-                        const formSituationalModifier =
-                            Number.parseInt(formData.situationalModifier, 10) ||
-                            0;
-
-                        if (formSituationalModifier) {
-                            testResult.mlMod.add(
-                                "Situational Modifier",
-                                "SitMod",
-                                formSituationalModifier,
-                            );
-                            testResult.situationalModifier =
-                                formSituationalModifier;
-                        }
-
-                        const formSuccessLevelMod = Number.parseInt(
-                            formData.successLevelMod,
-                            10,
-                        );
-                        testResult.mlMod.successLevelMod = formSuccessLevelMod;
-                        testResult.rollMode = formData.rollMode;
-                        return true;
-                    },
-                    rejectClose: false,
-                    options: { jQuery: false },
-                });
-
-                if (!result) return;
-            }
-
-            testResult.evaluate();
-
-            if (!noChat) {
-                await testResult.toChat({
-                    speaker,
-                    testResult,
-                });
-            }
-            return testResult;
-        }
-
-        /**
          * Perform Success Value Test for this Item.
          *
          * @param {object} options
          * @returns {SuccessTestChatData}
          */
-        successValueTest(speaker, actor, token, character, scope) {
+        async successValueTest(speaker, actor, token, character, scope = {}) {
             ({ speaker, actor, token, character } =
                 sohl.SohlMacro.getExecuteDefaults({
                     speaker,
@@ -2775,19 +2763,21 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
                     type,
                     title,
                     situationalModifier: 0,
-                    typeLabel: this.constructor.typeLabel,
+                    typeLabel: this.TYPE_LABEL,
                     isSuccessValue: true,
                     svTable,
-                    mlMod: LgndMasteryLevelModifier.create(
-                        this.$masteryLevel,
-                        this,
-                    ),
+                    mlMod: LgndUtility.deepClone(this.$masteryLevel),
                 },
             });
         }
 
         async fateTest(speaker, actor, token, character, scope = {}) {
-            let { skipDialog = false, noChat = false } = scope;
+            let {
+                skipDialog = false,
+                noChat = false,
+                type = `${this.type}-${this.name}-fate-test`,
+                title = `${this.item.label} Fate Test`,
+            } = scope;
 
             ({ speaker, actor, token, character } =
                 sohl.SohlMacro.getExecuteDefaults({
@@ -2801,217 +2791,158 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
 
             // Ensure that there is fate available to be used
             const fateList = this.availableFate;
-            let fateUuid;
+            let fateItem;
             if (fateList?.length) {
-                const dlgData = {
-                    fateChoices: Object.fromEntries(
-                        fateList.map((it) => [it.uuid, it.name]),
-                    ),
-                };
-                const compiled = Handlebars.compile(`<form id="select-token"><div class="form-group">
-                <label>Select which fate to use:</label>
-                <select name="fateChoice">
-                {{selectOptions fateChoices}}
-            </select></div></form>`);
-                const dlgHtml = compiled(dlgData, {
-                    allowProtoMethodsByDefault: true,
-                    allowProtoPropertiesByDefault: true,
-                });
-                fateUuid = await Dialog.prompt({
-                    title: "Choose Fate",
-                    content: dlgHtml,
-                    label: "OK",
-                    callback: async (html) => {
-                        const form = html.querySelector("form");
-                        const fd = new FormDataExtended(form);
-                        const formdata = foundry.utils.expandObject(fd.object);
-                        return formdata.fateChoice;
-                    },
-                    options: { jQuery: false },
-                    rejectClose: false,
-                });
-                if (!fateUuid) return null;
-            }
-            const fateItem = await fromUuid(fateUuid);
-            ui.notifications.warn(`Can't find fate with UUID ${fateUuid}`);
-            if (!fateItem) return null;
-
-            const mlMod = LgndMasteryLevelModifier.create(this.$masteryLevel, {
-                parent: this,
-            });
-            this.fateBonusItems.forEach((it) => {
-                mlMod.add(it.name, "FateBns", it.system.$level.effective);
-            });
-
-            const successTestResult = this.successTest(
-                speaker,
-                actor,
-                token,
-                character,
-                {
-                    noChat,
-                    skipDialog,
-                    type: `${this.type}-${this.name}-fate-test`,
-                    title: `${this.item.label} Fate Test`,
-                    testResult: {
-                        speaker,
-                        item: this.item,
-                        rollMode: game.settings.get("core", "rollMode"),
-                        situationalModifier: 0,
-                        typeLabel: this.constructor.typeLabel,
-                        mlMod: LgndMasteryLevelModifier.create(
-                            this.$masteryLevel.fate,
-                            this,
-                        ),
-                        svTable: [
-                            {
-                                maxValue:
-                                    sohl.SOHL.CONST.SUCCESS_LEVEL
-                                        .MarginalFailure,
-                                lastDigit: [],
-                                label: "No Fate",
-                                description: "Fate test failed, no fate",
-                            },
-                            {
-                                maxValue: Number.MAX_SAFE_INTEGER,
-                                lastDigit: [],
-                                label: "Fate Succeeded",
-                                description:
-                                    "Fate test succeeded, increase test by 1 Success Level",
-                            },
-                        ],
-                    },
-                },
-            );
-
-            // If user cancelled the roll, then return immediately
-            if (!successTestResult) return null;
-
-            LgndMasteryLevelModifier._handleDetailedDescription(
-                successTestResult,
-            );
-            let fateCost = 0;
-            if (successTestResult.isSuccess) {
-                // If we got a critical success, then ask the player how to proceed
-                if (successTestResult.isCritical) {
-                    const fateResult = await Dialog.wait({
-                        title: "Fate Critical Success",
-                        content: `<p>Choose how to proceed:
-                    <ol>
-                    <li><strong>Free Fate:</strong> Get +1 success level bonus, but the character doesn't have to expend any fate points.</li>
-                    <li><strong>Double Fate:</strong> Get +2 success level bonus, but the character must expend one fate point.</li>
-                    </ol></p>`,
-                        buttons: {
-                            freeFate: {
-                                icon: '<i class="far fa-circle-check"></i>',
-                                label: "Free",
-                                callback: () => "+1 Bonus, no cost",
-                            },
-                            doubleFate: {
-                                icon: '<i class="fas fa-check-double"></i>',
-                                label: "Double",
-                                callback: () => "+2 Bonus, 1 Fate",
-                            },
-                        },
-                        close: () => "freeFate",
-                        default: "freeFate",
-                        options: { jQuery: false },
+                fateItem = fateList[0];
+                if (fateList.length > 1 && !skipDialog) {
+                    const dlgData = {
+                        fateChoices: fateList,
+                    };
+                    const compiled = Handlebars.compile(`<form id="select-token"><div class="form-group">
+                    <label>Select which fate to use:</label>
+                    <select name="fateChoice">
+                    {{selectOptions fateChoices}}
+                </select></div></form>`);
+                    const dlgHtml = compiled(dlgData, {
+                        allowProtoMethodsByDefault: true,
+                        allowProtoPropertiesByDefault: true,
                     });
-                    if (fateResult === "doubleFate") {
-                        successTestResult.label = "Fate Critical Success";
-                        successTestResult.description =
-                            "Increase test Success Level by 2, cost 1 FP";
-                        fateCost = 1;
+                    fateItem = await Dialog.prompt({
+                        title: "Choose Fate",
+                        content: dlgHtml,
+                        label: "OK",
+                        callback: async (element) => {
+                            const form = element.querySelector("form");
+                            const fd = new FormDataExtended(form);
+                            const formdata = foundry.utils.expandObject(
+                                fd.object,
+                            );
+                            return fateList[formdata.fateChoice];
+                        },
+                        options: { jQuery: false },
+                        rejectClose: false,
+                    });
+                }
+                if (!fateItem) {
+                    ui.notifications.warn("No usable fate available");
+                    return null;
+                }
+            }
+
+            const successTestResult = new CONFIG.SOHL.class.SuccessTestResult(
+                {
+                    speaker,
+                    title,
+                    type,
+                    situationalModifier: 0,
+                    mlMod: LgndUtility.deepClone(this.$masteryLevel.fate),
+                    svTable: [
+                        {
+                            maxValue:
+                                LgndSuccessTestResult.SUCCESS_LEVEL
+                                    .MARGINAL_FAILURE,
+                            lastDigit: [],
+                            label: "No Fate",
+                            description: "Fate test failed, no fate",
+                        },
+                        {
+                            maxValue: Number.MAX_SAFE_INTEGER,
+                            lastDigit: [],
+                            label: "Fate Succeeded",
+                            description:
+                                "Fate test succeeded, increase test by 1 Success Level",
+                        },
+                    ],
+                },
+                { parent: this },
+            );
+
+            if (!skipDialog) {
+                if (!(await successTestResult.testDialog())) return null;
+            }
+
+            let allowed = successTestResult.evaluate();
+
+            let fateCost = 0;
+            if (allowed) {
+                if (successTestResult.isSuccess) {
+                    // If we got a critical success, then ask the player how to proceed
+                    if (successTestResult.isCritical) {
+                        const fateResult = await Dialog.wait({
+                            title: "Fate Critical Success",
+                            content: `<p>Choose how to proceed:
+                        <ol>
+                        <li><strong>Free Fate:</strong> Get +1 success level bonus, but the character doesn't have to expend any fate points.</li>
+                        <li><strong>Double Fate:</strong> Get +2 success level bonus, but the character must expend one fate point.</li>
+                        </ol></p>`,
+                            buttons: {
+                                freeFate: {
+                                    icon: "far fa-circle-check",
+                                    label: "Free",
+                                    callback: () => "+1 Bonus, no cost",
+                                },
+                                doubleFate: {
+                                    icon: "fas fa-check-double",
+                                    label: "Double",
+                                    callback: () => "+2 Bonus, 1 Fate",
+                                },
+                            },
+                            close: () => "freeFate",
+                            default: "freeFate",
+                            options: { jQuery: false },
+                        });
+                        if (fateResult === "doubleFate") {
+                            successTestResult.label = "Fate Critical Success";
+                            successTestResult.description =
+                                "Increase test Success Level by 2, cost 1 FP";
+                            fateCost = 1;
+                            successTestResult.mlMod.successLevelMod += 2;
+                        } else {
+                            successTestResult.label = "Fate Critical Success";
+                            successTestResult.description =
+                                "Increase test Success Level by 1, no fate cost";
+                            successTestResult.mlMod.successLevelMod += 1;
+                        }
                     } else {
-                        successTestResult.label = "Fate Critical Success";
-                        successTestResult.description =
-                            "Increase test Success Level by 1, no fate cost";
+                        fateCost = 1;
                     }
+                    allowed = successTestResult.evaluate();
                 } else {
-                    fateCost = 1;
-                }
-            } else {
-                fateCost = successTestResult.isCritical ? 1 : 0;
-            }
-
-            await this.successTestToChat({
-                speaker,
-                testResult: successTestResult,
-            });
-
-            // Reduce the fate level by the fate cost if any
-            if (fateCost) {
-                const newFate = Math.max(
-                    0,
-                    fateItem.system.levelBase - fateCost,
-                );
-                if (newFate !== fateItem.system.levelBase) {
-                    fateItem.update({ "system.levelBase": newFate });
+                    fateCost = successTestResult.isCritical ? 1 : 0;
                 }
             }
 
-            // Reduce the number of charges for each fate bonus (if any)
-            this.fateBonusItems.forEach((it) => {
-                if (!it.system.$charges.disabled) {
-                    const newCharges = Math.max(0, it.system.charges.value - 1);
-                    if (newCharges !== it.system.charges.value) {
-                        it.update({ "system.charges.value": newCharges });
+            if (allowed) {
+                if (!noChat) {
+                    await successTestResult.toChat();
+                }
+
+                // Reduce the fate level by the fate cost if any
+                if (fateCost) {
+                    const newFate = Math.max(
+                        0,
+                        fateItem.system.levelBase - fateCost,
+                    );
+                    if (newFate !== fateItem.system.levelBase) {
+                        fateItem.update({ "system.levelBase": newFate });
                     }
                 }
-            });
 
-            return successTestResult;
-        }
-
-        async improveWithSDR(speaker) {
-            const updateData = { "system.improveFlag": false };
-            let roll = await Roll.create("1d100 + @sb", {
-                sb: this.skillBase.value,
-            });
-            const isSuccess = roll.total > this.$masteryLevel.base;
-
-            if (isSuccess) {
-                updateData["system.masteryLevelBase"] =
-                    this.masteryLevelBase + this.sdrIncr;
+                // Reduce the number of charges for each fate bonus (if any)
+                this.fateBonusItems.forEach((it) => {
+                    if (!it.system.$charges.disabled) {
+                        const newCharges = Math.max(
+                            0,
+                            it.system.charges.value - 1,
+                        );
+                        if (newCharges !== it.system.charges.value) {
+                            it.update({ "system.charges.value": newCharges });
+                        }
+                    }
+                });
             }
-            let prefix = `${this.constructor.subTypes[this.subType]} ${
-                this.constructor.typeLabel.singular
-            }`;
-            const chatTemplate =
-                "systems/sohl/templates/chat/standard-test-card.html";
-            const chatTemplateData = {
-                variant: "legendary",
-                type: `${this.type}-${this.name}-improve-sdr`,
-                title: `${this.item.label} Development Roll`,
-                effTarget: this.$masteryLevel.base,
-                isSuccess: isSuccess,
-                rollValue: roll.total,
-                rollResult: roll.result,
-                showResult: true,
-                resultText: `${isSuccess ? "" : "No "}${prefix} Increase`,
-                resultDesc: isSuccess
-                    ? `${this.item.label} increased by ${this.sdrIncr} to ${
-                          this.$masteryLevel.base + this.sdrIncr
-                      }`
-                    : "",
-                description: isSuccess ? "Success" : "Failure",
-                notes: "",
-                sdrIncr: this.sdrIncr,
-            };
 
-            const html = await renderTemplate(chatTemplate, chatTemplateData);
-
-            const messageData = {
-                user: game.user.id,
-                speaker,
-                content: html.trim(),
-                sound: CONFIG.sounds.dice,
-            };
-
-            ChatMessage.applyRollMode(messageData, "roll");
-
-            // Create a chat message
-            await ChatMessage.create(messageData);
+            return allowed ? successTestResult : false;
         }
 
         async improveWithXP(speaker) {
@@ -3040,7 +2971,7 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
                     skillIncrease: 1,
                 };
 
-                const html = await renderTemplate(
+                const chatHtml = await renderTemplate(
                     chatTemplate,
                     chatTemplateData,
                 );
@@ -3048,7 +2979,7 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
                 const messageData = {
                     user: game.user.id,
                     speaker,
-                    content: html.trim(),
+                    content: chatHtml.trim(),
                     sound: CONFIG.sounds.dice,
                 };
 
@@ -3071,10 +3002,7 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
 
         prepareBaseData() {
             super.prepareBaseData();
-            this.$masteryLevel &&= LgndMasteryLevelModifier.create(
-                this.$masteryLevel,
-                { parent: this },
-            );
+            this.$masteryLevel &&= LgndUtility.deepClone(this.$masteryLevel);
         }
 
         postProcess() {
@@ -3085,20 +3013,31 @@ function LgndMasteryLevelItemDataMixin(BaseMLID) {
 }
 
 class LgndInjuryItemData extends sohl.InjuryItemData {
+    static get ASPECTTYPE() {
+        return {
+            BLUNT: "blunt",
+            EDGED: "edged",
+            PIERCING: "piercing",
+            FIRE: "fire",
+            FROST: "frost",
+            PROJECTILE: "projectile",
+        };
+    }
+
     static get aspectTypes() {
         return {
-            blunt: "Blunt",
-            edged: "Edged",
-            piercing: "Piercing",
-            fire: "Fire",
-            frost: "Frost",
-            projectile: "Projectile",
+            [this.ASPECTTYPE.BLUNT]: "Blunt",
+            [this.ASPECTTYPE.EDGED]: "Edged",
+            [this.ASPECTTYPE.PIERCING]: "Piercing",
+            [this.ASPECTTYPE.FIRE]: "Fire",
+            [this.ASPECTTYPE.FROST]: "Frost",
+            [this.ASPECTTYPE.PROJECTILE]: "Projectile",
         };
     }
 
     get treatments() {
         return {
-            blunt: {
+            [this.ASPECTTYPE.BLUNT]: {
                 M: {
                     treatment: "Compress",
                     mod: {
@@ -3207,7 +3146,7 @@ class LgndInjuryItemData extends sohl.InjuryItemData {
                     },
                 },
             },
-            piercing: {
+            [this.ASPECTTYPE.PIERCING]: {
                 M: {
                     treatment: "Clean & Dress",
                     mod: {
@@ -3316,7 +3255,7 @@ class LgndInjuryItemData extends sohl.InjuryItemData {
                     },
                 },
             },
-            edged: {
+            [this.ASPECTTYPE.EDGED]: {
                 M: {
                     treatment: "Clean & Dress",
                     mod: {
@@ -3425,7 +3364,7 @@ class LgndInjuryItemData extends sohl.InjuryItemData {
                     },
                 },
             },
-            projectile: {
+            [this.ASPECTTYPE.PROJECTILE]: {
                 M: {
                     treatment: "Clean & Dress",
                     mod: {
@@ -3529,7 +3468,7 @@ class LgndInjuryItemData extends sohl.InjuryItemData {
                     },
                 },
             },
-            fire: {
+            [this.ASPECTTYPE.FIRE]: {
                 M: {
                     treatment: "Compress",
                     mod: {
@@ -3638,7 +3577,7 @@ class LgndInjuryItemData extends sohl.InjuryItemData {
                     },
                 },
             },
-            frost: {
+            [this.ASPECTTYPE.FROST]: {
                 M: {
                     treatment: "Warm",
                     mod: {
@@ -3817,23 +3756,80 @@ class LgndInjuryItemData extends sohl.InjuryItemData {
         return treatmt;
     }
 
+    async bleedingStoppageTest(
+        speaker = null,
+        actor = null,
+        token = null,
+        character = null,
+        {
+            skipDialog = false,
+            noChat = false,
+            type = `${this.type}-${this.name}-bleed-stop-test`,
+            title = `${this.item.label} Bleeding Stoppage Test`,
+            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+            ...scope
+        },
+    ) {
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+            }));
+
+        // TODO - Injury Bleeding Stoppage Test
+        ui.notifications.warn("Injury Bleeding Stoppage Test Not Implemented");
+    }
+
+    async bloodlossAdvanceTest(
+        speaker = null,
+        actor = null,
+        token = null,
+        character = null,
+        {
+            skipDialog = false,
+            noChat = false,
+            type = `${this.type}-${this.name}-bloodloss-advance-test`,
+            title = `${this.item.label} Bloodloss Advance Test`,
+            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+            ...scope
+        },
+    ) {
+        ({ speaker, actor, token, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                token,
+                character,
+            }));
+
+        // TODO - Injury Bloodloss Advance Test
+        ui.notifications.warn("Injury Bloodloss Advance Test Not Implemented");
+    }
+
     prepareBaseData() {
         super.prepareBaseData();
-        const newIL = new sohl.ValueModifier(this, {
-            severity: (thisVM) => {
-                let severity;
-                if (thisVM.effective <= 0) {
-                    severity = "0";
-                } else if (thisVM.effective == 1) {
-                    severity = "M1";
-                } else if (thisVM.effective <= 3) {
-                    severity = `S${thisVM.effective}`;
-                } else {
-                    severity = `G${thisVM.effective}`;
-                }
-                return severity;
+        const newIL = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    severity: (thisVM) => {
+                        let severity;
+                        if (thisVM.effective <= 0) {
+                            severity = "0";
+                        } else if (thisVM.effective == 1) {
+                            severity = "M1";
+                        } else if (thisVM.effective <= 3) {
+                            severity = `S${thisVM.effective}`;
+                        } else {
+                            severity = `G${thisVM.effective}`;
+                        }
+                        return severity;
+                    },
+                },
             },
-        });
+            { parent: this },
+        );
         this.$injuryLevel = newIL.addVM(this.$injuryLevel, {
             includeBase: true,
         });
@@ -3902,12 +3898,7 @@ class LgndTraitItemData extends LgndMasteryLevelItemDataMixin(
 
     prepareBaseData() {
         super.prepareBaseData();
-        this.$masteryLevel &&= LgndMasteryLevelModifier.create(
-            this.$masteryLevel,
-            {
-                parent: this,
-            },
-        );
+        this.$masteryLevel &&= LgndUtility.deepClone(this.$masteryLevel);
         if (this.abbrev === "fate") {
             this.$masteryLevel.setBase(this.$score.base);
         }
@@ -3982,23 +3973,8 @@ class LgndSkillItemData extends LgndMasteryLevelItemDataMixin(
         return this.item.getFlag("sohl", "legendary.initSM") || 0;
     }
 
-    static get sunsignTypes() {
-        return {
-            social: "water",
-            nature: "earth",
-            craft: "metal",
-            lore: "aura",
-            language: "aura",
-            script: "aura",
-            ritual: "aura",
-            physical: "air",
-            combat: "fire",
-            esoteric: null,
-        };
-    }
-
     /**
-     * Continue the opposed test. Only valid testTypes are "block" and "counterstrike".
+     * Continue the opposed test.
      *
      * @param {object} scope
      * @param {string} [scope.sourceTestResult]
@@ -4012,10 +3988,12 @@ class LgndSkillItemData extends LgndMasteryLevelItemDataMixin(
             throw new Error("Must supply opposedTestResult");
         }
 
+        // If this is not a melee defense (Dodge), then use the normal
+        // opposed test processing
         if (
             this.abbrev !== "dge" ||
-            opposedTestResult.sourceTestResult.testType !==
-                LgndSuccessTestResult.TEST_TYPE.ATTACK
+            opposedTestResult.sourceTestResult.testType.type !==
+                LgndSuccessTestResult.TEST_TYPE.MELEE
         ) {
             return super.opposedTestResume(
                 speaker,
@@ -4039,7 +4017,8 @@ class LgndSkillItemData extends LgndMasteryLevelItemDataMixin(
         if (!opposedTestResult.targetTestResult) {
             opposedTestResult.targetTestResult = this.successTest({
                 noChat: true,
-                testType: LgndSuccessTestResult.TEST_TYPE.DODGE,
+                testType: LgndSuccessTestResult.TEST_TYPE.DODGEDEFENSE,
+                mlMod: LgndUtility.deepClone(this.$masteryLevel),
             });
             if (!opposedTestResult.targetTestResult) return null;
         } else {
@@ -4048,89 +4027,96 @@ class LgndSkillItemData extends LgndMasteryLevelItemDataMixin(
             // Therefore, we re-display the dialog for each of the prior
             // successTests.
             opposedTestResult.sourceTestResult =
-                opposedTestResult.sourceTestResult.item.successTest({
+                opposedTestResult.sourceTestResult.item.system.successTest({
                     noChat: true,
-                    successTestResult: opposedTestResult.sourceTestResult,
+                    testResult: opposedTestResult.sourceTestResult,
                 });
             opposedTestResult.targetTestResult =
-                opposedTestResult.targetTestResult.item.successTest({
+                opposedTestResult.targetTestResult.item.system.successTest({
                     noChat: true,
-                    successTestResult: opposedTestResult.targetTestResult,
+                    testResult: opposedTestResult.targetTestResult,
                 });
         }
 
-        opposedTestResult.evaluate();
+        let allowed = await opposedTestResult.evaluate();
 
-        const combatResult = {
-            attacker: {
-                wins: false,
-                isFumble: false,
-                isStumble: false,
-                tacticalAdvantageChoices: [],
-                tacticalAdvantageChoicesText: "",
-                addlTacAdvs: 0,
-            },
-            defender: {
-                wins: false,
-                isFumble: false,
-                isStumble: false,
-                tacticalAdvantageChoices: [],
-                tacticalAdvantageChoicesText: "",
-                addlTacAdvs: 0,
-            },
-        };
+        if (allowed) {
+            const combatResult = {
+                attacker: {
+                    wins: false,
+                    testFumble: false,
+                    testStmble: false,
+                    tacticalAdvantageChoices: [],
+                    tacticalAdvantageChoicesText: "",
+                    addlTacAdvs: 0,
+                },
+                defender: {
+                    wins: false,
+                    testFumble: false,
+                    testStmble: false,
+                    tacticalAdvantageChoices: [],
+                    tacticalAdvantageChoicesText: "",
+                    addlTacAdvs: 0,
+                },
+            };
 
-        combatResult.attacker.isFumble =
-            opposedTestResult.sourceTestResult.isCritical &&
-            !opposedTestResult.sourceTestResult.isSuccess &&
-            opposedTestResult.sourceTestResult.lastDigit === 0;
-        combatResult.attacker.isStumble =
-            opposedTestResult.sourceTestResult.isCritical &&
-            !opposedTestResult.sourceTestResult.isSuccess &&
-            opposedTestResult.sourceTestResult.lastDigit === 5;
+            combatResult.attacker.testFumble =
+                opposedTestResult.sourceTestResult.isCritical &&
+                !opposedTestResult.sourceTestResult.isSuccess &&
+                opposedTestResult.sourceTestResult.lastDigit === 0;
+            combatResult.attacker.testStmble =
+                opposedTestResult.sourceTestResult.isCritical &&
+                !opposedTestResult.sourceTestResult.isSuccess &&
+                opposedTestResult.sourceTestResult.lastDigit === 5;
 
-        combatResult.defender.isStumble =
-            opposedTestResult.targetTestResult.isCritical &&
-            !opposedTestResult.targetTestResult.isSuccess;
+            combatResult.defender.testStmble =
+                opposedTestResult.targetTestResult.isCritical &&
+                !opposedTestResult.targetTestResult.isSuccess;
 
-        const victoryStars = opposedTestResult.victoryStarsBreakTies;
-        if (victoryStars > 0) {
-            combatResult.attacker.wins = true;
-            combatResult.attacker.addlTacAdvs = victoryStars - 1;
-        } else {
-            combatResult.defender.wins = true;
-            combatResult.defender.addlTacAdvs = -victoryStars - 1;
+            const victoryStars = opposedTestResult.victoryStarsBreakTies;
+            if (victoryStars > 0) {
+                combatResult.attacker.wins = true;
+                combatResult.attacker.addlTacAdvs = victoryStars - 1;
+            } else {
+                combatResult.defender.wins = true;
+                combatResult.defender.addlTacAdvs = -victoryStars - 1;
+            }
+
+            if (combatResult.defender.addlTacAdvs) {
+                combatResult.defender.tacticalAdvantageChoices = [
+                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.ACTION,
+                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.SETUP,
+                ];
+            }
+
+            if (combatResult.attacker.addlTacAdvs) {
+                combatResult.attacker.tacticalAdvantageChoices = Array.from(
+                    LgndOpposedTestResult.TACTICAL_ADVANTAGE.values(),
+                );
+            }
+
+            const formatter = game.i18n.getListFormatter();
+            combatResult.attacker.tacticalAdvantageChoicesText =
+                formatter.format(
+                    combatResult.attacker.tacticalAdvantageChoices,
+                );
+            combatResult.defender.tacticalAdvantageChoicesText =
+                formatter.format(
+                    combatResult.defender.tacticalAdvantageChoices,
+                );
+
+            opposedTestResult.combatResult = combatResult;
+
+            if (!noChat) {
+                opposedTestResult.toChat({
+                    template:
+                        "systems/sohl/templates/chat/opposed-result-card.html",
+                    title: "Opposed Test Result",
+                });
+            }
         }
 
-        if (combatResult.defender.addlTacAdvs) {
-            combatResult.defender.tacticalAdvantageChoices = [
-                LgndOpposedTestResult.TACTICAL_ADVANTAGE.ACTION,
-                LgndOpposedTestResult.TACTICAL_ADVANTAGE.SETUP,
-            ];
-        }
-
-        if (combatResult.attacker.addlTacAdvs) {
-            combatResult.attacker.tacticalAdvantageChoices = Array.from(
-                LgndOpposedTestResult.TACTICAL_ADVANTAGE.values(),
-            );
-        }
-
-        combatResult.attacker.tacticalAdvantageChoicesText =
-            sohl.Utility.listToText(
-                combatResult.attacker.tacticalAdvantageChoices,
-            );
-        combatResult.defender.tacticalAdvantageChoicesText =
-            sohl.Utility.listToText(
-                combatResult.defender.tacticalAdvantageChoices,
-            );
-
-        opposedTestResult.combatResult = combatResult;
-
-        if (!noChat) {
-            opposedTestResult.toChat();
-        }
-
-        return opposedTestResult;
+        return allowed ? opposedTestResult : false;
     }
 
     prepareBaseData() {
@@ -4197,7 +4183,7 @@ class LgndAfflictionItemData extends sohl.AfflictionItemData {
                 this.item.constructor.create(
                     {
                         name: `${this.item.name} Fatigue`,
-                        type: sohl.AfflictionItemData.typeName,
+                        type: sohl.AfflictionItemData.TYPE_NAME,
                         "system.subType": "weakness",
                         "system.fatigueBase": weakness,
                     },
@@ -4284,7 +4270,10 @@ class LgndBodyZoneItemData extends sohl.BodyZoneItemData {
 
     prepareBaseData() {
         super.prepareBaseData();
-        this.$bodyZoneProbSum = new sohl.ValueModifier(this);
+        this.$bodyZoneProbSum = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
     }
 
     /** @override */
@@ -4320,13 +4309,21 @@ class LgndBodyPartItemData extends sohl.BodyPartItemData {
     /** @override */
     prepareBaseData() {
         super.prepareBaseData();
-        this.$bodyPartProbSum = new sohl.ValueModifier(this);
-        this.$impairment = new sohl.ValueModifier(this, {
-            unusable: false,
-            value: (thisVM) => {
-                Math.min(thisVM.effective, 0);
+        this.$bodyPartProbSum = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
+        this.$impairment = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    unusable: false,
+                    value: (thisVM) => {
+                        Math.min(thisVM.effective, 0);
+                    },
+                },
             },
-        });
+            { parent: this },
+        );
     }
 
     /** @override */
@@ -4386,12 +4383,12 @@ class LgndBodyPartItemData extends sohl.BodyPartItemData {
 class LgndBodyLocationItemData extends sohl.BodyLocationItemData {
     $impairment;
 
-    get isFumble() {
-        return !!this.item.getFlag("sohl", "legendary.isFumble");
+    get testFumble() {
+        return !!this.item.getFlag("sohl", "legendary.testFumble");
     }
 
-    get isStumble() {
-        return !!this.item.getFlag("sohl", "legendary.isStumble");
+    get testStmble() {
+        return !!this.item.getFlag("sohl", "legendary.testStmble");
     }
 
     get bleedingSevThreshold() {
@@ -4418,14 +4415,30 @@ class LgndBodyLocationItemData extends sohl.BodyLocationItemData {
         this.$protection = foundry.utils.mergeObject(
             this.$protection,
             {
-                blunt: new sohl.ValueModifier(this),
-                edged: new sohl.ValueModifier(this),
-                piercing: new sohl.ValueModifier(this),
-                fire: new sohl.ValueModifier(this),
+                blunt: new CONFIG.SOHL.class.ValueModifier(
+                    {},
+                    { parent: this },
+                ),
+                edged: new CONFIG.SOHL.class.ValueModifier(
+                    {},
+                    { parent: this },
+                ),
+                piercing: new CONFIG.SOHL.class.ValueModifier(
+                    {},
+                    { parent: this },
+                ),
+                fire: new CONFIG.SOHL.class.ValueModifier({}, { parent: this }),
             },
             { inplace: true },
         );
-        this.$impairment = new sohl.ValueModifier(this, { unusable: false });
+        this.$impairment = new CONFIG.SOHL.class.ValueModifier(
+            {
+                properties: {
+                    unusable: false,
+                },
+            },
+            { parent: this },
+        );
     }
 
     processSiblings() {
@@ -4457,12 +4470,19 @@ class LgndArmorGearItemData extends sohl.ArmorGearItemData {
     $encumbrance;
 
     static get effectKeys() {
-        return sohl.Utility.simpleMerge(super.effectKeys, super.effectKeys, {
-            "system.$encumbrance": {
-                label: "Encumbrance",
-                abbrev: "Enc",
-            },
-        });
+        if (!this._effectKeys) {
+            this._effectKeys = LgndUtility.simpleMerge(
+                super.effectKeys,
+                super.effectKeys,
+                {
+                    "system.$encumbrance": {
+                        label: "Encumbrance",
+                        abbrev: "Enc",
+                    },
+                },
+            );
+        }
+        return this._effectKeys;
     }
 
     get encumbrance() {
@@ -4473,7 +4493,10 @@ class LgndArmorGearItemData extends sohl.ArmorGearItemData {
     prepareBaseData() {
         super.prepareBaseData();
 
-        this.$encumbrance = new sohl.ValueModifier(this);
+        this.$encumbrance = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$encumbrance.setBase(this.encumbrance);
 
         // Armor, when equipped, is weightless
@@ -4512,13 +4535,19 @@ class LgndWeaponGearItemData extends sohl.WeaponGearItemData {
     prepareBaseData() {
         super.prepareBaseData();
 
-        this.$length = new sohl.ValueModifier(this);
+        this.$length = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$length.setBase(this.lengthBase);
 
-        this.$heft = new sohl.ValueModifier(this);
+        this.$heft = new CONFIG.SOHL.class.ValueModifier({}, { parent: this });
         this.$heft.setBase(this.heftBase);
 
-        this.$baseRange = new sohl.ValueModifier(this);
+        this.$baseRange = new CONFIG.SOHL.class.ValueModifier(
+            {},
+            { parent: this },
+        );
         this.$baseRange.setBase(this.baseRangeBase);
     }
 
@@ -4576,19 +4605,22 @@ class LgndWeaponGearItemData extends sohl.WeaponGearItemData {
 
 class LgndProjectileWeaponGearItemData extends sohl.ProjectileGearItemData {
     static get effectKeys() {
-        return sohl.Utility.simpleMerge(super.effectKeys, {
-            "system.$traits.armorReduction": {
-                label: "Armor Reduction",
-                abbrev: "ProjAR",
-            },
-        });
+        if (!this._effectKeys) {
+            this._effectKeys = LgndUtility.simpleMerge(super.effectKeys, {
+                "system.$traits.armorReduction": {
+                    label: "Armor Reduction",
+                    abbrev: "ProjAR",
+                },
+            });
+        }
+        return this._effectKeys;
     }
 
     prepareBaseData() {
         super.prepareBaseData();
 
-        this.$attack = new LgndCombatModifier(this);
-        this.$impact = new LgndImpactModifier(this);
+        this.$attack = new LgndCombatModifier({}, { parent: this });
+        this.$impact = new LgndImpactModifier({}, { parent: this });
     }
 }
 
@@ -4604,36 +4636,6 @@ export class LgndUtility extends sohl.Utility {
         if (reach <= 7) return 5;
         const result = (Math.floor((reach - 7) / 5) + 1) * 5;
         return result;
-    }
-
-    /**
-     * Calculates the distance from sourceToken to targetToken in "scene" units (e.g., feet).
-     *
-     * @param {Token} sourceToken
-     * @param {Token} targetToken
-     * @param {Boolean} gridUnits If true, return in grid units, not "scene" units
-     */
-    static rangeToTarget(sourceToken, targetToken, gridUnits = false) {
-        if (!sourceToken || !targetToken || !canvas.scene || !canvas.scene.grid)
-            return 9999;
-
-        // If the current scene is marked "Theatre of the Mind", then range is always 0
-        if (canvas.scene.getFlag("sohl", "isTotm")) return 0;
-
-        const sToken = canvas.tokens.get(sourceToken.id);
-        const tToken = canvas.tokens.get(targetToken.id);
-
-        const segments = [];
-        const source = sToken.center;
-        const dest = tToken.center;
-        const ray = new Ray(source, dest);
-        segments.push({ ray });
-        const distances = canvas.grid.measureDistances(segments, {
-            gridSpaces: true,
-        });
-        const distance = distances[0];
-        if (gridUnits) return Math.round(distance / canvas.dimensions.distance);
-        return distance;
     }
 
     /**
@@ -4659,6 +4661,119 @@ export class LgndUtility extends sohl.Utility {
                 `Token ${token.name} is not a character or creature.`,
             );
             return false;
+        }
+    }
+
+    /**
+     * If the current combatant is controllable by the player, then perform an automated attack.
+     * If only one strike mode is possible, it is selected, otherwise a dialog is provided with all
+     * available strike modes ordered by median impact.
+     *
+     * @param {*} speaker
+     * @param {*} actor
+     * @param {*} token
+     * @param {*} character
+     * @param {*} scope
+     * @returns
+     */
+    static async currentCombatantAttack(
+        _speaker,
+        _actor,
+        _token,
+        _character,
+        scope = {},
+    ) {
+        let { skipDialog = false, groups = [], aspect = null } = scope;
+
+        const combatant = CONFIG.SOHL.class.Utility.getTokenInCombat();
+        if (!combatant) return;
+
+        const targetToken = sohl.Utility.getUserTargetedToken(combatant.token);
+        if (!targetToken) {
+            ui.notification.warn("No Targeted Token");
+            return null;
+        }
+
+        const targetRange = LgndUtility.rangeToTarget(
+            combatant.token,
+            targetToken,
+        );
+
+        const strikeMode = await LgndUtility.getOpposedItem({
+            actor: combatant.token.actor,
+            skipDialog,
+            label: "Select which Strike Mode to use:",
+            title: `Choose Attack Strike Mode for ${combatant.token.name}`,
+            func: (it) => {
+                let result = false;
+                if (
+                    // Must be a strikemode
+                    it.type.endsWith("strikemode") &&
+                    // if groups are specified, must be in group
+                    (!groups.length || groups.includes(it.system.group)) &&
+                    // Attacks must be enabled
+                    !it.system.$attack.disabled &&
+                    // if aspect specified, must have specified aspect
+                    (!aspect || it.system.$impact.aspect === aspect)
+                ) {
+                    if (
+                        it.type ===
+                        LgndCombatTechniqueStrikeModeItemData.TYPE_NAME
+                    ) {
+                        if (
+                            // Combat Techniques must be nested in Combat Maneuvers, otherwise ignore
+                            it.nestedIn?.type !==
+                                sohl.CombatManeuverItemData.TYPE_NAME &&
+                            // Exclude any combat maneuvers that are outside of engagement zone
+                            targetRange <=
+                                LgndUtility.engagementZoneRange(
+                                    it.system.$reach.effective,
+                                )
+                        )
+                            result = {
+                                key: it.name,
+                                value: it,
+                            };
+                    } else {
+                        // All other Strike Modes must be nested in Weapon Gear, otherwise ignore
+                        if (it.nestedIn.system.$heldBy?.length) {
+                            if (
+                                // Melee weapon target range must be inside engagement zone
+                                (it.type ===
+                                    LgndMeleeWeaponStrikeModeItemData.TYPE_NAME &&
+                                    targetRange <=
+                                        LgndUtility.engagementZoneRange(
+                                            it.system.$reach.effective,
+                                        )) ||
+                                // Missile weapon target range must be inside max missile range
+                                (it.type ===
+                                    LgndMissileWeaponStrikeModeItemData.TYPE_NAME &&
+                                    targetRange <=
+                                        it.system.$maxDistance.effective)
+                            ) {
+                                result = {
+                                    key: it.name,
+                                    value: it,
+                                };
+                            }
+                        }
+                    }
+                }
+                return result;
+            },
+            compareFn: (a, b) =>
+                b.system.$impact.median - a.system.$impact.median,
+        });
+
+        if (strikeMode === null) {
+            return null;
+        } else if (strikeMode === false) {
+            ui.notifications.warn(
+                `${combatant.token.name} has no usable strike modes in range to ${targetToken.name}, cannot attack`,
+            );
+            return null;
+        } else {
+            strikeMode.system.execute("automatedCombatStart", scope);
         }
     }
 }
@@ -4695,7 +4810,7 @@ export class LgndTour extends Tour {
 
         if (currentStep.tab) {
             switch (currentStep.tab.parent) {
-                case LGND.CONST.TOUR_TAB_PARENTS.ACTOR: {
+                case CONFIG.SOHL.CONST.TOUR_TAB_PARENTS.ACTOR: {
                     if (!this.actor) {
                         console.warn("No Actor Found");
                         break;
@@ -4705,7 +4820,7 @@ export class LgndTour extends Tour {
                     break;
                 }
 
-                case LGND.CONST.TOUR_TAB_PARENTS.ITEM: {
+                case CONFIG.SOHL.CONST.TOUR_TAB_PARENTS.ITEM: {
                     if (!this.item) {
                         console.warn("No Item Found");
                         break;
@@ -4723,62 +4838,10 @@ export class LgndTour extends Tour {
     }
 }
 
-export class LgndCommands extends sohl.Commands {
-    static async importActors(jsonFilename, folderName) {
-        const response = await fetch(jsonFilename);
-        const content = await response.json();
-
-        let actorFolder = game.folders.find(
-            (f) => f.name === folderName && f.type === "Actor",
-        );
-        if (actorFolder) {
-            const msg = `Folder ${folderName} exists, delete it before proceeding`;
-            console.error(msg);
-            return;
-        }
-
-        actorFolder = await Folder.create({ type: "Actor", name: folderName });
-
-        await sohl.Utility.asyncForEach(content.Actor, async (f) => {
-            console.log("Processing Animate Entity ${f.name}");
-            const actor = await sohl.SohlActor.create({ name: f.name });
-            const updateData = [];
-            const itemData = [];
-            // Fill in attribute values
-            Object.keys(f.system.attributes).forEach((attr) => {
-                const attrItem = actor.items.find(
-                    (it) =>
-                        it.system instanceof sohl.TraitItemData &&
-                        it.name.toLowerCase() === attr,
-                );
-                if (attrItem)
-                    itemData.push({
-                        _id: attrItem.id,
-                        "system.textValue": f.system.attributes[attr].base,
-                    });
-            });
-
-            updateData.push({
-                "system.description": f.system.description,
-                "system.bioImage": f.system.bioImage,
-                "system.biography": f.system.biography,
-                "prototypeToken.actorLink": f.prototypeToken.actorLink,
-                "prototypeToken.name": f.prototypeToken.name,
-                "prototypeToken.texture.src": f.prototypeToken.texture.src,
-                folder: actorFolder.id,
-                items: itemData,
-            });
-
-            await actor.update(updateData);
-        });
-    }
-}
-sohl.SOHL.cmds = LgndCommands;
-
 const LgndActorDataModels = foundry.utils.mergeObject(
     sohl.SohlActorDataModels,
     {
-        [sohl.AnimateEntityActorData.typeName]: LgndAnimateEntityActorData,
+        [sohl.AnimateEntityActorData.TYPE_NAME]: LgndAnimateEntityActorData,
     },
     { inplace: false },
 );
@@ -4786,113 +4849,221 @@ const LgndActorDataModels = foundry.utils.mergeObject(
 const LgndItemDataModels = foundry.utils.mergeObject(
     sohl.SohlItemDataModels,
     {
-        [sohl.ProtectionItemData.typeName]: LgndProtectionItemData,
-        [sohl.MysticalAbilityItemData.typeName]: LgndMysticalAbilityItemData,
-        [sohl.TraitItemData.typeName]: LgndTraitItemData,
-        [sohl.SkillItemData.typeName]: LgndSkillItemData,
-        [sohl.InjuryItemData.typeName]: LgndInjuryItemData,
-        [sohl.AfflictionItemData.typeName]: LgndAfflictionItemData,
-        [sohl.AnatomyItemData.typeName]: LgndAnatomyItemData,
-        [sohl.BodyZoneItemData.typeName]: LgndBodyZoneItemData,
-        [sohl.BodyPartItemData.typeName]: LgndBodyPartItemData,
-        [sohl.BodyLocationItemData.typeName]: LgndBodyLocationItemData,
-        [sohl.MeleeWeaponStrikeModeItemData.typeName]:
+        [sohl.ProtectionItemData.TYPE_NAME]: LgndProtectionItemData,
+        [sohl.MysticalAbilityItemData.TYPE_NAME]: LgndMysticalAbilityItemData,
+        [sohl.TraitItemData.TYPE_NAME]: LgndTraitItemData,
+        [sohl.SkillItemData.TYPE_NAME]: LgndSkillItemData,
+        [sohl.InjuryItemData.TYPE_NAME]: LgndInjuryItemData,
+        [sohl.AfflictionItemData.TYPE_NAME]: LgndAfflictionItemData,
+        [sohl.AnatomyItemData.TYPE_NAME]: LgndAnatomyItemData,
+        [sohl.BodyZoneItemData.TYPE_NAME]: LgndBodyZoneItemData,
+        [sohl.BodyPartItemData.TYPE_NAME]: LgndBodyPartItemData,
+        [sohl.BodyLocationItemData.TYPE_NAME]: LgndBodyLocationItemData,
+        [sohl.MeleeWeaponStrikeModeItemData.TYPE_NAME]:
             LgndMeleeWeaponStrikeModeItemData,
-        [sohl.MissileWeaponStrikeModeItemData.typeName]:
+        [sohl.MissileWeaponStrikeModeItemData.TYPE_NAME]:
             LgndMissileWeaponStrikeModeItemData,
-        [sohl.CombatTechniqueStrikeModeItemData.typeName]:
+        [sohl.CombatTechniqueStrikeModeItemData.TYPE_NAME]:
             LgndCombatTechniqueStrikeModeItemData,
-        [sohl.ArmorGearItemData.typeName]: LgndArmorGearItemData,
-        [sohl.WeaponGearItemData.typeName]: LgndWeaponGearItemData,
-        [sohl.ProjectileGearItemData.typeName]:
+        [sohl.ArmorGearItemData.TYPE_NAME]: LgndArmorGearItemData,
+        [sohl.WeaponGearItemData.TYPE_NAME]: LgndWeaponGearItemData,
+        [sohl.ProjectileGearItemData.TYPE_NAME]:
             LgndProjectileWeaponGearItemData,
     },
     { inplace: false },
 );
 
-const LgndModifiers = foundry.utils.mergeObject(
-    sohl.SohlModifiers,
+const lgndClasses = foundry.utils.mergeObject(
+    sohl.SOHL.classes,
     {
         ImpactModifier: LgndImpactModifier,
         MasteryLevelModifier: LgndMasteryLevelModifier,
         CombatModifier: LgndCombatModifier,
+        ImpactResult: LgndImpactResult,
+        SuccessTestResult: LgndSuccessTestResult,
+        OpposedTestResult: LgndOpposedTestResult,
+        CombatTestResult: LgndCombatTestResult,
+        Utility: LgndUtility,
     },
     { inplace: false },
 );
 
 export const verData = {
-    id: "legendary",
-    label: "Song of Heroic Lands: Legendary",
-    cmds: LgndCommands,
-    CONFIG: {
-        displayChatActions: sohl.Utility.displayChatActions,
-        onChatCardEditAction: sohl.Utility.onChatCardEditAction,
-        onChatCardButton: sohl.Utility.onChatCardButton,
-        Helper: {
-            modifiers: LgndModifiers,
-            contextMenu: sohl.SohlContextMenu,
-        },
-        Actor: {
-            documentClass: sohl.SohlActor,
-            documentSheets: [
-                {
-                    cls: sohl.SohlActorSheet,
-                    types: Object.keys(LgndActorDataModels),
+    SOHL: {
+        id: "legendary",
+        title: "Song of Heroic Lands: Legendary",
+        class: lgndClasses,
+        CONST: foundry.utils.mergeObject(
+            sohl.SOHL.CONST,
+            {
+                // Legendary init message with ASCII Artwork (Doom font)
+                initVariantMessage: ` _                               _
+    | |                             | |
+    | |     ___  __ _  ___ _ __   __| | __ _ _ __ _   _
+    | |    / _ \\/ _\` |/ _ \\ '_ \\ / _\` |/ _\` | '__| | | |
+    | |___|  __/ (_| |  __/ | | | (_| | (_| | |  | |_| |
+    \\_____/\\___|\\__, |\\___|_| |_|\\__,_|\\__,_|_|   \\__, |
+                 __/ |                             __/ |
+                |___/                             |___/
+    ===========================================================`,
+
+                VERSETTINGS: {
+                    legEncIncr: {
+                        key: "legEncIncr",
+                        data: {
+                            name: "Encumbrance tracking increment",
+                            hint: "Calculate encumbrance by specified steps",
+                            scope: "world",
+                            config: true,
+                            type: new fields.NumberField({
+                                required: true,
+                                nullable: false,
+                                initial: 5,
+                                min: 1,
+                            }),
+                        },
+                    },
+                    legAttrSecModIncr: {
+                        key: "legAttrSecModIncr",
+                        data: {
+                            name: "Attribute secondary modifier increment",
+                            hint: "Calculate attribute secondary modifier by specified steps",
+                            scope: "world",
+                            config: true,
+                            type: new fields.NumberField({
+                                required: true,
+                                nullable: false,
+                                initial: 5,
+                                min: 1,
+                            }),
+                        },
+                    },
+                    optionGearDamage: {
+                        key: "optionGearDamage",
+                        data: {
+                            name: "Gear Damage",
+                            hint: "Enable combat rule that allows gear (weapons and armor) to be damaged or destroyed on successful block",
+                            scope: "world",
+                            config: true,
+                            type: new fields.BooleanField({ initial: false }),
+                        },
+                    },
+                    animateActorPacks: {
+                        key: "animateActorPacks",
+                        data: {
+                            name: "Animate Actor Compendiums",
+                            hint: "list of Compendiums containing Animate Actors that will be searched for template actors, comma separated, in order",
+                            scope: "world",
+                            config: true,
+                            type: new fields.StringField({
+                                nullable: false,
+                                initial: "sohl.leg-characters",
+                            }),
+                        },
+                    },
+                    optionBothOnCounterstrike: {
+                        key: "optionBothOnCounterstrike",
+                        data: {
+                            name: 'Support "Both" Option on Counterstrike',
+                            hint: "Enable combat option that allows both attacker and defender to hit on tied counterstrike defense",
+                            scope: "world",
+                            config: true,
+                            type: new fields.BooleanField({ initial: false }),
+                        },
+                    },
                 },
-            ],
-            dataModels: LgndActorDataModels,
-            typeLabels: sohl.SohlActorTypeLabels,
-            typeIcons: sohl.SohlActorTypeIcons,
-            types: Object.keys(LgndActorDataModels),
-            defaultType: sohl.AnimateEntityActorData.typeName,
-            compendiums: ["sohl.leg-characters", "sohl.leg-creatures"],
-        },
-        Item: {
-            documentClass: sohl.SohlItem,
-            documentSheets: [
-                {
-                    cls: sohl.SohlItemSheet,
-                    types: Object.keys(LgndItemDataModels).filter(
-                        (t) => t !== sohl.ContainerGearItemData.typeName,
-                    ),
-                },
-                {
-                    cls: sohl.SohlContainerGearItemSheet,
-                    types: [sohl.ContainerGearItemData.typeName],
-                },
-            ],
-            dataModels: LgndItemDataModels,
-            typeLabels: sohl.SohlItemTypeLabels,
-            typeIcons: sohl.SohlItemTypeIcons,
-            types: Object.keys(LgndItemDataModels),
-            compendiums: [
-                "sohl.leg-characteristics",
-                "sohl.leg-possessions",
-                "sohl.leg-mysteries",
-            ],
-        },
-        ActiveEffect: {
-            documentClass: sohl.SohlActiveEffect,
-            dataModels: {
-                [sohl.SohlActiveEffectData.typeName]: sohl.SohlActiveEffectData,
             },
-            typeLabels: {
-                [sohl.SohlActiveEffectData.typeName]:
-                    sohl.SohlActiveEffectData.typeLabel.singular,
-            },
-            typeIcons: { [sohl.SohlActiveEffectData.typeName]: "fas fa-gears" },
-            types: [sohl.SohlActiveEffectData.typeName],
-            legacyTransferral: false,
-        },
-        Combatant: {
-            documentClass: sohl.SohlCombatant,
-        },
-        Macro: {
-            documentClass: sohl.SohlMacro,
-            documentSheet: sohl.SohlMacroConfig,
-        },
+            { inplace: false },
+        ),
     },
-    CONST: foundry.utils.mergeObject(sohl.SOHL.CONST, LGND.CONST, {
-        inplace: false,
-    }),
+    CONFIG: foundry.utils.mergeObject(
+        sohl.SOHL.CONFIG,
+        {
+            Actor: {
+                documentClass: sohl.SohlActor,
+                documentSheets: [
+                    {
+                        cls: sohl.SohlActorSheet,
+                        types: Object.keys(LgndActorDataModels),
+                    },
+                ],
+                dataModels: LgndActorDataModels,
+                typeLabels: Object.fromEntries(
+                    Object.keys(LgndActorDataModels).map((i) => [
+                        i,
+                        `TYPES.Item.${i}`,
+                    ]),
+                ),
+                typeIcons: Object.fromEntries(
+                    Object.values(LgndActorDataModels).map((i) => [
+                        i.metadata.name,
+                        i.metadata.iconCssClass,
+                    ]),
+                ),
+                types: Object.keys(LgndActorDataModels),
+                defaultType: sohl.AnimateEntityActorData.TYPE_NAME,
+                compendiums: ["sohl.leg-characters", "sohl.leg-creatures"],
+                macros: {},
+            },
+            Item: {
+                documentClass: sohl.SohlItem,
+                documentSheets: [
+                    {
+                        cls: sohl.SohlItemSheet,
+                        types: Object.keys(LgndItemDataModels).filter(
+                            (t) => t !== sohl.ContainerGearItemData.TYPE_NAME,
+                        ),
+                    },
+                    {
+                        cls: sohl.SohlContainerGearItemSheet,
+                        types: [sohl.ContainerGearItemData.TYPE_NAME],
+                    },
+                ],
+                dataModels: LgndItemDataModels,
+                typeLabels: Object.fromEntries(
+                    Object.keys(LgndItemDataModels).map((i) => [
+                        i,
+                        `TYPES.Item.${i}`,
+                    ]),
+                ),
+                typeIcons: Object.fromEntries(
+                    Object.values(LgndItemDataModels).map((i) => [
+                        i.metadata.name,
+                        i.metadata.iconCssClass,
+                    ]),
+                ),
+                types: Object.keys(LgndItemDataModels),
+                compendiums: [
+                    "sohl.leg-characteristics",
+                    "sohl.leg-possessions",
+                    "sohl.leg-mysteries",
+                ],
+                macros: {},
+            },
+            ActiveEffect: {
+                documentClass: sohl.SohlActiveEffect,
+                dataModels: {
+                    [sohl.SohlActiveEffectData.dataModelName]:
+                        sohl.SohlActiveEffectData,
+                },
+                typeLabels: {
+                    [sohl.SohlActiveEffectData.dataModelName]:
+                        sohl.SohlActiveEffectData.TYPE_LABEL.SINGULAR,
+                },
+                typeIcons: {
+                    [sohl.SohlActiveEffectData.dataModelName]: "fas fa-gears",
+                },
+                types: [sohl.SohlActiveEffectData.dataModelName],
+                legacyTransferral: false,
+            },
+            Combatant: {
+                documentClass: sohl.SohlCombatant,
+            },
+            Macro: {
+                documentClass: sohl.SohlMacro,
+                documentSheet: sohl.SohlMacroConfig,
+            },
+        },
+        { inplace: false },
+    ),
 };
