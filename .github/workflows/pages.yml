@@ -34,4 +34,4 @@ jobs:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_dir: ./build/stage/docs
                   publish_branch: gh-pages
-                  cname: docs.heroiclands.com
+                  cname: api.heroiclands.org
