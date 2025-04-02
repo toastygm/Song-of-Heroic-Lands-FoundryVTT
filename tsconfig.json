@@ -1,97 +1,54 @@
 {
     "compilerOptions": {
-<<<<<<< HEAD
-        "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "declaration": true,
-        "emitDeclarationOnly": true,
-        "outDir": "build/generated",
-        "rootDir": "module", // your source entry
-        "strict": true,
-        "allowJs": true,
-        "checkJs": true,
-        "baseUrl": ".",
-        "types": ["./types/sohl-global", "./types/sohl-datamodel"],
-        "paths": {
-            "@module/*": ["module/*"],
-=======
-        // Modern and safe target for Foundry + Vite + TS
         "target": "ES2020",
-
-        // ES2022 features + DOM APIs (needed for most VTT use cases)
         "lib": ["ES2022", "ES2022.Intl", "DOM"],
-
-        // ESM output, as required by Vite/Vitest
         "module": "ESNext",
         "moduleResolution": "node",
-
-        // Compatibility and type resolution
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "allowJs": false,
         "checkJs": false,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-
-        // Output options
         "declaration": true,
         "emitDeclarationOnly": false,
         "outDir": "./build/generated",
-
-        // Strictness
+        "rootDir": "./src",
         "strict": true,
         "noEmitOnError": true,
-
-        // Types available globally
         "types": [
             "vite/client",
             "vitest/globals",
             "@league-of-foundry-developers/foundry-vtt-types"
         ],
         "typeRoots": ["./node_modules/@types", "./types"],
-
-        // Path aliases
         "baseUrl": ".",
         "paths": {
-            "@module/*": ["module/*"],
-            "@common/*": ["module/logic/common/*"],
-            "@legendary/*": ["module/logic/legendary/*"],
-            "@mistyisle/*": ["module/logic/mistyisle/*"],
->>>>>>> master
+            "@src/*": ["src/*"],
+            "@common/*": ["src/logic/common/*"],
+            "@legendary/*": ["src/logic/legendary/*"],
+            "@mistyisle/*": ["src/logic/mistyisle/*"],
             "@templates/*": ["templates/*"],
             "@assets/*": ["assets/*"],
             "@lang/*": ["lang/*"],
             "@packs/*": ["packs/*"],
             "@tests/*": ["tests/*"],
             "@generated/*": ["build/generated/*"],
-<<<<<<< HEAD
-            "@sohl-global": ["types/sohl-global"],
-            "@sohl-datamodel": ["types/sohl-datamodel"]
-        },
-        "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true
-    },
-    "include": ["module/**/*"],
-    "exclude": ["build", "node_modules", "types", "tests"]
-=======
             "@sohl-global": ["types/sohl-global.d.ts"]
         }
     },
-
     "include": [
-        "module/**/*.ts",
+        "src/**/*.ts",
         "tests/**/*.ts",
         "scripts/**/*.ts",
         "types/**/*.d.ts",
         "node_modules/@league-of-foundry-developers/foundry-vtt-types/**/*.d.mts"
     ],
-
     "exclude": [
         "build",
         "node_modules",
-        "module/**/*.mjs",
+        "src/**/*.mjs",
+        "src/**/*.js",
         "node_modules/@types/node/test.d.ts"
     ]
->>>>>>> master
 }
