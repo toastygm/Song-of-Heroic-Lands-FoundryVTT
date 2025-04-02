@@ -113,6 +113,7 @@
             "canvas",
             "ChatMessage",
             "Collection",
+            "Combatant",
             "CONFIG",
             "CONST",
             "ContextMenu",

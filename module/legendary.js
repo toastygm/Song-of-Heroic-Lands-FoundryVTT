@@ -2251,6 +2251,113 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
                         -reachPenalty,
                     );
                 }
+<<<<<<< HEAD
+=======
+                return a;
+            });
+
+        actions.push({
+            functionName: "automatedAttack",
+            name: "Automated Attack",
+            contextIconClass: "fas fa-sword",
+            contextCondition: (header) => {
+                header = header instanceof HTMLElement ? header : header[0];
+                const li = header.closest(".item");
+                const item = fromUuidSync(li.dataset.uuid);
+                return item && !item.system.$attack.disabled;
+            },
+            contextGroup: "default",
+        });
+
+        actions.sort((a, b) => a.contextGroup.localeCompare(b.contextGroup));
+        return actions;
+    }
+
+    /**
+     * Queries for the weapon to use, and additional weapon parameters (aim, aspect, range).
+     *
+     * options should include:
+     * attackerName (String): The name of the attacker
+     * defenderName (String): The name of the defender
+     * type (string): either 'Block', 'Attack', or 'Counterstrike'
+     * distance (number): the distance to the target
+     *
+     * The return value will be an object with the following keys:
+     *  aim (string):       The aim location (High, Mid, Low)
+     *  addlModifier (number): Modifier to the attack roll (AML)
+     *
+     * @param {Object} options
+     */
+    async attackDialog(options) {
+        if (options.weapons) {
+            const equippedWeapons = options.weapons.filter(
+                (w) => w.system.isEquipped,
+            );
+            options.weapons = equippedWeapons;
+        }
+
+        const dialogOptions = {
+            title: `${options.attackerName} vs. ${options.defenderName} Melee Attack with ${this.name}`,
+            weapon: this.item.nestedIn.name,
+            aimZone: 1,
+            defaultModifier: options.defaultModifier || 0,
+            weaponAspect: this.$attack.aspect,
+        };
+
+        const attackDialogTemplate =
+            "systems/hmk/templates/dialog/attack-dialog.html";
+        const dlghtml = await renderTemplate(
+            attackDialogTemplate,
+            dialogOptions,
+        );
+
+        // Request weapon details
+        return Dialog.prompt({
+            title: dialogOptions.title,
+            content: dlghtml.trim(),
+            label: options.type,
+            callback: (html) => {
+                const form = html[0].querySelector("form");
+                const addlModifier =
+                    (form.addlModifier
+                        ? parseInt(form.addlModifier.value)
+                        : 0) + (form.aim?.value !== 1 ? -10 : 0);
+                const result = {
+                    aim: form.aim,
+                    addlModifier: addlModifier,
+                };
+
+                return result;
+            },
+        });
+    }
+
+    calcReachModifier(opponentDefStrikeMode, atkMod) {
+        const opponentToken = opponentDefStrikeMode.nestedIn?.token;
+        if (!opponentToken) {
+            throw new Error(
+                `Strike mode ${opponentDefStrikeMode.name} does not belong to a token`,
+            );
+        }
+
+        let reachDiff = this.$reach - opponentDefStrikeMode.system.$reach;
+        let reachPenalty = -Math.abs(reachDiff) * 5;
+        const inClose =
+            LgndUtility.rangeToTarget(this.actor.token, opponentToken) < 5;
+        if (inClose) {
+            if (reachDiff > 0) {
+                // Attacker weapon reach is longer, penalty goes to attacker
+                atkMod.add("In-Close Reach Penalty", "InClsRch", reachPenalty);
+            } else {
+                // Attacker weapon reach is shorter, thrust bonus goes to attacker
+                if (this.$traits.thrust) {
+                    atkMod.add(
+                        "In-Close Thrust Bonus",
+                        "InClsThr",
+                        -reachPenalty,
+                    );
+                }
+>>>>>>> master
             }
         } else {
             if (reachDiff < 0) {
@@ -2264,6 +2371,138 @@ class LgndMeleeWeaponStrikeModeItemData extends LgndStrikeModeItemDataMixin(
             }
         }
         return atkMod;
+<<<<<<< HEAD
+=======
+    }
+
+    async automatedAttack(
+        speaker = null,
+        actor = null,
+        attackToken = null,
+        character = null,
+        {
+            skipDialog = false,
+            noChat = false,
+            type = `${this.type}-${this.name}-bleed-stop-test`,
+            title = `${this.item.label} Bleeding Stoppage Test`,
+            // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+            ...scope
+        },
+    ) {
+        ({ speaker, actor, attackToken, character } =
+            sohl.SohlMacro.getExecuteDefaults({
+                speaker,
+                actor,
+                attackToken,
+                character,
+            }));
+
+        let defendToken;
+
+        if (!attackToken) {
+            ui.notifications.warn(`No attacker token identified.`);
+            return null;
+        }
+
+        if (!defendToken) {
+            ui.notifications.warn(`No defender token identified.`);
+            return null;
+        }
+
+        if (!LgndUtility.isValidToken(defendToken)) {
+            console.error(
+                `HM3 | meleeAttack defendToken=${defendToken} is not valid.`,
+            );
+            return null;
+        }
+
+        if (!attackToken.isOwner) {
+            ui.notifications.warn(
+                `You do not have permissions to perform this operation on ${attackToken.name}`,
+            );
+            return null;
+        }
+
+        const targetRange = LgndUtility.rangeToTarget(attackToken, defendToken);
+        if (targetRange > 1) {
+            const msg = `Target ${defendToken.name} is outside of melee range for attacker ${attackToken.name}; range=${targetRange}.`;
+            console.warn(msg);
+            ui.notifications.warn(msg);
+            return null;
+        }
+
+        // display dialog, get aspect, aim, and addl damage
+        const options = {
+            type: "Attack",
+            attackerName: attackToken.name,
+            defenderName: defendToken.name,
+        };
+
+        const weaponItem = this.item;
+        // If a weapon was provided, don't ask for it.
+        if (weaponItem.system.isHeld) {
+            options["weapon"] = weaponItem;
+        } else {
+            ui.notification.warn(
+                `For ${attackToken.name} ${weaponItem.name} is not equipped.`,
+            );
+            return null;
+        }
+
+        const dialogResult = await this.attackDialog(options);
+
+        // If user cancelled the dialog, then return immediately
+        if (!dialogResult) return null;
+
+        const effAML = this.$attack.effective + dialogResult.addlModifier;
+
+        // Prepare for Chat Message
+        const chatTemplate = "systems/sohl/templates/chat/attack-card.html";
+
+        const chatTemplateData = {
+            title: `${weaponItem.name} Melee Attack`,
+            attacker: attackToken.name,
+            atkTokenId: attackToken.id,
+            defender: defendToken.name,
+            defTokenId: defendToken.id,
+            weaponType: "melee",
+            weaponName: weaponItem.name,
+            aim: dialogResult.aim,
+            aspect: this.$attack.aspect,
+            addlModifierAbs: Math.abs(dialogResult.addlModifier),
+            addlModifierSign: dialogResult.addlModifier < 0 ? "-" : "+",
+            origAML: this.$attack.effective,
+            effAML: effAML,
+            impactMod: 0,
+            hasDodge: true,
+            hasBlock: !this.$traits.noBlock,
+            hasCounterstrike: !this.$traits.noAttack,
+            hasIgnore: true,
+            visibleActorId: defendToken.actor.id,
+        };
+
+        const html = await renderTemplate(chatTemplate, chatTemplateData);
+
+        const messageData = {
+            user: game.user.id,
+            speaker: speaker,
+            content: html.trim(),
+            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        };
+
+        const messageOptions = {};
+
+        // Create a chat message
+        await ChatMessage.create(messageData, messageOptions);
+        if (game.settings.get("hm3", "combatAudio")) {
+            AudioHelper.play(
+                { src: "sounds/drums.wav", autoplay: true, loop: false },
+                true,
+            );
+        }
+
+        return chatTemplateData;
+>>>>>>> master
     }
 
     /** @override */
@@ -4633,10 +4872,41 @@ export class LgndUtility extends sohl.Utility {
             : [-10, -10, -8, -6, -4, -3].at(Math.max(str, 0));
     }
 
+<<<<<<< HEAD
     static engagementZoneRange(reach) {
         if (reach <= 7) return 5;
         const result = (Math.floor((reach - 7) / 5) + 1) * 5;
         return result;
+=======
+    /**
+     * Calculates the distance from sourceToken to targetToken in "scene" units (e.g., feet).
+     *
+     * @param {Token} sourceToken
+     * @param {Token} targetToken
+     * @param {Boolean} gridUnits If true, return in grid units, not "scene" units
+     */
+    static rangeToTarget(sourceToken, targetToken, gridUnits = false) {
+        if (!sourceToken || !targetToken || !canvas.scene || !canvas.scene.grid)
+            return 9999;
+
+        // If the current scene is marked "Theatre of the Mind", then range is always 0
+        if (canvas.scene.getFlag("sohl", "isTotm")) return 0;
+
+        const sToken = canvas.tokens.get(sourceToken.id);
+        const tToken = canvas.tokens.get(targetToken.id);
+
+        const segments = [];
+        const source = sToken.center;
+        const dest = tToken.center;
+        const ray = new Ray(source, dest);
+        segments.push({ ray });
+        const distances = canvas.grid.measureDistances(segments, {
+            gridSpaces: true,
+        });
+        const distance = distances[0];
+        if (gridUnits) return Math.round(distance / canvas.dimensions.distance);
+        return distance;
+>>>>>>> master
     }
 
     /**
@@ -4664,6 +4934,7 @@ export class LgndUtility extends sohl.Utility {
             return false;
         }
     }
+<<<<<<< HEAD
 
     /**
      * If the current combatant is controllable by the player, then perform an automated attack.
@@ -4777,6 +5048,8 @@ export class LgndUtility extends sohl.Utility {
             strikeMode.system.execute("automatedCombatStart", scope);
         }
     }
+=======
+>>>>>>> master
 }
 
 export class LgndTour extends Tour {
@@ -4974,8 +5247,26 @@ export const verData = {
                     },
                 },
             },
+<<<<<<< HEAD
             { inplace: false },
         ),
+=======
+            typeLabels: {
+                [sohl.SohlActiveEffectData.typeName]:
+                    sohl.SohlActiveEffectData.typeLabel.singular,
+            },
+            typeIcons: { [sohl.SohlActiveEffectData.typeName]: "fas fa-gears" },
+            types: [sohl.SohlActiveEffectData.typeName],
+            legacyTransferral: false,
+        },
+        Combatant: {
+            documentClass: sohl.SohlCombatant,
+        },
+        Macro: {
+            documentClass: sohl.SohlMacro,
+            documentSheet: sohl.SohlMacroConfig,
+        },
+>>>>>>> master
     },
     CONFIG: foundry.utils.mergeObject(
         sohl.SOHL.CONFIG,
