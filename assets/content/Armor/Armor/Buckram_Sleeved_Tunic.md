@@ -8,12 +8,13 @@ id: E4KaMLWbYLHAdk9i
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: BSTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Buckram
   material: Cloth

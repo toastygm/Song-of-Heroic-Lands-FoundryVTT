@@ -8,12 +8,13 @@ id: DeRbT8UBKzngQxJQ
 img: icons/game-icons/lorc/battle-axe.svg
 shortcode: Shkn
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: axe
-  archetype: 0
   durability: 10
   weight: 2
   value: 50

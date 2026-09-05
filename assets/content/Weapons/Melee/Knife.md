@@ -8,12 +8,13 @@ id: FF9MpNPDmRw6wV0t
 img: icons/game-icons/lorc/plain-dagger.svg
 shortcode: Kni
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: [wood]
   kbcat: knife
-  archetype: 0
   durability: 10
   weight: 1
   value: 6

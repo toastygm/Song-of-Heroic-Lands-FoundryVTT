@@ -8,12 +8,13 @@ id: TX2HYfqYZ6Wxo2Ju
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: GVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: gambeson
-  archetype: 0
   armorType: Vest
   detailMaterial: Gambeson
   material: Gambeson

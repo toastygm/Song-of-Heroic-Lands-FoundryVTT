@@ -8,11 +8,12 @@ id: sNcVwuK9RS6U02UG
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jugcer1gal
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cmcs
     secondary: []
-  archetype: 0
   quality: 0
   durability: 3
   maxCapacity: 8

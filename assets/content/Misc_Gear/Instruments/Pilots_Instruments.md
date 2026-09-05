@@ -9,12 +9,13 @@ id: D5h49Papv0HVhcEJ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: pilotinstr
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 4
   value: 180

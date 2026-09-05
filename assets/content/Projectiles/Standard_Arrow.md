@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Ash or birch shaft, goose-feather fletching; workaday deer or skirmish arrow."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: arrow
 id: vBAd1CyPEqHNJyb0
 shortcode: ArwStd
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1

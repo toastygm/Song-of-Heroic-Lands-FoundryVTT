@@ -8,12 +8,13 @@ id: 0kF4so7ufezAvDpW
 img: icons/game-icons/lorc/trousers.svg
 shortcode: RhBrch
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Breeches
   detailMaterial: Rawhide
   material: Leather

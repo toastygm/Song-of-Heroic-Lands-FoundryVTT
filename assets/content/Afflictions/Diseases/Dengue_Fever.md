@@ -8,10 +8,11 @@ id: xrF7d46zo1QswNPA
 img: icons/game-icons/lorc/virus.svg
 shortcode: dngfvr
 type: affliction
+data:
+  templatePriority: 0
 subType: disease
 sohl:
   kbcat: diseases
-  archetype: 0
   levelBase: 1
   healingRateBase: 3
   contagionIndex: 3

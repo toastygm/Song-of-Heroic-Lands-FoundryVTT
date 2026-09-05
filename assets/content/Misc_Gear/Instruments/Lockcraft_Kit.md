@@ -9,12 +9,13 @@ id: 1CP98H299YJRAIYO
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lkcrftkt
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 4
   value: 65

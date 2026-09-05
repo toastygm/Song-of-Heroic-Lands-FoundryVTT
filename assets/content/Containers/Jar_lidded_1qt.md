@@ -8,11 +8,12 @@ id: bldbp87wycGx7KL1
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jarliddedm
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cmcs
     secondary: []
-  archetype: 0
   quality: 0
   durability: 3
   maxCapacity: 2

@@ -9,12 +9,13 @@ id: xJS2uE0JJHnhz7c0
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: chainlight
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 7
   value: 2

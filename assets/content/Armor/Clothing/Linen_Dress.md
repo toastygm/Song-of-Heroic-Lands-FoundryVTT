@@ -8,12 +8,13 @@ id: pp6CTCK6AckhviM8
 img: icons/game-icons/skoll/dress.svg
 shortcode: LDress
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Dress
   detailMaterial: Linen
   material: Cloth

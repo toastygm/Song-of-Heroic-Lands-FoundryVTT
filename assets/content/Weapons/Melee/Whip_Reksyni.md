@@ -8,12 +8,13 @@ id: rZrFRSyXQP9TR6Dc
 img: icons/game-icons/lorc/whip.svg
 shortcode: RWhp
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: whip
-  archetype: 0
   durability: 10
   weight: 3
   value: 25

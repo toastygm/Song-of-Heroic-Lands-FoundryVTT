@@ -8,12 +8,13 @@ id: BcK14tG91RKBihSs
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: SlsCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cap
   detailMaterial: Sealskin
   material: Leather

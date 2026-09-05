@@ -7,10 +7,11 @@ id: c995m1jIeSk2fR2g
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: humble
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psybehavior
-  archetype: 0
   category: quirk
 folder: SpZzOv4eOwtdsMMo
 ---

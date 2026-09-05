@@ -8,11 +8,12 @@ id: kX7bd6kDLmfeO3pP
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cantmetal
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
-  archetype: 0
   quality: 0
   durability: 7
   maxCapacity: 2

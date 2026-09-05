@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/snake.svg
 portrait: images/being/psnssnk-portrait.webp
 shortcode: psnssnk
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+2
     end: 1d6+7

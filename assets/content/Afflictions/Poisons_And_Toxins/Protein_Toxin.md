@@ -8,10 +8,11 @@ id: KwEmcDpeSx9jPnqK
 img: icons/game-icons/lorc/poison-bottle.svg
 shortcode: prottxn
 type: affliction
+data:
+  templatePriority: 0
 subType: poisontoxin
 sohl:
   kbcat: poisontoxin
-  archetype: 0
   levelBase: 1
   healingRateBase: 3
   contagionIndex: 3

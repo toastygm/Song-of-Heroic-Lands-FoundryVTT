@@ -8,12 +8,13 @@ id: 4AkTXpy9yusKepoO
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: SgSTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Serge
   material: Cloth

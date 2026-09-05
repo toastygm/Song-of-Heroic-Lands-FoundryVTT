@@ -11,9 +11,10 @@ img: icons/game-icons/delapouite/bison.svg
 portrait: images/being/yak-portrait.webp
 shortcode: yak
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+11
     end: 1d6+13

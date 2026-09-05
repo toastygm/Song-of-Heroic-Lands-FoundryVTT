@@ -9,12 +9,13 @@ id: 5R0kH6iaswr1ENHf
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bronze
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 3
   value: 2.5

@@ -8,12 +8,13 @@ id: Ku6i5jSS2MyJWoWr
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: ECloak
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cloak
   detailMaterial: Ermine
   material: Leather

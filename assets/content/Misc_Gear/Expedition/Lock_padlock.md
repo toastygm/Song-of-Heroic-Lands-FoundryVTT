@@ -9,12 +9,13 @@ id: tVbKScBj17e4suBR
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lockpadloc2
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: lock
     secondary: [mtlc]
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 7
   value: 35

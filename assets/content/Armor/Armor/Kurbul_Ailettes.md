@@ -8,12 +8,13 @@ id: 6Hbtu2iBZTd9d5Bb
 img: icons/game-icons/lorc/dorsal-scales.svg
 shortcode: KAil
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Ailettes
   detailMaterial: Kûrbúl
   material: Kûrbúl

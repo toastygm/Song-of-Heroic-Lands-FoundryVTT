@@ -8,12 +8,13 @@ id: jFIjELgQikuQX4WC
 img: icons/game-icons/lorc/scale-mail.svg
 shortcode: SSlByrn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide, mtlc]
   kbcat: scale
-  archetype: 0
   armorType: Sleeved Byrnie
   detailMaterial: Scale
   material: Scale

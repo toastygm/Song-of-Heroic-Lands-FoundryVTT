@@ -8,12 +8,13 @@ id: B0taMDyB68pOwCV3
 img: icons/game-icons/lorc/trousers.svg
 shortcode: RSwd
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Swaddle
   detailMaterial: Russet
   material: Cloth

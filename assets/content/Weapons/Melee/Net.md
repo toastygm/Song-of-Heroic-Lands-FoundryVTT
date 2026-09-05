@@ -8,12 +8,13 @@ id: 1X3l3LyuM3k7Iopu
 img: icons/game-icons/lorc/fishing-net.svg
 shortcode: Net
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: [mtlc]
   kbcat: net
-  archetype: 0
   durability: 9
   weight: 4
   value: 50

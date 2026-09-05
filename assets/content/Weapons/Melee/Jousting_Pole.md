@@ -8,12 +8,13 @@ id: tTvMfFHzwX8SomqY
 img: icons/game-icons/delapouite/cavalry.svg
 shortcode: JPole
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: polearm
-  archetype: 0
   durability: 8
   weight: 6
   value: 40

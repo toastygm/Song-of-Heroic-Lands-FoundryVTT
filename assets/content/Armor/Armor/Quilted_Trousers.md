@@ -8,12 +8,13 @@ id: RhkM85D5xadRgJQH
 img: icons/game-icons/lorc/trousers.svg
 shortcode: QTrsr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: quilted
-  archetype: 0
   armorType: Trousers
   detailMaterial: Quilted
   material: Quilted

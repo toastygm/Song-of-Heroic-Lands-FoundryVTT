@@ -8,10 +8,11 @@ id: MCxEVjsyUzLvJd4j
 img: icons/game-icons/lorc/cartwheel.svg
 shortcode: acro
 type: skill
+data:
+  templatePriority: 0
 subType: physical
 sohl:
   kbcat: physical
-  archetype: 0
   skillBaseFormula: "sb(attr.agl, attr.end)"
   combatCategory: none
   parentSkillCode: ""

@@ -8,12 +8,13 @@ id: OiGsx0AXFt8RW6Yd
 img: icons/game-icons/lorc/falling-boulder.svg
 shortcode: Onagr
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: siege
-  archetype: 0
   durability: 15
   weight: 2000
   value: 2000

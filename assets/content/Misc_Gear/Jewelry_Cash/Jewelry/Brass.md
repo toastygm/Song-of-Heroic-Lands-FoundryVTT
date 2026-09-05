@@ -9,12 +9,13 @@ id: p0tv5i6QrzL1Agtc
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: brass
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 3
   value: 4

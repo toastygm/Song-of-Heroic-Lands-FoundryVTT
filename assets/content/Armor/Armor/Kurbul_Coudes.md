@@ -8,12 +8,13 @@ id: PRlRwsa34NqORhfq
 img: icons/game-icons/delapouite/elbow-pad.svg
 shortcode: KCou
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Coudes
   detailMaterial: Kûrbúl
   material: Kûrbúl

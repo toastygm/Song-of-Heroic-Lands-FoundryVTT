@@ -8,12 +8,13 @@ id: puJfSP6LC70XqSOT
 img: icons/game-icons/lorc/trousers.svg
 shortcode: PLeg
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Leggings
   detailMaterial: Padded
   material: Padded

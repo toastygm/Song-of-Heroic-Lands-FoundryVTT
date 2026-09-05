@@ -8,12 +8,13 @@ id: mwtDg2zlnRkwj6ZT
 img: icons/game-icons/delapouite/cape.svg
 shortcode: BvMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Mantle
   detailMaterial: Beaver
   material: Leather

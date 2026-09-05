@@ -8,12 +8,13 @@ id: V2is0qA4F2mro0Ux
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: BvShirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Shirt
   detailMaterial: Beaver
   material: Leather

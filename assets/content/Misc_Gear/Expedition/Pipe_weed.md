@@ -9,12 +9,13 @@ id: lyjo9CSEafzkiqdW
 img: icons/game-icons/delapouite/herbs-bundle.svg
 shortcode: pipewd
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: agri
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 0
   value: 2

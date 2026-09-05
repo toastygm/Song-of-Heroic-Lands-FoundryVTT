@@ -8,10 +8,11 @@ id: vOMFCy5llDJ16W5G
 img: icons/game-icons/delapouite/cooking-pot.svg
 shortcode: cook
 type: skill
+data:
+  templatePriority: 0
 subType: lore
 sohl:
   kbcat: lore
-  archetype: 0
   skillBaseFormula: "sb(attr.per, attr.rea)"
   combatCategory: none
   parentSkillCode: ""

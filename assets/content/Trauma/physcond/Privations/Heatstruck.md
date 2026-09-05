@@ -8,10 +8,11 @@ id: RLBiZ0UJrNwUN64O
 img: icons/game-icons/delapouite/stomach.svg
 shortcode: htstrk
 type: trauma
+data:
+  templatePriority: 0
 subType: physcond
 sohl:
   kbcat: physprivations
-  archetype: 0
   category: debility
   levelBase: 4
   healingRateBase: 1

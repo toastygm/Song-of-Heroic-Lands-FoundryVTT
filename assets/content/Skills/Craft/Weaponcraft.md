@@ -8,10 +8,11 @@ id: j33FxOHddwk3WYnE
 img: icons/game-icons/lorc/sword-smithing.svg
 shortcode: wpnc
 type: skill
+data:
+  templatePriority: 0
 subType: craft
 sohl:
   kbcat: craft
-  archetype: 0
   skillBaseFormula: "sb(attr.dex, attr.str)"
   combatCategory: none
   parentSkillCode: ""

@@ -9,12 +9,13 @@ id: MBs9o3d3sVAw83kk
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cookkit
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 7
   value: 40

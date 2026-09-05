@@ -8,12 +8,13 @@ id: sMjM8hOQE942KIHM
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: QTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: quilted
-  archetype: 0
   armorType: Tunic
   detailMaterial: Quilted
   material: Quilted

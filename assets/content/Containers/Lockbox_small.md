@@ -8,11 +8,12 @@ id: 2Qro8O0kK0hypKrD
 img: icons/game-icons/delapouite/chest.svg
 shortcode: lockboxsma
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 7
   maxCapacity: 5

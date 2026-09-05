@@ -8,11 +8,12 @@ id: 8526qosGGTTYiMl2
 img: icons/game-icons/delapouite/basket.svg
 shortcode: chestwkmd
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 5
   maxCapacity: 35

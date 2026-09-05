@@ -8,8 +8,9 @@ id: fqNqvvCDHQx44iCe
 img: icons/game-icons/delapouite/megaphone.svg
 shortcode: elo
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Incoherent:4

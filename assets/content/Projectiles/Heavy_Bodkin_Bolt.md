@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Heavy shaft, square-sectioned spike; splits mail, dents breastplate close up."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: bolt
 id: 1ykjrEPFWG47kjtO
 shortcode: BltHBod
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1.5

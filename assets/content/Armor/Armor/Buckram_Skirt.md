@@ -8,12 +8,13 @@ id: eTv7lpuQg9Srur1Z
 img: icons/game-icons/delapouite/skirt.svg
 shortcode: BSkirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Skirt
   detailMaterial: Buckram
   material: Cloth

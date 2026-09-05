@@ -7,10 +7,11 @@ id: arinP2yON8CuTUIV
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: hypochon
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psypsychosis
-  archetype: 0
   category: impulse
 folder: SpZzOv4eOwtdsMMo
 ---

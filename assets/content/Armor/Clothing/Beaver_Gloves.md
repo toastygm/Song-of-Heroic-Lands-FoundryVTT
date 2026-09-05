@@ -8,12 +8,13 @@ id: G8KuviTPi1xLDEiu
 img: icons/game-icons/delapouite/gloves.svg
 shortcode: BvGlv
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Gloves
   detailMaterial: Beaver
   material: Leather

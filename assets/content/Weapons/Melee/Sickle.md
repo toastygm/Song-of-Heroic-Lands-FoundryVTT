@@ -8,12 +8,13 @@ id: 5oF5e9KKsdXXq7R0
 img: icons/game-icons/delapouite/sickle.svg
 shortcode: Skl
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: [wood]
   kbcat: axe
-  archetype: 0
   durability: 9
   weight: 1
   value: 10

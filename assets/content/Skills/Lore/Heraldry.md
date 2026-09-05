@@ -8,10 +8,11 @@ id: A6dgxBXv4Tu6rua4
 img: icons/game-icons/badges/shield.svg
 shortcode: hrld
 type: skill
+data:
+  templatePriority: 0
 subType: lore
 sohl:
   kbcat: lore
-  archetype: 0
   skillBaseFormula: "sb(attr.rea, attr.wil)"
   combatCategory: none
   parentSkillCode: ""

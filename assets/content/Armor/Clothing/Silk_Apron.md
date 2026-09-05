@@ -8,12 +8,13 @@ id: 7n8GwKMOqsGMe6Yo
 img: icons/game-icons/delapouite/cook.svg
 shortcode: SlkApn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Apron
   detailMaterial: Silk
   material: Cloth

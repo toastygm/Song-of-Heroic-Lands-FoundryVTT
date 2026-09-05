@@ -8,12 +8,13 @@ id: QTItBsnxjW6mQ3S0
 img: icons/game-icons/lorc/broadsword.svg
 shortcode: BstdSwd
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: sword
-  archetype: 0
   durability: 12
   weight: 5
   value: 185

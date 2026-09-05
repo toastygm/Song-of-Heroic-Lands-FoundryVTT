@@ -8,11 +8,12 @@ id: 5e5WsploAL0WGGKw
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: inkwellcop
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
-  archetype: 0
   quality: 0
   durability: 5
   maxCapacity: 0.25

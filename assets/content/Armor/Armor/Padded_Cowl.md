@@ -8,12 +8,13 @@ id: JbXMegC3jizGv0Vu
 img: icons/game-icons/lorc/hood.svg
 shortcode: PCwl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Cowl
   detailMaterial: Padded
   material: Padded

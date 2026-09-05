@@ -9,12 +9,13 @@ id: N5o2pBP8MkCKsQZU
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hidecow
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: anmcft
     secondary: []
   kbcat: natural
-  archetype: 0
   quality: 0
   durability: 3
   value: 24

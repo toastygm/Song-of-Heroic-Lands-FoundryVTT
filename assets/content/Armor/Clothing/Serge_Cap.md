@@ -8,12 +8,13 @@ id: w8A7ol7mEuYgXQ8D
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: SgCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cap
   detailMaterial: Serge
   material: Cloth

@@ -8,12 +8,13 @@ id: z5crqHwZWxytq4YP
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: RnVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: ring
-  archetype: 0
   armorType: Vest
   detailMaterial: Ring
   material: Ring

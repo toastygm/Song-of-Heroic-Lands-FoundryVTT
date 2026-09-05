@@ -7,10 +7,11 @@ id: bIjL13tItFaEubGX
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: arthrts
 type: trauma
+data:
+  templatePriority: 0
 subType: physcond
 sohl:
   kbcat: physdisability
-  archetype: 0
   category: impediment
 folder: 4h8qyMcGHlkrfN1g
 ---

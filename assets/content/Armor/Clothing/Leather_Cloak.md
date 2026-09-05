@@ -8,12 +8,13 @@ id: zrWeNkZQpYu5RC6p
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: LtCloak
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cloak
   detailMaterial: Leather
   material: Leather

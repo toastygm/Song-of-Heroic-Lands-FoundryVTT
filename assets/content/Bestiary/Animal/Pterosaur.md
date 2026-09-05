@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/pterosau-portrait.webp
 shortcode: pterosau
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+15
     end: 1d6+13

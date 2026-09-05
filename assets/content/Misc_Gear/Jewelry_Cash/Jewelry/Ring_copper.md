@@ -9,12 +9,13 @@ id: 4ZvIk54GUMAW9Xm2
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ringcopper
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: [mtlc]
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 3
   value: 6

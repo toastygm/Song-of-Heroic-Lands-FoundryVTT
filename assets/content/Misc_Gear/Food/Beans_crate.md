@@ -9,12 +9,13 @@ id: mzUTS4jU4i1SjI31
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: beanscrate
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: agri
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 6.5

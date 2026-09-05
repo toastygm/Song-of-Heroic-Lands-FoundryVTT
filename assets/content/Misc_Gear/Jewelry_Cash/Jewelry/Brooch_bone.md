@@ -9,12 +9,13 @@ id: 09KehJh1zOcUwxaS
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: broochbone
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 3
   value: 7

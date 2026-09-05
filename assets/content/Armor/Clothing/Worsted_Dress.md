@@ -8,12 +8,13 @@ id: nit9nJYs2wHJytyJ
 img: icons/game-icons/skoll/dress.svg
 shortcode: WDress
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Dress
   detailMaterial: Worsted
   material: Cloth

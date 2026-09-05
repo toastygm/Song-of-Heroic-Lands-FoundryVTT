@@ -8,11 +8,12 @@ id: VfWqeVpoCZaE6u53
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bagleather15
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
-  archetype: 0
   quality: 0
   durability: 4
   maxCapacity: 15

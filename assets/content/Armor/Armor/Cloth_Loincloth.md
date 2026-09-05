@@ -8,12 +8,13 @@ id: P4bLyiIsy0KUYAk0
 img: icons/game-icons/delapouite/loincloth.svg
 shortcode: CLoin
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Loincloth
   detailMaterial: Cloth
   material: Cloth

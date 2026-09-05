@@ -8,12 +8,13 @@ id: r8scgPfdh76nam6M
 img: icons/game-icons/lorc/breastplate.svg
 shortcode: KCui
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Cuirass
   detailMaterial: Kûrbúl
   material: Kûrbúl

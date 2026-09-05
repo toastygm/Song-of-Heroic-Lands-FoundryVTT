@@ -12,9 +12,10 @@ img: icons/game-icons/delapouite/sperm-whale.svg
 portrait: images/being/orca-portrait.webp
 shortcode: orca
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+19
     end: 1d6+14

@@ -8,12 +8,13 @@ id: WQUI5MnoU4jf4t8v
 img: icons/game-icons/delapouite/bracer.svg
 shortcode: KVamb
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Vambraces
   detailMaterial: Kûrbúl
   material: Kûrbúl

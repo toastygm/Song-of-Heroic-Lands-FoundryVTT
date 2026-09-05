@@ -8,12 +8,13 @@ id: EAzX278XjeWBRveI
 img: icons/game-icons/delapouite/skirt.svg
 shortcode: WSkirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Skirt
   detailMaterial: Worsted
   material: Cloth

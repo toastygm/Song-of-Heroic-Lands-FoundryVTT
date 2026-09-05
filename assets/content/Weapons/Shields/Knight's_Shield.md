@@ -8,12 +8,13 @@ id: 59cM9pz7xPicblSK
 img: icons/game-icons/badges/shield.svg
 shortcode: KnSh
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: shield
-  archetype: 0
   durability: 11
   weight: 5
   value: 60

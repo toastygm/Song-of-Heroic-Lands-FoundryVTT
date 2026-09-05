@@ -9,12 +9,13 @@ id: u3ezQ6GIIHgRMhZz
 img: icons/game-icons/badges/coins.svg
 shortcode: pence
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: cash
-  archetype: 0
   quality: 0
   durability: 3
   value: 1

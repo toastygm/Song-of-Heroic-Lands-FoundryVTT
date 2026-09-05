@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/cat.svg
 portrait: images/being/cat-portrait.webp
 shortcode: cat
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+1
     end: 1d4+6

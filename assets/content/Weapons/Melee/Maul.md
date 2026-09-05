@@ -8,12 +8,13 @@ id: h7iIfsK8x7lIOP1T
 img: icons/game-icons/lorc/claw-hammer.svg
 shortcode: Maul
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: club
-  archetype: 0
   durability: 12
   weight: 7
   value: 14

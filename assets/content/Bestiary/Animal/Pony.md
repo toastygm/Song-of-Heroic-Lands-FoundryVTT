@@ -10,9 +10,10 @@ img: icons/game-icons/delapouite/horse-head.svg
 portrait: images/being/pony-portrait.webp
 shortcode: pony
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+21
     end: 1d6+7

@@ -7,10 +7,11 @@ id: 6ogsEHCl84nLyDTt
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: diligent
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psybehavior
-  archetype: 0
   category: quirk
 folder: SpZzOv4eOwtdsMMo
 ---

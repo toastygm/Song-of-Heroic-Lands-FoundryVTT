@@ -14,6 +14,8 @@ shortcode: alverriktarvall
 img: icons/game-icons/delapouite/person.svg
 portrait: images/being/alverriktarvall-portrait.webp
 type: being
+data:
+  templatePriority: null
 social:
   occupation: Caravan Guard
   station: soldiery
@@ -48,7 +50,6 @@ gear:
     - navigation tools
 sohl:
   kbcat: npc
-  archetype: null
   body:
     structure:
       zones:

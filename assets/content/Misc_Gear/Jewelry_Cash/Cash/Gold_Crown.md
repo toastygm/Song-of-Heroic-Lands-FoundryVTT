@@ -9,12 +9,13 @@ id: ExbuiNKETmm6MxHv
 img: icons/game-icons/badges/coins.svg
 shortcode: gldcrwn
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: cash
-  archetype: 0
   quality: 0
   durability: 7
   value: 35

@@ -8,12 +8,13 @@ id: pe8JR9rKFQknq3IO
 img: icons/game-icons/lorc/dorsal-scales.svg
 shortcode: KRebr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Rerebraces
   detailMaterial: Kûrbúl
   material: Kûrbúl

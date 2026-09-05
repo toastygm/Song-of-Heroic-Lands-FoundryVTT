@@ -8,12 +8,13 @@ id: EzyO7eulluDQNkta
 img: icons/game-icons/carl-olsen/crossbow.svg
 shortcode: CCxBw200
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: fltch
     secondary: [wood, timb]
   kbcat: crossbow
-  archetype: 0
   durability: 11
   weight: 7
   value: 145

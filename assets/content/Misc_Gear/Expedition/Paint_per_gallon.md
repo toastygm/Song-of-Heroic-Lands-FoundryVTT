@@ -9,12 +9,13 @@ id: 25ZZVDGChKWQ2Ca5
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: paintperga
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 0
   value: 20

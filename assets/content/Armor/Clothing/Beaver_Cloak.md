@@ -8,12 +8,13 @@ id: LaYvnUQykZ3dT0zC
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: BvCloak
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cloak
   detailMaterial: Beaver
   material: Leather

@@ -8,12 +8,13 @@ id: mvpXPzqOD4LgF7NV
 img: icons/game-icons/lorc/robe.svg
 shortcode: HsRobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Robe
   detailMaterial: Homespun
   material: Cloth

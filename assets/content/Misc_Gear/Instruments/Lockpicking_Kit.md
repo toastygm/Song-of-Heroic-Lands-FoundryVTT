@@ -9,12 +9,13 @@ id: rm5SGD57hKqA6iME
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lkpickkit
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 3
   value: 45

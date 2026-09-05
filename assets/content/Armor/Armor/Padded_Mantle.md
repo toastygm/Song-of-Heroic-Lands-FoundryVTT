@@ -8,12 +8,13 @@ id: uGI1aEXIQ6zJxajg
 img: icons/game-icons/delapouite/cape.svg
 shortcode: PMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Mantle
   detailMaterial: Padded
   material: Padded

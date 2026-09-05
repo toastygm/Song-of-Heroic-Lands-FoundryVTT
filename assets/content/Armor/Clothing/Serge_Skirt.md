@@ -8,12 +8,13 @@ id: pN92nh46jHDIzV20
 img: icons/game-icons/delapouite/skirt.svg
 shortcode: SgSkirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Skirt
   detailMaterial: Serge
   material: Cloth

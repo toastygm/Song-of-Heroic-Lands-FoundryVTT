@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/snake.svg
 portrait: images/being/rckpythn-portrait.webp
 shortcode: rckpythn
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+13
     end: 1d6+11

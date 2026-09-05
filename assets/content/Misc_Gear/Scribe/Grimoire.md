@@ -9,12 +9,13 @@ id: 4l2auY8DlPzAVMFN
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: grimoire
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: scribe
-  archetype: 0
   quality: 0
   durability: 7
   value: 300

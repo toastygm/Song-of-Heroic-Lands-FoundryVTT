@@ -8,12 +8,13 @@ id: LsTvYcobeFaVcrWy
 img: icons/game-icons/lorc/trousers.svg
 shortcode: QCui
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: quilted
-  archetype: 0
   armorType: Cuisse
   detailMaterial: Quilted
   material: Quilted

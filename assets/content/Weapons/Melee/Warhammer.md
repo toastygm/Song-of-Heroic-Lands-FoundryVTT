@@ -8,12 +8,13 @@ id: 1cnmkDSTXFmmkX19
 img: icons/game-icons/delapouite/warhammer.svg
 shortcode: Whmr
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: axe
-  archetype: 0
   durability: 11
   weight: 4
   value: 85

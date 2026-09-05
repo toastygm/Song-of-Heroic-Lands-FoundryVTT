@@ -8,12 +8,13 @@ id: ienUW21VKWqyMC1K
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: SlkShirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Shirt
   detailMaterial: Silk
   material: Cloth

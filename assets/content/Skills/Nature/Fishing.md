@@ -8,10 +8,11 @@ id: udl3mzMb0IyASIVy
 img: icons/game-icons/delapouite/fishing.svg
 shortcode: fish
 type: skill
+data:
+  templatePriority: 0
 subType: nature
 sohl:
   kbcat: nature
-  archetype: 0
   skillBaseFormula: "sb(attr.per, attr.wil)"
   combatCategory: none
   parentSkillCode: ""

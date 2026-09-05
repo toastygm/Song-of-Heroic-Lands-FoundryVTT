@@ -9,12 +9,13 @@ id: XwQlQpZX3XzLVrpm
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: netweighte
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 5
   value: 48

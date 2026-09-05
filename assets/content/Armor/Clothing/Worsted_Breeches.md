@@ -8,12 +8,13 @@ id: skPBURafg7pZhGta
 img: icons/game-icons/lorc/trousers.svg
 shortcode: WBrch
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Breeches
   detailMaterial: Worsted
   material: Cloth

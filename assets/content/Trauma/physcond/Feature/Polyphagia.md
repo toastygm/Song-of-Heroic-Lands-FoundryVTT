@@ -7,10 +7,11 @@ id: ZGQY1bfFMJFuEdtp
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: plyphg
 type: trauma
+data:
+  templatePriority: 0
 subType: physcond
 sohl:
   kbcat: physfeature
-  archetype: 0
   category: trait
 folder: 4h8qyMcGHlkrfN1g
 ---

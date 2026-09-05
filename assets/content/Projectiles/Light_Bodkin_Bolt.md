@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Light narrow shaft, small square spike; pierces light mail, flat trajectory."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: bolt
 id: NnOZe07hIf924QvY
 shortcode: BltLBod
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1.25

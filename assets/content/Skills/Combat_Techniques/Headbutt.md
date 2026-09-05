@@ -9,10 +9,11 @@ id: UnarmedHeadbutt1
 img: icons/game-icons/lorc/wrecking-ball.svg
 shortcode: bflkheadbutt
 type: skill
+data:
+  templatePriority: 0
 subType: combattechnique
 sohl:
   kbcat: unarmed
-  archetype: 0
   skillBaseFormula: "sb(attr.dex, attr.agl)"
   combatCategory: melee
   parentSkillCode: ""

@@ -9,12 +9,13 @@ id: R1RwlZcpeVN2at47
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: mackerel
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: fish
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 1

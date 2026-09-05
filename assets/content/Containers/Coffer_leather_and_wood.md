@@ -8,11 +8,12 @@ id: kduLI7Tr3zCFmYsD
 img: icons/game-icons/delapouite/chest.svg
 shortcode: cofferlw
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 7
   maxCapacity: 12

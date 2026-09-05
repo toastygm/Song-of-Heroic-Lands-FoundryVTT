@@ -5,6 +5,8 @@ name:
   alias: []
 description: "War-arrow with wide flanged barbs; mortal wounds, hooks bone in skirmish."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: arrow
 id: wzqyq4XbBxHJ7vyc
 shortcode: ArwHBrd
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1.5

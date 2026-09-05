@@ -8,12 +8,13 @@ id: U2rXzQj0IQp8D1BB
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: LShirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Shirt
   detailMaterial: Linen
   material: Cloth

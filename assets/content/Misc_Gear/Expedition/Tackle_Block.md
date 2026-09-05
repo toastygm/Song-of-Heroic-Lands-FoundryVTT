@@ -9,12 +9,13 @@ id: hessefU2I49Y7iZ4
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: tacklebloc
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 7
   value: 5

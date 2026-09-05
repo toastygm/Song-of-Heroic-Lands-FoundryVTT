@@ -8,12 +8,13 @@ id: xcUkaEksPFJISOcs
 img: icons/game-icons/lorc/trousers.svg
 shortcode: SlkSwd
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Swaddle
   detailMaterial: Silk
   material: Cloth

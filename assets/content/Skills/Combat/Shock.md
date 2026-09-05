@@ -8,10 +8,11 @@ id: UufDJlNBkyC6FG7E
 img: icons/game-icons/lorc/lightning-arc.svg
 shortcode: shok
 type: skill
+data:
+  templatePriority: 0
 subType: combat
 sohl:
   kbcat: combat
-  archetype: 0
   skillBaseFormula: "sb(attr.str, attr.end)"
   combatCategory: none
   parentSkillCode: ""

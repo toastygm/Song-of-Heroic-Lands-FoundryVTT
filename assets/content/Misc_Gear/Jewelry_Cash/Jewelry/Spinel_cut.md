@@ -9,12 +9,13 @@ id: T5e6N6ftn0YD5dQx
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: spinelcut
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 2
   value: 40

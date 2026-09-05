@@ -9,12 +9,13 @@ id: IPNYN5Ni1sgfnEhN
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hornmusica
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 6
   value: 72

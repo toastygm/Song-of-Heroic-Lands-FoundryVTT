@@ -11,9 +11,10 @@ img: icons/game-icons/delapouite/tiger.svg
 portrait: images/being/tiger-portrait.webp
 shortcode: tiger
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+16
     end: 1d6+12

@@ -8,10 +8,11 @@ id: WZblksWtuxXkT40X
 img: icons/game-icons/lorc/imp.svg
 shortcode: guil
 type: skill
+data:
+  templatePriority: 0
 subType: social
 sohl:
   kbcat: social
-  archetype: 0
   skillBaseFormula: "sb(attr.emp, attr.cre)"
   combatCategory: none
   parentSkillCode: ""

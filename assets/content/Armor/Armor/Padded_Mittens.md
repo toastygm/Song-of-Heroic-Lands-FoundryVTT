@@ -8,12 +8,13 @@ id: IBwZA3n6zSzRPXVJ
 img: icons/game-icons/delapouite/gauntlet.svg
 shortcode: PMitn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Mittens
   detailMaterial: Padded
   material: Padded

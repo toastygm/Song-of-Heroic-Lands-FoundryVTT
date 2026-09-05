@@ -8,12 +8,13 @@ id: 5lXKChuoeMP2qUBv
 img: icons/game-icons/lorc/dorsal-scales.svg
 shortcode: KSpld
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Spaulders
   detailMaterial: Kûrbúl
   material: Kûrbúl

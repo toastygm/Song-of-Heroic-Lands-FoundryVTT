@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Slender shaft, square-sectioned spike; splits light mail at distance; militia, skirmish use."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: arrow
 id: 1TU7NC5Xy0q2NVmr
 shortcode: ArwLBod
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1

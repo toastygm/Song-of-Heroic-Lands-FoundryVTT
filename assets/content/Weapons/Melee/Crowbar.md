@@ -8,12 +8,13 @@ id: QsHlk6gE2d9E4T11
 img: icons/game-icons/badges/club.svg
 shortcode: Crwbr
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: [wood]
   kbcat: club
-  archetype: 0
   durability: 11
   weight: 6
   value: 9

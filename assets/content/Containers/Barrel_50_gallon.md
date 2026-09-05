@@ -8,11 +8,12 @@ id: htxJOZxIWbbCcnbR
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: barrel50gal
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 5
   maxCapacity: 400

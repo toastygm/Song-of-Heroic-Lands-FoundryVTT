@@ -9,12 +9,13 @@ id: fCjfFk0jxMwZZD6x
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: leash
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: tack
-  archetype: 0
   quality: 0
   durability: 5
   value: 2

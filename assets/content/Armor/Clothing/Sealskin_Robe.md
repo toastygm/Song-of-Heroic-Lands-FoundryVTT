@@ -8,12 +8,13 @@ id: jqv0HhqIYH7RkqT8
 img: icons/game-icons/lorc/robe.svg
 shortcode: SlsRobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Robe
   detailMaterial: Sealskin
   material: Leather

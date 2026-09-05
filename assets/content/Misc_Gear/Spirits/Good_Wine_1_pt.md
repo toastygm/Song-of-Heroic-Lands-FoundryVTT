@@ -9,12 +9,13 @@ id: BzK8ME1Dc6FbjGu4
 img: icons/game-icons/delapouite/wine-bottle.svg
 shortcode: gwinept
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: brew
     secondary: []
   kbcat: spirits
-  archetype: 0
   quality: 0
   durability: 0
   value: 5

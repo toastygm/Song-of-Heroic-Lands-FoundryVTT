@@ -9,12 +9,13 @@ id: vy9PHXkco5cAtf75
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: scallions
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: agri
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 0.25

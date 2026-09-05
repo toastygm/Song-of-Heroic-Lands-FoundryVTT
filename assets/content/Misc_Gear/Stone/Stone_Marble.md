@@ -9,12 +9,13 @@ id: cp3Sy3MceFAqdBaR
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: stonemarbl
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: stone
-  archetype: 0
   quality: 0
   durability: 5
   value: 3

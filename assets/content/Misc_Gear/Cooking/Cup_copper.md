@@ -9,12 +9,13 @@ id: FE6Vlj0bulyb6h7e
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cupcopper
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: cooking
-  archetype: 0
   quality: 0
   durability: 3
   value: 3

@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/hound.svg
 portrait: images/being/guarddog-portrait.webp
 shortcode: guarddog
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+8
     end: 1d6+7

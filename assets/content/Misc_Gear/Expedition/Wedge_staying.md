@@ -9,12 +9,13 @@ id: mmVSxF9PE02bES9l
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wedgestayi
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 8
   value: 225

@@ -8,12 +8,13 @@ id: yapKwxwxqfwZy6Zq
 img: icons/game-icons/darkzaitzev/shuriken.svg
 shortcode: Shrkn
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: thrown
-  archetype: 0
   durability: 11
   weight: 0.3
   value: 5

@@ -9,12 +9,13 @@ id: xgusnSDAlUSidvZe
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: necklacesilver
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: [mtlc]
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 3
   value: 124

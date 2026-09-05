@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/dinosaur-rex.svg
 portrait: images/being/scklclwt-portrait.webp
 shortcode: scklclwt
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+7
     end: 1d6+8

@@ -8,12 +8,13 @@ id: F96n27AFUFnCUkf8
 img: icons/game-icons/lorc/trousers.svg
 shortcode: LnBrch
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Breeches
   detailMaterial: Linen
   material: Cloth

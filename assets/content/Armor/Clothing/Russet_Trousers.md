@@ -8,12 +8,13 @@ id: jL4u5NYoQ1t1VXmV
 img: icons/game-icons/lorc/trousers.svg
 shortcode: RTrsr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Trousers
   detailMaterial: Russet
   material: Cloth

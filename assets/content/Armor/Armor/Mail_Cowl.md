@@ -8,12 +8,13 @@ id: z9JhnVJbfX7bCQfk
 img: icons/game-icons/lorc/hood.svg
 shortcode: MCwl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: mail
-  archetype: 0
   armorType: Cowl
   detailMaterial: Mail
   material: Mail

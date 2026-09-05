@@ -8,12 +8,13 @@ id: 07QzvQFSODhKGV9m
 img: icons/game-icons/lorc/hood.svg
 shortcode: LtCowl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cowl
   detailMaterial: Leather
   material: Leather

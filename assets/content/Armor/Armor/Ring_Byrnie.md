@@ -8,12 +8,13 @@ id: wW2ZcXsjlMeaMIfj
 img: icons/game-icons/willdabeast/chain-mail.svg
 shortcode: RByr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: ring
-  archetype: 0
   armorType: Byrnie
   detailMaterial: Ring
   material: Ring

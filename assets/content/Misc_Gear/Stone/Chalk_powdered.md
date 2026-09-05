@@ -9,12 +9,13 @@ id: KZ5mXd7yvIS2rfT8
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: chalkpowde
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: stone
-  archetype: 0
   quality: 0
   durability: 0
   value: 4

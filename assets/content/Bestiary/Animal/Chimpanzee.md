@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/chmpnz-portrait.webp
 shortcode: chmpnz
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+11
     end: 1d6+9

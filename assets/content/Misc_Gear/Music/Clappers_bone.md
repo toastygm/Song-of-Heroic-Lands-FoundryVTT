@@ -9,12 +9,13 @@ id: i7RPzHfwNH74HUeu
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: clappersbo
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 5
   value: 1

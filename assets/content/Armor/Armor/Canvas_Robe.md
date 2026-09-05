@@ -8,12 +8,13 @@ id: RfOQh3XI3i2nthpb
 img: icons/game-icons/lorc/robe.svg
 shortcode: CvRobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Robe
   detailMaterial: Canvas
   material: Cloth

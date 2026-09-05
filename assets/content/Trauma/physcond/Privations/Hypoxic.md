@@ -8,10 +8,11 @@ id: Xk9uPqRbOH289xDf
 img: icons/game-icons/delapouite/stomach.svg
 shortcode: hypox
 type: trauma
+data:
+  templatePriority: 0
 subType: physcond
 sohl:
   kbcat: physprivations
-  archetype: 0
   category: debility
   levelBase: 3
   healingRateBase: 3

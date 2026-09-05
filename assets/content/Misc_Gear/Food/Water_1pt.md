@@ -9,6 +9,8 @@ id: mxGYatEWGjscY4MH
 img: icons/game-icons/caro-asercion/round-potion.svg
 shortcode: Wtr1pt
 type: miscgear
+data:
+  templatePriority: 0
 hmk:
   name: "Water, 1pt."
 sohl:
@@ -16,7 +18,6 @@ sohl:
     skill: srvl
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 0

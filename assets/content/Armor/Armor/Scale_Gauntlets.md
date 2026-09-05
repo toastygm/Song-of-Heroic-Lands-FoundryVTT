@@ -8,12 +8,13 @@ id: uoSLJxu3VTAiQXl9
 img: icons/game-icons/delapouite/gauntlet.svg
 shortcode: SGntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide, mtlc]
   kbcat: scale
-  archetype: 0
   armorType: Gauntlets
   detailMaterial: Scale
   material: Scale

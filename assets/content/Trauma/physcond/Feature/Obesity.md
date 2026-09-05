@@ -7,10 +7,11 @@ id: 33oRAs8m6lIf8yEQ
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: obesity
 type: trauma
+data:
+  templatePriority: 0
 subType: physcond
 sohl:
   kbcat: physfeature
-  archetype: 0
   category: trait
 folder: 4h8qyMcGHlkrfN1g
 ---

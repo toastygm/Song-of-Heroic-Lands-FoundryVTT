@@ -8,11 +8,12 @@ id: DH4yWnj7j0usbiP5
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: boxcerlid
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cmcs
     secondary: []
-  archetype: 0
   quality: 0
   durability: 3
   maxCapacity: 10

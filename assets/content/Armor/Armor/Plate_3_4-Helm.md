@@ -8,12 +8,13 @@ id: ssLbPwGRpgmg3CpB
 img: icons/game-icons/lorc/crested-helmet.svg
 shortcode: Pl34Hlm
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: plate
-  archetype: 0
   armorType: 3/4-Helm
   detailMaterial: Plate
   material: Plate

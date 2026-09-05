@@ -8,12 +8,13 @@ id: 51lcSTbYQhP0xMFK
 img: icons/game-icons/lorc/pointy-hat.svg
 shortcode: EHat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Hat
   detailMaterial: Ermine
   material: Leather

@@ -9,12 +9,13 @@ id: Woak28XKFFBpgUPV
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bellhand
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 7
   value: 5

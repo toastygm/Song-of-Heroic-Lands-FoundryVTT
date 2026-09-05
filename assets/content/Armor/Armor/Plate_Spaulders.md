@@ -8,12 +8,13 @@ id: vgewCbgyFtiu4uwK
 img: icons/game-icons/lorc/dorsal-scales.svg
 shortcode: PlSpld
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: plate
-  archetype: 0
   armorType: Spaulders
   detailMaterial: Plate
   material: Plate

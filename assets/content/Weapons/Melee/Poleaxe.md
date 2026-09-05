@@ -8,12 +8,13 @@ id: XV3ldZxnNptio5nW
 img: icons/game-icons/lorc/halberd.svg
 shortcode: PAxe
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: polearm
-  archetype: 0
   durability: 11
   weight: 7
   value: 100

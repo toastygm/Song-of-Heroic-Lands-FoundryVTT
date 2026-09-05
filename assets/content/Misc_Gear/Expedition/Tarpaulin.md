@@ -9,12 +9,13 @@ id: r0rSw86zs37t7wzC
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: tarpaulin
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 4
   value: 504

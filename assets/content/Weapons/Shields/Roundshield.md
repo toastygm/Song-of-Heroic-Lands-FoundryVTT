@@ -8,12 +8,13 @@ id: QdNDwYLqJw62QlQw
 img: icons/game-icons/willdabeast/round-shield.svg
 shortcode: RndSh
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: shield
-  archetype: 0
   durability: 10
   weight: 6
   value: 50

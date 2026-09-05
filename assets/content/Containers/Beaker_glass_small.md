@@ -8,11 +8,12 @@ id: wvWv6v07aMdsuvjB
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: beakerglsm
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: glas
     secondary: []
-  archetype: 0
   quality: 0
   durability: 2
   maxCapacity: 1

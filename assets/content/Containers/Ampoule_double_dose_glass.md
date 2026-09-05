@@ -8,11 +8,12 @@ id: 1BG9H9Ie8q1D6rnL
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ampoule2
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: glas
     secondary: []
-  archetype: 0
   quality: 0
   durability: 2
   maxCapacity: 0.0625

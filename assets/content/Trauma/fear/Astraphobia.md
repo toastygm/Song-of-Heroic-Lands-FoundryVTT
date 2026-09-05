@@ -7,10 +7,11 @@ id: jLe9OLS9S0QHXDzJ
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: astrphb
 type: trauma
+data:
+  templatePriority: 0
 subType: fear
 sohl:
   kbcat: phobias
-  archetype: 0
   category: none
   levelBase: 0
 folder: 0eAg97lKuZbhIoZW
