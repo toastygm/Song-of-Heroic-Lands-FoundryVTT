@@ -420,7 +420,6 @@ publish:
     # construction. This repository publishes the whole knowledgebase, so it is
     # `content`: that page plus every page the content tree compiles to.
     site: content
-    manifests: { publish: true, consume: true }
     # Where the content tree mounts inside the package. Read by both `manifest`
     # and the knowledgebase build, so the address a manifest publishes is the
     # address a page is emitted at — stating it twice is how a manifest comes
