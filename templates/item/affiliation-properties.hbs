@@ -27,7 +27,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
       saved by the sheet's own submitOnChange — no save button, no separate flow.
     --}}
     <div class="section-legend section-legend--subtype">
-        <span class="section-legend__name">{{localize "SOHL.Affiliation.FIELDS.relation.label"}}</span>
+        <span class="section-legend__name">{{localize "SOHL.Affiliation.FIELDS.relations.label"}}</span>
         <span class="section-legend__rule"></span>
         <span class="section-legend__add">
             <button class="add-button add-button--small" data-action="addRelation"
@@ -36,12 +36,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </button>
         </span>
     </div>
-    <p class="hint">{{localize "SOHL.Affiliation.FIELDS.relation.hint"}}</p>
+    <p class="hint">{{localize "SOHL.Affiliation.FIELDS.relations.hint"}}</p>
     <div class="array-list">
         {{#each relationRows}}
         <div class="array-list__row">
             <span class="array-list__field{{#if this.unresolved}} unresolved{{/if}}">{{this.label}}</span>
-            <select class="array-list__field" name="system.relation.{{this.code}}">
+            <select class="array-list__field" name="system.relations.{{this.code}}">
                 {{selectOptions ../standingChoices selected=this.standing localize=true}}
             </select>
             <a class="array-list__remove icon-button icon-button--danger" data-action="deleteRelation"

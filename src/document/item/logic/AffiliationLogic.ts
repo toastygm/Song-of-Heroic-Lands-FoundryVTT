@@ -37,7 +37,7 @@ import {
  * - **office** — A specific position held (e.g., "Captain," "Acolyte")
  * - **title** — A formal title granted (e.g., "Sir," "Elder")
  * - **level** — Rank or standing within the organization
- * - **relation** — How the organization stands toward *other* affiliations
+ * - **relations** — How the organization stands toward *other* affiliations
  *
  * Affiliations are lightweight identity records with no complex calculations.
  * They can be attached to Beings, Cohorts, Structures, or Vehicles.
@@ -67,7 +67,7 @@ export class AffiliationLogic<
     /**
      * This organization's standing toward another affiliation (#1404).
      *
-     * Reads the persisted {@link AffiliationData.relation} table directly — it is
+     * Reads the persisted {@link AffiliationData.relations} table directly — it is
      * authored data, not derived state, so no lifecycle work builds it. Only
      * relations that differ from neutral are recorded: a shortcode absent from
      * the table (and an empty table, which is the default) answers
@@ -81,13 +81,13 @@ export class AffiliationLogic<
      * @returns The recorded standing, or `unaligned` when none is recorded.
      */
     standingWith(shortcode: string): AffiliationStanding {
-        const relation = this.data.relation;
-        // Own-property check: a bare `relation[shortcode]` would answer with an
+        const relations = this.data.relations;
+        // Own-property check: a bare `relations[shortcode]` would answer with an
         // inherited Object.prototype member for a shortcode like `toString`.
-        if (!relation || !Object.prototype.hasOwnProperty.call(relation, shortcode)) {
+        if (!relations || !Object.prototype.hasOwnProperty.call(relations, shortcode)) {
             return AFFILIATION_STANDING.UNALIGNED;
         }
-        return relation[shortcode] ?? AFFILIATION_STANDING.UNALIGNED;
+        return relations[shortcode] ?? AFFILIATION_STANDING.UNALIGNED;
     }
 
     /* --------------------------------------------- */
@@ -140,5 +140,21 @@ export interface AffiliationData<
      * non-neutral relations are authored; an empty map means neutral toward
      * everyone. Read it through {@link AffiliationLogic.standingWith}.
      */
-    relation: Record<string, AffiliationStanding>;
+    relations: Record<string, AffiliationStanding>;
+    /**
+     * The affiliations this one is subordinate to, by shortcode. A list because
+     * a body may sit under more than one at once; `[]` means it answers to
+     * nobody, which is a sovereign polity rather than a missing value.
+     */
+    parents: string[];
+    /**
+     * Where the affiliation's authority sits, as a place shortcode, or `null`
+     * where none is recorded.
+     */
+    seat: string | null;
+    /**
+     * The places it holds sway over, by place shortcode. The geographic
+     * relation, kept apart from the organisational one in {@link parents}.
+     */
+    domain: string[];
 }

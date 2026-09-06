@@ -20,12 +20,13 @@ import {
     type AffiliationStanding,
     type AffiliationSubType,
 } from "@src/utils/constants";
-const { StringField, NumberField, TypedObjectField } = foundry.data.fields;
+const { ArrayField, StringField, NumberField, TypedObjectField } = foundry.data.fields;
 
 /**
  * Builds the data schema for the Affiliation item, extending the base item
  * schema with affiliation-specific fields (subtype, society, office, title,
- * level, and standing toward other affiliations).
+ * level, standing toward other affiliations, the bodies it is subordinate to,
+ * where its authority sits, and the places it holds sway over).
  * @returns The Foundry data schema for the affiliation.
  */
 function defineAffiliationDataSchema(): foundry.data.fields.DataSchema {
@@ -64,7 +65,7 @@ function defineAffiliationDataSchema(): foundry.data.fields.DataSchema {
         // absent key reads as `unaligned` (see AffiliationLogic.standingWith).
         // `{}` rather than nullable: "neutral toward everyone" is a valid state,
         // not an unset one.
-        relation: new TypedObjectField(
+        relations: new TypedObjectField(
             new StringField({
                 required: true,
                 blank: false,
@@ -72,6 +73,43 @@ function defineAffiliationDataSchema(): foundry.data.fields.DataSchema {
             }),
             { initial: {} },
         ),
+        // The bodies this one is subordinate to, by affiliation shortcode
+        // (#1781). A list because an organization may sit under more than one
+        // at once — Eídma Pyréthos is an arcane tradition within the Ordo
+        // Arcanis, and nothing says a body answers to a single parent.
+        //
+        // `[]` rather than nullable: "subordinate to nobody" is a valid state
+        // — a sovereign polity is exactly that — not an unset one.
+        parents: new ArrayField(new StringField({ required: true, blank: false }), {
+            initial: [],
+        }),
+        // Where the affiliation's authority sits, as a place shortcode.
+        //
+        // Deliberately not `capital` or `headquarters`: each fits about half
+        // the eleven subTypes — an empire has a capital and a guild does not, a
+        // criminal association has a headquarters and an empire does not —
+        // while a seat covers a polity, a guild, an order and a faith alike.
+        //
+        // Nullable because "no seat" and "a seat nobody has recorded" are
+        // different states worth telling apart, unlike the two lists here.
+        seat: new StringField({
+            nullable: true,
+            blank: false,
+            initial: null,
+        }),
+        // The places it holds sway over, by place shortcode. A list, since a
+        // polity can span several regions and a guild can operate in several
+        // settlements.
+        //
+        // This is the geographic relation, kept apart from the organisational
+        // one above: `parents` is *subordinate to*, `domain` is *holds sway
+        // over*, and grouping them under one key made a note say the wrong one.
+        //
+        // The seat normally lies within the domain. Worth a warning where it
+        // does not — a government in exile — never an error.
+        domain: new ArrayField(new StringField({ required: true, blank: false }), {
+            initial: [],
+        }),
     };
 }
 
@@ -94,7 +132,10 @@ export class AffiliationDataModel<
     office!: string | null;
     title!: string | null;
     level!: number;
-    relation!: Record<string, AffiliationStanding>;
+    relations!: Record<string, AffiliationStanding>;
+    parents!: string[];
+    seat!: string | null;
+    domain!: string[];
 
     /**
      * Returns the Foundry data schema for the affiliation item.
