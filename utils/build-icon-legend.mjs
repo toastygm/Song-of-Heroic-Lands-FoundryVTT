@@ -41,14 +41,9 @@ const CONSTANTS_PATH = "src/utils/constants.ts";
 const BEING_SHEET_PATH = "src/document/actor/foundry/BeingSheet.ts";
 const OUT_PATH = "assets/content/User_Guide/Icon_Legend.md";
 
-/**
- * Foundry document id for the generated page. This MUST stay fixed: the journal
- * compiler keys entries by id, so changing it would orphan the existing page and
- * break every link to it. Chosen once, collision-checked against the pack.
- */
-const PAGE_ID = "GU59i07VkICWsT2l";
 /** The "User Guide" folder in assets/content/journal-folders.yaml. */
-const USER_GUIDE_FOLDER_ID = "IgwaG8rAUUO9vrtz";
+/** The folder note this page is filed under, by address (#1845). */
+const USER_GUIDE_FOLDER = "userguide";
 
 /**
  * The note's logical identity — `(type, shortcode)`.
@@ -331,13 +326,12 @@ async function renderPage() {
         .join("\n\n");
 
     const page = `---
-id: ${PAGE_ID}
 type: ${PAGE_TYPE}
 subType: userguide
 name:
-    full: "Icon Legend"
+  full: "Icon Legend"
 shortcode: ${PAGE_SHORTCODE}
-folder: ${USER_GUIDE_FOLDER_ID}
+packFolder: ${USER_GUIDE_FOLDER}
 ---
 
 # Icon Legend
