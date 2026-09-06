@@ -18,7 +18,8 @@ import {
     canMarkArchetype,
     resolveArchetypes,
     clearArchetypeMarker,
-    readArchetypePriority,
+    migrateTemplatePriority,
+    readTemplatePriority,
     resolveCreateIdentity,
     type ArchetypeCandidate,
 } from "@src/entity/archetype/archetype";
@@ -286,52 +287,162 @@ describe("resolveCreateIdentity — archetype-first defaults (#643)", () => {
     });
 });
 
-describe("readArchetypePriority — the tri-state on `system.archetype` (#1780)", () => {
+describe("readTemplatePriority — the tri-state on `system.templatePriority` (#1780, #1836)", () => {
     it("reads a number as the archetype priority", () => {
-        expect(readArchetypePriority({ archetype: 3 })).toBe(3);
+        expect(readTemplatePriority({ templatePriority: 3 })).toBe(3);
     });
 
     it("reads 0 as priority 0, NOT as 'not an archetype' (the falsy trap)", () => {
         // SoHL's own archetypes ship at priority 0, so a truthiness test here
         // would hide every stock archetype from the Create dialog.
-        expect(readArchetypePriority({ archetype: 0 })).toBe(0);
+        expect(readTemplatePriority({ templatePriority: 0 })).toBe(0);
     });
 
     it("reads null as 'not an archetype'", () => {
-        expect(readArchetypePriority({ archetype: null })).toBeUndefined();
+        expect(readTemplatePriority({ templatePriority: null })).toBeUndefined();
     });
 
     it("reads an absent field as 'not an archetype'", () => {
-        expect(readArchetypePriority({})).toBeUndefined();
-        expect(readArchetypePriority(undefined)).toBeUndefined();
+        expect(readTemplatePriority({})).toBeUndefined();
+        expect(readTemplatePriority(undefined)).toBeUndefined();
     });
 
     it("ignores a non-numeric value", () => {
         // A stray string/boolean never enters discovery.
-        expect(readArchetypePriority({ archetype: "2" })).toBeUndefined();
-        expect(readArchetypePriority({ archetype: true })).toBeUndefined();
+        expect(readTemplatePriority({ templatePriority: "2" })).toBeUndefined();
+        expect(readTemplatePriority({ templatePriority: true })).toBeUndefined();
+    });
+});
+
+describe("migrateTemplatePriority — carrying a world across the #1836 rename", () => {
+    // The world tier is why this rename needs a migration at all: a GM's
+    // duplicated archetype carries the marker in world data, and losing it
+    // would not error — the archetype would just stop being offered.
+    it("moves a legacy priority onto the new key", () => {
+        const system: PlainObject = { archetype: 3, shortcode: "human" };
+        migrateTemplatePriority(system);
+        expect(system.templatePriority).toBe(3);
+        expect("archetype" in system).toBe(false);
+        expect(system.shortcode).toBe("human");
+    });
+
+    it("carries priority 0 across as 0, not as 'not an archetype'", () => {
+        // Every archetype SoHL ships is at 0, so a truthiness test here would
+        // unmark all of them.
+        const system: PlainObject = { archetype: 0 };
+        migrateTemplatePriority(system);
+        expect(system.templatePriority).toBe(0);
+        expect(readTemplatePriority(system)).toBe(0);
+    });
+
+    it("carries a legacy null across as 'not an archetype'", () => {
+        const system: PlainObject = { archetype: null };
+        migrateTemplatePriority(system);
+        expect(system.templatePriority).toBeNull();
+        expect("archetype" in system).toBe(false);
+    });
+
+    it("does not coerce a non-numeric legacy value into a marker", () => {
+        // The old reader ignored junk, so migrating it would resurrect a marker
+        // that never counted.
+        const system: PlainObject = { archetype: "2" };
+        migrateTemplatePriority(system);
+        expect(system.templatePriority).toBeNull();
+        expect(readTemplatePriority(system)).toBeUndefined();
+    });
+
+    it("leaves an already-migrated block alone, dropping only the stale key", () => {
+        // Re-running the migration must not undo an edit made after it: the new
+        // key wins, whatever the legacy one still says.
+        const system: PlainObject = { templatePriority: null, archetype: 7 };
+        migrateTemplatePriority(system);
+        expect(system.templatePriority).toBeNull();
+        expect("archetype" in system).toBe(false);
+    });
+
+    it("is a no-op on a block that never carried the legacy key", () => {
+        const system: PlainObject = { templatePriority: 2, shortcode: "x" };
+        migrateTemplatePriority(system);
+        expect(system).toEqual({ templatePriority: 2, shortcode: "x" });
+    });
+
+    it("does not invent the field on a document that is not an archetype", () => {
+        // Absent means absent: the schema's `initial: null` supplies the value,
+        // and a migration that wrote one would touch every document in a world.
+        const system: PlainObject = { shortcode: "x" };
+        migrateTemplatePriority(system);
+        expect("templatePriority" in system).toBe(false);
+    });
+
+    it("tolerates a nullish or non-object source", () => {
+        expect(migrateTemplatePriority(undefined)).toBeUndefined();
+        expect(migrateTemplatePriority(null)).toBeNull();
+        expect(migrateTemplatePriority("nonsense")).toBe("nonsense");
+    });
+
+    it("returns the same object, so it can be handed straight to super", () => {
+        const system: PlainObject = { archetype: 1 };
+        expect(migrateTemplatePriority(system)).toBe(system);
+    });
+});
+
+describe("readTemplatePriority — the pre-#1836 `system.archetype` spelling", () => {
+    // A compendium index entry is raw stored data: it never passes through the
+    // data model, so `migrateData` cannot reach it. Without this fallback every
+    // archetype in a pack built by an older toolchain would vanish from the
+    // Create dialog silently — no error, just an empty picker.
+    it("falls back to the legacy key when the new one is absent", () => {
+        expect(readTemplatePriority({ archetype: 3 })).toBe(3);
+    });
+
+    it("falls back for priority 0 as well", () => {
+        expect(readTemplatePriority({ archetype: 0 })).toBe(0);
+    });
+
+    it("ignores a non-numeric legacy value, exactly as the old reader did", () => {
+        expect(readTemplatePriority({ archetype: "2" })).toBeUndefined();
+        expect(readTemplatePriority({ archetype: true })).toBeUndefined();
+    });
+
+    it("prefers the new key when both are present", () => {
+        expect(readTemplatePriority({ templatePriority: 1, archetype: 9 })).toBe(1);
+    });
+
+    it("does not fall back when the new key says 'not an archetype'", () => {
+        // A migrated document carries `templatePriority: null` and may still
+        // carry a stale legacy key; honouring the legacy one would resurrect a
+        // marker the GM cleared.
+        expect(readTemplatePriority({ templatePriority: null, archetype: 4 })).toBeUndefined();
     });
 });
 
 describe("clearArchetypeMarker", () => {
-    it("sets system.archetype to null, so the instance is not an archetype", () => {
-        const data = { name: "Seed", system: { archetype: 3, shortcode: "human" } };
+    it("sets system.templatePriority to null, so the instance is not an archetype", () => {
+        const data = { name: "Seed", system: { templatePriority: 3, shortcode: "human" } };
         clearArchetypeMarker(data);
-        expect(data.system.archetype).toBeNull();
+        expect(data.system.templatePriority).toBeNull();
         expect(data.system.shortcode).toBe("human");
     });
 
     it("clears a priority-0 archetype too (0 is a marker, not a blank)", () => {
-        const data = { name: "Seed", system: { archetype: 0 } };
+        const data = { name: "Seed", system: { templatePriority: 0 } };
         clearArchetypeMarker(data);
-        expect(data.system.archetype).toBeNull();
-        expect(readArchetypePriority(data.system)).toBeUndefined();
+        expect(data.system.templatePriority).toBeNull();
+        expect(readTemplatePriority(data.system)).toBeUndefined();
+    });
+
+    it("drops a pre-#1836 legacy key, which the reader would otherwise honour", () => {
+        const data: PlainObject = { name: "Seed", system: { archetype: 2 } };
+        clearArchetypeMarker(data);
+        expect(data.system.templatePriority).toBeNull();
+        expect("archetype" in data.system).toBe(false);
+        expect(readTemplatePriority(data.system)).toBeUndefined();
     });
 
     it("preserves every flag — the marker no longer lives in flags", () => {
         const data = {
             name: "Seed",
-            system: { archetype: 1 },
+            system: { templatePriority: 1 },
             flags: { sohl: { keepMe: "yes" }, core: { x: 1 } },
         };
         clearArchetypeMarker(data);
@@ -342,13 +453,13 @@ describe("clearArchetypeMarker", () => {
     it("creates the system block when the create-data has none", () => {
         const data: PlainObject = { name: "Seed" };
         clearArchetypeMarker(data);
-        expect(data.system.archetype).toBeNull();
+        expect(data.system.templatePriority).toBeNull();
     });
 
     it("is a no-op-shaped write when the document is already not an archetype", () => {
-        const data = { name: "Seed", system: { archetype: null } };
+        const data = { name: "Seed", system: { templatePriority: null } };
         expect(() => clearArchetypeMarker(data)).not.toThrow();
-        expect(data.system.archetype).toBeNull();
+        expect(data.system.templatePriority).toBeNull();
     });
 });
 

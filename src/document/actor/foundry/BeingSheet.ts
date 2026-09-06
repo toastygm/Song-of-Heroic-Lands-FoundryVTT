@@ -652,7 +652,7 @@ export class BeingSheet extends SohlActorSheetBase {
 
     /**
      * `data-action="editIdentity"`: open a dialog to edit the being's `name`,
-     * `system.shortcode` and — for a GM — its `system.archetype` marker together
+     * `system.shortcode` and — for a GM — its `system.templatePriority` marker together
      * (the header identity pencil). All are applied in a single `actor.update`;
      * the document's update-path guard enforces the unique `(type, shortcode)`
      * key and warns on a duplicate (#766). A blank name is refused; only changed
@@ -676,7 +676,7 @@ export class BeingSheet extends SohlActorSheetBase {
         const actor = this.document;
         const currentName = actor.name ?? "";
         const currentCode = (actor.system as any).shortcode ?? "";
-        const currentArchetype = (actor.system as any).archetype ?? null;
+        const currentArchetype = (actor.system as any).templatePriority ?? null;
         const showArchetype = canMarkArchetype(fvttIsCurrentUserGM(), actor.isEmbedded);
         const esc = foundry.utils.escapeHTML;
         // `currentArchetype` is a number or null, so the blank/`0` distinction
@@ -742,7 +742,7 @@ export class BeingSheet extends SohlActorSheetBase {
                 sohl.log.uiWarn(sohl.i18n.localize("SOHL.Archetype.invalid"));
                 return;
             }
-            if (archetype !== currentArchetype) update["system.archetype"] = archetype;
+            if (archetype !== currentArchetype) update["system.templatePriority"] = archetype;
         }
         if (Object.keys(update).length) await actor.update(update);
     }

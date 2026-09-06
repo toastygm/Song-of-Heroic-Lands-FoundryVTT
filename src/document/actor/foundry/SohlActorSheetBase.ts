@@ -216,7 +216,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
         const data = droppedItem.toObject();
         delete (data as any)._id;
         // Drop-to-embed instantiates a live in-play item — never a template.
-        // Clear the archetype marker (`system.archetype = null`) so it can't
+        // Clear the archetype marker (`system.templatePriority = null`) so it can't
         // ride onto the owner and pollute discovery (or be re-instantiated as
         // if it were a template). Import and Duplicate deliberately keep the
         // marker; the clear lives here and in the Create dialog, never in the
@@ -450,7 +450,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
             actorName: actor.name,
             actorImg: actor.img,
             typeLabel: sohl.i18n.localize(`TYPES.Actor.${actor.type}`),
-            archetype: (actor.system as any)?.archetype ?? null,
+            templatePriority: (actor.system as any)?.templatePriority ?? null,
             canMarkArchetype: canMarkArchetype(fvttIsCurrentUserGM(), actor.isEmbedded),
         });
     }

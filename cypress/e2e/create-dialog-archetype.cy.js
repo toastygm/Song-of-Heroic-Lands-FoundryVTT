@@ -12,20 +12,19 @@
  */
 
 /**
- * Create-dialog archetype picker (issue #604), on `system.archetype` (#1780).
- * The dialog seeds a new Being from a populated archetype, or a blank one for
- * **(none)**. The marker is cleared to `null` when an archetype is
- * _instantiated_ (dialog seed, drop-to-embed) and preserved when copied verbatim
- * (Import, Duplicate).
+ * Create-dialog archetype picker (issue #604), on `system.templatePriority`
+ * (#1780, renamed off `system.archetype` by #1836). The dialog seeds a new Being
+ * from a populated archetype, or a blank one for **(none)**. The marker is
+ * cleared to `null` when an archetype is _instantiated_ (dialog seed,
+ * drop-to-embed) and preserved when copied verbatim (Import, Duplicate).
  *
  * **These specs seed their own world-tier archetype** rather than relying on the
  * shipped compendium being marked. That is deliberate, and it is not merely
- * hygiene: which documents the built packs carry a marker on depends on
- * `@heroiclands/package-build`'s builders, and the emission target moves to
- * `system.archetype` in HeroicLands/package-build#126 — the follow-on to this
- * change. A spec that presented its own archetype is evidence about SoHL's
- * discovery rules either side of that, instead of evidence about which build
- * produced the packs.
+ * hygiene: which documents the built packs carry a marker on — and under which
+ * key — depends on `@heroiclands/package-build`'s builders, which follow this
+ * rename on their own schedule (HeroicLands/package-build#266). A spec that
+ * presents its own archetype is evidence about SoHL's discovery rules either
+ * side of that, instead of evidence about which build produced the packs.
  *
  * A world copy is the highest tier (world &lt; system &lt; module), so the seeded
  * archetype is the picker's default whatever the packs carry.
@@ -47,7 +46,7 @@ const BASIC_FOLK_REF = {
  * yielding `{ id, name, shortcode, priority }`. The import run-tags the name and
  * bumps the shortcode, so `cleanupWorld` sweeps it.
  *
- * @param {number} priority - the `system.archetype` value to set (default `0`,
+ * @param {number} priority - the `system.templatePriority` value to set (default `0`,
  *   the priority SoHL's own archetypes ship at).
  */
 function seedWorldArchetype(priority = 0) {
@@ -57,12 +56,12 @@ function seedWorldArchetype(priority = 0) {
             // Cross-realm: an update payload built in the spec bundle is
             // rejected by Foundry ("must be constructed with a DataModel or
             // Object") — clone it into the game window first.
-            await a.update(toRealm(win, { "system.archetype": priority }));
+            await a.update(toRealm(win, { "system.templatePriority": priority }));
             return {
                 id: a.id,
                 name: a.name,
                 shortcode: a.system.shortcode,
-                priority: a.system.archetype,
+                priority: a.system.templatePriority,
             };
         }),
     );
@@ -83,8 +82,8 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
             expect(a.priority, "…and not as null").to.not.be.null;
         });
         cy.foundry((win) => {
-            const doc = win.game.actors.find((x) => x.system?.archetype === 0);
-            return { found: !!doc, value: doc?.system?.archetype };
+            const doc = win.game.actors.find((x) => x.system?.templatePriority === 0);
+            return { found: !!doc, value: doc?.system?.templatePriority };
         }).should((r) => {
             expect(r.found, "re-read from the collection").to.be.true;
             expect(r.value).to.eq(0);
@@ -116,7 +115,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
                     bodyParts: doc.system?.body?.structure?.parts?.length ?? 0,
                     attributes: doc.items.filter((i) => i.type === "attribute").length,
                     movementProfiles: (doc.system?.movementProfiles || []).length,
-                    archetype: doc.system?.archetype,
+                    archetype: doc.system?.templatePriority,
                     shortcode: doc.system?.shortcode,
                 })),
             ).should((r) => {
@@ -229,7 +228,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("Import preserves system.archetype (copy-verbatim)", () => {
+    it("Import preserves system.templatePriority (copy-verbatim)", () => {
         cy.foundry(async (win) => {
             const pack = win.game.packs.get(BASIC_FOLK.pack);
             const src = await pack.getDocument(await resolveDocId(pack, BASIC_FOLK_REF));
@@ -240,10 +239,10 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
             data.name = tagName("Imported Folk");
             // Alphanumeric only — the create guard rejects anything else (#1397).
             data.system.shortcode = `imp${Date.now()}`;
-            data.system.archetype = 3;
+            data.system.templatePriority = 3;
             const created = await win.Actor.create(data);
             return {
-                archetype: created.system?.archetype,
+                archetype: created.system?.templatePriority,
                 populated: (created.system?.body?.structure?.parts?.length ?? 0) > 0,
             };
         }).should((r) => {
@@ -252,7 +251,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("Duplicate preserves system.archetype (copy-verbatim), including priority 0", () => {
+    it("Duplicate preserves system.templatePriority (copy-verbatim), including priority 0", () => {
         // Seed a marked world archetype at priority 0 — the falsy value — then
         // duplicate it: a truthiness test in the copy path would drop it.
         seedWorldArchetype(0).then((arch) => {
@@ -266,7 +265,10 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
                 dup.system.shortcode = `dupc${Date.now()}`;
                 dup._stats = { ...(dup._stats || {}), duplicateSource: world.uuid };
                 const copy = await win.Actor.create(dup);
-                return { archetype: copy.system?.archetype, srcArchetype: world.system?.archetype };
+                return {
+                    archetype: copy.system?.templatePriority,
+                    srcArchetype: world.system?.templatePriority,
+                };
             }).should((r) => {
                 expect(r.srcArchetype, "source is an archetype at 0").to.eq(0);
                 expect(r.archetype, "marker preserved on duplicate").to.eq(0);
@@ -274,13 +276,13 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("Drop-to-embed clears system.archetype", () => {
+    it("Drop-to-embed clears system.templatePriority", () => {
         cy.importActor().then((actor) => {
             // A marked world skill item — dropping it clones an embedded child,
             // which must NOT carry the archetype marker.
             cy.createWorldItem("skill", {
                 name: tagName("Marked Skill"),
-                system: { archetype: 2 },
+                system: { templatePriority: 2 },
             }).then((skill) => {
                 cy.openSheet(actor);
                 cy.foundry(async (win) => {
@@ -304,8 +306,8 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
                         if (child)
                             return {
                                 found: true,
-                                srcArchetype: src.system?.archetype,
-                                archetype: child.system?.archetype,
+                                srcArchetype: src.system?.templatePriority,
+                                archetype: child.system?.templatePriority,
                             };
                         await new Promise((r) => setTimeout(r, 20));
                     }
@@ -319,22 +321,59 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("the sheet control sets and clears system.archetype without editing JSON (#1780)", () => {
+    it("the sheet control sets and clears system.templatePriority without editing JSON (#1780)", () => {
         // The point of moving the marker into the schema: a GM marks a document
         // from its sheet, instead of export → hand-edit JSON → re-import.
         cy.createWorldItem("skill", { name: tagName("Sheet Marked Skill") }).then((skill) => {
             cy.openSheet(skill);
-            cy.foundry((win) => win.game.items.get(skill.id).system.archetype).should("be.null");
+            cy.foundry((win) => win.game.items.get(skill.id).system.templatePriority).should(
+                "be.null",
+            );
 
             // Set it to 0 — the priority SoHL's own archetypes ship at, and the
             // value a truthiness bug would swallow.
-            cy.editSheetField(skill, "system.archetype", 0);
-            cy.foundry((win) => win.game.items.get(skill.id).system.archetype).should("eq", 0);
+            cy.editSheetField(skill, "system.templatePriority", 0);
+            cy.foundry((win) => win.game.items.get(skill.id).system.templatePriority).should(
+                "eq",
+                0,
+            );
 
             // …and clearing the box un-marks it: FormDataExtended casts an empty
             // number input to `null`, the field's "not an archetype" state.
-            cy.editSheetField(skill, "system.archetype", "");
-            cy.foundry((win) => win.game.items.get(skill.id).system.archetype).should("be.null");
+            cy.editSheetField(skill, "system.templatePriority", "");
+            cy.foundry((win) => win.game.items.get(skill.id).system.templatePriority).should(
+                "be.null",
+            );
+        });
+    });
+
+    // The migration rule itself is unit-tested (`migrateTemplatePriority`).
+    // What only a live client can prove is that it is *wired* — that Foundry
+    // actually routes a `system` block through `SohlDataModel.migrateData` on
+    // the way in, for every SoHL subtype. A world that pre-dates #1836 is
+    // exactly this: stored data carrying the old key.
+    it("migrates a pre-#1836 system.archetype to system.templatePriority (#1836)", () => {
+        cy.foundry(async (win) => {
+            // Priority 0 on purpose: it is what SoHL's own archetypes ship at,
+            // and the value any truthiness bug in the migration would swallow.
+            const item = await win.Item.create(
+                toRealm(win, {
+                    name: tagName("Legacy Marked Skill"),
+                    type: "skill",
+                    system: { shortcode: `leg${Date.now()}`, archetype: 0 },
+                }),
+            );
+            return {
+                priority: item.system.templatePriority,
+                legacy: item.system.archetype,
+                discovered: (await win.sohl.core.fvttDiscoverArchetypes("Item")).some(
+                    (c) => c.uuid === item.uuid,
+                ),
+            };
+        }).should((r) => {
+            expect(r.priority, "legacy priority carried across").to.eq(0);
+            expect(r.legacy, "legacy key gone from the migrated document").to.be.undefined;
+            expect(r.discovered, "the migrated document is still discoverable").to.be.true;
         });
     });
 });

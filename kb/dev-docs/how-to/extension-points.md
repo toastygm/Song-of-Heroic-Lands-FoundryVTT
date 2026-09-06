@@ -287,7 +287,7 @@ appear in the GM's calendar settings. The registry API
 format are documented in the
 [Calendar Reference](../reference/calendar.md#calendar-registry-and-gm-workflow).
 
-## 10) Create-dialog archetypes (`system.archetype`)
+## 10) Create-dialog archetypes (`system.templatePriority`)
 
 The shared Create dialog (`sohlCreateDialog`, used by both `SohlActor` and
 `SohlItem`) offers an **Archetype** picker that seeds a new document from an
@@ -296,21 +296,31 @@ movement instead of blank. Archetypes are **data, not code**: no source change i
 needed to add one.
 
 **The contract.** Mark any Actor/Item — in a compendium pack or in the world —
-with `system.archetype = <priority:number>` and it becomes an archetype for its
+with `system.templatePriority = <priority:number>` and it becomes an archetype for its
 `(type, subType)` in the picker. The value is a numeric priority (see below);
 `null` — the field's initial value — means "not an archetype", and a non-numeric
 value is ignored.
+
+**The field was `system.archetype` until issue #1836**, and a module written
+against that name keeps working: a world document is migrated on construction,
+and discovery reads a compendium **index** under either spelling — an index
+entry is raw stored data that never passes through a data model, so a pack built
+by an older toolchain would otherwise contribute nothing, silently. Emit
+`system.templatePriority` in new packs. The rename frees `archetype` for the
+character-**sort** taxonomy that authored content already spells `archetypes`; a
+priority and a taxonomy separated only by a plural `s` is a trap
+(`HeroicLands/package-build#266`).
 
 **`0` is a priority, not a blank.** SoHL's own archetypes ship at priority `0`,
 so the tri-state has two states that both look empty and are **not**
 interchangeable: a **number** is an archetype at that priority, `null` is not an
 archetype. `0` is falsy, so every reader tests `typeof v === "number"` and never
-truthiness — see {@link sohl.entity.archetype.readArchetypePriority}, which is
+truthiness — see {@link sohl.entity.archetype.readTemplatePriority}, which is
 the one place that decision is made.
 
 **Setting it needs no JSON editing.** The marker is a schema field, so each
 sheet header carries a GM-only **Archetype Priority** control bound to
-`system.archetype`; a blank box is `null`. (On the Being sheet, whose header
+`system.templatePriority`; a blank box is `null`. (On the Being sheet, whose header
 renders identity as text, it lives in the header's identity dialog alongside
 Name and Shortcode.) It was a flag until issue #1780, and Foundry ships no flag
 editor — marking a document meant exporting it, hand-editing the JSON and
@@ -366,7 +376,7 @@ never fails; without it, a collision is rejected. System-generated item creation
 strict so the author picks a unique code deliberately.
 
 **Instantiation clears the marker; copy-verbatim preserves it.**
-`system.archetype` is reset to `null` at every point where an archetype is
+`system.templatePriority` is reset to `null` at every point where an archetype is
 _instantiated_ into a live document, and kept only when a document is copied _as
 a library entry_. The single primitive is the pure
 {@link sohl.entity.archetype.clearArchetypeMarker}. It **writes `null`** rather
