@@ -22,7 +22,10 @@ function affiliationFields(overrides: Record<string, unknown> = {}) {
         office: "Archivist",
         title: "Keeper",
         level: 3,
-        relation: {},
+        relations: {},
+        parents: [],
+        seat: null,
+        domain: [],
         ...overrides,
     };
 }
@@ -107,34 +110,36 @@ describe("AffiliationLogic", () => {
     describe("standingWith (#1404)", () => {
         it("returns the recorded standing for a listed shortcode", () => {
             const logic = makeAffiliation({
-                relation: { peoni: AFFILIATION_STANDING.NEMESIS },
+                relations: { peoni: AFFILIATION_STANDING.NEMESIS },
             });
             expect(logic.standingWith("peoni")).toBe("nemesis");
         });
 
         it("returns unaligned for a shortcode absent from the table", () => {
             const logic = makeAffiliation({
-                relation: { peoni: AFFILIATION_STANDING.NEMESIS },
+                relations: { peoni: AFFILIATION_STANDING.NEMESIS },
             });
             expect(logic.standingWith("larani")).toBe(AFFILIATION_STANDING.UNALIGNED);
         });
 
         it("returns unaligned for every shortcode when the table is empty", () => {
-            const logic = makeAffiliation({ relation: {} });
+            const logic = makeAffiliation({ relations: {} });
             expect(logic.standingWith("peoni")).toBe(AFFILIATION_STANDING.UNALIGNED);
             expect(logic.standingWith("")).toBe(AFFILIATION_STANDING.UNALIGNED);
         });
 
         it("round-trips every standing value", () => {
-            const relation = Object.fromEntries(AffiliationStandings.map((s, i) => [`aff${i}`, s]));
-            const logic = makeAffiliation({ relation });
+            const relations = Object.fromEntries(
+                AffiliationStandings.map((s, i) => [`aff${i}`, s]),
+            );
+            const logic = makeAffiliation({ relations });
             AffiliationStandings.forEach((standing, i) => {
                 expect(logic.standingWith(`aff${i}`)).toBe(standing);
             });
         });
 
         it("does not confuse an inherited Object property with a recorded standing", () => {
-            const logic = makeAffiliation({ relation: {} });
+            const logic = makeAffiliation({ relations: {} });
             // `toString` exists on Object.prototype; a naive lookup would return
             // the function rather than the neutral default.
             expect(logic.standingWith("toString")).toBe(AFFILIATION_STANDING.UNALIGNED);
@@ -244,4 +249,37 @@ describe("AffiliationDataModel", () => {
 
     it.todo("has kind set to ITEM_KIND.AFFILIATION");
     it.todo("has correct LOCALIZATION_PREFIXES");
+});
+
+describe("affiliation references (#1781)", () => {
+    it("answers to nobody by default, and that is a value rather than an absence", () => {
+        const logic = makeAffiliation();
+        expect(logic.data.parents).toEqual([]);
+        expect(logic.data.domain).toEqual([]);
+    });
+
+    it("records more than one parent, because a body may sit under several at once", () => {
+        const logic = makeAffiliation({ parents: ["ordoarcanis", "vylarianempire"] });
+        expect(logic.data.parents).toEqual(["ordoarcanis", "vylarianempire"]);
+    });
+
+    it("keeps the seat unset as null, distinct from a body with no seat recorded", () => {
+        expect(makeAffiliation().data.seat).toBeNull();
+        expect(makeAffiliation({ seat: "tashal" }).data.seat).toBe("tashal");
+    });
+
+    it("holds sway over several places, the geographic relation kept apart from the parent one", () => {
+        const logic = makeAffiliation({
+            parents: ["vylarianempire"],
+            domain: ["kaldorregion", "tashal"],
+        });
+        expect(logic.data.parents).toEqual(["vylarianempire"]);
+        expect(logic.data.domain).toEqual(["kaldorregion", "tashal"]);
+    });
+
+    it("allows a seat outside its domain — a government in exile is a real case", () => {
+        const logic = makeAffiliation({ seat: "golotha", domain: ["kaldorregion"] });
+        expect(logic.data.domain).not.toContain(logic.data.seat);
+        expect(logic.data.seat).toBe("golotha");
+    });
 });

@@ -5,7 +5,17 @@
     "documents": {
         "Item": {
             "affiliation": {
-                "own": ["level", "office", "relation", "society", "subType", "title"],
+                "own": [
+                    "domain",
+                    "level",
+                    "office",
+                    "parents",
+                    "relations",
+                    "seat",
+                    "society",
+                    "subType",
+                    "title"
+                ],
                 "inherited": [
                     "actionDefs",
                     "docHtml",

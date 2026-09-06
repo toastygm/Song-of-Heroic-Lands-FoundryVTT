@@ -138,7 +138,7 @@ export class AffiliationSheet extends SohlItemSheetBase {
                 result.standing
             :   AFFILIATION_STANDING.UNALIGNED;
         await this.document.update({
-            [`system.relation.${result.code}`]: standing,
+            [`system.relations.${result.code}`]: standing,
         });
         void this.render();
     }
@@ -159,7 +159,7 @@ export class AffiliationSheet extends SohlItemSheetBase {
         if (!code) return;
         // `-=key` is Foundry's remove-this-key update; writing the whole map
         // back would instead re-add every key it still holds.
-        await this.document.update({ [`system.relation.-=${code}`]: null });
+        await this.document.update({ [`system.relations.-=${code}`]: null });
         void this.render();
     }
 
@@ -186,7 +186,7 @@ export class AffiliationSheet extends SohlItemSheetBase {
             // Standing table (#1404): one row per recorded relation, named from
             // the actor's other affiliations where they resolve.
             relationRows: buildRelationRows(
-                system.relation,
+                system.relations,
                 this.relationCandidates.map((o) => ({
                     shortcode: o.value,
                     name: o.label,
