@@ -5,7 +5,6 @@ name:
   full: "Buckram, per sq yard"
   aliases: []
 description: "Heavy coarse linen, loosely woven; cloth armour, sailcloth and sacking."
-id: 92h7wM75Y9YoXXzr
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: buckram
 type: miscgear

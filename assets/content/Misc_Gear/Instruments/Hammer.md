@@ -5,7 +5,6 @@ name:
   full: "Hammer"
   aliases: []
 description: "Ordinary iron-headed hammer for nails, joinery, and repair."
-id: Zm4njdqySFmkO40G
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hammer
 type: miscgear

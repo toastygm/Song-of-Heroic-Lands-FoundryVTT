@@ -4,7 +4,6 @@ name:
   full: "Satchel, waxed canvas, sm"
   aliases: []
 description: "Small waxed canvas shoulder bag; sheds rain."
-id: 6wHWhmNKtqcT3RU5
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: satchwcsm
 type: containergear

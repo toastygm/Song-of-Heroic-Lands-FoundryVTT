@@ -4,7 +4,6 @@ name:
   full: "Inkwell, copper"
   aliases: []
 description: "Compact tinned-copper travel inkwell for scribes and clerks."
-id: 5e5WsploAL0WGGKw
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: inkwellcop
 type: containergear

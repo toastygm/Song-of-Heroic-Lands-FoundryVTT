@@ -5,7 +5,6 @@ name:
   full: "Harp, Aeolian (small)"
   aliases: []
 description: "Compact stringed frame harp; gut-silk strings in diatonic scale; bright ringing voice."
-id: VaH2WAzCFKVJy6Lc
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: harpaeolia
 type: miscgear

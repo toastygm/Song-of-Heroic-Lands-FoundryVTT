@@ -4,7 +4,6 @@ name:
   full: "Vial, glass, large"
   aliases: []
 description: "Narrow-necked glass vial for alchemists storing potent liquids and tinctures."
-id: aRSxctvVHoAaRKKK
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: vialglassl
 type: containergear

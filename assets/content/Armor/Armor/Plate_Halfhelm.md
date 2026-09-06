@@ -4,7 +4,6 @@ name:
   full: Plate Halfhelm
   aliases: []
 description: "Steel helm covering crown and sides; exposes face for visibility."
-id: 5EDCAu3uGFk5JedD
 img: icons/game-icons/lorc/barbute.svg
 shortcode: PlHHelm
 type: armorgear

@@ -4,7 +4,6 @@ name:
   full: Tetrodotoxin
   aliases: []
 description: "Neurotoxin; blocks nerve signals; progressive paralysis including respiratory muscles."
-id: OGwTMxW7EuKLb5cp
 img: icons/game-icons/lorc/poison-bottle.svg
 shortcode: tetdtxn
 type: affliction

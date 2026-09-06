@@ -4,7 +4,6 @@ name:
   full: Mace, Wood Handle
   aliases: []
 description: "Flanged iron head on wooden shaft; footman and guard's bone-cracker."
-id: jAbqiClSdPnki5rd
 img: icons/game-icons/delapouite/flanged-mace.svg
 shortcode: WdMce
 type: weapongear

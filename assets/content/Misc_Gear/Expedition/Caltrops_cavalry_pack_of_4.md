@@ -5,7 +5,6 @@ name:
   full: "Caltrops, cavalry, pack of 4"
   aliases: []
 description: "Four cast-iron implements with four points; slows mounted pursuers and damages hooves."
-id: Pi5pJcdy8rGUJper
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: caltropsca
 type: miscgear

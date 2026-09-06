@@ -4,7 +4,6 @@ name:
   full: Russet Robe
   aliases: []
 description: "Reddish-brown wool robe; everyday garment for cooler weather."
-id: l88Lo8FeVrLXaJUK
 img: icons/game-icons/lorc/robe.svg
 shortcode: RRobe
 type: armorgear

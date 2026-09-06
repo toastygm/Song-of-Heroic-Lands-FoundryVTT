@@ -4,7 +4,6 @@ name:
   full: Cloth Robe
   aliases: []
 description: "Simple cloth robe providing comfort and warmth for practical wear."
-id: Fd7OKQ9WDmH5Fgcp
 img: icons/game-icons/lorc/robe.svg
 shortcode: CRobe
 type: armorgear

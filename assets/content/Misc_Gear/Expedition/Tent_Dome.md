@@ -5,7 +5,6 @@ name:
   full: "Tent, Dome"
   aliases: []
 description: "Low hemispherical shelter; resists wind and sheds rain from all angles."
-id: EVNOt3rVL1Bb0arQ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: tentdome
 type: miscgear

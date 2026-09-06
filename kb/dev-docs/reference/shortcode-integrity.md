@@ -250,6 +250,14 @@ data** — actions, cohorts, expressions, archetypes, pack lookups — so changi
 a data migration rather than a cosmetic edit, and it moves a public URL as well.
 Pick it once, and pick it to last.
 
+**A rename also moves the document's Foundry `_id`**, because that too derives
+from the address (#1841): `makeId("document", "<package>-<system>-<type>-<shortcode>")`.
+This is the one place the derivation costs something an authored id did not —
+which is exactly what the `id:` escape hatch is for. Where a document must keep
+its identity across a rename, pin the id it already had, with a comment saying
+why. Note this changes nothing about _whether_ a rename is breaking: it already
+broke every wikilink into the note, so it is a breaking change either way.
+
 No document stores a URL of its own, either. In-app documentation is the compiled
 JournalEntry an item points at through `docHtml`'s `@UUID`, which is a Foundry
 reference rather than a web address; a per-document absolute URL would make a change

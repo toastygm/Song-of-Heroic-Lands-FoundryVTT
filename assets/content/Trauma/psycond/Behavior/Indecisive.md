@@ -3,7 +3,6 @@ tags: []
 name:
   full: Indecisive
   aliases: []
-id: mku8sWHpsU2AbafD
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: indcsv
 type: trauma

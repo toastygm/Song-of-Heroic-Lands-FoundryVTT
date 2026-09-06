@@ -4,7 +4,6 @@ name:
   full: Fate
   aliases: []
 description: "A thread of destiny held and spent to raise a roll that has already settled."
-id: vXrNYKTPRjCPF2n4
 img: icons/game-icons/lorc/crystal-ball.svg
 shortcode: fate
 type: mysticalability

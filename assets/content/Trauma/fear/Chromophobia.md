@@ -3,7 +3,6 @@ tags: []
 name:
   full: Chromophobia
   aliases: []
-id: j8xTwqrJDrcatBXq
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: chrmphb
 type: trauma

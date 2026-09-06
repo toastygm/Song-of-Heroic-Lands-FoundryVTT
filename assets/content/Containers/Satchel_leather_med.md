@@ -4,7 +4,6 @@ name:
   full: "Satchel, leather, med"
   aliases: []
 description: "Moderate leather shoulder bag with a buckled flap."
-id: vAoqhzKzru2GxtEQ
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: satchltmd
 type: containergear

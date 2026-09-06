@@ -4,7 +4,6 @@ name:
   full: Slingshot
   aliases: []
 description: "Y-framed pouch-cord; concealed, silent, favored by hunters and footpads."
-id: xXaZlrlrvLWEiNG7
 img: icons/game-icons/delapouite/slingshot.svg
 shortcode: SlngSht
 type: weapongear

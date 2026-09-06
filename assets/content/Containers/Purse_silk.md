@@ -4,7 +4,6 @@ name:
   full: "Purse, silk"
   aliases: []
 description: "Drawstring silk purse, often embroidered; conspicuously fine."
-id: tto8ivGu4mNZPKKU
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: pursesilk
 type: containergear

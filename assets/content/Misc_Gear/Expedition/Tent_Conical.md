@@ -5,7 +5,6 @@ name:
   full: "Tent, Conical"
   aliases: []
 description: "Linen cone over single pole; peaked roof sheds rain, allows campfire."
-id: 0sNGQqCqAW9RI87s
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: tentconica
 type: miscgear

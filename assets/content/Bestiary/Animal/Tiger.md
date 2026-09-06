@@ -6,7 +6,6 @@ name:
   full: Tiger
   aliases: []
 description: "The world's largest cat, a solitary ambush hunter sitting atop every food chain across jungle, grassland, and river margin."
-id: j5rGiDYFcb0LAlmN
 img: icons/game-icons/delapouite/tiger.svg
 portrait: images/being/tiger-portrait.webp
 shortcode: tiger

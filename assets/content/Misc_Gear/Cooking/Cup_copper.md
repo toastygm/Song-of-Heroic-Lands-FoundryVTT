@@ -5,7 +5,6 @@ name:
   full: "Cup, copper"
   aliases: []
 description: "Tinned copper cup; holds warmth well and suits mulled wine or mead."
-id: FE6Vlj0bulyb6h7e
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cupcopper
 type: miscgear

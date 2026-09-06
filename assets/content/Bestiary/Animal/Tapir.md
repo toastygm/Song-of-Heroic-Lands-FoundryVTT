@@ -6,7 +6,6 @@ name:
   full: Tapir
   aliases: []
 description: "A shy, barrel-bodied jungle herbivore with a trunk-like nose, foraging riverbanks by night and swimming to escape confrontation."
-id: uL25TIgj48GJ02pY
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/tapir-portrait.webp
 shortcode: tapir

@@ -4,7 +4,6 @@ name:
   full: Rawhide Vest
   aliases: []
 description: "Thick hide sleeveless vest; torso-only durability."
-id: SWS2IeKwR2QA5fZ5
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: RhVest
 type: armorgear

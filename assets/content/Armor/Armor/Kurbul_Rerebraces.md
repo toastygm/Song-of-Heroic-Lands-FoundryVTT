@@ -4,7 +4,6 @@ name:
   full: Kûrbúl Rerebraces
   aliases: []
 description: "Leather upper arm guards offering protection and flexibility with ornamental designs."
-id: pe8JR9rKFQknq3IO
 img: icons/game-icons/lorc/dorsal-scales.svg
 shortcode: KRebr
 type: armorgear

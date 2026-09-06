@@ -5,7 +5,6 @@ name:
   full: "Dye, Ochre Yellow"
   aliases: []
 description: "Ground ochre with iron mordants; earthy mustard yellow for peasant cloth."
-id: 0Az6d79PEtKbfejf
 img: icons/game-icons/caro-asercion/round-potion.svg
 shortcode: dyeochr
 type: miscgear

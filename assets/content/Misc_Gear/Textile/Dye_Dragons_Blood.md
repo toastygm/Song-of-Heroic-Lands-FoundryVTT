@@ -5,7 +5,6 @@ name:
   full: "Dye, Dragon's Blood"
   aliases: []
 description: "Crimson resin powder; rich red dye for fine silk and noble garments."
-id: NVV2aU3wR59DnZRK
 img: icons/game-icons/caro-asercion/round-potion.svg
 shortcode: dyedrgn
 type: miscgear

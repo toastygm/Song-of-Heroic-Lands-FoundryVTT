@@ -4,7 +4,6 @@ name:
   full: Beaver Cloak
   aliases: []
 description: "Dense beaver fur cloak providing exceptional warmth and opulent status marking."
-id: LaYvnUQykZ3dT0zC
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: BvCloak
 type: armorgear

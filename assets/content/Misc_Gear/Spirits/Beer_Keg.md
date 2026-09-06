@@ -5,7 +5,6 @@ name:
   full: "Beer, Keg"
   aliases: []
 description: "Small-beer in bulk; thin, sour, cheap for troops and workforces."
-id: umFi5o4IsUwaSXay
 img: icons/game-icons/lorc/beer-stein.svg
 shortcode: beerkeg
 type: miscgear

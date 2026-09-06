@@ -3,7 +3,6 @@ tags: []
 name:
   full: Ophidiophobia
   aliases: []
-id: xEjgU6mwDTNufZOu
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: ophdphb
 type: trauma

@@ -5,7 +5,6 @@ name:
   full: Donkey
   aliases: []
 description: "A small, sure-footed equine prized for endurance and long life, hauling loads through rough terrain that would defeat a horse."
-id: Z0cG8fAIzSARDUaH
 img: icons/game-icons/skoll/donkey.svg
 portrait: images/being/donkey-portrait.webp
 shortcode: donkey

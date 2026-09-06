@@ -4,7 +4,6 @@ name:
   full: Russet Mantle
   aliases: []
 description: "Reddish-brown wool shoulder-wrap; practical outer layer."
-id: f0XUqgoKqrD6uQOs
 img: icons/game-icons/delapouite/cape.svg
 shortcode: RMntl
 type: armorgear

@@ -7,7 +7,6 @@ name:
   aliases:
     - Desert Sighthound
 description: "A lean, elegant desert sighthound of ancient lineage, built entirely for speed to course gazelle and hare across open dunes."
-id: t7edWGJipMjipWWu
 img: icons/game-icons/lorc/hound.svg
 portrait: images/being/saluki-portrait.webp
 shortcode: saluki

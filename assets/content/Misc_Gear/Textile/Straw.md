@@ -5,7 +5,6 @@ name:
   full: "Straw, woven, per sq yard"
   aliases: []
 description: "Plaited straw worked into sheet; hats, light summer wear and coarse matting."
-id: tfOnWD9quoNAJe9q
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: straw
 type: miscgear

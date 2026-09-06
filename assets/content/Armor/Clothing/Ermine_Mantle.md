@@ -4,7 +4,6 @@ name:
   full: Ermine Mantle
   aliases: []
 description: "White ermine mantle signifying wealth and elite nobility."
-id: IpWiUOOKSMCZo86v
 img: icons/game-icons/delapouite/cape.svg
 shortcode: EMntl
 type: armorgear

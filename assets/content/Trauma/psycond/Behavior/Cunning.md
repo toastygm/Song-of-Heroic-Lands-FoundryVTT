@@ -3,7 +3,6 @@ tags: []
 name:
   full: Cunning
   aliases: []
-id: Zp1K4nII41x8UGPU
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: cunning
 type: trauma

@@ -5,7 +5,6 @@ name:
   full: "Garnet, cut"
   aliases: []
 description: "Deep red-purple gem favored for signet rings by the merchant class."
-id: SDSgdn7LUjIyOkCc
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: garnetcut
 type: miscgear

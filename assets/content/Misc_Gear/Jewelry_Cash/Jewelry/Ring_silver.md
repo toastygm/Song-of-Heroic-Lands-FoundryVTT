@@ -5,7 +5,6 @@ name:
   full: "Ring, silver"
   aliases: []
 description: "Silver band that takes fine engraving; the common betrothal and guild ring."
-id: z8ROAoOPMxjgFA7R
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ringsilver
 type: miscgear

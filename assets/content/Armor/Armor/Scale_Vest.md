@@ -4,7 +4,6 @@ name:
   full: Scale Vest
   aliases: []
 description: "Sleeveless scale-armor; overlapping metal scales cover torso only."
-id: iRQg5PHDSDRPbHxg
 img: icons/game-icons/lorc/scale-mail.svg
 shortcode: SVest
 type: armorgear

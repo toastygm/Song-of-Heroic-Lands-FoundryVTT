@@ -5,7 +5,6 @@ name:
   full: "Hide, Horse"
   aliases: []
 description: "Supple durable horsehide; favored for saddles and armor linings by cavalry outposts. Price is for one whole skin."
-id: yYVOEWtjTgoq3M39
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hidehorse
 type: miscgear

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Deafness
   aliases: []
-id: j8Zh8nMXAlumoHMU
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: deafness
 type: trauma

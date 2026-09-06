@@ -4,7 +4,6 @@ name:
   full: Kûrbúl Helm
   aliases: []
 description: "Plain treated-leather skullcap helm; covers the crown alone and leaves the face open."
-id: a4ZXeBv2RlRxN14l
 img: icons/game-icons/lorc/crested-helmet.svg
 shortcode: KHlm
 type: armorgear

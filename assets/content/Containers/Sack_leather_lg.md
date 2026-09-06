@@ -4,7 +4,6 @@ name:
   full: "Sack, leather, lg"
   aliases: []
 description: "Large leather sack closed by a drawstring."
-id: uRl52gEU4gZJtChD
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: sackltlg
 type: containergear

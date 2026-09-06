@@ -3,7 +3,6 @@ tags: []
 name:
   full: Reticent
   aliases: []
-id: ZweaBF2VSvxThOT1
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: reticent
 type: trauma

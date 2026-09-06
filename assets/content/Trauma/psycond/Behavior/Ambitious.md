@@ -3,7 +3,6 @@ tags: []
 name:
   full: Ambitious
   aliases: []
-id: qaSlCdUJGcu8z1Ba
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: ambx
 type: trauma

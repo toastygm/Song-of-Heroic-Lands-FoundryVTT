@@ -3,7 +3,6 @@ tags: []
 name:
   full: Obsessive
   aliases: []
-id: T1sdYjCY9Miy4Btx
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: obsssv
 type: trauma

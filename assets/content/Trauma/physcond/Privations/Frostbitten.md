@@ -4,7 +4,6 @@ name:
   full: Frostbitten
   aliases: []
 description: "Tissue freezes in extremities; numbness, waxy skin, blackened flesh."
-id: XYxcQfNRWE3iLnfr
 img: icons/game-icons/delapouite/stomach.svg
 shortcode: frost
 type: trauma

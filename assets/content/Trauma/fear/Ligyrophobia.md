@@ -3,7 +3,6 @@ tags: []
 name:
   full: Ligyrophobia
   aliases: []
-id: MVDM93vscWJUYlVF
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: lgyrphb
 type: trauma

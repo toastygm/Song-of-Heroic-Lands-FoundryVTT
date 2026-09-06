@@ -5,7 +5,6 @@ name:
   full: "Seaweed, Dolce"
   aliases: []
 description: "Dried coastal fronds rehydrating in broth, iodine-rich food and umami."
-id: ISEPqfmryqg0TWum
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: seaweeddol
 type: miscgear

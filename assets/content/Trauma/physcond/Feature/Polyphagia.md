@@ -3,7 +3,6 @@ tags: []
 name:
   full: Polyphagia
   aliases: []
-id: ZGQY1bfFMJFuEdtp
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: plyphg
 type: trauma

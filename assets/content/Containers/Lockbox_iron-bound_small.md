@@ -4,7 +4,6 @@ name:
   full: "Lockbox, iron-bound, small"
   aliases: []
 description: "Small iron-bound strongbox with a key lock."
-id: zD98JgFXPKtpuMrp
 img: icons/game-icons/delapouite/chest.svg
 shortcode: lockboxibsm
 type: containergear

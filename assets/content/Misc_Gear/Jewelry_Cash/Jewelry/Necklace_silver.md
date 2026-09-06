@@ -5,7 +5,6 @@ name:
   full: "Necklace, silver"
   aliases: []
 description: "Silver chain or collar; a prosperous household's showpiece, worn on feast days."
-id: xgusnSDAlUSidvZe
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: necklacesilver
 type: miscgear

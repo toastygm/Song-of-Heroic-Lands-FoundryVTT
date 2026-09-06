@@ -5,7 +5,6 @@ name:
   full: "Book, Base"
   aliases: []
 description: "Unbound quires with oak boards and bronze clasps; ready for binding."
-id: dVuC9SoU1Vsrja1P
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bookbase
 type: miscgear

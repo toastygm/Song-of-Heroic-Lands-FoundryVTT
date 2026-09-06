@@ -5,7 +5,6 @@ name:
   full: Horned Toad
   aliases: []
 description: "A four-foot desert reptile armored in jagged bony plates, its sand-colored, warty hide letting it vanish against rocky badlands terrain."
-id: Pw1yCo0E0c33EE6P
 img: icons/game-icons/delapouite/horned-reptile.svg
 portrait: images/being/hrndtd-portrait.webp
 shortcode: hrndtd

@@ -5,7 +5,6 @@ name:
   full: "Lenses"
   aliases: []
 description: "Ground and polished glass lenses for magnification; costly and fragile."
-id: lMBWKI4m4wgnnitl
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lenses
 type: miscgear

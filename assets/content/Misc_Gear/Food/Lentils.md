@@ -5,7 +5,6 @@ name:
   full: Lentils
   aliases: []
 description: "Dried legume staple, poor man's protein, survives long travel and damp."
-id: dYyfpCR9RNlOrwaR
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lentils
 type: miscgear

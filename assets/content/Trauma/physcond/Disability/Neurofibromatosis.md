@@ -3,7 +3,6 @@ tags: []
 name:
   full: Neurofibromatosis
   aliases: []
-id: IUR07QqjO12bZ0Tk
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: neurofib
 type: trauma

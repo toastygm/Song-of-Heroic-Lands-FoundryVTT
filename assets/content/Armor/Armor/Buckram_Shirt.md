@@ -4,7 +4,6 @@ name:
   full: Buckram Shirt
   aliases: []
 description: "Stiff buckram shirt providing durability and reliable rigid fit."
-id: aYSwV6AfwIXev6hb
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: BShirt
 type: armorgear

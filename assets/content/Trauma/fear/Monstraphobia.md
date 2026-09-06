@@ -3,7 +3,6 @@ tags: []
 name:
   full: Monstraphobia
   aliases: []
-id: osjRQrub3oiIVMlb
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: mnstrphb
 type: trauma

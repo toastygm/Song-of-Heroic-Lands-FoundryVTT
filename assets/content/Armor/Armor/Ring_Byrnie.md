@@ -4,7 +4,6 @@ name:
   full: Ring Byrnie
   aliases: []
 description: "Leather tunic reinforced with overlapping metal rings; upper-body defense."
-id: wW2ZcXsjlMeaMIfj
 img: icons/game-icons/willdabeast/chain-mail.svg
 shortcode: RByr
 type: armorgear

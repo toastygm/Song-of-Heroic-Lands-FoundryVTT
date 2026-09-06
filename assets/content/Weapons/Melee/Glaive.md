@@ -4,7 +4,6 @@ name:
   full: Glaive
   aliases: []
 description: "Single-edged polearm cleaver; line infantry cavalry-breaker."
-id: 2XCYfU6wsaBNY1g5
 img: icons/game-icons/lorc/halberd.svg
 shortcode: Glv
 type: weapongear

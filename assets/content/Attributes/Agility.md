@@ -4,7 +4,6 @@ name:
   full: Agility
   aliases: []
 description: "Quickness, balance, and fluidity of whole-body movement."
-id: IQ6sKftvOoHAJOi5
 img: icons/game-icons/lorc/cartwheel.svg
 shortcode: agl
 type: attribute

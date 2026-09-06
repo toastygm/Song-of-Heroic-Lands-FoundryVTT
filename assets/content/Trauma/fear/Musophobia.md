@@ -3,7 +3,6 @@ tags: []
 name:
   full: Musophobia
   aliases: []
-id: MtbIVfIdDaia4MHC
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: musophb
 type: trauma

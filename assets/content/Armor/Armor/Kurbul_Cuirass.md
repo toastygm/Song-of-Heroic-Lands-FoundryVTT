@@ -4,7 +4,6 @@ name:
   full: Kûrbúl Cuirass
   aliases: []
 description: "Specially treated leather torso armor for those prioritizing agility."
-id: r8scgPfdh76nam6M
 img: icons/game-icons/lorc/breastplate.svg
 shortcode: KCui
 type: armorgear

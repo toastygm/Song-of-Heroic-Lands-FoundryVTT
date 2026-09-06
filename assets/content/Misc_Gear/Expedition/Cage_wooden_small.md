@@ -5,7 +5,6 @@ name:
   full: "Cage, wooden, small"
   aliases: []
 description: "Small wicker-and-batten cage for birds or small game (about a cubic foot)."
-id: E0V9PYcWh7rLPZqE
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cagewoodsm
 type: miscgear

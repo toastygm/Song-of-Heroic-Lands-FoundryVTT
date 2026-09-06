@@ -5,7 +5,6 @@ name:
   aliases:
     - Poison
 description: "Long-term weakness from active poison or toxin in the body."
-id: U5hPImsuxbuJVzJ4
 img: icons/game-icons/lorc/sleepy.svg
 shortcode: poison
 type: trauma

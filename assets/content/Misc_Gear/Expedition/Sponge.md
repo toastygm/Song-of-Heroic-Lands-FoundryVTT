@@ -5,7 +5,6 @@ name:
   full: Sponge
   aliases: []
 description: "Dried sea sponge; light, absorbent, for bathing, cooking, and healing."
-id: 4t3xg7r7lkdsW5ai
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: sponge
 type: miscgear

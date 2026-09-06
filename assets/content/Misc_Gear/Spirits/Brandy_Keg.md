@@ -5,7 +5,6 @@ name:
   full: "Brandy, Keg"
   aliases: []
 description: "Distilled wine spirit in sealed keg; merchant treasure, used sparingly as medicine."
-id: JRLlJbNluuULHoLV
 img: icons/game-icons/lorc/brandy-bottle.svg
 shortcode: brdykeg
 type: miscgear

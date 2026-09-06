@@ -5,7 +5,6 @@ name:
   full: "Grooming Kit, common"
   aliases: []
 description: "Cloth roll with a wooden comb, bristle brush, soap and a linen handkerchief; a poor man's upkeep."
-id: S86TU2LxoqVzKel8
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: groomkitcom
 type: miscgear

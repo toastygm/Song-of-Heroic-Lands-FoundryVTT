@@ -4,7 +4,6 @@ name:
   full: Canvas Vest
   aliases: []
 description: "Sleeveless canvas vest offering tough, unfussy body cover."
-id: rFuEeuxEo1HEMKHc
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: CvVest
 type: armorgear

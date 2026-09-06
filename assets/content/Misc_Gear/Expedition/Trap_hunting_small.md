@@ -5,7 +5,6 @@ name:
   full: "Trap, hunting, small"
   aliases: []
 description: "Compact gin-trap for rabbit and hare; sets a dozen along warren paths."
-id: vX5NsBDIhBnVTHXz
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: traphuntin2
 type: miscgear

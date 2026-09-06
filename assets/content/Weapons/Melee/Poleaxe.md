@@ -4,7 +4,6 @@ name:
   full: Poleaxe
   aliases: []
 description: "Axe-head, hammer, and spike combination; armored melee knight's versatile reach."
-id: XV3ldZxnNptio5nW
 img: icons/game-icons/lorc/halberd.svg
 shortcode: PAxe
 type: weapongear

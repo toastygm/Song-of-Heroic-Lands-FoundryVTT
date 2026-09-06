@@ -4,7 +4,6 @@ name:
   full: "Arrow bag"
   aliases: []
 description: "Stiffened canvas bag holding arrows loose for bulk transport."
-id: gOdM19b7bLkZlHjH
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: arrowbag
 type: containergear

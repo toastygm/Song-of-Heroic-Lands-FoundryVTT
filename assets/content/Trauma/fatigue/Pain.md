@@ -5,7 +5,6 @@ name:
   aliases:
     - Injury
 description: "Long-term weakness from active wounds and persistent pain."
-id: Z9AqD3575gIg7BmW
 img: icons/game-icons/lorc/sleepy.svg
 shortcode: pain
 type: trauma

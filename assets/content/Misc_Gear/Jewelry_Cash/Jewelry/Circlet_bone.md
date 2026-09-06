@@ -5,7 +5,6 @@ name:
   full: "Circlet, bone"
   aliases: []
 description: "A plain band for the brow, worn by those with rank enough to show it and not enough for a coronet, in carved bone."
-id: 40MvbIT7JZ1j8Zzr
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: circletbone
 type: miscgear

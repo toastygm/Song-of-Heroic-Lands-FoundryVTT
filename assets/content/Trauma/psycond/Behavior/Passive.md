@@ -3,7 +3,6 @@ tags: []
 name:
   full: Passive
   aliases: []
-id: vq2reMcYYgDd8WCk
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: passive
 type: trauma

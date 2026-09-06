@@ -4,7 +4,6 @@ name:
   full: "Urn, ceramic, 5 gallon"
   aliases: []
 description: "Wide-mouthed storage urn for grain, flour, or salt (5 gallons)."
-id: 81loUXRbTVhEh1me
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: urncer5gal
 type: containergear

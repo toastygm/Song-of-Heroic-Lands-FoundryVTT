@@ -4,7 +4,6 @@ name:
   full: Wooden Crossbow 120
   aliases: []
 description: "Town-watch crossbow; balanced draw for long patrols and garrison duty."
-id: 1HZobnNCLhl51w37
 img: icons/game-icons/carl-olsen/crossbow.svg
 shortcode: WCxBw120
 type: weapongear

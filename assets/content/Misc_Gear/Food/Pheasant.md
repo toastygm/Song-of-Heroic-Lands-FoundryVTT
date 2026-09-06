@@ -5,7 +5,6 @@ name:
   full: Pheasant
   aliases: []
 description: "Prized game bird, delicate meat roasts well, smokes into jerky."
-id: pf47vQyIl9I7d2JC
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: pheasant
 type: miscgear

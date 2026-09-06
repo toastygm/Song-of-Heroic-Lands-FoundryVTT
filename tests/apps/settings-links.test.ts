@@ -36,7 +36,7 @@ const SYSTEM: SohlSystemInfo = {
         apiDocsUrl: "https://www.heroiclands.org/sohl/api/",
         issuesUrl: "https://github.com/HeroicLands/Song-of-Heroic-Lands-FoundryVTT/issues",
         discordInviteUrl: "https://discord.gg/EwMfkNd3az/",
-        creditsUuid: "Compendium.sohl.journals.JournalEntry.VCCHelr5qIC5ydop",
+        creditsUuid: "Compendium.sohl.journals.JournalEntry.58130c5f4ce2b4a7",
     },
 };
 

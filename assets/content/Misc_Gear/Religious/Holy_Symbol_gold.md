@@ -5,7 +5,6 @@ name:
   full: "Holy Symbol, gold"
   aliases: []
 description: "Gold token of a god; the symbol of a prelate or a great house."
-id: 99KBJjIWYH4mZGet
 img: icons/game-icons/lorc/prayer.svg
 shortcode: holysymgold
 type: miscgear

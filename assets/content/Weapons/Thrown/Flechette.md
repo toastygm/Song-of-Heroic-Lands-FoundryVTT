@@ -4,7 +4,6 @@ name:
   full: Fléchette
   aliases: []
 description: "Small aerodynamic dart thrown in volleys; skirmisher's ranged harassment."
-id: LBFoDsugD5iMKwpT
 img: icons/game-icons/delapouite/dart.svg
 shortcode: Flch
 type: weapongear

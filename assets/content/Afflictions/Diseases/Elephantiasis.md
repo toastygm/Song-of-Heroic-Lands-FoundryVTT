@@ -4,7 +4,6 @@ name:
   full: Elephantiasis
   aliases: []
 description: "Filarial worm parasite; chronic lymphatic damage causes grotesque limb swelling."
-id: mMcMukFxl6C3rfAZ
 img: icons/game-icons/lorc/virus.svg
 shortcode: elph
 type: affliction

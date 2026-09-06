@@ -5,7 +5,6 @@ name:
   full: "Glue, pint"
   aliases: []
 description: "Hide glue from bone and sinew; rejoin wood, leather, and bone."
-id: 9M7DmBPi2swClJBj
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: gluept
 type: miscgear

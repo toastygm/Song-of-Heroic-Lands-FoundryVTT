@@ -4,7 +4,6 @@ name:
   full: Sealskin Tunic
   aliases: []
 description: "Waterproof seal-fur tunic; sleeved torso garment for wet climates."
-id: s2UsyiDhsZp1ClPE
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: SlsTunic
 type: armorgear

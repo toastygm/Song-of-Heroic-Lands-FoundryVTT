@@ -5,7 +5,6 @@ name:
   full: "Tarpaulin"
   aliases: []
 description: "Tarred canvas sheet for covering loads and shedding rain."
-id: r0rSw86zs37t7wzC
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: tarpaulin
 type: miscgear

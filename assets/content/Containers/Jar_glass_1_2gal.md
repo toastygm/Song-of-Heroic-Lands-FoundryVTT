@@ -4,7 +4,6 @@ name:
   full: "Jar, glass, 1/2-gallon"
   aliases: []
 description: "Capacious blown glass jar for preserves and dried herbs (1/2 gallon)."
-id: ulRTx0rVKIzCMnaF
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jarglassla
 type: containergear

@@ -5,7 +5,6 @@ name:
   full: "Amulet, copper"
   aliases: []
 description: "Beaten copper disc-charm; cheap, and reckoned good against aches and fevers."
-id: plfWpX0bY5FPjAtW
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: amuletcopper
 type: miscgear

@@ -5,7 +5,6 @@ name:
   full: "Oil, myrtle"
   aliases: []
 description: "Clean astringent myrtle oil for perfumery and wound washes."
-id: 07EJGE9VTPDZzDJt
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: oilmyrtle
 type: miscgear

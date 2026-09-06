@@ -5,7 +5,6 @@ name:
   full: Ratter
   aliases: []
 description: "A small, wiry hunting dog bred for relentless efficiency against rodents, guarding farms, mills, and grain stores throughout settled lands."
-id: 1rt4bCbVyGDW9hKA
 img: icons/game-icons/lorc/hound.svg
 portrait: images/being/ratter-portrait.webp
 shortcode: ratter

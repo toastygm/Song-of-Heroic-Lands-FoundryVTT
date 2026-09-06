@@ -6,7 +6,6 @@ name:
   full: Water Buffalo
   aliases: []
 description: "A massive semi-aquatic bovine of tropical floodplains, valued as a powerful draft beast yet formidable when running wild in feral herds."
-id: QpWdvTgOQceHrZhi
 img: icons/game-icons/delapouite/buffalo-head.svg
 portrait: images/being/wtrbffl-portrait.webp
 shortcode: wtrbffl

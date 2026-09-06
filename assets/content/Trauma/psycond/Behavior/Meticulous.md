@@ -3,7 +3,6 @@ tags: []
 name:
   full: Meticulous
   aliases: []
-id: 2HTpgtuavYX4qI7C
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: mtcls
 type: trauma

@@ -5,7 +5,6 @@ name:
   full: "Amulet, silver"
   aliases: []
 description: "Silver charm-pendant, engraved with a protective sign; the common warding piece."
-id: uP63OHDAkEM6M2Fd
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: amuletsilver
 type: miscgear

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Compassionate
   aliases: []
-id: gWEoZBDA8SG5JYW2
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: cmpssnt
 type: trauma

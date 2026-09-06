@@ -4,7 +4,6 @@ name:
   full: Starving
   aliases: []
 description: "Prolonged absence of food; wasting, weakness, organ failure."
-id: oi9UWBqy1A4rrTb3
 img: icons/game-icons/delapouite/stomach.svg
 shortcode: starv
 type: trauma

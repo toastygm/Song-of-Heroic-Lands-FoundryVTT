@@ -5,7 +5,6 @@ name:
   full: "Circlet, ivory"
   aliases: []
 description: "A plain band for the brow, worn by those with rank enough to show it and not enough for a coronet, in carved ivory."
-id: iPDbKcofwo3zHjvZ
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: circletivory
 type: miscgear

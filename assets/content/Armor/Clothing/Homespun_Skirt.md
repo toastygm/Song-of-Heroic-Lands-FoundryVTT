@@ -4,7 +4,6 @@ name:
   full: Homespun Skirt
   aliases: []
 description: "Simple homemade skirt offering coverage and practical comfort."
-id: 8sLvP0EU5cKhNUid
 img: icons/game-icons/delapouite/skirt.svg
 shortcode: HsSkirt
 type: armorgear

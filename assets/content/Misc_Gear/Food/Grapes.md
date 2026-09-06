@@ -5,7 +5,6 @@ name:
   full: Grapes
   aliases: []
 description: "Fresh plump in season; dried into raisins for merchant wagons and packs."
-id: VL1Y4nwDrRXTEpYB
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: grapes
 type: miscgear

@@ -5,7 +5,6 @@ name:
   full: "Mead, Pint"
   aliases: []
 description: "Sweet warming honey mead; festival drink at harvest feasts, noble celebrations."
-id: ClpLjRHQSrRjwHuu
 img: icons/game-icons/lorc/beer-stein.svg
 shortcode: mdpt
 type: miscgear

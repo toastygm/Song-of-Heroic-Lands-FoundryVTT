@@ -4,7 +4,6 @@ name:
   full: Physician
   aliases: []
 description: "Diagnosing illness, treating injuries, performing surgery, and healing wounds."
-id: nMPKgtFbCnXMNzuI
 img: icons/game-icons/delapouite/caduceus.svg
 shortcode: pysn
 type: skill

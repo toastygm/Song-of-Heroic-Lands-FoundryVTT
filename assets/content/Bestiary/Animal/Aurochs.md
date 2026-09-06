@@ -5,7 +5,6 @@ name:
   full: Aurochs
   aliases: []
 description: "A massive, ill-tempered wild bovine of prehistoric power that roams grasslands and sparse forests in loose, dangerous herds."
-id: nFUslZMExtT6iJVp
 img: icons/game-icons/lorc/bull.svg
 portrait: images/being/aurochs-portrait.webp
 shortcode: aurochs

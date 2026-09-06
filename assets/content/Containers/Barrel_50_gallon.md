@@ -4,7 +4,6 @@ name:
   full: "Barrel, 50 gallon"
   aliases: []
 description: "Large coopered tun for brewing, salting, or shipping in bulk (50 gallons)."
-id: htxJOZxIWbbCcnbR
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: barrel50gal
 type: containergear

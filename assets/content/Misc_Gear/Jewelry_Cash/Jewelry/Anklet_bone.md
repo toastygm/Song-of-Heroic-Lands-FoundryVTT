@@ -5,7 +5,6 @@ name:
   full: "Anklet, bone"
   aliases: []
 description: "A band worn at the ankle, closed or hinged, and often hung with small charms, in carved bone."
-id: QJgYJPT8Uc0fy4Vm
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: ankletbone
 type: miscgear

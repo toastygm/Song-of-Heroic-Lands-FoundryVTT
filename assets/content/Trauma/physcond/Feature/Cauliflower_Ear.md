@@ -3,7 +3,6 @@ tags: []
 name:
   full: Cauliflower Ear
   aliases: []
-id: PHTurncaCRTdjyIj
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: clflwrr
 type: trauma

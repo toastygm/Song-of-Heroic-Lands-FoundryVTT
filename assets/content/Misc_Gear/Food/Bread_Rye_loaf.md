@@ -5,7 +5,6 @@ name:
   full: "Bread, Rye, loaf"
   aliases: []
 description: "Dense dark loaf; stays fresh for days, fills belly, peasant staple."
-id: 4xIUw3hLj0ijS5VS
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: breadryelo
 type: miscgear

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Asthma
   aliases: []
-id: QI9bgiYrrQ4g2Tiq
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: asthma
 type: trauma

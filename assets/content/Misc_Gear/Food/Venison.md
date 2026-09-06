@@ -5,7 +5,6 @@ name:
   full: Venison
   aliases: []
 description: "Lean dark gamey deer meat, roasted fresh or smoked into jerky."
-id: Qc6ocryHI0PgvlNv
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: venison
 type: miscgear

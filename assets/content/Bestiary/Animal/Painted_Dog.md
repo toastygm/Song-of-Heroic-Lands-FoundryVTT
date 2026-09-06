@@ -7,7 +7,6 @@ name:
   aliases:
     - Xerathian Wild Dog
 description: "A lean, endurance-built savannah canid that hunts in coordinated packs of ten to thirty with unmatched efficiency across the Xerathian plains."
-id: 0tPcOrOwOP9EOWuE
 img: icons/game-icons/lorc/hound.svg
 portrait: images/being/pntddg-portrait.webp
 shortcode: pntddg

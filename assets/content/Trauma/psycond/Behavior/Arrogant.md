@@ -3,7 +3,6 @@ tags: []
 name:
   full: Arrogant
   aliases: []
-id: 6LxKvoIxjeUOuAbE
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: arrogant
 type: trauma

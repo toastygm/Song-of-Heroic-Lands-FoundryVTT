@@ -3,7 +3,6 @@ tags: []
 name:
   full: Assertive
   aliases: []
-id: FMQ41zaPzK0pVAjS
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: assrtv
 type: trauma

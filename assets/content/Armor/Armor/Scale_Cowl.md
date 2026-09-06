@@ -4,7 +4,6 @@ name:
   full: Scale Cowl
   aliases: []
 description: "Scale-sewn hood; overlapping metal scales for head protection."
-id: 8qyc91Lhgug9jCe4
 img: icons/game-icons/lorc/hood.svg
 shortcode: SCwl
 type: armorgear

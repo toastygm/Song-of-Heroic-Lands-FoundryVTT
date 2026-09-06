@@ -4,7 +4,6 @@ name:
   full: Russet Sleeved Tunic
   aliases: []
 description: "Reddish-brown wool tunic; full-arm coverage for warmth."
-id: AOcRbO5Yo5vnlflg
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: RSTnc
 type: armorgear

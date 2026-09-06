@@ -5,7 +5,6 @@ name:
   full: Climber's Kit
   aliases: []
 description: "Harness, climbing hammer, chalk, padded gloves, knee & elbow pads; the climber's working gear (pitons and grappling hook bought separately)."
-id: IA4LIaSy3F0QaGEk
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: climbkit
 type: miscgear

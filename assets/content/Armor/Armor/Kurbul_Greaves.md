@@ -4,7 +4,6 @@ name:
   full: Kûrbúl Greaves
   aliases: []
 description: "Treated leather leg armor combining protection and flexibility with decorative patterns."
-id: 6sIPe9G3RJRjQrAz
 img: icons/game-icons/delapouite/greaves.svg
 shortcode: KGrvs
 type: armorgear
