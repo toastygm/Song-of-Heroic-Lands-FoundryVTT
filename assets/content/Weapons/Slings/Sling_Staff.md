@@ -8,12 +8,13 @@ id: CJb4B5Ki7i4DIcbR
 img: icons/game-icons/delapouite/sling.svg
 shortcode: SlngStf
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: [wood]
   kbcat: sling
-  archetype: 0
   durability: 9
   weight: 0.1
   value: 6

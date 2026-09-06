@@ -10,9 +10,10 @@ img: icons/game-icons/caro-asercion/fox.svg
 portrait: images/being/fox-portrait.webp
 shortcode: fox
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+1
     end: 1d6+7

@@ -9,12 +9,13 @@ id: wQeyZhSnCssepVXB
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hornbonehu
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 5
   value: 9

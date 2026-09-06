@@ -8,11 +8,12 @@ id: sPTtZNEA7tXg6ZD8
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: bpchlg
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
-  archetype: 0
   quality: 0
   durability: 8
   maxCapacity: 5

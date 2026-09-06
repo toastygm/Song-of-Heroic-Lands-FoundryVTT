@@ -9,12 +9,13 @@ id: HwNlR1xeu8MatDnT
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: muzzle
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: tack
-  archetype: 0
   quality: 0
   durability: 6
   value: 6

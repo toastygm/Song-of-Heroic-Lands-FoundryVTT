@@ -8,12 +8,13 @@ id: 3Ya3ZFTchRKrCj3Z
 img: icons/game-icons/delapouite/cape.svg
 shortcode: HsMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Mantle
   detailMaterial: Homespun
   material: Cloth

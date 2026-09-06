@@ -9,12 +9,13 @@ id: qODVAWzBvpB2iwUs
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ocarinaflu
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 3
   value: 18

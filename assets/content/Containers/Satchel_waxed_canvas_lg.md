@@ -8,11 +8,12 @@ id: tt1B01hZt9X31V74
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: satchwclg
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
-  archetype: 0
   quality: 0
   durability: 8
   maxCapacity: 20

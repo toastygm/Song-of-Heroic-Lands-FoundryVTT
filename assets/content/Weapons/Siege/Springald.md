@@ -8,12 +8,13 @@ id: olW8KZm5vIcIRXGM
 img: icons/game-icons/lorc/spear-hook.svg
 shortcode: Sprngld
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: siege
-  archetype: 0
   durability: 14
   weight: 300
   value: 600

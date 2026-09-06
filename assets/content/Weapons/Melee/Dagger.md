@@ -8,12 +8,13 @@ id: HsKeZDZvLKxyrFr4
 img: icons/game-icons/lorc/broad-dagger.svg
 shortcode: Dgr
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: knife
-  archetype: 0
   durability: 11
   weight: 1
   value: 25

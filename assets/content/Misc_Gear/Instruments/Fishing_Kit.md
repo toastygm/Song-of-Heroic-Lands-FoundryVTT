@@ -9,12 +9,13 @@ id: 7ffbQSomSyacZCe2
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: fishgkit
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 7
   value: 6

@@ -8,12 +8,13 @@ id: kxIo96u2ll5zSZxe
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: LScoat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Surcoat
   detailMaterial: Linen
   material: Cloth

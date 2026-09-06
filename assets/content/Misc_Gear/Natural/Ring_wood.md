@@ -9,12 +9,13 @@ id: 9ODbhaZ3ShLC0WiH
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ringwood
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: [wood]
   kbcat: natural
-  archetype: 0
   quality: 0
   durability: 2
   value: 2

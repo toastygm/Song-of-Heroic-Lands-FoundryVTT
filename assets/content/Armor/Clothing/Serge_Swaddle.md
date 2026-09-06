@@ -8,12 +8,13 @@ id: m0Ka3ucNTuUoxKF9
 img: icons/game-icons/lorc/trousers.svg
 shortcode: SgSwd
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Swaddle
   detailMaterial: Serge
   material: Cloth

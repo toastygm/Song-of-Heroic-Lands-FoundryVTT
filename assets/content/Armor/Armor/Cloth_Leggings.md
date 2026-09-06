@@ -8,12 +8,13 @@ id: 4YLllmW2d5ahnPsC
 img: icons/game-icons/lorc/trousers.svg
 shortcode: CLeg
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Leggings
   detailMaterial: Cloth
   material: Cloth

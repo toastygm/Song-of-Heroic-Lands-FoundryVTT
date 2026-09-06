@@ -8,12 +8,13 @@ id: gyw8IXwGFq7x2wxz
 img: icons/game-icons/lorc/trousers.svg
 shortcode: RhTrsr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Trousers
   detailMaterial: Rawhide
   material: Leather

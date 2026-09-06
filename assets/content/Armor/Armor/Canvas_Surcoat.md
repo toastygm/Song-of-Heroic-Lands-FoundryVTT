@@ -8,12 +8,13 @@ id: rVKlUCKrM6vpxzpf
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: CvScoat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Surcoat
   detailMaterial: Canvas
   material: Cloth

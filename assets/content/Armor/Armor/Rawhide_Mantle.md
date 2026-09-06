@@ -8,12 +8,13 @@ id: 3QTcJDMzx1IOZRTF
 img: icons/game-icons/delapouite/cape.svg
 shortcode: RhMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Mantle
   detailMaterial: Rawhide
   material: Leather

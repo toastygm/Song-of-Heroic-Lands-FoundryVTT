@@ -9,12 +9,13 @@ id: r6LZIuQMIRG1g9Yy
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: ankletcopper
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 3
   value: 12

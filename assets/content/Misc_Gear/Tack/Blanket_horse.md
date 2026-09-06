@@ -9,12 +9,13 @@ id: 9DfWDt6Fm8rRnWoz
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: blankethorse
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: tack
-  archetype: 0
   quality: 0
   durability: 4
   value: 144

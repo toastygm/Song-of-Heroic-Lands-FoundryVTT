@@ -8,12 +8,13 @@ id: 6xYCu0LohWTCUsEq
 img: icons/game-icons/lorc/trousers.svg
 shortcode: MLeg
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: mail
-  archetype: 0
   armorType: Leggings
   detailMaterial: Mail
   material: Mail

@@ -9,12 +9,13 @@ id: bicMXZpGW11RQ850
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: tentmilita
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 6
   value: 312

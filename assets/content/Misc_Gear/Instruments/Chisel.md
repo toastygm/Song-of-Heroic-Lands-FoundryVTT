@@ -9,12 +9,13 @@ id: OV9M7ALDI68S9etW
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: chisel
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 8
   value: 6

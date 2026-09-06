@@ -8,12 +8,13 @@ id: WJr9xoOqr7eD70In
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: BvCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cap
   detailMaterial: Beaver
   material: Leather

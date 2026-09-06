@@ -9,12 +9,13 @@ id: qhN8gVRfjCsI42a9
 img: icons/game-icons/caro-asercion/round-potion.svg
 shortcode: oillamp
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: lighting
-  archetype: 0
   quality: 0
   durability: 0
   value: 12

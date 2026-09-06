@@ -8,12 +8,13 @@ id: oP4DZiYZmShsWYOs
 img: icons/game-icons/lorc/leather-boot.svg
 shortcode: LtKBoot
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Knee Boots
   detailMaterial: Leather
   material: Leather

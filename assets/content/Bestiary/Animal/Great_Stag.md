@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/stag-head.svg
 portrait: images/being/grtstg-portrait.webp
 shortcode: grtstg
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+12
     end: 1d6+11

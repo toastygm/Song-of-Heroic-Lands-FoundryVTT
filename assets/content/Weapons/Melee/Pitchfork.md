@@ -8,12 +8,13 @@ id: 6rZTBCuixlaoOkaX
 img: icons/game-icons/delapouite/pitchfork.svg
 shortcode: Pfrk
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: [wood]
   kbcat: polearm
-  archetype: 0
   durability: 9
   weight: 4
   value: 9

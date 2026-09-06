@@ -11,9 +11,10 @@ img: icons/game-icons/delapouite/camel-head.svg
 portrait: images/being/llama-portrait.webp
 shortcode: llama
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+8
     end: 1d6+10

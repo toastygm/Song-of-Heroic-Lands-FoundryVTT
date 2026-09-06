@@ -8,12 +8,13 @@ id: ok72Ryin4nZGoC2g
 img: icons/game-icons/lorc/hood.svg
 shortcode: CHood
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Hood
   detailMaterial: Cloth
   material: Cloth

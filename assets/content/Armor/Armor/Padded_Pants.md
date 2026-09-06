@@ -8,12 +8,13 @@ id: t8hOlYiXWaL8HPJr
 img: icons/game-icons/lorc/trousers.svg
 shortcode: PPant
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Pants
   detailMaterial: Padded
   material: Padded

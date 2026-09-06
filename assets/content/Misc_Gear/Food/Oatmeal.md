@@ -9,12 +9,13 @@ id: hKmlqc4luv8CXkZZ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: oatmeal
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cook
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 0.25

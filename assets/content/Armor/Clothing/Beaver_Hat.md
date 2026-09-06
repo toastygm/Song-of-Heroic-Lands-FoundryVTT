@@ -8,12 +8,13 @@ id: bVCElFjHP5tFxO4d
 img: icons/game-icons/lorc/pointy-hat.svg
 shortcode: BvHat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Hat
   detailMaterial: Beaver
   material: Leather

@@ -8,12 +8,13 @@ id: EbxRF3Rb4IFl50ud
 img: icons/game-icons/willdabeast/chain-mail.svg
 shortcode: MCui
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: mail
-  archetype: 0
   armorType: Cuisse
   detailMaterial: Mail
   material: Mail

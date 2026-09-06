@@ -9,12 +9,13 @@ id: mLkL0dprHe0L8pxW
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: flutewoode
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 4
   value: 3

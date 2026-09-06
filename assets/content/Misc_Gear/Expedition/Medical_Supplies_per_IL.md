@@ -9,12 +9,13 @@ id: uGRDcAoryepBuhCs
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: medsupil
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: herb
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 0
   value: 3

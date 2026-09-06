@@ -8,12 +8,13 @@ id: 0z2gnYU6ZD5y4Dqs
 img: icons/game-icons/delapouite/cook.svg
 shortcode: LtApn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Apron
   detailMaterial: Leather
   material: Leather

@@ -8,8 +8,9 @@ id: CK3tV3RtyxzcM6Sw
 img: icons/game-icons/lorc/juggler.svg
 shortcode: dex
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Uncoordinated:4

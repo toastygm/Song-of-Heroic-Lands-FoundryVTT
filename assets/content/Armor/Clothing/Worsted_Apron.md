@@ -8,12 +8,13 @@ id: Ws3ZV2eQImgwVToE
 img: icons/game-icons/delapouite/cook.svg
 shortcode: WApn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Apron
   detailMaterial: Worsted
   material: Cloth

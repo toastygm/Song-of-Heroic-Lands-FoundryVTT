@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/lion.svg
 portrait: images/being/mntnln-portrait.webp
 shortcode: mntnln
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+13
     end: 1d4+10

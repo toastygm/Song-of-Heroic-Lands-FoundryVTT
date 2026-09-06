@@ -8,12 +8,13 @@ id: qtj3LcjWOYbNpidV
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: BCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cap
   detailMaterial: Buckram
   material: Cloth

@@ -8,12 +8,13 @@ id: 5gNW0FosX9WRDB36
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: HsClk
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cloak
   detailMaterial: Homespun
   material: Cloth

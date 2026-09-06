@@ -8,8 +8,9 @@ id: LwA1PJKKtH0DyGvg
 img: icons/game-icons/lorc/aura.svg
 shortcode: aur
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Mundane:4

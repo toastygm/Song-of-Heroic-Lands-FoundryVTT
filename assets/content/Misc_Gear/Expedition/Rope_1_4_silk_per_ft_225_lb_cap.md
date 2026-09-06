@@ -9,12 +9,13 @@ id: yZDWt9f5ECdY9AF5
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: rope14silk
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 5
   value: 16

@@ -12,9 +12,10 @@ img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/crane-portrait.webp
 shortcode: crane
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+2
     end: 1d4+5

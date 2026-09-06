@@ -8,12 +8,13 @@ id: Zzr3NABNlG96U9ll
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: LtScoat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Surcoat
   detailMaterial: Leather
   material: Leather

@@ -8,12 +8,13 @@ id: MOPmmLBlIOSxmCFM
 img: icons/game-icons/delapouite/cape.svg
 shortcode: WMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Mantle
   detailMaterial: Worsted
   material: Cloth

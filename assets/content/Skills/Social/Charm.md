@@ -8,10 +8,11 @@ id: 1XbsPwLnfTNbmBld
 img: icons/game-icons/lorc/charm.svg
 shortcode: chrm
 type: skill
+data:
+  templatePriority: 0
 subType: social
 sohl:
   kbcat: social
-  archetype: 0
   skillBaseFormula: "sb(attr.cml, attr.emp)"
   combatCategory: none
   parentSkillCode: ""

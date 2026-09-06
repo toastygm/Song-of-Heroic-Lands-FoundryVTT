@@ -8,11 +8,12 @@ id: 23fY6O8R0VZw82c4
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: beltpouchl3
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
-  archetype: 0
   quality: 0
   durability: 3
   maxCapacity: 1.5

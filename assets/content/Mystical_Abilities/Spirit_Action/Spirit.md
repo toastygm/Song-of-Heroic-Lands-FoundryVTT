@@ -8,10 +8,11 @@ id: ftsDAUwOXEKBcn0Q
 img: icons/game-icons/lorc/psychic-waves.svg
 shortcode: sprt
 type: mysticalability
+data:
+  templatePriority: 0
 subType: spiritaction
 sohl:
   kbcat: spiritaction
-  archetype: 0
   assocSkillCode: spirit
   levelBase: 0
   masteryLevelBase: 0

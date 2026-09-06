@@ -8,12 +8,13 @@ id: 3t8Nxj8hI8jksTNb
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: WHClk
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cloak
   detailMaterial: Worsted
   material: Cloth

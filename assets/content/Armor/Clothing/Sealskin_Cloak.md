@@ -8,12 +8,13 @@ id: s8Nt1u03uvZ4qsK4
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: SlsCloak
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cloak
   detailMaterial: Sealskin
   material: Leather

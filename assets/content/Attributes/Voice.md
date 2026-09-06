@@ -8,8 +8,9 @@ id: FnaXc1K99zsHxghH
 img: icons/game-icons/lorc/sing.svg
 shortcode: voi
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Jarring:4

@@ -8,12 +8,13 @@ id: qUWkcNqbvlPLiDCz
 img: icons/game-icons/lorc/trousers.svg
 shortcode: LTrsr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Trousers
   detailMaterial: Linen
   material: Cloth

@@ -8,12 +8,13 @@ id: UbpwkroW1XavHFXl
 img: icons/game-icons/lorc/mining.svg
 shortcode: PkAxe
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: [wood]
   kbcat: axe
-  archetype: 0
   durability: 9
   weight: 7
   value: 18

@@ -7,10 +7,11 @@ id: V7SgIzOsc1osFt9Q
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: sociable
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psybehavior
-  archetype: 0
   category: quirk
 folder: SpZzOv4eOwtdsMMo
 ---

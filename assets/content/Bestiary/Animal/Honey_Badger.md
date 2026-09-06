@@ -10,9 +10,10 @@ img: icons/game-icons/caro-asercion/badger.svg
 portrait: images/being/hnybdgr-portrait.webp
 shortcode: hnybdgr
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+11
     end: 1d6+13

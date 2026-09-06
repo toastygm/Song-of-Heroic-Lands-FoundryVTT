@@ -8,8 +8,9 @@ id: bZCm7bURkPsffnIW
 img: icons/game-icons/caro-asercion/mountain-climbing.svg
 shortcode: end
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Frail:4

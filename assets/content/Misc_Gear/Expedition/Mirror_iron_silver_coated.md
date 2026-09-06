@@ -9,12 +9,13 @@ id: 2eiULGcTo1vq9Yqz
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: mirroriron
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 5
   value: 20

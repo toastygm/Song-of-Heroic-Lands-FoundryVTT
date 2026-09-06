@@ -8,10 +8,11 @@ id: DlPCHm0GqMcwZyyh
 img: icons/game-icons/delapouite/swimfins.svg
 shortcode: swim
 type: skill
+data:
+  templatePriority: 0
 subType: physical
 sohl:
   kbcat: physical
-  archetype: 0
   skillBaseFormula: "sb(attr.agl, attr.end)"
   combatCategory: none
   parentSkillCode: ""

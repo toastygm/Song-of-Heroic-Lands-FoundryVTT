@@ -9,12 +9,13 @@ id: JRLlJbNluuULHoLV
 img: icons/game-icons/lorc/brandy-bottle.svg
 shortcode: brdykeg
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: brew
     secondary: []
   kbcat: spirits
-  archetype: 0
   quality: 0
   durability: 0
   value: 360

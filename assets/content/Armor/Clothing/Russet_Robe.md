@@ -8,12 +8,13 @@ id: l88Lo8FeVrLXaJUK
 img: icons/game-icons/lorc/robe.svg
 shortcode: RRobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Robe
   detailMaterial: Russet
   material: Cloth

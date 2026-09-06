@@ -8,8 +8,9 @@ id: qI1YEU3drmyEAiEl
 img: icons/game-icons/lorc/awareness.svg
 shortcode: per
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Impaired:4

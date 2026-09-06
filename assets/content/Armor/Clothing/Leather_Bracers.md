@@ -8,12 +8,13 @@ id: oosTKrn0KRZlPLqH
 img: icons/game-icons/delapouite/bracer.svg
 shortcode: LtBrcr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Bracers
   detailMaterial: Leather
   material: Leather

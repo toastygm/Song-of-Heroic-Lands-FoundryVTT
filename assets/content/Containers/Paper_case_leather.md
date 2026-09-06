@@ -8,11 +8,12 @@ id: PKqzjZ1O9O86nyQH
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: papercasel
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
-  archetype: 0
   quality: 0
   durability: 8
   maxCapacity: 0.5

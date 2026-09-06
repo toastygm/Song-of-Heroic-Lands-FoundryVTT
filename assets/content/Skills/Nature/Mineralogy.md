@@ -8,10 +8,11 @@ id: 5eS0upGrJ75ayN5k
 img: icons/game-icons/delapouite/miner.svg
 shortcode: mnrl
 type: skill
+data:
+  templatePriority: 0
 subType: nature
 sohl:
   kbcat: nature
-  archetype: 0
   skillBaseFormula: "sb(attr.rea, attr.per)"
   combatCategory: none
   parentSkillCode: ""

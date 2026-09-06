@@ -8,11 +8,12 @@ id: QBT91J5YNc3zldPN
 img: icons/game-icons/delapouite/chest.svg
 shortcode: lockboxlar
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 8
   maxCapacity: 20

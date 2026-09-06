@@ -9,12 +9,13 @@ id: 1rRMihBm9Rso96gE
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: tackkit
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 6
   value: 20

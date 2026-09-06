@@ -8,12 +8,13 @@ id: pg2KPLop10LKIHHM
 img: icons/game-icons/lorc/trousers.svg
 shortcode: CSwd
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Swaddle
   detailMaterial: Cloth
   material: Cloth

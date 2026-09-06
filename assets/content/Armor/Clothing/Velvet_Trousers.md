@@ -8,12 +8,13 @@ id: Gj8vj0cB8Fu8tbWu
 img: icons/game-icons/lorc/trousers.svg
 shortcode: VTrsr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Trousers
   detailMaterial: Velvet
   material: Cloth

@@ -9,12 +9,13 @@ id: fcvGFJBzUMY8M0k5
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: linen
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   quality: 0
   durability: 5
   value: 4

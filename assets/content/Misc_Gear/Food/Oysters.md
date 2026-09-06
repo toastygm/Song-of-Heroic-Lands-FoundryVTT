@@ -9,12 +9,13 @@ id: zdED4g9i0CAy8Yqq
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: oysters
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: fish
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 1

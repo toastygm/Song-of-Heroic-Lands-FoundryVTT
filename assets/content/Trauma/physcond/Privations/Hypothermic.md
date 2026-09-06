@@ -8,10 +8,11 @@ id: gFddcXrtVs0xQQ2v
 img: icons/game-icons/delapouite/stomach.svg
 shortcode: hypth
 type: trauma
+data:
+  templatePriority: 0
 subType: physcond
 sohl:
   kbcat: physprivations
-  archetype: 0
   category: debility
   levelBase: 3
   healingRateBase: 2

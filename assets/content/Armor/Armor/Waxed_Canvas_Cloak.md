@@ -8,12 +8,13 @@ id: atpPTkf6vDVFi8yG
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: WxCvCloak
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cloak
   detailMaterial: Waxed Canvas
   material: Cloth

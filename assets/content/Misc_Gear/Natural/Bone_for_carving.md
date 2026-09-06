@@ -9,12 +9,13 @@ id: 1wwhljSwXWTm3eh1
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: boneforcar
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: srvl
     secondary: []
   kbcat: natural
-  archetype: 0
   quality: 0
   durability: 4
   value: 0.25

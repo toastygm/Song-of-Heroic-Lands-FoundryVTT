@@ -8,12 +8,13 @@ id: o571LCZR0dPVHTlW
 img: icons/game-icons/delapouite/cape.svg
 shortcode: BMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Mantle
   detailMaterial: Buckram
   material: Cloth

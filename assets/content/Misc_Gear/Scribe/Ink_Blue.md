@@ -9,12 +9,13 @@ id: 0zjB0uNR7RoDRIT7
 img: icons/game-icons/lorc/ink-swirl.svg
 shortcode: inkblu
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: herb
     secondary: []
   kbcat: scribe
-  archetype: 0
   quality: 0
   durability: 0
   value: 10

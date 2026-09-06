@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Light shaft with wooden knob or leather pad; squirrel, hare, bird hunting."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: arrow
 id: 8i5eKRDIguMJHsXx
 shortcode: ArwLBlt
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1

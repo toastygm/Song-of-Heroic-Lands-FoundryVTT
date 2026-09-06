@@ -9,12 +9,13 @@ id: KW0j7IrRWN8uDniz
 img: icons/game-icons/caro-asercion/round-potion.svg
 shortcode: oilcook
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cook
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 3

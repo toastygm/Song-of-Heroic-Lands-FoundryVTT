@@ -10,12 +10,13 @@ id: 1x5UVdeZsWQb0xW2
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: blotsand
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: scribe
-  archetype: 0
   quality: 0
   durability: 0
   value: 5

@@ -8,11 +8,12 @@ id: xCCvHoqhJDd9wRMh
 img: icons/game-icons/delapouite/cooking-pot.svg
 shortcode: alembcu1g
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
-  archetype: 0
   quality: 0
   durability: 4
   maxCapacity: 8

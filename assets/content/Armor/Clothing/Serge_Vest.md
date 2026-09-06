@@ -8,12 +8,13 @@ id: WgvPV79e2G0XDqTz
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: SgVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Vest
   detailMaterial: Serge
   material: Cloth

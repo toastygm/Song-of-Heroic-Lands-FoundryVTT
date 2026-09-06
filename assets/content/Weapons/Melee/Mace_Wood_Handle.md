@@ -8,12 +8,13 @@ id: jAbqiClSdPnki5rd
 img: icons/game-icons/delapouite/flanged-mace.svg
 shortcode: WdMce
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: club
-  archetype: 0
   durability: 11
   weight: 3
   value: 85

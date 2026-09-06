@@ -8,10 +8,11 @@ id: m72JRqtTaHuyCsJy
 img: icons/game-icons/lorc/crossed-swords.svg
 shortcode: melee
 type: skill
+data:
+  templatePriority: 0
 subType: combat
 sohl:
   kbcat: combat
-  archetype: 0
   skillBaseFormula: "sb(attr.dex, attr.agl)"
   combatCategory: melee
   parentSkillCode: ""

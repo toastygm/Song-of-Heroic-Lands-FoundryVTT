@@ -8,10 +8,11 @@ id: KfpVMJF4gXdlvwL4
 img: icons/game-icons/delapouite/herbs-bundle.svg
 shortcode: herb
 type: skill
+data:
+  templatePriority: 0
 subType: nature
 sohl:
   kbcat: nature
-  archetype: 0
   skillBaseFormula: "sb(attr.rea, attr.per)"
   combatCategory: none
   parentSkillCode: ""

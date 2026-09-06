@@ -8,12 +8,13 @@ id: Z5c4QPGMrErfJn8u
 img: icons/game-icons/badges/club.svg
 shortcode: Trunch
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: club
-  archetype: 0
   durability: 9
   weight: 3
   value: 12

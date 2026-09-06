@@ -8,12 +8,13 @@ id: P8TBYI2yorbqCnR8
 img: icons/game-icons/lorc/scale-mail.svg
 shortcode: SHaub
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide, mtlc]
   kbcat: scale
-  archetype: 0
   armorType: Hauberk
   detailMaterial: Scale
   material: Scale

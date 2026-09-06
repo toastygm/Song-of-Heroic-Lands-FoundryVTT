@@ -9,12 +9,13 @@ id: tWq2iMqjHXSUciNf
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lamb
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: anmcft
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 3

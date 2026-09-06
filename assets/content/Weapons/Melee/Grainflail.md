@@ -8,12 +8,13 @@ id: HH19IBkixsDFW3rN
 img: icons/game-icons/delapouite/flail.svg
 shortcode: GrnFl
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: [wood]
   kbcat: flail
-  archetype: 0
   durability: 9
   weight: 3
   value: 16

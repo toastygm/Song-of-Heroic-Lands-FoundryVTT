@@ -8,12 +8,13 @@ id: y3btwLS86WgSbxRk
 img: icons/game-icons/delapouite/skirt.svg
 shortcode: LSkirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Skirt
   detailMaterial: Linen
   material: Cloth

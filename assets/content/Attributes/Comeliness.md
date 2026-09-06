@@ -8,8 +8,9 @@ id: L4Dr0xLDD9EpAxlm
 img: icons/game-icons/lorc/charm.svg
 shortcode: cml
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Ugly:4

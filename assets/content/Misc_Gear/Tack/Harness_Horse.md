@@ -9,12 +9,13 @@ id: BFH8N4DwXnIpY2l3
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: harnesshor
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: tack
-  archetype: 0
   quality: 0
   durability: 8
   value: 18

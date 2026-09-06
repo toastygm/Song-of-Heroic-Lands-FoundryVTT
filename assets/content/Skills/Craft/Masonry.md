@@ -8,10 +8,11 @@ id: F5DfpQA2G8l0BBLo
 img: icons/game-icons/delapouite/brick-wall.svg
 shortcode: masn
 type: skill
+data:
+  templatePriority: 0
 subType: craft
 sohl:
   kbcat: craft
-  archetype: 0
   skillBaseFormula: "sb(attr.dex, attr.str)"
   combatCategory: none
   parentSkillCode: ""

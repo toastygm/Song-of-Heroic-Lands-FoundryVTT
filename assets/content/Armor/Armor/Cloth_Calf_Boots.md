@@ -8,12 +8,13 @@ id: wg4u1iP8RxwdWSkj
 img: icons/game-icons/lorc/leather-boot.svg
 shortcode: CCBoot
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Calf Boots
   detailMaterial: Cloth
   material: Cloth

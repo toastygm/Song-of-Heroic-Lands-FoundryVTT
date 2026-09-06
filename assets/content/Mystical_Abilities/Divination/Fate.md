@@ -8,10 +8,11 @@ id: vXrNYKTPRjCPF2n4
 img: icons/game-icons/lorc/crystal-ball.svg
 shortcode: fate
 type: mysticalability
+data:
+  templatePriority: 0
 subType: divination
 sohl:
   kbcat: divination
-  archetype: 0
   assocSkillCode: ""
   levelBase: 0
   masteryLevelBase: 50

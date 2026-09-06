@@ -8,12 +8,13 @@ id: Zdl0sjv3Pbs3wAKp
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: HsVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Vest
   detailMaterial: Homespun
   material: Cloth

@@ -8,12 +8,13 @@ id: xXaZlrlrvLWEiNG7
 img: icons/game-icons/delapouite/slingshot.svg
 shortcode: SlngSht
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: thrown
-  archetype: 0
   durability: 9
   weight: 0.7
   value: 12

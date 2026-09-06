@@ -8,12 +8,13 @@ id: K5oiexxOcz1zUcMl
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: EVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Vest
   detailMaterial: Ermine
   material: Leather

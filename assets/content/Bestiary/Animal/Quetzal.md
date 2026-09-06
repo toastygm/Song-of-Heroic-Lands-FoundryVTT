@@ -12,9 +12,10 @@ img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/quetzal-portrait.webp
 shortcode: quetzal
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+1
     end: 1d4+3

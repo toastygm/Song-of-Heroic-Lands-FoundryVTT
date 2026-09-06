@@ -11,9 +11,10 @@ img: icons/game-icons/lorc/hound.svg
 portrait: images/being/jackal-portrait.webp
 shortcode: jackal
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+5
     end: 1d4+6

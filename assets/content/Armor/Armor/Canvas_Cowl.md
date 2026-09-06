@@ -8,12 +8,13 @@ id: 2ez2BgCDfl422G7S
 img: icons/game-icons/lorc/hood.svg
 shortcode: CvCowl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cowl
   detailMaterial: Canvas
   material: Cloth

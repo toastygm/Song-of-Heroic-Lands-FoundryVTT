@@ -8,12 +8,13 @@ id: N0S9Wl0RwsLg81Y2
 img: icons/game-icons/lorc/pointy-hat.svg
 shortcode: LHat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Hat
   detailMaterial: Linen
   material: Cloth

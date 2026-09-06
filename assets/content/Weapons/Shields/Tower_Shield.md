@@ -8,12 +8,13 @@ id: HPLnDDmmSh4yH0UK
 img: icons/game-icons/badges/shield.svg
 shortcode: TwrSh
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: shield
-  archetype: 0
   durability: 11
   weight: 8
   value: 100

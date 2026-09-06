@@ -8,12 +8,13 @@ id: Ll2GXzDMkBcvy89F
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: LtCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cap
   detailMaterial: Leather
   material: Leather

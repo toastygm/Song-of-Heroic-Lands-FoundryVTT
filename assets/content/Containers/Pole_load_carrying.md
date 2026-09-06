@@ -8,11 +8,12 @@ id: 3NCcGvF3OtFguhon
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: polecarry
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 5
   maxCapacity: 35

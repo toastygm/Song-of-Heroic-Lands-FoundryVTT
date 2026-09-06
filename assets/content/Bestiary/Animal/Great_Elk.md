@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/stag-head.svg
 portrait: images/being/greatelk-portrait.webp
 shortcode: greatelk
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+11
     end: 1d6+13

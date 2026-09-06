@@ -8,12 +8,13 @@ id: 1SNl6MM84Unpoleo
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: VCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cap
   detailMaterial: Velvet
   material: Cloth

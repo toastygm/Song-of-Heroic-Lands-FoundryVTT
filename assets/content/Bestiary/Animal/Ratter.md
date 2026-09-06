@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/hound.svg
 portrait: images/being/ratter-portrait.webp
 shortcode: ratter
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+2
     end: 1d4+5

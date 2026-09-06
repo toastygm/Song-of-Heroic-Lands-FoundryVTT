@@ -8,12 +8,13 @@ id: G4fHOgIaPuEswpDb
 img: icons/game-icons/lorc/leather-boot.svg
 shortcode: RhCBoot
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Calf Boots
   detailMaterial: Rawhide
   material: Leather

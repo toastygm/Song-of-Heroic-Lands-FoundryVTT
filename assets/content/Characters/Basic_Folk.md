@@ -13,6 +13,8 @@ shortcode: basicfolk
 img: icons/game-icons/delapouite/person.svg
 portrait: images/being/basicfolk-portrait.webp
 type: being
+data:
+  templatePriority: 1
 social:
   occupation: ""
   station: ""
@@ -36,7 +38,6 @@ traits:
     extra_features: []
 sohl:
   kbcat: archetype
-  archetype: 1
   body:
     structure:
       zones:

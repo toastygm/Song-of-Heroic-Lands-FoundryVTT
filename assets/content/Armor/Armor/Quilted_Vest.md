@@ -8,12 +8,13 @@ id: ikBolm8nZgC2Ygzn
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: QVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: quilted
-  archetype: 0
   armorType: Vest
   detailMaterial: Quilted
   material: Quilted

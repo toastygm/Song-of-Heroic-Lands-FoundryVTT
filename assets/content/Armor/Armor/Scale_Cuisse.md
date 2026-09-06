@@ -8,12 +8,13 @@ id: 2uzBVe3SfEQjD6TG
 img: icons/game-icons/lorc/scale-mail.svg
 shortcode: SCui
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide, mtlc]
   kbcat: scale
-  archetype: 0
   armorType: Cuisse
   detailMaterial: Scale
   material: Scale

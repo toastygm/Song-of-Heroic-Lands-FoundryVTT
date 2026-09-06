@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Light hunting shaft, leaf-shaped iron edge; bleeds prey, deer, fox, unarmoured men."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: arrow
 id: VaCPXogiH2DZlFrH
 shortcode: ArwLBrd
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1

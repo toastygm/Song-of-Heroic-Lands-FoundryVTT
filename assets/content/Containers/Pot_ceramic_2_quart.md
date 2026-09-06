@@ -8,11 +8,12 @@ id: NlzAXI0csadV7dqY
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: potcer2qt
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cmcs
     secondary: []
-  archetype: 0
   quality: 0
   durability: 3
   maxCapacity: 4

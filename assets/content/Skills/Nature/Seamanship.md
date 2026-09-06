@@ -8,10 +8,11 @@ id: kcc6EipA4khnm9FB
 img: icons/game-icons/lorc/anchor.svg
 shortcode: smsh
 type: skill
+data:
+  templatePriority: 0
 subType: nature
 sohl:
   kbcat: nature
-  archetype: 0
   skillBaseFormula: "sb(attr.wil, attr.per)"
   combatCategory: none
   parentSkillCode: ""

@@ -9,12 +9,13 @@ id: wYVxakyrxjt4PpVp
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: marblesgla
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: glas
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 2
   value: 10

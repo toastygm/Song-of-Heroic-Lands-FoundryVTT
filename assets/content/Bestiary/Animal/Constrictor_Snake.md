@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/snake.svg
 portrait: images/being/cnstrctr-portrait.webp
 shortcode: cnstrctr
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+11
     end: 1d6+9

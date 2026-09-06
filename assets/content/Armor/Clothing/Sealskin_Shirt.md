@@ -8,12 +8,13 @@ id: uwduPuqzBweumd9o
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: SlsShirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Shirt
   detailMaterial: Sealskin
   material: Leather

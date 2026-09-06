@@ -9,12 +9,13 @@ id: FIXSjmfSDNXqDtQr
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: topazcut
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 2
   value: 600

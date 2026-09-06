@@ -8,12 +8,13 @@ id: NMUYUZPdUl0yzC21
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: PVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Vest
   detailMaterial: Padded
   material: Padded

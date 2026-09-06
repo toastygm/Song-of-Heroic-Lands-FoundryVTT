@@ -9,12 +9,13 @@ id: ZgG6E6DMdi1UMCHW
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jetcut
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 1
   value: 1

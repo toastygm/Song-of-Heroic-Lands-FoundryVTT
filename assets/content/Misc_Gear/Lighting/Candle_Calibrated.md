@@ -9,12 +9,13 @@ id: Tysu8Gs9sCWF4BeS
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: candlecali
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: anmcft
     secondary: []
   kbcat: lighting
-  archetype: 0
   quality: 0
   durability: 7
   value: 10

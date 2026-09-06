@@ -8,8 +8,9 @@ id: ibMPowNe3RLSw06o
 img: icons/game-icons/zeromancer/heart-plus.svg
 shortcode: emp
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Unfeeling:4

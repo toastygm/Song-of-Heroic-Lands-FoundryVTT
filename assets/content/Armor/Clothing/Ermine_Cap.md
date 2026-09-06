@@ -8,12 +8,13 @@ id: qZmaXlfn1v4Z76Oo
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: ECap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cap
   detailMaterial: Ermine
   material: Leather

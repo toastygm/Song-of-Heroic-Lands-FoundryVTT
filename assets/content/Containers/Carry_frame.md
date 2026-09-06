@@ -8,11 +8,12 @@ id: SY6E2zLDpjWA5F22
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: carryframe
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 8
   maxCapacity: 40

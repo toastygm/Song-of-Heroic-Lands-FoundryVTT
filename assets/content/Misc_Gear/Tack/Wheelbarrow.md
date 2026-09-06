@@ -9,12 +9,13 @@ id: iByVnCgxI9PYd5GD
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wheelbarrow
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: tack
-  archetype: 0
   quality: 0
   durability: 5
   value: 10

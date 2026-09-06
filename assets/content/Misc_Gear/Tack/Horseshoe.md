@@ -9,12 +9,13 @@ id: 9Qt3YEbnnMJudDLH
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: horseshoe
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: tack
-  archetype: 0
   quality: 0
   durability: 8
   value: 1

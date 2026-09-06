@@ -9,12 +9,13 @@ id: 8AbOO1EXW3OqlDnH
 img: icons/game-icons/lorc/prayer.svg
 shortcode: holysymbrass
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: religious
-  archetype: 0
   quality: 0
   durability: 5
   value: 15

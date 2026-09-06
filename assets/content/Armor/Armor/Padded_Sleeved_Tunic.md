@@ -8,12 +8,13 @@ id: SomxyDzmbxABARDj
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: PSTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Padded
   material: Padded
