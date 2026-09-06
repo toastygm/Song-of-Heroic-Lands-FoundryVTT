@@ -16,10 +16,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 10
-  value: 342
-  weight: 22
+  system:
+    weightBase: 22
+    valueBase: 342
+    qualityBase: 0
+    durabilityBase: 10
 packFolder: expedition
 ---
 

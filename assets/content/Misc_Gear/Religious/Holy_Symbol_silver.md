@@ -16,10 +16,11 @@ sohl:
     skill: jewl
     secondary: [mtlc]
   kbcat: religious
-  quality: 0
-  durability: 3
-  value: 150
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 150
+    qualityBase: 0
+    durabilityBase: 3
 packFolder: religious
 ---
 

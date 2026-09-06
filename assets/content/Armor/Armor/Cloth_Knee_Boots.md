@@ -17,25 +17,27 @@ sohl:
   kbcat: cloth
   armorType: Knee Boots
   detailMaterial: Cloth
-  material: Cloth
-  durability: 10
-  value: 25
-  weight: 1.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.1
+    valueBase: 25
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 22
 origWeight: 1.1

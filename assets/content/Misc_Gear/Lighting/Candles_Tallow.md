@@ -16,10 +16,11 @@ sohl:
     skill: anmcft
     secondary: []
   kbcat: lighting
-  quality: 0
-  durability: 7
-  value: 8
-  weight: 1
+  system:
+    weightBase: 1
+    valueBase: 8
+    qualityBase: 0
+    durabilityBase: 7
 packFolder: lighting
 ---
 

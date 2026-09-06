@@ -16,10 +16,11 @@ sohl:
     skill: brew
     secondary: []
   kbcat: spirits
-  quality: 0
-  durability: 0
-  value: 2.5
-  weight: 0.5
+  system:
+    weightBase: 0.5
+    valueBase: 2.5
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: spirits
 ---
 

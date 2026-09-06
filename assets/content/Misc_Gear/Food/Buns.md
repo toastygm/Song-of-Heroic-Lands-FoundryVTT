@@ -16,10 +16,11 @@ sohl:
     skill: mill
     secondary: []
   kbcat: food
-  quality: 0
-  durability: 0
-  value: 0.5
-  weight: 3
+  system:
+    weightBase: 3
+    valueBase: 0.5
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: food
 ---
 

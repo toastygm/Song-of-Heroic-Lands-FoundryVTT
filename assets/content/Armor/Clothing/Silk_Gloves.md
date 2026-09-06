@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Gloves
   detailMaterial: Silk
-  material: Cloth
-  durability: 7
-  value: 45
-  weight: 0.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lhandloc
-    - rhandloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.1
+    valueBase: 45
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - lhandloc
+        - rhandloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 45
 origWeight: 0.1

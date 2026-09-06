@@ -13,9 +13,10 @@ data:
 subType: fatigue
 sohl:
   kbcat: fatigue
-  category: windedness
-  levelBase: 1
-  healingRateBase: 5
+  system:
+    category: windedness
+    levelBase: 1
+    healingRateBase: 5
 packFolder: fatigue
 ---
 

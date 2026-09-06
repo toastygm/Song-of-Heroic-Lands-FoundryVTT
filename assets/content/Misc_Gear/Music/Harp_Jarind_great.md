@@ -16,10 +16,11 @@ sohl:
     skill: wood
     secondary: []
   kbcat: music
-  quality: 0
-  durability: 4
-  value: 300
-  weight: 25
+  system:
+    weightBase: 25
+    valueBase: 300
+    qualityBase: 0
+    durabilityBase: 4
 packFolder: music
 ---
 

@@ -17,27 +17,29 @@ sohl:
   kbcat: mail
   armorType: Leggings
   detailMaterial: Mail
-  material: Mail
-  durability: 13
-  value: 540
-  weight: 16.2
-  encumbrance: 10
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 16.2
+    valueBase: 540
+    durabilityBase: 13
+    material: Mail
+    locations:
+      flexible: []
+      rigid:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 10
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 540
 origWeight: 16.2

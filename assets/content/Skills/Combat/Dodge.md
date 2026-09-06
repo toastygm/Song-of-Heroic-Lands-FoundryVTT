@@ -13,16 +13,16 @@ data:
 subType: combat
 sohl:
   kbcat: combat
-  skillBaseFormula: "sb(attr.agl, attr.per)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 2
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - locomotor
+  system:
+    skillBaseFormula: sb(attr.agl, attr.per)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 2
+    impairedByRoles:
+      - core
+      - vital
+      - locomotor
 packFolder: combat
 ---
 

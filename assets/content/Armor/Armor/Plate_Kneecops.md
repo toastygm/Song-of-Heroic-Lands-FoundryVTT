@@ -17,21 +17,23 @@ sohl:
   kbcat: plate
   armorType: Kneecops
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 60
-  weight: 1.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lkneeloc
-    - rkneeloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.1
+    valueBase: 60
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - lkneeloc
+        - rkneeloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 60
 origWeight: 1.1

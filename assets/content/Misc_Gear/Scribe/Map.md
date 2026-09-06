@@ -16,10 +16,11 @@ sohl:
     skill: draw
     secondary: []
   kbcat: scribe
-  quality: 0
-  durability: 2
-  value: 12
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 12
+    qualityBase: 0
+    durabilityBase: 2
 packFolder: scribe
 ---
 

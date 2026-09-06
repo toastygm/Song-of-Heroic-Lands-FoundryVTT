@@ -17,25 +17,27 @@ sohl:
   kbcat: gambeson
   armorType: Long Vest
   detailMaterial: Gambeson
-  material: Gambeson
-  durability: 11
-  value: 315
-  weight: 10.9
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc:
-    - neckloc
-    - lshldloc
-    - rshldloc
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 10.9
+    valueBase: 315
+    durabilityBase: 11
+    material: Gambeson
+    locations:
+      flexible:
+        - neckloc
+        - lshldloc
+        - rshldloc
+      rigid:
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 312
 origWeight: 10.9

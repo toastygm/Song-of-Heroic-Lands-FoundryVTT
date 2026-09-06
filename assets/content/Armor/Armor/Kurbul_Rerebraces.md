@@ -17,24 +17,26 @@ sohl:
   kbcat: kurbul
   armorType: Rerebraces
   detailMaterial: Kûrbúl
-  material: Kûrbúl
-  durability: 13
-  value: 40
-  weight: 3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3
+    valueBase: 40
+    durabilityBase: 13
+    material: Kûrbúl
+    locations:
+      flexible: []
+      rigid:
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 40
 origWeight: 3

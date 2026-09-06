@@ -17,20 +17,22 @@ sohl:
   kbcat: kurbul
   armorType: Helm
   detailMaterial: Kûrbúl
-  material: Kûrbúl
-  durability: 13
-  value: 20
-  weight: 3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - skullloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3
+    valueBase: 20
+    durabilityBase: 13
+    material: Kûrbúl
+    locations:
+      flexible: []
+      rigid:
+        - skullloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 20
 origWeight: 3

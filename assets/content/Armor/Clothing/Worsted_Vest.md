@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Vest
   detailMaterial: Worsted
-  material: Cloth
-  durability: 9
-  value: 60
-  weight: 1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1
+    valueBase: 60
+    durabilityBase: 9
+    material: Cloth
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 24
 origWeight: 1.2

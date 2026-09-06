@@ -16,10 +16,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: religious
-  quality: 0
-  durability: 5
-  value: 12
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 12
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: religious
 ---
 

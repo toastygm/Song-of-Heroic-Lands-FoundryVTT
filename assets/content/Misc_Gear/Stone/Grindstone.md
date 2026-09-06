@@ -16,10 +16,11 @@ sohl:
     skill: masn
     secondary: []
   kbcat: stone
-  quality: 0
-  durability: 8
-  value: 12
-  weight: 17
+  system:
+    weightBase: 17
+    valueBase: 12
+    qualityBase: 0
+    durabilityBase: 8
 packFolder: stone
 ---
 

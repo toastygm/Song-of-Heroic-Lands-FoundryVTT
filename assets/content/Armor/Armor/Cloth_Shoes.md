@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Shoes
   detailMaterial: Cloth
-  material: Cloth
-  durability: 10
-  value: 7
-  weight: 0.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.4
+    valueBase: 7
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 7
 origWeight: 0.4

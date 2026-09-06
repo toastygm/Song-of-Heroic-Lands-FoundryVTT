@@ -17,23 +17,25 @@ sohl:
   kbcat: padded
   armorType: Cuisse
   detailMaterial: Padded
-  material: Padded
-  durability: 10
-  value: 35
-  weight: 1.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.4
+    valueBase: 35
+    durabilityBase: 10
+    material: Padded
+    locations:
+      flexible:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 34
 origWeight: 1.4

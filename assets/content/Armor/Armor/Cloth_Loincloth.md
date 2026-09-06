@@ -17,20 +17,22 @@ sohl:
   kbcat: cloth
   armorType: Loincloth
   detailMaterial: Cloth
-  material: Cloth
-  durability: 10
-  value: 10
-  weight: 0.5
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - plvisloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.5
+    valueBase: 10
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - plvisloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 10
 origWeight: 0.5

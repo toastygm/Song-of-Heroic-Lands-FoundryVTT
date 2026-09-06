@@ -16,10 +16,11 @@ sohl:
     skill: herb
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 0
-  value: 3
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 3
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: expedition
 ---
 

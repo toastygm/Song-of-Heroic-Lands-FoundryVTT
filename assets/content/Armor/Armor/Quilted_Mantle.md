@@ -17,24 +17,26 @@ sohl:
   kbcat: quilted
   armorType: Mantle
   detailMaterial: Quilted
-  material: Quilted
-  durability: 11
-  value: 85
-  weight: 3.8
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3.8
+    valueBase: 85
+    durabilityBase: 11
+    material: Quilted
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 84
 origWeight: 3.8

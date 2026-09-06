@@ -14,11 +14,12 @@ sohl:
   craft:
     skill: hide
     secondary: []
-  quality: 0
-  durability: 8
-  maxCapacity: 0.5
-  value: 12
-  weight: 0.9
+  system:
+    weightBase: 0.9
+    valueBase: 12
+    qualityBase: 0
+    durabilityBase: 8
+    maxCapacityBase: 0.5
 packFolder: containers
 ---
 

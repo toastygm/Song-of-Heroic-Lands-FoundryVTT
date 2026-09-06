@@ -13,16 +13,16 @@ data:
 subType: nature
 sohl:
   kbcat: nature
-  skillBaseFormula: "sb(attr.per, attr.wil)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 0
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - manipulator
+  system:
+    skillBaseFormula: sb(attr.per, attr.wil)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 0
+    impairedByRoles:
+      - core
+      - vital
+      - manipulator
 packFolder: nature
 ---
 

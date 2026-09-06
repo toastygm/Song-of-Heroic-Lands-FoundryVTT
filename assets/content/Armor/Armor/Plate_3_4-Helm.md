@@ -17,27 +17,29 @@ sohl:
   kbcat: plate
   armorType: 3/4-Helm
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 140
-  weight: 5.3
-  encumbrance: 0
-  perceptionPenaltyBase: -5
-  flexloc: []
-  rigidloc:
-    - skullloc
-    - jawloc
-    - lcheekloc
-    - rcheekloc
-    - learloc
-    - rearloc
-    - mouthloc
-    - noseloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 5.3
+    valueBase: 140
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - skullloc
+        - jawloc
+        - lcheekloc
+        - rcheekloc
+        - learloc
+        - rearloc
+        - mouthloc
+        - noseloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: -5
 packFolder: armorarmor
 origValue: 140
 origWeight: 5.3

@@ -16,10 +16,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  quality: 0
-  durability: 4
-  value: 120
-  weight: 6
+  system:
+    weightBase: 6
+    valueBase: 120
+    qualityBase: 0
+    durabilityBase: 4
 packFolder: instruments
 ---
 

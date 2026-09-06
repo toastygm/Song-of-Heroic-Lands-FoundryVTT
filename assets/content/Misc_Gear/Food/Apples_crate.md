@@ -16,10 +16,11 @@ sohl:
     skill: agri
     secondary: []
   kbcat: food
-  quality: 0
-  durability: 0
-  value: 7.5
-  weight: 51.25
+  system:
+    weightBase: 51.25
+    valueBase: 7.5
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: food
 ---
 

@@ -17,25 +17,27 @@ sohl:
   kbcat: scale
   armorType: Byrnie
   detailMaterial: Scale
-  material: Scale
-  durability: 14
-  value: 330
-  weight: 18.2
-  encumbrance: 10
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 18.2
+    valueBase: 330
+    durabilityBase: 14
+    material: Scale
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 10
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 330
 origWeight: 18.2

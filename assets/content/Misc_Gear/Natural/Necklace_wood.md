@@ -16,10 +16,11 @@ sohl:
     skill: wood
     secondary: [wood]
   kbcat: natural
-  quality: 0
-  durability: 2
-  value: 8
-  weight: 0.15
+  system:
+    weightBase: 0.15
+    valueBase: 8
+    qualityBase: 0
+    durabilityBase: 2
 packFolder: natural
 ---
 

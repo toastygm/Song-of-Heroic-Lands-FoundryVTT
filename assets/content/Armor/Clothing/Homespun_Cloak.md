@@ -17,49 +17,51 @@ sohl:
   kbcat: cloth
   armorType: Cloak
   detailMaterial: Homespun
-  material: Cloth
-  durability: 5
-  value: 11
-  weight: 0.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  facing:
-    - location: thrxloc
-      side: back
-    - location: abdmnloc
-      side: back
-    - location: plvisloc
-      side: back
-    - location: lthghloc
-      side: back
-    - location: rthghloc
-      side: back
-    - location: lkneeloc
-      side: back
-    - location: rkneeloc
-      side: back
-    - location: lcalfloc
-      side: back
-    - location: rcalfloc
-      side: back
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.4
+    valueBase: 11
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+      facing:
+        - location: thrxloc
+          side: back
+        - location: abdmnloc
+          side: back
+        - location: plvisloc
+          side: back
+        - location: lthghloc
+          side: back
+        - location: rthghloc
+          side: back
+        - location: lkneeloc
+          side: back
+        - location: rkneeloc
+          side: back
+        - location: lcalfloc
+          side: back
+        - location: rcalfloc
+          side: back
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 10.5
 origWeight: 0.4

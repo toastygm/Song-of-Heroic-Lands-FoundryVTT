@@ -17,21 +17,23 @@ sohl:
   kbcat: leather
   armorType: Cowl
   detailMaterial: Sealskin
-  material: Leather
-  durability: 11
-  value: 75
-  weight: 1.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.1
+    valueBase: 75
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 72
 origWeight: 1.1

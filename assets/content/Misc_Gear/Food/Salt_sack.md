@@ -16,10 +16,11 @@ sohl:
     skill: mnrl
     secondary: []
   kbcat: food
-  quality: 0
-  durability: 0
-  value: 10
-  weight: 51
+  system:
+    weightBase: 51
+    valueBase: 10
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: food
 ---
 

@@ -17,21 +17,23 @@ sohl:
   kbcat: leather
   armorType: Gloves
   detailMaterial: Beaver
-  material: Leather
-  durability: 9
-  value: 60
-  weight: 0.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lhandloc
-    - rhandloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.6
+    valueBase: 60
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - lhandloc
+        - rhandloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 60
 origWeight: 0.6

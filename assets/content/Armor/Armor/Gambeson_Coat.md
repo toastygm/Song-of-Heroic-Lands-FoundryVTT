@@ -17,33 +17,35 @@ sohl:
   kbcat: gambeson
   armorType: Coat
   detailMaterial: Gambeson
-  material: Gambeson
-  durability: 11
-  value: 530
-  weight: 18.5
-  encumbrance: 10
-  perceptionPenaltyBase: 0
-  flexloc:
-    - neckloc
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - lfraloc
-    - rfraloc
-    - lthghloc
-    - rthghloc
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 18.5
+    valueBase: 530
+    durabilityBase: 11
+    material: Gambeson
+    locations:
+      flexible:
+        - neckloc
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - lfraloc
+        - rfraloc
+        - lthghloc
+        - rthghloc
+      rigid:
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 10
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 528
 origWeight: 18.5

@@ -16,10 +16,11 @@ sohl:
     skill: herb
     secondary: []
   kbcat: scribe
-  quality: 0
-  durability: 0
-  value: 8
-  weight: 2
+  system:
+    weightBase: 2
+    valueBase: 8
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: scribe
 ---
 

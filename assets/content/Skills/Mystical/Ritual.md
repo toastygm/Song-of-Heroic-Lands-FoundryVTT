@@ -13,16 +13,16 @@ data:
 subType: mystical
 sohl:
   kbcat: mystical
-  skillBaseFormula: "sb(attr.wil, attr.rea)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 0
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - manipulator
+  system:
+    skillBaseFormula: sb(attr.wil, attr.rea)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 0
+    impairedByRoles:
+      - core
+      - vital
+      - manipulator
 packFolder: mysticalskills
 ---
 

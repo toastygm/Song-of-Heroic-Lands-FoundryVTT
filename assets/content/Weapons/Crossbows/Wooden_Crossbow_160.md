@@ -15,56 +15,57 @@ sohl:
     skill: fltch
     secondary: [wood, timb]
   kbcat: crossbow
-  durability: 10
-  weight: 5
-  value: 100
-  heft: 0
   weaponType: Crossbow
-  strikeModes:
-    - shortcode: ranged
-      type: missile
-      name: Ranged
-      assocSkillCode: archery
-      minParts: 2
-      attack:
-        spread: 0
-        modifier: 0
-      impactBase:
-        numDice: 0
-        die: null
-        modifier: 3
-        aspect: piercing
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 0
-        AR: 0
-        noAttack: false
-        noBlock: false
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: false
-        thrust: false
-        swung: false
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: false
-        noStrMod: false
-        halfImpact: false
-        lowAim: false
-      projectileType: bolt
-      maxVolleyMult: 4
-      baseRangeBase: 240
-      drawBase: 160
+  system:
+    weightBase: 5
+    valueBase: 100
+    durabilityBase: 10
+    heftBase: 0
+    strikeModes:
+      - shortcode: ranged
+        type: missile
+        name: Ranged
+        assocSkillCode: archery
+        minParts: 2
+        attack:
+          spread: 0
+          modifier: 0
+        impactBase:
+          numDice: 0
+          die: null
+          modifier: 3
+          aspect: piercing
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 0
+          AR: 0
+          noAttack: false
+          noBlock: false
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: false
+          thrust: false
+          swung: false
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: false
+          noStrMod: false
+          halfImpact: false
+          lowAim: false
+        projectileType: bolt
+        maxVolleyMult: 4
+        baseRangeBase: 240
+        drawBase: 160
 packFolder: weapons
 ---
 

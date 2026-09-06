@@ -16,10 +16,11 @@ sohl:
     skill: hide
     secondary: []
   kbcat: tack
-  quality: 0
-  durability: 8
-  value: 80
-  weight: 10
+  system:
+    weightBase: 10
+    valueBase: 80
+    qualityBase: 0
+    durabilityBase: 8
 packFolder: tack
 ---
 

@@ -16,10 +16,11 @@ sohl:
     skill: srvl
     secondary: []
   kbcat: religious
-  quality: 0
-  durability: 5
-  value: 6
-  weight: 1.5
+  system:
+    weightBase: 1.5
+    valueBase: 6
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: religious
 ---
 

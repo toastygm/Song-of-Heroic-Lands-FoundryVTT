@@ -16,10 +16,11 @@ sohl:
     skill: glas
     secondary: []
   kbcat: cooking
-  quality: 0
-  durability: 2
-  value: 48
-  weight: 0.5
+  system:
+    weightBase: 0.5
+    valueBase: 48
+    qualityBase: 0
+    durabilityBase: 2
 packFolder: cooking
 ---
 

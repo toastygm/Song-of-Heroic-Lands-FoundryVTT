@@ -16,10 +16,11 @@ sohl:
     skill: txtl
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 6
-  value: 102
-  weight: 22
+  system:
+    weightBase: 22
+    valueBase: 102
+    qualityBase: 0
+    durabilityBase: 6
 packFolder: expedition
 ---
 

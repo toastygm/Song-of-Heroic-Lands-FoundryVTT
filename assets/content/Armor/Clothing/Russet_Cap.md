@@ -17,20 +17,22 @@ sohl:
   kbcat: cloth
   armorType: Cap
   detailMaterial: Russet
-  material: Cloth
-  durability: 7
-  value: 5
-  weight: 0.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.1
+    valueBase: 5
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 4
 origWeight: 0.2

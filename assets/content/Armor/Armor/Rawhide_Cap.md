@@ -17,20 +17,22 @@ sohl:
   kbcat: leather
   armorType: Cap
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 16
-  weight: 0.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.6
+    valueBase: 16
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - skullloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 16
 origWeight: 0.6

@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Gloves
   detailMaterial: Velvet
-  material: Cloth
-  durability: 10
-  value: 18
-  weight: 0.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lhandloc
-    - rhandloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.3
+    valueBase: 18
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - lhandloc
+        - rhandloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 17.5
 origWeight: 0.3

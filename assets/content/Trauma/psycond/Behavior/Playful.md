@@ -12,7 +12,8 @@ data:
 subType: psycond
 sohl:
   kbcat: psybehavior
-  category: impulse
+  system:
+    category: impulse
 packFolder: quirks
 ---
 

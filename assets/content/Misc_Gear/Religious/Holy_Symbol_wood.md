@@ -16,10 +16,11 @@ sohl:
     skill: wood
     secondary: []
   kbcat: religious
-  quality: 0
-  durability: 3
-  value: 4
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 4
+    qualityBase: 0
+    durabilityBase: 3
 packFolder: religious
 ---
 

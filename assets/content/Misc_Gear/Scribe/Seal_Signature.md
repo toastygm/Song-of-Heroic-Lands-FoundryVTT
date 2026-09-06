@@ -16,10 +16,11 @@ sohl:
     skill: jewl
     secondary: []
   kbcat: scribe
-  quality: 0
-  durability: 7
-  value: 36
-  weight: 0.25
+  system:
+    weightBase: 0.25
+    valueBase: 36
+    qualityBase: 0
+    durabilityBase: 7
 packFolder: scribe
 ---
 

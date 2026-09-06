@@ -13,9 +13,10 @@ data:
 subType: arcanetalent
 sohl:
   kbcat: arcanetalent
-  assocSkillCode: ""
-  levelBase: 0
-  masteryLevelBase: 0
+  system:
+    assocSkillCode: ""
+    masteryLevelBase: 0
+    levelBase: 0
 
 packFolder: arcanetalents
 ---

@@ -14,14 +14,6 @@ data:
 subType: combattechnique
 sohl:
   kbcat: unarmed
-  skillBaseFormula: "sb(attr.dex, attr.agl)"
-  combatCategory: melee
-  parentSkillCode: ""
-  initSkillMult: 2
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - manipulator
   strikeMode:
     type: melee
     shortcode: punch
@@ -75,6 +67,14 @@ sohl:
       halfImpact: false
       lowAim: false
       strRoll: false
+  system:
+    skillBaseFormula: sb(attr.dex, attr.agl)
+    improveFlag: false
+    combatCategory: melee
+    parentSkillCode: ""
+    initSkillMult: 2
+    impairedByRoles:
+      - manipulator
 packFolder: combat
 ---
 

@@ -16,17 +16,18 @@ sohl:
   craft:
     skill: mtlc
     secondary: []
-  quality: 0
-  durability: 10
-  value: 1
-  weight: 0.17
-  impact:
-    die: 10
-    modifier: -1
-    aspect: blunt
   traits:
     ARvalue: 0
     bleed: false
+  system:
+    weightBase: 0.17
+    valueBase: 1
+    qualityBase: 0
+    durabilityBase: 10
+    impactBase:
+      die: 10
+      modifier: -1
+      aspect: blunt
 packFolder: projectiles
 ---
 

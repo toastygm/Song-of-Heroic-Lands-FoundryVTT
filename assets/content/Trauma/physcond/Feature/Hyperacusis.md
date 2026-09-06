@@ -12,7 +12,8 @@ data:
 subType: physcond
 sohl:
   kbcat: physfeature
-  category: impediment
+  system:
+    category: impediment
 packFolder: traumaphysical
 ---
 

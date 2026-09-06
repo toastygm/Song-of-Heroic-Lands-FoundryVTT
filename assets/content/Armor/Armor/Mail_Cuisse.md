@@ -17,23 +17,25 @@ sohl:
   kbcat: mail
   armorType: Cuisse
   detailMaterial: Mail
-  material: Mail
-  durability: 13
-  value: 255
-  weight: 7.7
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 7.7
+    valueBase: 255
+    durabilityBase: 13
+    material: Mail
+    locations:
+      flexible: []
+      rigid:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 255
 origWeight: 7.7

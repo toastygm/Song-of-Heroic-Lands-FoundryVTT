@@ -57,9 +57,9 @@ Gear comes in several kinds, each with its own properties and behavior, describe
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "cash"
 ```
@@ -70,9 +70,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "cash"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "cooking"
 ```
@@ -83,9 +83,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "cooking"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "dye"
 ```
@@ -96,9 +96,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "dye"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "expedition"
 ```
@@ -109,9 +109,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "expedition"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "food"
 ```
@@ -122,9 +122,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "food"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "instruments"
 ```
@@ -135,9 +135,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "instruments"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "jewelry"
 ```
@@ -148,9 +148,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "jewelry"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "lighting"
 ```
@@ -161,9 +161,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "lighting"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "music"
 ```
@@ -174,9 +174,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "music"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "natural"
 ```
@@ -187,9 +187,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "natural"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "religious"
 ```
@@ -200,9 +200,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "religious"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "scribe"
 ```
@@ -213,9 +213,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "scribe"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "spirits"
 ```
@@ -226,9 +226,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "spirits"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "stone"
 ```
@@ -239,9 +239,9 @@ WHERE type = "miscgear" AND sohl.kbcat = "stone"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "miscgear" AND sohl.kbcat = "tack"
 ```
@@ -256,10 +256,10 @@ Any gear item can be placed **inside** a container; while stored there, the item
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.maxCapacity AS "Capacity",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.maxCapacityBase AS "Capacity",
   description AS "Description"
 WHERE type = "containergear"
 ```
@@ -290,9 +290,9 @@ A weapon **optionally** has an **encumbrance value**. If it does, that value is 
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "bow"
 ```
@@ -303,9 +303,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "bow"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "crossbow"
 ```
@@ -316,9 +316,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "crossbow"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "sling"
 ```
@@ -329,9 +329,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "sling"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "thrown"
 ```
@@ -342,9 +342,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "thrown"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "flail"
 ```
@@ -355,9 +355,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "flail"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "sword"
 ```
@@ -368,9 +368,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "sword"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "axe"
 ```
@@ -381,9 +381,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "axe"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "club"
 ```
@@ -394,9 +394,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "club"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "knife"
 ```
@@ -407,9 +407,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "knife"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "polearm"
 ```
@@ -420,9 +420,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "polearm"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "net"
 ```
@@ -433,9 +433,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "net"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "whip"
 ```
@@ -446,9 +446,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "whip"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "shield"
 ```
@@ -459,9 +459,9 @@ WHERE type = "weapongear" AND sohl.kbcat = "shield"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "weapongear" AND sohl.kbcat = "siege"
 ```
@@ -478,9 +478,9 @@ Projectiles are ordinarily tracked in quantity (a bundle of arrows) and are expe
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
   description AS "Description"
 WHERE type = "projectilegear"
 ```
@@ -543,16 +543,16 @@ The penalty applies to any test **built on Perception** — the attribute itself
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "cloth"
 ```
 
@@ -562,16 +562,16 @@ WHERE type = "armorgear" AND sohl.kbcat = "cloth"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "gambeson"
 ```
 
@@ -581,16 +581,16 @@ WHERE type = "armorgear" AND sohl.kbcat = "gambeson"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "kurbul"
 ```
 
@@ -600,16 +600,16 @@ WHERE type = "armorgear" AND sohl.kbcat = "kurbul"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "leather"
 ```
 
@@ -619,16 +619,16 @@ WHERE type = "armorgear" AND sohl.kbcat = "leather"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "mail"
 ```
 
@@ -638,16 +638,16 @@ WHERE type = "armorgear" AND sohl.kbcat = "mail"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "padded"
 ```
 
@@ -657,16 +657,16 @@ WHERE type = "armorgear" AND sohl.kbcat = "padded"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "plate"
 ```
 
@@ -676,16 +676,16 @@ WHERE type = "armorgear" AND sohl.kbcat = "plate"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "quilted"
 ```
 
@@ -695,16 +695,16 @@ WHERE type = "armorgear" AND sohl.kbcat = "quilted"
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Name",
   shortcode AS "Shortcode",
-  sohl.weight AS "Weight",
-  sohl.value AS "Value",
-  sohl.durability AS "Durability",
-  sohl.encumbrance AS "Encumbrance",
-  sohl.encumbranceGroup AS "Harness",
-  sohl.perceptionPenaltyBase AS "Perception",
-  sohl.protection.blunt AS "B",
-  sohl.protection.edged AS "E",
-  sohl.protection.piercing AS "P",
-  sohl.protection.fire AS "F"
+  sohl.system.weightBase AS "Weight",
+  sohl.system.valueBase AS "Value",
+  sohl.system.durabilityBase AS "Durability",
+  sohl.system.encumbrance AS "Encumbrance",
+  sohl.system.encumbranceGroup AS "Harness",
+  sohl.system.perceptionPenaltyBase AS "Perception",
+  sohl.system.protectionBase.blunt AS "B",
+  sohl.system.protectionBase.edged AS "E",
+  sohl.system.protectionBase.piercing AS "P",
+  sohl.system.protectionBase.fire AS "F"
 WHERE type = "armorgear" AND sohl.kbcat = "scale"
 ```
 

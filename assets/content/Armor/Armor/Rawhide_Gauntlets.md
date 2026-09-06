@@ -17,21 +17,23 @@ sohl:
   kbcat: leather
   armorType: Gauntlets
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 20
-  weight: 0.8
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lhandloc
-    - rhandloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.8
+    valueBase: 20
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - lhandloc
+        - rhandloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 30
 origWeight: 0.8

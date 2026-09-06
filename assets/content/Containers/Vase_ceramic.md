@@ -14,11 +14,12 @@ sohl:
   craft:
     skill: cmcs
     secondary: []
-  quality: 0
-  durability: 2
-  maxCapacity: 2
-  value: 4
-  weight: 2
+  system:
+    weightBase: 2
+    valueBase: 4
+    qualityBase: 0
+    durabilityBase: 2
+    maxCapacityBase: 2
 packFolder: containers
 ---
 

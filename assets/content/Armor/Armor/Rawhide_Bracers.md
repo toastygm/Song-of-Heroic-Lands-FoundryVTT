@@ -17,21 +17,23 @@ sohl:
   kbcat: leather
   armorType: Bracers
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 20
-  weight: 0.8
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lfraloc
-    - rfraloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.8
+    valueBase: 20
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - lfraloc
+        - rfraloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 20
 origWeight: 0.8

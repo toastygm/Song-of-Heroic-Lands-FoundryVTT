@@ -16,10 +16,11 @@ sohl:
     skill: herb
     secondary: []
   kbcat: dye
-  quality: 0
-  durability: 1
-  value: 18
-  weight: 0.0625
+  system:
+    weightBase: 0.0625
+    valueBase: 18
+    qualityBase: 0
+    durabilityBase: 1
 packFolder: textile
 ---
 

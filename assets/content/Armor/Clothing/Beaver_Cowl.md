@@ -17,21 +17,23 @@ sohl:
   kbcat: leather
   armorType: Cowl
   detailMaterial: Beaver
-  material: Leather
-  durability: 9
-  value: 75
-  weight: 0.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.7
+    valueBase: 75
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 72
 origWeight: 0.7

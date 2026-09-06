@@ -17,29 +17,31 @@ sohl:
   kbcat: gambeson
   armorType: Tunic
   detailMaterial: Gambeson
-  material: Gambeson
-  durability: 11
-  value: 380
-  weight: 13.2
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc:
-    - neckloc
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 13.2
+    valueBase: 380
+    durabilityBase: 11
+    material: Gambeson
+    locations:
+      flexible:
+        - neckloc
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+      rigid:
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 376
 origWeight: 13.2

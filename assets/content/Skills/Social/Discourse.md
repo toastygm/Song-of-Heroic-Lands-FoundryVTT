@@ -13,14 +13,14 @@ data:
 subType: social
 sohl:
   kbcat: social
-  skillBaseFormula: "sb(attr.rea, attr.elo)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 2
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - vital
+  system:
+    skillBaseFormula: sb(attr.rea, attr.elo)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 2
+    impairedByRoles:
+      - vital
 packFolder: social
 ---
 

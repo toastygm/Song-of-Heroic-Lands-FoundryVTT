@@ -16,10 +16,11 @@ sohl:
     skill: wood
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 4
-  value: 15
-  weight: 40
+  system:
+    weightBase: 40
+    valueBase: 15
+    qualityBase: 0
+    durabilityBase: 4
 packFolder: expedition
 ---
 

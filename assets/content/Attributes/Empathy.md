@@ -11,14 +11,15 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Unfeeling:4
-    - Remote:8
-    - Average:12
-    - Understanding:16
-    - Sensitive:999
-  initDiceFormula: 3d6
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Unfeeling:4
+      - Remote:8
+      - Average:12
+      - Understanding:16
+      - Sensitive:999
+    initDiceFormula: 3d6
 sort: 110
 packFolder: attributes
 ---

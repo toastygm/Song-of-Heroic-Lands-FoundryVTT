@@ -17,21 +17,23 @@ sohl:
   kbcat: padded
   armorType: Vest
   detailMaterial: Padded
-  material: Padded
-  durability: 10
-  value: 50
-  weight: 1.9
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.9
+    valueBase: 50
+    durabilityBase: 10
+    material: Padded
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 48
 origWeight: 1.9

@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Cowl
   detailMaterial: Canvas
-  material: Cloth
-  durability: 11
-  value: 5
-  weight: 0.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.4
+    valueBase: 5
+    durabilityBase: 11
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 5.4
 origWeight: 0.4

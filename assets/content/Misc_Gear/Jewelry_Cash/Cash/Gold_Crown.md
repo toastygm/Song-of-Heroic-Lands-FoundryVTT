@@ -16,10 +16,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: cash
-  quality: 0
-  durability: 7
-  value: 35
-  weight: 0.0077
+  system:
+    weightBase: 0.0077
+    valueBase: 35
+    qualityBase: 0
+    durabilityBase: 7
 packFolder: cash
 ---
 

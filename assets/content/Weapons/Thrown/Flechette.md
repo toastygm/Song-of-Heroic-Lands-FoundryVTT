@@ -15,56 +15,57 @@ sohl:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: thrown
-  durability: 10
-  weight: 0.25
-  value: 3
-  heft: 3
   weaponType: Special
-  strikeModes:
-    - shortcode: thrown
-      type: missile
-      name: Thrown
-      assocSkillCode: thro
-      minParts: 1
-      attack:
-        spread: 6
-        modifier: 0
-      impactBase:
-        numDice: 1
-        die: 8
-        modifier: 1
-        aspect: piercing
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 2
-        AR: 0
-        noAttack: false
-        noBlock: false
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: false
-        thrust: true
-        swung: false
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: false
-        noStrMod: false
-        halfImpact: false
-        lowAim: false
-      projectileType: none
-      maxVolleyMult: 2
-      baseRangeBase: 15
-      drawBase: 0
+  system:
+    weightBase: 0.25
+    valueBase: 3
+    durabilityBase: 10
+    heftBase: 3
+    strikeModes:
+      - shortcode: thrown
+        type: missile
+        name: Thrown
+        assocSkillCode: thro
+        minParts: 1
+        attack:
+          spread: 6
+          modifier: 0
+        impactBase:
+          numDice: 1
+          die: 8
+          modifier: 1
+          aspect: piercing
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 2
+          AR: 0
+          noAttack: false
+          noBlock: false
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: false
+          thrust: true
+          swung: false
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: false
+          noStrMod: false
+          halfImpact: false
+          lowAim: false
+        projectileType: none
+        maxVolleyMult: 2
+        baseRangeBase: 15
+        drawBase: 0
 packFolder: weapons
 ---
 

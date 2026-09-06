@@ -17,28 +17,30 @@ sohl:
   kbcat: plate
   armorType: Great Helm
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 180
-  weight: 6.8
-  encumbrance: 0
-  perceptionPenaltyBase: -10
-  flexloc: []
-  rigidloc:
-    - skullloc
-    - jawloc
-    - lcheekloc
-    - rcheekloc
-    - learloc
-    - rearloc
-    - mouthloc
-    - noseloc
-    - neckloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 6.8
+    valueBase: 180
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - skullloc
+        - jawloc
+        - lcheekloc
+        - rcheekloc
+        - learloc
+        - rearloc
+        - mouthloc
+        - noseloc
+        - neckloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: -10
 packFolder: armorarmor
 origValue: 180
 origWeight: 6.8

@@ -13,9 +13,10 @@ data:
 subType: spiritaction
 sohl:
   kbcat: spiritaction
-  assocSkillCode: spirit
-  levelBase: 0
-  masteryLevelBase: 0
+  system:
+    assocSkillCode: spirit
+    masteryLevelBase: 0
+    levelBase: 0
 hmk:
   name: ""
 packFolder: spiritaction

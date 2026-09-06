@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Cowl
   detailMaterial: Waxed Canvas
-  material: Cloth
-  durability: 12
-  value: 8
-  weight: 0.5
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.5
+    valueBase: 8
+    durabilityBase: 12
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 7.8
 origWeight: 0.5

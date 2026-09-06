@@ -17,29 +17,31 @@ sohl:
   kbcat: scale
   armorType: Sleeved Byrnie
   detailMaterial: Scale
-  material: Scale
-  durability: 14
-  value: 400
-  weight: 22
-  encumbrance: 15
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - lfraloc
-    - rfraloc
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 22
+    valueBase: 400
+    durabilityBase: 14
+    material: Scale
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - lfraloc
+        - rfraloc
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 15
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 400
 origWeight: 22

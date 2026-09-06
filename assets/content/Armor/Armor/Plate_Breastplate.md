@@ -17,26 +17,28 @@ sohl:
   kbcat: plate
   armorType: Breastplate
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 240
-  weight: 4.6
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-  facing:
-    - location: thrxloc
-      side: front
-    - location: abdmnloc
-      side: front
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 4.6
+    valueBase: 240
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - thrxloc
+        - abdmnloc
+      facing:
+        - location: thrxloc
+          side: front
+        - location: abdmnloc
+          side: front
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 240
 origWeight: 4.5

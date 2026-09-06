@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Vest
   detailMaterial: Cloth
-  material: Cloth
-  durability: 10
-  value: 25
-  weight: 1.2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.2
+    valueBase: 25
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 24
 origWeight: 1.2

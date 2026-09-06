@@ -14,11 +14,12 @@ sohl:
   craft:
     skill: wood
     secondary: []
-  quality: 0
-  durability: 5
-  maxCapacity: 80
-  value: 8
-  weight: 30
+  system:
+    weightBase: 30
+    valueBase: 8
+    qualityBase: 0
+    durabilityBase: 5
+    maxCapacityBase: 80
 packFolder: containers
 ---
 

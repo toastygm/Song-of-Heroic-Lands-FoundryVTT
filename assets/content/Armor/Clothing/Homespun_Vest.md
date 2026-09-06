@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Vest
   detailMaterial: Homespun
-  material: Cloth
-  durability: 5
-  value: 7
-  weight: 0.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.3
+    valueBase: 7
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 24
 origWeight: 1.2

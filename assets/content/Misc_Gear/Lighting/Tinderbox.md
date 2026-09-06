@@ -16,10 +16,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: lighting
-  quality: 0
-  durability: 7
-  value: 6
-  weight: 2
+  system:
+    weightBase: 2
+    valueBase: 6
+    qualityBase: 0
+    durabilityBase: 7
 packFolder: lighting
 ---
 

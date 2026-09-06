@@ -17,24 +17,26 @@ sohl:
   kbcat: plate
   armorType: Rerebraces
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 160
-  weight: 3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3
+    valueBase: 160
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 160
 origWeight: 3

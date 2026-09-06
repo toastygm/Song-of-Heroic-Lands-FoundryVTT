@@ -17,21 +17,23 @@ sohl:
   kbcat: cloth
   armorType: Cowl
   detailMaterial: Russet
-  material: Cloth
-  durability: 7
-  value: 7
-  weight: 0.2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.2
+    valueBase: 7
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 6
 origWeight: 0.3

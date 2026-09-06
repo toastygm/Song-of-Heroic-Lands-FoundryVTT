@@ -17,51 +17,53 @@ sohl:
   kbcat: cloth
   armorType: Cloak
   detailMaterial: Worsted
-  material: Cloth
-  durability: 9
-  value: 100
-  weight: 1.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  facing:
-    - location: thrxloc
-      side: back
-    - location: abdmnloc
-      side: back
-    - location: plvisloc
-      side: back
-    - location: lthghloc
-      side: back
-    - location: rthghloc
-      side: back
-    - location: lkneeloc
-      side: back
-    - location: rkneeloc
-      side: back
-    - location: lcalfloc
-      side: back
-    - location: rcalfloc
-      side: back
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.6
+    valueBase: 100
+    durabilityBase: 9
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+      facing:
+        - location: thrxloc
+          side: back
+        - location: abdmnloc
+          side: back
+        - location: plvisloc
+          side: back
+        - location: lthghloc
+          side: back
+        - location: rthghloc
+          side: back
+        - location: lkneeloc
+          side: back
+        - location: rkneeloc
+          side: back
+        - location: lcalfloc
+          side: back
+        - location: rcalfloc
+          side: back
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 ---
 

@@ -17,20 +17,22 @@ sohl:
   kbcat: quilted
   armorType: Cap
   detailMaterial: Quilted
-  material: Quilted
-  durability: 11
-  value: 16
-  weight: 0.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.7
+    valueBase: 16
+    durabilityBase: 11
+    material: Quilted
+    locations:
+      flexible:
+        - skullloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 16
 origWeight: 0.7

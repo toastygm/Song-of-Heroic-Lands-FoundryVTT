@@ -17,21 +17,23 @@ sohl:
   kbcat: quilted
   armorType: Vest
   detailMaterial: Quilted
-  material: Quilted
-  durability: 11
-  value: 100
-  weight: 4.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 4.3
+    valueBase: 100
+    durabilityBase: 11
+    material: Quilted
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 96
 origWeight: 4.3

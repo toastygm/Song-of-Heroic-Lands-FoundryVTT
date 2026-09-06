@@ -17,21 +17,23 @@ sohl:
   kbcat: leather
   armorType: Sandals
   detailMaterial: Leather
-  material: Leather
-  durability: 9
-  value: 60
-  weight: 0.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.7
+    valueBase: 60
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 56
 origWeight: 0.7

@@ -17,24 +17,26 @@ sohl:
   kbcat: cloth
   armorType: Apron
   detailMaterial: Velvet
-  material: Cloth
-  durability: 10
-  value: 170
-  weight: 2.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.4
+    valueBase: 170
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 168.3
 origWeight: 2.4

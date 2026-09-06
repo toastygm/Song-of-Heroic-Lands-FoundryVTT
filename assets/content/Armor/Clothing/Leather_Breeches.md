@@ -17,23 +17,25 @@ sohl:
   kbcat: leather
   armorType: Breeches
   detailMaterial: Leather
-  material: Leather
-  durability: 9
-  value: 140
-  weight: 1.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.7
+    valueBase: 140
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 136
 origWeight: 1.7

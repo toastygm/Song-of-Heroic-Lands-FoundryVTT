@@ -12,7 +12,8 @@ data:
 subType: psycond
 sohl:
   kbcat: psypsychosis
-  category: disorder
+  system:
+    category: disorder
 packFolder: disorders
 ---
 

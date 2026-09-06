@@ -17,25 +17,27 @@ sohl:
   kbcat: leather
   armorType: Knee Boots
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 90
-  weight: 3.5
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3.5
+    valueBase: 90
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 88
 origWeight: 3.5

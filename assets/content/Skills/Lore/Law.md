@@ -13,14 +13,14 @@ data:
 subType: lore
 sohl:
   kbcat: lore
-  skillBaseFormula: "sb(attr.rea, attr.wil)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 0
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - vital
+  system:
+    skillBaseFormula: sb(attr.rea, attr.wil)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 0
+    impairedByRoles:
+      - vital
 packFolder: lore
 ---
 

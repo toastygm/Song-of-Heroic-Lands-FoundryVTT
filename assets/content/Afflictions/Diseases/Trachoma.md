@@ -13,10 +13,11 @@ data:
 subType: disease
 sohl:
   kbcat: diseases
-  levelBase: 1
-  healingRateBase: 3
-  contagionIndex: 3
-  transmission: contact
+  system:
+    levelBase: 1
+    healingRateBase: 3
+    contagionIndexBase: 3
+    transmission: contact
 packFolder: diseases
 ---
 

@@ -15,11 +15,11 @@ the note already had, `templatePriority` intact.
 Three fields change shape as well as place, because the format declares them
 differently:
 
-| authored | now |
-| --- | --- |
-| `traits.height.m` | `data.height` — a number in metres |
-| `traits.weight.kg` | `data.weight` — a number in kilograms |
-| `traits.build.frame` | `data.frame` |
+| authored             | now                                   |
+| -------------------- | ------------------------------------- |
+| `traits.height.m`    | `data.height` — a number in metres    |
+| `traits.weight.kg`   | `data.weight` — a number in kilograms |
+| `traits.build.frame` | `data.frame`                          |
 
 `gender`, `age`, `birthday` and `appearance.*` move verbatim.
 

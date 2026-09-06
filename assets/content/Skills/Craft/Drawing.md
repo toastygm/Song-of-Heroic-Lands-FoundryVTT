@@ -13,16 +13,16 @@ data:
 subType: craft
 sohl:
   kbcat: craft
-  skillBaseFormula: "sb(attr.dex, attr.cre)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 2
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - manipulator
+  system:
+    skillBaseFormula: sb(attr.dex, attr.cre)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 2
+    impairedByRoles:
+      - core
+      - vital
+      - manipulator
 packFolder: craft
 ---
 

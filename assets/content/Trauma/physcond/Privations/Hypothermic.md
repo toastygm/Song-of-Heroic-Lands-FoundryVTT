@@ -13,9 +13,10 @@ data:
 subType: physcond
 sohl:
   kbcat: physprivations
-  category: debility
-  levelBase: 3
-  healingRateBase: 2
+  system:
+    category: debility
+    levelBase: 3
+    healingRateBase: 2
 packFolder: privations
 ---
 

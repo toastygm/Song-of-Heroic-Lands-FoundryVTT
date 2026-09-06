@@ -17,24 +17,26 @@ sohl:
   kbcat: cloth
   armorType: Apron
   detailMaterial: Silk
-  material: Cloth
-  durability: 7
-  value: 435
-  weight: 1.2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.2
+    valueBase: 435
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 432
 origWeight: 1.2

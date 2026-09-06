@@ -16,17 +16,18 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  quality: 0
-  durability: 12
-  value: 2
-  weight: 8
-  impact:
-    die: 6
-    modifier: 6
-    aspect: piercing
   traits:
     ARvalue: 6
     bleed: true
+  system:
+    weightBase: 8
+    valueBase: 2
+    qualityBase: 0
+    durabilityBase: 12
+    impactBase:
+      die: 6
+      modifier: 6
+      aspect: piercing
 packFolder: projectiles
 ---
 

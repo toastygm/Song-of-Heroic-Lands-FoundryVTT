@@ -16,10 +16,11 @@ sohl:
     skill: srvl
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 5
-  value: 45
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 45
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: expedition
 ---
 

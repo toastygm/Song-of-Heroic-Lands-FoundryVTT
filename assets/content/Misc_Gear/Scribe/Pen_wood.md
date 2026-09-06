@@ -16,10 +16,11 @@ sohl:
     skill: wood
     secondary: []
   kbcat: scribe
-  quality: 0
-  durability: 3
-  value: 1
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 1
+    qualityBase: 0
+    durabilityBase: 3
 packFolder: scribe
 ---
 

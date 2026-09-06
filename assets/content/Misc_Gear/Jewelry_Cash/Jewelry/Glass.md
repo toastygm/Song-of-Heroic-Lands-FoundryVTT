@@ -16,10 +16,11 @@ sohl:
     skill: glas
     secondary: []
   kbcat: jewelry
-  quality: 0
-  durability: 2
-  value: 6
-  weight: 0.0625
+  system:
+    weightBase: 0.0625
+    valueBase: 6
+    qualityBase: 0
+    durabilityBase: 2
 packFolder: jewelry
 ---
 

@@ -17,21 +17,23 @@ sohl:
   kbcat: padded
   armorType: Cowl
   detailMaterial: Padded
-  material: Padded
-  durability: 10
-  value: 12
-  weight: 0.5
-  encumbrance: 0
-  perceptionPenaltyBase: -5
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.5
+    valueBase: 12
+    durabilityBase: 10
+    material: Padded
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: -5
 packFolder: armorarmor
 origValue: 12
 origWeight: 0.5

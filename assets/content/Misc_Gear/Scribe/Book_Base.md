@@ -16,10 +16,11 @@ sohl:
     skill: hide
     secondary: []
   kbcat: scribe
-  quality: 0
-  durability: 5
-  value: 10
-  weight: 1
+  system:
+    weightBase: 1
+    valueBase: 10
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: scribe
 ---
 

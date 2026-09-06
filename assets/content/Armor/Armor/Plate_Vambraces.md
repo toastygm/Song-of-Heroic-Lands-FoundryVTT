@@ -17,22 +17,24 @@ sohl:
   kbcat: plate
   armorType: Vambraces
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 100
-  weight: 1.9
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lfraloc
-    - rfraloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.9
+    valueBase: 100
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - lfraloc
+        - rfraloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 100
 origWeight: 1.9

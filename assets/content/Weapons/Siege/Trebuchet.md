@@ -15,56 +15,57 @@ sohl:
     skill: wood
     secondary: []
   kbcat: siege
-  durability: 17
-  weight: 12000
-  value: 5000
-  heft: 0
   weaponType: Siege
-  strikeModes:
-    - shortcode: shoot
-      type: missile
-      name: Shoot
-      assocSkillCode: slng
-      minParts: 2
-      attack:
-        spread: 0
-        modifier: 0
-      impactBase:
-        numDice: 0
-        die: null
-        modifier: 45
-        aspect: blunt
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 0
-        AR: 0
-        noAttack: false
-        noBlock: true
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: true
-        thrust: false
-        swung: false
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: false
-        noStrMod: true
-        halfImpact: false
-        lowAim: false
-      projectileType: bullet
-      maxVolleyMult: 4
-      baseRangeBase: 250
-      drawBase: 0
+  system:
+    weightBase: 12000
+    valueBase: 5000
+    durabilityBase: 17
+    heftBase: 0
+    strikeModes:
+      - shortcode: shoot
+        type: missile
+        name: Shoot
+        assocSkillCode: slng
+        minParts: 2
+        attack:
+          spread: 0
+          modifier: 0
+        impactBase:
+          numDice: 0
+          die: null
+          modifier: 45
+          aspect: blunt
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 0
+          AR: 0
+          noAttack: false
+          noBlock: true
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: true
+          thrust: false
+          swung: false
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: false
+          noStrMod: true
+          halfImpact: false
+          lowAim: false
+        projectileType: bullet
+        maxVolleyMult: 4
+        baseRangeBase: 250
+        drawBase: 0
 packFolder: weapons
 ---
 

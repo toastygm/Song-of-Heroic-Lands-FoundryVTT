@@ -17,21 +17,23 @@ sohl:
   kbcat: kurbul
   armorType: Cuirass
   detailMaterial: Kûrbúl
-  material: Kûrbúl
-  durability: 13
-  value: 120
-  weight: 9.1
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 9.1
+    valueBase: 120
+    durabilityBase: 13
+    material: Kûrbúl
+    locations:
+      flexible: []
+      rigid:
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 120
 origWeight: 9.1

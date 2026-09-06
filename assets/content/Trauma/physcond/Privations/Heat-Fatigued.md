@@ -13,9 +13,10 @@ data:
 subType: physcond
 sohl:
   kbcat: physprivations
-  category: trait
-  levelBase: 1
-  healingRateBase: 5
+  system:
+    category: trait
+    levelBase: 1
+    healingRateBase: 5
 packFolder: privations
 ---
 

@@ -16,10 +16,11 @@ sohl:
     skill: anmcft
     secondary: []
   kbcat: food
-  quality: 0
-  durability: 0
-  value: 1
-  weight: 1.35
+  system:
+    weightBase: 1.35
+    valueBase: 1
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: food
 ---
 

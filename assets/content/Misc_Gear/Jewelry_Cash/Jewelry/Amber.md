@@ -16,10 +16,11 @@ sohl:
     skill: mnrl
     secondary: []
   kbcat: jewelry
-  quality: 0
-  durability: 1
-  value: 50
-  weight: 0.0625
+  system:
+    weightBase: 0.0625
+    valueBase: 50
+    qualityBase: 0
+    durabilityBase: 1
 packFolder: jewelry
 ---
 

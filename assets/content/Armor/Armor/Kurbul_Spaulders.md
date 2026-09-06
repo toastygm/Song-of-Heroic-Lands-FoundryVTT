@@ -17,22 +17,24 @@ sohl:
   kbcat: kurbul
   armorType: Spaulders
   detailMaterial: Kûrbúl
-  material: Kûrbúl
-  durability: 13
-  value: 15
-  weight: 1.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.1
+    valueBase: 15
+    durabilityBase: 13
+    material: Kûrbúl
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 15
 origWeight: 1.1

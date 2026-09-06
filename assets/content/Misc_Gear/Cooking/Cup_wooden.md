@@ -16,10 +16,11 @@ sohl:
     skill: wood
     secondary: []
   kbcat: cooking
-  quality: 0
-  durability: 4
-  value: 3
-  weight: 1
+  system:
+    weightBase: 1
+    valueBase: 3
+    qualityBase: 0
+    durabilityBase: 4
 packFolder: cooking
 ---
 

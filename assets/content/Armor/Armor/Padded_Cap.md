@@ -17,20 +17,22 @@ sohl:
   kbcat: padded
   armorType: Cap
   detailMaterial: Padded
-  material: Padded
-  durability: 10
-  value: 8
-  weight: 0.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.3
+    valueBase: 8
+    durabilityBase: 10
+    material: Padded
+    locations:
+      flexible:
+        - skullloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 8
 origWeight: 0.3

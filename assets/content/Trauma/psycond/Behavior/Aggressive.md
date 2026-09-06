@@ -12,7 +12,8 @@ data:
 subType: psycond
 sohl:
   kbcat: psybehavior
-  category: quirk
+  system:
+    category: quirk
 packFolder: disorders
 ---
 

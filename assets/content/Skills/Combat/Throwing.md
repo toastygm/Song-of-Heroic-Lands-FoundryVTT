@@ -13,16 +13,16 @@ data:
 subType: combat
 sohl:
   kbcat: combat
-  skillBaseFormula: "sb(attr.dex, attr.per)"
-  combatCategory: missile
-  parentSkillCode: ""
-  initSkillMult: 2
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - manipulator
+  system:
+    skillBaseFormula: sb(attr.dex, attr.per)
+    improveFlag: false
+    combatCategory: missile
+    parentSkillCode: ""
+    initSkillMult: 2
+    impairedByRoles:
+      - core
+      - vital
+      - manipulator
 packFolder: combat
 ---
 

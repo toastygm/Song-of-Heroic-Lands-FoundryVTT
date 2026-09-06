@@ -17,20 +17,22 @@ sohl:
   kbcat: cloth
   armorType: Cap
   detailMaterial: Homespun
-  material: Cloth
-  durability: 5
-  value: 1
-  weight: 0.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.1
+    valueBase: 1
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 4
 origWeight: 0.2
