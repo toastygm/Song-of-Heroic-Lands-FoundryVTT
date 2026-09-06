@@ -116,7 +116,7 @@ condition or computed value** from a data field. These are the call sites today:
 | Body — derived weight                 | `BodyLogic` (`evaluate`)                                           | `weight.calc`                    | `str`                                                                                                                                                                                                                          | number                                        |
 | Result-description table row          | `SuccessTestResult` (result-description tables)                    | `label`, `description`, `result` | `successLevel`, `targetValue`, `lastDigit`                                                                                                                                                                                     | string (label/description) or number (result) |
 | Event-queue subscription predicate    | `SohlEventQueue` (`fire`)                                          | `predicate`                      | `name`, `subscriberUuid`, `payload`, `worldTime`, `dt`, `combat`, `combatant`, `round`, `turn`, `skipped`, `sceneUuid`, `darkness`, `priorDarkness`, `regionUuid`, `regionId`, `regionName`, `tokenUuid`, `actorUuid` _(open)_ | boolean                                       |
-| Affliction — outcome trauma           | `AfflictionLogic` (`contractOutcomeTraumas`)                       | `outcomeTrauma`                  | _none_                                                                                                                                                                                                                         | string or string[] (trauma shortcodes)        |
+| Affliction — outcome trauma           | `AfflictionLogic` (`contractOutcomeTraumas`)                       | `outcomeTraumas`                 | _none_                                                                                                                                                                                                                         | string or string[] (trauma shortcodes)        |
 
 Scopes marked _(open)_ carry a context that varies at runtime, so an
 identifier beyond those listed is permitted there; everywhere else, an
@@ -195,7 +195,7 @@ compiled.
 - `tokenUuid` — Region triggers: UUID of the token that acted.
 - `actorUuid` — Region triggers: UUID of that token's actor, when it has one.
 
-**`affliction.outcomeTrauma`** — Chooses which trauma(s) an affliction inflicts on contraction. Bound to nothing: the expression may use only literals and helper calls (e.g. a shortcode literal, or a `roll('1d3').total` selection), never a bare identifier.
+**`affliction.outcomeTraumas`** — Chooses which trauma(s) an affliction inflicts on contraction. Bound to nothing: the expression may use only literals and helper calls (e.g. a shortcode literal, or a `roll('1d3').total` selection), never a bare identifier.
 
 - _No bindings._ Only literals and helper calls may appear.
 

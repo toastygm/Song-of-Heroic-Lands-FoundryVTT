@@ -64,7 +64,7 @@ describe("expressionScopes", () => {
 describe("ExpressionScope", () => {
     const closed = expressionScopes.require("action.visible");
     const open = expressionScopes.require("event.predicate");
-    const empty = expressionScopes.require("affliction.outcomeTrauma");
+    const empty = expressionScopes.require("affliction.outcomeTraumas");
 
     it("reports its declared identifiers", () => {
         expect(closed.names).toContain("itemLogic");

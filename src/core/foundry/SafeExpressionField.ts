@@ -86,7 +86,7 @@ import { expressionScopes, type ExpressionScope } from "@src/entity/expr/Express
  * behaves exactly as it does there. Override any of them per field — but think
  * twice before reverting `nullable`/`blank`, since that pair is what keeps "no
  * formula" a single value instead of two. Both shipped fields
- * (`SkillDataModel.skillBaseFormula`, `AfflictionDataModel.outcomeTrauma`) pass
+ * (`SkillDataModel.skillBaseFormula`, `AfflictionDataModel.outcomeTraumas`) pass
  * nothing but `scope`.
  *
  * The scope is what lets the *schema* tell the sheet which identifiers a formula
