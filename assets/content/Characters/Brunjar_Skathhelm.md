@@ -17,23 +17,12 @@ portrait: images/being/brunjarskathhel-portrait.webp
 type: being
 data:
   templatePriority: null
-social:
-  occupation: Brigand
-  station: underworld
-  class: unfree
-  society: Varokh
-  organizations:
-    - blackpine-wolves
-traits:
   gender: male
   age: 22
   birthday: 697/10/3
-  height:
-    m: 1.75
-  weight:
-    kg: 68
-  build:
-    frame: medium
+  height: 1.75
+  weight: 68
+  frame: medium
   appearance:
     eye_color: hazel
     hair_color: brown
@@ -42,6 +31,13 @@ traits:
     extra_features:
       - boyish face that makes him look younger than his years
       - fidgets constantly
+social:
+  occupation: Brigand
+  station: underworld
+  class: unfree
+  society: Varokh
+  organizations:
+    - blackpine-wolves
 sohl:
   kbcat: npc
   body:

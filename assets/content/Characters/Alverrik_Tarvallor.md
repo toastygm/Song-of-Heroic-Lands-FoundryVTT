@@ -16,21 +16,12 @@ portrait: images/being/alverriktarvall-portrait.webp
 type: being
 data:
   templatePriority: null
-social:
-  occupation: Caravan Guard
-  station: soldiery
-  class: freeman
-  society: Tarvénan
-traits:
   gender: male
   age: 30
   birthday: 690/6/11
-  height:
-    m: 1.83
-  weight:
-    kg: 82
-  build:
-    frame: heavy
+  height: 1.83
+  weight: 82
+  frame: heavy
   appearance:
     eye_color: black
     hair_color: black
@@ -38,6 +29,11 @@ traits:
     complexion: olive_toned
     extra_features:
       - a scar on the left shoulder
+social:
+  occupation: Caravan Guard
+  station: soldiery
+  class: freeman
+  society: Tarvénan
 gear:
   weapons:
     - Heavy mace
