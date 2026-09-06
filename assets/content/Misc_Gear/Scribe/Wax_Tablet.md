@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 6
   weight: 1
-folder: BYkA5NDQxTXDvsAC
+packFolder: scribe
 ---
 
 A wooden board or pair of hinged boards faced with beeswax, tinted dark for contrast. A scribe uses a blunt stylus to scratch notes, receipts, or tallies into the wax; the marks are erased by smoothing with the stylus handle and warming to restore the surface. Merchants and clerks carry wax tablets for quick reckoning.

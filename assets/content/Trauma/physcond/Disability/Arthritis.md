@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Arthritis is a condition that causes inflammation and stiffness in the joints, leading to pain, swelling, and decreased mobility. It can affect one or more joints, making daily tasks difficult and often worsening over time. Individuals with arthritis must rely on rest, herbal remedies, and lifestyle adjustments to manage their symptoms and maintain their quality of life.

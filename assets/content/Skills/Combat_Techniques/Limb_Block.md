@@ -74,7 +74,7 @@ sohl:
       halfImpact: false
       lowAim: false
       strRoll: false
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 The defence of last resort: no weapon in hand, no shield on the arm, and something already coming at you. An unarmed Block, made by putting a forearm, a shin or a shoulder in the way.

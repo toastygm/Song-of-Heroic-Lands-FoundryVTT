@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 2
   weight: 0.75
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 A young sheep's pelt—soft, light, and still bearing its wool—salted whole for the tanners and clothiers. Shepherds trade lambskins seasonally after spring shearing and autumn culling. The fine hair takes dye well, and when tanned, the leather is pliant and warm.

@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 20
   weight: 0.0625
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 Oil drawn from rose petals in quantities that astonish anyone who learns the figure — a bushel of petals for a scant measure of oil, which is why the rose fields of the south are worth what they are. It is the most familiar of the fine scents and the one against which a perfumer's skill is judged, since everyone knows what a rose ought to smell like.

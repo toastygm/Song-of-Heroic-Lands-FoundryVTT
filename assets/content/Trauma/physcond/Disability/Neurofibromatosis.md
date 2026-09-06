@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Neurofibromatosis is a genetic disorder that causes tumors, known as neurofibromas, to grow along nerves, affecting various parts of the body, including the skin, bones, and nervous system. These tumors, though typically benign, can lead to visible deformities, chronic pain, and significant neurological complications. The visible nature of the tumors often leads to social stigmatization and emotional distress as the individual contends with both physical and social challenges.

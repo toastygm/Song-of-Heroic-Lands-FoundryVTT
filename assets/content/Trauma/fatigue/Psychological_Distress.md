@@ -16,7 +16,7 @@ sohl:
   category: weakness
   levelBase: 1
   healingRateBase: 1
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Psychological distress weakness is the bodily cost of sustained psychological strain — grief, terror, prolonged fear, the slow erosion of will under captivity or torture, the cumulative burden of guilt or shame. Where Sleepless captures the cost of forgone rest, Distressed captures the cost of an overburdened spirit. The body bears the strain, and the cost is real even when no visible wound has been taken. 5 fatigue per point of accumulated psyche stress (PSY).

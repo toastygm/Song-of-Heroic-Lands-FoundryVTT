@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 2
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Plucked and gutted goose, rich with fat, is favored at autumn feasts and keeps well when smoked over hardwood. The meat is darker and more robust than chicken, and the rendered fat serves both kitchen and lamp. A single bird yields enough for a family meal or becomes jerky for weeks of travel.

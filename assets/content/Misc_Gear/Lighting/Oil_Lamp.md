@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 12
   weight: 12
-folder: csqutf8WiTRM8oru
+packFolder: lighting
 ---
 
 Rendered animal fat or vegetable oil kept in a clay or bronze reservoir, burned by means of a twisted-flax wick that draws fuel upward by capillary action. Oil lamps are filled at the chandler and burn steadier than candles, unaffected by guttering and sputtering. A lamp's light is warmer and softer than candlelight, favored in studies and merchant countinghouses where the reader will spend hours; the wick must be trimmed occasionally to prevent smoking.

@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: N5ozne3RRF0qSEdF
+packFolder: nature
 ---
 
 Piloting is navigation — knowing where a vessel is, where it is going, and what lies between. It is a separate accomplishment from handling the ship, which is Seamanship's business: a pilot who cannot work a sail is common, and so is a fine sailor who could not find a coast twice.

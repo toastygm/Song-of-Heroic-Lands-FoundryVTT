@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 20
   value: 1.5
   weight: 0.7
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A drawstring sack of waxed canvas, stiff enough to stand half-open when set down. The standard container for anything that must not get damp between one market and the next.

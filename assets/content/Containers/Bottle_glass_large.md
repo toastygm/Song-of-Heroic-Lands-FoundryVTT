@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 8
   value: 48
   weight: 4
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A substantial bottle of blown glass, greenish and slightly bubbly in character, closed with a cork or waxed-cloth stopper—an expensive vessel used by apothecaries, merchants, and wealthy households for storing wine, oil, or medicinal preparations. The thick-walled glass demands careful handling; breakage is costly. Medieval glass carries a slight color and occasional impurity as markers of its handmade origin.

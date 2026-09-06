@@ -6,7 +6,7 @@ name:
   full: Actors
   aliases: []
 shortcode: ugactors
-folder: sYK1BozT9xFcinXK
+packFolder: actors
 ---
 
 # Actors {#actors}

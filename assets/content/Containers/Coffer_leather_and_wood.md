@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 12
   value: 45
   weight: 5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A wooden coffer faced in leather, lighter in construction than the all-wood sort and cheaper for it. The covering protects the joints from damp and the corners from knocks, and it takes a stamped decoration well.

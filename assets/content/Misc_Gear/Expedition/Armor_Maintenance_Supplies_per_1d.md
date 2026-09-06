@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 1
   weight: 0.05
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A standing stock of the small parts that keep a suit of armor fit to wear: loose rings of drawn wire for mail, peening rivets and washers, spare strap stock and buckles, waxed linen thread, cotton wadding and canvas patches for padded garments, oiled felt for lining, and a small jar of tallow-and-abrasive polish for bright steel. Heavier and bulkier than weapon supplies of the same value, since so much of it is iron; sold by the pence at any town where armorers work.

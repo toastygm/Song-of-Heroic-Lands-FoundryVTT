@@ -16,7 +16,7 @@ sohl:
   assocSkillCode: ""
   levelBase: 0
   masteryLevelBase: 0
-folder: m0nRzDsS8uGisvDU
+packFolder: alchemy
 ---
 
 Alchemy is the preparation of substances that carry mystical potency — elixirs, powders, tinctures, and worked materials — by taught recipe and procedure. The alchemist does not work on the world directly; they make a _thing_, and the thing does the work afterwards, in another hand and possibly in another year. That difference is the whole of what separates alchemy from incantation, and it is why alchemists are valuable to people who have no arcane gift at all.

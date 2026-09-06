@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Trauma Introduction
   aliases: []
-folder: 4SPG9O9H7puwZsve
+packFolder: rulestrauma
 shortcode: traumaintro
 ---
 

@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Melee Attacks
   aliases: []
-folder: rotB8uN12YUN0Oba
+packFolder: rulescombat
 shortcode: mlattcks
 ---
 

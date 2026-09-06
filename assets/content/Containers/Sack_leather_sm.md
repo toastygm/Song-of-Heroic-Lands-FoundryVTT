@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 10
   value: 1.5
   weight: 0.6
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A plain drawstring sack of thin hide, without shape or structure of its own. It is used where a canvas sack would tear or soak — carrying wet goods, sharp goods, or anything that must not take the weather on a short journey.

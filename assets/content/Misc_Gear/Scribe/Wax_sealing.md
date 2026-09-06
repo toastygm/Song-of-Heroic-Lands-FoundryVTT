@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 4
   weight: 1
-folder: BYkA5NDQxTXDvsAC
+packFolder: scribe
 ---
 
 Beeswax or tallow rendered, often tinted red or black with vermilion or soot, formed into sticks. Melted in a seal-holder, it drips onto a scroll's binding cord or document fold, then impressed with a seal ring or stamp to set. A sealed letter carries proof of integrity and sender identity.

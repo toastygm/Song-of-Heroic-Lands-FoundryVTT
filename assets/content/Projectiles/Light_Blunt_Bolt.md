@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: true
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A light crossbow quarrel tipped with a turned-wood or padded leather knob in place of an iron head. Gamekeepers, falconers, and young recruits loose them at small game and training targets, where the weight of the bolt and the stiffness of the bow still deliver a stunning strike without spoiling fur or feather. The shaft is the standard short crossbow quarrel, trimmed to channel-width.

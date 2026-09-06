@@ -10,7 +10,7 @@ type: map
 subType: battlemap
 sohl:
   kbcat: map
-  folder: Pw3nJvVsGuMdRb1K
+  packFolder: battlemaps
   # Both floors belong to one place, so they ship in one Adventure and the
   # stair regions can address each other.
   place: wayfarersrest

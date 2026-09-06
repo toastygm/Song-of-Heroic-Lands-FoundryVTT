@@ -6,7 +6,7 @@ name:
   full: Opposed Tests
   aliases: []
 shortcode: oppsdtst
-folder: BTGA1PmN0VlBWpCm
+packFolder: resolution
 ---
 
 # Opposed Tests {#opposed-test}

@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: injested
-folder: ONXsqZAIZr2qzxTb
+packFolder: poisonsandtoxins
 ---
 
 Mandrake, known for its psychoactive and toxic properties, is used both medicinally and for poisoning. It contains tropane alkaloids such as hyoscyamine and scopolamine.

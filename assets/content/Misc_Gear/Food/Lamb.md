@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 3
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Tender lamb, pale and mild, comes from young sheep and commands a premium from both townspeople and traveling merchants. The meat roasts well whole or is jointed for stewing; when smoked, it yields jerky that sustains a caravan through weeks of wilderness. A spring lamb is worth twice a winter's mutton.

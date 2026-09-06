@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 1
   weight: 0.5
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Herring—small, oil-rich fish—are gutted and either smoked over applewood or packed in salt for long journeys. Coastal ports reek of the salt-cure; a single herring is meager but sustains a traveler through a road day. The heavily salted variety lasts indefinitely and needs rinsing before cooking.

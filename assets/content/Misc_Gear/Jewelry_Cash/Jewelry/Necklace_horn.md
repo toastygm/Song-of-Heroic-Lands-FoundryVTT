@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 32
   weight: 0.25
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A chain or strung band worn at the throat. This one is carved horn, 4 ounces of it, and reckons 4 days at the bench.

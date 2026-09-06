@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 6
   weight: 0.02
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A matched pair, hooked or hung. This one is carved bone, 0.32 ounces of it, and reckons 1 day at the bench.

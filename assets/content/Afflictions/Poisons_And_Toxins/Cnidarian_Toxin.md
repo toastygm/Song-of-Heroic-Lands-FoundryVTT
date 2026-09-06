@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: vector
-folder: ONXsqZAIZr2qzxTb
+packFolder: poisonsandtoxins
 ---
 
 Cnidarian toxins, found in creatures like jellyfish, are delivered through specialized cells called cnidocytes. These cells contain nematocysts, which release toxins upon contact with the skin, causing immediate, excruciating pain, welts, and sometimes systemic symptoms like nausea, vomiting, difficulty breathing, muscle spasms, and cardiovascular collapse in severe cases. Some varieties are highly potent and can cause death within minutes due to its cardiotoxic properties, leading to cardiac arrest. The toxins act by targeting the nervous system and dermal tissues, often resulting in severe inflammatory responses and potential necrosis at the site of contact.

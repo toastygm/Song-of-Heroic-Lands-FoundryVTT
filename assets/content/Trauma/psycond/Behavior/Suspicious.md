@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Suspicion is a wariness toward others' intentions and a tendency to doubt their sincerity or honesty. A suspicious person questions motives, watches for deception, and approaches new relationships and situations with caution. In a world where betrayal can cost one's livelihood or life, some measure of wariness is wisdom; yet when suspicion becomes entrenched, it poisons all connection and peace.

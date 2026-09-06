@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 120
   weight: 0.0625
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 The perfumer's best work, built on imported oils that cost more by the ounce than most people see in a season, and blended in proportions the maker will not discuss. It is bought in tiny quantity, kept stoppered and dark, and applied in amounts a stranger would think absurd. Worn well, it is recognised across a room; worn heavily, it announces a person who has money and no sense.

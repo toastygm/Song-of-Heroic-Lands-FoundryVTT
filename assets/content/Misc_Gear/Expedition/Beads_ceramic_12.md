@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 6
   weight: 2
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A dozen beads of fired clay, pierced before firing and glazed in whatever colours the kiln can hold — blues and greens run dearest because the minerals that make them do. Ceramic beads are the ornament of people who cannot afford glass or amber, strung on cord at the throat or wrist, and they travel well as small trade goods among peoples who set no value on coin.

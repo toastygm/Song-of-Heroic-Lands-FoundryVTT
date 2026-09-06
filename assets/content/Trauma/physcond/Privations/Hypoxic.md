@@ -16,7 +16,7 @@ sohl:
   category: debility
   levelBase: 3
   healingRateBase: 3
-folder: wz4hXqKLntkdXNue
+packFolder: privations
 ---
 
 Hypoxia is the state of insufficient oxygen delivery to the body's tissues, whether from thin mountain air, smoke, foul cave gases, or diseases like emphysema or asthma. Because the brain is the most oxygen-hungry organ, hypoxia announces itself through impaired judgment long before more dramatic physical signs appear — which is what makes it dangerous.

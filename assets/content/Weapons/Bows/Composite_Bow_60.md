@@ -109,7 +109,7 @@ sohl:
       maxVolleyMult: 4
       baseRangeBase: 180
       drawBase: 60
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A compact bow of laminated horn, wood, and sinew, shorter than a self-bow but powerful for its length, with a sixty-pound pull. The horse-archer's light bow—beloved of mounted skirmishers and raiders who draw from the saddle, favored over the taller self-bow for its manoeuvrability.

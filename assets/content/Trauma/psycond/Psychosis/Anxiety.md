@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psypsychosis
   category: impulse
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Anxiety is a condition characterized by excessive worry, fear, or nervousness that can significantly impact an individual's daily life. This heightened state of alertness and apprehension often arises in response to perceived threats or stressful situations, even when there is little or no actual danger. Anxiety can manifest both mentally and physically, leading to a range of symptoms that vary in intensity from mild discomfort to overwhelming panic.

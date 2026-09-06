@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Thoughtfulness is the habit of considering consequences before acting, of holding others' feelings and circumstances in mind before speaking or deciding. A thoughtful person pauses; they reflect on their words, anticipate how others might be affected, and take care in their dealings. In a world where rash action can bring ruin and harsh words can wound for years, thoughtfulness is a virtue—yet when it becomes excessive, it can paralyze.

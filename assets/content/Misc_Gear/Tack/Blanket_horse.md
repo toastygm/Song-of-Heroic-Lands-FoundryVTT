@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 144
   weight: 4
-folder: WTIUTjADwAcpyv0H
+packFolder: tack
 ---
 
 A coarse woven blanket cut to a horse's back, laid under the saddle to spare the animal chafing or thrown over it at a standstill in cold weather. A horse worked hard and left standing wet will chill and stiffen, which is how a valuable animal is ruined by carelessness, so any rider who knows their business carries one.

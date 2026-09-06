@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physfeature
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Hyperacusis is a condition characterized by an increased sensitivity to normal environmental sounds, where everyday noises become unbearably loud or painful. Those afflicted with hyperacusis must seek quiet environments and avoid noisy situations to manage their symptoms.

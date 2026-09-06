@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 The sling is a cord and a pouch, and in the hands of someone raised to it a stone from one arrives with an authority out of all proportion to the equipment. Sling covers both the shepherd's sling, whirled from the hand, and the staff sling, whose lever arm trades accuracy for range and lets a heavier missile be lobbed over an obstacle or a shield wall.

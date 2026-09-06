@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 18
   value: 4.5
   weight: 5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A lidded chest woven from willow, light enough to carry full and cheap enough to abandon. It keeps rats out no better than a basket does but stacks well and holds its shape under a modest weight.

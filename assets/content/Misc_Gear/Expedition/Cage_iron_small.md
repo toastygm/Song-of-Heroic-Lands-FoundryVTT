@@ -20,7 +20,7 @@ sohl:
   durability: 10
   value: 48
   weight: 3
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A small iron cage suitable for confining a bird, rabbit, or other small animal, light enough to be carried or lashed to a saddle. Falconers use small iron cages to house hunting hawks; merchants carry them to transport valuable creatures like songbirds or ferrets. The bars are close-spaced and strong enough to prevent any creature inside from warping or breaking them free.

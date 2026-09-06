@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 5
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Clear quartz, polished and faceted by the lapidary into a transparent gem of crystalline beauty. The stone is found throughout the realm and is affordable to all but the poorest, making it a common choice for minor jewelry and talismans. Well-cut quartz catches and bends light, creating a bright glimmer.

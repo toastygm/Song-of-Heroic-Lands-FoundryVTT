@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 900
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Sapphire, a brilliant corundum of deep blue, cut and faceted by the finest lapidaries into gemstones of extraordinary luminosity. The stone's intense color and hardness make it second only to diamond in prestige, reserved for the rings of nobility and clergy of the highest rank. Each sapphire takes weeks to cut properly.

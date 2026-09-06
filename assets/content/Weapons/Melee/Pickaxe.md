@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -15
         counterstrikeMod: -15
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A mining tool with two opposed heads—a sharp point and a flat adze—hafted to five feet, pressed into war-service to crack armor and stone alike. The point punches through mail and plate; the adze chops or levers. Slow and unwieldy for a duelist, but deadly in the press of a siege or tunnel-breach where armor clusters thick.

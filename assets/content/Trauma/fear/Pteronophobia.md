@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Pteronophobia is an intense, irrational fear of feathers or being tickled by feathers. People with pteronophobia may experience a range of symptoms when they think about, see, or come in contact with feathers.

@@ -20,7 +20,7 @@ sohl:
   durability: 9
   value: 1
   weight: 1
-folder: csqutf8WiTRM8oru
+packFolder: lighting
 ---
 
 A split length of oak or ash, thickly wrapped with pitch-soaked rags and bound with twine, carried alight to illuminate passages and courtyards. Torches burn bright and hot, casting sharp shadows; a guard holding a torch can see far but is himself seen clearly. They are cheap, expendable, and commonly carried by watch-wardens, miners, and anyone entering a lightless space for a short time.

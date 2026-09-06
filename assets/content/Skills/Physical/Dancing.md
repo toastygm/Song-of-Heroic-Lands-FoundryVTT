@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - locomotor
-folder: Yt9THlZ0NT8H6aSK
+packFolder: physical
 ---
 
 Dancing is command of the forms current in one's own culture and station — the figures of a hall, the rounds of a village green, the processional steps of a feast day. What it measures is not whether the character completes the dance but how they looked doing it, which in the right room is a matter of some consequence.

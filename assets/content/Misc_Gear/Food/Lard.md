@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 1
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Rendered hog fat, white and stable, is the cook's workhorse—frying bread, seasoning beans, and sealing preserves. Packed in a glazed pot, lard keeps all year in a cool larder. Every pig-butcher renders it; its value lies in its versatility, stretching dough and enriching the plainest pottage.

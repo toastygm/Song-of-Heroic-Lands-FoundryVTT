@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 20
   value: 2.25
   weight: 0.9
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A drawstring sack of tanned hide holding the better part of a bushel. Carters use them for goods that would cut or soak through canvas, and they are worth mending rather than replacing.

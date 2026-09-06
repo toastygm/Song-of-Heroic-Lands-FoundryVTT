@@ -21,7 +21,7 @@ sohl:
   improveFlag: false
   impairedByRoles:
     - vital
-folder: JBr2U30FsJTs8F3l
+packFolder: social
 ---
 
 Intrigue is the sense for motive — why a person is saying this, to this listener, now — and the practical knack for conspiracy that follows from it. It rests on emotional and rational reading in equal parts, and it operates at two quite different scales.

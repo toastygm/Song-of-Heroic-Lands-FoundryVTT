@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 40
   value: 6
   weight: 2.5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A substantial leather sack constructed from tanned hide and stitched with sinew at the seams, reinforced with a narrow leather band along the top rim. Worn slung across the back or shoulders, it accommodates a substantial load and is favored by merchants, drovers, and soldiers for long journeys. The leather darkens and softens with age and repeated use.

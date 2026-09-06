@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: false
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A slender arrow with a narrow, square-sectioned iron spike forge-welded to a socketed collar — made for speed of flight and for splitting the rings of light mail at distance. The shaft is finer than a standard arrow, the fletching low and close-cut to stabilize a long, flat trajectory. Archers of the militia and skirmish-line favor bodkin shafts where the foe wears hauberks rather than plate.

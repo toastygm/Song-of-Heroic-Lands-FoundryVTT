@@ -16,7 +16,7 @@ sohl:
   category: weariness
   levelBase: 1
   healingRateBase: 3
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Mental strain fatigue is the weariness produced by sustained mental work — long hours of reading and notation, careful scribing or copying, focused calculation, or the patient deciphering of a difficult text. The body sits still while the mind labors, and the cost is real even though no muscle has moved. 5 fatigue per four hours of focused study.

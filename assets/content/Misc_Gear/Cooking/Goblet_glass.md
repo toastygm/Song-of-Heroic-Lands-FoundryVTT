@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 48
   weight: 0.5
-folder: 7TT0OzoIoEn40zfs
+packFolder: cooking
 ---
 
 A drinking goblet of clear or light-colored glass, blown by a glasswright into a stemmed form and finished with a flared rim. Glass is rare and costly, prized by nobles and merchants for display and for formal feasts where the beauty of wine can be appreciated. The material is fragile—chips and breaks with careless handling—and replacing one requires commission from a glassworking guild. Such vessels are kept carefully wrapped and brought out for honored guests.

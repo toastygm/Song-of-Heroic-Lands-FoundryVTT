@@ -20,7 +20,7 @@ sohl:
   masteryLevelBase: null
   improveFlag: false
   impairedByRoles: []
-folder: IY7snVGTGcpTxofH
+packFolder: mysticalskills
 ---
 
 Every living thing has a Spirit — the puissance of its own soul, and the grip that soul keeps on the world when something from outside pulls at it. Unlike most faculties of the soul it answers to practice. Vigil and fast, meditation, the disciplines a spirit-worker is drilled in, and simply having stood in the dark and held: all of them deepen it.

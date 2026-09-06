@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Innovative refers to an individual's ability to generate new ideas, approaches, or solutions to problems. An innovative person is creative, resourceful, and often looks for ways to improve existing methods or create something entirely new. While innovation is typically a valuable trait that drives progress and creativity, an excessive focus on innovation can lead to impractical ideas, constant disruption of established processes, or a failure to follow through on plans due to a relentless pursuit of newness.

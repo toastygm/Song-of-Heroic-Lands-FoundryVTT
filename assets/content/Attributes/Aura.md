@@ -20,7 +20,7 @@ sohl:
     - Profound:999
   initDiceFormula: 3d6
 sort: 70
-folder: FPitxvL8wCmXynax
+packFolder: attributes
 ---
 
 Aura measures the depth and power of a person's soul—their fundamental presence in the world. Some individuals seem to carry an invisible weight, a thickness of being that others sense even without knowing why. Aura is particularly relevant to those touched by the Arcane, but even common folk may possess a deep or shallow aura. It shapes whether others feel drawn to or repelled by a person's presence, and it underlies all connexions to the forces of magic and fate.

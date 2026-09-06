@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -5
         counterstrikeMod: -5
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A flanged or spiked iron head lashed to a wooden haft with leather and iron bindings, this is the common mace of footmen, fyrdsmen, and city guards. Lighter than its steel-handled cousin and easier to maintain, it nonetheless delivers bone-cracking force to crush shields and helm. The wood shaft flexes slightly on impact, distributing shock upward through the wielder's arms.

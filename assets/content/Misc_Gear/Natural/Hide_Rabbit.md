@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 1
   weight: 0.5
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 A rabbit or hare pelt—tiny, light, and soft—dried whole by hunters and trappers. Furriers collect bundles of these skins to line winter hoods and muffs; single skins are sewn into strips and pieced. The fur is warm but fragile, unsuitable for heavy wear.

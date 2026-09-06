@@ -22,7 +22,7 @@ sohl:
   impairedByRoles:
     - core
     - vital
-folder: QlkEHXbk2EXlRiMM
+packFolder: lore
 ---
 
 Engineering is the design of buildings and of large, uncommon machinery — mills, siege engines, the pumps and props and headgear of a mine. The engineer does not build; the actual construction tests the appropriate craft skills, chiefly Masonry and Woodworking but often also Ceramics, Glassworking, Lockcraft, Metalcraft and Mineralogy. What the engineer supplies is the thing being built, and whether it will stand up.

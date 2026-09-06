@@ -24,7 +24,7 @@ sohl:
     - vital
     - locomotor
     - manipulator
-folder: Yt9THlZ0NT8H6aSK
+packFolder: physical
 ---
 
 Swimming covers staying up, getting somewhere, and going under on purpose. What makes it dangerous is rarely the water itself but the state of it: a character makes a Swimming Success Value test once per minute, and the Success Value is then modified by how exposed the water is and how hard the wind is blowing across it.

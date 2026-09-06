@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Watchfulness is the habit of attending closely to one's surroundings, noticing particulars that slip past the drowsy or inattentive. A watchful person takes in sights, sounds, and small movements; they register a loose board, a tell-tale scuff in dust, the tilt of a head that betrays deception. In a world where threats come from forest and sea, from brigand and wild beast, this attentiveness can mean the difference between a full belly and starvation, between safe passage and ambush.

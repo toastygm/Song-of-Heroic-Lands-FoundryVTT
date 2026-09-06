@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 12
   weight: 7
-folder: Wq1tmMJTjDoFFtLS
+packFolder: furniture
 ---
 
 A single seat with a back and sometimes arms, turned or jointed. In most households there is exactly one, and it belongs to whoever heads it — everyone else sits on benches or stools. The chair is furniture and statement at once, which is why a guest offered it understands the compliment and why the word for the seat became the word for the office.

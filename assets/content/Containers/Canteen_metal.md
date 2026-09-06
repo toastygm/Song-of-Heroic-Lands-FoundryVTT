@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 2
   value: 2.5
   weight: 0.8
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A flattened vessel of tinned copper or thin iron with a stopper and a cord loop, holding about a quart. It does not taint the water the way a skin does, survives being dropped, and is cold against the body on a winter march.

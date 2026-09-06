@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 4
   value: 4
   weight: 3
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A round-bottomed pot of coarse earthenware, unglazed without and glazed within, made to sit down among the embers rather than hang over them. Ceramic cooks gently and holds its heat long after it is drawn off the fire, which suits pottage and beans; it also cracks if set on cold stone while hot, which every cook learns exactly once. 2 quart capacity.

@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 12000
   weight: 1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Mithral, a rare silvery metal harder than steel, smelted and worked by master smiths into ingots and ornamental pieces. The material's ethereal sheen and legendary durability make it the most prized of all metals, sought by weaponcrafters and the crown alike. Only the wealthiest treasuries and greatest nobles can afford mithral in any quantity.

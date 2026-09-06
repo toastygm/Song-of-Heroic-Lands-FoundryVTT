@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 1.25
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Salt-cured pork belly cold-smoked over hardwood, the fat rendered golden and the meat dark and richly flavored. Soldiers, laborers, and traveling folk prize bacon for its keeping, protein, and ability to add savor to bread or pottage. A traveler's pack or merchant's stock includes bacon; it keeps through summer and feeds a body without need for cooking beyond warming.

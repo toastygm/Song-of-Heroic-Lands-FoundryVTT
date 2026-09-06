@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 360
   weight: 72
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A keg of aged wine—fuller and sweeter than common tavern fare. Wealthy merchants and lords keep one or two in their cellars; when shared at feast or negotiation, the quality marks respect. Worth a craftsman's annual wages.

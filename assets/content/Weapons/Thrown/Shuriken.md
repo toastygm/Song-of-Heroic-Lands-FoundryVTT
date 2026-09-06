@@ -109,7 +109,7 @@ sohl:
       maxVolleyMult: 2
       baseRangeBase: 25
       drawBase: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 Small iron stars or spikes forged with flat or pointed arms, shuriken are thrown at close range to distract and wound. Lightweight and easy to hide, they favor assassins, footpads, and duelists seeking surprise advantage. Few soldiers carry them; their effect is more psychological than devastating, but a shuriken in the eye buys time to flee or close.

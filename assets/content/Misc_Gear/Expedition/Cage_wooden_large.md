@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 15
   weight: 40
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A slatted cage of light battens pegged into a frame, big enough for a hound, a goat, or a dozen fowl. Wood is what a cage is normally made of — iron is for things that would chew through, and costs many times more. Carters stack them on a wagon bed for market day and the slats let the beasts breathe and be seen.

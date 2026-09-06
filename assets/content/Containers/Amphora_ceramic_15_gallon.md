@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 120
   value: 24
   weight: 28
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A tall two-handled jar of coarse red earthenware, taller than a child and swelling at the shoulder before tapering to a point that sets into a stand or straight into sand. Amphorae are the bulk vessel of the trading coasts — oil, wine, olives, salt fish — sealed at the neck with pitch and clay and stacked in a ship's hold in rope cradles. Empty it is awkward rather than heavy; full, it takes two people and a pole. 15 gallon capacity.

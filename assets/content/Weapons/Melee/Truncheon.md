@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: 0
         counterstrikeMod: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A stout wooden club tapered to a grip, favored by town watch and garrison sergeants who must enforce order without killing—or, at least, without appearing to intend it. Handy and quick to draw, it cracks skulls and breaks bones with a swiftness that discourages further trouble. The weapon of constables and the tool of authority applied at the point.

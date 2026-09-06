@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 0
     bleed: false
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A river-rounded pebble or a palm-sized biscuit of kiln-fired clay, chosen for balance and a smooth, regular shape that flies true from the cradle of a sling. Shepherds, slingers, and skirmishing militia gather them by the handful from streambeds and pouches before battle, since spent stones are rarely worth retrieving. A well-cast stone cracks skulls and breaks the legs of a running hound.

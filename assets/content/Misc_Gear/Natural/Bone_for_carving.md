@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 0.25
   weight: 1
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 Scraps of long bone—ox shank, elk femur, or boar tusk—scraped clean and roughly worked into staves. Bone-carvers, chess makers, comb makers, and flute makers buy these fragments by the pound to trim and finish into their wares. The hardness resists chisels but takes fine detail once seasoned.

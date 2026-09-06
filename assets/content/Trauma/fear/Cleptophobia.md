@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Cleptophobia is an intense, irrational fear of theft or being stolen from. People with cleptophobia may experience a range of symptoms when they think about, see, or are in situations where theft might occur.

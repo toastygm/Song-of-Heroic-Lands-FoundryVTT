@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Resilience refers to an individual's ability to recover quickly from hardships, setbacks, or challenges. A resilient person possesses mental and emotional toughness, allowing them to persevere through difficulties and adapt to changing or harsh circumstances without giving up. This trait is essential in navigating life's obstacles and bouncing back stronger from adversity. While resilience fosters strength and endurance, extreme resilience can sometimes lead to an inability to ask for help or rest, as the individual may feel they must always be strong, even at a personal cost.

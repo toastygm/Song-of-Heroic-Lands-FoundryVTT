@@ -20,7 +20,7 @@ sohl:
   durability: 1
   value: 200
   weight: 0.0625
-folder: 7r8WTAO2Ac8SF9tf
+packFolder: textile
 ---
 
 A rare and costly purple from crushed murex shellfish or Tazach lichen, mordanted and ground to powder. Only princes and the highest-born wear true purple cloth; a small pot of this dye is worth the annual wages of a skilled craftsman. The color does not fade in sunlight and is a mark of rank, authority, and wealth across the known lands.

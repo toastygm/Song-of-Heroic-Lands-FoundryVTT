@@ -23,7 +23,7 @@ sohl:
     - Paragon:999
   initDiceFormula: 3d6
 sort: 140
-folder: FPitxvL8wCmXynax
+packFolder: attributes
 ---
 
 Morality measures the depth and consistency of a character's ethical conscience—their capacity to distinguish right from wrong, and their willingness to act according to that discernment. It is the principle that governs choices in moments of temptation, ambition, or hardship. A person's moral fiber shapes not only individual decisions but also their reputation, the trust others place in them, and ultimately their place in community and faith alike.

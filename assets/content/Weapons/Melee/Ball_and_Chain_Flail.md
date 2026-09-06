@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -10
         counterstrikeMod: -10
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A heavy metal sphere riveted to an iron-bound wooden haft by a length of chain, the ball-and-chain flail is a crush weapon of intimidating reach. The chain's flexibility allows the weighted head to swing freely, sliding past shields and curving around defenses. Heavy-cavalry and foot soldiers of urban garrisons favor it for its ability to overcome shields and armor alike.

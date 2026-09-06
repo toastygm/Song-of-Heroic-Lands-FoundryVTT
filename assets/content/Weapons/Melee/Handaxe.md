@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -10
         counterstrikeMod: -10
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A light axe head of five to seven pounds on a five-foot ash haft, balanced for a single-hand swing or a two-hand chop, equally at home as a thrown weapon or a melee tool. Lighter than a battleaxe but heavier than a hatchet, the handaxe serves as a foot-soldier's main arm or a cavalry sidearm. Often carried with a shield or spear.

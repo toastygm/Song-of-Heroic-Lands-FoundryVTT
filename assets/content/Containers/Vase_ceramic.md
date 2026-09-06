@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 2
   value: 4
   weight: 2
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A footed vessel of fine earthenware, thrown thin and often slipped or painted, made to be looked at rather than worked. A vase holds cut flowers, budding branches, or nothing at all; in a modest house it stands on the mantel as the one piece of pottery bought for beauty, and in a great one it is one of a matched pair flanking a doorway. Thin walls make it the first thing broken in a scuffle.

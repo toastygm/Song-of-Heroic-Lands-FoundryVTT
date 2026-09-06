@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Aural Shock
   aliases: []
-folder: TiVEgAyetL6JTjqG
+packFolder: spirit
 shortcode: arlshck
 ---
 

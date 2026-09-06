@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 40
   value: 1
   weight: 5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A light wooden frame with shoulder straps, carried on the back with the load lashed to it rather than enclosed. It carries awkward and rigid burdens no bag would take, and distributes weight far better than any sack over a shoulder.

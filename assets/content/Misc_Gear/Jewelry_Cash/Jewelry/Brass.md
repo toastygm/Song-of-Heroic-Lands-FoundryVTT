@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 4
   weight: 1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Brass, an alloy of copper and zinc, beaten and worked into ingots or raw lumps by the metalsmith. It resists corrosion better than pure copper, making it favored for vessels, buckles, and ornamental work. Merchants trade brass in small measured portions by weight, and scrap brass finds its way to foundries and tinkers across every realm.

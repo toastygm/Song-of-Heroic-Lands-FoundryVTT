@@ -18,7 +18,7 @@ sohl:
   masteryLevelBase: 0
 hmk:
   name: ""
-folder: u2uL4fjE2nKMfgbW
+packFolder: spiritaction
 ---
 
 A Spirit Action is a discrete supernatural act carried out through an allied or bound spirit — the spirit-world counterpart of an everyday deed. Roaming the spirit world, sensing across it, and communing with what dwells in it are the typical examples; this entry is the general form from which a particular action is made.

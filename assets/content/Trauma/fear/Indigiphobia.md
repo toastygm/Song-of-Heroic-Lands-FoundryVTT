@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Indigiphobia is an intense, irrational fear of indigenous people, driven by the perception that they are savage barbarians bent on causing harm or destruction. People with indigiphobia may experience a range of symptoms when they think about, see, or are near indigenous people or areas associated with them.

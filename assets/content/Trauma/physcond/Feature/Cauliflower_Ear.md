@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physfeature
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Cauliflower ear is a deformity born of repeated trauma to the cartilage of the ear. The flexible tissue swells, hardens, and takes on a lumpy, distorted appearance—as if the ear were a vegetable left too long in the sun. It is the mark of the wrestler, the fighter, the man or woman who has spent years in the arena or the tiltyard, accumulating the scarred remnants of conflict. To some it is a badge of honor; to others, a disfigurement that marks one as brutish and coarse.

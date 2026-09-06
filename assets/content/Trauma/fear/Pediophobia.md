@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Pediophobia is an intense, irrational fear of dolls. People with pediophobia may experience a range of symptoms when they think about, see, or are near dolls.

@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 16
   weight: 4.5
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 A northern herder's reindeer hide—salted and dried, with thick hair and a soft grain beneath. Tanners convert it into warm, water-resistant leather prized for arctic cloaks and boot uppers. Nomadic peoples and northern settlements trade these skins seasonally.

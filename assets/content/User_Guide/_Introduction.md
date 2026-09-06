@@ -6,7 +6,7 @@ name:
   full: Song of Heroic Lands User Guide
   aliases: []
 shortcode: userguide
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 _Song of Heroic Lands_ ships as a game system for Foundry Virtual Tabletop, and this guide is how it is operated: what the sheets show you, what the system asks you, what it keeps track of on your behalf, and where to click for each of it.

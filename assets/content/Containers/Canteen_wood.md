@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 2
   value: 0.4
   weight: 0.6
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A small turned or stave-built wooden vessel with a stopper, bound at the seams. It is the cheapest canteen made, gives the water a taste of the wood for the first month, and will not survive being sat on.

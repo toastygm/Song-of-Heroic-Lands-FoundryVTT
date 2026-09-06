@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 700
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Emerald, a deep green gem of crystalline beryl, cut with careful precision by the master lapidary. The stone's vivid color and clarity make it treasured by nobility and the wealthy clergy, set into crowns, brooches, and rings of significant prestige. Each facet must be measured exactly to maximize the gem's luminous green.

@@ -20,7 +20,7 @@ sohl:
     - Acute:999
   initDiceFormula: 3d6
 sort: 50
-folder: FPitxvL8wCmXynax
+packFolder: attributes
 ---
 
 Perception is the acuity of the senses—the keenness of eye, sharpness of ear, and sensitivity of nose. It determines who sees the hawk circling above when others see only sky, who hears the footstep on soft grass when others hear silence, and whose nose catches the scent of rot in the granary. A person with keen perception is difficult to surprise and deadly in the hunt.

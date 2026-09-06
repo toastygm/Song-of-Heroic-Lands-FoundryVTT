@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: false
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A heavy crossbow quarrel with a thick hardwood shaft and a long, square-section iron spike set deep into a reinforced socket. The heavy bodkin is forged for armor-breaking work — loosed from a windlass-spanned arbalest at close range, it will split the rings of a mail byrnie or dent a breastplate. Garrison crossbowmen and siege troops issue them sparingly, since forging the long spike is exacting work.

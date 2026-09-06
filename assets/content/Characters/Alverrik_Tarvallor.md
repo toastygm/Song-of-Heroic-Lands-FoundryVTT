@@ -9,7 +9,7 @@ name:
   aliases:
     - Roran Stonefist
 id: KSL4vCrnfP7FxZqU
-folder: Nu7AgLZEmR26u2pk
+packFolder: pregens
 shortcode: alverriktarvall
 img: icons/game-icons/delapouite/person.svg
 portrait: images/being/alverriktarvall-portrait.webp

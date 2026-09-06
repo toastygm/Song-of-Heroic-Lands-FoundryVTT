@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Focused refers to an individual's ability to concentrate deeply on tasks, thoughts, or goals. A focused person is often determined, persistent, and able to block out distractions in order to achieve their objectives. While focus is a valuable trait that allows individuals to be productive and goal-oriented, when it intensifies, it can lead to tunnel vision or obsession, causing the person to neglect other aspects of their life or relationships.

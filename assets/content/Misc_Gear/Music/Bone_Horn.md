@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 1
   weight: 0.0625
-folder: ncTaRcZt0RFYz0Gq
+packFolder: music
 ---
 
 A hollow length of bone or horn—typically from sheep, bullock, or stag—scraped smooth and stoppered at the narrow end with a cork or wooden plug. Horners work raw horn into simple pipes and signaling instruments; shepherds carve bone offcuts into rough whistles for calling dogs and sheep. The reedy, piercing voice carries far across open moorland.

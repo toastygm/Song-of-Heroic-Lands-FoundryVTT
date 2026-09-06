@@ -65,7 +65,7 @@ sohl:
       maxVolleyMult: 4
       baseRangeBase: 180
       drawBase: 80
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A light wooden crossbow with an eighty-pound prod, spanned by hand or a simple lever. Used by hunters and scouts for small game and short-range scouting, this weapon trades power for speed and portability. The prod is plain wooden stave, sturdy enough for unarmoured targets and soft game at moderate distance.

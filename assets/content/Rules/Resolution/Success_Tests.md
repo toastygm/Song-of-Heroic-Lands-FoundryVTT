@@ -6,7 +6,7 @@ name:
   full: Success Tests
   aliases: []
 shortcode: sccsstst
-folder: BTGA1PmN0VlBWpCm
+packFolder: resolution
 ---
 
 # Success Tests {#success-test}

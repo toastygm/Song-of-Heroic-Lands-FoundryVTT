@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Gamophobia is an intense, irrational fear of marriage or commitment. People with gamophobia may experience a range of symptoms when they think about, see, or are in situations where commitment or marriage is a topic.

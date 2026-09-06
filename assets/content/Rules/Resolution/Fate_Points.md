@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Fate Points
   aliases: []
-folder: BTGA1PmN0VlBWpCm
+packFolder: resolution
 shortcode: fatepnts
 ---
 

@@ -109,7 +109,7 @@ sohl:
       maxVolleyMult: 4
       baseRangeBase: 270
       drawBase: 150
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A strong self-bow of yew or ash, a span taller than a standing man, drawn to the ear with a hundred-fifty pound pull. This is the warbow of the border muster—a heavy-hitting weapon in the hands of experienced garrison and castle archers, capable of penetrating armor at close range and carrying far across open ground.

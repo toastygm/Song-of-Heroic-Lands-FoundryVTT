@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: true
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A light-shafted hunting arrow ending in a flat, leaf-shaped iron head ground to a cutting edge on both flanges, sometimes barbed to lodge in flesh. The broad head opens a wide wound-channel that bleeds prey out over ground, and foresters and huntsmen carry them for deer, fox, and unarmoured man. Fletching is full-height goose-quill, since the heavy head must be steadied by a strong tail-wind in flight.

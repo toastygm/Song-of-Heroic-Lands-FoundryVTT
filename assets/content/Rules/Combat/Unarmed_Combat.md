@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Unarmed Combat
   aliases: []
-folder: rotB8uN12YUN0Oba
+packFolder: rulescombat
 shortcode: unrmdcmb
 ---
 

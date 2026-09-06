@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 0.25
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Firm-fleshed orchard fruit, crisp when fresh and remaining edible well into winter when stored in cool root cellars. A traveler carries apples for their nutrition and long keeping; they soften to eat during a march, or are sliced and dried for trail fare. The fruit's bright acidity makes them useful in cooking, preserving, and turning to cider.

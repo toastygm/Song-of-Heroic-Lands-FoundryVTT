@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Passive refers to a personality trait characterized by a tendency to avoid assertiveness, confrontation, or taking active control of situations. A passive individual often prefers to let others make decisions for them, prioritizing peace and minimizing stress. While this can help maintain harmony in some situations, it may also lead to a lack of personal agency, missed opportunities, and frustration. At its extreme, passivity can result in emotional suppression, a desire to withdraw entirely from responsibility, and a loss of self-direction.

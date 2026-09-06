@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Necrophobia is an intense, irrational fear of death or dead things. People with necrophobia may experience a range of symptoms when they think about, see, or are near anything related to death or corpses.

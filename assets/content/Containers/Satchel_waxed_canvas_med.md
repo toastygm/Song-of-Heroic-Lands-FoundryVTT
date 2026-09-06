@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 15
   value: 3
   weight: 0.85
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A moderate shoulder bag of wax-proofed canvas, favoured by those who travel in foul weather and would rather their bread arrived dry. The wax stiffens the cloth and must be renewed every year or two as it wears out of the weave.

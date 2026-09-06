@@ -20,7 +20,7 @@ sohl:
   durability: 9
   value: 50
   weight: 1.5
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A heavy padlock with a reinforced U-shackle and triple-warded body, crafted to endure years of use in rough camps and on merchant roads. Larger than a standard padlock and proportionately heavier, it secures the most valuable cargo or the strongbox of a master trader.

@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 50
   value: 18
   weight: 7.5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A light wooden trunk faced in leather with a domed lid to shed water, strapped rather than locked. It is built for the road — light enough to be lifted onto a cart by one person, and cheap enough that its loss is survivable.

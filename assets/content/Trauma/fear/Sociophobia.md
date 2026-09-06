@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Sociophobia, also known as social phobia or social anxiety disorder, is an intense, irrational fear of social situations. People with sociophobia may experience a range of symptoms when they think about, see, or are in social settings.

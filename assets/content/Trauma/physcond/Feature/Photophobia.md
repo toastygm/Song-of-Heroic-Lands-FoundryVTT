@@ -14,7 +14,7 @@ sohl:
   kbcat: physfeature
   category: trait
   levelBase: 0
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Photophobia is a condition characterized by an intense sensitivity and light. People with photophobia may experience a range of symptoms when they are exposed to bright light.

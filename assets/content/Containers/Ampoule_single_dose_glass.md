@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 0.03125
   value: 2.5
   weight: 0.1
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A small glass bulb drawn out to a neck and sealed shut in the flame, holding one dose. Nothing gets in or out until the neck is snapped, which makes it the only reliable way to carry something that spoils on contact with air.

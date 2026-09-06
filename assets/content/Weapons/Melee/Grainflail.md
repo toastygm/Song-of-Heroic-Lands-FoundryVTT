@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: 0
         counterstrikeMod: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A wooden flail adapted from the threshing-floor—two sticks joined by a leather strap or short chain. Farmers and militia press the grainflail into service as a combat weapon, swinging it to deliver rapid strikes with unpredictable arc. Light and accessible, it favors skirmishers and levy troops who lack coin for proper arms.

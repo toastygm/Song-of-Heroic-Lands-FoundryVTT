@@ -6,7 +6,7 @@ name:
   full: Haruspicy
   aliases: []
 shortcode: hrspcy
-folder: k6DghEucd6umnBJx
+packFolder: mysticalabilitiesdivination
 ---
 
 Divination by the entrails of a beast killed for the purpose. The haruspex opens the carcass, examines the liver above all — its lobes, its colour, its marks — and reads there the condition of whatever the sacrifice was made on behalf of.

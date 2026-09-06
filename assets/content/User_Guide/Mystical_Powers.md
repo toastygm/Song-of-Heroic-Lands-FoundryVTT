@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: Mystical Powers
 shortcode: mystclpwug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Overview

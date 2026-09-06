@@ -65,7 +65,7 @@ sohl:
       defense:
         blockMod: 0
         counterstrikeMod: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A tall teardrop shield that extends from shoulder to shin, the kite shield favors mounted warriors and skirmishers with its deep coverage. The point hangs below the horse's flank, protecting the rider's leg; the wide upper face deflects sword and lance blows while maintaining mobility on horseback.

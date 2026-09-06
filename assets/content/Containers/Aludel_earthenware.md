@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 1
   value: 9
   weight: 1.5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A pear-shaped earthenware pot, open at both ends so that several may be stacked into a column. Vapour rises through the stack and condenses as a crust on the inner walls, which is scraped out once the vessel has cooled.

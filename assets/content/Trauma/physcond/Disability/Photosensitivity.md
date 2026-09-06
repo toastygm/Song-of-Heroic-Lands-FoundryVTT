@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: trait
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Photosensitivity refers to an abnormal sensitivity to light, typically sunlight, which causes discomfort, pain, or other adverse reactions when exposed to light. Individuals with photosensitivity may experience a range of symptoms, from mild discomfort to severe reactions such as rashes, burning sensations, or even eye pain. In a time with limited medical understanding and treatments, such a condition could be particularly distressing, as people may not understand the cause of their symptoms and have little recourse for relief beyond avoiding sunlight.

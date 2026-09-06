@@ -20,7 +20,7 @@ sohl:
   durability: 10
   value: 10
   weight: 8
-folder: 7TT0OzoIoEn40zfs
+packFolder: cooking
 ---
 
 A wrought-iron tripod frame forged in three legs that spread to a stable stance, fitted with a ring or hook at the top for suspending a cauldron or pot over an open fire. Soldiers, tinkers, and field-cooks carry these to cook food or brew medicinal decoctions where no hearth stands. The iron is rough but sturdy; rust gradually eats at the metal if left unwaxed in damp weather, but a properly maintained tripod outlives the cook who owns it.

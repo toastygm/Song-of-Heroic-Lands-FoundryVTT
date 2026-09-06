@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 4
   value: 30
   weight: 3
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A hand-blown glass bottle of moderate size, greenish and imperfect, stoppered with cork or waxed cloth and typically used by apothecaries and merchants for liquids or fine provisions. Less costly than the largest vessels but still a luxury item, it requires careful transport to avoid breakage. The glass itself has a slight warmth in color and visible swirls from its making.

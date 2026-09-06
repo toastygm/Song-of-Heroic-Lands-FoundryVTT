@@ -20,7 +20,7 @@ sohl:
   durability: 10
   value: 5
   weight: 4
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 Heavy chain of forged iron links, welded or riveted and blacksmith-finished for durability. Sold by the foot, heavy chain is used to secure large goods, hobble beasts, or bind a prisoner during transport. The links are thick and resistant to cutting; it is a standard tool for carters, guards, and anyone who needs to restrain something of great strength.

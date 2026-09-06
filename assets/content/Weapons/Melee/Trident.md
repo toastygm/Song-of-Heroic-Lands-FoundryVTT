@@ -197,7 +197,7 @@ sohl:
       defense:
         blockMod: 5
         counterstrikeMod: 5
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A three-pronged thrusting fork hafted to a pole, the trident catches and binds as well as pierces. Its spread tines allow the wielder to hook weapons and limbs, making it favored by skirmishers and pit-fighters for both binding and striking; also prized by fisherfolk for netting work.

@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 4
   value: 20
   weight: 2
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A capacious storage jar of blown glass, slightly greenish and imperfect in character, sealed with a cork stopper or waxed-cloth cover and used in households and kitchens for preserves, dried herbs, or spices. The wide mouth allows easy access and makes it suitable for keeping provisions fresh and visible. Glass permits inspection without opening and prevents spoilage from vermin or moisture. Capacity 1/2 gallon.

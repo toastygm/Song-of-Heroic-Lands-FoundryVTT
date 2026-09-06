@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Dystychiphobia is an intense, irrational fear of accidents. People with dystychiphobia may experience a range of symptoms when they think about, see, or are in situations where accidents could occur.

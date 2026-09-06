@@ -22,7 +22,7 @@ sohl:
   impairedByRoles:
     - core
     - vital
-folder: RgFGiT3LqmNP0uRB
+packFolder: script
 ---
 
 Runic is literacy in an angular carved script — the letterforms of a tradition that grew up around chisel, knife and axe rather than pen and ink, and whose strokes are straight and cross-grained because that is what wood and stone will take. It is read on memorial stones, boundary markers, weapon hilts, roof beams, and the incised staves passed between people who have no parchment.

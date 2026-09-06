@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Iatrophobia is an intense, irrational fear of physicians or medical treatment. People with iatrophobia may experience a range of symptoms when they think about, see, or are near physicians or medical facilities.

@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 246
   weight: 0.05
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A pin and catch worked into a plate, worn to fasten a cloak at the shoulder. This one is gold, 0.8 ounces of it, and reckons 1 day at the bench.

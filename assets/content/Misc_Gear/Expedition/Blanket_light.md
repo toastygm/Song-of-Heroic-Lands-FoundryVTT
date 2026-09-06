@@ -20,7 +20,7 @@ sohl:
   durability: 7
   value: 10
   weight: 3
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A thinner woven blanket of linen or light wool, pocketable when rolled. Suitable for mild seasons or layered with other garments, light blankets are popular with travelers and merchants who cannot afford the bulk of heavier bedding. They can serve as a dust-cloth, saddle-pad, or ground-sheet in a pinch, and dry quickly after rain.

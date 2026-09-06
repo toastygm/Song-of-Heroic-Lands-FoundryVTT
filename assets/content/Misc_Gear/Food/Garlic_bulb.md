@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 9
   weight: 0.1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 A papery-skinned bulb of garlic cloves, sharp and pungent when broken. Cooks prize it for seasoning stews and meat, and herbalists value its purported protective properties. A single bulb splits into a dozen cloves and keeps for months in a cool, dry place.

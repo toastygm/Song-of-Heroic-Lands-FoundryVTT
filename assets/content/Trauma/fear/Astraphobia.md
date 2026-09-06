@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Astraphobia is an intense, irrational fear of thunder and lightning. People with astraphobia may experience a range of symptoms when they think about, see, or hear thunder and lightning.

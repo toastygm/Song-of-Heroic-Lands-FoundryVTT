@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Mystery"
 shortcode: mysteryug
-folder: QtOgPodi8X6gDWL0
+packFolder: items
 ---
 
 # What Is a Mystery?

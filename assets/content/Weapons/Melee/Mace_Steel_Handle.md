@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -5
         counterstrikeMod: -5
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A flanged or spiked iron head crowned atop a steel haft, this is the mace of choice for armored knights and heavy infantry. The steel handle resists splintering and adds durability, while the broad flanged head or radiating spikes channel impact across a wide striking surface—ideal for driving through shield bosses and crumpling plate over the collarbone. A weapon of shock and refinement.

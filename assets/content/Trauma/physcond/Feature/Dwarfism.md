@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physfeature
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Dwarfism is a medical condition characterized by significantly shorter stature and disproportionate body growth, often caused by genetic factors or growth hormone deficiencies. Individuals with dwarfism tend to be much shorter than average, which can lead to physical limitations such as joint pain, mobility issues, or difficulties with daily tasks in environments designed for taller people. Despite these challenges, people with dwarfism often lead fulfilling lives and can excel in areas where intellect, creativity, and skill are more important than physical size. In certain societies, individuals with dwarfism may face social isolation or be treated as curiosities, while in others, they are fully integrated and respected for their talents.

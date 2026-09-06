@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Melanophobia is an intense, irrational fear of the color black or things associated with black. People with melanophobia may experience a range of symptoms when they think about, see, or are near black objects.

@@ -20,7 +20,7 @@ sohl:
   durability: 8
   value: 36
   weight: 15
-folder: WTIUTjADwAcpyv0H
+packFolder: tack
 ---
 
 A squared beam of seasoned oak shod at each end with iron sleeves and a retaining pin, or in better work an iron axle throughout. It is the component of a wagon most likely to fail and the hardest to bodge on a road, so a prudent carter carries a spare or at least the iron for one. Smiths in market towns keep them made up against the day someone limps in on three wheels.

@@ -20,7 +20,7 @@ sohl:
   durability: 8
   value: 12
   weight: 2
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 An iron head on a shaped wooden haft, wedged tight through the eye — the plain tool of every trade that drives, sets, or straightens. Distinct from the war hammer and the sledge, both of which are made to different weights and different purposes. A loose head is the perennial fault, and a wedge driven into the haft end is the perennial fix.

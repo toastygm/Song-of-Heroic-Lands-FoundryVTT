@@ -21,7 +21,7 @@ sohl:
   improveFlag: false
   impairedByRoles:
     - vital
-folder: sn9NBuZMZOBqxsYv
+packFolder: language
 ---
 
 Language is fluency and comprehension in one particular tongue; each language is a separate skill with its own Mastery Level.

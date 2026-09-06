@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Cacophobia is an intense, irrational fear of ugliness, whether in objects, people, or situations. People with cacophobia may experience a range of symptoms when they think about, see, or encounter anything they perceive as ugly.

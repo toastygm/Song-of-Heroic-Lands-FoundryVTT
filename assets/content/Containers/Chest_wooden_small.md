@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 25
   value: 30
   weight: 10
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A small chest of joined boards with iron hinges, the common storage of any household with anything worth storing. It sits at the foot of a bed and doubles as a seat, which is what most of the wear comes from.

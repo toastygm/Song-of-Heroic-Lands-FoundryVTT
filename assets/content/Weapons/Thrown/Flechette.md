@@ -65,7 +65,7 @@ sohl:
       maxVolleyMult: 2
       baseRangeBase: 15
       drawBase: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A small pointed iron dart, slim and aerodynamic, the flechette is thrown in volleys to harass and pierce. Lighter than a javelin but deadlier than a stone, it favors skirmishers and archers seeking ranged harassment before melee. Soldiers carry many, making sustained throwing practical; each flies true against lightly armored targets or exposed flesh.

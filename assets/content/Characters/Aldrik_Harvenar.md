@@ -9,7 +9,7 @@ name:
   home: ""
   aliases: []
 id: 9xrT7pAeah4Li8qD
-folder: Nu7AgLZEmR26u2pk
+packFolder: pregens
 shortcode: aldrikharvenar
 img: icons/game-icons/delapouite/person.svg
 portrait: images/being/aldrikharvenar-portrait.webp

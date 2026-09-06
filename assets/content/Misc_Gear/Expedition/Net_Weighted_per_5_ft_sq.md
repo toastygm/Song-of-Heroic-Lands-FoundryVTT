@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 48
   weight: 4.5
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A fishing net woven from hempen cord with lead weights sewn into the lower edge to sink it in fresh water or stream. The weighted design allows a single fisherman to cast and quickly sink the net around schools of fish; worn nets are cut apart and retied by riverside traders.

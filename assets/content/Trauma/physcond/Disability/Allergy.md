@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Allergy is an overreaction of the body's humors to a normally harmless substance, such as pollen, food, or animal hair. When exposed to such substances, the body may react with various symptoms, from mild irritation to severe affliction, believed to be caused by an imbalance in the body's natural elements.

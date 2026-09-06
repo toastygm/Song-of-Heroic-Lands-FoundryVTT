@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 240
   weight: 2
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 A fitted case of tooled leather over a wooden frame, lined with velvet and closing on a silver hasp. Within: a double-sided comb of carved ivory, a hand-mirror backed in silver, a folding razor with a silver-mounted haft and its own strop, silver tweezers and ear-scoop, a horn tongue-scraper, a phial of fine perfume, a pot of rose-and-beeswax pomade, and a square of fine linen.

@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Energetic refers to an individual's naturally high level of physical and mental vitality. Energetic people are often active, enthusiastic, and driven, bringing a sense of dynamism to their tasks and interactions. Their high energy levels allow them to engage with multiple activities without tiring easily. However, excessive energy can sometimes lead to impulsiveness, difficulty focusing, or overcommitment to tasks, leaving the individual feeling overwhelmed or burned out.

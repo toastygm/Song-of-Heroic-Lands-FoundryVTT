@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Catoptrophobia is an intense, irrational fear of mirrors or reflections. People with catoptrophobia may experience a range of symptoms when they think about, see, or are near mirrors.

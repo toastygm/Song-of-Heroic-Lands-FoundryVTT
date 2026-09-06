@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physfeature
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Morbus Monstruosus is a condition marked by the presence of numerous or large neurofibromas, benign tumors that grow from nerve tissue and typically appear as soft lumps on or under the skin. These tumors can grow large and multiply, significantly altering a person's physical appearance, leading to disfigurement. Beyond the aesthetic impact, these tumors may cause discomfort, pain, and interfere with normal bodily functions. The condition often results in social stigma, psychological distress, and physical limitations.

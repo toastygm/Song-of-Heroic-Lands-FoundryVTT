@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Chromophobia is an intense, irrational fear of colors or a specific color. People with chromophobia may experience a range of symptoms when they think about, see, or are near certain colors.

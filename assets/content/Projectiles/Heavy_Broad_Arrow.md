@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: true
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A heavy-shafted war-arrow with a wide, barbed iron head forged with two or three sharpened flanges, the socket reinforced for the shock of a full draw. The broad head cuts a mortal wound in unarmoured flesh and hooks in bone, fouling a horse's gallop or dragging a footman down. Captains of line-archers keep sheaves for open-field engagements where armor is light and cavalry rides close.

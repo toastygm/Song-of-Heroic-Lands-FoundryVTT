@@ -20,7 +20,7 @@ sohl:
   durability: 7
   value: 35
   weight: 0.0077
-folder: TV3IMHs8SLZ1L1vv
+packFolder: cash
 ---
 
 A gold coin stamped with the royal seal, the currency of commerce and of any payment too large to count out in silver. It is the preferred exchange of merchants, nobles, and the crown itself, and counterfeiters face swift justice.

@@ -20,7 +20,7 @@ sohl:
   durability: 8
   value: 8
   weight: 1
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A length of leather cut to wrap around the waist and fastened with a buckle of iron or bronze. Waist-belts are universal among all classes and occupations for suspending pouches, tools, weapons, and other worn gear. Dyed leather adds some distinction; darker hues are favored by working folk, while brighter or tooled leather marks wealthier owners.

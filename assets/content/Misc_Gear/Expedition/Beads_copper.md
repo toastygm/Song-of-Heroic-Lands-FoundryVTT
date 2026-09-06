@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 7
   weight: 0
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 Copper beads cast in a simple round form, each drilled through the center to thread onto cord. These are common trade items with many cultures and used as decoration on clothing and belts. Merchants carry strings of copper beads for barter or as minor gifts; they are durable, easily counted, and recognizable even when worn smooth.

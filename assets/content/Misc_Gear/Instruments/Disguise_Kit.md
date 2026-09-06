@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 55
   weight: 4
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 A cloth-wrapped wooden case holding the quiet tools of a changed face: small pots of skin-tinting pigments in several tones, sticks of charcoal and chalk for shading, a lump of beeswax and a tin of theatrical gum for altering nose and brow, false beards and mustaches on gauze backing, a wig or two of stitched human hair, rolls of cotton padding for cheek and belly, a folded mummer's cloak that can be worn inside-out, a thin voice-pipe for roughening or raising the tone, and a small polished brass mirror. Players, mummers, and more than one Silent Talon carry such kits on long assignments; a ruse that must hold for a full day needs more than a pulled hood.

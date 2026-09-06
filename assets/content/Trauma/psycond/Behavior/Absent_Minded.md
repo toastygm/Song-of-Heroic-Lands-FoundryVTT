@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Absent-minded refers to an individual who is often forgetful, distracted, or lost in thought. An absent-minded person may have difficulty focusing on tasks at hand, forget appointments, or appear detached from their surroundings due to daydreaming or preoccupation with their thoughts. While this trait can sometimes be harmless or even charming, excessive absent-mindedness can lead to neglect of responsibilities, misunderstandings, or frustration in social and professional contexts.

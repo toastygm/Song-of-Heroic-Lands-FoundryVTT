@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Effect Targeting"
 shortcode: effcttrgug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Overview

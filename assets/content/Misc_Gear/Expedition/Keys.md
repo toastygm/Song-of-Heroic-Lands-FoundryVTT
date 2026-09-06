@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 2
   weight: 0.1
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 Iron keys, cast and filed to match specific locks, hanging together on a leather thong or iron ring. Merchants, innkeepers, and stewards carry a bundle; a single key is portable and easily lost or stolen, making sets both practical and valuable in locked trade.

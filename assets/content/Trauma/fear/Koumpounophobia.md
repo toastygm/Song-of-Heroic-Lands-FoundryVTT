@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Koumpounophobia is an intense, irrational fear of buttons. People with koumpounophobia may experience a range of symptoms when they think about, see, or are near buttons.

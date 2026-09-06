@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 240
   weight: 15
-folder: ncTaRcZt0RFYz0Gq
+packFolder: music
 ---
 
 A trapezoidal wooden frame fitted with multiple gut strings, played by striking the strings with small hammers or mallets. The sweet, chiming voice carries a wistful, haunting quality; skilled players achieve rapid, flowing passages by alternating hammers. Dulcimers are favored by skilled minstrels, court musicians, and temple choirs seeking a delicate, resonant voice for solemn or joyful occasions.

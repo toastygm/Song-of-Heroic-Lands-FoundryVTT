@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 2.25
   weight: 1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Copper or bronze, melted and cast into ingots or beaten into sheets by the metalsmith. These metals resist weathering well and are worked into vessels, weapons, and ornamental pieces throughout the realm. Both materials are traded in measured portions by weight, with scrap eagerly collected for refounding or tinning.

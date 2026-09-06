@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: gqRvjlrWbuCwGy3N
+packFolder: craft
 ---
 
 Singing rests on a physiology quite separate from a good speaking voice, which is why fine orators sing badly and fine singers are often unremarkable in conversation. The skill therefore carries its own primary quality, **Voice**, averaged with Creativity to give its Skill Base — the instrument and the musicianship, neither of which is worth much without the other.

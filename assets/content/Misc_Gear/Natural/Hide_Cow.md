@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 24
   weight: 22
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 A dairy cow's hide—scraped, salted, and heavy—the workhorse of the tannery. Tanners convert it into russet and vegetable-tanned leather for jerkins, breeches, belts, and shoe uppers. The large hide yields plenty of usable stock, though uneven thickness requires skilled splitting.

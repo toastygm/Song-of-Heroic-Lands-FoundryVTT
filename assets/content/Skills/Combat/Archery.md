@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 Archery is the use of hand-drawn, stringed missile weapons — bows of every construction and crossbows alike. It rests on eyesight and on touch, and with most such weapons it is not a thing that can be improvised: the bow that a strong beginner can barely bend is the bow an archer looses forty times in an afternoon.

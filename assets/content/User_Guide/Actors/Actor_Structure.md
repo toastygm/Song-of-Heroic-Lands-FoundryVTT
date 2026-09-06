@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Structure"
 shortcode: structureug
-folder: sYK1BozT9xFcinXK
+packFolder: actors
 ---
 
 # What Is a Structure?

@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: QlkEHXbk2EXlRiMM
+packFolder: lore
 ---
 
 Brewing is the making of alcoholic drink, and what it produces varies enormously in how far it will travel. Hops are not in general use as a preservative, so ale is drunk within a few days of being made and is therefore a strictly local product. Wine keeps, travels, and is traded at distance; the better vintages are chased. Distilling is a recent and uncommon art, and spirits are usually laid down for a further three to six months after they are made.

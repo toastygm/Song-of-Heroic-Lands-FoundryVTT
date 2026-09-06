@@ -6,7 +6,7 @@ name:
   full: "Credits & Attributions"
   aliases: []
 shortcode: credits
-folder: RTlSAixTq3eix7BD
+packFolder: credits
 ---
 
 _Song of Heroic Lands_ is built on the work of a great many people who gave their

@@ -241,7 +241,7 @@ sohl:
       maxVolleyMult: 2
       baseRangeBase: 40
       drawBase: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 The most ancient and versatile polearm, a spear joins a sharpened point to a length of wood, suited for thrusting, throwing, or receiving a charge in tight formation. Light infantry and skirmishers favor it for speed and reach; heavier infantry lock spears in ranks to repel cavalry and hold ground.

@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 16
   weight: 0.0625
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Ivory, the polished tooth of great beasts, traded in small pieces or worked planks by merchants and carvers. The material is creamy white and accepts fine carving; craftspeople shape it into combs, buttons, gaming pieces, and ornaments for the wealthy. Ivory is bought and sold by weight, prized for its rarity and luster.

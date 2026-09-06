@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 2.5
   weight: 0.5
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A cup of fine wine poured and ready to drink. The quality is better than common tavern fare—aged in oak, fuller-bodied, less sour. Served in a tavern's back room or at a merchant's table to seal a deal or mark an occasion.

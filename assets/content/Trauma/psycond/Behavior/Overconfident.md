@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Overconfidence refers to a chronic psychological attitude in which an individual consistently overestimates their abilities, knowledge, or judgment, regardless of external feedback or evidence to the contrary. Overconfidence involves an inflated belief in one's competence across various situations. This mindset leads the individual to take unnecessary risks, dismiss advice, and struggle with failure due to an inability to accurately assess their own limitations. As it intensifies, overconfidence can cause repeated errors, strained relationships, and an ongoing cycle of poor decision-making.

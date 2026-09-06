@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 30
   value: 2
   weight: 1
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A large wax-proofed sack, the cheapest weatherproof container of its size. The wax cracks along the fold lines eventually and the sack begins to let water in at the creases long before the cloth itself gives out.

@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: gqRvjlrWbuCwGy3N
+packFolder: craft
 ---
 
 Hideworking is the whole passage from a raw skin to a finished article: fleshing, liming, tanning or tawing, currying, and then the cutting and stitching that turns the leather into something. It is filthy, protracted work, and tanneries stand downwind of everywhere for good reason.

@@ -20,7 +20,7 @@ sohl:
   durability: 6
   value: 20
   weight: 1
-folder: ncTaRcZt0RFYz0Gq
+packFolder: music
 ---
 
 A set of small bronze tubes struck with a wooden mallet, each tuned to a distinct pitch and suspended from a wooden frame. Luthiers craft chimes for temple use, hanging them in the inner sanctum where their crystalline, resonant voice marks the turning of prayer hours. The gentle cascade of tones creates a meditative sound, often accompanied by monks' chants.

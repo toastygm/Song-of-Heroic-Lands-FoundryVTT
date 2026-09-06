@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 24
   weight: 1.5
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 Furs from riverland hunters—otter or weasel pelt, salted and dried—prized for lining and trim. The dense guard hair sheds water, and the fur is soft enough for glove linings and collar facing. Furriers and tailors seek steady supplies from marshland trappers and wetland communities.

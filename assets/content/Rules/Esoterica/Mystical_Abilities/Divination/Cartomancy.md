@@ -6,7 +6,7 @@ name:
   full: Cartomancy
   aliases: []
 shortcode: crtmncy
-folder: k6DghEucd6umnBJx
+packFolder: mysticalabilitiesdivination
 ---
 
 Divination by cards, laid out in a prescribed spread and read by their meanings and their positions relative to one another. Each card carries a settled significance; what the reading turns on is which cards fall where, and what they say about each other.

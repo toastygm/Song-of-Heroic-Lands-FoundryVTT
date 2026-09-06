@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Cardiophobia is an intense, irrational fear of heart-related issues. People with cardiophobia may experience a range of symptoms when they think about, hear, or read about heart problems.

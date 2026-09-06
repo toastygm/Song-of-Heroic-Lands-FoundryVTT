@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 80
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Opal, a luminous gem of pale white or cream with flashes of rainbow colors, cut with care by the lapidary. The stone's iridescent play of light makes it highly prized for pendants and rings, though it is softer than other gems and requires gentle handling. Each opal is unique, displaying its own pattern of color and fire.

@@ -6,7 +6,7 @@ name:
   full: Success Value Tests
   aliases: []
 shortcode: sccssvlt
-folder: BTGA1PmN0VlBWpCm
+packFolder: resolution
 ---
 
 # Success Value Tests {#success-value-test}

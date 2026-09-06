@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: gqRvjlrWbuCwGy3N
+packFolder: craft
 ---
 
 Masonry is quarrying, dressing and laying stone — from a field wall or a carved plaque up to a keep, a bridge or a gatehouse, and the quarry and the scaffold that any of them needs.

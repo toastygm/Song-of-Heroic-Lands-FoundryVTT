@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 1
   weight: 0.08
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 Half-inch rope of twisted hemp fiber, tarred to resist rot and weathering, sold by the foot. Coarse and stiff, it’s standard cordage for shipboard, hoisting, and tethering pack animals; merchants and adventurers carry lengths for binding cargo or raising a fallen companion from a pit.

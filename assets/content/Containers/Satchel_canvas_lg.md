@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 20
   value: 2
   weight: 0.9
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 The largest of the canvas satchels, wide enough to swallow a folded cloak and a day's food together. The strap cuts into the shoulder once it is properly full, which is the usual complaint against carrying one rather than a pack.

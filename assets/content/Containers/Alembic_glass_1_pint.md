@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 1
   value: 42
   weight: 4
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A small glass alembic for work measured in doses rather than gallons. Fragile, expensive for its size, and the only practical vessel for distilling the more aggressive substances in quantities worth the risk.

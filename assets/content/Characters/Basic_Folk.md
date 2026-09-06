@@ -8,7 +8,7 @@ name:
   aliases: []
   home: ""
 id: d1cddnpaqRl0a0Q8
-folder: riXU4Q2fRsu2tyub
+packFolder: archetypes
 shortcode: basicfolk
 img: icons/game-icons/delapouite/person.svg
 portrait: images/being/basicfolk-portrait.webp

@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 0.5
   value: 12
   weight: 0.9
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A cylindrical leather tube closed at one end with a removable cork or wooden stopper at the other, crafted to carry folded documents and parchment without creasing or tearing. Scribes, messengers, and officials rely on these cases to transport letters, proclamations, or legal papers safely across roads and rivers. The leather is waxed or treated to resist dampness, and the narrow diameter allows the case to fit snugly in a pack or satchel.

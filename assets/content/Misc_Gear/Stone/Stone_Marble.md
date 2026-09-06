@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 3
   weight: 400
-folder: 7HORJHbbizVSds9r
+packFolder: stone
 ---
 
 A banded metamorphic stone quarried and squared for the finest construction. Marble is costly, hard, and beautiful—favored for altars, memorials, and noble halls where durability and grandeur speak of wealth and piety. A quarryman's crew may spend weeks wresting a single block from the seam; it is dressed smooth by hand-chisels and sold by the cubic foot to magnates and temples.

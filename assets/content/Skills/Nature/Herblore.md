@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: N5ozne3RRF0qSEdF
+packFolder: nature
 ---
 
 Herblore is the knowledge of plants and of how to preserve and prepare them. In settled realms an apothecaries' guild regulates the keeping, compounding and sale of herbs; apothecaries sometimes gather their own, but usually buy wholesale from unguilded foragers — hunters, trappers, cottagers. Outside that arrangement, tribal and rural herbalists do both halves of the work themselves.

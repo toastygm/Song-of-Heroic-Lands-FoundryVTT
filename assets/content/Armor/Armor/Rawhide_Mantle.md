@@ -35,7 +35,7 @@ sohl:
     edged: 8
     piercing: 5
     fire: 5
-folder: M4nHcUWOatfVGuh3
+packFolder: armorarmor
 origValue: 84
 origWeight: 3.3
 ---

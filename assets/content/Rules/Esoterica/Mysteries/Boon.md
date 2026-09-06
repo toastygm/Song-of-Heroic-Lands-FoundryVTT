@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Boon
   aliases: []
-folder: gmHoAXi9mq8O9DUn
+packFolder: mysteries
 shortcode: boon
 ---
 

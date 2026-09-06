@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 0.75
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Dried berries gathered in summer and dried on cloth or woven frames, tart and bright in winter cooking. A forager's bounty becomes a merchant's commodity, bundled for travel and trade; they re-hydrate in stews or sweetened with honey for puddings. The dried fruit keeps through seasons and provides precious variety in a diet of bread, grain, and salt meat.

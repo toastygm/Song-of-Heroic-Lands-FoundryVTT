@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Ptochophobia is an intense, irrational fear of poverty or becoming poor. People with ptochophobia may experience a range of symptoms when they think about, see, or are in situations related to poverty.

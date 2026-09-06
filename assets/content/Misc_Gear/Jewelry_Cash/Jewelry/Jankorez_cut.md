@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 1200
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Jankorez, a rare gem of pale blue or white radiance, cut with exquisite precision by master lapidaries. The stone's clarity and brilliance rival even diamonds, making each piece invaluable to those who possess one. These gems rest only in the treasuries of kings and the adornments of the highest nobility.

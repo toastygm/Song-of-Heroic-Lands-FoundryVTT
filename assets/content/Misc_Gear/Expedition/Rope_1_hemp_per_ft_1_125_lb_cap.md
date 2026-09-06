@@ -20,7 +20,7 @@ sohl:
   durability: 7
   value: 2
   weight: 0.27
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 Hemp rope is twisted from the fibers of the hemp plant, stiff and strong. A single fist-thick cord of one-inch hemp will bear the weight of a loaded wagon without complaint, though it grows brittle and frays in water left standing. Road wardens, drovers, and builders coil vast lengths of it; a merchant’s hemp is often tarred against the weather of a long march.

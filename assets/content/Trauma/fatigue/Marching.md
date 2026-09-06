@@ -17,7 +17,7 @@ sohl:
   category: weariness
   levelBase: 1
   healingRateBase: 3
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Marching fatigue is the cumulative weariness of long-distance walking at a sustainable pace — the daily fifteen miles of an army on the move, the trader's slow plod between markets, the pilgrim's long road. The body can do this indefinitely with proper rest and food, but neglect of either turns the march from sustainable into a slow erosion of capacity. 5 fatigue per four hours of walking.

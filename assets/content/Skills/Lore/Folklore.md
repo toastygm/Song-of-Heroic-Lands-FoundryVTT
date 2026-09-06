@@ -21,7 +21,7 @@ sohl:
   improveFlag: false
   impairedByRoles:
     - vital
-folder: QlkEHXbk2EXlRiMM
+packFolder: lore
 ---
 
 Folklore is what an educated person of a realm knows about that realm — traditionally parcelled out among six disciplines: geography, history, the nature of the world, mythic beasts, poetics and society. It is the skill that answers "have I heard of this?", and it covers a very great deal of ground because in a world without reference libraries, one well-read head is the reference library.

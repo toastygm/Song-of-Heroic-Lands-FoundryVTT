@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Healing Base
   aliases: []
-folder: F4NGyU9QQgWwTcHe
+packFolder: injury
 shortcode: hlngbs
 ---
 

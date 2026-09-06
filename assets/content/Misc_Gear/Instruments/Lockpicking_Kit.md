@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 45
   weight: 0.3
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 A flat leather wallet or rolled cloth sleeve holding a dozen slender tools for defeating locks without their keys: hook picks in several profiles for single-pin manipulation, serrated rakes for quick work against cheaper wards, tension wrenches of assorted sizes, a fine hooked probe for extracting broken picks, and usually a sliver of polished tin for peering into a keyway. The kit is built for stealth — flat, small, and silent enough to ride inside a boot, a belt lining, or a false pouch bottom, and to be drawn one-handed in near darkness. It is the tool of burglars, spies, and cracksmen-for-hire; in most realms, possession alone is sufficient evidence for a magistrate to convict, and a thief caught with one can expect a flogging at best and a hanging at worst.

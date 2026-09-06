@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 45
   weight: 0.1
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 A tiny pelt of ermine or sable—the snow-white winter coat of the stoat or the dark luxuriant fur of the marten—dried and salted whole. Nobles and wealthy merchants commission cloaks and trim from dozens of these pelts; furriers guard good sources. A single skin fits in a pouch.

@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: injested
-folder: ONXsqZAIZr2qzxTb
+packFolder: poisonsandtoxins
 ---
 
 Hemlock (Conium maculatum) is a highly toxic plant. All parts of the plant contain toxic alkaloids, but the seeds and root are especially potent.

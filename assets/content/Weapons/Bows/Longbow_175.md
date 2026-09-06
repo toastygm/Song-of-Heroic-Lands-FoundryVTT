@@ -109,7 +109,7 @@ sohl:
       maxVolleyMult: 4
       baseRangeBase: 300
       drawBase: 175
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A tall self-bow of seasoned yew or ash, a span taller than a standing man, drawn to the ear with a full hundred-seventy-five pound pull. Only archers trained from childhood can draw this champion's warbow—their left shoulders stand noticeably higher than their right from years at the mark. Loosed in massed volleys from behind sharpened stakes, it is the terror of heavy cavalry and the spine of any border muster.

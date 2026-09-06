@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: false
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A workaday arrow of ash or birch, fletched with three trimmed goose feathers bound in sinew and pitch, and tipped with a small socketed iron head suitable for deer, game, or a skirmish at middling range. Archers, scouts, and militia keep quivers of these for common work; a fletcher can turn out a bundle in a morning, and a careful shooter will draw a shaft from the carcass and refletch it for another day's shooting.

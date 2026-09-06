@@ -16,7 +16,7 @@ sohl:
   category: impediment
   levelBase: 2
   healingRateBase: 2
-folder: wz4hXqKLntkdXNue
+packFolder: privations
 ---
 
 Malnutrition is the slow accumulation of deficiencies that develop on a diet sufficient in bulk but lacking in essential nutrients — the long monotony of ship's biscuit and salt pork, the winter months on stored grain, the prisoner on bread and water. Where starvation kills by emptiness, malnutrition disables by imbalance, and its damage may take months to surface and as long to repair.

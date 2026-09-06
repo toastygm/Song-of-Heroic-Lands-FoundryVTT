@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 25
   value: 4
   weight: 1.4
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A frameless pack of wax-proofed canvas with tied flap and cloth straps. It will keep a pack's contents dry through a day of rain, though not through a river crossing — for that the contents must be wrapped separately.

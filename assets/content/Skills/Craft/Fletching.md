@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: gqRvjlrWbuCwGy3N
+packFolder: craft
 ---
 
 Strictly, a fletcher makes arrows and a bowyer makes bows, but the guilds long ago stopped observing the distinction and the first word has swallowed the second. Fletching covers bows, crossbows, arrows and quarrels from stave and billet through to a finished, tillered, nocked weapon.

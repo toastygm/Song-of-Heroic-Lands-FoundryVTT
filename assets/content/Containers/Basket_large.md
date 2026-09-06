@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 25
   value: 4
   weight: 3.5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A woven wicker or willow basket of substantial depth, lashed or bound at the rim with cord or leather, serving as a portable or stationary container for produce, laundry, or storage. Common in farmsteads, markets, and kitchens, the basket's open weave allows air circulation, making it ideal for keeping vegetables and provisions fresh. With care it lasts many seasons; rough handling will split the weave.

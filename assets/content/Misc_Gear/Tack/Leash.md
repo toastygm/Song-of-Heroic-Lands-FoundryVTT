@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 2
   weight: 0.5
-folder: WTIUTjADwAcpyv0H
+packFolder: tack
 ---
 
 A length of rope or leather cord fitted with an iron snap at one end and a loop or ring at the other, used by hunters, ostlers, and townsfolk to lead or secure dogs, goats, and other small beasts. Most leashes are five to six paces long, allowing the animal enough freedom to move but giving the handler control in a crowd or on the road.

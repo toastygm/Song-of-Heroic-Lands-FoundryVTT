@@ -8,7 +8,6 @@ name:
 id: HSNwLca3kMYLN3Ag
 shortcode: autoattack
 img: icons/game-icons/lorc/crossed-swords.svg
-folder: null
 ---
 
 Runs the combat attack workflow for the combatant whose turn it is, so a GM can

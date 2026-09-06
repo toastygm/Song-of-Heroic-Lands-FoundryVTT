@@ -17,7 +17,7 @@ sohl:
   levelBase: 0
   masteryLevelBase: 0
 
-folder: 0GxlNn2dYXCW24YF
+packFolder: divination
 ---
 
 Astrology is the reading of the heavens. The astrologer observes the stars and the wandering lights, sets what they see against tables built up over generations, and casts from them a chart of the influences bearing on a person, a place, or an undertaking. It is the most learned of the divinatory arts and the least immediate — mathematics as much as mystery, and useless in a hurry.

@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Impaired Hearing is a condition where one’s ability to hear sounds is diminished, making it difficult to perceive conversations and environmental noises. Without access to modern hearing aids or treatments, those afflicted must rely on alternative communication methods and heightened awareness to manage their condition.

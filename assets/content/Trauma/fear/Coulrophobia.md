@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Coulrophobia is an intense, irrational fear of clowns. People with coulrophobia may experience a range of symptoms when they think about, see, or are near clowns.

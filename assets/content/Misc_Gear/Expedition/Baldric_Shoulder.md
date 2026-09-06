@@ -20,7 +20,7 @@ sohl:
   durability: 8
   value: 10
   weight: 1.75
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A wide leather strap fitted with brass rings and fittings, cut to hang diagonally across the chest and shoulder. Soldiers and road-wardens wear baldrics to carry a sword or large dagger without encumbering the waist-belt; merchants and guards use them to hold pouches, horns, or small tools. The strap is stitched along its length and reinforced at attachment points with small iron rivets.

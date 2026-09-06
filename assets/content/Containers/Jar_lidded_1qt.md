@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 2
   value: 4
   weight: 2.8
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A moderately sized stoneware jar with a fitted ceramic or wooden lid, sized for everyday household storage of honey, jam, oil, or salt. Smaller than its gallon counterpart but still substantial enough to hold a family's weekly needs, it sits comfortably on a shelf or in a cupboard. The thick walls resist temperature swings, and a snug lid keeps contents dry and protected from pests. 1 quart capacity.

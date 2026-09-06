@@ -21,7 +21,7 @@ sohl:
   improveFlag: false
   impairedByRoles:
     - vital
-folder: JBr2U30FsJTs8F3l
+packFolder: social
 ---
 
 Discourse is persuasion by argument: evidence marshalled, objections anticipated, a conclusion built where the listener can watch it being built. It is the slowest of the persuasion skills and the most durable, because a listener who has been argued into a position generally stays there — and unlike Charm or Guile, it works on people who are actively suspicious of the speaker.

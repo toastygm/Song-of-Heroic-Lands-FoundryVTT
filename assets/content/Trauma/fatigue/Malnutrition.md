@@ -16,7 +16,7 @@ sohl:
   category: weakness
   levelBase: 1
   healingRateBase: 1
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Malnutrition is the long-tail bodily cost of insufficient or unbalanced nourishment — distinct from the privation Malnourished, which is the active deficit, this is the depleted body that carries it. Where the privation describes what is currently lacking, the weakness describes what has already been lost: muscle, immune function, healing capacity, simple reserve. 5–10 fatigue per ongoing malnutrition instance.

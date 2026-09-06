@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 45
   weight: 1.5
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 A slim wooden case, hinged and clasped, holding the tools of the working scribe: a dozen quills cut from goose and swan pinions, a sharp penknife for cutting and re-trimming them, reed pens for heavier strokes, stoppered horn inkwells of black oak-gall and red vermilion, a brass sand caster for blotting, sticks of sealing wax and a small signet, a folded sheaf of vellum scraps, sticks of chalk and charcoal for rough sketching, and a thin writing board for laps and tables alike. Clerks, notaries, heralds, itinerant artists, and lettered travellers all carry some version of the kit; a letter written in the field is delivered faster than one waited on from a city.

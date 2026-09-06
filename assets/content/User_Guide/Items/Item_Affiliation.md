@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Affiliation"
 shortcode: affltnug
-folder: QtOgPodi8X6gDWL0
+packFolder: items
 ---
 
 # What Is an Affiliation?

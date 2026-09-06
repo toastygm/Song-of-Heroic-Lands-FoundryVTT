@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Limb Weakness is a condition characterized by a partial loss of strength or control in one or more limbs. This weakness can make it difficult to perform everyday tasks and may cause a sense of heaviness or fatigue in the affected limb. Those afflicted must rely on rest, physical therapy, and adaptive strategies to manage their symptoms.

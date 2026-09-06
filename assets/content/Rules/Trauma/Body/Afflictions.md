@@ -6,7 +6,7 @@ name:
   full: Afflictions
   aliases: []
 shortcode: afflctnrules
-folder: edGOkxiCotuMzc1O
+packFolder: body
 ---
 
 An **affliction** represents an unhealthy state, often caused by chemical, biological, arcane, or divine means — a disease, a poison, a curse. Every affliction runs through three phases: an **Incubation Period**, a **Symptomatic Period**, and an **Outcome**.

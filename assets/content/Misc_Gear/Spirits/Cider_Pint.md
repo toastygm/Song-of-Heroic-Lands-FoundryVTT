@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 0.25
   weight: 1
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A pint of fermented apple cider, mellow and lightly sour. Orchardlands and autumn markets offer it at harvest-time; common folk and farmhands prefer it to ale for its sweetness and the nostalgia of apples.

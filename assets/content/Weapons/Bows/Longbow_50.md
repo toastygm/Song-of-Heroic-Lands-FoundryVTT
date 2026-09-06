@@ -109,7 +109,7 @@ sohl:
       maxVolleyMult: 4
       baseRangeBase: 150
       drawBase: 50
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A short self-bow of seasoned yew or ash, strung and drawn easily by a boy or slight-framed archer. With only fifty pounds of pull, it suits small-game hunting and practice on the mark, though it has served as a sidearm for foresters and wood-cutters in a pinch.

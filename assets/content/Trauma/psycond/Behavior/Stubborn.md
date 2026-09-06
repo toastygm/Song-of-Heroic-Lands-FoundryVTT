@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Stubborn refers to an individual's tendency to resist change, cling to their opinions or decisions, and refuse to compromise, even in the face of reason or evidence. A stubborn person is often firm in their beliefs and decisions, standing their ground regardless of the circumstances. While this trait can reflect determination and conviction, excessive stubbornness can lead to inflexibility, strained relationships, and missed opportunities for growth or collaboration.

@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 20
   value: 6
   weight: 1.4
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A large stitched-hide satchel, heavy even when empty and heavier still once loaded. Carried by those who need one bag to hold everything and expect to still be carrying the same bag in ten years.

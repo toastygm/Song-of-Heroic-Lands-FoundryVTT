@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 200
   weight: 3
-folder: ncTaRcZt0RFYz0Gq
+packFolder: music
 ---
 
 A pear-shaped stringed instrument with a pegged neck and a curved wooden body of spruce or maple, strung with gut strings arranged in paired courses. Minstrels favor the lute for its warm, intimate voice and portability; the player holds the instrument in the lap or on the shoulder, plucking the strings with the fingers or a small plectrum. The lute's melancholic, mellow tone suits courtly love-ballads and intricate fingered music.

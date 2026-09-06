@@ -20,7 +20,7 @@ sohl:
   durability: 7
   value: 1
   weight: 400
-folder: 7HORJHbbizVSds9r
+packFolder: stone
 ---
 
 Quarried and squared stone blocks of consistent grain and fit, cut for skilled mason's work. Fine stone is dressed smooth on the facing surface and has clean, flat joints; it is used for important buildings, churches, and fortifications where precise fit and uniformity matter. Sold by the cubic foot and hauled to the building site by cart or sled.

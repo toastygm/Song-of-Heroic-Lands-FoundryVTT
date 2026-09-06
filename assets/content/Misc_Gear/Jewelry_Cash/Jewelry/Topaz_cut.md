@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 600
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Topaz, a brilliant gem of golden or pale yellow hue, cut with great precision by the skilled lapidary. The stone's hardness and luster make it prized for formal rings and pendants, particularly among merchants and the minor nobility. A well-cut topaz throws light across the room like a miniature sun.

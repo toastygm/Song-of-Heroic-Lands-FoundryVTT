@@ -22,7 +22,7 @@ sohl:
   impairedByRoles:
     - core
     - vital
-folder: N5ozne3RRF0qSEdF
+packFolder: nature
 ---
 
 Mineralogy is practical earth-knowledge: simple chemistry, geology, prospecting, the working of a mine and the refining of what comes out of it. A character may test Mineralogy to identify an inorganic substance, judge a seam, or price a rough stone. The skill frequently serves as a Secondary Modifier to others — an alchemist's preparations and a weaponsmith's steel both depend on knowing what the material actually is.

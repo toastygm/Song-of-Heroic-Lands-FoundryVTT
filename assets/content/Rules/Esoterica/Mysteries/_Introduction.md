@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Mysteries Introduction
   aliases: []
-folder: gmHoAXi9mq8O9DUn
+packFolder: mysteries
 shortcode: mysteryintro
 ---
 

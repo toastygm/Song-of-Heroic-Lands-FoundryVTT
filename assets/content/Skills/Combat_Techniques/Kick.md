@@ -75,7 +75,7 @@ sohl:
       halfImpact: false
       lowAim: true
       strRoll: false
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 A kick reaches twice as far as a punch and carries the weight of the leg and hip behind it, which makes it the strongest opening an unarmed fighter has against someone who has not closed yet.

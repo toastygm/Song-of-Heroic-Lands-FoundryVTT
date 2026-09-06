@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Character Creation"
 shortcode: charcreationug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Overview {#XvgvfmGmDVg3m3Hf}

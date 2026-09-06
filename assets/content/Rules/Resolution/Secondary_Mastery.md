@@ -6,7 +6,7 @@ name:
   full: Secondary Mastery
   aliases: []
 shortcode: scndryms
-folder: BTGA1PmN0VlBWpCm
+packFolder: resolution
 ---
 
 # Secondary Mastery {#secondary-mastery}

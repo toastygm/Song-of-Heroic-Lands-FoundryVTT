@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 2
   weight: 8
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Sheep's milk, silky and rich, yields fine cheese treasured in southern markets and temple dairies. A ewe produces less than a cow but requires less fodder; her milk makes the best cheese at once—rich, dense, and long-keeping. Shepherds often let it sour overnight for easier handling.

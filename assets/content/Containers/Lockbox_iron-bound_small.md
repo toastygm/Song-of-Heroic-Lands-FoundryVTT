@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 30
   value: 150
   weight: 15
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A wooden box banded in iron on every face and corner, with a lock set into the lid. It is meant to defeat time rather than force — a thief with an axe and an hour will open it, but not one with a knife and a moment.

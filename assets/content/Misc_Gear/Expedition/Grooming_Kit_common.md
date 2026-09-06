@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 12
   weight: 0.5
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 A strip of coarse cloth rolled around what a labouring household can manage: a double-sided comb whittled from boxwood or beech, a small brush of boar bristle set in a turned handle, a cake of plain soap wrapped in waxed cloth, and a linen handkerchief that doubles as a hand-towel. There is no mirror and no razor — a man who needs shaving goes to the barber on market day, and a woman judges her hair by touch or by the water-butt.

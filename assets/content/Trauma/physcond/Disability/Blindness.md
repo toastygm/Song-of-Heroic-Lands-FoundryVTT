@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: debility
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Total Blindness is the complete loss of sight, leaving an individual unable to perceive light, shapes, or any visual stimuli. Without vision, those afflicted must rely entirely on their other senses and the assistance of others to navigate the world and perform daily tasks.

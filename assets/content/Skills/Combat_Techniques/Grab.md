@@ -74,7 +74,7 @@ sohl:
       halfImpact: false
       lowAim: false
       strRoll: true
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 A grab is the opening of a wrestle rather than a blow, and the grabber declares which of two things they are attempting before any roll is made:

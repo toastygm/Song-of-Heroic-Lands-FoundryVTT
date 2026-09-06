@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Xenophobia is an intense, irrational fear of strangers or foreigners. People with xenophobia may experience a range of symptoms when they think about, see, or are near individuals they perceive as different or unfamiliar.

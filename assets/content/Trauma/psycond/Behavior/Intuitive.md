@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Intuitive refers to an individual's ability to understand or grasp ideas, situations, or people instinctively, without relying on explicit reasoning or conscious thought. Intuitive individuals often have a strong sense of awareness and can make decisions based on a "gut feeling" or deep internal understanding rather than through analysis or detailed information. While intuition can lead to quick, insightful judgments, excessive reliance on it may cause a person to overlook important details or fail to verify their assumptions.

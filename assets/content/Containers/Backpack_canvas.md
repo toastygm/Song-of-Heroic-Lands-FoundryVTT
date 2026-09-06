@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 25
   value: 3
   weight: 1.2
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A frameless hemp-canvas pack with cloth straps and a flap secured by ties. It carries a load off both shoulders rather than one, which matters over a long day, and costs a fraction of the leather version.

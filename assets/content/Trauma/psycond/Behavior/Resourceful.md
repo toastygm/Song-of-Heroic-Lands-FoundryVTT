@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Resourcefulness is the gift of finding swift and clever solutions to difficulties. A resourceful person does not merely accept the constraints of circumstance; they work within them, discovering unexpected paths where others see only walls. In a world where merchants lose caravans to bandits and smiths must forge steel without the right ore at hand, such ingenuity is worth its weight in silver.

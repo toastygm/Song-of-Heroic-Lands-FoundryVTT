@@ -20,7 +20,7 @@ sohl:
     - Hardy:999
   initDiceFormula: 3d6
 sort: 20
-folder: FPitxvL8wCmXynax
+packFolder: attributes
 ---
 
 Endurance quantifies a person's physical stamina and constitutional health—the capacity to withstand hardship, resist disease, and labor without collapse. It is the accumulated vigor of body and blood. Those with keen endurance can work a harvest from dawn to dusk, march a week without rest, and survive wounds that would fell others. Those lacking it are fragile, susceptible to sickness, and quickly exhausted.

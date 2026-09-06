@@ -20,7 +20,7 @@ sohl:
   durability: 1
   value: 1
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Jet, a black stone of fossilized wood, polished and faceted by the lapidary into small, lustrous gems. The stone's deep black absorbs light entirely, creating a striking contrast when set against silver or gold. Jet is favored for mourning jewelry and amulets, prized for both its appearance and its historical reach.

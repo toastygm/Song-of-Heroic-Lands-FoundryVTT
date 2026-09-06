@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 10
   value: 2
   weight: 0.6
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 Canvas worked through with wax and oil, cut into a small flap-closed shoulder bag. Rain beads and runs off it where plain canvas would soak through, at the cost of some weight, a higher price, and a garment that will take light near a fire.

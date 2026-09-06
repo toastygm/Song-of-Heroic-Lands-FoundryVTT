@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psypsychosis
   category: impulse
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Megalomania is a condition characterized by an obsession with power, wealth, or superiority. Individuals with megalomania often believe they possess extraordinary abilities, influence, or a unique destiny, which leads them to act recklessly or make unreasonable decisions. This exaggerated self-perception can result in damaging consequences, particularly when their grandiosity overrides rational thought. Megalomania may manifest as a symptom in mental health conditions such as narcissistic personality disorder or delusional disorder.
