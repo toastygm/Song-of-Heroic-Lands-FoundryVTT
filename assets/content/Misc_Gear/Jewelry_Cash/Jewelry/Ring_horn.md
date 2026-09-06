@@ -5,7 +5,6 @@ name:
   full: "Ring, horn"
   aliases: []
 description: "A band for the finger, plain or chased, in carved horn."
-id: xaaEKCsQdtSzXPoE
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: ringhorn
 type: miscgear

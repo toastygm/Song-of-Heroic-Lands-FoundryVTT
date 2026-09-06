@@ -5,7 +5,6 @@ name:
   full: Raven
   aliases: []
 description: "A large, uncannily intelligent black bird thriving everywhere from deep wilderness to crowded cities, hovering between wild scavenger and civilized companion."
-id: anLTCI9lpmxYgalD
 img: icons/game-icons/lorc/raven.svg
 portrait: images/being/raven-portrait.webp
 shortcode: raven

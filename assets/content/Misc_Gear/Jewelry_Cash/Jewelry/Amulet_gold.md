@@ -5,7 +5,6 @@ name:
   full: "Amulet, gold"
   aliases: []
 description: "Heavy gold pendant worn at the throat; a charm and a fortune together."
-id: iyPeOjwKygEjsULG
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: amuletgold
 type: miscgear

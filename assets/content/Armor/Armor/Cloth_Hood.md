@@ -4,7 +4,6 @@ name:
   full: Cloth Hood
   aliases: []
 description: "Simple cloth hood covering head and neck."
-id: ok72Ryin4nZGoC2g
 img: icons/game-icons/lorc/hood.svg
 shortcode: CHood
 type: armorgear

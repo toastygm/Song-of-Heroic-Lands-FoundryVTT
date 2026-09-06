@@ -4,7 +4,6 @@ name:
   full: "Wrappings, leather"
   aliases: []
 description: "Leather sheet for wrapping and waterproofing."
-id: dSyzpkeYxn8n52xF
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wrapleath
 type: containergear

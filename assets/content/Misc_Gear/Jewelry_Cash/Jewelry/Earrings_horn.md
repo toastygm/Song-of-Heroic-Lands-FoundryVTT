@@ -5,7 +5,6 @@ name:
   full: "Earrings, horn"
   aliases: []
 description: "A matched pair, hooked or hung, in carved horn."
-id: HggOHXKlhDmMa96i
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: earringshorn
 type: miscgear

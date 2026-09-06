@@ -5,7 +5,6 @@ name:
   full: "Hourglass"
   aliases: []
 description: "Paired glass bulbs and graded sand in a wooden frame; measures a fixed interval."
-id: KVccLSorqPZcNG7f
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hourglass
 type: miscgear

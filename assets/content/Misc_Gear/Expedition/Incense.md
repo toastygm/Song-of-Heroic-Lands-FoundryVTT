@@ -5,7 +5,6 @@ name:
   full: Incense
   aliases: []
 description: "Frankincense, myrrh, or eastern spices; marks holy occasions and scents chambers."
-id: QZ40lP6BlDleOp38
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: incense
 type: miscgear

@@ -8,7 +8,6 @@ name:
   home: Solárden
   aliases:
     - Roran Stonefist
-id: KSL4vCrnfP7FxZqU
 packFolder: pregens
 shortcode: alverriktarvall
 img: icons/game-icons/delapouite/person.svg

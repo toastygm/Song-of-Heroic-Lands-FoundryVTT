@@ -3,7 +3,6 @@ tags: []
 name:
   full: Cacophobia
   aliases: []
-id: QXpIVIP33AGmgyUz
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: cacophb
 type: trauma

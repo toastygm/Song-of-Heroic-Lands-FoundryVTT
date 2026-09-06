@@ -5,7 +5,6 @@ name:
   full: "Brooch, silver"
   aliases: []
 description: "A pin and catch worked into a plate, worn to fasten a cloak at the shoulder, in silver."
-id: PQoJl7a4goD6nYLy
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: broochsilver
 type: miscgear

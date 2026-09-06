@@ -51,7 +51,6 @@ across, is rejected; so is a location outside the map's grid extent.
 name:
   full: Wayfarer's Rest, Ground Floor
 description: "The common room of a roadside shelter."
-id: Xwo4dsmey2A3Rvrn # pinned, as with items and actors
 shortcode: wayrestground
 type: battlemap
 sohl:
@@ -264,8 +263,9 @@ The target is the other map's **shortcode** plus the region (and behaviour) key
 — the same vocabulary the link manifest uses. The builder resolves it to
 `Scene.<id>.Region.<id>`, which it can do before either scene is compiled
 because every embedded id is derived from the scene id and the authored key. An
-authored `_id` always wins, so the converter can pin ids on write-back exactly
-as it does for items.
+authored `_id` always wins, so the converter can pin ids on write-back — the
+same precedence a primary document follows, where an authored `id:` overrides
+the id otherwise derived from the note's address.
 
 `applyActiveEffect` addresses an effect the same way:
 `effects: [{ item: "affliction-plague", effect: "Plague Fever" }]`.

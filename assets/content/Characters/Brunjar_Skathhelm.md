@@ -9,7 +9,6 @@ name:
   given: Brunjár
   clan: Skathhelm
   aliases: []
-id: elrlXp3vtP02E0Tr
 packFolder: pregens
 shortcode: brunjarskathhel
 img: icons/game-icons/delapouite/person.svg

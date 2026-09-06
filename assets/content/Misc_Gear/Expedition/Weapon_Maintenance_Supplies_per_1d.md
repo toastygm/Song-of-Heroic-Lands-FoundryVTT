@@ -5,7 +5,6 @@ name:
   full: "Weapon Maintenance Supplies, per 1d"
   aliases: []
 description: "Oil, wax, whetstone chips, cord, rivets, wire; one pence buys one pence of weapon upkeep."
-id: nihK8aG46nMa1dP6
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wpnsup
 type: miscgear

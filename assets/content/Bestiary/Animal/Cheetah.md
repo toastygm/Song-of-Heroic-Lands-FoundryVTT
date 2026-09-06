@@ -6,7 +6,6 @@ name:
   full: Cheetah
   aliases: []
 description: "A lightly built sprinting cat of the Khazryn grasslands, built for blistering speed to run down gazelle across open gravel plains."
-id: mjqQVrKXPAtQyUUN
 img: icons/game-icons/lorc/lion.svg
 portrait: images/being/cheetah-portrait.webp
 shortcode: cheetah

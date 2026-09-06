@@ -3,7 +3,6 @@ tags: []
 name:
   full: Cleptophobia
   aliases: []
-id: 4ySzLhzUd53sgDv5
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: clptphb
 type: trauma

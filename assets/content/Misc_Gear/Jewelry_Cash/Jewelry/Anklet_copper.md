@@ -5,7 +5,6 @@ name:
   full: "Anklet, copper"
   aliases: []
 description: "A band worn at the ankle, closed or hinged, and often hung with small charms, in raised copper."
-id: r6LZIuQMIRG1g9Yy
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: ankletcopper
 type: miscgear

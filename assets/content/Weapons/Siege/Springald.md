@@ -4,7 +4,6 @@ name:
   full: Springald
   aliases: []
 description: "Light torsion bolt-thrower; two-crew wall-top engine for picking men off a rampart."
-id: olW8KZm5vIcIRXGM
 img: icons/game-icons/lorc/spear-hook.svg
 shortcode: Sprngld
 type: weapongear

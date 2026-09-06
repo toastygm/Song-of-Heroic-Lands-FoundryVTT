@@ -6,7 +6,6 @@ name:
   full: Giraffe
   aliases: []
 description: "The tallest animal alive, an improbable long-necked herbivore browsing the high canopy of the Xerathian savannahs and open woodlands."
-id: 087iR45QSKNTs1ze
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/giraffe-portrait.webp
 shortcode: giraffe

@@ -4,7 +4,6 @@ name:
   full: Wooden Crossbow 160
   aliases: []
 description: "Heavy prod spanning by cranequin; castle-wall and convoy suppression weapon."
-id: HBbhM2SKW8SqPhy8
 img: icons/game-icons/carl-olsen/crossbow.svg
 shortcode: WCxBw160
 type: weapongear

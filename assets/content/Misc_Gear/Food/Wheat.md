@@ -5,7 +5,6 @@ name:
   full: Wheat
   aliases: []
 description: "Golden grain for fine bread and pastries, stores years when sealed."
-id: kHcQMwrA7PupCBMA
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wheat
 type: miscgear

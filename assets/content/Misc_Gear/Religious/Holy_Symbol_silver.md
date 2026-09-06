@@ -5,7 +5,6 @@ name:
   full: "Holy Symbol, silver"
   aliases: []
 description: "Silver sign of a god, chased by a jeweller; a cleric's badge of office."
-id: SXV5ucGWAX5LAcCO
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: holysymsilver
 type: miscgear

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Pyrophobia
   aliases: []
-id: br0GDJuHxFNz2TZj
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: pyrophb
 type: trauma

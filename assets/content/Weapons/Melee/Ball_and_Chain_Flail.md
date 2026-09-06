@@ -4,7 +4,6 @@ name:
   full: Ball & Chain Flail
   aliases: []
 description: "Chain-slung metal sphere slides past shields; heavy cavalry's armor-breaker."
-id: NhSLHwB8TN7H7bV3
 img: icons/game-icons/delapouite/flail.svg
 shortcode: BCFl
 type: weapongear

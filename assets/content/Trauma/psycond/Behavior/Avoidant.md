@@ -3,7 +3,6 @@ tags: []
 name:
   full: Avoidant
   aliases: []
-id: WTWC6Z0qzDZIaK4L
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: avoidant
 type: trauma

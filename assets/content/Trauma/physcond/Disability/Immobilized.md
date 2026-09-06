@@ -4,7 +4,6 @@ name:
   full: Immobilized
   aliases: []
 description: "A limb pinned, bound, or paralyzed — it cannot be moved, but it keeps its grip."
-id: L5Jzm8yQ4Gijxuen
 img: icons/game-icons/delapouite/handcuffed.svg
 shortcode: immob
 type: trauma

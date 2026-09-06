@@ -5,7 +5,6 @@ name:
   full: "Icon, religious, wood, sm"
   aliases: []
 description: "Portable palm-sized icon for pilgrims and soldiers; kept at chest or shelf."
-id: I4tzGdJLGklE8lsc
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: iconwdsm
 type: miscgear

@@ -5,7 +5,6 @@ name:
   full: "Perfume, fine"
   aliases: []
 description: "Perfumer's best work, built on costly imported oils."
-id: Sok0VsTMOa0rR0DP
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: perfumefine
 type: miscgear

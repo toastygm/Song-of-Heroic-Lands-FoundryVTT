@@ -3,7 +3,6 @@ tags: []
 name:
   full: Resourceful
   aliases: []
-id: PoxDR3ZVBfB9Tbdw
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: rsrcfl
 type: trauma

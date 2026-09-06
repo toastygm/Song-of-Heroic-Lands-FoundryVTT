@@ -4,7 +4,6 @@ name:
   full: Leather Apron
   aliases: []
 description: "Leather apron for craftsmen and artisans, more style than protection."
-id: 0z2gnYU6ZD5y4Dqs
 img: icons/game-icons/delapouite/cook.svg
 shortcode: LtApn
 type: armorgear

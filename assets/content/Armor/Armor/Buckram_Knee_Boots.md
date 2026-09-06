@@ -4,7 +4,6 @@ name:
   full: Buckram Knee Boots
   aliases: []
 description: "Stiff buckram knee boots offering durability and structured leg protection."
-id: GATnBZAbwqOTvJHj
 img: icons/game-icons/lorc/leather-boot.svg
 shortcode: BBoot
 type: armorgear

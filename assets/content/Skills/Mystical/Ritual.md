@@ -4,7 +4,6 @@ name:
   full: Ritual
   aliases: []
 description: "Conducting ceremonies, rites, and worship services for one's faith."
-id: K7tJynLhxSDiajCo
 img: icons/game-icons/delapouite/circle.svg
 shortcode: ritual
 type: skill

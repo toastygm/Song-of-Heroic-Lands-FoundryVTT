@@ -4,7 +4,6 @@ name:
   full: "Chest, wooden"
   aliases: []
 description: "Carved storage chest with a flat hinged lid (1 x 2 x 2 feet)."
-id: B7Pgnj6PnUdDi0Cb
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: chestwood
 type: containergear

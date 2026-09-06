@@ -5,7 +5,6 @@ name:
   full: Crocodile
   aliases: []
 description: "A semi-aquatic ambush predator of warm waters, lying motionless for days before erupting into explosive violence to seize its prey."
-id: YzoFPpU5UVHmM52o
 img: icons/game-icons/lorc/croc-jaws.svg
 portrait: images/being/crcdl-portrait.webp
 shortcode: crcdl

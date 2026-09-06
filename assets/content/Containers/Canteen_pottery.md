@@ -4,7 +4,6 @@ name:
   full: "Canteen, pottery"
   aliases: []
 description: "Glazed earthenware canteen with a stopper."
-id: 0Xsfz93Ptdv4hIGi
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cantpot
 type: containergear

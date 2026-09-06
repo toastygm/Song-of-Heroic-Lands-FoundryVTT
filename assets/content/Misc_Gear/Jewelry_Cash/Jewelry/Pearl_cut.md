@@ -5,7 +5,6 @@ name:
   full: "Pearl, cut"
   aliases: []
 description: "Lustrous oyster gem, soft white-cream-pink; favored for delicate bracelets and necklaces."
-id: ZYtGL9b5sDXXTprJ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: pearlcut
 type: miscgear

@@ -5,7 +5,6 @@ name:
   full: "Ring, bronze"
   aliases: []
 description: "Cast bronze band, hard and cheap; survives labour that would flatten silver."
-id: kgXuoZclxBwUMiwL
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ringbronze
 type: miscgear

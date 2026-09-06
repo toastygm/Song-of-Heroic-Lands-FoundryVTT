@@ -5,7 +5,6 @@ name:
   full: Cat
   aliases: []
 description: "A small solitary predator living between wild and tame, hunting vermin with lethal efficiency while tolerating the humans it shares hearths with."
-id: HssiDLDnWMtX8Yp4
 img: icons/game-icons/lorc/cat.svg
 portrait: images/being/cat-portrait.webp
 shortcode: cat

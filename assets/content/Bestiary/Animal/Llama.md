@@ -6,7 +6,6 @@ name:
   full: Llama
   aliases: []
 description: "A domesticated highland camelid of K'ich'chik serving as pack animal, fiber and meat source, and guardian of smaller livestock in mountain caravans."
-id: ZVyZDoJ0iDiQn5J9
 img: icons/game-icons/delapouite/camel-head.svg
 portrait: images/being/llama-portrait.webp
 shortcode: llama

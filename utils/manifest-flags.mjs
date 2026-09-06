@@ -33,6 +33,7 @@ import path from "node:path";
 
 import { collectContentDocs } from "@heroiclands/package-build/engine/helpers";
 import { compendiumUuid } from "@heroiclands/package-build/engine/ids";
+import { noteDocId } from "@heroiclands/package-build/engine/note-ids";
 import { packRouter } from "@heroiclands/package-build/engine/pack-router";
 
 /** The `type` and `shortcode` the credits journal is addressed by. */
@@ -77,17 +78,26 @@ function creditsUuid(config) {
     }
 
     const [note] = matches;
-    if (!note.fm.id) {
+    // The id the credits journal compiles under: its pin if it has one, and
+    // otherwise the id derived from its canonical address (#1841). Asked of the
+    // engine rather than read off the frontmatter, because a note no longer
+    // authors an `id` — reading `fm.id` here would address the journal by a
+    // value that is usually absent, and the manifest would carry a dead
+    // `@UUID`. `noteDocId` is the one function every pass asks, so the address
+    // stamped here is the address the journals pass compiled.
+    const id = noteDocId(note.fm);
+    if (!id) {
         throw new Error(
-            `The credits note (${note.path}) has no frontmatter \`id\`, so it ` +
-                `compiles to no JournalEntry and cannot be addressed.`,
+            `The credits note (${note.path}) has no address — a note is ` +
+                `addressed as "<type>-<shortcode>" and must declare both — so ` +
+                `it compiles to no JournalEntry and cannot be addressed.`,
         );
     }
 
     return compendiumUuid(
         config.foundryPackage,
         CREDITS.type,
-        note.fm.id,
+        id,
         packRouter().defaultOf("JournalEntry"),
     );
 }

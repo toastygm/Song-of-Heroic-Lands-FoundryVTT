@@ -5,7 +5,6 @@ name:
   full: Tar
   aliases: []
 description: "Pine-birch pitch sold in pots; seals hull seams, waterproofs leather, tars rope."
-id: nGxXomH7d6wfF1mt
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: tar
 type: miscgear

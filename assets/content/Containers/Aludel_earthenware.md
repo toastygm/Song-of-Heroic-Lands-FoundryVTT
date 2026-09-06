@@ -4,7 +4,6 @@ name:
   full: "Aludel, earthenware"
   aliases: []
 description: "Earthenware sublimation vessel, pear-shaped."
-id: 02ps01bBS6sqDOPC
 img: icons/game-icons/delapouite/cooking-pot.svg
 shortcode: aludelew
 type: containergear

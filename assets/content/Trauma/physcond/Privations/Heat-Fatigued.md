@@ -4,7 +4,6 @@ name:
   full: Heat-Fatigued
   aliases: []
 description: "Mild heat strain; flushing, sweating, headache, irritability."
-id: qlaVHFHV69OLBhqV
 img: icons/game-icons/delapouite/stomach.svg
 shortcode: htfat
 type: trauma

@@ -4,7 +4,6 @@ name:
   full: Rawhide Trousers
   aliases: []
 description: "Thick untanned hide leg-wear for rough labor and harsh climates."
-id: gyw8IXwGFq7x2wxz
 img: icons/game-icons/lorc/trousers.svg
 shortcode: RhTrsr
 type: armorgear

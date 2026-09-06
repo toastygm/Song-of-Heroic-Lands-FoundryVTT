@@ -5,7 +5,6 @@ name:
   full: "Necklace, copper"
   aliases: []
 description: "Copper chain or beaten collar; bright when new, green within the season."
-id: Ck2EOxqsST61mVCn
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: necklacecopper
 type: miscgear

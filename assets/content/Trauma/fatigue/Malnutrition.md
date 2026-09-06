@@ -4,7 +4,6 @@ name:
   full: Malnutrition
   aliases: []
 description: "Long-term weakness from depleted nutritional reserves."
-id: 64nItxYM9dSeqwTX
 img: icons/game-icons/lorc/sleepy.svg
 shortcode: mlntxn
 type: trauma

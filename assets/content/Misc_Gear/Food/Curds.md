@@ -5,7 +5,6 @@ name:
   full: Curds
   aliases: []
 description: "Soft fresh curd drained from whey; eaten warm with salt or honey."
-id: owQxSTkEEyYBk7xe
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: curds
 type: miscgear

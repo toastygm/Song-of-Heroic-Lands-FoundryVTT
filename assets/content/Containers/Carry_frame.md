@@ -4,7 +4,6 @@ name:
   full: "Carry frame"
   aliases: []
 description: "Wooden pack frame for lashing loads to."
-id: SY6E2zLDpjWA5F22
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: carryframe
 type: containergear

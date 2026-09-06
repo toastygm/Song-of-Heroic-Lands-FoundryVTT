@@ -5,7 +5,6 @@ name:
   full: Buns
   aliases: []
 description: "Soft, round dough loaves; market fare studded with dried fruit or herbs."
-id: uiYzUklfvVcldC7G
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: buns
 type: miscgear

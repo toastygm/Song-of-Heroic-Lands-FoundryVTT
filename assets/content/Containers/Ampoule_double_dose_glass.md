@@ -4,7 +4,6 @@ name:
   full: "Ampoule, double dose, glass"
   aliases: []
 description: "Sealed double-dose glass ampoule."
-id: 1BG9H9Ie8q1D6rnL
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ampoule2
 type: containergear

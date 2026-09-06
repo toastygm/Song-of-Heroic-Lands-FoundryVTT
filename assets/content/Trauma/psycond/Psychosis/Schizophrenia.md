@@ -3,7 +3,6 @@ tags: []
 name:
   full: Schizophrenia
   aliases: []
-id: b2GfR3llVmETAEbd
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: schizop
 type: trauma

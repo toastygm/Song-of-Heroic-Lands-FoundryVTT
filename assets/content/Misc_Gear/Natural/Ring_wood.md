@@ -5,7 +5,6 @@ name:
   full: "Ring, wood"
   aliases: []
 description: "Ring turned or whittled from close-grained wood; a token, not a valuable."
-id: 9ODbhaZ3ShLC0WiH
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ringwood
 type: miscgear

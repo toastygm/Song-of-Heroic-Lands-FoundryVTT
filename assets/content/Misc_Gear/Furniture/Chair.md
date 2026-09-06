@@ -5,7 +5,6 @@ name:
   full: "Chair"
   aliases: []
 description: "Single wooden seat with a back; a mark of standing in the household."
-id: IBPGjsFxsIwZeR6t
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: chair
 type: miscgear

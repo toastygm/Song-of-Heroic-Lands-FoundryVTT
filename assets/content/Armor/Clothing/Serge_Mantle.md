@@ -4,7 +4,6 @@ name:
   full: Serge Mantle
   aliases: []
 description: "Durable twilled serge mantle; versatile protective outer garment."
-id: vRrVRyYfchZbycS7
 img: icons/game-icons/delapouite/cape.svg
 shortcode: SgMntl
 type: armorgear

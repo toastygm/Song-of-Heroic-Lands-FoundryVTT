@@ -8,7 +8,6 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: arrow
-id: vBAd1CyPEqHNJyb0
 shortcode: ArwStd
 img: icons/game-icons/lorc/broadhead-arrow.svg
 easyname: Standard

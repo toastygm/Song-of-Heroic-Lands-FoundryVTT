@@ -4,7 +4,6 @@ name:
   full: "Coffer, leather & wood"
   aliases: []
 description: "Leather-covered wooden coffer with a key lock."
-id: kduLI7Tr3zCFmYsD
 img: icons/game-icons/delapouite/chest.svg
 shortcode: cofferlw
 type: containergear

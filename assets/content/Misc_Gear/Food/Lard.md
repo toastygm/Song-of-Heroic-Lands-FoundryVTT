@@ -5,7 +5,6 @@ name:
   full: Lard
   aliases: []
 description: "Rendered hog fat for cooking and food preservation, a kitchen staple."
-id: BLIRS4rBQnW4xntq
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lard
 type: miscgear

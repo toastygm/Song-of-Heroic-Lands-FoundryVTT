@@ -8,7 +8,6 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bullet
-id: Iwb9HCPzqn4nEsPF
 shortcode: StnSge
 img: icons/game-icons/lorc/stone-block.svg
 easyname: Siege Stone

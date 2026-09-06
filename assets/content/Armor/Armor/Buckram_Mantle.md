@@ -4,7 +4,6 @@ name:
   full: Buckram Mantle
   aliases: []
 description: "Stiff buckram mantle providing durability and reliable rigid cloaking."
-id: o571LCZR0dPVHTlW
 img: icons/game-icons/delapouite/cape.svg
 shortcode: BMntl
 type: armorgear

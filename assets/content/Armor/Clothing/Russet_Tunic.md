@@ -4,7 +4,6 @@ name:
   full: Russet Tunic
   aliases: []
 description: "Reddish-brown wool tunic; everyday wear for rough labor."
-id: CJiRdfl8Qu2A2pT0
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: RTunic
 type: armorgear

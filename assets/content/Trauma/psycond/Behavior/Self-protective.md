@@ -3,7 +3,6 @@ tags: []
 name:
   full: Self-protective
   aliases: []
-id: hYanCELEhmAkCpEo
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: selfpro
 type: trauma

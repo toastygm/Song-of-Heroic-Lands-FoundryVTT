@@ -5,7 +5,6 @@ name:
   full: "Peas, crate"
   aliases: []
 description: "Dried legume bushel, stretches meat into thick nourishing pottage for garrisons."
-id: VgTWpcwG1ziJOLdo
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: peascrate
 type: miscgear

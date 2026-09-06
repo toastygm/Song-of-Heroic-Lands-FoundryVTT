@@ -4,7 +4,6 @@ name:
   full: "Paychest, iron"
   aliases: []
 description: "Heavy iron paychest with multiple locks."
-id: OtLvXmWpl6oMqDiY
 img: icons/game-icons/delapouite/chest.svg
 shortcode: paychestir
 type: containergear

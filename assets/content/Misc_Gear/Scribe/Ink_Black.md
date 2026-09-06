@@ -5,7 +5,6 @@ name:
   full: "Ink, Black"
   aliases: []
 description: "Oak-gall ink; indelible black for clerks, scribes, chroniclers' work."
-id: nxjytMpUChcgQfLM
 img: icons/game-icons/lorc/ink-swirl.svg
 shortcode: inkblk
 type: miscgear

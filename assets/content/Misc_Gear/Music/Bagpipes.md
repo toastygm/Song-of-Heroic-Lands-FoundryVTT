@@ -5,7 +5,6 @@ name:
   full: Bagpipes
   aliases: []
 description: "Sheepskin-covered wooden stock with drones and chanter; penetrating wail for festivals, marches."
-id: eFIzSGLEvBoBFbwn
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bagpipes
 type: miscgear

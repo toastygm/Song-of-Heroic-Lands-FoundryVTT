@@ -3,7 +3,6 @@ tags: []
 name:
   full: Impulsive
   aliases: []
-id: k3h61qNB6NvMfFVS
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: implsv
 type: trauma

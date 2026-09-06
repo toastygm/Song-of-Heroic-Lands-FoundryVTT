@@ -5,7 +5,6 @@ name:
   full: "Necklace, wood"
   aliases: []
 description: "Strung wooden beads, turned and polished; counted by the devout and the idle alike."
-id: iQkABhLBQZOOuRkk
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: necklacewood
 type: miscgear

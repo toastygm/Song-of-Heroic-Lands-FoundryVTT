@@ -5,7 +5,6 @@ name:
   full: Steel
   aliases: []
 description: "Carburised iron, twice the price; takes and holds an edge where iron will not."
-id: IEqY7M7yTgRynoIO
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: steel
 type: miscgear

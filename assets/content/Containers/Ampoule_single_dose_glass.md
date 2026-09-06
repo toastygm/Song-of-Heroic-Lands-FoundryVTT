@@ -4,7 +4,6 @@ name:
   full: "Ampoule, single dose, glass"
   aliases: []
 description: "Sealed single-dose glass ampoule."
-id: 9hDoPYkZBhbIJ2f3
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ampoule1
 type: containergear

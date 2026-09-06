@@ -5,7 +5,6 @@ name:
   full: "Velvet, per sq yard"
   aliases: []
 description: "Piled silk-faced cloth of great price; court dress and hangings."
-id: ItwHq3cxthQKAXWl
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: velvet
 type: miscgear

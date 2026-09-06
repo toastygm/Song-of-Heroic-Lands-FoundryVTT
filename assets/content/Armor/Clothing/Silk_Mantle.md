@@ -4,7 +4,6 @@ name:
   full: Silk Mantle
   aliases: []
 description: "Luxurious silk mantle; elegant cloak for formal high-status occasions."
-id: Kujou0ZnHCwiOxx7
 img: icons/game-icons/delapouite/cape.svg
 shortcode: SlkMntl
 type: armorgear

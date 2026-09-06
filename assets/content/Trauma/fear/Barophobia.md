@@ -3,7 +3,6 @@ tags: []
 name:
   full: Barophobia
   aliases: []
-id: TqVgHE7XzSyaD2J6
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: barophb
 type: trauma

@@ -4,7 +4,6 @@ name:
   full: Whip, Reksyni
   aliases: []
 description: "Sinew-and-leather tribal lash; barbed, heavy, breaking mounted formations."
-id: rZrFRSyXQP9TR6Dc
 img: icons/game-icons/lorc/whip.svg
 shortcode: RWhp
 type: weapongear

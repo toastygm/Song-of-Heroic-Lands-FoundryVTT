@@ -3,7 +3,6 @@ tags: []
 name:
   full: Vigilant
   aliases: []
-id: cS4CuhXNI9lsnDx4
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: vigilant
 type: trauma

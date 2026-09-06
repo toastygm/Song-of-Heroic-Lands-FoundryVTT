@@ -4,7 +4,6 @@ name:
   full: Velvet Tunic
   aliases: []
 description: "Soft plush velvet tunic; symbol of opulence for formal occasions."
-id: WZCJzGiNr3ZFb9w4
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: VTunic
 type: armorgear

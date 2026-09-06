@@ -5,7 +5,6 @@ name:
   full: "Ladder, 8 ft"
   aliases: []
 description: "Eight-foot wooden ladder with pegged rungs."
-id: cqqHnGGvEgJd1wxj
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ladder8
 type: miscgear

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Obesity
   aliases: []
-id: 33oRAs8m6lIf8yEQ
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: obesity
 type: trauma

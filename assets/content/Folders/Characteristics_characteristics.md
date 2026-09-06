@@ -3,7 +3,6 @@ name:
   full: "Characteristics"
 shortcode: characteristics
 type: folder
-id: lTBlwwkZ8D1RuH7T
 data:
   parent:
     default: ~

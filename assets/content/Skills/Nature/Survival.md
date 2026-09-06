@@ -4,7 +4,6 @@ name:
   full: Survival
   aliases: []
 description: "Enduring wilderness through shelter, water, foraging, and hazard navigation."
-id: 8SCHvY0B1oHUgWnM
 img: icons/game-icons/lorc/campfire.svg
 shortcode: srvl
 type: skill

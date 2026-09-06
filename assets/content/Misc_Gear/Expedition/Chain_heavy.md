@@ -5,7 +5,6 @@ name:
   full: "Chain, heavy"
   aliases: []
 description: "Forged iron link chain; secures large goods, hobbles beasts, binds prisoners."
-id: e4zX6ZK0uvjGwo5G
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: chainheavy
 type: miscgear

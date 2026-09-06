@@ -4,7 +4,6 @@ name:
   full: Leather Calf Boots
   aliases: []
 description: "Lightweight leather leg coverings extending below the knee for active pursuers."
-id: tlDBXELAPj3Mswjs
 img: icons/game-icons/lorc/leather-boot.svg
 shortcode: LtCBoot
 type: armorgear

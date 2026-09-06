@@ -4,7 +4,6 @@ name:
   full: Spirit
   aliases: []
 description: "A discrete act carried out through an allied spirit, governed by its Spirit Power."
-id: ftsDAUwOXEKBcn0Q
 img: icons/game-icons/lorc/psychic-waves.svg
 shortcode: sprt
 type: mysticalability

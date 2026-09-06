@@ -5,7 +5,6 @@ name:
   full: "Ink, Green"
   aliases: []
 description: "Verdigris or woad-iron pigment; marks heraldic and legal ornament, light-sensitive."
-id: oKaLH8ULCR8orm9W
 img: icons/game-icons/lorc/ink-swirl.svg
 shortcode: inkgrn
 type: miscgear

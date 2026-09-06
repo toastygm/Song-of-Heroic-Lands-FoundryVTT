@@ -5,7 +5,6 @@ name:
   full: "Holy Symbol, wood"
   aliases: []
 description: "Carved wooden sign of a god, worn on a thong or carried in the pack."
-id: moKHRJkSyuSh5CD7
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: holysymwood
 type: miscgear

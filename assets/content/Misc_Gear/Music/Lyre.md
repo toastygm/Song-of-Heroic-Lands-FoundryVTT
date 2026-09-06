@@ -5,7 +5,6 @@ name:
   full: Lyre
   aliases: []
 description: "Ancient wooden frame, curved arms and strings; bright voice for hymns."
-id: llZHCs52rsg2ysfu
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lyre
 type: miscgear

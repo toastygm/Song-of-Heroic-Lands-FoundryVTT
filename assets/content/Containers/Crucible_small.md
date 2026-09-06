@@ -4,7 +4,6 @@ name:
   full: "Crucible, small"
   aliases: []
 description: "Small thin-walled ceramic crucible."
-id: wLAXPpOWB5InnBgX
 img: icons/game-icons/delapouite/cooking-pot.svg
 shortcode: cruciblesm
 type: containergear

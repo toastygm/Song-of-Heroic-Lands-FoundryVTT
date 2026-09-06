@@ -4,7 +4,6 @@ name:
   full: "Cabinet"
   aliases: []
 description: "Standing carved cabinet with doors and shelves; a decorative woodworker's showpiece."
-id: MoHoUsqEwHSxf3Yq
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cabinet
 type: containergear

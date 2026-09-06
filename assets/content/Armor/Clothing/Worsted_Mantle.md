@@ -4,7 +4,6 @@ name:
   full: Worsted Mantle
   aliases: []
 description: "Tightly-spun wool mantle; durable, practical protective garment."
-id: MOPmmLBlIOSxmCFM
 img: icons/game-icons/delapouite/cape.svg
 shortcode: WMntl
 type: armorgear

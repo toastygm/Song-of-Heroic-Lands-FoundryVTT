@@ -6,7 +6,6 @@ name:
   full: Baboon
   aliases: []
 description: "A powerfully built, highly social monkey of the Kheperi lowlands, dwelling in rocky escarpments and river margins near human settlements."
-id: XVM9UHpPPciqBXFy
 img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/baboon-portrait.webp
 shortcode: baboon

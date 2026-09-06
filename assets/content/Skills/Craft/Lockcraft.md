@@ -4,7 +4,6 @@ name:
   full: Lockcraft
   aliases: []
 description: "Designing locks; picking or bypassing mechanical locking mechanisms."
-id: OWe6jR9RXag7ZMZk
 img: icons/game-icons/badges/lock.svg
 shortcode: lock
 type: skill

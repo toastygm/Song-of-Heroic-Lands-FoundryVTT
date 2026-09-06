@@ -4,7 +4,6 @@ name:
   full: "Jug, ceramic, 1 gallon"
   aliases: []
 description: "Narrow-necked earthenware jug with a loop handle for pouring (1 gallon)."
-id: sNcVwuK9RS6U02UG
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jugcer1gal
 type: containergear

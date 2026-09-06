@@ -6,7 +6,6 @@ name:
   full: Caracal
   aliases: []
 description: "A powerfully built desert hunting cat of the Khazryn steppe, prowling rocky scrubland and thorn thickets for prey it ambushes with explosive leaps."
-id: IDVdbQRzboB9CFFT
 img: icons/game-icons/delapouite/lynx-head.svg
 portrait: images/being/caracal-portrait.webp
 shortcode: caracal

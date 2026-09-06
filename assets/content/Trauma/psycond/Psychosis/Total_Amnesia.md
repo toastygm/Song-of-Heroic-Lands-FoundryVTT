@@ -3,7 +3,6 @@ tags: []
 name:
   full: Total Amnesia
   aliases: []
-id: omUTPahZRwHfuUJM
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: amnsttl
 type: trauma

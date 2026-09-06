@@ -4,7 +4,6 @@ name:
   full: Physical Exertion
   aliases: []
 description: "Acute windedness from sustained physical exertion."
-id: XLtLxA3TCiVJaNfw
 img: icons/game-icons/lorc/sleepy.svg
 shortcode: physex
 type: trauma

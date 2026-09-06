@@ -4,7 +4,6 @@ name:
   full: Cloth Mantle
   aliases: []
 description: "Simple cloth mantle offering comfort and warmth for everyday wear."
-id: rd55maq7o4pWapTo
 img: icons/game-icons/delapouite/cape.svg
 shortcode: CMntl
 type: armorgear

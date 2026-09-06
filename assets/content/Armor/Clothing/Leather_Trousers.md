@@ -4,7 +4,6 @@ name:
   full: Leather Trousers
   aliases: []
 description: "Full-length supple leather leg covering for travel and hard wear."
-id: SNtF2MK4cBRcwxLb
 img: icons/game-icons/lorc/trousers.svg
 shortcode: LtTrsr
 type: armorgear

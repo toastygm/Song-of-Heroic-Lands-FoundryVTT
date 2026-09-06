@@ -5,7 +5,6 @@ name:
   full: "Beads, ceramic, 12"
   aliases: []
 description: "Dozen fired clay beads, glazed in colour; cheap ornament and small trade goods."
-id: DXzm76bjrVFj91xZ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: beadscer12
 type: miscgear

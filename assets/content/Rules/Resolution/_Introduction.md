@@ -1,5 +1,4 @@
 ---
-id: hzGEcwoamHndfE66
 type: doc
 subType: rules
 name:

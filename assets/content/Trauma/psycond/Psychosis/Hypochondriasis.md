@@ -3,7 +3,6 @@ tags: []
 name:
   full: Hypochondriasis
   aliases: []
-id: arinP2yON8CuTUIV
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: hypochon
 type: trauma

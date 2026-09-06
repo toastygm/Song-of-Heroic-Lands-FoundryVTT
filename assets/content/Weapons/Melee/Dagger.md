@@ -4,7 +4,6 @@ name:
   full: Dagger
   aliases: []
 description: "Short double-edged blade for parry and stab; universal sidearm."
-id: HsKeZDZvLKxyrFr4
 img: icons/game-icons/lorc/broad-dagger.svg
 shortcode: Dgr
 type: weapongear

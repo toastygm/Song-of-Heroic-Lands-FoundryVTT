@@ -4,7 +4,6 @@ name:
   full: Padded Surcoat
   aliases: []
 description: "Cushioned outer layer providing warmth for cold weather conditions."
-id: vT3Orrr39P30i8R0
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: PScoat
 type: armorgear

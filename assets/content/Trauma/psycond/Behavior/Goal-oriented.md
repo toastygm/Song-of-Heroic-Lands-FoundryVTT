@@ -3,7 +3,6 @@ tags: []
 name:
   full: Goal-oriented
   aliases: []
-id: rqm9dILZX6cvw1Og
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: glrntd
 type: trauma

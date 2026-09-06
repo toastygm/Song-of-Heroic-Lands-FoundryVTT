@@ -4,7 +4,6 @@ name:
   full: Cloth Calf Boots
   aliases: []
 description: "Light, breathable cloth boots for casual wear and comfort."
-id: wg4u1iP8RxwdWSkj
 img: icons/game-icons/lorc/leather-boot.svg
 shortcode: CCBoot
 type: armorgear

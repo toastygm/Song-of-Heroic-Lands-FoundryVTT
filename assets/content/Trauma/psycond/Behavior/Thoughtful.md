@@ -3,7 +3,6 @@ tags: []
 name:
   full: Thoughtful
   aliases: []
-id: QKJifafRn6JWFMu9
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: thghtfl
 type: trauma

@@ -5,7 +5,6 @@ name:
   full: "Brooch, ivory"
   aliases: []
 description: "A pin and catch worked into a plate, worn to fasten a cloak at the shoulder, in carved ivory."
-id: YxWFVeXjiN0IGVNS
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: broochivory
 type: miscgear

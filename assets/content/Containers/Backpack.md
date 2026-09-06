@@ -4,7 +4,6 @@ name:
   full: Backpack
   aliases: []
 description: "Canvas or oiled-linen shoulder pack for travelers and soldiers."
-id: GeZ2eeMHMWQjU9xa
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: backpk
 type: containergear

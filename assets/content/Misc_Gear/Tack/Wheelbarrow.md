@@ -5,7 +5,6 @@ name:
   full: "Wheelbarrow"
   aliases: []
 description: "Single-wheeled barrow for moving earth, stone, or dung by hand."
-id: iByVnCgxI9PYd5GD
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wheelbarrow
 type: miscgear

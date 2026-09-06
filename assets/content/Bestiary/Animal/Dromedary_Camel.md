@@ -5,7 +5,6 @@ name:
   full: Dromedary Camel
   aliases: []
 description: "A one-humped desert transport animal engineered for the harshest arid wastes, faster than its two-humped cousin but far more nervous and aggressive."
-id: pnpVKwADEnFpUPcL
 img: icons/game-icons/delapouite/camel-head.svg
 portrait: images/being/drmdrycm-portrait.webp
 shortcode: drmdrycm

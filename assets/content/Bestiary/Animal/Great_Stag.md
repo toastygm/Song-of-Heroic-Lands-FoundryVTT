@@ -5,7 +5,6 @@ name:
   full: Great Stag
   aliases: []
 description: "A regal megafauna deer ruling deep temperate woodlands in herds, a dominant prime male built for unstoppable dominance through raw power."
-id: SqaOIArv8es9t6IF
 img: icons/game-icons/lorc/stag-head.svg
 portrait: images/being/grtstg-portrait.webp
 shortcode: grtstg

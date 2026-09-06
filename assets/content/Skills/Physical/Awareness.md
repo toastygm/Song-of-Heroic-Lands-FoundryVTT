@@ -4,7 +4,6 @@ name:
   full: Awareness
   aliases: []
 description: "Detecting movement, glint of metal, scents; opposing Stealth in vigilance."
-id: k81PKEq5iaHjsehi
 img: icons/game-icons/lorc/awareness.svg
 shortcode: awar
 type: skill

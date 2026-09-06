@@ -3,7 +3,6 @@ tags: []
 name:
   full: Left Dominance
   aliases: []
-id: 4Nm0R6l7HXN8tMoP
 img: icons/game-icons/lorc/hand.svg
 shortcode: ldmnc
 type: trauma

@@ -5,7 +5,6 @@ name:
   full: Viper
   aliases: []
 description: "A venomous ambush serpent, gram-for-gram among the deadliest creatures, killing prey larger than itself with precise, potent strikes."
-id: TscKeVS3HigBRoWZ
 img: icons/game-icons/lorc/snake.svg
 portrait: images/being/viper-portrait.webp
 shortcode: viper

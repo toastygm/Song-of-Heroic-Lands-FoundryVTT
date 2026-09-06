@@ -4,7 +4,6 @@ name:
   full: Scimitar
   aliases: []
 description: "Curved single-edged blade favors mounted slash; southern cavalry's efficiency."
-id: iZJd1F4KbMZe3nMR
 img: icons/game-icons/lorc/broadsword.svg
 shortcode: Scmtr
 type: weapongear

@@ -4,7 +4,6 @@ name:
   full: "Box, wooden, 12 x 8 x 6 in"
   aliases: []
 description: "Small carved wooden box with a fitted lid, for oddments and keepsakes."
-id: GEZqCccHJWaVglBq
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: boxwood
 type: containergear

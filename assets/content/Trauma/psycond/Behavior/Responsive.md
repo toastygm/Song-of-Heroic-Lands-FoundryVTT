@@ -3,7 +3,6 @@ tags: []
 name:
   full: Responsive
   aliases: []
-id: LH1loqMlF9CVW2n9
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: rspnsv
 type: trauma

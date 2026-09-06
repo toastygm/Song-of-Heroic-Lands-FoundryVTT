@@ -4,7 +4,6 @@ name:
   full: Limb Block
   aliases: []
 description: "Warding a blow with a limb — desperate bare-armed, deliberate in a mail sleeve."
-id: UnarmedLimbBlock
 img: icons/game-icons/lorc/arm-bandage.svg
 shortcode: limbblock
 type: skill

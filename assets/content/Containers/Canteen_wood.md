@@ -4,7 +4,6 @@ name:
   full: "Canteen, wood"
   aliases: []
 description: "Turned wooden canteen with a stopper."
-id: U8ZvsA5VU96eR642
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cantwood
 type: containergear

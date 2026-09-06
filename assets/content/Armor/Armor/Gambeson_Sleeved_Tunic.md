@@ -4,7 +4,6 @@ name:
   full: Gambeson Sleeved Tunic
   aliases: []
 description: "Padded tunic worn under armor or as standalone defense."
-id: 5tzICTsP83846l5l
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: GSTnc
 type: armorgear

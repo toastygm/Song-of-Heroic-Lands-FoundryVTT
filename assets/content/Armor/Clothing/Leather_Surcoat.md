@@ -4,7 +4,6 @@ name:
   full: Leather Surcoat
   aliases: []
 description: "Rugged styled leather outer layer offering minimal protection and flexibility."
-id: Zzr3NABNlG96U9ll
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: LtScoat
 type: armorgear

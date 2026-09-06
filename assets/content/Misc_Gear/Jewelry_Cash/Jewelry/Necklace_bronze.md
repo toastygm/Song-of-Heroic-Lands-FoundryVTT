@@ -5,7 +5,6 @@ name:
   full: "Necklace, bronze"
   aliases: []
 description: "Heavy bronze torc or chain; hard-wearing, and old among the tribal peoples."
-id: 0A6suaaSXu0ylM45
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: necklacebronze
 type: miscgear

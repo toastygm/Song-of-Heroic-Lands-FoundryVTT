@@ -4,7 +4,6 @@ name:
   full: Voice
   aliases: []
 description: "The musical quality of speech: timbre, pitch, and natural resonance."
-id: FnaXc1K99zsHxghH
 img: icons/game-icons/lorc/sing.svg
 shortcode: voi
 type: attribute

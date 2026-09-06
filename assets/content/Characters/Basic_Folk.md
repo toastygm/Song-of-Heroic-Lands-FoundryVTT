@@ -7,7 +7,6 @@ name:
   clan: Folk
   aliases: []
   home: ""
-id: d1cddnpaqRl0a0Q8
 packFolder: archetypes
 shortcode: basicfolk
 img: icons/game-icons/delapouite/person.svg

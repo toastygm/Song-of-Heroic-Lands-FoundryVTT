@@ -3,7 +3,6 @@ tags: []
 name:
   full: Morbus Monstruosus
   aliases: []
-id: mVwbl8ul2TZvwGd6
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: morbusmo
 type: trauma

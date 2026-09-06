@@ -3,7 +3,6 @@ tags: []
 name:
   full: Chronic Anger
   aliases: []
-id: RQjTqzkqElEYzwtd
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: angerchr
 type: trauma

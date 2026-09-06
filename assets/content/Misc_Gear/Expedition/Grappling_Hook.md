@@ -7,7 +7,6 @@ name:
     - Grapnel
     - "Hook, grappling"
 description: "Four-pronged iron hook for throwing over walls and ledges. Reusable if the line can be recovered."
-id: L9gPelify7nLTSWc
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: grphook
 type: miscgear

@@ -4,7 +4,6 @@ name:
   full: "Satchel, canvas, lg"
   aliases: []
 description: "Large canvas shoulder bag with a folding flap."
-id: FQFzTf4njsYQUe37
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: satchcvlg
 type: containergear

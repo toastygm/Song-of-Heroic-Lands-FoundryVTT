@@ -3,7 +3,6 @@ tags: []
 name:
   full: Dementia
   aliases: []
-id: 0chhkNL2KxIEXxeE
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: dementia
 type: trauma

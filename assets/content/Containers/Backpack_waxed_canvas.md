@@ -4,7 +4,6 @@ name:
   full: "Backpack, waxed canvas"
   aliases: []
 description: "Frameless waxed canvas pack; sheds rain."
-id: KwVn6hAB4XCBQbww
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: backpkwc
 type: containergear

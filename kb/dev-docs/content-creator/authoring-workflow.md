@@ -48,7 +48,6 @@ Every note, of every type, carries the same frontmatter envelope. Only the neste
 name:
   full: Ritual
 description: "Conducting ceremonies, rites, and worship services."
-id: K7tJynLhxSDiajCo
 img: icons/game-icons/delapouite/circle.svg
 shortcode: ritual
 type: skill
@@ -61,25 +60,26 @@ sohl:
 Prose goes here, and becomes this skill's write-up.
 ```
 
-| Field        | Required         | What it decides                                       |
-| ------------ | ---------------- | ----------------------------------------------------- |
-| `type:`      | yes              | Which compiler claims it                              |
-| `id:`        | yes¹             | The Foundry document `_id`                            |
-| `shortcode:` | for link targets | The note's logical identity, its address, and its URL |
-| `name.full`  | in practice      | The document's name                                   |
-| `folder:`    | no               | Which compendium folder the document sits in          |
-| `img:`       | no               | The document's artwork                                |
-| `pack:`      | no               | Which compendium of its type receives it              |
-| `sohl:`      | by type          | The type-specific fields                              |
+| Field        | Required         | What it decides                                             |
+| ------------ | ---------------- | ----------------------------------------------------------- |
+| `type:`      | yes              | Which compiler claims it                                    |
+| `id:`        | no¹              | Pins the Foundry document `_id`, which is otherwise derived |
+| `shortcode:` | for link targets | The note's logical identity, its address, and its URL       |
+| `name.full`  | in practice      | The document's name                                         |
+| `folder:`    | no               | Which compendium folder the document sits in                |
+| `img:`       | no               | The document's artwork                                      |
+| `pack:`      | no               | Which compendium of its type receives it                    |
+| `sohl:`      | by type          | The type-specific fields                                    |
 
-¹ `id:` is fatal for every pass but Journals, which is explained below.
+¹ No note in this tree authors one. `id:` is an escape hatch, explained below.
 
 **The order the compiler applies these is load-bearing**, because it decides
 which mistake produces which symptom. Each pass walks the whole content tree once
 and tests, in this order: first the **retired frontmatter fields** — `package:`,
 `draft:`, `aliases:`, `section:`, each refused by name — then whether the `type:`
-itself is retired, then whether this pass claims the type at all, then `id:`,
-then `pack:`, then the pass's own rejection rules. The retired fields come first
+itself is retired, then whether this pass claims the type at all, then whether
+the note has an **address** to derive an id from, then `pack:`, then the pass's
+own rejection rules. The retired fields come first
 deliberately, so a note carrying one is answered whichever pass would have
 claimed it; everything after that, a note rejected early never reaches.
 
@@ -130,23 +130,51 @@ first when a note does not appear.
 The types this system defines are listed in the
 [Type Catalog](../reference/type-catalog.md).
 
-## `id:` is the document's identity, and it is pinned by hand
+## The document's identity is derived from its address
 
-`id:` is a 16-character Foundry id, authored in the note and used **verbatim** as
-the compiled document's `_id` and its LevelDB `_key`. It is pinned rather than
-generated because a Foundry id is what every `@UUID` link, every world's imported
-copy, and every embedded reference resolves through: regenerate it and every
-inbound link dies.
+A note does **not** author its Foundry id. The compiled document's `_id` — and
+its LevelDB `_key` — is derived from the canonical address the note already has:
 
-A missing `id:` is **fatal** for every pass except Journals, where
-`static requiresId = false` — an unidentified journal note is prose that simply
-never became an entry, warned about and skipped.
+```
+_id = makeId("document", "<package>-<system>-<type>-<shortcode>")
+```
 
-**There is no format guard and no cross-note uniqueness guard on `id:`.** Nothing
-checks that the string is 16 characters, and nothing checks that two notes do not
-claim the same one. A duplicate surfaces only as an opaque LevelDB key collision
-at compile time, naming a key rather than the two notes that fought over it. Copy
-a note to start a new one and the first thing to change is its `id:`.
+So a note's identity is the same thing its address is, spelled once. The
+authored `id:` that every note used to carry was a _second_ identity for a thing
+that already had one: an opaque 16-character string that said nothing the
+address did not, could not be read or reviewed, and was guaranteed by nothing.
+The address is the identity the build already guards — `content-lint` refuses a
+duplicate `(type, shortcode)` across every pack of a document type, which is
+exactly the scope a document's id must be unique within — so the derived id
+inherits a guarantee the authored one never had (#1841).
+
+**A folder is not a primary document.** A `type: folder` note derives under its
+own namespace, over its own address form — `makeId("folder", "<package>-none-folder-<shortcode>")`
+— so that a folder and an item sharing a shortcode cannot silently collide.
+
+**What is fatal is having no address.** A note with no `type:` or no
+`shortcode:` is not addressable, so there is nothing to derive from and nothing
+for a link to point at. Every pass but Journals refuses it; Journals
+(`static requiresId = false`) warns and skips, so unaddressed prose is simply
+prose that never became an entry.
+
+**Copying a note to start a new one, the first thing to change is its
+`shortcode:`** — that is what makes it a different document now. Leave the
+shortcode and you have not copied a note, you have written the same one twice,
+and the address lint says so by name rather than leaving an opaque key collision
+to be decoded.
+
+### Pinning an `id:`, and the one reason to
+
+An authored `id:` **always wins**. It stays available as an escape hatch for the
+one case the derivation cannot serve: a document that must keep its identity
+**across a shortcode rename**. Because the address carries the shortcode,
+renaming one moves the derived id, where an authored id survived it — a real
+trade rather than a free win. A rename already breaks every wikilink to the
+note, so it is a breaking change either way; where the document's _identity_
+must nonetheless survive, pin the id it had, and say in a comment why.
+
+Pin nothing otherwise. No note in this tree pins an id today.
 
 ## `name:` — the display name
 
@@ -294,9 +322,10 @@ degrades to a named broken link rather than a bare UUID.
 
 Two passes write those two documents, and they share no state: the items pass
 writes the pointer, the journals pass writes the entry, and both derive the same
-ids from the item note's own `id:` — the entry's id is a hash of it, in a frozen
+ids from the item's own document id — the entry's id is a hash of it, in a frozen
 `"item-doc"` namespace, so the two are distinct documents whose UUIDs are never
-ambiguous.
+ambiguous. Neither pass can see the other's answer; they agree because both ask
+the same function what the note's document id is.
 
 The rule applies to every item type plus `macro` and the three map types. It does
 **not** apply to `doc` notes or `being` actors: each of those is a single

@@ -6,7 +6,6 @@ name:
   full: Oryx
   aliases: []
 description: "A large, powerful desert antelope surviving the most barren arid wastes of Dunhara where no other large herbivore can endure."
-id: gIK5jksNoWu7af9z
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/oryx-portrait.webp
 shortcode: oryx

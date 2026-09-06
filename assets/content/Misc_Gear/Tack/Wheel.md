@@ -5,7 +5,6 @@ name:
   full: "Wheel"
   aliases: []
 description: "Spoked and iron-tyred cart wheel; a specialist's work."
-id: zVbWfjc6nsUjZdly
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wheel
 type: miscgear

@@ -4,7 +4,6 @@ name:
   full: Runecraft
   aliases: []
 description: "Casting inscribed lots and reading a terse answer from how they fall."
-id: 2J0wXp8grPjaA70I
 img: icons/game-icons/lorc/rune-stone.svg
 shortcode: runecft
 type: mysticalability

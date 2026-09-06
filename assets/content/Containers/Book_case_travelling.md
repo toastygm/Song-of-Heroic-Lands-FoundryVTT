@@ -4,7 +4,6 @@ name:
   full: "Book case, travelling"
   aliases: []
 description: "Waxed leather shoulder case; shields travelling book and scribe's kit from weather."
-id: kAnS4ey4C89JF1z5
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bkcasetrv
 type: containergear

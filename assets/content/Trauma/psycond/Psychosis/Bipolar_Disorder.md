@@ -3,7 +3,6 @@ tags: []
 name:
   full: Bipolar Disorder
   aliases: []
-id: WrZR6A7q48YgAZxf
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: bipolar
 type: trauma

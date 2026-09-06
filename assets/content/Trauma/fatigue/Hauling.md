@@ -5,7 +5,6 @@ name:
   aliases:
     - Digging / Lifting
 description: "Acute windedness from heavy physical labor — digging, lifting, hauling loads."
-id: naZOIXcKpdq0E7ti
 img: icons/game-icons/lorc/sleepy.svg
 shortcode: haul
 type: trauma

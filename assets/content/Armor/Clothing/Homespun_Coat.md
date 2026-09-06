@@ -4,7 +4,6 @@ name:
   full: Homespun Coat
   aliases: []
 description: "Basic homemade coat providing warmth and simple protection."
-id: 7mJqopaHn7ktiskr
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: HsCoat
 type: armorgear

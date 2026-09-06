@@ -3,7 +3,6 @@ tags: []
 name:
   full: Dysphoria
   aliases: []
-id: v0ROwdXmKi6IguNH
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: dysphr
 type: trauma

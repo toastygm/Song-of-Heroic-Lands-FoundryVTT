@@ -3,7 +3,6 @@ tags: []
 name:
   full: Heliophobia
   aliases: []
-id: CnSrfzCfNcWtmrYO
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: heliophb
 type: trauma

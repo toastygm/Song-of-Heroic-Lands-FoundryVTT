@@ -3,7 +3,6 @@ tags: []
 name:
   full: Albinism
   aliases: []
-id: sCzXgO4xDCTBa2SS
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: albinism
 type: trauma

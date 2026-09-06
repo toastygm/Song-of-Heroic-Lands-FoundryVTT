@@ -5,7 +5,6 @@ name:
   full: Cup Wine
   aliases: []
 description: "Common wine in cup; less refined than aged vintages; for modest means."
-id: yOeQXM2FjXjqeSAG
 img: icons/game-icons/lorc/jeweled-chalice.svg
 shortcode: winecup
 type: miscgear

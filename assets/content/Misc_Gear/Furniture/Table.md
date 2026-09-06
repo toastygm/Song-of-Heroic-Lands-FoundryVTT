@@ -5,7 +5,6 @@ name:
   full: "Table"
   aliases: []
 description: "Trestle-mounted board seating several (roughly 4 x 6 feet)."
-id: tBK4sJeLBXaGIbdU
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: table
 type: miscgear

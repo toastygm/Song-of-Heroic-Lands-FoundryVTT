@@ -6,7 +6,6 @@ name:
   full: Cobra
   aliases: []
 description: "A large, fast venomous serpent of the Kheperi lowlands, haunting river margins, granaries, and ruins where its bite delivers swift death."
-id: NQZVX98HeA9QlGWY
 img: icons/game-icons/lorc/snake.svg
 portrait: images/being/cobra-portrait.webp
 shortcode: cobra

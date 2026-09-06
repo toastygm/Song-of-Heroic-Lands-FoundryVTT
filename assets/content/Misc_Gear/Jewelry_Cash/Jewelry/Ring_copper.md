@@ -5,7 +5,6 @@ name:
   full: "Ring, copper"
   aliases: []
 description: "Cheap copper band; stains the finger green, sold at every fair and festival."
-id: 4ZvIk54GUMAW9Xm2
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ringcopper
 type: miscgear

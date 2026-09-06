@@ -4,7 +4,6 @@ name:
   full: Ballista
   aliases: []
 description: "Heavy torsion bolt-thrower; four-crew engine that spits a shaft through shield, mail and man."
-id: IhGpmZNPjNmWyAnC
 img: icons/game-icons/lorc/aerodynamic-harpoon.svg
 shortcode: Ballsta
 type: weapongear

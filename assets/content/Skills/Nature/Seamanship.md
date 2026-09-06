@@ -4,7 +4,6 @@ name:
   full: Seamanship
   aliases: []
 description: "Operating sailing vessels on open water through sails, weather, and crew management."
-id: kcc6EipA4khnm9FB
 img: icons/game-icons/lorc/anchor.svg
 shortcode: smsh
 type: skill

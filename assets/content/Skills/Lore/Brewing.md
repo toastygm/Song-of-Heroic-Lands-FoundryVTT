@@ -4,7 +4,6 @@ name:
   full: Brewing
   aliases: []
 description: "Producing ales, wines, meads from ingredients; managing fermentation and aging."
-id: K0S3H3kzuwxmlSMj
 img: icons/game-icons/delapouite/barrel.svg
 shortcode: brew
 type: skill

@@ -7,7 +7,6 @@ name:
   aliases:
     - Ice Bear
 description: "The apex arctic predator of Nordheim, a solitary fifteen-hundred-pound hunter of ice and freezing water, a pure carnivore unlike the omnivorous brown bear."
-id: gFFrYYtroCDjUsx4
 img: icons/game-icons/cathelineau/polar-bear.svg
 portrait: images/being/plrbr-portrait.webp
 shortcode: plrbr

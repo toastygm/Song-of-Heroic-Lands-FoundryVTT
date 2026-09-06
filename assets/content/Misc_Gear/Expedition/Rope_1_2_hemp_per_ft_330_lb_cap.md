@@ -5,7 +5,6 @@ name:
   full: "Rope, ½” hemp, per ft (330 lb cap.)"
   aliases: []
 description: "Tarred hemp rope for shipboard, hoisting, and tethering pack animals."
-id: RwORU55bA3l73XEW
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: rope12hemp
 type: miscgear

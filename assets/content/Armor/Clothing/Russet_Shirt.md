@@ -4,7 +4,6 @@ name:
   full: Russet Shirt
   aliases: []
 description: "Reddish-brown wool shirt; basic cold-weather core."
-id: geIUiXJqAQ0J3vrb
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: RShirt
 type: armorgear

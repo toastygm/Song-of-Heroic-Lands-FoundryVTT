@@ -5,7 +5,6 @@ name:
   full: Steppe Lion
   aliases: []
 description: "A massive solitary ambush predator of open steppes, holding and fiercely defending enormous territories against all intruders."
-id: qzveOIr4oOPGkWen
 img: icons/game-icons/lorc/lion.svg
 portrait: images/being/stppln-portrait.webp
 shortcode: stppln

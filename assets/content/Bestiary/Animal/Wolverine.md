@@ -5,7 +5,6 @@ name:
   full: Wolverine
   aliases: []
 description: "A stocky, densely muscled northern predator infamous for fearlessly confronting beasts many times its size and refusing to retreat."
-id: bQLlmKIoRwxXeHV7
 img: icons/game-icons/caro-asercion/badger.svg
 portrait: images/being/wlvrn-portrait.webp
 shortcode: wlvrn

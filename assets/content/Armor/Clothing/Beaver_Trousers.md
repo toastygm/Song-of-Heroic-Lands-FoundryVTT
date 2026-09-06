@@ -4,7 +4,6 @@ name:
   full: Beaver Trousers
   aliases: []
 description: "Beaver fur leg-wear for hard winters."
-id: OharM1eI5i0JO4Qy
 img: icons/game-icons/lorc/trousers.svg
 shortcode: BvTrsr
 type: armorgear

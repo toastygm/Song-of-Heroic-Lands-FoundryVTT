@@ -5,7 +5,6 @@ name:
   full: "Beer, Hogshead"
   aliases: []
 description: "Weak sour small-beer; cheap garrison drink, prevents tainted water sickness."
-id: UcPGAwFF1kUSIZSw
 img: icons/game-icons/lorc/beer-stein.svg
 shortcode: beerhgsh
 type: miscgear

@@ -5,7 +5,6 @@ name:
   full: Hyena
   aliases: []
 description: "A muscular, endurance-built carnivore with a distinctive sloping back, weighing up to a hundred and sixty pounds and marked by a unique mottled coat."
-id: qWLJoGsN56qVG65C
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/hyena-portrait.webp
 shortcode: hyena

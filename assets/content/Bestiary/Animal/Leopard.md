@@ -6,7 +6,6 @@ name:
   full: Leopard
   aliases: []
 description: "A solitary, nocturnal ambush cat of the Kheperi hills and river forests, pound-for-pound among the strongest and most adaptable of all great cats."
-id: lJN45xvUq16hhJYG
 img: icons/game-icons/delapouite/feline.svg
 portrait: images/being/leopard-portrait.webp
 shortcode: leopard

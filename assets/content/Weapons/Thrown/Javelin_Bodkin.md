@@ -4,7 +4,6 @@ name:
   full: Javelin, Bodkin
   aliases: []
 description: "Bodkin-pointed throw-spear penetrates mail; cavalry-disruptor."
-id: Y5KlEXXYfWMtHgPn
 img: icons/game-icons/lorc/spears.svg
 shortcode: BodJav
 type: weapongear

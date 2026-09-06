@@ -3,7 +3,6 @@ tags: []
 name:
   full: Stubborn
   aliases: []
-id: LxWK9FMZRwSxLh9G
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: stubborn
 type: trauma

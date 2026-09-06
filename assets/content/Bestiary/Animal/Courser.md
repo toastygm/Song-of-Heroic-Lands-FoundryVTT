@@ -5,7 +5,6 @@ name:
   full: Courser
   aliases: []
 description: "A light, swift horse bred for speed and stamina, the nervous, quick-reacting mount favored by scouts, messengers, and light cavalry."
-id: inCsJVZjrrZVkpJI
 img: icons/game-icons/delapouite/horse-head.svg
 portrait: images/being/courser-portrait.webp
 shortcode: courser

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Practical
   aliases: []
-id: WyxYc20lGDaMlvyw
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: prctcl
 type: trauma

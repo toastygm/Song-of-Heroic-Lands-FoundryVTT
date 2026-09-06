@@ -5,7 +5,6 @@ name:
   aliases:
     - Punch
 description: "A closed fist — the plainest thing a person can do in a fight, and the weakest."
-id: XIQyx0G00NUQT7Wc
 img: icons/game-icons/lorc/punch-blast.svg
 shortcode: bflkpunch
 type: skill

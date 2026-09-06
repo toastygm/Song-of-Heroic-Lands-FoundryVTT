@@ -3,7 +3,6 @@ tags: []
 name:
   full: Introverted
   aliases: []
-id: h1Psv3FRv7zzHHsV
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: intrvrtd
 type: trauma

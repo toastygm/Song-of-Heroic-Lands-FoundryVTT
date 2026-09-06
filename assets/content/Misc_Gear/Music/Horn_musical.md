@@ -5,7 +5,6 @@ name:
   full: "Horn, musical"
   aliases: []
 description: "Polished ox or ram horn; mellow voice; blends with strings and woodwinds."
-id: IPNYN5Ni1sgfnEhN
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hornmusica
 type: miscgear

@@ -4,7 +4,6 @@ name:
   full: Singing
   aliases: []
 description: "Vocal performance with control of pitch, tone, and emotional expression."
-id: lH0RVKjTxtHEUacl
 img: icons/game-icons/lorc/sing.svg
 shortcode: sing
 type: skill

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Ptochophobia
   aliases: []
-id: uceP15CRf8VGeqKv
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: ptchphb
 type: trauma

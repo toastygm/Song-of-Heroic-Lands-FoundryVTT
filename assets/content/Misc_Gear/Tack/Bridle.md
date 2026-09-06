@@ -5,7 +5,6 @@ name:
   full: Bridle
   aliases: []
 description: "Leather straps and iron rings; fits horse's head, steers via reins."
-id: leaMQx2uJtxYoz3p
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bridle
 type: miscgear

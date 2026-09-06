@@ -8,7 +8,6 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bullet
-id: y4TUxJVQbQYoQThq
 shortcode: SSton
 img: icons/game-icons/delapouite/stone-pile.svg
 easyname: Stone

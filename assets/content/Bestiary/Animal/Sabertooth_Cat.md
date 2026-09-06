@@ -5,7 +5,6 @@ name:
   full: Sabertooth Cat
   aliases: []
 description: "A muscular ambush-hunting feline that fells prey far larger than itself through precision and raw power across grasslands and scrublands."
-id: pEWPIYv8UGQDka8v
 img: icons/game-icons/lorc/lion.svg
 portrait: images/being/sbrtthct-portrait.webp
 shortcode: sbrtthct

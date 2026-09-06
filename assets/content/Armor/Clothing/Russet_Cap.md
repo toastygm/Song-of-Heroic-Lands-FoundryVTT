@@ -4,7 +4,6 @@ name:
   full: Russet Cap
   aliases: []
 description: "Reddish-brown wool head-cover; practical and warm."
-id: VniQbQf43EWjwvoC
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: RCap
 type: armorgear

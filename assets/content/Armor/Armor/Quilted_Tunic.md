@@ -4,7 +4,6 @@ name:
   full: Quilted Tunic
   aliases: []
 description: "Padded tunic; stitched layers offer steady warmth."
-id: sMjM8hOQE942KIHM
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: QTnc
 type: armorgear

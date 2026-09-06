@@ -4,7 +4,6 @@ name:
   full: Buckram Breeches
   aliases: []
 description: "Stiff, glue-stiffened cloth breeches offering structured fit and durability."
-id: bIAeLCe2gqMADLHJ
 img: icons/game-icons/lorc/trousers.svg
 shortcode: BBrch
 type: armorgear

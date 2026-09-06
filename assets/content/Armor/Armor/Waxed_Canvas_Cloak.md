@@ -4,7 +4,6 @@ name:
   full: Waxed Canvas Cloak
   aliases: []
 description: "Wax-impregnated canvas cloak turning rain and spray."
-id: atpPTkf6vDVFi8yG
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: WxCvCloak
 type: armorgear

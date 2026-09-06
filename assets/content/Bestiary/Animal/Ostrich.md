@@ -6,7 +6,6 @@ name:
   full: Ostrich
   aliases: []
 description: "The largest living bird of Dunhara, a flightless seven-to-nine-foot desert runner carried on a pair of devastatingly powerful legs."
-id: a2TPhQDzEJLjlYMv
 img: icons/game-icons/delapouite/cassowary-head.svg
 portrait: images/being/ostrich-portrait.webp
 shortcode: ostrich

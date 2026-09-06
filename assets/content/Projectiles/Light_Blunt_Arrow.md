@@ -8,7 +8,6 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: arrow
-id: 8i5eKRDIguMJHsXx
 shortcode: ArwLBlt
 img: icons/game-icons/lorc/broadhead-arrow.svg
 easyname: Light Blunt

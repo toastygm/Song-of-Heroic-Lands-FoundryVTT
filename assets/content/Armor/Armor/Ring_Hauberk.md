@@ -4,7 +4,6 @@ name:
   full: Ring Hauberk
   aliases: []
 description: "Long leather coat with metal-ring overlay; full-torso and arm-coverage."
-id: 2WRRTmry66FkShmB
 img: icons/game-icons/willdabeast/chain-mail.svg
 shortcode: RHbk
 type: armorgear

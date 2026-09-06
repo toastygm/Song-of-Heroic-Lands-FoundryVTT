@@ -3,7 +3,6 @@ tags: []
 name:
   full: Cynophobia
   aliases: []
-id: UJ5TzXCiIWonuc8C
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: cynophb
 type: trauma

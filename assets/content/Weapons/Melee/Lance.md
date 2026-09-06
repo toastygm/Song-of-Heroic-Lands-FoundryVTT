@@ -4,7 +4,6 @@ name:
   full: Lance
   aliases: []
 description: "Long thrusting pole for couched cavalry charge; shield-breaker."
-id: QlzoUg52DEMEjkoo
 img: icons/game-icons/delapouite/cavalry.svg
 shortcode: Lnc
 type: weapongear

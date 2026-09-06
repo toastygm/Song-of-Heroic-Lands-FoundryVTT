@@ -4,7 +4,6 @@ name:
   full: Worsted Coat
   aliases: []
 description: "Tightly-spun wool coat; warm, durable garment for protection."
-id: u3NYaAHhodHlarUe
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: WCoat
 type: armorgear

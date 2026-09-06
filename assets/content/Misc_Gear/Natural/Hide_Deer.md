@@ -5,7 +5,6 @@ name:
   full: "Hide, Deer"
   aliases: []
 description: "Light supple deer hide; used for chamois, fine gloves, soft linings. Price is for one whole skin."
-id: L8JbTqte8ut24Ijz
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hidedeer
 type: miscgear

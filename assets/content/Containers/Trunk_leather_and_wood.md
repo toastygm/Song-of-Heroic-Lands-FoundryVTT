@@ -4,7 +4,6 @@ name:
   full: "Trunk, leather & wood"
   aliases: []
 description: "Leather-covered wooden travelling trunk."
-id: 27wiU6fj87LNFcPZ
 img: icons/game-icons/delapouite/chest.svg
 shortcode: trunklw
 type: containergear

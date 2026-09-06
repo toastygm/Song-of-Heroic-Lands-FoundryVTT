@@ -4,7 +4,6 @@ name:
   full: Eloquence
   aliases: []
 description: "The power of chosen words to convince, inspire, teach, or deceive."
-id: fqNqvvCDHQx44iCe
 img: icons/game-icons/delapouite/megaphone.svg
 shortcode: elo
 type: attribute

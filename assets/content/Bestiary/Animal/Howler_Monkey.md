@@ -6,7 +6,6 @@ name:
   full: Howler Monkey
   aliases: []
 description: "A large, heavily built canopy folivore of K'ich'chik's forests, living in troops and producing the loudest vocalization of any land animal."
-id: hakoBzpOt5uPwWkv
 img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/hwlrmnky-portrait.webp
 shortcode: hwlrmnky

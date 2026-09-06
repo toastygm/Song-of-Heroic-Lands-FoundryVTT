@@ -5,7 +5,6 @@ name:
   full: "Cage, iron, medium"
   aliases: []
 description: "Forged iron cage; holds child, large dog, or wounded beast securely."
-id: Y3FdfwnueaoSghMe
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cageironme
 type: miscgear

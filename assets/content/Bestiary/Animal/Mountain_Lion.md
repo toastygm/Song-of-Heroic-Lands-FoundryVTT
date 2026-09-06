@@ -5,7 +5,6 @@ name:
   full: Mountain Lion
   aliases: []
 description: "A lean, muscular solitary cat six to eight feet long, built for explosive speed and agility as it hunts across mountains and wilderness."
-id: izFUCMnqOWBiGfb5
 img: icons/game-icons/lorc/lion.svg
 portrait: images/being/mntnln-portrait.webp
 shortcode: mntnln

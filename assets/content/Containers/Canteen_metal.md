@@ -4,7 +4,6 @@ name:
   full: "Canteen, metal"
   aliases: []
 description: "Metal drinking canteen with a stopper."
-id: kX7bd6kDLmfeO3pP
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cantmetal
 type: containergear

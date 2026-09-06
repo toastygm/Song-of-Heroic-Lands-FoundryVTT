@@ -62,22 +62,21 @@ than a build that stops.
 type: macro
 name:
   full: Automated Attack
-id: HSNwLca3kMYLN3Ag
 shortcode: autoattack
 img: icons/game-icons/lorc/crossed-swords.svg
 folder: null
 ---
 ```
 
-| Key               | Meaning                                                                                                                                               |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | `macro` — this is what routes the note to the macros pack. It is **not** the Foundry macro type.                                                      |
-| `id`              | The Foundry document id of the Macro. The JournalEntry's id is derived from it.                                                                       |
-| `shortcode`       | The note's identity, and half of every address that reaches it.                                                                                       |
-| `img`             | Optional. A content-relative `icons/…` path is rooted under this system's assets; omitted, the macro takes Foundry's own `icons/svg/dice-target.svg`. |
-| `folder`          | A folder id declared in `assets/content/macro-folders.yaml`, or `null`.                                                                               |
-| `sohl.macroType`  | Optional; defaults to `script`. See below.                                                                                                            |
-| `sohl.macroScope` | Optional; defaults to `global`. One of `global`, `actors`, `actor`.                                                                                   |
+| Key               | Meaning                                                                                                                                                                                             |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`            | `macro` — this is what routes the note to the macros pack. It is **not** the Foundry macro type.                                                                                                    |
+| `id`              | Optional, and normally absent: the Macro's document id derives from its address, and the JournalEntry's id derives from that. Pin one only to keep a document's identity across a shortcode rename. |
+| `shortcode`       | The note's identity, and half of every address that reaches it.                                                                                                                                     |
+| `img`             | Optional. A content-relative `icons/…` path is rooted under this system's assets; omitted, the macro takes Foundry's own `icons/svg/dice-target.svg`.                                               |
+| `folder`          | A folder id declared in `assets/content/macro-folders.yaml`, or `null`.                                                                                                                             |
+| `sohl.macroType`  | Optional; defaults to `script`. See below.                                                                                                                                                          |
+| `sohl.macroScope` | Optional; defaults to `global`. One of `global`, `actors`, `actor`.                                                                                                                                 |
 
 ### `sohl.macroType` — and why `chat` is rejected
 

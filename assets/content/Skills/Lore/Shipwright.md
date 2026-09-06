@@ -4,7 +4,6 @@ name:
   full: Shipwright
   aliases: []
 description: "Designing and constructing watercraft from materials and structural principles."
-id: aw5d6qqKckJDsKHN
 img: icons/game-icons/delapouite/sailboat.svg
 shortcode: shpw
 type: skill

@@ -4,7 +4,6 @@ name:
   full: Alchemy
   aliases: []
 description: "Preparing elixirs and worked substances that carry mystical potency."
-id: uCTDMG4EGHB6dI5u
 img: icons/game-icons/lorc/bubbling-flask.svg
 shortcode: alch
 type: mysticalability

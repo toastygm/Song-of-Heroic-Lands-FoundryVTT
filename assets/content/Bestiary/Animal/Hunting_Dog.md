@@ -5,7 +5,6 @@ name:
   full: Hunting Dog
   aliases: []
 description: "A medium-sized, powerfully built canine bred to track and bring down prey, combining lean endurance with intelligence honed by generations of training."
-id: Po2VUAbp6OfYsojS
 img: icons/game-icons/lorc/hound.svg
 portrait: images/being/hntngdg-portrait.webp
 shortcode: hntngdg

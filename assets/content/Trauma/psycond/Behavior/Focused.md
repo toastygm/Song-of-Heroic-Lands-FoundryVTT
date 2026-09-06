@@ -3,7 +3,6 @@ tags: []
 name:
   full: Focused
   aliases: []
-id: SGu20H9HHfWtESm5
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: focused
 type: trauma

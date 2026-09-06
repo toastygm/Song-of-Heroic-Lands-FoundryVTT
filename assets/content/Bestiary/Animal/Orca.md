@@ -7,7 +7,6 @@ name:
   aliases:
     - Killer Whale
 description: "A massive, intelligent pack-hunting marine mammal and apex predator of every ocean, the most dangerous animal encounter possible on open water."
-id: HUbSiJXZrGu9Uz6t
 img: icons/game-icons/delapouite/sperm-whale.svg
 portrait: images/being/orca-portrait.webp
 shortcode: orca

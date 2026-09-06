@@ -4,7 +4,6 @@ name:
   full: Neurotoxin
   aliases: []
 description: "Nerve toxin; paralysis and convulsions; disrupts neurotransmission leading to respiratory failure."
-id: a2NK83QB7I2KVn1B
 img: icons/game-icons/lorc/poison-bottle.svg
 shortcode: nrotxn
 type: affliction

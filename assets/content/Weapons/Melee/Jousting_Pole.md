@@ -4,7 +4,6 @@ name:
   full: Jousting Pole
   aliases: []
 description: "Blunted tournament pole breaks cleanly; knight's horsemanship-testing reach."
-id: tTvMfFHzwX8SomqY
 img: icons/game-icons/delapouite/cavalry.svg
 shortcode: JPole
 type: weapongear

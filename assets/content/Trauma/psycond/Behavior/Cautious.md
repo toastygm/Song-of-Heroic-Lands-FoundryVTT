@@ -3,7 +3,6 @@ tags: []
 name:
   full: Cautious
   aliases: []
-id: 6tEe8fDexObE4xzg
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: cautious
 type: trauma

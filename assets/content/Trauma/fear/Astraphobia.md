@@ -3,7 +3,6 @@ tags: []
 name:
   full: Astraphobia
   aliases: []
-id: jLe9OLS9S0QHXDzJ
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: astrphb
 type: trauma

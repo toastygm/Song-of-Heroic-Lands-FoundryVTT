@@ -4,7 +4,6 @@ name:
   full: Padded Sleeved Tunic
   aliases: []
 description: "Cushioned sleeved garment for cold weather or under-armor protection."
-id: SomxyDzmbxABARDj
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: PSTnc
 type: armorgear

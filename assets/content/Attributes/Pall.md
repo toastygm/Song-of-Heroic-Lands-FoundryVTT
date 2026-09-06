@@ -4,7 +4,6 @@ name:
   full: Pall
   aliases: []
 description: "The weight of death and chaos an undead thing presses on the living world."
-id: zB8xoPCL2JkAATl8
 img: icons/game-icons/lorc/triple-skulls.svg
 shortcode: pal
 type: attribute

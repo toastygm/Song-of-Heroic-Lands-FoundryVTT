@@ -87,7 +87,7 @@ describe("the pack pipeline and the runtime agree on description pointers", () =
     /** The pointer the items pass writes for a note, derived exactly as it does. */
     function pointerFor(itemId: string, name: string, markdown: string): string {
         const [lead] = splitPages(markdown, name);
-        return itemDocPointer("sohl", itemId, name, journalPageId(itemDocEntryId(itemId), lead, 0));
+        return itemDocPointer("sohl", itemId, name, journalPageId(itemDocEntryId(itemId), lead));
     }
 
     it("is a pointer by the system's own rule", () => {

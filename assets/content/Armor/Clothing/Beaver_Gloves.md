@@ -4,7 +4,6 @@ name:
   full: Beaver Gloves
   aliases: []
 description: "Beaver fur gloves delivering warmth and luxury for the cold-season wearer."
-id: G8KuviTPi1xLDEiu
 img: icons/game-icons/delapouite/gloves.svg
 shortcode: BvGlv
 type: armorgear

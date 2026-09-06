@@ -4,7 +4,6 @@ name:
   full: "Wrappings, waxed canvas"
   aliases: []
 description: "Waxed canvas sheet for wrapping and waterproofing."
-id: ZXQAAzdCUNnlAUeW
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wrapwaxcv
 type: containergear

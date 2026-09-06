@@ -6,7 +6,6 @@ name:
   full: Ibex
   aliases: []
 description: "A powerfully built wild goat of the Dunharan cliffs, the supreme climbing specialist scaling sheer rock faces and canyon escarpments with ease."
-id: Mbqn2UmueYKKnynf
 img: icons/game-icons/skoll/goat.svg
 portrait: images/being/ibex-portrait.webp
 shortcode: ibex

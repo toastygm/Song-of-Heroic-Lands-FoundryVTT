@@ -4,7 +4,6 @@ name:
   full: Ermine Tunic
   aliases: []
 description: "Ermine-furred tunic; conspicuous wealth worn close."
-id: 6JcH1OOi0aPSAMeh
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: ETunic
 type: armorgear

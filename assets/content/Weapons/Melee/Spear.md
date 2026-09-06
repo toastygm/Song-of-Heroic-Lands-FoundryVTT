@@ -4,7 +4,6 @@ name:
   full: Spear
   aliases: []
 description: "Sharpened point on wood; universal polearm for thrust and formation."
-id: iMEmU8GZWVZ3QPUk
 img: icons/game-icons/lorc/spears.svg
 shortcode: Spr
 type: weapongear

@@ -5,7 +5,6 @@ name:
   full: "Spanner, windlass"
   aliases: []
 description: "Cranked cord-and-pulley windlass for the heaviest crossbows; tenfold draw."
-id: XJYw9rsf1HRoKwhx
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: spannerwindlass
 type: miscgear

@@ -4,7 +4,6 @@ name:
   full: Leather Loincloth
   aliases: []
 description: "Simple lightweight leather garment providing basic coverage and rugged charm."
-id: iFpcVvU8wlzkzMXx
 img: icons/game-icons/delapouite/loincloth.svg
 shortcode: LtLoin
 type: armorgear

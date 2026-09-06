@@ -3,7 +3,6 @@ tags: []
 name:
   full: Alfarphobia
   aliases: []
-id: o235CKClsOpdzKpy
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: alfrphb
 type: trauma

@@ -5,7 +5,6 @@ name:
   full: "Holy Symbol, brass"
   aliases: []
 description: "Cast brass token of a god, hung at the neck; the commonest metal symbol."
-id: 8AbOO1EXW3OqlDnH
 img: icons/game-icons/lorc/prayer.svg
 shortcode: holysymbrass
 type: miscgear

@@ -6,7 +6,6 @@ name:
   full: Onager
   aliases: []
 description: "A wild ass of the Khazryn steppe, a medium equine of legendary speed, endurance, and ferocity ranging across gravel plains and salt flats."
-id: GS7W7FIX26LUrAl2
 img: icons/game-icons/skoll/donkey.svg
 portrait: images/being/onager-portrait.webp
 shortcode: onager

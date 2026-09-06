@@ -4,7 +4,6 @@ name:
   full: Tuberculosis
   aliases: []
 description: "Contagious lung infection; persistent bloody cough, fever, wasting; airborne spread."
-id: YbNp8VymZVnrPf4h
 img: icons/game-icons/lorc/virus.svg
 shortcode: tbclos
 type: affliction

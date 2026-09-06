@@ -5,7 +5,6 @@ name:
   full: Destrier
   aliases: []
 description: "A colossal armored warhorse bred as a living fortress, carrying rider and full plate into the most violent battles without faltering."
-id: AYrEr6jrDy802WIf
 img: icons/game-icons/delapouite/horse-head.svg
 portrait: images/being/destrier-portrait.webp
 shortcode: destrier

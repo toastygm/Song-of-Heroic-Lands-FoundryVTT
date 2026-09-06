@@ -4,7 +4,6 @@ name:
   full: Quilted Cuisse
   aliases: []
 description: "Stitched thigh-guard; adds padding beneath heavier armor."
-id: LsTvYcobeFaVcrWy
 img: icons/game-icons/lorc/trousers.svg
 shortcode: QCui
 type: armorgear

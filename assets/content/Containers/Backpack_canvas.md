@@ -4,7 +4,6 @@ name:
   full: "Backpack, canvas"
   aliases: []
 description: "Frameless canvas pack with shoulder straps."
-id: THDUNmOywp4itxBv
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: backpkcvs
 type: containergear

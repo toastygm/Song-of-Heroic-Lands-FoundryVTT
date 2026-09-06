@@ -3,7 +3,6 @@ tags: []
 name:
   full: Allergy
   aliases: []
-id: 7aCydF9HDL1GT8Nh
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: alrgmjr
 type: trauma

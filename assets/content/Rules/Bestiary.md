@@ -1,6 +1,5 @@
 ---
 tags: []
-id: w21JSRk0uXGTaznQ
 name:
   full: Bestiary
   aliases: []

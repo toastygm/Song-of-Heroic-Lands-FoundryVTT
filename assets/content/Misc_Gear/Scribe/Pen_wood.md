@@ -5,7 +5,6 @@ name:
   full: "Pen, wood"
   aliases: []
 description: "Fruitwood or ash charred tip; cheap disposable; suits paper, cloth, tallies."
-id: 3NgXytL5BdmDWQzH
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: penwood
 type: miscgear

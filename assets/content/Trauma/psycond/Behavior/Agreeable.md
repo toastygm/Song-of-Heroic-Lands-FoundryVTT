@@ -3,7 +3,6 @@ tags: []
 name:
   full: Agreeable
   aliases: []
-id: NRCshSzJzZWPjJKf
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: agree
 type: trauma

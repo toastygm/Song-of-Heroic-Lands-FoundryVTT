@@ -5,7 +5,6 @@ name:
   full: Pence
   aliases: []
 description: "Alloyed silver coin, everyday currency of trade; worth its face, not its metal."
-id: u3ezQ6GIIHgRMhZz
 img: icons/game-icons/badges/coins.svg
 shortcode: pence
 type: miscgear

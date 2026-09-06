@@ -3,7 +3,6 @@ tags: []
 name:
   full: Compulsive Disclosure
   aliases: []
-id: cdUAhDMigdEaouPr
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: cmpldsr
 type: trauma
