@@ -8,12 +8,13 @@ id: Q3zaG4MFlXnGiqrg
 img: icons/game-icons/delapouite/knee-pad.svg
 shortcode: PlKncp
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: plate
-  archetype: 0
   armorType: Kneecops
   detailMaterial: Plate
   material: Plate

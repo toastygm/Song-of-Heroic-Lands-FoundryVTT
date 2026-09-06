@@ -9,12 +9,13 @@ id: e2XKT96x3d8Ukskg
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jewelerssc
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 5
   value: 72

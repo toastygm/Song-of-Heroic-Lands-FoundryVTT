@@ -8,12 +8,13 @@ id: azl99CUBdZoB3lgj
 img: icons/game-icons/lorc/trousers.svg
 shortcode: RBrch
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Breeches
   detailMaterial: Russet
   material: Cloth

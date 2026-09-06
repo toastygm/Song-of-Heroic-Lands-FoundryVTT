@@ -9,12 +9,13 @@ id: 4xIUw3hLj0ijS5VS
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: breadryelo
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mill
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 0.25

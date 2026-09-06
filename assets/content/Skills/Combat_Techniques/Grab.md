@@ -8,10 +8,11 @@ id: T18G4LaTXd0AQ3qM
 img: icons/game-icons/lorc/grab.svg
 shortcode: bflkgrab
 type: skill
+data:
+  templatePriority: 0
 subType: combattechnique
 sohl:
   kbcat: unarmed
-  archetype: 0
   skillBaseFormula: "sb(attr.dex, attr.agl)"
   combatCategory: melee
   parentSkillCode: ""

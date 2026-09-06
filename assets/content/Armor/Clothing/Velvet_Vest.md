@@ -8,12 +8,13 @@ id: VGvgfQpTZRDWUmTX
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: VVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Vest
   detailMaterial: Velvet
   material: Cloth

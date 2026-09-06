@@ -9,12 +9,13 @@ id: MWtDunXasiSfpBca
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: nailspacko
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 7
   value: 2

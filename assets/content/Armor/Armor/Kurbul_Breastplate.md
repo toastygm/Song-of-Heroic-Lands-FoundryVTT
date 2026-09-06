@@ -8,12 +8,13 @@ id: HiUQP9aeolV45y4R
 img: icons/game-icons/lorc/breastplate.svg
 shortcode: KBrst
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Breastplate
   detailMaterial: Kûrbúl
   material: Kûrbúl

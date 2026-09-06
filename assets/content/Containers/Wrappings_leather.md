@@ -8,11 +8,12 @@ id: dSyzpkeYxn8n52xF
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wrapleath
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
-  archetype: 0
   quality: 0
   durability: 4
   maxCapacity: 2

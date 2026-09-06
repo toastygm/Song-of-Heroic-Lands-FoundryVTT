@@ -9,12 +9,13 @@ id: P1BWxECTXvblbBfV
 img: icons/game-icons/delapouite/herbs-bundle.svg
 shortcode: garlic
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: agri
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 3
   value: 9

@@ -8,11 +8,12 @@ id: kAnS4ey4C89JF1z5
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bkcasetrv
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 8
   maxCapacity: 8

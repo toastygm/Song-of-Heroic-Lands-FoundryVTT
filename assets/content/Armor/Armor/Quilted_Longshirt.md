@@ -8,12 +8,13 @@ id: r9QbAH4YA5kaQq6f
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: QLgSht
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: quilted
-  archetype: 0
   armorType: Longshirt
   detailMaterial: Quilted
   material: Quilted

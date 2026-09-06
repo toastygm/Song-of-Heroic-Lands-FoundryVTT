@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Stout ash shaft, wood or bronze knob; breaks bone, stuns boar."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: arrow
 id: JE3pQL3kK5ZJyRni
 shortcode: ArwHBlt
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1.5

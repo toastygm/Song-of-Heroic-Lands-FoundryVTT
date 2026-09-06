@@ -8,12 +8,13 @@ id: Mjh9J4AgtbmlL0OP
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: BvVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Vest
   detailMaterial: Beaver
   material: Leather

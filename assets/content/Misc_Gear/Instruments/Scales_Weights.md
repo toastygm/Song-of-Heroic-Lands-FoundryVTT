@@ -9,12 +9,13 @@ id: bilPNNYuuQW9jZa9
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: scalesweig
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 7
   value: 144

@@ -12,9 +12,10 @@ img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/seal-portrait.webp
 shortcode: seal
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+6
     end: 1d6+8

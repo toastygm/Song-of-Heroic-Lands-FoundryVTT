@@ -8,11 +8,12 @@ id: U8ZvsA5VU96eR642
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cantwood
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 4
   maxCapacity: 2

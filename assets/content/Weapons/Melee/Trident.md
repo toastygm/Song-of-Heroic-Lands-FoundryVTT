@@ -8,12 +8,13 @@ id: 3ifIDzsp6chxC60S
 img: icons/game-icons/lorc/trident.svg
 shortcode: Tri
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: polearm
-  archetype: 0
   durability: 12
   weight: 6
   value: 75

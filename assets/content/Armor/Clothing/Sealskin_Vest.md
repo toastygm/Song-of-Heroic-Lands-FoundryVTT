@@ -8,12 +8,13 @@ id: wbOxCZK4RdY680A2
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: SlsVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Vest
   detailMaterial: Sealskin
   material: Leather

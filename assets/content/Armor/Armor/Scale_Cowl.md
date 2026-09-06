@@ -8,12 +8,13 @@ id: 8qyc91Lhgug9jCe4
 img: icons/game-icons/lorc/hood.svg
 shortcode: SCwl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide, mtlc]
   kbcat: scale
-  archetype: 0
   armorType: Cowl
   detailMaterial: Scale
   material: Scale

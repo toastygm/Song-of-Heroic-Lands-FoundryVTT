@@ -15,6 +15,8 @@ shortcode: brunjarskathhel
 img: icons/game-icons/delapouite/person.svg
 portrait: images/being/brunjarskathhel-portrait.webp
 type: being
+data:
+  templatePriority: null
 social:
   occupation: Brigand
   station: underworld
@@ -42,7 +44,6 @@ traits:
       - fidgets constantly
 sohl:
   kbcat: npc
-  archetype: null
   body:
     structure:
       zones:

@@ -10,9 +10,10 @@ img: icons/game-icons/skoll/donkey.svg
 portrait: images/being/mule-portrait.webp
 shortcode: mule
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+22
     end: 1d6+9

@@ -9,12 +9,13 @@ id: 6h9UedIBm0jR4IBT
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: spikes
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 8
   value: 1.25

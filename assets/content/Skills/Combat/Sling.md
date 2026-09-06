@@ -8,10 +8,11 @@ id: 7BpaZQE9sEtgmAx5
 img: icons/game-icons/delapouite/sling.svg
 shortcode: slng
 type: skill
+data:
+  templatePriority: 0
 subType: combat
 sohl:
   kbcat: combat
-  archetype: 0
   skillBaseFormula: "sb(attr.dex, attr.per)"
   combatCategory: missile
   parentSkillCode: ""

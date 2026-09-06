@@ -9,12 +9,13 @@ id: 8PydDHdaudrYFyNT
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: oilcinnamon
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: pfmy
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 0
   value: 60

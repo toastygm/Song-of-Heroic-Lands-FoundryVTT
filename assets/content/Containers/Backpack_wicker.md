@@ -8,11 +8,12 @@ id: 6k6zeUV9LPKpilxi
 img: icons/game-icons/delapouite/basket.svg
 shortcode: backpkwck
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 5
   maxCapacity: 25

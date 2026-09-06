@@ -8,8 +8,9 @@ id: IQ6sKftvOoHAJOi5
 img: icons/game-icons/lorc/cartwheel.svg
 shortcode: agl
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Blundering:4

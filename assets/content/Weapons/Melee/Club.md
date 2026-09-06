@@ -8,12 +8,13 @@ id: WQ8RiH00iAP3K2Cl
 img: icons/game-icons/badges/club.svg
 shortcode: Clb
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: club
-  archetype: 0
   durability: 9
   weight: 3
   value: 12

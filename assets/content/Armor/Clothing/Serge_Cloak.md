@@ -8,12 +8,13 @@ id: fBhL7l3btLPu1moz
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: SgClk
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cloak
   detailMaterial: Serge
   material: Cloth

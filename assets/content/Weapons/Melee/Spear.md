@@ -8,12 +8,13 @@ id: iMEmU8GZWVZ3QPUk
 img: icons/game-icons/lorc/spears.svg
 shortcode: Spr
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: polearm
-  archetype: 0
   durability: 11
   weight: 4
   value: 60

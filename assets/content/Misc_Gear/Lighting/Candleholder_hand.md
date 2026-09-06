@@ -9,12 +9,13 @@ id: 4fZI1WVjyq4sN02V
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: candlehold
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: lighting
-  archetype: 0
   quality: 0
   durability: 4
   value: 4

@@ -8,12 +8,13 @@ id: 7sfKMsj67RzZGgbJ
 img: icons/game-icons/delapouite/cook.svg
 shortcode: RhApr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Blacksmith Apron
   detailMaterial: Rawhide
   material: Leather

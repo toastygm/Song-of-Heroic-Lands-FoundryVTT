@@ -532,7 +532,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
             itemName: this.document.name,
             itemImg: this.document.img,
             typeLabel: this.document.logic?.typeLabel,
-            archetype: (this.document.system as any)?.archetype ?? null,
+            templatePriority: (this.document.system as any)?.templatePriority ?? null,
             canMarkArchetype: canMarkArchetype(fvttIsCurrentUserGM(), this.document.isEmbedded),
         });
     }

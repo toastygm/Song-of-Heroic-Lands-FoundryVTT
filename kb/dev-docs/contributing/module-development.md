@@ -268,12 +268,16 @@ data — a module contributes them without any code.
 **Specify a new archetype.** Ship an Actor or Item in your module's compendium
 pack with two things:
 
-- `system.archetype` set to a **number** (its priority), and
+- `system.templatePriority` set to a **number** (its priority), and
 - a stable, meaningful `system.shortcode`.
 
-`system.archetype` defaults to `null`, which means "not an archetype". Note that
+`system.templatePriority` defaults to `null`, which means "not an archetype". Note that
 `0` is a real priority, not a blank — SoHL's own archetypes ship at it — so
 never test the value for truthiness.
+
+The field was named `system.archetype` before issue #1836, and a pack that still
+emits that name keeps being discovered — but emit the new one, because the old
+spelling is read only as a compatibility fallback.
 
 It then appears automatically in the Create picker for its `type` (and `subType`),
 alongside the shipped archetypes. A brand-new archetype with a **fresh shortcode**
@@ -281,7 +285,7 @@ needs no particular priority value — it shows up regardless of priority.
 
 **Override an existing archetype (prioritization).** To replace a shipped (or
 another module's) archetype rather than add a new one, ship a document with the
-**same `shortcode`** as the target and a **higher `system.archetype` priority**
+**same `shortcode`** as the target and a **higher `system.templatePriority`**
 than the one you are overriding:
 
 - SoHL ships its stock archetypes at **priority 0**, so **any positive number**
@@ -300,10 +304,10 @@ The display **name** is free to vary or be localized — the picker labels optio
 `Name (shortcode)` precisely because dedup can collapse divergent names.
 
 A GM can set the same field from the sheet: every Actor and Item sheet header
-carries a GM-only **Archetype Priority** control bound to `system.archetype`
+carries a GM-only **Archetype Priority** control bound to `system.templatePriority`
 (on the Being sheet it is in the header's identity dialog).
 
-See [Extension Points → Create-dialog archetypes](../how-to/extension-points.md#10-create-dialog-archetypes-systemarchetype)
+See [Extension Points → Create-dialog archetypes](../how-to/extension-points.md#10-create-dialog-archetypes-systemtemplatepriority)
 for the full contract, the Foundry-free discovery helper, and the
 instantiation-clears / copy-preserves boundary.
 

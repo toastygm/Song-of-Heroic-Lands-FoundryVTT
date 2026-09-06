@@ -9,12 +9,13 @@ id: DH8AbckWaXc27pSf
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: millstone
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: stone
-  archetype: 0
   quality: 0
   durability: 10
   value: 250

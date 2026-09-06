@@ -8,12 +8,13 @@ id: e6dlqgRLYAwuecer
 img: icons/game-icons/delapouite/cape.svg
 shortcode: QMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: quilted
-  archetype: 0
   armorType: Mantle
   detailMaterial: Quilted
   material: Quilted

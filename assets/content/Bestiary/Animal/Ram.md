@@ -10,9 +10,10 @@ img: icons/game-icons/delapouite/sheep.svg
 portrait: images/being/ramanml-portrait.webp
 shortcode: ramanml
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+13
     end: 1d6+11

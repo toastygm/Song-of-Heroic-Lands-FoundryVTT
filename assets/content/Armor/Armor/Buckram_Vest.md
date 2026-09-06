@@ -8,12 +8,13 @@ id: 6z8YBH8EKWdilDr1
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: BVest
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Vest
   detailMaterial: Buckram
   material: Cloth

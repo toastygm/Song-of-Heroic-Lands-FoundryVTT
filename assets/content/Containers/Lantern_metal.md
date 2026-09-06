@@ -8,11 +8,12 @@ id: s7p1cuaBcrUheB7Q
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lanternmet
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
-  archetype: 0
   quality: 0
   durability: 7
   maxCapacity: 0.125

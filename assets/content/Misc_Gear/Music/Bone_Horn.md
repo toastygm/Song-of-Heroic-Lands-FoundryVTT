@@ -9,12 +9,13 @@ id: ouFBUlaNt8q0AK9r
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bonehorn
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 4
   value: 1

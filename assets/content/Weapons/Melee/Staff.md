@@ -8,12 +8,13 @@ id: VSEtx8k1V7TQE4a2
 img: icons/game-icons/delapouite/bo.svg
 shortcode: Stf
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: polearm
-  archetype: 0
   durability: 11
   weight: 4
   value: 25

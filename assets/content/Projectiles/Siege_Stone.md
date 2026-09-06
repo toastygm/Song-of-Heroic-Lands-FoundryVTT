@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Dressed round shot for an engine; a stone the weight of a man."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: bullet
 id: Iwb9HCPzqn4nEsPF
 shortcode: StnSge
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: srvl
     secondary: []
-  archetype: 0
   quality: 0
   durability: 15
   value: 0.5

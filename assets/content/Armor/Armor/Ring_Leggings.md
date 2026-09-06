@@ -8,12 +8,13 @@ id: OUoL2vBQsFHCkWNg
 img: icons/game-icons/lorc/trousers.svg
 shortcode: RnLeg
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: ring
-  archetype: 0
   armorType: Leggings
   detailMaterial: Ring
   material: Ring

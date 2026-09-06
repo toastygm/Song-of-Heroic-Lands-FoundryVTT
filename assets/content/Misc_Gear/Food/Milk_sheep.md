@@ -9,12 +9,13 @@ id: 0Zp6RfWRMfMV0OV4
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: milksheep
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: anmcft
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 2

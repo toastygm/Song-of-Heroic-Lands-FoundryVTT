@@ -8,12 +8,13 @@ id: e2yTJarkknsljlVb
 img: icons/game-icons/lorc/battle-axe.svg
 shortcode: BAxe
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: axe
-  archetype: 0
   durability: 12
   weight: 6
   value: 110

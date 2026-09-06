@@ -10,9 +10,10 @@ img: icons/game-icons/delapouite/gorilla.svg
 portrait: images/being/gorilla-portrait.webp
 shortcode: gorilla
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+21
     end: 1d6+15

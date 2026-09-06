@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Iron-headed shaft the length of a leg; loosed by engine, not by arm."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: bolt
 id: fJJTg0753k90BL8K
 shortcode: BltSge
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 12
   value: 2

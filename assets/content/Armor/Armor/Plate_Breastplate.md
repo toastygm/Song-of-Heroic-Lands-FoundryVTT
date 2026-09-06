@@ -8,12 +8,13 @@ id: AKegqYRvVNwdSREm
 img: icons/game-icons/lorc/breastplate.svg
 shortcode: PlBreast
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: plate
-  archetype: 0
   armorType: Breastplate
   detailMaterial: Plate
   material: Plate

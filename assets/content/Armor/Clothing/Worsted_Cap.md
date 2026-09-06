@@ -8,12 +8,13 @@ id: 8UDoUj75sDQCJX84
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: WCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cap
   detailMaterial: Worsted
   material: Cloth

@@ -8,12 +8,13 @@ id: Y5KlEXXYfWMtHgPn
 img: icons/game-icons/lorc/spears.svg
 shortcode: BodJav
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: thrown
-  archetype: 0
   durability: 10
   weight: 3
   value: 40

@@ -8,12 +8,13 @@ id: HikmN8O8IKCyIKhJ
 img: icons/game-icons/delapouite/cape.svg
 shortcode: LtMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Mantle
   detailMaterial: Leather
   material: Leather

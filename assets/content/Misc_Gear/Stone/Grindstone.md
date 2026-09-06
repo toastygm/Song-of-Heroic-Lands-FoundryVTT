@@ -9,12 +9,13 @@ id: nQT6C02fyJ2zGIXN
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: grindstone
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: masn
     secondary: []
   kbcat: stone
-  archetype: 0
   quality: 0
   durability: 8
   value: 12

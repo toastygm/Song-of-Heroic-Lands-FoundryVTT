@@ -8,12 +8,13 @@ id: TADxuXZx0WtG2rmG
 img: icons/game-icons/lorc/battle-axe.svg
 shortcode: WAxe
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: [wood]
   kbcat: axe
-  archetype: 0
   durability: 9
   weight: 5
   value: 12

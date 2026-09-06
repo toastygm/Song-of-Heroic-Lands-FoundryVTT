@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Smooth river pebble or kiln-fired clay; cracks skulls, breaks hound legs."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: bullet
 id: y4TUxJVQbQYoQThq
 shortcode: SSton
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: srvl
     secondary: []
-  archetype: 0
   quality: 0
   durability: 10
   value: 0.16

@@ -9,12 +9,13 @@ id: de4DsKw4taBx3V5U
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: woodwrkkit
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 7
   value: 48

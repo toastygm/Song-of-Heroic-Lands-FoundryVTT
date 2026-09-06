@@ -10,9 +10,10 @@ img: icons/game-icons/delapouite/camel-head.svg
 portrait: images/being/drmdrycm-portrait.webp
 shortcode: drmdrycm
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+25
     end: 1d6+11

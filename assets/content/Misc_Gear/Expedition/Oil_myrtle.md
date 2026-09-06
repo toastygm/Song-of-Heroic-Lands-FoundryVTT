@@ -9,12 +9,13 @@ id: 07EJGE9VTPDZzDJt
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: oilmyrtle
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: pfmy
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 0
   value: 25

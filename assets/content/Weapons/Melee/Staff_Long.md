@@ -8,12 +8,13 @@ id: ae7BXc7eg3BDvawN
 img: icons/game-icons/lorc/halberd.svg
 shortcode: LStf
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: polearm
-  archetype: 0
   durability: 11
   weight: 5
   value: 30

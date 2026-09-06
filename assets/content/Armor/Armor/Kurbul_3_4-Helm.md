@@ -8,12 +8,13 @@ id: nC7j4q4v8570Yuam
 img: icons/game-icons/lorc/crested-helmet.svg
 shortcode: K34Hlm
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: 3/4-Helm
   detailMaterial: Kûrbúl
   material: Kûrbúl

@@ -14,6 +14,8 @@ shortcode: aldrikharvenar
 img: icons/game-icons/delapouite/person.svg
 portrait: images/being/aldrikharvenar-portrait.webp
 type: being
+data:
+  templatePriority: null
 social:
   occupation: Man-at-Arms
   station: soldiery
@@ -52,7 +54,6 @@ gear:
     - Bandg:3
 sohl:
   kbcat: npc
-  archetype: null
   body:
     structure:
       zones:

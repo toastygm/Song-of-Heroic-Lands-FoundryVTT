@@ -8,12 +8,13 @@ id: 6sMhJOZtw58Ax8GJ
 img: icons/game-icons/delapouite/cook.svg
 shortcode: VApn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Apron
   detailMaterial: Velvet
   material: Cloth

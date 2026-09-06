@@ -8,12 +8,13 @@ id: 2HaRpzRlD3asHmPc
 img: icons/game-icons/lorc/robe.svg
 shortcode: BvRobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Robe
   detailMaterial: Beaver
   material: Leather

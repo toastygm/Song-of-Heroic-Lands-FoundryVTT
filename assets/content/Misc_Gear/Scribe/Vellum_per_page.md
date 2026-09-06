@@ -9,12 +9,13 @@ id: V7QZuj6IcixIikhT
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: vellumperp
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: scribe
-  archetype: 0
   quality: 0
   durability: 3
   value: 1

@@ -8,10 +8,11 @@ id: 2oOsN38lUZHGDinC
 img: icons/game-icons/lorc/cloak-dagger.svg
 shortcode: intr
 type: skill
+data:
+  templatePriority: 0
 subType: social
 sohl:
   kbcat: social
-  archetype: 0
   skillBaseFormula: "sb(attr.emp, attr.rea)"
   combatCategory: none
   parentSkillCode: ""

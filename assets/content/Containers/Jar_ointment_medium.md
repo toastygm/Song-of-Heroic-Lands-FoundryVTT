@@ -8,11 +8,12 @@ id: L1gk9O7a3TGurUh4
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jarointmen2
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cmcs
     secondary: []
-  archetype: 0
   quality: 0
   durability: 3
   maxCapacity: 0.125

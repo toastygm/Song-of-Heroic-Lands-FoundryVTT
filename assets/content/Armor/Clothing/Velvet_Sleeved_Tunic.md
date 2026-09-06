@@ -8,12 +8,13 @@ id: fvwoslsqCB3UbxZP
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: VSTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Velvet
   material: Cloth

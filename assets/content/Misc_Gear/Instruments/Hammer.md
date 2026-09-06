@@ -9,12 +9,13 @@ id: Zm4njdqySFmkO40G
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hammer
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 8
   value: 12

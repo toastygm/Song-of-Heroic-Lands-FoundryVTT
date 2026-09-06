@@ -8,10 +8,11 @@ id: gWcGga86UIFpqRsG
 img: icons/game-icons/lorc/scroll-unfurled.svg
 shortcode: script
 type: skill
+data:
+  templatePriority: 0
 subType: script
 sohl:
   kbcat: script
-  archetype: 0
   skillBaseFormula: "sb(attr.rea, attr.per)"
   combatCategory: none
   parentSkillCode: ""

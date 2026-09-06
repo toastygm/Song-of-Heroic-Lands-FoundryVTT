@@ -8,10 +8,11 @@ id: 3yd91D3xc5ygiWLQ
 img: icons/game-icons/lorc/sleepy.svg
 shortcode: infect
 type: trauma
+data:
+  templatePriority: 0
 subType: fatigue
 sohl:
   kbcat: fatigue
-  archetype: 0
   category: weakness
   levelBase: 1
   healingRateBase: 1

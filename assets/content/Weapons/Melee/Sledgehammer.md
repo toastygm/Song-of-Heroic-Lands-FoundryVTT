@@ -8,12 +8,13 @@ id: GMeZ3QQhjRo51MKk
 img: icons/game-icons/lorc/claw-hammer.svg
 shortcode: SlgHmr
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: [wood]
   kbcat: axe
-  archetype: 0
   durability: 10
   weight: 6
   value: 25

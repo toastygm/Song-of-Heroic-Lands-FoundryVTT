@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/orngtn-portrait.webp
 shortcode: orngtn
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+15
     end: 1d6+11

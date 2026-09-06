@@ -8,12 +8,13 @@ id: 6sIPe9G3RJRjQrAz
 img: icons/game-icons/delapouite/greaves.svg
 shortcode: KGrvs
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Greaves
   detailMaterial: Kûrbúl
   material: Kûrbúl

@@ -8,12 +8,13 @@ id: 0ZrCUWYiONN27h3c
 img: icons/game-icons/delapouite/gauntlet.svg
 shortcode: RhGntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Gauntlets
   detailMaterial: Rawhide
   material: Leather

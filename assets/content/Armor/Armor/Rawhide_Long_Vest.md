@@ -8,12 +8,13 @@ id: perxrV5Qoquc4DOq
 img: icons/game-icons/delapouite/leather-armor.svg
 shortcode: RhLngVst
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Long Vest
   detailMaterial: Rawhide
   material: Leather

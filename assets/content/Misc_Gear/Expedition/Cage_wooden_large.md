@@ -9,12 +9,13 @@ id: 0eiMuSA61moh9U7n
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cagewoodlg
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 4
   value: 15

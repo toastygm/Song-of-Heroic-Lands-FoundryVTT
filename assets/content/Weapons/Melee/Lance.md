@@ -8,12 +8,13 @@ id: QlzoUg52DEMEjkoo
 img: icons/game-icons/delapouite/cavalry.svg
 shortcode: Lnc
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: polearm
-  archetype: 0
   durability: 11
   weight: 7
   value: 120

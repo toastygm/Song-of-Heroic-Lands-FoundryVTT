@@ -8,12 +8,13 @@ id: yAyq80z0iciJjVSg
 img: icons/game-icons/lorc/trousers.svg
 shortcode: LnSwd
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Swaddle
   detailMaterial: Linen
   material: Cloth

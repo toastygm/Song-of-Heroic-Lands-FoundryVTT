@@ -9,12 +9,13 @@ id: fAUJ8RepRHtX7vAN
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: waxsealing
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: anmcft
     secondary: []
   kbcat: scribe
-  archetype: 0
   quality: 0
   durability: 0
   value: 4

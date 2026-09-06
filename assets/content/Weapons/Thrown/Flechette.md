@@ -8,12 +8,13 @@ id: LBFoDsugD5iMKwpT
 img: icons/game-icons/delapouite/dart.svg
 shortcode: Flch
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: thrown
-  archetype: 0
   durability: 10
   weight: 0.25
   value: 3

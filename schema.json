@@ -8,12 +8,12 @@
                 "own": ["level", "office", "relation", "society", "subType", "title"],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "docHtml",
                     "lastRun",
                     "notes",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "affliction": {
@@ -42,12 +42,12 @@
                 ],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "docHtml",
                     "lastRun",
                     "notes",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "armorgear": {
@@ -69,7 +69,6 @@
                 ],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "containerId",
                     "docHtml",
                     "durabilityBase",
@@ -81,6 +80,7 @@
                     "scheduledActions",
                     "sharedWithCohortIds",
                     "shortcode",
+                    "templatePriority",
                     "valueBase",
                     "weightBase"
                 ]
@@ -89,19 +89,18 @@
                 "own": ["impairedByRoles", "initDiceFormula", "scoreBase", "valueDesc"],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "docHtml",
                     "lastRun",
                     "notes",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "concoctiongear": {
                 "own": ["potency", "strength", "subType"],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "containerId",
                     "docHtml",
                     "durabilityBase",
@@ -113,6 +112,7 @@
                     "scheduledActions",
                     "sharedWithCohortIds",
                     "shortcode",
+                    "templatePriority",
                     "valueBase",
                     "weightBase"
                 ]
@@ -121,7 +121,6 @@
                 "own": ["maxCapacityBase"],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "containerId",
                     "docHtml",
                     "durabilityBase",
@@ -133,6 +132,7 @@
                     "scheduledActions",
                     "sharedWithCohortIds",
                     "shortcode",
+                    "templatePriority",
                     "valueBase",
                     "weightBase"
                 ]
@@ -141,7 +141,6 @@
                 "own": [],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "containerId",
                     "docHtml",
                     "durabilityBase",
@@ -153,6 +152,7 @@
                     "scheduledActions",
                     "sharedWithCohortIds",
                     "shortcode",
+                    "templatePriority",
                     "valueBase",
                     "weightBase"
                 ]
@@ -170,12 +170,12 @@
                 ],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "docHtml",
                     "lastRun",
                     "notes",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "mysticalability": {
@@ -192,12 +192,12 @@
                 ],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "docHtml",
                     "lastRun",
                     "notes",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "projectilegear": {
@@ -213,7 +213,6 @@
                 ],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "containerId",
                     "docHtml",
                     "durabilityBase",
@@ -225,6 +224,7 @@
                     "scheduledActions",
                     "sharedWithCohortIds",
                     "shortcode",
+                    "templatePriority",
                     "valueBase",
                     "weightBase"
                 ]
@@ -244,12 +244,12 @@
                 ],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "docHtml",
                     "lastRun",
                     "notes",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "trauma": {
@@ -274,19 +274,18 @@
                 ],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "docHtml",
                     "lastRun",
                     "notes",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "weapongear": {
                 "own": ["encumbranceBase", "heftBase", "strikeModes"],
                 "inherited": [
                     "actionDefs",
-                    "archetype",
                     "containerId",
                     "docHtml",
                     "durabilityBase",
@@ -298,6 +297,7 @@
                     "scheduledActions",
                     "sharedWithCohortIds",
                     "shortcode",
+                    "templatePriority",
                     "valueBase",
                     "weightBase"
                 ]
@@ -322,7 +322,6 @@
                 "inherited": [
                     "actionDefs",
                     "appearance",
-                    "archetype",
                     "currentMoveMedium",
                     "dossier",
                     "health",
@@ -332,7 +331,8 @@
                     "movementProfiles",
                     "portrait",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "cohort": {
@@ -340,7 +340,6 @@
                 "inherited": [
                     "actionDefs",
                     "appearance",
-                    "archetype",
                     "currentMoveMedium",
                     "dossier",
                     "health",
@@ -350,7 +349,8 @@
                     "movementProfiles",
                     "portrait",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "structure": {
@@ -358,7 +358,6 @@
                 "inherited": [
                     "actionDefs",
                     "appearance",
-                    "archetype",
                     "currentMoveMedium",
                     "dossier",
                     "health",
@@ -368,7 +367,8 @@
                     "movementProfiles",
                     "portrait",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             },
             "vehicle": {
@@ -376,7 +376,6 @@
                 "inherited": [
                     "actionDefs",
                     "appearance",
-                    "archetype",
                     "currentMoveMedium",
                     "dossier",
                     "health",
@@ -386,7 +385,8 @@
                     "movementProfiles",
                     "portrait",
                     "scheduledActions",
-                    "shortcode"
+                    "shortcode",
+                    "templatePriority"
                 ]
             }
         }

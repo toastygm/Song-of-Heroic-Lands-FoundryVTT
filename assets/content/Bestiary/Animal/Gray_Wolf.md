@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/wolf-head.svg
 portrait: images/being/graywolf-portrait.webp
 shortcode: graywolf
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+7
     end: 1d6+7

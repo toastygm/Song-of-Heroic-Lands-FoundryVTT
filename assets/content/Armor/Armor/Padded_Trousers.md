@@ -8,12 +8,13 @@ id: DddukiiKCahUANLS
 img: icons/game-icons/lorc/trousers.svg
 shortcode: PTrsr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Trousers
   detailMaterial: Padded
   material: Padded

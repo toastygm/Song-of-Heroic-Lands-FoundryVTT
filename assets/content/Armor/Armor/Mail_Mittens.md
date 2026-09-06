@@ -8,12 +8,13 @@ id: yGq8YaZNfYYfwxT7
 img: icons/game-icons/lorc/mailed-fist.svg
 shortcode: MMtn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: mail
-  archetype: 0
   armorType: Mittens
   detailMaterial: Mail
   material: Mail

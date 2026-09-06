@@ -7,10 +7,11 @@ id: Mq4n9gCaxoUox4hZ
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: antscl
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psybehavior
-  archetype: 0
   category: quirk
 folder: ECrcBb9CUCMX9JeJ
 ---

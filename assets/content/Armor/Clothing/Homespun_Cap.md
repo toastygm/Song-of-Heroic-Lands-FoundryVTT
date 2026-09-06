@@ -8,12 +8,13 @@ id: IflKi3IH83bU0ayw
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: HsCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cap
   detailMaterial: Homespun
   material: Cloth

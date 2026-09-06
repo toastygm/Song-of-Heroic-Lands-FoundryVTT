@@ -8,12 +8,13 @@ id: XEq4pZ7z5nrtPHXW
 img: icons/game-icons/lorc/hood.svg
 shortcode: SgCowl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cowl
   detailMaterial: Serge
   material: Cloth

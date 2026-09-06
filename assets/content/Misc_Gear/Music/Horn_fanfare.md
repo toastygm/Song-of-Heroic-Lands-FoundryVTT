@@ -9,12 +9,13 @@ id: 3kFjrA3q6RSR78P1
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hornfanfar
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 6
   value: 120

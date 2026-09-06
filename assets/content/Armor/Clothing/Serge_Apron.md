@@ -8,12 +8,13 @@ id: o4YbdZja0KpJp8GB
 img: icons/game-icons/delapouite/cook.svg
 shortcode: SgApn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Apron
   detailMaterial: Serge
   material: Cloth

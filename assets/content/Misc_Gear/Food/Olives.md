@@ -9,12 +9,13 @@ id: fzxD5ervi1GdhNce
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: olives
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: agri
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 8

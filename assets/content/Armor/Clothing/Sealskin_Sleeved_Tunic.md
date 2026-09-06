@@ -8,12 +8,13 @@ id: 0CZZJ5FAOjyWGeMi
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: SlsSTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Sealskin
   material: Leather

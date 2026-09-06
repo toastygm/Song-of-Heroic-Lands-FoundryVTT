@@ -9,12 +9,13 @@ id: HggOHXKlhDmMa96i
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: earringshorn
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 3
   value: 7

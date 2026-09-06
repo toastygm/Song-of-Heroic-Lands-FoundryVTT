@@ -8,12 +8,13 @@ id: mn6qzqX8V1kyI86R
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: SlkCoat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Coat
   detailMaterial: Silk
   material: Cloth

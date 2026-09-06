@@ -8,10 +8,11 @@ id: 2pMnvbwN1cHUKVkJ
 img: icons/game-icons/delapouite/animal-hide.svg
 shortcode: hide
 type: skill
+data:
+  templatePriority: 0
 subType: craft
 sohl:
   kbcat: craft
-  archetype: 0
   skillBaseFormula: "sb(attr.dex, attr.per)"
   combatCategory: none
   parentSkillCode: ""

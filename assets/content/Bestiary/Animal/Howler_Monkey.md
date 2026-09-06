@@ -11,9 +11,10 @@ img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/hwlrmnky-portrait.webp
 shortcode: hwlrmnky
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+4
     end: 1d4+5

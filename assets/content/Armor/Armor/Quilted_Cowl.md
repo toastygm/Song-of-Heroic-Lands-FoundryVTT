@@ -8,12 +8,13 @@ id: kDiv0V9K2k2FhVi3
 img: icons/game-icons/lorc/hood.svg
 shortcode: QCwl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: quilted
-  archetype: 0
   armorType: Cowl
   detailMaterial: Quilted
   material: Quilted

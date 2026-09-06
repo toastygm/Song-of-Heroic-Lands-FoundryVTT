@@ -101,11 +101,11 @@ Two reasons this is easy to miss:
   `system.strikeModes.<id>.<field>`) are also safe — object partial-merge is fine;
   the hazard is arrays specifically.
 
-### The archetype marker (`system.archetype`)
+### The archetype marker (`system.templatePriority`)
 
-| Field              | Type             | On           | Meaning                                                                                                                                                                                                                                                                          |
-| ------------------ | ---------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `system.archetype` | `number \| null` | Actor / Item | Marks the document as a Create-dialog **archetype** (a populated starting template) and carries its **priority**. `null` means "not an archetype". See [Extension Points → Create-dialog archetypes](../how-to/extension-points.md#10-create-dialog-archetypes-systemarchetype). |
+| Field                     | Type             | On           | Meaning                                                                                                                                                                                                                                                                                 |
+| ------------------------- | ---------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `system.templatePriority` | `number \| null` | Actor / Item | Marks the document as a Create-dialog **archetype** (a populated starting template) and carries its **priority**. `null` means "not an archetype". See [Extension Points → Create-dialog archetypes](../how-to/extension-points.md#10-create-dialog-archetypes-systemtemplatepriority). |
 
 Declared once, on the shared base schema (`defineSohlDataSchema`), so it reaches
 every Actor, Item and Combatant subtype. It lived in `flags.sohl.docArchetype`
@@ -113,9 +113,19 @@ until issue #1780; Foundry ships no flag editor, so a schema field is what lets 
 GM set it from the sheet instead of by export / hand-edit / re-import. SoHL
 declares no reserved `flags.sohl.*` keys any more.
 
+**It was called `system.archetype` until issue #1836.** The field is the
+_priority_, not the kind, and authored content already carries a sibling
+`archetypes` list — what sort of character a being is (healer, warrior, mage). A
+priority and a taxonomy told apart only by a plural `s` is a trap for every
+reader, so the number took the name that says what it is
+(`HeroicLands/package-build#266` settles it across the toolchain). A world's
+existing value is carried across automatically by the shared base's
+`migrateData`, and compendium **index** entries — which never pass through a
+data model — are read under either spelling.
+
 **`0` is a priority, not a blank.** The system's own archetypes ship at `0`, so a
 truthiness test on this field would hide every one of them. Read it through
-{@link sohl.entity.archetype.readArchetypePriority}, which tests
+{@link sohl.entity.archetype.readTemplatePriority}, which tests
 `typeof v === "number"`.
 
 The marker is discovered across the world directory and matching compendium

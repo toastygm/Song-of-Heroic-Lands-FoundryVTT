@@ -9,12 +9,13 @@ id: YBDPZfG9M8Faiiwe
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ballleathe
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 3
   value: 4

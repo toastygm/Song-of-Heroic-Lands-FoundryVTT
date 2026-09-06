@@ -8,12 +8,13 @@ id: cTWqIcLCMBf06Hfl
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: CSTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Cloth
   material: Cloth

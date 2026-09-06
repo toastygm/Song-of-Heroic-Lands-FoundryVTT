@@ -9,12 +9,13 @@ id: w9A0Ud5fPNT6QAAr
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: chalkstick
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 1
   value: 10

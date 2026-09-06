@@ -9,12 +9,13 @@ id: BoeReTJGPgRPp7Dc
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: homespun
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   quality: 0
   durability: 5
   value: 2.67

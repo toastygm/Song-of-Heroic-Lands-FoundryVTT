@@ -9,12 +9,13 @@ id: ODDPodIfVZffiUgI
 img: icons/game-icons/delapouite/sleeping-bag.svg
 shortcode: LiteBdrl
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 7
   value: 30

@@ -8,12 +8,13 @@ id: iFpcVvU8wlzkzMXx
 img: icons/game-icons/delapouite/loincloth.svg
 shortcode: LtLoin
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Loincloth
   detailMaterial: Leather
   material: Leather

@@ -8,12 +8,13 @@ id: vRrVRyYfchZbycS7
 img: icons/game-icons/delapouite/cape.svg
 shortcode: SgMntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Mantle
   detailMaterial: Serge
   material: Cloth

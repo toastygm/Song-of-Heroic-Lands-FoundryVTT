@@ -8,12 +8,13 @@ id: 8YxOproKGlXe2Slh
 img: icons/game-icons/delapouite/flip-flops.svg
 shortcode: StShoes
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Sandals
   detailMaterial: Straw
   material: Cloth

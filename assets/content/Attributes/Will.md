@@ -8,8 +8,9 @@ id: cSe7fh1LN9mEwwYs
 img: icons/game-icons/lorc/meditation.svg
 shortcode: wil
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Submissive:4

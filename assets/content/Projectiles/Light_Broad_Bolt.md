@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Light quarrel, leaf-bladed iron head; opens bleeding wound; hunters, scouts, brigand foes."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: bolt
 id: GXOYUjcV8KKAIK7a
 shortcode: BltLBrd
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1.25

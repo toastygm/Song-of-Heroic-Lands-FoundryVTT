@@ -8,12 +8,13 @@ id: GATnBZAbwqOTvJHj
 img: icons/game-icons/lorc/leather-boot.svg
 shortcode: BBoot
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Knee Boots
   detailMaterial: Buckram
   material: Cloth

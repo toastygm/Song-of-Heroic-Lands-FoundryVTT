@@ -9,12 +9,13 @@ id: 92h7wM75Y9YoXXzr
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: buckram
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   quality: 0
   durability: 5
   value: 10

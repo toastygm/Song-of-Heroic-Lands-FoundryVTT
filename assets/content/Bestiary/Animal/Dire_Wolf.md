@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/wolf-head.svg
 portrait: images/being/direwolf-portrait.webp
 shortcode: direwolf
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+16
     end: 1d6+14

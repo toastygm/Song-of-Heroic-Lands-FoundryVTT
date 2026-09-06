@@ -8,12 +8,13 @@ id: pNu5G4e0GHqnDCa3
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: GCoat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: gambeson
-  archetype: 0
   armorType: Coat
   detailMaterial: Gambeson
   material: Gambeson

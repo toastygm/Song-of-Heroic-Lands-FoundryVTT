@@ -8,12 +8,13 @@ id: 2AIwmtG1o8T3vhYs
 img: icons/game-icons/lorc/pointy-hat.svg
 shortcode: VHat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Hat
   detailMaterial: Velvet
   material: Cloth

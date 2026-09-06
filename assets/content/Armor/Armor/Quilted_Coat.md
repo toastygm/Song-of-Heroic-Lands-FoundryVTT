@@ -8,12 +8,13 @@ id: RgLCjUKoNBXWGsnk
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: QCoat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: quilted
-  archetype: 0
   armorType: Coat
   detailMaterial: Quilted
   material: Quilted

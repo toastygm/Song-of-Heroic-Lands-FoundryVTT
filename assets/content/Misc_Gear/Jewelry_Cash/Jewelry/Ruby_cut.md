@@ -9,12 +9,13 @@ id: OAdHcMAcd2aqp2xx
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: rubycut
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 2
   value: 1000

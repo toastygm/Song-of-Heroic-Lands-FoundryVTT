@@ -9,12 +9,13 @@ id: 6Gf1bs2wn6faxhl8
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: axlewagon
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: tack
-  archetype: 0
   quality: 0
   durability: 8
   value: 36

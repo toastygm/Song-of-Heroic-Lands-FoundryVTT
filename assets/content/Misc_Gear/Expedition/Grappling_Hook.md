@@ -11,12 +11,13 @@ id: L9gPelify7nLTSWc
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: grphook
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 9
   value: 20

@@ -9,12 +9,13 @@ id: 1kdbq7wlJr1J68sN
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: perfumecheap
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: pfmy
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 0
   value: 12

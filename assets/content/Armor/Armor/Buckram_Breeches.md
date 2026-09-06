@@ -8,12 +8,13 @@ id: bIAeLCe2gqMADLHJ
 img: icons/game-icons/lorc/trousers.svg
 shortcode: BBrch
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Breeches
   detailMaterial: Buckram
   material: Cloth

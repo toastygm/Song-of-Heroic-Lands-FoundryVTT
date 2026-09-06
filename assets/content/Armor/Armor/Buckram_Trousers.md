@@ -8,12 +8,13 @@ id: dqnPQ1U3w7r9czNl
 img: icons/game-icons/lorc/trousers.svg
 shortcode: BTrsr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Trousers
   detailMaterial: Buckram
   material: Cloth

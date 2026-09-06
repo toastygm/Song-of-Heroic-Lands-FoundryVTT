@@ -8,10 +8,11 @@ id: uCTDMG4EGHB6dI5u
 img: icons/game-icons/lorc/bubbling-flask.svg
 shortcode: alch
 type: mysticalability
+data:
+  templatePriority: 0
 subType: alchemy
 sohl:
   kbcat: alchemy
-  archetype: 0
   assocSkillCode: ""
   levelBase: 0
   masteryLevelBase: 0

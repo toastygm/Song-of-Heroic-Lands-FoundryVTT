@@ -8,11 +8,12 @@ id: Fjpn7JM3j4x2M62C
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: sackcanvas20
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
-  archetype: 0
   quality: 0
   durability: 3
   maxCapacity: 20

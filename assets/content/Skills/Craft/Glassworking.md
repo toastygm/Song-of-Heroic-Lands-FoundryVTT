@@ -8,10 +8,11 @@ id: Q0KPXtE0ZsH1YION
 img: icons/game-icons/lorc/round-bottom-flask.svg
 shortcode: glas
 type: skill
+data:
+  templatePriority: 0
 subType: craft
 sohl:
   kbcat: craft
-  archetype: 0
   skillBaseFormula: "sb(attr.per, attr.dex)"
   combatCategory: none
   parentSkillCode: ""

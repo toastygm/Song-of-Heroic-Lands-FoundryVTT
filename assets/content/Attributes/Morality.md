@@ -8,8 +8,9 @@ id: 5eOjes9tQHVozVcl
 img: icons/game-icons/lorc/scales.svg
 shortcode: mor
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Amoral:2

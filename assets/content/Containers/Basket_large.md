@@ -8,11 +8,12 @@ id: sgnSAOZzot3QW3k5
 img: icons/game-icons/delapouite/basket.svg
 shortcode: bktlrg
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 8
   maxCapacity: 25

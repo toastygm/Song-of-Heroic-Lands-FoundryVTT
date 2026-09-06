@@ -9,12 +9,13 @@ id: paY1FUBrezK0bFU4
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: harpjarind
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: music
-  archetype: 0
   quality: 0
   durability: 4
   value: 300

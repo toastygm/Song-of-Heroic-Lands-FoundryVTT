@@ -9,12 +9,13 @@ id: CdhDhKsvUFp48uV6
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: scabbard
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 8
   value: 48
