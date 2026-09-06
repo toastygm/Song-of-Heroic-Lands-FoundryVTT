@@ -5,7 +5,6 @@ name:
   full: "Brooch, horn"
   aliases: []
 description: "A pin and catch worked into a plate, worn to fasten a cloak at the shoulder, in carved horn."
-id: 1jeWqJP3Kbi2UERw
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: broochhorn
 type: miscgear

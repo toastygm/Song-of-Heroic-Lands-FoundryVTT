@@ -5,7 +5,6 @@ name:
   full: "Earrings, gold"
   aliases: []
 description: "A pair of gold hoops or drops; worn where wealth must be seen, not counted."
-id: 9qKrBJnuwF0xoYUW
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: earringsgold
 type: miscgear

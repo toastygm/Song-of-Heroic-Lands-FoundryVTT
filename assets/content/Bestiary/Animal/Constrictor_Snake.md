@@ -5,7 +5,6 @@ name:
   full: Constrictor Snake
   aliases: []
 description: "A huge non-venomous snake of tropical regions that kills through patient, crushing coils, subduing prey far larger than its own head."
-id: ypPZpDVq1apz4CiH
 img: icons/game-icons/lorc/snake.svg
 portrait: images/being/cnstrctr-portrait.webp
 shortcode: cnstrctr

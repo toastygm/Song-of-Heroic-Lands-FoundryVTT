@@ -4,7 +4,6 @@ name:
   full: Onager
   aliases: []
 description: "Single-arm torsion stone-thrower; kicks like the wild ass it is named for."
-id: OiGsx0AXFt8RW6Yd
 img: icons/game-icons/lorc/falling-boulder.svg
 shortcode: Onagr
 type: weapongear

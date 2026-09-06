@@ -3,7 +3,6 @@ tags: []
 name:
   full: Aggressive
   aliases: []
-id: qwbbiKUydAbsn2tv
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: aggr
 type: trauma

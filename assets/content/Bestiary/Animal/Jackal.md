@@ -6,7 +6,6 @@ name:
   full: Jackal
   aliases: []
 description: "A small, adaptable canid of the Kheperi lowlands that hunts and scavenges along riverbanks, village middens, and necropolis complexes among the dead."
-id: QwBtVq9RDqpwnf7s
 img: icons/game-icons/lorc/hound.svg
 portrait: images/being/jackal-portrait.webp
 shortcode: jackal

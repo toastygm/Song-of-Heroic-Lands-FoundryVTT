@@ -5,7 +5,6 @@ name:
   full: "Amulet, horn"
   aliases: []
 description: "A charm hung at the neck on a cord or chain, in carved horn."
-id: imj9VX8cncdAq6iN
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: amulethorn
 type: miscgear

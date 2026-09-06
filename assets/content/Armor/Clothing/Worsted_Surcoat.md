@@ -4,7 +4,6 @@ name:
   full: Worsted Surcoat
   aliases: []
 description: "Tightly-spun wool surcoat; durable, practical protective garment."
-id: mzZ3KmDTTuXQ2eD6
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: WScoat
 type: armorgear

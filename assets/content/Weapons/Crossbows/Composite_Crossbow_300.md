@@ -4,7 +4,6 @@ name:
   full: Composite Crossbow 300
   aliases: []
 description: "Three-hundred pound windlass-spanned arbalest; wall-breach devastating volley."
-id: gq26c7WmFAUpFcGj
 img: icons/game-icons/carl-olsen/crossbow.svg
 shortcode: CCxBw300
 type: weapongear

@@ -5,7 +5,6 @@ name:
   full: "Dye, Tazach Purple"
   aliases: []
 description: "Murex shellfish or Tazach lichen; rare purple marking rank and authority."
-id: khVQnTo9xc2rh8nV
 img: icons/game-icons/caro-asercion/round-potion.svg
 shortcode: dyetzch
 type: miscgear

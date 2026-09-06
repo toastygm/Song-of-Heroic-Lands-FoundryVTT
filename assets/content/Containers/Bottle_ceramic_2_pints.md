@@ -4,7 +4,6 @@ name:
   full: "Bottle, ceramic, 2 pints"
   aliases: []
 description: "Stoneware bottle with a corked neck; travels better than glass (2 pints)."
-id: d2sGDmzwNGpNWdD2
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bottlecer2pt
 type: containergear

@@ -4,7 +4,6 @@ name:
   full: "Jar, lidded, 1 pint"
   aliases: []
 description: "Compact stoneware jar with tight seal for spices and traveling supplies (1 pint)."
-id: hm5bmi6Cp6klcQwK
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jarliddeds
 type: containergear

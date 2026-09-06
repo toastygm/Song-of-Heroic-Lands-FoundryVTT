@@ -6,7 +6,6 @@ name:
   full: Gazelle
   aliases: []
 description: "A small, extraordinarily fast antelope of the Khazryn Desert, grazing gravel plains and scrublands in herds that flee predators at blistering speed."
-id: RwQKjvaCuKSBw2TD
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/gazelle-portrait.webp
 shortcode: gazelle

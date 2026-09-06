@@ -4,7 +4,6 @@ name:
   full: Longbow 75
   aliases: []
 description: "Seventy-five pound village hunter's reliable bow; skirmish-worthy."
-id: FSSzjaO52vOZCk9X
 img: icons/game-icons/lorc/pocket-bow.svg
 shortcode: LBw75
 type: weapongear

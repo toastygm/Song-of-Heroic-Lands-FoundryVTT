@@ -4,7 +4,6 @@ name:
   full: Padded Cowl
   aliases: []
 description: "Cushioned head and shoulder covering providing warmth and helmet compatibility."
-id: JbXMegC3jizGv0Vu
 img: icons/game-icons/lorc/hood.svg
 shortcode: PCwl
 type: armorgear

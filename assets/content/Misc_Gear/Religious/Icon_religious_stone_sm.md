@@ -5,7 +5,6 @@ name:
   full: "Icon, religious, stone, sm"
   aliases: []
 description: "Palm-sized devotional figure cut from soapstone or limestone; heavier and dearer than clay."
-id: ik8sdHR6JU9Euk3X
 img: icons/game-icons/lorc/prayer.svg
 shortcode: iconstnsm
 type: miscgear

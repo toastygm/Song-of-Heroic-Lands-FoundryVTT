@@ -61,15 +61,15 @@ does not exist is worse than no entry at all.
     "sohl-affliction-aconite": {
       "path": "affliction-aconite/",
       "name": "Aconite",
-      "uuid": "Compendium.sohl.items.Item.J6aklskzkfBdEnoo",
+      "uuid": "Compendium.sohl.items.Item.20f07d6281029e5e",
       "doc": "sohl-docaffliction-aconite",
     },
     "sohl-docaffliction-aconite": {
       "path": "affliction-aconite/",
       "name": "Aconite",
-      "uuid": "Compendium.sohl.journals.JournalEntry.e0e3f50b1f1ebcf8",
+      "uuid": "Compendium.sohl.journals.JournalEntry.f99d95ccbb62cabf",
       "anchors": {
-        "$lead": "Compendium.sohl.journals.JournalEntry.e0e3f50b1f1ebcf8.JournalEntryPage.2d448b72c005a250",
+        "$lead": "Compendium.sohl.journals.JournalEntry.f99d95ccbb62cabf.JournalEntryPage.6269d391ddd30a78",
       },
     },
   },

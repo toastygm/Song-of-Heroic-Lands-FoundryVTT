@@ -4,7 +4,6 @@ name:
   full: Talent
   aliases: []
 description: "An untaught arcane knack, invoked directly and free of the incantation penalty."
-id: 9IdvC4RAPsx7og3I
 img: icons/psychic-waves.svg
 shortcode: tlnt
 type: mysticalability

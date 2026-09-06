@@ -4,7 +4,6 @@ name:
   full: Composite Bow 60
   aliases: []
 description: "Sixty-pound compact horse-bow; mounted skirmisher's maneuvrable reach."
-id: k0iylgykAsksAhx5
 img: icons/game-icons/lorc/pocket-bow.svg
 shortcode: CBw60
 type: weapongear

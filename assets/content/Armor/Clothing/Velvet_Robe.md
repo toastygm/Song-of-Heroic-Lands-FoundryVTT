@@ -4,7 +4,6 @@ name:
   full: Velvet Robe
   aliases: []
 description: "Soft plush velvet robe; opulent garment for formal settings and grandeur."
-id: yJjv9W4XzPsEJj5E
 img: icons/game-icons/lorc/robe.svg
 shortcode: VRobe
 type: armorgear

@@ -4,7 +4,6 @@ name:
   full: Leather Knee Boots
   aliases: []
 description: "Durable leather foot coverings extending above the knee for flexible footwear."
-id: oP4DZiYZmShsWYOs
 img: icons/game-icons/lorc/leather-boot.svg
 shortcode: LtKBoot
 type: armorgear

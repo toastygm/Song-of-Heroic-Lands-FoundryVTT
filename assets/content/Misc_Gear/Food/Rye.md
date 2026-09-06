@@ -5,7 +5,6 @@ name:
   full: Rye
   aliases: []
 description: "Hardy grain thriving in poor soil, grinds to dark bread flour."
-id: TgJ7KAG3VXzrWzS2
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: rye
 type: miscgear

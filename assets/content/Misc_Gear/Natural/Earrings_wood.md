@@ -5,7 +5,6 @@ name:
   full: "Earrings, wood"
   aliases: []
 description: "Carved wooden drops on a wire or thong; light enough to be worn all day."
-id: bjU6ipiJkvYA1Syp
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: earringswood
 type: miscgear

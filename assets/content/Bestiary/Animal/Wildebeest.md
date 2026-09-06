@@ -7,7 +7,6 @@ name:
   aliases:
     - Gnu
 description: "A large, shaggy savannah bovine whose vast migratory herds define southern Xerathia's grasslands in their sweeping annual movement."
-id: fWFF00Xq9zTzMq0Z
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/wldbst-portrait.webp
 shortcode: wldbst

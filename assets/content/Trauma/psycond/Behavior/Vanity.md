@@ -3,7 +3,6 @@ tags: []
 name:
   full: Vanity
   aliases: []
-id: 4nXSwX5AzNJAVQbd
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: vanity
 type: trauma

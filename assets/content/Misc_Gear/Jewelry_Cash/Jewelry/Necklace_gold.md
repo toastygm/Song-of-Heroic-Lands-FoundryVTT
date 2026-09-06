@@ -5,7 +5,6 @@ name:
   full: "Necklace, gold"
   aliases: []
 description: "Four ounces of worked gold at the throat; noble regalia, and portable ransom."
-id: nHOQfdq0BeCkjYHE
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: necklacegold
 type: miscgear

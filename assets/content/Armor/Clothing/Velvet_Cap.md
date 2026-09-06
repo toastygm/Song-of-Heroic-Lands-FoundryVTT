@@ -4,7 +4,6 @@ name:
   full: Velvet Cap
   aliases: []
 description: "Soft plush velvet cap; luxury status symbol for formal settings."
-id: 1SNl6MM84Unpoleo
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: VCap
 type: armorgear

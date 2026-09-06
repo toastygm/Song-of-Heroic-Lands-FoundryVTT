@@ -5,7 +5,6 @@ name:
   full: Pterosaur
   aliases: []
 description: "An ancient flying reptile with a wingspan reaching thirty feet, haunting untamed coastlines and deep valleys to snatch fish and unwary travelers."
-id: zueyvDAb2JF9wc8p
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/pterosau-portrait.webp
 shortcode: pterosau

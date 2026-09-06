@@ -4,7 +4,6 @@ name:
   full: "Alembic, glass, 1 gallon"
   aliases: []
 description: "Glass still-head for distillation, one gallon."
-id: NIOuNJjBctPBZ0DB
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: alembgl1g
 type: containergear

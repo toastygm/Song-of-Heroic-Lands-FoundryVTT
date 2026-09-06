@@ -5,7 +5,6 @@ name:
   full: "Horn, fanfare"
   aliases: []
 description: "Curved brass-bronze flared bell; triumphant blare for court heralds and royal processions."
-id: 3kFjrA3q6RSR78P1
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hornfanfar
 type: miscgear

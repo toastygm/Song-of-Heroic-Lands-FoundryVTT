@@ -4,7 +4,6 @@ name:
   full: "Trunk, wooden"
   aliases: []
 description: "Large banded travelling trunk with a domed lid (1.5 x 2 x 3.5 feet)."
-id: T46zQsnsjKIlVG1E
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: trunkwood
 type: containergear

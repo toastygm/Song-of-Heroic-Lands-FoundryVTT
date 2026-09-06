@@ -5,7 +5,6 @@ name:
   full: "Circlet, silver"
   aliases: []
 description: "A plain band for the brow, worn by those with rank enough to show it and not enough for a coronet, in silver."
-id: ZDjw1pXhh0FsURvD
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: circletsilver
 type: miscgear

@@ -4,7 +4,6 @@ name:
   full: Padded Mantle
   aliases: []
 description: "Well-insulated outer garment providing warmth and protection in cold climates."
-id: uGI1aEXIQ6zJxajg
 img: icons/game-icons/delapouite/cape.svg
 shortcode: PMntl
 type: armorgear

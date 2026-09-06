@@ -4,7 +4,6 @@ name:
   full: "Sack, waxed canvas, med"
   aliases: []
 description: "Moderate waxed canvas sack; keeps the wet out."
-id: Usn0xUAsJCNH5qIB
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: sackwcmd
 type: containergear

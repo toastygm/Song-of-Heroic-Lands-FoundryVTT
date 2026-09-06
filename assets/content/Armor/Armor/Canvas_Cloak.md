@@ -4,7 +4,6 @@ name:
   full: Canvas Cloak
   aliases: []
 description: "Heavy hemp-weave cloak shedding wind and wear on the road."
-id: 7l7GdhjflC46mB5U
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: CvCloak
 type: armorgear

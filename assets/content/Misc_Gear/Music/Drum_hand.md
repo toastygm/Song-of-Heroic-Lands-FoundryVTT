@@ -5,7 +5,6 @@ name:
   full: "Drum, hand"
   aliases: []
 description: "Shallow frame drum played with palms; quick bright voice; favored by minstrels."
-id: 0LV72YlMVpb5HGsa
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: drumhand
 type: miscgear

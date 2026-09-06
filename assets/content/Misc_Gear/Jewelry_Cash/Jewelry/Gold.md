@@ -5,7 +5,6 @@ name:
   full: Gold
   aliases: []
 description: "Precious metal beaten into ingots, coins by royal mints; foundation of trade."
-id: 5o3OuUfwclqwSbKL
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: gold
 type: miscgear

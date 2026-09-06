@@ -4,7 +4,6 @@ name:
   full: Leather Vest
   aliases: []
 description: "Lightweight styled leather sleeveless garment offering minimal protection and edge."
-id: ONp5DMPQBkKPVZc5
 img: icons/game-icons/lorc/leather-vest.svg
 shortcode: LtVest
 type: armorgear

@@ -4,7 +4,6 @@ name:
   full: Homespun Tunic
   aliases: []
 description: "Simple homemade tunic offering warmth and practical comfort."
-id: SxLz76CsRMYx40E2
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: HsTunic
 type: armorgear

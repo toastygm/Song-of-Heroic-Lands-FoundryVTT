@@ -5,7 +5,6 @@ name:
   full: Woolly Rhino
   aliases: []
 description: "A massive shaggy grazer of frozen tundra and cold steppe, peaceful yet fiercely territorial and devastating when defending its range."
-id: vxgCrkIE0FSMA3Ty
 img: icons/game-icons/delapouite/rhinoceros-horn.svg
 portrait: images/being/wllyrhn-portrait.webp
 shortcode: wllyrhn

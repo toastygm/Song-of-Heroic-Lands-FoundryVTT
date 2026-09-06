@@ -4,7 +4,6 @@ name:
   full: "Amphora, ceramic, 15 gallon"
   aliases: []
 description: "Two-handled earthenware jar for bulk oil, wine, or grain (15 gallons)."
-id: U4lYF2cwFNwlYUyt
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: amphoracer15
 type: containergear

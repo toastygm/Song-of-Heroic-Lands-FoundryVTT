@@ -4,7 +4,6 @@ name:
   full: Serge Apron
   aliases: []
 description: "Diagonal-twill apron; durable and functional for heavy labor."
-id: o4YbdZja0KpJp8GB
 img: icons/game-icons/delapouite/cook.svg
 shortcode: SgApn
 type: armorgear

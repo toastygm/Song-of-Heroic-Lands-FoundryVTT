@@ -5,7 +5,6 @@ name:
   full: Hay
   aliases: []
 description: "Sun-dried grasses bundled; feeds horses and livestock through winter reliably."
-id: G1dVur8Fe2FpbOGH
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hay
 type: miscgear

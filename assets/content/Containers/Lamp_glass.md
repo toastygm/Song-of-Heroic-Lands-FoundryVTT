@@ -4,7 +4,6 @@ name:
   full: Lamp. glass
   aliases: []
 description: "Hand-blown glass lamp with open reservoir; shows fuel level clearly."
-id: nXskf0nh3UQZ4IRw
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lampglass
 type: containergear

@@ -4,7 +4,6 @@ name:
   full: Astrology
   aliases: []
 description: "Charting the heavens to read the influences bearing on a life or a venture."
-id: xSuXXuS0hRjrSdzR
 img: icons/game-icons/lorc/star-swirl.svg
 shortcode: astr
 type: mysticalability

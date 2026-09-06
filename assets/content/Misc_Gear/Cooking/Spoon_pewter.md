@@ -5,7 +5,6 @@ name:
   full: "Spoon, pewter"
   aliases: []
 description: "Cast pewter spoon with deepened bowl for eating and stirring cooking."
-id: aOdhzoCjhmU8eiOb
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: spoonpewte
 type: miscgear

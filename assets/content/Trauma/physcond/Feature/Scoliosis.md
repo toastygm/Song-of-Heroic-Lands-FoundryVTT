@@ -3,7 +3,6 @@ tags: []
 name:
   full: Scoliosis
   aliases: []
-id: H7iZYjKLbxq25bRs
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: sclss
 type: trauma

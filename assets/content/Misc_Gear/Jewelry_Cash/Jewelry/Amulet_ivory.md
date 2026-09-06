@@ -5,7 +5,6 @@ name:
   full: "Amulet, ivory"
   aliases: []
 description: "A charm hung at the neck on a cord or chain, in carved ivory."
-id: XjMZyyzssgZXJSli
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: amuletivory
 type: miscgear

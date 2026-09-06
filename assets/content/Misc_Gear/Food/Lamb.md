@@ -5,7 +5,6 @@ name:
   full: Lamb
   aliases: []
 description: "Tender pale meat; roasted whole or smoked into jerky for caravans."
-id: tWq2iMqjHXSUciNf
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lamb
 type: miscgear

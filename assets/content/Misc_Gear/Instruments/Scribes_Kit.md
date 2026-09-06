@@ -5,7 +5,6 @@ name:
   full: Scribe's Kit
   aliases: []
 description: "Hinged wooden case with quills, penknife, inkhorns, sand caster, wax, seals, vellum; scribes and draughtsmen."
-id: 74Njo5FTdcP8JbSw
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: scribekit
 type: miscgear

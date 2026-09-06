@@ -4,7 +4,6 @@ name:
   full: Rawhide Mantle
   aliases: []
 description: "Heavy hide cloak; harsh-weather outer layer."
-id: 3QTcJDMzx1IOZRTF
 img: icons/game-icons/delapouite/cape.svg
 shortcode: RhMntl
 type: armorgear

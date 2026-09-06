@@ -5,7 +5,6 @@ name:
   full: Komodo Dragon
   aliases: []
 description: "The largest living lizard, a heavily muscled nine-to-ten-foot reptile whose broad-jawed, coarse-scaled body makes it a formidable ambush hunter."
-id: getyv8Y5C6ktjC6B
 img: icons/game-icons/lorc/gecko.svg
 portrait: images/being/kmddrgn-portrait.webp
 shortcode: kmddrgn

@@ -4,7 +4,6 @@ name:
   full: "Pole, load carrying"
   aliases: []
 description: "Shoulder pole for carrying slung loads."
-id: 3NCcGvF3OtFguhon
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: polecarry
 type: containergear

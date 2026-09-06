@@ -5,7 +5,6 @@ name:
   full: "Lock, padlock, heavy-duty"
   aliases: []
 description: "Heavy reinforced padlock with triple-warded body for valuable cargo."
-id: LXtgI4chHqOsZTQN
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lockpadloc
 type: miscgear

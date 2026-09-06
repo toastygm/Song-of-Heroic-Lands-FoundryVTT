@@ -4,7 +4,6 @@ name:
   full: Padded Mittens
   aliases: []
 description: "Cushioned hand coverings providing warmth for cold weather conditions."
-id: IBwZA3n6zSzRPXVJ
 img: icons/game-icons/delapouite/gauntlet.svg
 shortcode: PMitn
 type: armorgear

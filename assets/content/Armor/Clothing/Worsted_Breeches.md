@@ -4,7 +4,6 @@ name:
   full: Worsted Breeches
   aliases: []
 description: "Tightly-spun wool breeches; durable, comfortable for regular wear."
-id: skPBURafg7pZhGta
 img: icons/game-icons/lorc/trousers.svg
 shortcode: WBrch
 type: armorgear

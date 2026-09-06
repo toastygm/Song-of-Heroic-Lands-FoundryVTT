@@ -5,7 +5,6 @@ name:
   full: Keg Wine
   aliases: []
 description: "Common wine keg; cheaper than aged; served at feasts and better tables."
-id: 90UzsaPgIhIdnTJA
 img: icons/game-icons/delapouite/wine-bottle.svg
 shortcode: winekeg
 type: miscgear

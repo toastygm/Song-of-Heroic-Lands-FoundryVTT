@@ -4,7 +4,6 @@ name:
   full: Velvet Cloak
   aliases: []
 description: "Soft plush velvet cloak; opulent garment for nobility and grandeur."
-id: M3KqK9FoTLTrGbyW
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: VClk
 type: armorgear

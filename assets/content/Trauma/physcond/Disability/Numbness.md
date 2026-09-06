@@ -3,7 +3,6 @@ tags: []
 name:
   full: Numbness
   aliases: []
-id: j0NeWsSf7kLV2nPh
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: numbness
 type: trauma

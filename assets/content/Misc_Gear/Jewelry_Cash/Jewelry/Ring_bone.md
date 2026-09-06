@@ -5,7 +5,6 @@ name:
   full: "Ring, bone"
   aliases: []
 description: "A band for the finger, plain or chased, in carved bone."
-id: SQW3kCYDeUDCipS5
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: ringbone
 type: miscgear

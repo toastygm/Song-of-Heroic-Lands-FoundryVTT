@@ -5,7 +5,6 @@ name:
   full: Great Elk
   aliases: []
 description: "A migratory megafauna elk of northern forests and plains, a mature bull standing eight feet at the shoulder and weighing near a ton."
-id: MMuW0ZSPSzJPFbmM
 img: icons/game-icons/lorc/stag-head.svg
 portrait: images/being/greatelk-portrait.webp
 shortcode: greatelk

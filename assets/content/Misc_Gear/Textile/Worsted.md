@@ -5,7 +5,6 @@ name:
   full: "Worsted, per sq yard"
   aliases: []
 description: "Fine fulled wool in strong colours; urban guild work only."
-id: dxgTwOOqMfP1cmdY
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: worsted
 type: miscgear

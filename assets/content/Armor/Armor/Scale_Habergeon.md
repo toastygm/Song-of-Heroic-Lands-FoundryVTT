@@ -4,7 +4,6 @@ name:
   full: Scale Habergeon
   aliases: []
 description: "Scaled sleeveless jerkin; overlapping metal scales without sleeves."
-id: F4hmm6E0UdwhBUu9
 img: icons/game-icons/lorc/scale-mail.svg
 shortcode: SHabg
 type: armorgear

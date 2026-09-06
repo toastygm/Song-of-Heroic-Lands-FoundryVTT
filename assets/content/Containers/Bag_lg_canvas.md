@@ -4,7 +4,6 @@ name:
   full: Bag, lg, canvas
   aliases: []
 description: "Plain woven canvas sack for storage of goods or supplies."
-id: CiPXfx9vpJ2xyP7B
 img: icons/game-icons/lorc/knapsack.svg
 shortcode: bglgcvs
 type: containergear

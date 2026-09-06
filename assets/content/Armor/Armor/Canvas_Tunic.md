@@ -4,7 +4,6 @@ name:
   full: Canvas Tunic
   aliases: []
 description: "Stout canvas tunic cut for work and hard travel."
-id: 54SlyZyHIhmwkXf3
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: CvTunic
 type: armorgear

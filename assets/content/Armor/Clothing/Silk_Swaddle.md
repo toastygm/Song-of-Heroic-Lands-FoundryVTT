@@ -4,7 +4,6 @@ name:
   full: Silk Swaddle
   aliases: []
 description: "Luxurious silk swaddle for infants; soft, elegant formal wear."
-id: xcUkaEksPFJISOcs
 img: icons/game-icons/lorc/trousers.svg
 shortcode: SlkSwd
 type: armorgear

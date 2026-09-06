@@ -5,7 +5,6 @@ name:
   full: Crow
   aliases: []
 description: "A clever, adaptable passerine thriving alongside humans, showing curiosity, problem-solving, and a memory that lends each bird real personality."
-id: 12aoq5wWUTMD33Jm
 img: icons/game-icons/lorc/crow-dive.svg
 portrait: images/being/crow-portrait.webp
 shortcode: crow

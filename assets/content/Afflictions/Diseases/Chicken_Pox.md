@@ -4,7 +4,6 @@ name:
   full: Chicken Pox
   aliases: []
 description: "Varicella virus; red spots progress to fluid-filled blisters; highly contagious."
-id: HIc9XzMn2fc2GER6
 img: icons/game-icons/lorc/virus.svg
 shortcode: chknpox
 type: affliction

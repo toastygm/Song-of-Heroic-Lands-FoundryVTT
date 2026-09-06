@@ -8,7 +8,6 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: arrow
-id: VaCPXogiH2DZlFrH
 shortcode: ArwLBrd
 img: icons/game-icons/lorc/broadhead-arrow.svg
 easyname: Light Broad

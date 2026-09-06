@@ -4,7 +4,6 @@ name:
   full: Silk Surcoat
   aliases: []
 description: "Luxurious silk surcoat; elegant garment for formal high-status events."
-id: PkKiFjIhKQWTNDUk
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: SlkScoat
 type: armorgear

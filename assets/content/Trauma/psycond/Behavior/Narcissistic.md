@@ -3,7 +3,6 @@ tags: []
 name:
   full: Narcissistic
   aliases: []
-id: odWkFnnjhkldU0XC
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: nrcssstc
 type: trauma

@@ -4,7 +4,6 @@ name:
   full: Wayfarer's Rest, Ground Floor
   aliases: []
 description: "The common room of a roadside shelter: one hearth, one stair, one door."
-id: Xwo4dsmey2A3Rvrn
 shortcode: wayrestground
 type: map
 subType: battlemap

@@ -5,7 +5,6 @@ name:
   full: Butter
   aliases: []
 description: "Pale yellow churned cream; enriches vegetables, fries meat, keeps better salted."
-id: yE5edoNgm7mC9vmH
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: butter
 type: miscgear

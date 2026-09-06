@@ -5,7 +5,6 @@ name:
   full: "Necklace, bone"
   aliases: []
 description: "A chain or strung band worn at the throat, in carved bone."
-id: vrQfDnc8aoPiAkSs
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: necklacebone
 type: miscgear

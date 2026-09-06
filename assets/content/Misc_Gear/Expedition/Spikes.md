@@ -5,7 +5,6 @@ name:
   full: Spikes
   aliases: []
 description: "Foot-long iron spikes for climbing, breaking charges, and lashing boards."
-id: 6h9UedIBm0jR4IBT
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: spikes
 type: miscgear

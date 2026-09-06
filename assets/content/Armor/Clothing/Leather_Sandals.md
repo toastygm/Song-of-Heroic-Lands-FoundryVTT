@@ -4,7 +4,6 @@ name:
   full: Leather Sandals
   aliases: []
 description: "Lightweight leather foot covering combining comfort with rugged charm."
-id: zqLrR90jgECDsRkk
 img: icons/game-icons/delapouite/flip-flops.svg
 shortcode: LtSndls
 type: armorgear

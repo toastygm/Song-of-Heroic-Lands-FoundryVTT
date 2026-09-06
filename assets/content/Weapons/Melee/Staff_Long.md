@@ -4,7 +4,6 @@ name:
   full: Staff, Long
   aliases: []
 description: "Nine-foot hardwood pole; sweeping reach for pike-levies holding ground."
-id: ae7BXc7eg3BDvawN
 img: icons/game-icons/lorc/halberd.svg
 shortcode: LStf
 type: weapongear

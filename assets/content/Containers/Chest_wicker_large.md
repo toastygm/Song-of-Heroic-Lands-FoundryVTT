@@ -4,7 +4,6 @@ name:
   full: "Chest, wicker, large"
   aliases: []
 description: "Large lidded wicker chest."
-id: vX6siwvOdO7NK7Nj
 img: icons/game-icons/delapouite/basket.svg
 shortcode: chestwklg
 type: containergear

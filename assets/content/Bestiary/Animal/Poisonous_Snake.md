@@ -5,7 +5,6 @@ name:
   full: Poisonous Snake
   aliases: []
 description: "An efficient ambush predator armed with a specialized venom delivery system, striking swiftly from forests, badlands, and diverse patient-hunting niches."
-id: VjtudyT7ZWs0T4bO
 img: icons/game-icons/lorc/snake.svg
 portrait: images/being/psnssnk-portrait.webp
 shortcode: psnssnk

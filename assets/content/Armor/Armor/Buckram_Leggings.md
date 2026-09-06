@@ -4,7 +4,6 @@ name:
   full: Buckram Leggings
   aliases: []
 description: "Stiff, structured buckram leg-wear offering durability and reliability."
-id: ofewF2PkbEdsRh24
 img: icons/game-icons/lorc/trousers.svg
 shortcode: BLeg
 type: armorgear

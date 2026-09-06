@@ -4,7 +4,6 @@ name:
   full: Silk Robe
   aliases: []
 description: "Elegant silk robe; luxurious garment for formal occasions and refinement."
-id: C1m54dyAOwdcIicC
 img: icons/game-icons/lorc/robe.svg
 shortcode: SlkRobe
 type: armorgear

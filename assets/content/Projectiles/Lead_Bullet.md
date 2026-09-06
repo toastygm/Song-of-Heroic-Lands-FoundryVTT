@@ -8,7 +8,6 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bullet
-id: AeDgnvIYfTWbk4Z7
 shortcode: LBul
 img: icons/game-icons/delapouite/stone-pile.svg
 easyname: Lead Bullet

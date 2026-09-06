@@ -4,7 +4,6 @@ name:
   full: Woodworking
   aliases: []
 description: "Shaping timber into furniture, tools, carts, and decorative carvings."
-id: IVp2za6i2KFNZxSJ
 img: icons/game-icons/delapouite/hand-saw.svg
 shortcode: wood
 type: skill

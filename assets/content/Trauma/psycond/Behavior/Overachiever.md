@@ -3,7 +3,6 @@ tags: []
 name:
   full: Overachiever
   aliases: []
-id: JBlNG1VriCxwttkR
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: ovrchvr
 type: trauma

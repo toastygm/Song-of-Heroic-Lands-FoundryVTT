@@ -4,7 +4,6 @@ name:
   full: Gambeson Coat
   aliases: []
 description: "Padded coat worn under armor or standalone, offering cushioning protection."
-id: pNu5G4e0GHqnDCa3
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: GCoat
 type: armorgear

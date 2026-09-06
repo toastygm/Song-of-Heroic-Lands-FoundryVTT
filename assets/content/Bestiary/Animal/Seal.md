@@ -7,7 +7,6 @@ name:
   aliases:
     - Grey Seal
 description: "A sleek, fish-eating pinniped of northern coasts whose meat, blubber, and hide sustain coastal Normen communities through bitter winters."
-id: TvRddodNaxRqAUmo
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/seal-portrait.webp
 shortcode: seal

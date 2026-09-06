@@ -3,7 +3,6 @@ tags: []
 name:
   full: Venustraphobia
   aliases: []
-id: kstk9eIcAnEvuVQg
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: vnstrphb
 type: trauma

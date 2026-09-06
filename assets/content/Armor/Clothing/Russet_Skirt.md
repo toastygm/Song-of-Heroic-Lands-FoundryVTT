@@ -4,7 +4,6 @@ name:
   full: Russet Skirt
   aliases: []
 description: "Reddish-brown wool skirt; practical leg-wear for colder climes."
-id: vYwSOAVA7W6TuNIk
 img: icons/game-icons/delapouite/skirt.svg
 shortcode: RSkirt
 type: armorgear

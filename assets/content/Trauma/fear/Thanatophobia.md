@@ -3,7 +3,6 @@ tags: []
 name:
   full: Thanatophobia
   aliases: []
-id: 9Jx2RiAlMXCgLYd5
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: thntphb
 type: trauma

@@ -4,7 +4,6 @@ name:
   full: Tower Shield
   aliases: []
 description: "Man-tall standing shield providing total cover against arrow storms."
-id: HPLnDDmmSh4yH0UK
 img: icons/game-icons/badges/shield.svg
 shortcode: TwrSh
 type: weapongear

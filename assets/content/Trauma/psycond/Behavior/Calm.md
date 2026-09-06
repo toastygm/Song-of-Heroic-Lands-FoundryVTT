@@ -3,7 +3,6 @@ tags: []
 name:
   full: Calm
   aliases: []
-id: zDPRCmnsh7n5uxLX
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: calm
 type: trauma

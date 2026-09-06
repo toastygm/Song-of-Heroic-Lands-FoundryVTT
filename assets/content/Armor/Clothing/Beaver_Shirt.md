@@ -4,7 +4,6 @@ name:
   full: Beaver Shirt
   aliases: []
 description: "Beaver fur shirt combining function and status for cold regions."
-id: V2is0qA4F2mro0Ux
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: BvShirt
 type: armorgear

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Antisocial
   aliases: []
-id: Mq4n9gCaxoUox4hZ
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: antscl
 type: trauma

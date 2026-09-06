@@ -8,7 +8,6 @@ name:
   clan: Hárvenar
   home: ""
   aliases: []
-id: 9xrT7pAeah4Li8qD
 packFolder: pregens
 shortcode: aldrikharvenar
 img: icons/game-icons/delapouite/person.svg

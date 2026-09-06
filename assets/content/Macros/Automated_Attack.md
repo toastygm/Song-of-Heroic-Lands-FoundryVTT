@@ -5,7 +5,6 @@ type: macro
 name:
   full: Automated Attack
   aliases: []
-id: HSNwLca3kMYLN3Ag
 shortcode: autoattack
 img: icons/game-icons/lorc/crossed-swords.svg
 ---

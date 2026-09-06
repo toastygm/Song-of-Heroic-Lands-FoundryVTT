@@ -3,7 +3,6 @@ tags: []
 name:
   full: Galeophobia
   aliases: []
-id: 3Ui5Wkcg6iWFKm8L
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: galeophb
 type: trauma

@@ -5,7 +5,6 @@ name:
   full: "Ring, ivory"
   aliases: []
 description: "A band for the finger, plain or chased, in carved ivory."
-id: WwYpRHYOP02ELoMt
 img: icons/game-icons/lorc/gem-pendant.svg
 shortcode: ringivory
 type: miscgear

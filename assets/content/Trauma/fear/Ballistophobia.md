@@ -3,7 +3,6 @@ tags: []
 name:
   full: Ballistophobia
   aliases: []
-id: vhmdWQ1yBcrhPJpN
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: ballphb
 type: trauma

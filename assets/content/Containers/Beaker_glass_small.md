@@ -4,7 +4,6 @@ name:
   full: "Beaker, glass, small"
   aliases: []
 description: "Small open glass beaker."
-id: wvWv6v07aMdsuvjB
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: beakerglsm
 type: containergear

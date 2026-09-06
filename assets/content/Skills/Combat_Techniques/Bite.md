@@ -5,7 +5,6 @@ name:
   aliases:
     - Bite
 description: "Teeth, at the range where nothing else will reach; small, precise, and it draws blood."
-id: vbgEQjFYO3rVIK1b
 img: icons/game-icons/lorc/fangs.svg
 shortcode: bflkbite
 type: skill

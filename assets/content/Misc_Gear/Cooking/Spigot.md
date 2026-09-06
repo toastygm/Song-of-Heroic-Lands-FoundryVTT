@@ -5,7 +5,6 @@ name:
   full: Spigot
   aliases: []
 description: "Wooden or bronze spigot for controlling flow from barrel or large vessel."
-id: lp4u0RbB9AqqnwPU
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: spigot
 type: miscgear

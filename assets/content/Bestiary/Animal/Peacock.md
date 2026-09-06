@@ -7,7 +7,6 @@ name:
   aliases:
     - Peafowl
 description: "A spectacular Vedyaran bird whose iridescent male unfurls a seven-foot train of elongated tail coverts in the most dazzling display in the world."
-id: auTdTI38hYwuX3sr
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/peacock-portrait.webp
 shortcode: peacock

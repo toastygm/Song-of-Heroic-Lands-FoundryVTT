@@ -418,7 +418,8 @@ than a shared tree; see `@heroiclands/package-build/engine/kb-manifest` and `ass
 ### Authoring content notes
 
 Items, actors, and journal entries are Markdown files with YAML frontmatter
-(a `type:`, a stable `id:`, and folder/embedding metadata; the content package is
+(a `type:`, a `shortcode:` — together the address the document's id derives
+from — and folder/embedding metadata; the content package is
 not authored per note — it is the `contentPackage` declared once in
 `package-build.config.yaml`, `sohl` here),
 authored anywhere under `assets/content/`.
@@ -442,7 +443,6 @@ name:
   full: Second Sight
 type: skill
 package: sohl
-id: BBBBBBBBBBBBBBBB
 pack: mysteries # optional; one of the configured Item packs
 ---
 ```
@@ -540,8 +540,9 @@ declaration — so a subclass never has to know that its type ships in more than
 one pack (see [Several packs of one document
 type](#several-packs-of-one-document-type)).
 
-Two static switches complete it: `requiresId` (a claimed note with no `id` is
-fatal, or merely skipped — the journals pass is the only one that tolerates it)
+Two static switches complete it: `requiresId` (a claimed note with no **address**
+to derive an id from is fatal, or merely skipped — the journals pass is the only
+one that tolerates it)
 and `convertsWikilinks` (whether the body reaching `buildEntry` is converted or
 exactly as authored — the macros pass needs the latter, because its `command` is
 executable source).
@@ -729,12 +730,13 @@ a single character. Nothing about the actors pass changed: it still embeds the
 item wholesale, and what it embeds is now a link.
 
 Two passes have to agree on the link without either seeing the other's output,
-which they do by deriving both ids from the item note's own `id` — the technique
-`anchorPageId()` already uses to let a section link and its page agree:
+which they do by deriving both ids from the item's own document id — itself
+derived from the note's address — the technique `anchorPageId()` already uses to
+let a section link and its page agree:
 
 |                 | Items pass                        | Journals pass             |
 | --------------- | --------------------------------- | ------------------------- |
-| Entry id        | `itemDocEntryId(fm.id)`           | same                      |
+| Entry id        | `itemDocEntryId(noteDocId(fm))`   | same                      |
 | First page id   | `journalPageId(entryId, page, 0)` | same, for every page      |
 | Splits the body | to name page 0                    | into the pages themselves |
 

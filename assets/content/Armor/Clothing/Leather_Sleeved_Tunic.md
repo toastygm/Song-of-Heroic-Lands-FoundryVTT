@@ -4,7 +4,6 @@ name:
   full: Leather Sleeved Tunic
   aliases: []
 description: "Rugged leather sleeved garment with stylish look and minimal defense."
-id: St81B0c0XyMYAhrM
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: LtSTunic
 type: armorgear

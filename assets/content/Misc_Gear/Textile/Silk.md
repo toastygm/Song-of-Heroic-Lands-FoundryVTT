@@ -5,7 +5,6 @@ name:
   full: "Silk, per sq yard"
   aliases: []
 description: "Imported woven silk, light and lustrous; the dearest cloth in any market."
-id: kzBYM98xmpDULepw
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: silk
 type: miscgear

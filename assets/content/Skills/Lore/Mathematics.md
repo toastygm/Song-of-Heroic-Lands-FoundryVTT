@@ -4,7 +4,6 @@ name:
   full: Mathematics
   aliases: []
 description: "Numerical calculation, geometry, and reasoning for engineering and commerce."
-id: SOBolhplOfgbMpre
 img: icons/game-icons/delapouite/abacus.svg
 shortcode: math
 type: skill

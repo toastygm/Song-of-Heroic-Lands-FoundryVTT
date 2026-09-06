@@ -3,7 +3,6 @@ tags: []
 name:
   full: Androphobia
   aliases: []
-id: roP2bnXGS1zSOD45
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: andphb
 type: trauma

@@ -6,7 +6,6 @@ name:
   full: Walrus
   aliases: []
 description: "An immense, tusked pinniped weighing up to three thousand pounds, hauling out in aggressive colonies on northern rocky shores and ice floes."
-id: Ydk8zqgDTmqzr3uV
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/walrus-portrait.webp
 shortcode: walrus

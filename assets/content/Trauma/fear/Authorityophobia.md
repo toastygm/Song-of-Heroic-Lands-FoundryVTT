@@ -3,7 +3,6 @@ tags: []
 name:
   full: Authorityophobia
   aliases: []
-id: WZsRyt1yVFHbJWRA
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: arithphb
 type: trauma

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Gephyrophobia
   aliases: []
-id: LAFCNEsjLF1wW4zP
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: gphyrphb
 type: trauma

@@ -5,7 +5,6 @@ name:
   full: "Soap"
   aliases: []
 description: "Hard milled soap of tallow and ash lye, lightly scented."
-id: 2QVWCDQHcJv7iqvX
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: soap
 type: miscgear

@@ -3,7 +3,6 @@ tags: []
 name:
   full: Patient
   aliases: []
-id: eYpPLqWzAVaTcL4N
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: patient
 type: trauma

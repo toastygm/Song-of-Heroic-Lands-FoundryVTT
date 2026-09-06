@@ -3,7 +3,6 @@ tags: []
 name:
   full: Turophobia
   aliases: []
-id: wRihTBXBMx1fgFO5
 img: icons/game-icons/cathelineau/dread.svg
 shortcode: turophb
 type: trauma

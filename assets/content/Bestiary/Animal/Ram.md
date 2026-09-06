@@ -5,7 +5,6 @@ name:
   full: Ram
   aliases: []
 description: "The heavily built dominant male of sheep herds, wielding massive curved horns and a fierce temper that turns lethal during the autumn rut."
-id: ZwHwXKqpOkh0QMOt
 img: icons/game-icons/delapouite/sheep.svg
 portrait: images/being/ramanml-portrait.webp
 shortcode: ramanml

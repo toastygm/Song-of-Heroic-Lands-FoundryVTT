@@ -4,7 +4,6 @@ name:
   full: "Chest, wooden, large"
   aliases: []
 description: "Large joined wooden chest."
-id: nmdbPh4oIxMywbeX
 img: icons/game-icons/delapouite/chest.svg
 shortcode: chestwdlg
 type: containergear

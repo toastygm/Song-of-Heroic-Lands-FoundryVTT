@@ -4,7 +4,6 @@ name:
   full: Worsted Robe
   aliases: []
 description: "Tightly-spun wool robe; durable, practical versatile garment."
-id: gawXBfAtXL0g5NKs
 img: icons/game-icons/lorc/robe.svg
 shortcode: WRobe
 type: armorgear

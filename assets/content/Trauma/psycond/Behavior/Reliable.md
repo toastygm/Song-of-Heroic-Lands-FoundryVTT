@@ -3,7 +3,6 @@ tags: []
 name:
   full: Reliable
   aliases: []
-id: HaH5IBQkedazZpYF
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: reliable
 type: trauma
