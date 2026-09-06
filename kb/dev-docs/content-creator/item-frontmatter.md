@@ -15,14 +15,17 @@ The tables are rendered from the declaration that _builds_ each document, not fr
 
 ## affiliation
 
-| Field      | Shape                                   | Required | Default | Description                                                            |
-| ---------- | --------------------------------------- | -------- | ------- | ---------------------------------------------------------------------- |
-| `subType`  | string                                  | **yes**  | —       | Which kind of affiliation this is — the society's character.           |
-| `society`  | string                                  | no       | `""`    | The body a member belongs to.                                          |
-| `office`   | string                                  | no       | `""`    | The post a member holds within it.                                     |
-| `title`    | string                                  | no       | `""`    | The style of address the office carries.                               |
-| `level`    | number                                  | no       | `0`     | Standing within the society.                                           |
-| `relation` | map of affiliation shortcode → standing | no       | `{}`    | How this society regards others: aligned, unaligned, rival or nemesis. |
+| Field       | Shape                                   | Required | Default | Description                                                            |
+| ----------- | --------------------------------------- | -------- | ------- | ---------------------------------------------------------------------- |
+| `subType`   | string                                  | **yes**  | —       | Which kind of affiliation this is — the society's character.           |
+| `society`   | string                                  | no       | `""`    | The body a member belongs to.                                          |
+| `office`    | string                                  | no       | `""`    | The post a member holds within it.                                     |
+| `title`     | string                                  | no       | `""`    | The style of address the office carries.                               |
+| `level`     | number                                  | no       | `0`     | Standing within the society.                                           |
+| `relations` | map of affiliation shortcode → standing | no       | `{}`    | How this society regards others: aligned, unaligned, rival or nemesis. |
+| `parents`   | list of shortcodes                      | no       | `[]`    | Affiliations this one is subordinate to, by shortcode.                 |
+| `seat`      | as authored, blank is unset             | no       | `null`  | Where the affiliation's authority sits, by place shortcode.            |
+| `domains`   | list of shortcodes                      | no       | `[]`    | Places this affiliation holds sway over, by shortcode.                 |
 
 **`title` is not read from the note's top level.** There it means the note's own title — the heading its page is published under, which has nothing to do with the style of address an office carries. Author this on the membership instead: `sohl.system.title` on the item, or the `system.title` of the entry in a being's `sohl.items`.
 
@@ -34,7 +37,7 @@ type: affiliation
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
   subType: <string>
 ---
 
@@ -62,14 +65,14 @@ type: affliction
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
   subType: <string>
 ---
 
 The prose here compiles into the item's documentation.
 ```
 
-## armorgear
+## armor
 
 | Field                   | Shape                             | Required | Default | Description                                                                                                                          |
 | ----------------------- | --------------------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -92,12 +95,12 @@ The prose here compiles into the item's documentation.
 ```markdown
 ---
 name:
-  full: An Example armorgear
-type: armorgear
+  full: An Example armor
+type: armor
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
 ---
 
 The prose here compiles into the item's documentation.
@@ -120,13 +123,13 @@ type: attribute
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
 ---
 
 The prose here compiles into the item's documentation.
 ```
 
-## concoctiongear
+## concoction
 
 | Field        | Shape       | Required | Default         | Description                                            |
 | ------------ | ----------- | -------- | --------------- | ------------------------------------------------------ |
@@ -141,12 +144,12 @@ The prose here compiles into the item's documentation.
 ```markdown
 ---
 name:
-  full: An Example concoctiongear
-type: concoctiongear
+  full: An Example concoction
+type: concoction
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
   subType: <string>
 ---
 
@@ -171,7 +174,7 @@ type: containergear
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
 ---
 
 The prose here compiles into the item's documentation.
@@ -194,7 +197,7 @@ type: miscgear
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
 ---
 
 The prose here compiles into the item's documentation.
@@ -219,7 +222,7 @@ type: mystery
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
   subType: <string>
 ---
 
@@ -246,14 +249,14 @@ type: mysticalability
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
   subType: <string>
 ---
 
 The prose here compiles into the item's documentation.
 ```
 
-## projectilegear
+## projectile
 
 | Field             | Shape                             | Required | Default    | Description                                            |
 | ----------------- | --------------------------------- | -------- | ---------- | ------------------------------------------------------ |
@@ -269,12 +272,12 @@ The prose here compiles into the item's documentation.
 ```markdown
 ---
 name:
-  full: An Example projectilegear
-type: projectilegear
+  full: An Example projectile
+type: projectile
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
   subType: <string>
 ---
 
@@ -302,7 +305,7 @@ type: skill
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
   subType: <string>
 ---
 
@@ -328,7 +331,7 @@ type: trauma
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
   subType: <string>
 ---
 
@@ -355,7 +358,7 @@ type: weapongear
 shortcode: xmpl
 id: <16-character id>
 sohl:
-  archetype: null
+  templatePriority: null
 ---
 
 The prose here compiles into the item's documentation.
