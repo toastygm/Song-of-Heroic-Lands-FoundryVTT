@@ -16,21 +16,12 @@ portrait: images/being/aldrikharvenar-portrait.webp
 type: being
 data:
   templatePriority: null
-social:
-  occupation: Man-at-Arms
-  station: soldiery
-  class: freeman
-  society: Provenzal
-traits:
   gender: male
   age: 34
   birthday: 686/4/2
-  height:
-    m: 1.8
-  weight:
-    kg: 67
-  build:
-    frame: medium
+  height: 1.8
+  weight: 67
+  frame: medium
   appearance:
     eye_color: dark_brown
     hair_color: blonde
@@ -38,6 +29,11 @@ traits:
     complexion: weathered
     extra_features:
       - missing tooth
+social:
+  occupation: Man-at-Arms
+  station: soldiery
+  class: freeman
+  society: Provenzal
 gear:
   weapons:
     - BrdSwd:1
