@@ -100,8 +100,8 @@ function defineAfflictionSchema(): foundry.data.fields.DataSchema {
         // array of them — the host contracts as part of the outcome. Blank means
         // none. Combines with `outcome`. A SafeExpressionField so the sheet offers
         // the code editor; its defaults are nullable / non-blank / `initial: null`.
-        outcomeTrauma: new SafeExpressionField({
-            scope: "affliction.outcomeTrauma",
+        outcomeTraumas: new SafeExpressionField({
+            scope: "affliction.outcomeTraumas",
         }),
         // The timed phases, written out rather than generated from a name.
         // `phaseFields("onset")` built its keys with a template literal, so the
@@ -146,7 +146,7 @@ export class AfflictionDataModel<
     treatmentDate!: number | null;
     onsetMacroUuid!: string | null;
     outcome!: AfflictionOutcome;
-    outcomeTrauma!: string | null;
+    outcomeTraumas!: string | null;
     onsetDurationFormula!: string | null;
     onsetDurationBase!: number | null;
     onsetDate!: number | null;

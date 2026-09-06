@@ -32,7 +32,7 @@
                     "onsetFormula",
                     "onsetMacroUuid",
                     "outcome",
-                    "outcomeTrauma",
+                    "outcomeTraumas",
                     "resolutionDate",
                     "resolutionDurationBase",
                     "resolutionDurationFormula",

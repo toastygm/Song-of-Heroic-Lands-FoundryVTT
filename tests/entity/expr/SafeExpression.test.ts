@@ -717,7 +717,7 @@ describe("SafeExpression", () => {
         });
 
         it("rejects every identifier in a scope that declares none", () => {
-            const none = expressionScopes.require("affliction.outcomeTrauma");
+            const none = expressionScopes.require("affliction.outcomeTraumas");
             const build = (source: string) =>
                 new SafeExpression({ source }, { parent: mockParent, scope: none });
             expect(() => build("'gash'")).not.toThrow();
@@ -726,7 +726,7 @@ describe("SafeExpression", () => {
         });
 
         it("says so plainly when a scope binds nothing", () => {
-            const none = expressionScopes.require("affliction.outcomeTrauma");
+            const none = expressionScopes.require("affliction.outcomeTraumas");
             let message = "";
             try {
                 new SafeExpression({ source: "wound" }, { parent: mockParent, scope: none });

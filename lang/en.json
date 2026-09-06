@@ -165,6 +165,7 @@
     "SOHL.Affliction.FIELDS.outcome.hint": "What happens to the character when the affliction resolves without being defeated",
     "SOHL.Affliction.FIELDS.outcome.label": "Outcome",
     "SOHL.Affliction.FIELDS.outcomeTrauma.label": "Outcome Trauma",
+    "SOHL.Affliction.FIELDS.outcomeTraumas.label": "Outcome Traumas",
     "SOHL.Affliction.FIELDS.resolutionDate.label": "Resolution Date",
     "SOHL.Affliction.FIELDS.resolutionDurationBase.label": "Resolution Interval (sec)",
     "SOHL.Affliction.FIELDS.resolutionDurationFormula.label": "Resolution Interval Formula",

@@ -242,10 +242,10 @@ export const EXPRESSION_SCOPES = Object.freeze({
         },
     },
 
-    "affliction.outcomeTrauma": {
+    "affliction.outcomeTraumas": {
         label: "Affliction — outcome trauma",
         site: "`AfflictionLogic` (`contractOutcomeTraumas`)",
-        field: "`outcomeTrauma`",
+        field: "`outcomeTraumas`",
         result: "string or string[] (trauma shortcodes)",
         summary:
             "Chooses which trauma(s) an affliction inflicts on contraction. Bound to nothing: the " +

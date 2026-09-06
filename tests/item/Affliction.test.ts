@@ -48,7 +48,7 @@ function afflictionFields(overrides: Record<string, unknown> = {}) {
         transmission: AFFLICTION_TRANSMISSION.CONTACT,
         onsetMacroUuid: "",
         outcome: "cured",
-        outcomeTrauma: "",
+        outcomeTraumas: "",
         ...overrides,
     };
 }
@@ -638,7 +638,7 @@ describe("resolution outcome effect (#490)", () => {
             .mockResolvedValue([]);
         const { logic } = resolvingAffliction({
             outcome: "cured",
-            outcomeTrauma: "'weakness20'",
+            outcomeTraumas: "'weakness20'",
         });
         await logic.setResolution({ skipDialog: true } as any);
         expect(logic.item.update).toHaveBeenCalledWith(
@@ -665,7 +665,7 @@ describe("resolution outcome effect (#490)", () => {
             .mockResolvedValue([]);
         const { logic } = resolvingAffliction({
             outcome: "cured",
-            outcomeTrauma: "['a', 'b']",
+            outcomeTraumas: "['a', 'b']",
         });
         await logic.setResolution({ skipDialog: true } as any);
         expect(find).toHaveBeenCalledTimes(2);
@@ -681,7 +681,7 @@ describe("resolution outcome effect (#490)", () => {
         const warn = vi.spyOn(sohl.log, "warn");
         const { logic } = resolvingAffliction({
             outcome: "cured",
-            outcomeTrauma: "'nope'",
+            outcomeTraumas: "'nope'",
         });
         await logic.setResolution({ skipDialog: true } as any);
         expect(warn).toHaveBeenCalled();

@@ -29,7 +29,7 @@ function afflictionFields(overrides: Record<string, unknown> = {}) {
         onsetMacroUuid: null,
         onsetFormula: "2d6",
         outcome: "cured",
-        outcomeTrauma: null,
+        outcomeTraumas: null,
         ...overrides,
     };
 }

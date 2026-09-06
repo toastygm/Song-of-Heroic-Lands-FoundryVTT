@@ -1108,7 +1108,7 @@ export class AfflictionLogic<
      * @remarks Crystallizes `resolutionDate` and, when the affliction was **not**
      *   defeated (Healing Rate below 6), applies its authored **outcome** (#490):
      *   `DEATH` sets the being's shock state to Dead; `CURED` sets Healing Rate to
-     *   6. Either combines with an optional `outcomeTrauma`
+     *   6. Either combines with an optional `outcomeTraumas`
      *   {@link sohl.entity.expr.SafeExpression} whose result — a trauma shortcode
      *   or array of them — is contracted as new trauma(s) (searched world-first,
      *   then compendiums).
@@ -1142,7 +1142,7 @@ export class AfflictionLogic<
      * {@link AfflictionData.resolutionDate} set to now. Resolution is terminal, so
      * the affliction's remaining schedules are cleared, and the chosen outcome is
      * applied — death, or a cure that takes the Healing Rate to 6 — along with any
-     * authored `outcomeTrauma`.
+     * authored `outcomeTraumas`.
      *
      * An affliction already **defeated** (Healing Rate 6 or better) has beaten its
      * course on its own; its resolution is recorded but no outcome is inflicted.
@@ -1208,21 +1208,21 @@ export class AfflictionLogic<
                 "system.healingRateBase": 6,
             } as PlainObject);
         }
-        if (this.data.outcomeTrauma) {
+        if (this.data.outcomeTraumas) {
             await this.contractOutcomeTraumas();
         }
     }
 
     /**
-     * Evaluate the `outcomeTrauma` SafeExpression to a shortcode (or array of
+     * Evaluate the `outcomeTraumas` SafeExpression to a shortcode (or array of
      * shortcodes), resolve each to a trauma template (world items first, then
      * compendiums), and create the matches on the host.
      * @returns A promise that resolves once any outcome traumas are created.
      */
     private async contractOutcomeTraumas(): Promise<void> {
-        const scope = expressionScopes.require("affliction.outcomeTrauma");
+        const scope = expressionScopes.require("affliction.outcomeTraumas");
         const value = new SafeExpression(
-            { source: this.data.outcomeTrauma ?? undefined },
+            { source: this.data.outcomeTraumas ?? undefined },
             { parent: this, scope },
         ).evaluate(scope.bind({}));
         const shortcodes = (Array.isArray(value) ? value : [value])
@@ -1232,7 +1232,7 @@ export class AfflictionLogic<
         for (const code of shortcodes) {
             const data = await fvttFindItemByShortcode(code);
             if (data) created.push(data);
-            else sohl.log.warn(`Affliction outcomeTrauma: no item found with shortcode "${code}"`);
+            else sohl.log.warn(`Affliction outcomeTraumas: no item found with shortcode "${code}"`);
         }
         if (created.length) {
             await fvttCreateEmbeddedItems(this.actorLogic, created);
@@ -1278,7 +1278,7 @@ export interface AfflictionData<
      * trauma shortcode — or an array of shortcodes — the host contracts as part
      * of the outcome. Blank means none; combines with {@link outcome}.
      */
-    outcomeTrauma: string | null;
+    outcomeTraumas: string | null;
     /** Formula rolled to seed the incubation (contract → onset) interval. */
     onsetDurationFormula: string | null;
     /** Rolled seconds of incubation; `null` until rolled. */
