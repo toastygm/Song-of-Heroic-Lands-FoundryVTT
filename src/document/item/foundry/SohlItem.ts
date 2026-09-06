@@ -447,7 +447,7 @@ export async function sohlCreateDialog(
  * Build create-data by cloning an archetype document, addressed by UUID. The
  * source's `toObject()` carries its embedded documents (items, effects), so a
  * being seeds fully populated. The copy is cleaned like an import — fresh id,
- * no folder/sort/ownership carried over — its `system.archetype` marker is
+ * no folder/sort/ownership carried over — its `system.templatePriority` marker is
  * cleared to `null` (an instance is not itself an archetype; see
  * {@link sohl.entity.archetype.clearArchetypeMarker}), and the dialog's
  * Name / Type / SubType / Shortcode are overlaid. `_preCreate` remains the

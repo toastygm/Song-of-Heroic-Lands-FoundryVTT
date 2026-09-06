@@ -119,32 +119,33 @@ export const ARCHETYPE_FIELD_PARTIAL_NAME = "archetypeField";
  * Create-dialog **archetype** — a populated starting template the Create dialog
  * offers to clone from (issue #604).
  *
- * The marker lives in the schema (`system.archetype`), so it binds to an
- * ordinary number input: **a number** marks the document as an archetype _at
- * that priority_, and **an empty box** means it is not one — Foundry's
- * `FormDataExtended` casts an empty number input to `null`, which is exactly the
- * field's "not an archetype" state. Before #1780 the marker was a flag, and
- * Foundry ships no flag editor, so setting it meant export → hand-edit JSON →
- * re-import.
+ * The marker lives in the schema (`system.templatePriority`, renamed off
+ * `system.archetype` by #1836), so it binds to an ordinary number input: **a
+ * number** marks the document as an archetype _at that priority_, and **an
+ * empty box** means it is not one — Foundry's `FormDataExtended` casts an empty
+ * number input to `null`, which is exactly the field's "not an archetype"
+ * state. Before #1780 the marker was a flag, and Foundry ships no flag editor,
+ * so setting it meant export → hand-edit JSON → re-import.
  *
  * `0` is a real priority — SoHL's own archetypes ship at it — so the value must
  * never be bound through a truthiness test, which would render `0` as an empty
- * box and silently clear the marker on the next save. Plain `{{archetype}}` is
- * exactly right here: Handlebars renders `null`/`undefined` as `""` but `0` as
- * `"0"`, so the interpolation preserves the tri-state on its own. Do not
- * "improve" it into an `{{#if}}`.
+ * box and silently clear the marker on the next save. Plain
+ * `{{templatePriority}}` is exactly right here: Handlebars renders
+ * `null`/`undefined` as `""` but `0` as `"0"`, so the interpolation preserves
+ * the tri-state on its own. Do not "improve" it into an `{{#if}}`.
  *
  * Invocation context:
  * - `canMarkArchetype` — renders nothing when falsy. The sheet sets it for a GM
  *   viewing a top-level (non-embedded) document; an embedded item is by
  *   definition an instance, never a library template.
- * - `archetype` — the current `system.archetype` (a number, or `null`).
+ * - `templatePriority` — the current `system.templatePriority` (a number, or
+ *   `null`).
  */
 export const ARCHETYPE_FIELD_PARTIAL = `{{#if canMarkArchetype}}
 <label class="sheet-header__archetype" data-tooltip="{{localize "SOHL.Archetype.hint"}}">
     <span class="sheet-header__archetype-label">{{localize "SOHL.Archetype.label"}}</span>
-    <input class="sheet-header__archetype-input" type="number" step="1" name="system.archetype"
-        value="{{archetype}}" placeholder="{{localize "SOHL.Archetype.placeholder"}}" />
+    <input class="sheet-header__archetype-input" type="number" step="1" name="system.templatePriority"
+        value="{{templatePriority}}" placeholder="{{localize "SOHL.Archetype.placeholder"}}" />
 </label>
 {{/if}}`;
 

@@ -16,9 +16,11 @@ import fs from "node:fs";
 import path from "node:path";
 
 /**
- * `system.archetype` (issue #1780) — the Create-dialog archetype marker, moved
- * off `flags.sohl.docArchetype` and into the schema so it can be authored on a
- * sheet instead of by export / hand-edit / re-import.
+ * `system.templatePriority` (issues #1780, #1836) — the Create-dialog archetype
+ * marker, moved off `flags.sohl.docArchetype` and into the schema so it can be
+ * authored on a sheet instead of by export / hand-edit / re-import, then
+ * renamed off `archetype` so that word is free for the character-sort taxonomy
+ * (HeroicLands/package-build#266).
  *
  * Two different claims are asserted here.
  *
@@ -44,13 +46,13 @@ const sharedSchemaSource = fs.readFileSync(
     "utf8",
 );
 
-describe("system.archetype is declared once, on the shared base (#1780)", () => {
+describe("system.templatePriority is declared once, on the shared base (#1780, #1836)", () => {
     it("declares a nullable integer NumberField initialized to null", () => {
         // The default must be the not-an-archetype state, and it must be `null`
         // rather than `0`: `0` is a real priority (SoHL's own archetypes ship at
         // it), so an `initial: 0` would make every new document an archetype.
         expect(sharedSchemaSource).toMatch(
-            /archetype:\s*new NumberField\(\{\s*nullable:\s*true,\s*integer:\s*true,\s*initial:\s*null,?\s*\}\)/,
+            /templatePriority:\s*new NumberField\(\{\s*nullable:\s*true,\s*integer:\s*true,\s*initial:\s*null,?\s*\}\)/,
         );
     });
 
@@ -58,7 +60,7 @@ describe("system.archetype is declared once, on the shared base (#1780)", () => 
         // One declaration on the shared base is the point — seventeen copies,
         // one per subtype, would drift.
         const declarations = walkTs(path.join(ROOT, "src")).filter((file) =>
-            /archetype:\s*new NumberField/.test(fs.readFileSync(file, "utf8")),
+            /templatePriority:\s*new NumberField/.test(fs.readFileSync(file, "utf8")),
         );
         expect(declarations.map((f) => path.relative(ROOT, f))).toEqual([
             "src/core/foundry/SohlDataModel.ts",
@@ -66,7 +68,7 @@ describe("system.archetype is declared once, on the shared base (#1780)", () => 
     });
 });
 
-describe("system.archetype is published on every Item and Actor subtype (#1780)", () => {
+describe("system.templatePriority is published on every Item and Actor subtype (#1780, #1836)", () => {
     /** Every field path a subtype declares, own and inherited. */
     function fieldsOf(documentType: string, subtype: string): string[] {
         const entry = artifact.documents?.[documentType]?.[subtype];
@@ -81,8 +83,8 @@ describe("system.archetype is published on every Item and Actor subtype (#1780)"
             expect(subtypes.length).toBeGreaterThan(0);
         });
 
-        it.each(subtypes)(`${documentType}.%s carries archetype`, (subtype) => {
-            expect(fieldsOf(documentType, subtype)).toContain("archetype");
+        it.each(subtypes)(`${documentType}.%s carries templatePriority`, (subtype) => {
+            expect(fieldsOf(documentType, subtype)).toContain("templatePriority");
         });
     }
 
@@ -91,8 +93,8 @@ describe("system.archetype is published on every Item and Actor subtype (#1780)"
             for (const [subtype, entry] of Object.entries<any>(
                 artifact.documents?.[documentType] ?? {},
             )) {
-                expect(entry.inherited, `${documentType}.${subtype}`).toContain("archetype");
-                expect(entry.own, `${documentType}.${subtype}`).not.toContain("archetype");
+                expect(entry.inherited, `${documentType}.${subtype}`).toContain("templatePriority");
+                expect(entry.own, `${documentType}.${subtype}`).not.toContain("templatePriority");
             }
         }
     });

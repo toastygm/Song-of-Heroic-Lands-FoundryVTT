@@ -24,7 +24,7 @@ import { AFFLICTION_SUBTYPE, ITEM_KIND, toMessageMode } from "@src/utils/constan
 import type { AfflictionChoice } from "@src/document/actor/logic/affliction-contract";
 import {
     ARCHETYPE_TIER,
-    readArchetypePriority,
+    readTemplatePriority,
     type ArchetypeCandidate,
 } from "@src/entity/archetype/archetype";
 import type { SohlItem } from "@src/document/item/foundry/SohlItem";
@@ -528,15 +528,22 @@ export async function fvttFindItemByShortcode(
  * directory and all compendium packs whose `metadata.type` matches — the
  * Foundry-boundary half of the Create-dialog archetype picker (issue #604).
  *
- * A candidate is any document carrying a **numeric** `system.archetype` (its
- * priority; `null` is not an archetype — see
- * {@link sohl.entity.archetype.readArchetypePriority} for the falsy trap on
+ * A candidate is any document carrying a **numeric** `system.templatePriority`
+ * (`null` is not an archetype — see
+ * {@link sohl.entity.archetype.readTemplatePriority} for the falsy trap on
  * `0`). This gathers them into the plain
  * {@link sohl.entity.archetype.ArchetypeCandidate} records the Foundry-free
  * {@link sohl.entity.archetype.resolveArchetypes} rules consume — so all the
  * filter/dedup/winner logic stays unit-testable. Packs are read through their
- * **index** (with the archetype / shortcode / subType fields requested) to avoid
+ * **index** (with the priority / shortcode / subType fields requested) to avoid
  * loading full documents; the winner's `toObject()` is only fetched on confirm.
+ *
+ * The index is asked for the **pre-#1836 `system.archetype` as well**, and it
+ * has to be: an index entry is raw stored data that never passes through the
+ * data model, so a pack built by an older toolchain would otherwise contribute
+ * nothing and its archetypes would vanish from the dialog with no error. A
+ * requested field that a pack does not carry is simply absent, so asking for
+ * both costs nothing.
  *
  * Source tier is derived from the pack's `packageType` (world &lt; system &lt;
  * module); world-directory documents are {@link ARCHETYPE_TIER.WORLD}.
@@ -550,7 +557,7 @@ export async function fvttDiscoverArchetypes(documentName: string): Promise<Arch
 
     const worldCollection = documentName === "Actor" ? (game as any).actors : (game as any).items;
     for (const doc of (worldCollection ?? []) as Iterable<any>) {
-        const priority = readArchetypePriority(doc.system);
+        const priority = readTemplatePriority(doc.system);
         if (priority === undefined) continue;
         out.push({
             uuid: doc.uuid,
@@ -570,10 +577,17 @@ export async function fvttDiscoverArchetypes(documentName: string): Promise<Arch
             : pack.metadata?.packageType === "world" ? ARCHETYPE_TIER.WORLD
             : ARCHETYPE_TIER.MODULE;
         const index = await pack.getIndex({
-            fields: ["system.archetype", "system.shortcode", "system.subType"],
+            fields: [
+                "system.templatePriority",
+                // Pre-#1836 spelling, still carried by packs built by an older
+                // toolchain; `readTemplatePriority` prefers the new one.
+                "system.archetype",
+                "system.shortcode",
+                "system.subType",
+            ],
         });
         for (const entry of index as Iterable<any>) {
-            const priority = readArchetypePriority(entry.system);
+            const priority = readTemplatePriority(entry.system);
             if (priority === undefined) continue;
             out.push({
                 uuid: entry.uuid ?? `Compendium.${pack.collection}.${entry._id}`,

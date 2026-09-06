@@ -19,6 +19,7 @@ import type { SohlLogic, SohlLogicData } from "@src/core/logic/SohlLogic";
 import type { SohlAction } from "@src/entity/action/SohlAction";
 import type { ScheduledAction } from "@src/entity/event/scheduled-actions";
 import { dialog, fvttResolveUuid } from "@src/core/FoundryHelpers";
+import { migrateTemplatePriority } from "@src/entity/archetype/archetype";
 import {
     ActionSubType,
     ActionSubTypes,
@@ -49,7 +50,7 @@ const { StringField, SchemaField, NumberField, ArrayField, ObjectField, JavaScri
 
 /**
  * Builds the Foundry data schema shared by every SoHL data model (shortcode,
- * the archetype marker, the array of action definitions, and the generic
+ * the template priority, the array of action definitions, and the generic
  * schedule). Concrete document schemas (`defineSohlItemDataSchema`,
  * `defineSohlActorDataSchema`, the combatant schema) spread this so every SoHL
  * data model carries these fields.
@@ -66,16 +67,26 @@ export function defineSohlDataSchema(): foundry.data.fields.DataSchema {
         // / `enforceShortcodeOnUpdate` (issue #766). Other documents (combatant,
         // …) never key on it and leave it blank.
         shortcode: new StringField({ initial: "" }),
-        // Create-dialog **archetype** marker and priority (issue #604, moved
-        // here from `flags.sohl.docArchetype` by #1780). Tri-state, and the two
-        // empty-looking states are NOT interchangeable: a **number** marks this
-        // document as an archetype *at that priority* — SoHL's own archetypes
-        // ship at `0` — while `null` means it is not an archetype at all. `0`
-        // is falsy, so every reader must test `typeof v === "number"` and never
-        // truthiness (see `readArchetypePriority`). `nullable`/`initial: null`
-        // is the "delete the flag" state the contract needs: discovery filters
-        // for a number, and `null` fails that exactly as an absent flag did.
-        archetype: new NumberField({ nullable: true, integer: true, initial: null }),
+        // Create-dialog **archetype** marker and template priority (issue #604,
+        // moved here from `flags.sohl.docArchetype` by #1780, renamed off
+        // `archetype` by #1836). The field is the *priority*, never the kind:
+        // authored content already carries a sibling `archetypes` list — what
+        // sort of character this is (healer, warrior, mage) — and a priority
+        // and a taxonomy must not be told apart by a plural `s`, so the number
+        // takes the name that says what it is (HeroicLands/package-build#266).
+        //
+        // Tri-state, and the two empty-looking states are NOT interchangeable:
+        // a **number** marks this document as an archetype *at that priority* —
+        // SoHL's own archetypes ship at `0` — while `null` means it is not an
+        // archetype at all. `0` is falsy, so every reader must test
+        // `typeof v === "number"` and never truthiness (see
+        // `readTemplatePriority`). `nullable`/`initial: null` is the "delete
+        // the flag" state the contract needs: discovery filters for a number,
+        // and `null` fails that exactly as an absent flag did.
+        //
+        // A world's existing `system.archetype` is carried across by
+        // `SohlDataModel.migrateData`.
+        templatePriority: new NumberField({ nullable: true, integer: true, initial: null }),
         actionDefs: new ArrayField(
             new SchemaField({
                 // Unique code identifying this action on its Logic instance —
@@ -212,10 +223,11 @@ export abstract class SohlDataModel<
     protected _logic!: TLogic;
     shortcode!: string;
     /**
-     * The Create-dialog archetype priority, or `null` when this document is not
-     * an archetype. See the field declaration in {@link defineSohlDataSchema}.
+     * The Create-dialog archetype's template priority, or `null` when this
+     * document is not an archetype. See the field declaration in
+     * {@link defineSohlDataSchema}.
      */
-    archetype!: number | null;
+    templatePriority!: number | null;
     actionDefs!: SohlAction.Data[];
     scheduledActions!: ScheduledAction[];
     lastRun!: Record<string, number>;
@@ -228,6 +240,33 @@ export abstract class SohlDataModel<
      */
     constructor(data: PlainObject = {}, options: PlainObject = {}) {
         super(data as any, options as any);
+    }
+
+    /**
+     * Carry a world's pre-#1836 `system.archetype` across to
+     * {@link SohlDataModel.templatePriority}, the name the field now has.
+     *
+     * Foundry hands a `TypeDataModel` its **`system` block** here, on every
+     * clean, so declaring this once on the shared base reaches every SoHL Item,
+     * Actor and Combatant subtype — the same reach the field declaration itself
+     * has. The rule is {@link sohl.entity.archetype.migrateTemplatePriority},
+     * which lives in the Foundry-free layer so it is unit-testable; see it for
+     * why this rename needs a migration where #1780's did not, and for how the
+     * tri-state survives.
+     *
+     * A **compendium index** entry never passes through here — it is raw stored
+     * data — so discovery reads the legacy spelling directly instead
+     * ({@link sohl.entity.archetype.readTemplatePriority}).
+     *
+     * @param source - Candidate `system` source data, mutated in place.
+     * @param options - Foundry's data-cleaning options, forwarded to `super`.
+     * @returns The migrated source data.
+     */
+    static override migrateData(source: PlainObject, options?: PlainObject): PlainObject {
+        return super.migrateData(
+            migrateTemplatePriority(source) as any,
+            options as any,
+        ) as PlainObject;
     }
 
     /**
