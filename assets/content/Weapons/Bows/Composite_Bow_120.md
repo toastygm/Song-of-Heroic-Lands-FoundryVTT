@@ -8,12 +8,13 @@ id: 0u0aHzmgbNFs1mmM
 img: icons/game-icons/lorc/pocket-bow.svg
 shortcode: CBw120
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: fltch
     secondary: [wood, hide]
   kbcat: bow
-  archetype: 0
   durability: 12
   weight: 4
   value: 600

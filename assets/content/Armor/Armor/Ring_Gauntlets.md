@@ -8,12 +8,13 @@ id: ka8b28LXh1oFLnIG
 img: icons/game-icons/lorc/mailed-fist.svg
 shortcode: RMtn
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: ring
-  archetype: 0
   armorType: Gauntlets
   detailMaterial: Ring
   material: Ring

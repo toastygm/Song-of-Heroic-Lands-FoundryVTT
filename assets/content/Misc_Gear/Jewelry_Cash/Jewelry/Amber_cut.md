@@ -9,12 +9,13 @@ id: EMMjYTR3WFgCf6OL
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: ambercut
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 1
   value: 2

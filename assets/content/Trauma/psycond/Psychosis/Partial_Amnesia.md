@@ -7,10 +7,11 @@ id: ICWyMofRDcMz9QwR
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: amnsprtl
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psypsychosis
-  archetype: 0
   category: disorder
 folder: ECrcBb9CUCMX9JeJ
 ---

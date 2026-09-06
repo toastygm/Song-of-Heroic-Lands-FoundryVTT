@@ -8,12 +8,13 @@ id: F4hmm6E0UdwhBUu9
 img: icons/game-icons/lorc/scale-mail.svg
 shortcode: SHabg
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide, mtlc]
   kbcat: scale
-  archetype: 0
   armorType: Habergeon
   detailMaterial: Scale
   material: Scale

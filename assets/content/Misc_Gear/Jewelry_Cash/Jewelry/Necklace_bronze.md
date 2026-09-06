@@ -9,12 +9,13 @@ id: 0A6suaaSXu0ylM45
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: necklacebronze
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: [mtlc]
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 4
   value: 31

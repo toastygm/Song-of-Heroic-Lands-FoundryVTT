@@ -11,12 +11,13 @@ id: JEmyKHG6jffHZwYg
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: piton
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 8
   value: 1

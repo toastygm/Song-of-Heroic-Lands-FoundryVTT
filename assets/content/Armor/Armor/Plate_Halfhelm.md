@@ -8,12 +8,13 @@ id: 5EDCAu3uGFk5JedD
 img: icons/game-icons/lorc/barbute.svg
 shortcode: PlHHelm
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: plate
-  archetype: 0
   armorType: Halfhelm
   detailMaterial: Plate
   material: Plate

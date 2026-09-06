@@ -8,11 +8,12 @@ id: NwG06snlkXwaT7vQ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bucketcopp
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
-  archetype: 0
   quality: 0
   durability: 4
   maxCapacity: 24

@@ -11,9 +11,10 @@ img: icons/game-icons/lorc/vulture.svg
 portrait: images/being/vulture-portrait.webp
 shortcode: vulture
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+3
     end: 1d4+6

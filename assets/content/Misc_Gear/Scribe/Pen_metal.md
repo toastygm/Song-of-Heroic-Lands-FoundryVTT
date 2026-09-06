@@ -9,12 +9,13 @@ id: LjmDkpkUPBqzXWjM
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: penmetal
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: scribe
-  archetype: 0
   quality: 0
   durability: 5
   value: 4

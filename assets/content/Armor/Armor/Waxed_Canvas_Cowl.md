@@ -8,12 +8,13 @@ id: rHgEt8gIaYCoJn4I
 img: icons/game-icons/lorc/hood.svg
 shortcode: WxCvCowl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cowl
   detailMaterial: Waxed Canvas
   material: Cloth

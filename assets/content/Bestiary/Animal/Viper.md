@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/snake.svg
 portrait: images/being/viper-portrait.webp
 shortcode: viper
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+3
     end: 1d4+5

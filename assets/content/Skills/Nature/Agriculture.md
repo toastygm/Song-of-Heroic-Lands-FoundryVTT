@@ -8,10 +8,11 @@ id: i0ILSAgGcKWCKFa4
 img: icons/game-icons/lorc/wheat.svg
 shortcode: agri
 type: skill
+data:
+  templatePriority: 0
 subType: nature
 sohl:
   kbcat: nature
-  archetype: 0
   skillBaseFormula: "sb(attr.per, attr.wil)"
   combatCategory: none
   parentSkillCode: ""

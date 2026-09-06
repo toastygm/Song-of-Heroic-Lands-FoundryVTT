@@ -9,12 +9,13 @@ id: WhTLgTrKp7F8Q9gA
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lockdoorla
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: lock
     secondary: [mtlc]
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 7
   value: 20

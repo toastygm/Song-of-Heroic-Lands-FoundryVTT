@@ -8,12 +8,13 @@ id: C5CEWxxBG7zeuYD7
 img: icons/game-icons/delapouite/gloves.svg
 shortcode: EGlv
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Gloves
   detailMaterial: Ermine
   material: Leather

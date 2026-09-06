@@ -9,12 +9,13 @@ id: 3HWA6AtafwGPbUVQ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: metalwrktl
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 8
   value: 100

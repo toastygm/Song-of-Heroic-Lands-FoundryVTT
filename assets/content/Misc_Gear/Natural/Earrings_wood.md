@@ -9,12 +9,13 @@ id: bjU6ipiJkvYA1Syp
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: earringswood
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: [wood]
   kbcat: natural
-  archetype: 0
   quality: 0
   durability: 2
   value: 2

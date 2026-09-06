@@ -9,12 +9,13 @@ id: CKbVnsgFF6oUH8Z4
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: leathertan
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: natural
-  archetype: 0
   quality: 0
   durability: 5
   value: 20

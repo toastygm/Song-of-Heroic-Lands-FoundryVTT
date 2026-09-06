@@ -8,12 +8,13 @@ id: CJiRdfl8Qu2A2pT0
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: RTunic
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Tunic
   detailMaterial: Russet
   material: Cloth

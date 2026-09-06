@@ -9,12 +9,13 @@ id: VuBYl6ERtDNUgMFF
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: map
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: draw
     secondary: []
   kbcat: scribe
-  archetype: 0
   quality: 0
   durability: 2
   value: 12

@@ -8,12 +8,13 @@ id: r6GPQ3FF3Ci4TbDV
 img: icons/game-icons/willdabeast/chain-mail.svg
 shortcode: MLShirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: mail
-  archetype: 0
   armorType: Longshirt
   detailMaterial: Mail
   material: Mail

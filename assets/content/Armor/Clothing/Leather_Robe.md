@@ -8,12 +8,13 @@ id: rjE671F4IQ0hh3KL
 img: icons/game-icons/lorc/robe.svg
 shortcode: LtRobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Robe
   detailMaterial: Leather
   material: Leather

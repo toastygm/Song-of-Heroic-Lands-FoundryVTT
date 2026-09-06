@@ -8,12 +8,13 @@ id: bmUPEN0bFc20MHqI
 img: icons/game-icons/delapouite/skirt.svg
 shortcode: RhSkirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Skirt
   detailMaterial: Rawhide
   material: Leather

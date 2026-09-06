@@ -8,12 +8,13 @@ id: gKMGLeXQKiW0QqTx
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: BClk
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cloak
   detailMaterial: Buckram
   material: Cloth

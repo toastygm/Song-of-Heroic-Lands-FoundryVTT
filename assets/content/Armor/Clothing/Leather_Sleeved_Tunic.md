@@ -8,12 +8,13 @@ id: St81B0c0XyMYAhrM
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: LtSTunic
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Leather
   material: Leather

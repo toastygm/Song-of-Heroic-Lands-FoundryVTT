@@ -8,12 +8,13 @@ id: jJ1imuGfdw2jrjK0
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: HsSTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Homespun
   material: Cloth

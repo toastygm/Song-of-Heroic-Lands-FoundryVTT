@@ -8,10 +8,11 @@ id: xPisQgs7pKDaYaKs
 img: icons/game-icons/delapouite/stomach.svg
 shortcode: dehyd
 type: trauma
+data:
+  templatePriority: 0
 subType: physcond
 sohl:
   kbcat: physprivations
-  archetype: 0
   category: impediment
   levelBase: 2
   healingRateBase: 5

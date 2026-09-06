@@ -9,12 +9,13 @@ id: Ja0Ix9LKndf0c5mm
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: pewter
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 3
   value: 3

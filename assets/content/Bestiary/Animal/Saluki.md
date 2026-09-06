@@ -12,9 +12,10 @@ img: icons/game-icons/lorc/hound.svg
 portrait: images/being/saluki-portrait.webp
 shortcode: saluki
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+6
     end: 1d6+8

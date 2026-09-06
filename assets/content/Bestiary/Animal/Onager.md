@@ -11,9 +11,10 @@ img: icons/game-icons/skoll/donkey.svg
 portrait: images/being/onager-portrait.webp
 shortcode: onager
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+8
     end: 1d6+11

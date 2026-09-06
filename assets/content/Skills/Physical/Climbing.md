@@ -8,10 +8,11 @@ id: cJnD2VAKWuxSdo5s
 img: icons/game-icons/caro-asercion/mountain-climbing.svg
 shortcode: clmb
 type: skill
+data:
+  templatePriority: 0
 subType: physical
 sohl:
   kbcat: physical
-  archetype: 0
   skillBaseFormula: "sb(attr.agl, attr.dex)"
   combatCategory: none
   parentSkillCode: ""

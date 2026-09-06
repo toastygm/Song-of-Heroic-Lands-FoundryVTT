@@ -8,8 +8,9 @@ id: zB8xoPCL2JkAATl8
 img: icons/game-icons/lorc/triple-skulls.svg
 shortcode: pal
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Tainted:2

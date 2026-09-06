@@ -8,12 +8,13 @@ id: u1uvDDJXk21KeR7n
 img: icons/game-icons/delapouite/gloves.svg
 shortcode: CGntl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Gauntlets
   detailMaterial: Cloth
   material: Cloth

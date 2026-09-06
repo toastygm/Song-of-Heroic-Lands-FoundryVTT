@@ -8,12 +8,13 @@ id: BvAGqDqYnZWWxCsK
 img: icons/game-icons/delapouite/gloves.svg
 shortcode: LtGlove
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Gloves
   detailMaterial: Leather
   material: Leather

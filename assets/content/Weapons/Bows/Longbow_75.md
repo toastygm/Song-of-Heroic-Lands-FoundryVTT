@@ -8,12 +8,13 @@ id: FSSzjaO52vOZCk9X
 img: icons/game-icons/lorc/pocket-bow.svg
 shortcode: LBw75
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: fltch
     secondary: [wood, timb]
   kbcat: bow
-  archetype: 0
   durability: 10
   weight: 2
   value: 45

@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/croc-jaws.svg
 portrait: images/being/crcdl-portrait.webp
 shortcode: crcdl
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+17
     end: 1d6+15

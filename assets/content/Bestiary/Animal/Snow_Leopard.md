@@ -10,9 +10,10 @@ img: icons/game-icons/delapouite/feline.svg
 portrait: images/being/snwlprd-portrait.webp
 shortcode: snwlprd
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+12
     end: 1d4+10

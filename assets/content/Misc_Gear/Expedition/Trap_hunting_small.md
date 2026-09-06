@@ -9,12 +9,13 @@ id: vX5NsBDIhBnVTHXz
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: traphuntin2
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 8
   value: 30

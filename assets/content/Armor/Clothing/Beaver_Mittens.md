@@ -8,12 +8,13 @@ id: AG4ZCM7Lt32ADlI1
 img: icons/game-icons/delapouite/gloves.svg
 shortcode: BvMitt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Mittens
   detailMaterial: Beaver
   material: Leather

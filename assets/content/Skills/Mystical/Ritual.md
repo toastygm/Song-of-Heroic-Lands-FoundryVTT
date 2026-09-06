@@ -8,10 +8,11 @@ id: K7tJynLhxSDiajCo
 img: icons/game-icons/delapouite/circle.svg
 shortcode: ritual
 type: skill
+data:
+  templatePriority: 0
 subType: mystical
 sohl:
   kbcat: mystical
-  archetype: 0
   skillBaseFormula: "sb(attr.wil, attr.rea)"
   combatCategory: none
   parentSkillCode: ""

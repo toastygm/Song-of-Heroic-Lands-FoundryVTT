@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Cast lead almond-shaped ball; farther-flying, harder-striking than stone; pierces gambesons."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: bullet
 id: AeDgnvIYfTWbk4Z7
 shortcode: LBul
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: mtlc
     secondary: []
-  archetype: 0
   quality: 0
   durability: 10
   value: 1

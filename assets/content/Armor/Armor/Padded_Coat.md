@@ -8,12 +8,13 @@ id: GrueGMdrWW1fbZGa
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: PCoat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Coat
   detailMaterial: Padded
   material: Padded

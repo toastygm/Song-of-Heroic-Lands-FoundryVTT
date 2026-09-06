@@ -9,12 +9,13 @@ id: mb7G3sRyF4YwFVUs
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: piefruit
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cook
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 0.75

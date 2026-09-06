@@ -8,11 +8,12 @@ id: 73TbQJto0EJO7f2c
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: vialglassm
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: glas
     secondary: []
-  archetype: 0
   quality: 0
   durability: 2
   maxCapacity: 0.25

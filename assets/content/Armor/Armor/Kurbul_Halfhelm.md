@@ -8,12 +8,13 @@ id: xi8WoJFZFH48so9o
 img: icons/game-icons/lorc/barbute.svg
 shortcode: KHlfHelm
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Halfhelm
   detailMaterial: Kûrbúl
   material: Kûrbúl

@@ -8,12 +8,13 @@ id: NhSLHwB8TN7H7bV3
 img: icons/game-icons/delapouite/flail.svg
 shortcode: BCFl
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: flail
-  archetype: 0
   durability: 12
   weight: 4
   value: 75

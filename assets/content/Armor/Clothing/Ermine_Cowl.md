@@ -8,12 +8,13 @@ id: IhtNJInLhgEPjiLV
 img: icons/game-icons/lorc/hood.svg
 shortcode: ECowl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cowl
   detailMaterial: Ermine
   material: Leather

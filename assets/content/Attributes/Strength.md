@@ -8,8 +8,9 @@ id: LDCPcITBQjtXB87S
 img: icons/game-icons/delapouite/biceps.svg
 shortcode: str
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Feeble:4

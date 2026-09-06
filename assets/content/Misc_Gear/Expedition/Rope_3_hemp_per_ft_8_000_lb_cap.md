@@ -9,12 +9,13 @@ id: w29C3rXf0IvhwzcZ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: rope3hempp
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 8
   value: 8

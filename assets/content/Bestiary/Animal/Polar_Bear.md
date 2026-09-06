@@ -12,9 +12,10 @@ img: icons/game-icons/cathelineau/polar-bear.svg
 portrait: images/being/plrbr-portrait.webp
 shortcode: plrbr
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+25
     end: 1d6+18

@@ -8,12 +8,13 @@ id: sjA9H5xzgi0YqKO2
 img: icons/game-icons/delapouite/gloves.svg
 shortcode: CGlv
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Gloves
   detailMaterial: Cloth
   material: Cloth

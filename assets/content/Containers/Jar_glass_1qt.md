@@ -8,11 +8,12 @@ id: ynT0tn7GFS8TTbsP
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: jarglasssm
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: glas
     secondary: []
-  archetype: 0
   quality: 0
   durability: 2
   maxCapacity: 2

@@ -8,12 +8,13 @@ id: zZyBYx27eMQNyGOb
 img: icons/game-icons/delapouite/gloves.svg
 shortcode: RGlv
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Gloves
   detailMaterial: Russet
   material: Cloth

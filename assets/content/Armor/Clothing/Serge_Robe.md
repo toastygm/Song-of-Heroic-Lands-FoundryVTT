@@ -8,12 +8,13 @@ id: lH6u0qkWTKCab8z2
 img: icons/game-icons/lorc/robe.svg
 shortcode: SgRobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Robe
   detailMaterial: Serge
   material: Cloth

@@ -8,10 +8,11 @@ id: CVA6O8CNz68e9wFd
 img: icons/game-icons/delapouite/throwing-ball.svg
 shortcode: thro
 type: skill
+data:
+  templatePriority: 0
 subType: combat
 sohl:
   kbcat: combat
-  archetype: 0
   skillBaseFormula: "sb(attr.dex, attr.per)"
   combatCategory: missile
   parentSkillCode: ""

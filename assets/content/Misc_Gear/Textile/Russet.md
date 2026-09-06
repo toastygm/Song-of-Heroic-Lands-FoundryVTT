@@ -9,12 +9,13 @@ id: LjsANiHILmGJCwuE
 img: icons/game-icons/lorc/rolled-cloth.svg
 shortcode: russet
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   quality: 0
   durability: 5
   value: 12

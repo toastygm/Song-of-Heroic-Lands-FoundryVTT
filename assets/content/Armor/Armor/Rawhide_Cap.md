@@ -8,12 +8,13 @@ id: LZoITubAJhCRMT1C
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: RhCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cap
   detailMaterial: Rawhide
   material: Leather

@@ -8,12 +8,13 @@ id: xhO7W25EuzTsFY1V
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: PdClk
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Cloak
   detailMaterial: Padded
   material: Padded

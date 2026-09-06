@@ -8,12 +8,13 @@ id: XxvkT7TmelCf7sBN
 img: icons/game-icons/lorc/mail-shirt.svg
 shortcode: MShirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: mail
-  archetype: 0
   armorType: Shirt
   detailMaterial: Mail
   material: Mail

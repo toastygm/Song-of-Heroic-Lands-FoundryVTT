@@ -8,12 +8,13 @@ id: nudRYFaC2QT8CRmj
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: LClk
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cloak
   detailMaterial: Linen
   material: Cloth

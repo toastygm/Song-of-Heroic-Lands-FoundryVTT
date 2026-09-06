@@ -8,12 +8,13 @@ id: 8sLvP0EU5cKhNUid
 img: icons/game-icons/delapouite/skirt.svg
 shortcode: HsSkirt
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Skirt
   detailMaterial: Homespun
   material: Cloth

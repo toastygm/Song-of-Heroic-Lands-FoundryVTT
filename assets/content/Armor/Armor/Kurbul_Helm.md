@@ -8,12 +8,13 @@ id: a4ZXeBv2RlRxN14l
 img: icons/game-icons/lorc/crested-helmet.svg
 shortcode: KHlm
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Helm
   detailMaterial: Kûrbúl
   material: Kûrbúl

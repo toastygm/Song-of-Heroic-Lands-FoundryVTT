@@ -10,9 +10,10 @@ img: icons/game-icons/lorc/crow-dive.svg
 portrait: images/being/crow-portrait.webp
 shortcode: crow
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4
     end: 1d4+6

@@ -9,12 +9,13 @@ id: DXzm76bjrVFj91xZ
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: beadscer12
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cmcs
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 2
   value: 6

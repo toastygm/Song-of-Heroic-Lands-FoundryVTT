@@ -11,9 +11,10 @@ img: icons/game-icons/delapouite/lynx-head.svg
 portrait: images/being/caracal-portrait.webp
 shortcode: caracal
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+6
     end: 1d4+7

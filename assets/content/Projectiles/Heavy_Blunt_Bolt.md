@@ -5,6 +5,8 @@ name:
   alias: []
 description: "Heavy hardwood quarrel with ball head; breaks ribs, clears crowds bloodlessly."
 type: projectilegear
+data:
+  templatePriority: 0
 subType: bolt
 id: MjWznQvdlB5alUHo
 shortcode: BltHBlt
@@ -14,7 +16,6 @@ sohl:
   craft:
     skill: fltch
     secondary: [wood, mtlc]
-  archetype: 0
   quality: 0
   durability: 10
   value: 1.5

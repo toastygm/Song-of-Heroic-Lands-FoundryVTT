@@ -8,12 +8,13 @@ id: gawXBfAtXL0g5NKs
 img: icons/game-icons/lorc/robe.svg
 shortcode: WRobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Robe
   detailMaterial: Worsted
   material: Cloth

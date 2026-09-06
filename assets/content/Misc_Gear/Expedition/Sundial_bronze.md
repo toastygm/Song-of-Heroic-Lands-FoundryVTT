@@ -9,12 +9,13 @@ id: xo2SJIqzl9chHdyk
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: sundialbro
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 6
   value: 225

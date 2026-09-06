@@ -8,12 +8,13 @@ id: 2ryS8kQlPEAX3raG
 img: icons/game-icons/delapouite/elbow-pad.svg
 shortcode: PlCou
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: plate
-  archetype: 0
   armorType: Coudes
   detailMaterial: Plate
   material: Plate

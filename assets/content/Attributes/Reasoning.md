@@ -8,8 +8,9 @@ id: l2gx8lA2IzZbeKOB
 img: icons/game-icons/lorc/brain.svg
 shortcode: rea
 type: attribute
+data:
+  templatePriority: 0
 sohl:
-  archetype: 0
   scoreBase: 0
   valueDesc:
     - Dim:4

@@ -8,12 +8,13 @@ id: bDmChthDrGgnwJ8i
 img: icons/game-icons/skoll/dress.svg
 shortcode: HsDress
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Dress
   detailMaterial: Homespun
   material: Cloth

@@ -8,12 +8,13 @@ id: XClZwCLpLsWvnWbH
 img: icons/game-icons/delapouite/billed-cap.svg
 shortcode: PCap
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Cap
   detailMaterial: Padded
   material: Padded

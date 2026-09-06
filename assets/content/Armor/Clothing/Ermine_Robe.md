@@ -8,12 +8,13 @@ id: msj7SA2MbJkmyL7Z
 img: icons/game-icons/lorc/robe.svg
 shortcode: ERobe
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Robe
   detailMaterial: Ermine
   material: Leather

@@ -8,12 +8,13 @@ id: knMoqHS0uR7WqT4o
 img: icons/game-icons/lorc/hood.svg
 shortcode: BvCowl
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Cowl
   detailMaterial: Beaver
   material: Leather

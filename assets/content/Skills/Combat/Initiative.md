@@ -8,10 +8,11 @@ id: RFWzRoQovoVqonca
 img: icons/game-icons/lorc/sprint.svg
 shortcode: init
 type: skill
+data:
+  templatePriority: 0
 subType: combat
 sohl:
   kbcat: combat
-  archetype: 0
   skillBaseFormula: "sb(attr.wil, attr.rea)"
   combatCategory: none
   parentSkillCode: ""

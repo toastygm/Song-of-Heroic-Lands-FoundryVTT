@@ -8,12 +8,13 @@ id: M3KqK9FoTLTrGbyW
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: VClk
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cloak
   detailMaterial: Velvet
   material: Cloth

@@ -8,12 +8,13 @@ id: 5tzICTsP83846l5l
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: GSTnc
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: gambeson
-  archetype: 0
   armorType: Sleeved Tunic
   detailMaterial: Gambeson
   material: Gambeson

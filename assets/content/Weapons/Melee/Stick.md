@@ -8,12 +8,13 @@ id: ZU82Ji5jLQp8MQwZ
 img: icons/game-icons/badges/club.svg
 shortcode: Stk
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: club
-  archetype: 0
   durability: 8
   weight: 1
   value: 6

@@ -9,6 +9,8 @@ id: tmXuoiVwgO1b8QhY
 img: icons/game-icons/lorc/beer-stein.svg
 shortcode: alehgsh
 type: miscgear
+data:
+  templatePriority: 0
 hmk:
   name: Hogshead Ale
 sohl:
@@ -16,7 +18,6 @@ sohl:
     skill: brew
     secondary: []
   kbcat: spirits
-  archetype: 0
   quality: 0
   durability: 0
   value: 95

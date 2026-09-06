@@ -9,12 +9,13 @@ id: plaiQQm2T5zVK5mO
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bowlcer
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cmcs
     secondary: []
   kbcat: cooking
-  archetype: 0
   quality: 0
   durability: 2
   value: 6

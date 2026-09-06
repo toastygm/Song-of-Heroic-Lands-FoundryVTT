@@ -8,11 +8,12 @@ id: LN3JMVS42GX9EmCq
 img: icons/game-icons/delapouite/chest.svg
 shortcode: lockboxiblg
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
-  archetype: 0
   quality: 0
   durability: 9
   maxCapacity: 55

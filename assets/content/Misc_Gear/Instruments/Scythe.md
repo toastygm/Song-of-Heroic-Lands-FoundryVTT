@@ -9,12 +9,13 @@ id: KVgJ2p4ZpHMX2ndG
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: scythe
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 7
   value: 36

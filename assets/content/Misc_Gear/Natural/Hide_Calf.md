@@ -9,12 +9,13 @@ id: GOU7wJy8kXSSeiWS
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hidecalf
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: anmcft
     secondary: []
   kbcat: natural
-  archetype: 0
   quality: 0
   durability: 3
   value: 16

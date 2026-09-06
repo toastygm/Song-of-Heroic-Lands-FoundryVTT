@@ -9,12 +9,13 @@ id: I4tzGdJLGklE8lsc
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: iconwdsm
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: religious
-  archetype: 0
   quality: 0
   durability: 4
   value: 2

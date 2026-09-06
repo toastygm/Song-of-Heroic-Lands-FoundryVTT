@@ -9,12 +9,13 @@ id: 9jNyZzQIuDmE7KZz
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: saltrock
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mnrl
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 0.5

@@ -8,12 +8,13 @@ id: zqLrR90jgECDsRkk
 img: icons/game-icons/delapouite/flip-flops.svg
 shortcode: LtSndls
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Sandals
   detailMaterial: Leather
   material: Leather

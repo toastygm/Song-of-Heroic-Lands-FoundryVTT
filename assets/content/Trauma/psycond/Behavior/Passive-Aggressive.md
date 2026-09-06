@@ -7,10 +7,11 @@ id: VL5nGA9H8M4d5Uc3
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: passivea
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psybehavior
-  archetype: 0
   category: quirk
 folder: SpZzOv4eOwtdsMMo
 ---

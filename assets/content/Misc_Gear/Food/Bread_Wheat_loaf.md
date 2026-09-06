@@ -9,12 +9,13 @@ id: g55417EbKtEMw8S2
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: breadwheat
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mill
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 0.5

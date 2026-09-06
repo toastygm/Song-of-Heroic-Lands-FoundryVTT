@@ -8,12 +8,13 @@ id: 54SlyZyHIhmwkXf3
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: CvTunic
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Tunic
   detailMaterial: Canvas
   material: Cloth

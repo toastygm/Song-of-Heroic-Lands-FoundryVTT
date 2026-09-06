@@ -9,12 +9,13 @@ id: V6lkqEGEZdTLe3TL
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: horndrinki
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 3
   value: 24

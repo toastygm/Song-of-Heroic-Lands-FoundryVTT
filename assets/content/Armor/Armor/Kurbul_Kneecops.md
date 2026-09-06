@@ -8,12 +8,13 @@ id: 8AAdzvAXmYz3hFsx
 img: icons/game-icons/delapouite/knee-pad.svg
 shortcode: KKnee
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [hide]
   kbcat: kurbul
-  archetype: 0
   armorType: Kneecops
   detailMaterial: Kûrbúl
   material: Kûrbúl

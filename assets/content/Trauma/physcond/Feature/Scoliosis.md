@@ -7,10 +7,11 @@ id: H7iZYjKLbxq25bRs
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: sclss
 type: trauma
+data:
+  templatePriority: 0
 subType: physcond
 sohl:
   kbcat: physfeature
-  archetype: 0
   category: debility
 folder: 4h8qyMcGHlkrfN1g
 ---

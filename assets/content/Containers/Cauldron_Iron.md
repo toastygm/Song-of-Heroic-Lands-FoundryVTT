@@ -8,11 +8,12 @@ id: 0FvWMn567aCWyqm4
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: cauldronir
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
-  archetype: 0
   quality: 0
   durability: 10
   maxCapacity: 80

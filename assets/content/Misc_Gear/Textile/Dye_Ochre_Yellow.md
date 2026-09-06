@@ -9,12 +9,13 @@ id: 0Az6d79PEtKbfejf
 img: icons/game-icons/caro-asercion/round-potion.svg
 shortcode: dyeochr
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: herb
     secondary: []
   kbcat: dye
-  archetype: 0
   quality: 0
   durability: 1
   value: 30

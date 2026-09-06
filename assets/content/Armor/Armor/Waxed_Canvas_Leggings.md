@@ -8,12 +8,13 @@ id: D3EZ5TsjDrHMGMLF
 img: icons/game-icons/lorc/trousers.svg
 shortcode: WxCvLeg
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Leggings
   detailMaterial: Waxed Canvas
   material: Cloth

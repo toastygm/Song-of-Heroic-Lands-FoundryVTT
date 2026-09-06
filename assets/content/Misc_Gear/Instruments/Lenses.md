@@ -9,12 +9,13 @@ id: lMBWKI4m4wgnnitl
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lenses
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: glas
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 1
   value: 120

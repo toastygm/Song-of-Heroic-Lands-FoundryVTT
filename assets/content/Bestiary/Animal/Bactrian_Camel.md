@@ -10,9 +10,10 @@ img: icons/game-icons/delapouite/camel-head.svg
 portrait: images/being/bctrncml-portrait.webp
 shortcode: bctrncml
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+12
     end: 1d6+15

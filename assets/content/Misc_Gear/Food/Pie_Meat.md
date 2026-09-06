@@ -9,12 +9,13 @@ id: 5KTKyCgbX1JLHa6X
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: piemeat
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: cook
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 1

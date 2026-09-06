@@ -8,12 +8,13 @@ id: OharM1eI5i0JO4Qy
 img: icons/game-icons/lorc/trousers.svg
 shortcode: BvTrsr
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Trousers
   detailMaterial: Beaver
   material: Leather

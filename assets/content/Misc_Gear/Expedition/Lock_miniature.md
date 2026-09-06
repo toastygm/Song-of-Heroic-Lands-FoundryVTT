@@ -9,12 +9,13 @@ id: gSSHi0qijOxfwjz7
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: lockminiat
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: lock
     secondary: [mtlc]
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 5
   value: 90

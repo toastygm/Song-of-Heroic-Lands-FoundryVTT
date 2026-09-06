@@ -10,9 +10,10 @@ img: icons/game-icons/caro-asercion/badger.svg
 portrait: images/being/wlvrn-portrait.webp
 shortcode: wlvrn
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+13
     end: 1d6+15

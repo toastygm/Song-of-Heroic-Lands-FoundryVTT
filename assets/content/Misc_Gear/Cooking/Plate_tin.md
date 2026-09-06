@@ -9,12 +9,13 @@ id: 8Ulnkm4sD6cZMpoY
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: platetin
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: cooking
-  archetype: 0
   quality: 0
   durability: 3
   value: 2

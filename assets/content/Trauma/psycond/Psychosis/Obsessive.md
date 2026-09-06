@@ -7,10 +7,11 @@ id: T1sdYjCY9Miy4Btx
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: obsssv
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psypsychosis
-  archetype: 0
   category: quirk
 folder: ECrcBb9CUCMX9JeJ
 ---

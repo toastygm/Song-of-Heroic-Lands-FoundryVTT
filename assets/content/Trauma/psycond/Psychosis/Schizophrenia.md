@@ -7,10 +7,11 @@ id: b2GfR3llVmETAEbd
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: schizop
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psypsychosis
-  archetype: 0
   category: impulse
 folder: ECrcBb9CUCMX9JeJ
 ---

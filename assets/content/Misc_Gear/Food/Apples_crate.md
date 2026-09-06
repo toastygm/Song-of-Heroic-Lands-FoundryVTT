@@ -9,12 +9,13 @@ id: n6PmXbPx9txmeI2x
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: applescrat
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: agri
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 7.5

@@ -8,12 +8,13 @@ id: D6D82xNJMyqILYVx
 img: icons/game-icons/lucasms/cloak.svg
 shortcode: RClk
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Cloak
   detailMaterial: Russet
   material: Cloth

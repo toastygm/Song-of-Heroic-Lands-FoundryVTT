@@ -8,12 +8,13 @@ id: nL570eUiUlcGujnT
 img: icons/game-icons/lorc/trousers.svg
 shortcode: SgBrch
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Breeches
   detailMaterial: Serge
   material: Cloth

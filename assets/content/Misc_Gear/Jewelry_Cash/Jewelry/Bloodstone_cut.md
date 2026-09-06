@@ -9,12 +9,13 @@ id: p873p2YYpWT9ZFP0
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bloodstone
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  archetype: 0
   quality: 0
   durability: 2
   value: 15

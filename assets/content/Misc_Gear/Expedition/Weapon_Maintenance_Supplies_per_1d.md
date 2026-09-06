@@ -9,12 +9,13 @@ id: nihK8aG46nMa1dP6
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: wpnsup
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 2
   value: 1

@@ -8,12 +8,13 @@ id: 7mJqopaHn7ktiskr
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: HsCoat
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: cloth
-  archetype: 0
   armorType: Coat
   detailMaterial: Homespun
   material: Cloth

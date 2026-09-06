@@ -8,12 +8,13 @@ id: 1yT1S5gyaj6BB1MS
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: RhTunic
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: leather
-  archetype: 0
   armorType: Tunic
   detailMaterial: Rawhide
   material: Leather

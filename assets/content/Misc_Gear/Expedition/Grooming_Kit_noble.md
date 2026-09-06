@@ -9,12 +9,13 @@ id: r7Ojm6nvAWhjCE58
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: groomkitnob
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 5
   value: 240

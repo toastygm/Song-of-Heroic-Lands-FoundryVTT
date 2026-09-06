@@ -8,11 +8,12 @@ id: 27wiU6fj87LNFcPZ
 img: icons/game-icons/delapouite/chest.svg
 shortcode: trunklw
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 8
   maxCapacity: 50

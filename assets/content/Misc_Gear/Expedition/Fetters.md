@@ -9,12 +9,13 @@ id: ot5qOMTigtsh36Oy
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: fetters
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 10
   value: 30

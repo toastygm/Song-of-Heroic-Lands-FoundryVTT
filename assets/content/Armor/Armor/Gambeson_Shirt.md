@@ -8,12 +8,13 @@ id: EOTxV2VwVDSyer0L
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: GSht
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: gambeson
-  archetype: 0
   armorType: Shirt
   detailMaterial: Gambeson
   material: Gambeson

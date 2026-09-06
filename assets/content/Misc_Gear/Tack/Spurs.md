@@ -9,12 +9,13 @@ id: Xc5xz5nFvCfRMraC
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: spurs
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: mtlc
     secondary: []
   kbcat: tack
-  archetype: 0
   quality: 0
   durability: 8
   value: 18

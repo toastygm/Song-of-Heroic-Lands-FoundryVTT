@@ -9,12 +9,13 @@ id: dVuC9SoU1Vsrja1P
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: bookbase
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: hide
     secondary: []
   kbcat: scribe
-  archetype: 0
   quality: 0
   durability: 5
   value: 10

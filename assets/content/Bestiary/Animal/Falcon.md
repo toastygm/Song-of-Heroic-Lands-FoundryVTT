@@ -10,9 +10,10 @@ img: icons/game-icons/delapouite/falcon-moon.svg
 portrait: images/being/falcon-portrait.webp
 shortcode: falcon
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4
     end: 1d4+6

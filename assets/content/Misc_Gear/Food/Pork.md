@@ -9,12 +9,13 @@ id: zZNuSN5hvKPk0F0G
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: pork
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: anmcft
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 1.5

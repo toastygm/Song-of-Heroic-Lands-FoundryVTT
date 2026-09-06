@@ -9,12 +9,13 @@ id: KSeVw5IkzHIAXYh8
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hideseal
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: srvl
     secondary: []
   kbcat: natural
-  archetype: 0
   quality: 0
   durability: 3
   value: 24

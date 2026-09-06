@@ -9,12 +9,13 @@ id: KVccLSorqPZcNG7f
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: hourglass
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: glas
     secondary: []
   kbcat: instruments
-  archetype: 0
   quality: 0
   durability: 2
   value: 150

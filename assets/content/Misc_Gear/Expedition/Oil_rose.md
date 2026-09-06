@@ -9,12 +9,13 @@ id: xtpclSUhLfQ8cfuM
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: oilrose
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: pfmy
     secondary: []
   kbcat: expedition
-  archetype: 0
   quality: 0
   durability: 0
   value: 20

@@ -8,12 +8,13 @@ id: 6xlSLAghi4ujcdEB
 img: icons/game-icons/lucasms/shirt.svg
 shortcode: PSht
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: txtl
     secondary: []
   kbcat: padded
-  archetype: 0
   armorType: Shirt
   detailMaterial: Padded
   material: Padded

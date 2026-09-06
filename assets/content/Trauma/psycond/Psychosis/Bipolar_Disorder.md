@@ -7,10 +7,11 @@ id: WrZR6A7q48YgAZxf
 img: icons/game-icons/lorc/battle-gear.svg
 shortcode: bipolar
 type: trauma
+data:
+  templatePriority: 0
 subType: psycond
 sohl:
   kbcat: psypsychosis
-  archetype: 0
   category: impulse
 folder: ECrcBb9CUCMX9JeJ
 ---

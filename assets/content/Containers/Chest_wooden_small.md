@@ -8,11 +8,12 @@ id: WOqF4PWclB04ALdd
 img: icons/game-icons/delapouite/chest.svg
 shortcode: chestwdsm
 type: containergear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
-  archetype: 0
   quality: 0
   durability: 5
   maxCapacity: 25

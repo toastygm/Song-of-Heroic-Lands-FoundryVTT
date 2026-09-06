@@ -8,12 +8,13 @@ id: FicdL283PUVYcDBa
 img: icons/game-icons/lorc/dorsal-scales.svg
 shortcode: PlAil
 type: armorgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: plate
-  archetype: 0
   armorType: Ailettes
   detailMaterial: Plate
   material: Plate

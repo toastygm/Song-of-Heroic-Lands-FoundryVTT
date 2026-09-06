@@ -8,12 +8,13 @@ id: iZJd1F4KbMZe3nMR
 img: icons/game-icons/lorc/broadsword.svg
 shortcode: Scmtr
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: sword
-  archetype: 0
   durability: 12
   weight: 3
   value: 185

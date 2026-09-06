@@ -12,9 +12,10 @@ img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/peacock-portrait.webp
 shortcode: peacock
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+2
     end: 1d4+4

@@ -8,12 +8,13 @@ id: qrtobJZE7dJMGgII
 img: icons/game-icons/lorc/stone-sphere.svg
 shortcode: Trebch
 type: weapongear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: wood
     secondary: []
   kbcat: siege
-  archetype: 0
   durability: 17
   weight: 12000
   value: 5000

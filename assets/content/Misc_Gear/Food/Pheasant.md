@@ -9,12 +9,13 @@ id: pf47vQyIl9I7d2JC
 img: icons/game-icons/lorc/swap-bag.svg
 shortcode: pheasant
 type: miscgear
+data:
+  templatePriority: 0
 sohl:
   craft:
     skill: srvl
     secondary: []
   kbcat: food
-  archetype: 0
   quality: 0
   durability: 0
   value: 1

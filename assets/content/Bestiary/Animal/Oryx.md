@@ -11,9 +11,10 @@ img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/oryx-portrait.webp
 shortcode: oryx
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d6+11
     end: 1d6+10

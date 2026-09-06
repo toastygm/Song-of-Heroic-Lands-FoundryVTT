@@ -11,9 +11,10 @@ img: icons/game-icons/lorc/snake.svg
 portrait: images/being/cobra-portrait.webp
 shortcode: cobra
 type: being
+data:
+  templatePriority: 0
 sohl:
   kbcat: animal
-  archetype: 0
   attrRollFormula:
     str: 1d4+3
     end: 1d4+5

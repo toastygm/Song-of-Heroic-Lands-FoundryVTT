@@ -8,10 +8,11 @@ id: 4DOGxp07TkUURNZP
 img: icons/game-icons/lorc/virus.svg
 shortcode: brnchts
 type: affliction
+data:
+  templatePriority: 0
 subType: disease
 sohl:
   kbcat: diseases
-  archetype: 0
   levelBase: 1
   healingRateBase: 3
   contagionIndex: 3
