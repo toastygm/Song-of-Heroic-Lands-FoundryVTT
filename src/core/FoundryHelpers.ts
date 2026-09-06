@@ -497,7 +497,7 @@ export async function fvttToggleActorStatus(
  * ready to be created as an embedded item — or `undefined` if none matches.
  *
  * Lets the logic layer resolve a template item referenced only by shortcode (e.g.
- * an affliction's `outcomeTrauma`) without reaching into `game.items` /
+ * an affliction's `outcomeTraumas`) without reaching into `game.items` /
  * `game.packs` directly.
  *
  * @param shortcode - The `system.shortcode` to match.

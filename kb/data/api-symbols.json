@@ -1892,7 +1892,7 @@
   "sohl.document.item.logic.AfflictionData.onsetFormula": "interfaces/sohl.document.item.logic.AfflictionData.html#onsetformula",
   "sohl.document.item.logic.AfflictionData.onsetMacroUuid": "interfaces/sohl.document.item.logic.AfflictionData.html#onsetmacrouuid",
   "sohl.document.item.logic.AfflictionData.outcome": "interfaces/sohl.document.item.logic.AfflictionData.html#outcome",
-  "sohl.document.item.logic.AfflictionData.outcomeTrauma": "interfaces/sohl.document.item.logic.AfflictionData.html#outcometrauma",
+  "sohl.document.item.logic.AfflictionData.outcomeTraumas": "interfaces/sohl.document.item.logic.AfflictionData.html#outcometraumas",
   "sohl.document.item.logic.AfflictionData.parent": "interfaces/sohl.document.item.logic.AfflictionData.html#parent",
   "sohl.document.item.logic.AfflictionData.resolutionDate": "interfaces/sohl.document.item.logic.AfflictionData.html#resolutiondate",
   "sohl.document.item.logic.AfflictionData.resolutionDurationBase": "interfaces/sohl.document.item.logic.AfflictionData.html#resolutiondurationbase",
