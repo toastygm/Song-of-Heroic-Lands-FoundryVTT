@@ -15,27 +15,23 @@ portrait: images/being/basicfolk-portrait.webp
 type: being
 data:
   templatePriority: 1
-social:
-  occupation: ""
-  station: ""
-  class: ""
-  society: ""
-traits:
   gender: male
   age: 20
   birthday: 700/1/1
-  height:
-    m: 1.7
-  weight:
-    kg: 68
-  build:
-    frame: medium
+  height: 1.7
+  weight: 68
+  frame: medium
   appearance:
     eye_color: brown
     hair_color: brown
     skin_color: pale
     complexion: fair
     extra_features: []
+social:
+  occupation: ""
+  station: ""
+  class: ""
+  society: ""
 sohl:
   kbcat: archetype
   body:
