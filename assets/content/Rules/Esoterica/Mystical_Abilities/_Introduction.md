@@ -5,7 +5,6 @@ subType: rules
 name:
   full: Mystical Abilities Introduction
   aliases: []
-folder:
 shortcode: mystabilintro
 ---
 
