@@ -544,15 +544,15 @@ describe.each(ROWS)("$file", (row) => {
     });
 
     it("carries the table's weight and the body scale it implies", () => {
-        expect(sohl.body.weight.base).toBe(row.lb);
-        expect(sohl.body.weight.calc).toBe(String(row.lb));
-        expect(sohl.body.bodyScaleBase).toBeCloseTo(bodyScale(row.scores[0]), 2);
+        expect(sohl.system.body.weight.base).toBe(row.lb);
+        expect(sohl.system.body.weight.calc).toBe(String(row.lb));
+        expect(sohl.system.body.bodyScaleBase).toBeCloseTo(bodyScale(row.scores[0]), 2);
     });
 
     it("moves at the table's rate, in the medium the table prints", () => {
         const medium = row.aerial ? "aerial" : "terrestrial";
-        expect(sohl.currentMoveMedium).toBe(medium);
-        const profile = sohl.movementProfiles.find((p: any) => p.medium === medium);
+        expect(sohl.system.currentMoveMedium).toBe(medium);
+        const profile = sohl.system.movementProfiles.find((p: any) => p.medium === medium);
         expect(profile?.feetPerRound).toBe(row.move);
     });
 
@@ -597,7 +597,7 @@ describe.each(ROWS)("$file", (row) => {
         const runs = ZONE_RUNS[row.table];
         expect(runs, `unknown table ${row.table}`).toBeDefined();
 
-        const data = sohl.body.structure as BodyStructure.Data;
+        const data = sohl.system.body.structure as BodyStructure.Data;
         expect(data.zones.map((z) => z.probWeight)).toEqual(runs);
 
         const structure = new BodyStructure(data, bodyOptions(data));
@@ -615,7 +615,7 @@ describe.each(ROWS)("$file", (row) => {
     });
 
     it("hangs every part and location off a real parent, with no orphans", () => {
-        const data = sohl.body.structure as BodyStructure.Data;
+        const data = sohl.system.body.structure as BodyStructure.Data;
         const structure = new BodyStructure(data, bodyOptions(data));
         expect(structure.orphanedParts).toHaveLength(0);
         expect(structure.orphanedLocations).toHaveLength(0);
@@ -631,13 +631,13 @@ describe.each(ROWS)("$file", (row) => {
 
     it("carries the table's natural armour at every hit location", () => {
         const expected = Object.fromEntries(ASPECTS.map((a, i) => [a, row.armour[i]]));
-        for (const location of sohl.body.structure.locations) {
+        for (const location of sohl.system.body.structure.locations) {
             expect(location.protectionBase, location.shortcode).toEqual(expected);
         }
     });
 
     it("tags each part with the body roles its impairment depends on", () => {
-        const parts = sohl.body.structure.parts as {
+        const parts = sohl.system.body.structure.parts as {
             shortcode: string;
             roles: string[];
         }[];
@@ -719,7 +719,7 @@ describe.each(ALL_CREATURES)("%s (every creature)", (file) => {
     const sohl = readSohlAt(path.join(CREATURES, `${file}.md`));
 
     it("has a body a blow can land on", () => {
-        const data = sohl.body?.structure as BodyStructure.Data | undefined;
+        const data = sohl.system.body?.structure as BodyStructure.Data | undefined;
         expect(data, "no body structure").toBeDefined();
         const structure = new BodyStructure(data!, bodyOptions(data!));
 
@@ -745,7 +745,7 @@ describe.each(ALL_CREATURES)("%s (every creature)", (file) => {
     it("scales injuries to its own Strength", () => {
         const str = attrScores(sohl).str;
         expect(str, "no Strength").toBeGreaterThan(0);
-        expect(sohl.body.bodyScaleBase).toBeCloseTo(bodyScale(str), 2);
+        expect(sohl.system.body.bodyScaleBase).toBeCloseTo(bodyScale(str), 2);
     });
 
     it("can attack with at least one combat technique", () => {
@@ -758,7 +758,7 @@ describe.each(ALL_CREATURES)("%s (every creature)", (file) => {
         }
 
         const roles = new Set(
-            (sohl.body.structure.parts as { roles: string[] }[]).flatMap((p) => p.roles),
+            (sohl.system.body.structure.parts as { roles: string[] }[]).flatMap((p) => p.roles),
         );
         for (const tech of techniques) {
             const sm = tech.system.strikeMode;
@@ -782,7 +782,9 @@ describe.each(ALL_CREATURES)("%s (every creature)", (file) => {
     });
 
     it("gives every hit location a unique shortcode", () => {
-        const codes = sohl.body.structure.locations.map((l: { shortcode: string }) => l.shortcode);
+        const codes = sohl.system.body.structure.locations.map(
+            (l: { shortcode: string }) => l.shortcode,
+        );
         expect(new Set(codes).size).toBe(codes.length);
     });
 });

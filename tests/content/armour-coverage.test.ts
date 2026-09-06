@@ -201,15 +201,15 @@ const ARTICLES: Article[] = walk(ARMOR_ROOT)
     .filter(({ d }) => d.type === "armorgear")
     .map(({ f, d }) => ({
         file: path.basename(f, ".md"),
-        material: d.sohl.material,
+        material: d.sohl.system.material,
         detailMaterial: d.sohl.detailMaterial,
         armorType: d.sohl.armorType,
-        flexible: d.sohl.flexloc ?? [],
-        rigid: d.sohl.rigidloc ?? [],
-        facing: d.sohl.facing ?? [],
-        encumbrance: d.sohl.encumbrance ?? 0,
-        encumbranceGroup: d.sohl.encumbranceGroup ?? null,
-        perception: d.sohl.perceptionPenaltyBase ?? 0,
+        flexible: d.sohl.system.locations?.flexible ?? [],
+        rigid: d.sohl.system.locations?.rigid ?? [],
+        facing: d.sohl.system.locations?.facing ?? [],
+        encumbrance: d.sohl.system.encumbrance ?? 0,
+        encumbranceGroup: d.sohl.system.encumbranceGroup ?? null,
+        perception: d.sohl.system.perceptionPenaltyBase ?? 0,
     }));
 
 describe("armour coverage", () => {

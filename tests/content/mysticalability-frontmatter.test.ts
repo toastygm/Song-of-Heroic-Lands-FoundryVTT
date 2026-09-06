@@ -54,7 +54,14 @@ const SCHEMA_FIELDS = [
  */
 const BUILD_DIRECTIVES = ["kbcat", "archetype"] as const;
 
-const ALLOWED = new Set<string>([...SCHEMA_FIELDS, ...BUILD_DIRECTIVES]);
+/**
+ * The schema fields are authored under `sohl.system` since #1851, at the paths
+ * the compiled document stores, so the block itself carries only that container
+ * and the build directives.
+ */
+const ALLOWED_IN_BLOCK = new Set<string>([...BUILD_DIRECTIVES, "system"]);
+
+const ALLOWED_IN_SYSTEM = new Set<string>(SCHEMA_FIELDS);
 
 /** Every markdown file under `assets/content/`, recursively. */
 function* walk(dir: string): Generator<string> {
@@ -89,14 +96,20 @@ describe("mysticalability content notes", () => {
 
     it.each(NOTES.map((n) => n.rel))("%s authors only fields the schema receives", (rel) => {
         const note = NOTES.find((n) => n.rel === rel)!;
-        const unknown = Object.keys(note.sohl).filter((key) => !ALLOWED.has(key));
-        expect(unknown).toEqual([]);
+        const block = Object.keys(note.sohl).filter((key) => !ALLOWED_IN_BLOCK.has(key));
+        expect(block, "outside `sohl.system` and not a build directive").toEqual([]);
+        const system = Object.keys(note.sohl.system ?? {}).filter(
+            (key) => !ALLOWED_IN_SYSTEM.has(key),
+        );
+        expect(system, "under `sohl.system` but not declared by the schema").toEqual([]);
     });
 
     it("none authors the retired assocMysteryCode", () => {
-        const offenders = NOTES.filter((n) => Object.hasOwn(n.sohl, "assocMysteryCode")).map(
-            (n) => n.rel,
-        );
+        const offenders = NOTES.filter(
+            (n) =>
+                Object.hasOwn(n.sohl, "assocMysteryCode") ||
+                Object.hasOwn(n.sohl.system ?? {}, "assocMysteryCode"),
+        ).map((n) => n.rel);
         expect(offenders).toEqual([]);
     });
 });
