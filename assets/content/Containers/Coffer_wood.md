@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 12
   value: 72
   weight: 5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A small close-jointed wooden box with a simple key lock, built to hold coin and documents rather than goods. The lock will not defeat a determined thief with time, but it defeats a servant with none.

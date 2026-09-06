@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 8
   weight: 2
-folder: BYkA5NDQxTXDvsAC
+packFolder: scribe
 ---
 
 Green pigment made from verdigris—copper oxide—or boiled woad with iron salts, bound for use on parchment. Green ink marks emphasis and ornamental flourishes in heraldic and legal documents. It is rarer and more delicate than black, fading if exposed to strong sunlight.

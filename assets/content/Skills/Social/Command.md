@@ -22,7 +22,7 @@ sohl:
   impairedByRoles:
     - core
     - vital
-folder: JBr2U30FsJTs8F3l
+packFolder: social
 ---
 
 Command is persuasion by force of presence — the assertion of authority, and the threat, spoken or otherwise, that stands behind it. It is what a character tests to make someone do a thing they would not do naturally or willingly: hold a line, open a gate, put a weapon down, answer a question they would rather not.

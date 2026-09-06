@@ -65,7 +65,7 @@ sohl:
       maxVolleyMult: 4
       baseRangeBase: 240
       drawBase: 160
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A heavy wooden-prod crossbow drawing one hundred and sixty pounds, spanned by cranequin or windlass-lever and mounted on castle walls or convoy wagons. Its longer range and deeper penetration suit defense against massed charge or suppression of distant targets; the spanning mechanism is slow but robust enough for field service when protection is paramount.

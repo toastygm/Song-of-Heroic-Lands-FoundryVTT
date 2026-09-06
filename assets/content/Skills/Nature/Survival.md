@@ -24,7 +24,7 @@ sohl:
     - vital
     - locomotor
     - manipulator
-folder: N5ozne3RRF0qSEdF
+packFolder: nature
 ---
 
 Survival is wilderness competence: travelling through country nobody maintains, finding or building shelter, finding water, and knowing the wild animals of a region — what they are, what they do, and where they will be. A great many livelihoods develop it, and anyone at all may attempt it untrained on the strength of common sense, though not very well.

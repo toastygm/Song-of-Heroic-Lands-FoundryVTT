@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 6
   weight: 0.0625
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Glass, melted sand formed in a furnace and cast or blown into lumps, sheets, or vessels. The material resists corrosion and allows light to pass through, making it valuable for lamps, windows, and fine goblets. Glassmakers are found primarily in larger towns; the material is traded in quantities by weight.

@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 6
   weight: 0.02
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A pair of hoops bent from copper wire, the cheapest ornament that can be hung from an ear and usually a child's first. Copper is soft, so the hoops go out of round quickly and are simply squeezed back into shape between finger and thumb. A pedlar sells them by the handful and expects most to be lost within the year.

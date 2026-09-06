@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Decisive refers to an individual's ability to make clear, quick, and confident decisions without hesitation. A decisive person trusts their judgment and is able to take action swiftly, often leading others with certainty in moments of uncertainty or pressure. Decisiveness allows for efficient problem-solving and strong leadership, though it can become problematic if the individual becomes overly rigid or fails to consider the input of others.

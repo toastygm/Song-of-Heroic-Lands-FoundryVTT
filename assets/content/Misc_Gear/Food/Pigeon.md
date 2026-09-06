@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 1.75
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Pigeon meat is mild and tender, from birds trapped in cotes or hunted from rooftops and bell-towers. The carcass is small but rich with fat; the meat serves one or two at table. Fresh pigeons are plucked and roasted; older birds are smoked or jerked into strips that harden and last through winter, though the meat becomes stringy and demands much chewing.

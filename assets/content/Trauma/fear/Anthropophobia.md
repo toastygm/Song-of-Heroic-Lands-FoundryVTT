@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Anthropophobia is an intense, irrational fear of people or society. People with anthropophobia may experience a range of symptoms when they think about, see, or are in social settings.

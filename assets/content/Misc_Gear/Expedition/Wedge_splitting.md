@@ -20,7 +20,7 @@ sohl:
   durability: 8
   value: 18
   weight: 3
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A wedge of forged steel, thick on one end and tapered to a fine edge, driven between wood grain to cleave a log in two. A woodcutter carries several and strikes them with a maul; used with care they last years without dulling. Split wood dries faster than chopped, and a good splitting wedge saves labor on a long campaign.

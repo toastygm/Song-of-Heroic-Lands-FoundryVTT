@@ -20,7 +20,7 @@ sohl:
     - Striking:999
   initDiceFormula: 3d6
 sort: 60
-folder: FPitxvL8wCmXynax
+packFolder: attributes
 ---
 
 Comeliness is the degree to which a person's physical form pleases the eye. It is more than mere health or vigor; it encompasses proportion, symmetry, and the indefinable grace that makes others wish to look upon a face or form. In taverns and courts alike, comeliness shapes first impressions and opens doors that plainer folk must knock upon more persistently.

@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 8
   value: 8
   weight: 6
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A stoneware vessel with a capacious belly and a fitted ceramic or wooden lid, designed for household storage of dried goods, preserves, pickled vegetables, and staples. These jars are sturdy and airtight enough to keep food fresh for seasons when properly sealed, making them essential to any settled kitchen or provisioner's larder. The heavy ceramic retains cool temperatures and resists chipping, though the lid may loosen if dropped. 1 gal capacity.

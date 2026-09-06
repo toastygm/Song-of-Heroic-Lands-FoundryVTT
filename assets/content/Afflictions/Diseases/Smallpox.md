@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: airborne
-folder: 3lobflzDt8Hk6VrN
+packFolder: diseases
 ---
 
 Smallpox is an acute, contagious disease caused by the variola virus. The disease starts with high fever, fatigue, headache, and back pain, followed by a characteristic rash that progresses from macules to papules, vesicles, pustules, and scabs over the course of weeks. The rash is most dense on the face and extremities, and survivors often bear deep scars. Severe cases can cause blindness and death, but smallpox no longer poses a threat thanks to the success of vaccines.

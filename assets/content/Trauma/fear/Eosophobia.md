@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Eosophobia is an intense, irrational fear of dawn or daylight. People with eosophobia may experience a range of symptoms when they think about, see, or are exposed to dawn or early daylight.

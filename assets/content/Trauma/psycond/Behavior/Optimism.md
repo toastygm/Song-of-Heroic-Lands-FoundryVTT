@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Optimism is a positive outlook on life, characterized by the expectation that good things will happen and that challenges can be overcome. While generally seen as a healthy and beneficial trait, optimism can vary in intensity and, in extreme cases, can lead to unrealistic expectations and poor decision-making.

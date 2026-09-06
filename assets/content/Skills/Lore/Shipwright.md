@@ -22,7 +22,7 @@ sohl:
   impairedByRoles:
     - core
     - vital
-folder: QlkEHXbk2EXlRiMM
+packFolder: lore
 ---
 
 Shipwright is the building of ships and boats and much of what goes on them, sails included. Construction divides into two traditions, and they are not interchangeable:

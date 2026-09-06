@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Equinophobia is an intense, irrational fear of horses. People with equinophobia may experience a range of symptoms when they think about, see, or are near horses.

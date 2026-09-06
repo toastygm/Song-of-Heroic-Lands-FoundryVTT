@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 10
   value: 4
   weight: 2
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A rectangular earthenware box with a close-fitting lid, glazed inside and out so that damp cannot creep through the wall. Where a wooden box would swell, warp, or admit weevils, a glazed ceramic one keeps salt dry and spices potent, which is why apothecaries and cooks buy them despite the weight and the fragility. The lid usually seats on a shallow rebate and is not hinged.

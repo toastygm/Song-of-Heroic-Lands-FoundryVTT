@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Cunning refers to an individual's ability to achieve their goals through cleverness, strategy, and subtle manipulation. A cunning person is skilled at outmaneuvering others, often using intelligence, charm, or deceit to their advantage. While cunning can be a valuable trait in negotiation, diplomacy, or survival, it can also be seen as deceitful or untrustworthy when used excessively or without regard for ethics.

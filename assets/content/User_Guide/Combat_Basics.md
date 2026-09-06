@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Combat Basics"
 shortcode: cmbtbscsug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Overview

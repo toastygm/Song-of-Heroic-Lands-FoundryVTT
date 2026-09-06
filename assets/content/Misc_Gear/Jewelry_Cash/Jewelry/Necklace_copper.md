@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 24
   weight: 0.25
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A copper chain or beaten collar, bright as a new coin when it is made and green within the season if it is worn against the skin. It is the ornament of people who want the look of metal at the throat without the cost of it, and is sold at fairs alongside the rings. The soft links pull open under a hard yank, which is either a defect or a mercy depending on who has hold of it.

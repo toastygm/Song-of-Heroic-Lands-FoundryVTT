@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Heliophobia is an intense, irrational fear of the sun or sunlight. People with heliophobia may experience a range of symptoms when they think about, see, or are exposed to sunlight.

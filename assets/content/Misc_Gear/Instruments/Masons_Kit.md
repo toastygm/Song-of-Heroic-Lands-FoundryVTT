@@ -20,7 +20,7 @@ sohl:
   durability: 9
   value: 55
   weight: 15
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 A heavy canvas roll holding a stoneworker's hand tools: wooden mallets of graded weights, an iron pitching tool for splitting rough block, pointed and toothed chisels for the first shaping, claw chisels and a flat bolster for smoothing and edging, a plumb line on a brass bob, a steel level, a marked square, and a brace of feathers and plugs for splitting along the grain. The tools are simple but heavy; a full kit is a load to carry, and a mason who travels from job to job usually engages a boy to shoulder it. Hoists, scaffolds, and the dressing bench itself stay at the quarry or the work site, and a mason moving between commissions carries only what can be slung across a mule.

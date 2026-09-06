@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 0.5
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 A rock of mined salt, denser and purer than bagged sea salt, emerges from deep deposits where ancient seas have long since dried. A single rock is broken into chunks and ground fine for cooking, or dissolved in water for brining hides and fish. Rock salt keeps indefinitely and travels light; miners prize it as a reliable wage-payment in low-lying salt lands.

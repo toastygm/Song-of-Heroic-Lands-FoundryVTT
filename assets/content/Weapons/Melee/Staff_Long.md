@@ -153,7 +153,7 @@ sohl:
       defense:
         blockMod: 0
         counterstrikeMod: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A lengthy pole of ashwood or other hardwood, nine or more feet in length, offering tremendous reach and sweeping power at the cost of speed and maneuverability. Gripped in the middle or near the base, it clears a space with each swing and can be held with two hands to block cavalry or polearm-infantry. The weapon of pike-trained levies and those who must hold ground against greater numbers.

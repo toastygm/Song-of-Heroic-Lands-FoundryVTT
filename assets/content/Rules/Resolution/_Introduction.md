@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Resolution
   aliases: []
-folder: BTGA1PmN0VlBWpCm
+packFolder: resolution
 shortcode: resolutionintro
 ---
 

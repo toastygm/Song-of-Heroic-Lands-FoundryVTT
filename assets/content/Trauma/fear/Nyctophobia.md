@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Nyctophobia is an intense, irrational fear of the dark. People with nyctophobia may experience a range of symptoms when they think about, see, or are in dark environments.

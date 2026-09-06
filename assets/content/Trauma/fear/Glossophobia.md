@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Glossophobia is an intense, irrational fear of public speaking or speaking in front of a group. People with glossophobia may experience a range of symptoms when they think about, see, or are in speaking situations.

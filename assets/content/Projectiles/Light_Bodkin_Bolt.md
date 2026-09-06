@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: false
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A light, narrow-shafted crossbow quarrel ending in a small square-sectioned iron spike, socketed and pitched into the wood. The slender head pierces light mail and leather at close range, and the reduced weight lets the bolt travel flatter than a standard quarrel. Hunters and skirmish-crossbowmen carry them for unarmoured foes and lightly-clad raiders.

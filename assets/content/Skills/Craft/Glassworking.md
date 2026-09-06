@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: gqRvjlrWbuCwGy3N
+packFolder: craft
 ---
 
 Glassworking is the winning of vessels and panes out of a substance that is only workable while it is dangerously hot and unforgiving the moment it is not. Bottles, flasks, phials, goblets, beads, window quarries and — for the very few with the patience and the ground stone — lenses.

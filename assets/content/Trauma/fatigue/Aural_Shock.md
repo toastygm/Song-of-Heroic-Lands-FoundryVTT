@@ -16,7 +16,7 @@ sohl:
   category: weakness
   levelBase: 1
   healingRateBase: 1
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Aural shock weakness is the lingering damage to a character's spiritual aura after a severe mystical wounding — direct contact with an undead presence, exposure to a corrupting shadow, a failed summoning, a spirit-conflict lost. Where physical wounds heal in flesh, aural wounds heal in the aura itself, and the body carries the deficit until the aura mends. 5 fatigue per level of aural shock.

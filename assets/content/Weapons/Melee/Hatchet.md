@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -5
         counterstrikeMod: -5
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A light tool-and-weapon of two to three pounds, hafted short at three to four feet, built to split kindling and hung from a belt as a utility blade and close-quarters sidearm. The hatchet swings fast enough for camp work and quick enough for ambush or skirmish. Soldiers, woodsmen, and hunters all carry one; it is the most common blade on the roads.

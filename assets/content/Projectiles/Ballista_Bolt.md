@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 6
     bleed: true
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A shaft of seasoned ash as thick as a wrist, iron-headed and flighted in leather rather than feather, because no feather survives the loosing. Made to be shot from a springald or ballista and from nothing else — no arm can draw the weapon that throws it. A recovered bolt is usually worth straightening and reheading; a bolt that has gone through a shield is usually not.

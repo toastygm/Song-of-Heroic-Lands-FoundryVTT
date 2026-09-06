@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 55
   value: 300
   weight: 25
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A heavy iron-banded strongbox, awkward for one person to shift even empty. Merchants keep them bolted to the floor of a counting room, on the reasoning that what cannot be carried away must be opened where it stands.

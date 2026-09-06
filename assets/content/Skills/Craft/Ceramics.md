@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: gqRvjlrWbuCwGy3N
+packFolder: craft
 ---
 
 Ceramics is making durable things out of clay and heat. A potter is nominally a specialist, but the underlying principles carry across an unusually wide range of goods — cooking pots and storage jars, roof tile and brick, oil lamps, drainpipe, votive figures — so a single trained pair of hands supplies most of what a village puts on a shelf or a roof.

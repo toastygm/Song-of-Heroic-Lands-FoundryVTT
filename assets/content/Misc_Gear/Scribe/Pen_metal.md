@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 4
   weight: 0.1
-folder: BYkA5NDQxTXDvsAC
+packFolder: scribe
 ---
 
 A steel nib, hammered and split, set into a bone or wood handle. Metal pens write a finer, steadier line than quill and resist damage from repeated dipping. They are favored by professional scribes and copyists who work in volume, though they cost more than feather.

@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: true
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A light-shafted arrow tipped with a rounded wooden knob or a bound leather pad in place of an iron head, meant to strike without piercing. Hunters use these for squirrel, hare, and bird, where a cutting head would shred the skin or meat; training masters keep them at the butts for pages and young archers learning the bow. The shaft itself is thin and quick, fletched with goose quills like any common arrow.

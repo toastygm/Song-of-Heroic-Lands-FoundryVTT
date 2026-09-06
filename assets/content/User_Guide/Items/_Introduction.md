@@ -6,7 +6,7 @@ name:
   full: Items
   aliases: []
 shortcode: ugitems
-folder: QtOgPodi8X6gDWL0
+packFolder: items
 ---
 
 # Items {#items}

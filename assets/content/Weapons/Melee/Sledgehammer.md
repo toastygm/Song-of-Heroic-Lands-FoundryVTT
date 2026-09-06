@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: 0
         counterstrikeMod: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A forge-master's hammer repurposed to the breach—twin flat faces of iron set upon a long wooden haft, weighing as much as a small anvil. In siege work or fortress raid, it smashes through timber and stone, and when turned against a helm or shield-rim it crushes with indiscriminate weight. No finesse, only raw force applied by desperate men.

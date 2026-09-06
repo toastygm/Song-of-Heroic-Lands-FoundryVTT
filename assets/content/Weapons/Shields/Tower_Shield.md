@@ -65,7 +65,7 @@ sohl:
       defense:
         blockMod: 0
         counterstrikeMod: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A large standing shield, tall as a man and wide as an ox, the tower shield provides nearly total cover when braced or planted. Crossbowmen and siege troops plant these to form walls against arrow storms; foot-archers shelter behind them to reload and return fire.

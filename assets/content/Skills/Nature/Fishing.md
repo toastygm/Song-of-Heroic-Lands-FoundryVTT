@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: N5ozne3RRF0qSEdF
+packFolder: nature
 ---
 
 Fishing is the taking of fish and other water creatures by whatever means the water rewards — hook and line, spear, net, weir, or bare hands. Culture, geography and quarry decide which technique is favoured; the skill covers competence in all of them.

@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 8
   weight: 60
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Wheat is the golden grain harvested in summer, ground into fine flour for bread and pastries. A bushel feeds a family for weeks or a garrison for days. The hard grain keeps for years in sealed granaries, making it the foundation of settled civilization. Milled flour is lighter and spoils faster than whole grain, kept in sacks and used first when fresh. Bran and chaff are separated and fed to livestock.

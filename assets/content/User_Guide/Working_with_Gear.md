@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Working with Gear and Equipment"
 shortcode: gearandequipug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Overview {#gear-overview}

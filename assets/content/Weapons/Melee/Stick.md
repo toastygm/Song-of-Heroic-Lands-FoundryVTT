@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -10
         counterstrikeMod: -10
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A walking stick or pilgrim's staff pressed into service—no more than an ashwood pole, plain and unadorned. In a scuffle it delivers a blow with its own modest weight, but it is clumsy in the hands of the untrained and fragile against true war-gear. Carried by beggars, tinkers, and travelers who may need a walking aid and a cudgel in a single piece of wood.

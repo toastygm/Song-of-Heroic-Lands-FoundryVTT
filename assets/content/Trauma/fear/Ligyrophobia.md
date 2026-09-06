@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Ligyrophobia is an intense, irrational fear of loud noises. People with ligyrophobia may experience a range of symptoms when they think about, hear, or anticipate loud sounds.

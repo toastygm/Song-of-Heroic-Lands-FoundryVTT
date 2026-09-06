@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 2.67
   weight: 0.375
-folder: 7r8WTAO2Ac8SF9tf
+packFolder: textile
 ---
 
 A flax cloth much like linen in weight, but woven outside the guilds — at the manor, or by rural households for their own use. It weighs about 6 ounces the square yard. A homespun cloth is not a broadcloth: it runs about 1.5 yards by 12, some 18 square yards, and is had for 48d at the manor.

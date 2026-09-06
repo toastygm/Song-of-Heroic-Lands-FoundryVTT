@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 30
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Moonstone, a translucent feldspar gem of pale white or blue-silver hue, cut and polished to reveal its characteristic adularescence. The stone seems to glow from within when turned in the light, an effect prized by jewellers and collectors. These gems are set into rings and pendants, particularly favored by those who mark the lunar calendar.

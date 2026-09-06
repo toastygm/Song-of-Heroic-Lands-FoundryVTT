@@ -60,7 +60,7 @@ sohl:
     edged: 8
     piercing: 5
     fire: 5
-folder: gaC79vNjSo6VO6Ym
+packFolder: clothing
 origValue: 120.8
 origWeight: 1.7
 ---

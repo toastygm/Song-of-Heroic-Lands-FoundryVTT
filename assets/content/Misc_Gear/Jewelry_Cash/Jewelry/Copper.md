@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 2
   weight: 1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Copper, smelted from ore and cast into ingots or beaten into sheets. Soft enough to work cold and highly resistant to weathering, it is the parent metal of both bronze and brass. Merchants trade it by weight, and scrap copper is gathered everywhere for refounding.

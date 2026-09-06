@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Galeophobia is an intense, irrational fear of sharks. People with galeophobia may experience a range of symptoms when they think about, see, or are near environments where sharks might be present.

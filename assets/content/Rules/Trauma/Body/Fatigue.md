@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Fatigue
   aliases: []
-folder: edGOkxiCotuMzc1O
+packFolder: body
 shortcode: fatigue
 ---
 

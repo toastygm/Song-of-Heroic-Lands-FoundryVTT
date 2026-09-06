@@ -16,7 +16,7 @@ sohl:
   assocSkillCode: ""
   levelBase: 0
   masteryLevelBase: 0
-folder: u2uL4fjE2nKMfgbW
+packFolder: spiritaction
 ---
 
 Trance is the deliberate entry into a meditative state deep enough to open the practitioner's perception onto the spirit world. Controlled breathing, focused visualisation, and long discipline loosen the bond between soul and body — far enough for heightened intuition at the shallow end, far enough to perceive from outside the body at the deep end.

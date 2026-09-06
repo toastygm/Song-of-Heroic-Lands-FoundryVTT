@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: impulse
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Arrogance is characterized by an inflated sense of self-importance, a belief in one's superiority over others, and a lack of humility. Individuals with an arrogant personality often dismiss the opinions or contributions of others, viewing themselves as more capable or deserving. This attitude can lead to strained relationships, social isolation, and conflicts as their behavior alienates those around them.

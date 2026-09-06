@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -20
         counterstrikeMod: -20
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A short, stout cord or rawhide whip bound to a wooden handle, the teamster's whip is primarily a driver's tool for commanding ox-teams and wagon-spans. Light and fast to crack, it stings rather than cuts, used for noise and sharp warnings. Drivers pressed into militia sometimes arm themselves with what they carry, giving the whip incidental combat service.

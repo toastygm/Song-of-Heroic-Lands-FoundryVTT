@@ -75,7 +75,7 @@ sohl:
       halfImpact: false
       lowAim: false
       strRoll: false
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 The plainest attack there is, and the feeblest on the table: a bare fist does little against anything padded and rather less against anything rigid, and a hand is a poor instrument for hitting hard things with. Boxers wrap their hands for a reason.

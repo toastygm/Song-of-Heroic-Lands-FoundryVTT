@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 2
   weight: 0.01
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 A pair of small carved drops or discs of wood, hung from a wire or a knotted thong. They weigh almost nothing, which is their point: a heavy ornament drags at a pierced ear all day, and a woman working in the fields wants nothing that pulls. The carving is usually a leaf, a beast, or a household sign, and a good pair is oiled once a season to keep it from drying and cracking.

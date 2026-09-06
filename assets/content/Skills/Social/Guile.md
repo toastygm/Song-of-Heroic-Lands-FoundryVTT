@@ -21,7 +21,7 @@ sohl:
   improveFlag: false
   impairedByRoles:
     - vital
-folder: JBr2U30FsJTs8F3l
+packFolder: social
 ---
 
 Guile is deliberate deception: convincing a listener of something the speaker knows to be untrue. It is close kin to Theatrics but differs in what is being falsified — a character using Guile misrepresents the _facts_ while remaining entirely themselves, where a character using Theatrics misrepresents _who they are_.

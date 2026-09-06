@@ -16,7 +16,7 @@ sohl:
   category: weakness
   levelBase: 1
   healingRateBase: 1
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Infection weakness is the systemic cost of a wound or injury gone septic. Where disease arises from a contagious agent, infection arises in tissue already damaged — a wound that did not close cleanly, a burn that turned foul, a surgery that introduced contamination. The weakness compounds with the underlying injury, and the two together kill far more often than either alone. 5–10 fatigue per infection.

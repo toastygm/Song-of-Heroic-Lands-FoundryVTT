@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Thaumatophobia is an intense, irrational fear of magic or supernatural occurrences. People with thaumatophobia may experience a range of symptoms when they think about, see, or are near anything they perceive as magical or supernatural.

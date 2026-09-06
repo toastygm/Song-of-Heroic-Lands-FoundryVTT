@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 50
   value: 18
   weight: 15
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 The largest of the woven chests, wide enough to hold a household's linen. Two people can carry it full where the equivalent in joined oak would need four, which is most of why it exists.

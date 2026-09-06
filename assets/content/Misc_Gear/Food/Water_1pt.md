@@ -22,7 +22,7 @@ sohl:
   durability: 0
   value: 0
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Clean water is drawn from wells, springs, or rivers and carried in clay jugs, leather skins, or wooden flasks. A pint sustains one traveler for a day of light travel or feeds thirsty laborers under the sun. Fresh water is a luxury in many lands; those lacking good sources drink ale instead. On long journeys, water becomes precious, carefully rationed and guarded from spill.

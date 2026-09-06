@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 16
   value: 10
   weight: 3
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A tinned-copper pot with a fitted lid and iron handle, used in kitchens for simmering and reducing sauces without metallic taste. Lighter and more conductive than iron, it is favored by wealthy households and professional cooks, though more fragile and costly to repair. The tin coating requires care to prevent damage from acidic foods, and verdigris can form on the exterior if left wet.

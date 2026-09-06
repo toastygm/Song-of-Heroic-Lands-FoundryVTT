@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 10
   weight: 2
-folder: BYkA5NDQxTXDvsAC
+packFolder: scribe
 ---
 
 Indigo or woad-derived ink, ground to pigment and bound with gum. Blue ink marks official margins, chapter headings, and marginal notes in monastic manuscripts. It is more costly than black and prized for decorative work alongside illuminated capitals.

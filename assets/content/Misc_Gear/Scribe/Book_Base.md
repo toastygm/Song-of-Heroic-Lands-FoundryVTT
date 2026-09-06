@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 10
   weight: 1
-folder: BYkA5NDQxTXDvsAC
+packFolder: scribe
 ---
 
 An unbound gathering of quires—stacked and sewn signatures—ready for the scribe's work. Oak boards form the covers, tooled in leather and clasped with bronze. This base awaits text, needing pages parchment, vellum, or paper added at the binder's stage. Monks and magistrates commission such blanks as vessels for record and deed.

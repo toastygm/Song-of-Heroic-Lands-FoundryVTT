@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Psychological Condition
   aliases: []
-folder: hAloT0Y1xg1vcIIn
+packFolder: mind
 shortcode: psychlgc
 ---
 

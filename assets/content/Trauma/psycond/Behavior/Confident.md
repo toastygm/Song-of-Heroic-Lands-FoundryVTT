@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Confidence refers to an individual's belief in their abilities, decisions, and judgment. A confident person trusts themselves and their capabilities, often taking on challenges with assurance and composure. Confidence allows individuals to handle difficult situations effectively and maintain a strong sense of self-worth. However, overconfidence can sometimes lead to rash decisions or an inflated sense of one's abilities, resulting in mistakes or strained relationships.

@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Attack Resolution
   aliases: []
-folder: rotB8uN12YUN0Oba
+packFolder: rulescombat
 shortcode: atkreslv
 ---
 

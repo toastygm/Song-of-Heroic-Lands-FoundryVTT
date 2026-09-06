@@ -109,7 +109,7 @@ sohl:
       maxVolleyMult: 4
       baseRangeBase: 300
       drawBase: 140
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A master archer's heavy composite of laminated horn, wood, and sinew, with a hundred-forty pound pull. Rare and costly, drawn only by the most elite cavalry archers, this bow punches through heavy plate at distance and is the weapon of legendary mounted warriors and champions of the saddle.

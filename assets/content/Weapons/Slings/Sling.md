@@ -65,7 +65,7 @@ sohl:
       maxVolleyMult: 4
       baseRangeBase: 180
       drawBase: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A leather cradle on two hand-cords, loaded with stone or lead bullet and whirled overhead before release. Shepherds and skirmishers favor it for its range, low cost, and readiness; bullets are gathered from battlefields or streams. Trained slingers deliver crushing blows at surprising distance, though weather and skill shape accuracy.

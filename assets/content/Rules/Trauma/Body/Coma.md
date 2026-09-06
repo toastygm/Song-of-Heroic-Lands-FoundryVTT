@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Coma
   aliases: []
-folder: edGOkxiCotuMzc1O
+packFolder: body
 shortcode: coma
 ---
 

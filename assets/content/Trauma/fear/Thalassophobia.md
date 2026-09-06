@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Thalassophobia is an intense, irrational fear of the sea or large bodies of water. People with thalassophobia may experience a range of symptoms when they think about, see, or are near the ocean or large lakes.

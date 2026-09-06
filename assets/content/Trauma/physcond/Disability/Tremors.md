@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Tremors are involuntary, rhythmic shaking movements of the limbs or extremities, often occurring without the person's control. These tremors can make it difficult to perform tasks requiring steady hands or precise movements. Those suffering from tremors must adapt to their condition through alternative strategies and rely on others for support.

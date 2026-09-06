@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Infection
   aliases: []
-folder: F4NGyU9QQgWwTcHe
+packFolder: injury
 shortcode: infctn
 ---
 

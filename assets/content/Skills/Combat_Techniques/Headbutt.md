@@ -75,7 +75,7 @@ sohl:
       halfImpact: false
       lowAim: false
       strRoll: false
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 Delivered from inside a grapple, a press of bodies, or any place where there is no room to draw a fist back. Like the bite it has no reach at all — but where a bite needs a mouth free, a headbutt needs only that your head can move, so it survives being held by both arms.

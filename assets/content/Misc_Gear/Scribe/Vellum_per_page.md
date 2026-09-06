@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 1
   weight: 0.2
-folder: BYkA5NDQxTXDvsAC
+packFolder: scribe
 ---
 
 Calf skin, finer and whiter than parchment, scraped to translucent thinness and finished smooth. Vellum is the premium choice for royal charters, illuminated gospels, and treasured heirlooms—it endures centuries without yellowing. Scribes reserve it for pages of highest rank and import.

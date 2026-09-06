@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 0.125
   value: 1.5
   weight: 0.7
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A modestly sized ceramic ointment vessel with a wide mouth and a press-in wooden or waxed lid, suitable for creams, tinctures, and salves of moderate quantity. Smaller than its larger cousin but still practical for an apothecary's shelves or a healer's traveling kit, it balances capacity with portability.

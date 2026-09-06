@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Affiliations
   aliases: []
-folder: RqKUTBUBN2Y3MHYB
+packFolder: rules
 shortcode: affiliation
 ---
 

@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Patient refers to an individual's ability to remain calm and composed in the face of delays, challenges, or difficulties. A patient person does not rush or become easily frustrated, instead allowing time for things to unfold naturally. They are willing to wait for the right moment and understand that some tasks or goals take time to achieve. Patience fosters resilience and careful planning, though excessive patience can sometimes cause harm when individuals wait for ideal conditions, even if it negatively affects their interests or well-being.

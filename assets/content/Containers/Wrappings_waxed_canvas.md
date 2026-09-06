@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 2
   value: 0.25
   weight: 0.3
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A sheet of wax-proofed canvas used to wrap what must stay dry. Cheaper and lighter than leather wrappings and rather less durable — the wax cracks where the cloth is folded repeatedly, and water finds those lines first.

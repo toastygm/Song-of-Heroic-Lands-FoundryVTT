@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 10
   value: 3
   weight: 0.8
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A stitched leather bag on a shoulder strap, closed by a buckled flap rather than a tie. It costs several times what the canvas equivalent does and will outlast three of them, which is the whole of the argument for it.

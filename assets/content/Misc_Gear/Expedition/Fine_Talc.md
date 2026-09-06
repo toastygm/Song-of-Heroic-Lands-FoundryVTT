@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 10
   weight: 0.0625
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A fine mineral powder, soft and absorbent, ground from talc stone quarried in mountain seams. Travelers and soldiers keep a pouch for drying sweat, preventing chafing, and tending minor skin complaints; physicians use it to dust wounds and reduce weeping.

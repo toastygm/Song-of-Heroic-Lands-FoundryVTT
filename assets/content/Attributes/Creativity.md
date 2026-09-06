@@ -20,7 +20,7 @@ sohl:
     - Visionary:999
   initDiceFormula: 3d6
 sort: 100
-folder: FPitxvL8wCmXynax
+packFolder: attributes
 ---
 
 Creativity is the power of imagination—the capacity to perceive new connections, generate novel ideas, and forge original solutions to problems. It is what distinguishes the talented craftsperson from the merely competent, the visionary leader from the plodding administrator, the inspired poet from the mere versifier. Those with keen creativity see possibilities where others see only what is.

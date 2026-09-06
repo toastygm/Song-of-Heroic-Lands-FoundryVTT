@@ -62,7 +62,7 @@ sohl:
     edged: 8
     piercing: 5
     fire: 5
-folder: gaC79vNjSo6VO6Ym
+packFolder: clothing
 ---
 
 The Worsted Hooded Cloak, made from tightly-spun wool fibers, offers both style and durability. It's a practical, versatile choice that provides good insulation and resilience, suitable for a wide range of activities and weather conditions.

@@ -21,7 +21,7 @@ sohl:
   improveFlag: false
   impairedByRoles:
     - vital
-folder: QlkEHXbk2EXlRiMM
+packFolder: lore
 ---
 
 Law is knowledge of the legal order the character was raised inside — which is rarely one order at all. Clan custom and the vendetta that enforces it, feudal obligation and the lord's court, royal justice where it reaches, and the dense, jealously guarded regulation of a guild town all operate at once and frequently against one another. Canon law is not covered here; that belongs to the relevant Ritual skill.

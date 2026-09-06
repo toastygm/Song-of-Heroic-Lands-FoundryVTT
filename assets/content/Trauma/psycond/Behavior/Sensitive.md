@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Sensitivity is an openness to feeling—one's own emotions and those of others register acutely, with little filtering. A sensitive person resonates with the moods and sorrows of those around them; they weep readily, feel joy sharply, and are moved by beauty or cruelty in equal measure. In a harsh, demanding world, this trait can be a gift—it builds compassion and insight—but it can also become a burden, making one's path through life fraught with hurt and exhaustion.

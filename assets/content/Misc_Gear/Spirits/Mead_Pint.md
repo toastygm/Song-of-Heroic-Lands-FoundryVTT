@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 0.5
   weight: 1
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A pint of honey mead in a wooden cup or clay vessel. Sweeter and warming, it is a festival drink—poured at harvest feasts and noble celebrations rather than daily tavern fare. Expensive enough to mark occasion.

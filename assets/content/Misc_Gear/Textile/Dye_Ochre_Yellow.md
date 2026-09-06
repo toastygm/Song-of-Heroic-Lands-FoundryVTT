@@ -20,7 +20,7 @@ sohl:
   durability: 1
   value: 30
   weight: 0.0625
-folder: 7r8WTAO2Ac8SF9tf
+packFolder: textile
 ---
 
 Ground ochre pigment mixed with iron and alum mordants, stored in a clay pot. Ochre yellow is earthy and mustard-warm, favored for peasant cloth, hemp, and canvas; it does not run or fade greatly, though the hue is somewhat dulled compared to brighter yellows. Dyers mix it with woad to create green shades or use it alone for merchant-class garments and livery.

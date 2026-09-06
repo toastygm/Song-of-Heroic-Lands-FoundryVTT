@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 12
   weight: 3
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Raw wool sheared from sheep or combed from pelts, carded and bundled for trade to spinners and weavers. A shepherd brings fleece to market after shearing; a merchant buys it in bulk for sending to cloth-makers. Fine fleece yields soft yarn; coarser wool is carded into sturdy cloth for working folk and felted for armor padding.

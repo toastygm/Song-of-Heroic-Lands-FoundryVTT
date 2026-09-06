@@ -197,7 +197,7 @@ sohl:
       defense:
         blockMod: 0
         counterstrikeMod: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A wide, flat blade sharpened on both edges and hilted simply for a single strong grip, the broadsword excels at the chopping cut. Its broad face sheds water and grime alike, and the heft concentrates force in the slashing stroke. Footmen prize this blade for its reliability and the way it bites through lightly armored flesh.

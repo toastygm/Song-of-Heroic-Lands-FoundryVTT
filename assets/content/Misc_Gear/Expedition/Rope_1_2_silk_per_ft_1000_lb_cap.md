@@ -20,7 +20,7 @@ sohl:
   durability: 6
   value: 32
   weight: 0.08
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 Half-inch rope of woven silk fiber, supple and strong, imported at high cost and prized by climbers and thieves. Thinner and lighter than hemp, it bears triple the load without degradation and knots cleanly; only the wealthy or desperate pay silk prices for ordinary hauling.

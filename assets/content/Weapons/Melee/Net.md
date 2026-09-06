@@ -109,7 +109,7 @@ sohl:
       maxVolleyMult: 2
       baseRangeBase: 10
       drawBase: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A weighted mesh cast from hand to entangle and pin an opponent's limbs and shield arm. The net spreads wide in flight and clings to armor and flesh alike, leaving the caught foe helpless for a follow-up strike. Fishermen adapted their casting nets to war; gladiatorial fighters paired net with spear for disarm-and-strike tactics.

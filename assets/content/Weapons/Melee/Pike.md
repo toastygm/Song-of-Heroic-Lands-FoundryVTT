@@ -197,7 +197,7 @@ sohl:
       defense:
         blockMod: 0
         counterstrikeMod: 0
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A long slender thrusting spear of nine feet or more, the pike is the spine of foot-archer and crossbowmen formations. Massed pike-ranks create a wall of points that breaks cavalry charges and holds ground against cavalry counter; pikemen lock shields and thrust in disciplined volleys to disrupt mounted charges.

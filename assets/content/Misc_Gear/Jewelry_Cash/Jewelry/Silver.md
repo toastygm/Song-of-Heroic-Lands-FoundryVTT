@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 400
   weight: 1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Silver, a precious metal worked into ingots or coined by the mint, prized for both its beauty and practical utility. The metal does not corrode or tarnish easily and accepts fine engraving, making it favored for jewelry, ceremonial vessels, and the common silver pence. Merchants and nobles alike trade silver as a reliable standard of value.

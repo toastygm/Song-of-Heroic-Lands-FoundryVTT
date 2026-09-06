@@ -74,7 +74,7 @@ sohl:
       halfImpact: false
       lowAim: false
       strRoll: true
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 A press is not an attack on the body but on the footing — a shoulder or both hands driven into an opponent to move them off their line. It wounds nobody. What it does is break a shield wall, shove a spearman off a bridge, or open the ground between you and a doorway.

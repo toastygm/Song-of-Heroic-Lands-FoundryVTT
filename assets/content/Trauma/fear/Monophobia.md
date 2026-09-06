@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Monophobia is an intense, irrational fear of being alone. People with monophobia may experience a range of symptoms when they think about, see, or are in situations where they are alone.

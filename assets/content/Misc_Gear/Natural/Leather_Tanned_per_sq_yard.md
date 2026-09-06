@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 20
   weight: 1.2
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 Finished leather—vegetable-tanned and dressed, sold by the square yard to tailors and leatherworkers. The tanner's craft yields a range of thicknesses and finishes; cordwainers, saddlers, and armor-liners each select stock suited to their trade. Quality varies with the source hide.

@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 3
   weight: 0
-folder: 7TT0OzoIoEn40zfs
+packFolder: cooking
 ---
 
 A small, straight-sided drinking cup of copper tinned inside, hand-hammered and riveted by a coppersmith. The tinning prevents the metal from flavoring ale or water, and the copper holds warmth well, prized for mulled wine or heated mead. Such cups are common among merchants and soldiers, durable enough to survive years of camp life and rough handling.

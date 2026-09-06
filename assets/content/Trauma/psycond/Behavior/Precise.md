@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Precise refers to an individual's ability to work with great accuracy and attention to detail, ensuring that every aspect of their task is exact and carefully measured. A precise person takes care to avoid mistakes, valuing thoroughness and correctness in their work. This trait is essential in fields where exact measurements and careful planning are crucial to success. While precision ensures high-quality outcomes, excessive focus on it can sometimes lead to perfectionism or delays.

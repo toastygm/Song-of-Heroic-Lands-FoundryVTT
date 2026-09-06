@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 8
   value: 60
   weight: 5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 The upper vessel of a still, beaten from copper, with a long spout running down to a collection pot. Copper conducts heat evenly and survives being set directly on a furnace, but it taints anything acid enough to attack the metal.

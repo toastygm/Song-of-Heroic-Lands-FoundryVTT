@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Calendar JSON Format"
 shortcode: calendarfmtug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Calendar JSON Format {#CalendarFormat}

@@ -6,7 +6,7 @@ name:
   full: Glossary
   aliases: []
 shortcode: glossary
-folder: RqKUTBUBN2Y3MHYB
+packFolder: rules
 ---
 
 # Glossary

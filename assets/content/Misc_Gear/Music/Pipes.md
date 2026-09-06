@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 60
   weight: 2
-folder: ncTaRcZt0RFYz0Gq
+packFolder: music
 ---
 
 A set of fruitwood, bone, or reed tubes of varying lengths, bound together with cord or leather, played by blowing across the open tops of each pipe. Pan pipes produce a distinctive reedy voice with a melancholic or pastoral character, their range spanning an octave or more depending on construction. Shepherds, folk musicians, and wandering minstrels favor pipes for their portability and distinctive sound suited to dances and love songs.

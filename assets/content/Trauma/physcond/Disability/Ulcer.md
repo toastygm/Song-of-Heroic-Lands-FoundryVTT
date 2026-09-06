@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: trait
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Ulcer refers to an open sore or lesion that develops on the skin or the lining of internal organs, most commonly in the stomach or the intestines. Ulcers are caused by a variety of factors, including infections, prolonged use of certain medications, or excessive stomach acid. When an ulcer forms, it can result in significant discomfort, pain, and other complications depending on its severity and location. Over time, if left untreated, ulcers can lead to further damage, including bleeding, infection, or perforation of the affected tissue.

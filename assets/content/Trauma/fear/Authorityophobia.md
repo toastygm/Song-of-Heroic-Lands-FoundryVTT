@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Authorityophobia is an intense, irrational fear of authority figures or being in authoritative environments. People with autorityophobia may experience a range of symptoms when they think about, see, or are near authority figures such as police officers, bosses, or teachers.

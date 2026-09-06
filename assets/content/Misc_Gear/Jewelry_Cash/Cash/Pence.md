@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 1
   weight: 0.0033
-folder: TV3IMHs8SLZ1L1vv
+packFolder: cash
 ---
 
 A silver coin stamped with the royal mark, the everyday currency of trade in markets and taverns. Smaller than the gold crown but more durable, the pence serves the merchant, farmer, and laborer equally.

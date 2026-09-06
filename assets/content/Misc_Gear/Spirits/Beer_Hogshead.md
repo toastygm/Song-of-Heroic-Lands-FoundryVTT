@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 125
   weight: 440
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A hogshead of small-beer—sour, weak, and cheap. This is the drink of garrisons and laboring crews where strong ale is too costly; kept in a covered barrel in the barracks storeroom or tavern cellar, it serves as both staple and source of relief from tainted water. Taste improves little with age.

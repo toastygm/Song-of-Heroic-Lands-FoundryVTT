@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Morale
   aliases: []
-folder: hAloT0Y1xg1vcIIn
+packFolder: mind
 shortcode: morale
 ---
 

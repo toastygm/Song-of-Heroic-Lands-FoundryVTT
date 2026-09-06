@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 Throwing covers weapons and objects sent by the arm alone — daggers, hand axes, javelins, rocks, a lit pot of pitch — whether flung flat at something in view or lobbed for distance at something that is not. Each item carries its own base range, volley multiplier and impact characteristics, and throws are resolved through the missile sequence.

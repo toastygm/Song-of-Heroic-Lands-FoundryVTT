@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: contact
-folder: 3lobflzDt8Hk6VrN
+packFolder: diseases
 ---
 
 Trachoma is a bacterial infection of the eye caused by _Chlamydia trachomatis_. It begins with symptoms like mild itching and irritation of the eyes and eyelids, followed by blurred vision and eye pain as the disease progresses. Repeated infections cause scarring of the inner eyelid, leading to trichiasis (inward turning of eyelashes) that scratch the cornea, resulting in blindness if untreated. The condition is closely linked to poor sanitation and hygiene.

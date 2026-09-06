@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Spirit Trauma Introduction
   aliases: []
-folder: TiVEgAyetL6JTjqG
+packFolder: spirit
 shortcode: sprttraumaintro
 ---
 

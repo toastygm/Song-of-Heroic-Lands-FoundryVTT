@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Injury Levels
   aliases: []
-folder: F4NGyU9QQgWwTcHe
+packFolder: injury
 shortcode: injrylvl
 ---
 

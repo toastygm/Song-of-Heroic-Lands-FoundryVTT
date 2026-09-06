@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 0.25
   weight: 1.5
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 A dense, dark loaf of rye bread from the baker's oven, hearty and long-keeping. Peasants and common folk eat rye bread daily; soldiers carry it on campaign because it stays fresh for days and fills the belly. The grain's earthiness and slight bitterness make rye bread distinctive, and its moisture means it dries slowly even without a crust.

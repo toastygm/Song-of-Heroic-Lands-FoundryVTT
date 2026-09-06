@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 6
   weight: 0.75
-folder: 7r8WTAO2Ac8SF9tf
+packFolder: textile
 ---
 
 A cheap, simple cloth made by marginally skilled and generally rural workers from coarse thread of cheap wool. It is unfulled, and comes only in cheap colours such as brown and grey. It weighs about 12 ounces the square yard. A standard broadcloth is 2 yards by 24, or 48 square yards, so a whole cloth costs 288d.

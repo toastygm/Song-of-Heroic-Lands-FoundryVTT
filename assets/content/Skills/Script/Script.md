@@ -22,7 +22,7 @@ sohl:
   impairedByRoles:
     - core
     - vital
-folder: RgFGiT3LqmNP0uRB
+packFolder: script
 ---
 
 Script is the ability to write and to read a particular **writing system**. Languages and scripts are separate things: a tongue may have no written form at all, or several, and one script may serve a number of unrelated languages. To read a text, a character needs **both** the relevant Language and the relevant Script.

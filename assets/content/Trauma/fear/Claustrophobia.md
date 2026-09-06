@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Claustrophobia is an intense, irrational fear of confined spaces. People with claustrophobia may experience a range of symptoms when they think about, see, or are in small or enclosed areas.

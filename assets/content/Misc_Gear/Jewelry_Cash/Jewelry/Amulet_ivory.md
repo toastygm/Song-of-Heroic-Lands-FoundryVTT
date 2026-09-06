@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 38
   weight: 0.1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A charm hung at the neck on a cord or chain. This one is carved ivory — the tooth of beasts from far off, not the horn of any beast bred at home — 1.6 ounces of it, and reckons 2 days at the bench.

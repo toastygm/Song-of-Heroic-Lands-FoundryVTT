@@ -6,7 +6,7 @@ name:
   full: "Concoction"
 shortcode: concoctiongearug
 
-folder: QtOgPodi8X6gDWL0
+packFolder: items
 ---
 
 # What are Concoctions?

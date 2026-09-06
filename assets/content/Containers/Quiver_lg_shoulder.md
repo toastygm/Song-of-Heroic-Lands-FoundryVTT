@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 2.5
   value: 12
   weight: 4
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A leather-wrapped wooden tube fitted with a leather strap for wearing across the back or shoulder, designed to keep arrows upright and accessible during a hunt or battle. The rigid frame prevents the arrows from breaking or tangling, and the open top allows quick draw without fumbling for individual shafts. A soldier or serious hunter carries one for sustained archery.

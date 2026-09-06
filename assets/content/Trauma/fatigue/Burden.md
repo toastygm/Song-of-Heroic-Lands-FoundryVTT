@@ -16,7 +16,7 @@ sohl:
   category: weariness
   levelBase: 1
   healingRateBase: 3
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Burden fatigue is the weariness produced by carrying a load — whether walking under it, standing watch in it, or simply sleeping in armor too heavy to shed. The body pays the weight every hour, scaled by effective Encumbrance after the Strength modifier. A character bearing nothing pays nothing; a character bearing much pays much, even at rest. ENC fatigue per hour.

@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 5
   weight: 1
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A pint of clear, fiery brandy in a sealed bottle. Nobles and wealthy merchants drink it from small cups as a digestif; soldiers and adventurers use it to clean wounds or warm a camp. The cost is steep—a single pint's wages for a laborer.

@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 12
   weight: 0.0625
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A coarse scent of common herbs steeped in weak spirit, sold by the ounce in a plain vial. It smells strongly and briefly, covering rather than complementing, and everyone within arm's reach knows what it cost. Servants going to a fair buy it; so do people who must sit close to others and know it.

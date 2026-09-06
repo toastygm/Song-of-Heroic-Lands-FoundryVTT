@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psypsychosis
   category: impulse
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Dementia is a condition characterized by a decline in cognitive function, affecting memory, thinking, and behavior. Individuals with dementia may experience difficulties with everyday tasks, struggle to recall recent events, or have trouble recognizing familiar people or places. The condition progressively impairs their ability to live independently and can lead to significant emotional distress. Dementia is often associated with aging and can manifest in various forms, such as Alzheimer’s disease or vascular dementia.

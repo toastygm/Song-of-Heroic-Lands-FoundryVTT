@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 1
   value: 1.5
   weight: 0.4
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A plain open-topped glass vessel with a lip for pouring. It is among the cheapest glass made — no narrow neck to blow, no stopper to fit — and the workhorse of any bench where the contents must be watched.

@@ -20,7 +20,7 @@ sohl:
   durability: 7
   value: 20
   weight: 1
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 An iron deadbolt of standard weight, its wards carefully forged to resist casual tampering, mounted in a keeper plate for main doors of hall or townhouse. Sturdy enough to deter opportunistic thieves, though skilled locksmiths can defeat it given time.

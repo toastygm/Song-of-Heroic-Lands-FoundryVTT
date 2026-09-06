@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Grace
   aliases: []
-folder: gmHoAXi9mq8O9DUn
+packFolder: mysteries
 shortcode: grace
 ---
 

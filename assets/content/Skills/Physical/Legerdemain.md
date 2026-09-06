@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: Yt9THlZ0NT8H6aSK
+packFolder: physical
 ---
 
 Legerdemain is the specialised hand that Dexterity is the general one: palming, cutting a purse, running a shell game, keeping four objects in the air. Dexterity covers what anyone might attempt — catching a thrown cup, grabbing a ledge on the way past it — while Legerdemain covers what has been practised until it looks like nothing at all.

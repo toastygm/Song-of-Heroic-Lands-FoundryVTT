@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 1
   weight: 6
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Dolce seaweed is harvested from shallow coastal waters, dried in the sun, and bundled for trade. The thin fronds rehydrate when soaked, adding iodine and salt to broths and stews. Coastal peoples eat seaweed as a vegetable; inland merchants trade it as a preserved luxury. Dried seaweed smokes over hardwood for deeper umami; salted seaweed keeps for months in sealed vessels.

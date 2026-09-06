@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 20
   weight: 1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Steel of Khazárian make, won by a crucible process the smiths of that people do not share. It is uniform where

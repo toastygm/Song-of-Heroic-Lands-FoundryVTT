@@ -24,7 +24,7 @@ sohl:
     - vital
     - locomotor
     - manipulator
-folder: Yt9THlZ0NT8H6aSK
+packFolder: physical
 ---
 
 Climbing covers everything from swinging up into a tree to working a sheer rock face on fingertips. What separates the two is not effort but resolution: an easy climb is folded into ordinary movement, while a hard one is fought a minute at a time.

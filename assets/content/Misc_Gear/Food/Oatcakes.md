@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 0.25
   weight: 4
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Oatcakes—thin, crisp rounds baked on a griddle—are the traveler's bread, keeping dry for months in a bundled cloth. A dozen cakes weigh little and swell in the belly when soaked in broth or water. Every northern household bakes them in winter; merchants sell them cheap by the bag.

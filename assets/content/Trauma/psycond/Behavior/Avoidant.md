@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: impulse
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Avoidance is characterized by a deep-seated fear of rejection, criticism, or disapproval, leading individuals to avoid social interactions and situations where they might be judged or embarrassed. These individuals often struggle with feelings of inadequacy and are hypersensitive to negative evaluation, which can severely limit their ability to form relationships or pursue opportunities.

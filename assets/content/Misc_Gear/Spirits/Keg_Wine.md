@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 180
   weight: 72
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A keg of common wine kept in a tavern or merchant's store. Less costly than aged varieties, it is still preferred over ale by those with coin; a publican taps one to serve customers of better stations or to mark feast days.

@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 24
   weight: 6
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 A coastal seal's hide—oiled and salted by maritime hunters—dense, waterproof, and flexible. Tanners soften it into supple leather for sea-voyagers' boots and deck coats; sailors value the seal skin's resistance to cold salt spray. Coastal trading posts stock these hides regularly.

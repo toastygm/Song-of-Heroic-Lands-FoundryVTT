@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: injested
-folder: ONXsqZAIZr2qzxTb
+packFolder: poisonsandtoxins
 ---
 
 Ricin is a highly potent toxin derived from the castor bean plant. Even a small amount can be lethal, making it a favored tool for assassination.

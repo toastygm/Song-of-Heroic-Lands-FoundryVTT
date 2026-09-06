@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 400
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Garnet, a deep red to purplish gem, faceted and polished by the lapidary into a brilliant stone. The gem's rich color and durability make it favored for signet rings and formal adornment among the merchant class and minor nobility. A well-cut garnet catches the light with an inner glow that deepens with time.

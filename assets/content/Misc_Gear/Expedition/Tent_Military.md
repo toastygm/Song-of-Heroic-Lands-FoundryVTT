@@ -20,7 +20,7 @@ sohl:
   durability: 6
   value: 312
   weight: 90
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A rectangular pavilion of heavy oiled linen laced to a wooden frame, large enough to shelter a squad or a command post. The entrance is a double flap; ventilation ports prevent stagnation. Cavalry companies and siege engineers use them; they roll into bundled packs and require a wagon or pack-mules to haul, but once erected they last through months of campaigning.

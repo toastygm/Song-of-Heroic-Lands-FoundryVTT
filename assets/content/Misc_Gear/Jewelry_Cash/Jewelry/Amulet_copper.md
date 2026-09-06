@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 12
   weight: 0.1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A disc or plaque of copper, beaten thin and punched with a sign, hung on a cord at the neck. It is the cheap charm — the one bought when a child is sick and there is no coin for a healer — and popular belief credits copper against aches, fevers, and swellings of the joint. The metal greens where it lies against the skin and marks the shirt beneath.

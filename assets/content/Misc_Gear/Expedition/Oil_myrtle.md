@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 25
   weight: 0.0625
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A clear oil pressed and distilled from myrtle leaf, clean and slightly astringent. It is a perfumer's middle note and, being cheaper than the imported oils, does a great deal of quiet work in blends that name something more impressive on the label. Herbalists also wash wounds with it, on the reasoning that what smells clean is clean.

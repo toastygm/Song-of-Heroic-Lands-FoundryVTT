@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 16
   weight: 72
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A keg of apple cider pressed from autumn harvests and left to ferment. Orchardmen and villages near apple country keep these through winter; slightly sweet and mellow, it serves as a gentler alternative to ale. Spoils faster than beer in warm weather.

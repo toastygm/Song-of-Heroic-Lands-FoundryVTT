@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 150
   weight: 0.3
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 Two blown bulbs joined at a narrow waist, filled with graded sand and set in a turned wooden frame. The glassworker's difficulty is the waist: too wide and the glass runs fast and unevenly, too narrow and damp sand stops it altogether. A good hourglass is calibrated against a sundial over many turnings, and is worth more than most of what stands in the room with it. Watch-keepers, navigators, and preachers all rely on one.

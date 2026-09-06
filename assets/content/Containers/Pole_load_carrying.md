@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 35
   value: 0.25
   weight: 2
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A shaped wooden pole borne across one or both shoulders, with loads slung from each end. It is the simplest carrying device there is and among the most efficient, provided the two ends are balanced and the ground is level.

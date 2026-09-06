@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: gqRvjlrWbuCwGy3N
+packFolder: craft
 ---
 
 Musician is competence on an instrument, and it is defined narrowly on purpose: **one instrument, within one of three categories** — percussion, string or wind. Mastery Level describes that instrument. Anything else is played at a penalty.

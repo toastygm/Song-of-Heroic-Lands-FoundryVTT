@@ -20,7 +20,7 @@ sohl:
   durability: 7
   value: 2
   weight: 1
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 Twenty-four iron nails of mixed sizes, hand-forged with tapered shanks and broad flat heads, bundled together. Carpenters and field workers keep a pack for quick repairs, hanging loose rafters or affixing tent frames when rope and wood-pegs fail.

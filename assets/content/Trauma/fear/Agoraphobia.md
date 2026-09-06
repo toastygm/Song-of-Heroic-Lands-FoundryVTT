@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Agoraphobia is an intense, irrational fear of open or crowded spaces where escape might be difficult. People with agoraphobia may experience a range of symptoms when they are in settings such as markets, public transportation, or wide-open areas.

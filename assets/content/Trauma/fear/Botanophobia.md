@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Botanophobia is an intense, irrational fear of plants. People with botanophobia may experience a range of symptoms when they think about, see, or are near plants.

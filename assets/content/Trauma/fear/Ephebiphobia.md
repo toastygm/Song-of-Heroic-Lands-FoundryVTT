@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Ephebiphobia is an intense, irrational fear of teenagers or adolescents. People with ephebiphobia may experience a range of symptoms when they think about, see, or are near teenagers.

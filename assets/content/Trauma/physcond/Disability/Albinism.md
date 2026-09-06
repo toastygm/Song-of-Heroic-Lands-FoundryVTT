@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: trait
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Albinism is a condition wherein the body produces little or no pigment in skin, hair, and eyes. The afflicted appear as if wrought from pale parchment—white or nearly white hair, skin of milk without tan or sunburn, eyes of pale blue or pink that catch the light strangely. In a world where strength and labor are bound to the sun's blessing, an albino person stands apart, visibly different in a way that invites both wonder and dread.

@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: gqRvjlrWbuCwGy3N
+packFolder: craft
 ---
 
 Weaponcraft is the making and repair of arms and armour. It is the most exacting of the metal trades because the product is expected to survive being used as intended, and the difference between a sound blade and a brittle one is invisible until somebody is depending on it.

@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Aquaphobia is an intense, irrational fear of water. People with aquaphobia may experience a range of symptoms when they think about, see, or are near bodies of water or environments where it is possible they might drown or slip and fall.

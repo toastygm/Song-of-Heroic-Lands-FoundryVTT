@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Shock
   aliases: []
-folder: edGOkxiCotuMzc1O
+packFolder: body
 shortcode: shock
 ---
 

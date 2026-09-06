@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 0.0625
   value: 3.25
   weight: 0.15
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A sealed glass ampoule of twice the usual capacity. It costs barely more than the single and is the commoner purchase for that reason, though once snapped open the whole of it must be used or wasted.

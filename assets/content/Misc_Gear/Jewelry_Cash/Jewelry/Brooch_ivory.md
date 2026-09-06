@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 19
   weight: 0.05
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A pin and catch worked into a plate, worn to fasten a cloak at the shoulder. This one is carved ivory — the tooth of beasts from far off, not the horn of any beast bred at home — 0.8 ounces of it, and reckons 1 day at the bench.

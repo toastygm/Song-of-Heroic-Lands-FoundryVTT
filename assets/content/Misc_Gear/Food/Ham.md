@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 1
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 A hog's hind leg, salt-cured and smoked to dark mahogany, hangs in the butcher's shop or a merchant's stores. The smoky, salty meat is sliced thin for bread or diced into pots; it keeps for months unwrapped and needs no further preparation. Both noble tables and camp fires value a good ham.

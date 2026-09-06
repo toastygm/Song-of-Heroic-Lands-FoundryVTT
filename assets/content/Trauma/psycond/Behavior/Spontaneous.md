@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Spontaneity is the tendency to act on impulse, without lengthy deliberation or planning. A spontaneous person does not spend their life mapping every path before they walk it; they move, they feel, they decide in the moment, riding the wave of what seems right or exciting in the immediate instant. In a world of rigid hierarchy and careful tradition, such people often bring color and unpredictability to the gray cloth of daily life.

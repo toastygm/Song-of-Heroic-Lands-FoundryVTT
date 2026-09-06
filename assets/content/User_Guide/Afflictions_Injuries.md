@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Afflictions and Injuries"
 shortcode: afflinjug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Overview {#conditions-overview}

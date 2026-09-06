@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 2
   value: 3
   weight: 0.7
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A larger open beaker of the same plain make. Glass this size is thick-walled and slightly green, and will crack without warning if taken from a furnace to a cold bench too quickly.

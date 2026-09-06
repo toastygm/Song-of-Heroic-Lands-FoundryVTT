@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physfeature
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Clubfoot is a congenital malformation in which one or both feet twist inward or take on an unnatural shape from birth onward, or from infancy. The foot may turn sharply toward the midline, the sole face upward, or the whole member become rigid and painful. Those born with this deformity must walk upon the side or edge of the foot rather than the heel and ball, resulting in an uneven, labored gait. In a world where most livelihoods demand ease of movement—shepherding, trading, warcraft—this condition can severely constrain a person's place in society and their own sense of dignity.

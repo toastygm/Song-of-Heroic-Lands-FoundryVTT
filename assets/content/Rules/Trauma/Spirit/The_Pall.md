@@ -5,7 +5,7 @@ subType: rules
 name:
   full: The Pall
   aliases: []
-folder: TiVEgAyetL6JTjqG
+packFolder: spirit
 shortcode: thepall
 ---
 

@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 20
   value: 150
   weight: 5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A hardwood chest reinforced with iron bands and fitted with a wardlock mechanism—a sophisticated mechanism that resists tampering and forced entry. Merchants, nobles, and wealthy traders keep coin, documents, and valuables in such boxes, often placing them in a fixed location or transporting them under guard. The substantial weight and complexity of the lock make it a professional-grade security vessel.

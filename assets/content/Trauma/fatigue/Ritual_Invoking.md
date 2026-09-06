@@ -16,7 +16,7 @@ sohl:
   category: windedness
   levelBase: 1
   healingRateBase: 5
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Ritual invoking fatigue is the cost of channeling divine or mystical power through ritual prayer, mantra, or formal invocation. Each invocation draws on the channeler's body as a conduit — the body warms, breath quickens, awareness sharpens then dulls — and the cost compounds across consecutive invocations within the same ritual. 0–10 fatigue per invocation, depending on the rite's demand.

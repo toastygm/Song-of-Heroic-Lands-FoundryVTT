@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 80
   weight: 4
-folder: BYkA5NDQxTXDvsAC
+packFolder: scribe
 ---
 
 A medium-sized workbook, roughly eight inches by ten, bound between thin oak boards faced in tanned leather and closed with a single bronze clasp. Some thirty sheets of parchment are sewn into signatures within, enough for months of field notes, rough sketches, specimen pressings, ledger entries, or draft correspondence. Scribes, sages, herbalists, physicians, and mercantylers all carry its like—a workaday book meant for the road, the hedge, and the counting-stall rather than the library shelf.

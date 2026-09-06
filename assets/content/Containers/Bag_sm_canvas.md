@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 10
   value: 0.5
   weight: 0.5
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A lightweight pouch of woven canvas, small enough to carry in one hand or tuck under an arm, drawn closed with a cord. Used for storing grain, spices, or small goods at market; common among merchants and domestic keepers. Its openness and light weight make it unsuitable for liquids, but it is inexpensive and easily replaced when worn.

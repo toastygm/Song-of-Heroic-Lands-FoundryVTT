@@ -20,7 +20,7 @@ sohl:
   durability: 9
   value: 90
   weight: 12
-folder: xniLjmZWYQZkSxyv
+packFolder: instruments
 ---
 
 The iron share that cuts the furrow slice and turns it onto the mouldboard — the single costliest piece of iron most farms will ever own, and the reason a village smith is never short of work. It wears blunt against stony ground and must be drawn out and re-hardened each season; a share worn past reforging is sold back for its metal. Ploughs are often held in common and the share tallied separately.

@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: vector
-folder: ONXsqZAIZr2qzxTb
+packFolder: poisonsandtoxins
 ---
 
 Curare is a plant-derived toxin used by indigenous tribes for its potent paralyzing effect, often used on arrow tips.

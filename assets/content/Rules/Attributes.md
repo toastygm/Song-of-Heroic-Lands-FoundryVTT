@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Attributes
   aliases: []
-folder: RqKUTBUBN2Y3MHYB
+packFolder: rules
 shortcode: attributes
 ---
 

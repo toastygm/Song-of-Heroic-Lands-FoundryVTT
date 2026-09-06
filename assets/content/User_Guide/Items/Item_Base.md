@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: Base Item
 shortcode: baseitemug
-folder: QtOgPodi8X6gDWL0
+packFolder: items
 ---
 
 In Foundry VTT, one of the main document types is the Item. Items represent things that are associated with an actor: skills, gear, etc. In _Song of Heroic Lands_, there are a large number of items.

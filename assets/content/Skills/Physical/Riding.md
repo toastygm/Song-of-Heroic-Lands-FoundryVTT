@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - manipulator
-folder: Yt9THlZ0NT8H6aSK
+packFolder: physical
 ---
 
 Almost anyone can sit a walking horse. Riding measures what is needed beyond that: the empathy to know what the animal is about to do and the balance to still be aboard when it does it — in a press of bodies, under noise, over ground the horse would rather not cross.

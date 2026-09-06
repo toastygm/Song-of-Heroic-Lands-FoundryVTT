@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 1
   weight: 0.75
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Long, slippery freshwater fish caught in weirs and ponds, rich with fat and distinctive in flavor. River-folk and pond-keepers eat eels fresh, smoked, or salted; the oily meat preserves well. An eel is gutted and left whole, then boiled or fried, and its rich stock makes a fine aspic or soup base.

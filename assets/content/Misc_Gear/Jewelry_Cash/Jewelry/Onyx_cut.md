@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 20
   weight: 0.0004
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Onyx, a banded chalcedony of black and white, cut and polished into faceted gems with striking striped patterns. The layered structure creates beautiful contrast when properly oriented, making each piece unique. Onyx is favored for signet rings and seals, holding an engraving cleanly without chipping.

@@ -27,7 +27,7 @@ sohl:
   traits:
     ARvalue: 4
     bleed: true
-folder: ADQPHjgKsdWsJhyy
+packFolder: projectiles
 ---
 
 A heavy quarrel topped with a wide, barbed iron head forged with two or three sharpened flanges and fitted to a reinforced socket. The broad head cuts deep into unarmoured flesh and lodges past the barbs, bleeding out a wounded beast or pitching a rider from the saddle. Line-crossbowmen and caravan guards favor them for open engagements where armor is thin and the quarry rides close.

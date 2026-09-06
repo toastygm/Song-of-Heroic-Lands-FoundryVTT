@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: injested
-folder: ONXsqZAIZr2qzxTb
+packFolder: poisonsandtoxins
 ---
 
 Belladonna contains tropane alkaloids such as atropine and scopolamine. It is used for poisoning and as a cosmetic to dilate pupils. Both the berries and leaves are extremely toxic.

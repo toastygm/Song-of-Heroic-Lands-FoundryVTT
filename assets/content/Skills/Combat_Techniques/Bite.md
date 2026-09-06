@@ -75,7 +75,7 @@ sohl:
       halfImpact: false
       lowAim: false
       strRoll: false
-folder: EphAMAfFhWBrJxyF
+packFolder: combat
 ---
 
 Biting is what remains when both arms are held and the head is not — in a grapple, on the ground, pinned under a shield. It reaches no distance whatever: the target must already be pressed against you, which is why it never appears in an opening exchange and often decides a closing one.

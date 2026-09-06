@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psypsychosis
   category: impulse
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Schizophrenic refers to an individual experiencing symptoms associated with schizophrenia, a severe mental disorder that affects how a person thinks, feels, and behaves. Schizophrenia often manifests as delusions, hallucinations, disorganized thinking, and a distorted perception of reality. While symptoms vary in intensity, at its worst, schizophrenia can profoundly disrupt an individual's ability to function, leading to social isolation, paranoia, and emotional instability.

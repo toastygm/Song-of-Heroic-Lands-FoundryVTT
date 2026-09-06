@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -5
         counterstrikeMod: -5
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A curved iron blade hafted short on a handle, the sickle is first a harvest tool, second a weapon. Farmers and peasant-levies swing it to cut grain and flesh alike, effective against the lightly armored or unarmoured. Its curve favors slashing over thrusting; it catches on shield rims and garrottes at close work. Common among irregular troops lacking coin for proper arms.

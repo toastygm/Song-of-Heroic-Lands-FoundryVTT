@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 1.75
   weight: 1
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 Iron, smelted from ore in the bloomery and hammered out into bars or billets. It is the commonest working metal of the age — cheap by weight, and nearly all the cost of any iron object lies in the smith's labour rather than the stock. Scrap iron is never discarded; it is reforged.

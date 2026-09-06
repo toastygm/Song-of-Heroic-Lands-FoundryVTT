@@ -20,7 +20,7 @@ sohl:
   durability: 1
   value: 1
   weight: 1
-folder: 7HORJHbbizVSds9r
+packFolder: stone
 ---
 
 A quarried block of soft, porous chalk dug from ancient seabeds, sold by the cubic foot and left unworked for the quarryman's craft. Chalk is prized by masons for interior plaster, by scribes for pouncing, and by shepherds for marking sheep. It is soft enough to be broken by hand and light enough to carry; larger quantities serve as building filler beneath stone facings.

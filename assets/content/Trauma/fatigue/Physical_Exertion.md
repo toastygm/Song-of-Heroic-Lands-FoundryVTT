@@ -16,7 +16,7 @@ sohl:
   category: windedness
   levelBase: 1
   healingRateBase: 5
-folder: Y22wv8plMCfPXYBT
+packFolder: fatigue
 ---
 
 Physical exertion fatigue accrues from all-out physical exertion sustained over more than a few seconds — the urgent, breathless pace of pursuit; melee combat; sprinting; or climbing.

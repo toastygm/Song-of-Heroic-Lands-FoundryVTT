@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 31
   weight: 0.25
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A heavy bronze torc or chain, four ounces at the neck and hard enough to take years of it. Among the tribal peoples a bronze neck-ring is a mark of standing rather than a trinket, worn open at the front and bent to fit; in the towns it turns up as cheap chain sold by weight. Old bronze goes a deep green and is often left that way deliberately.

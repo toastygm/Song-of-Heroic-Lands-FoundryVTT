@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Cohort"
 shortcode: cohortug
-folder: sYK1BozT9xFcinXK
+packFolder: actors
 ---
 
 # What Is a Cohort?

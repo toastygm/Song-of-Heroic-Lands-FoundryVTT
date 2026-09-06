@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 120
   weight: 22
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 Rare pelts from distant lands—crocodile, ostrich, tiger, or python—brought by spice merchants and adventurers. Tanners and leatherworkers command premium prices for goods finished from such stock, sought by nobles and wealthy collectors. These skins trickle into markets slowly and unpredictably.

@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 0.03125
   value: 0.5
   weight: 0.9
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A thumb-sized ceramic vessel with the wide mouth and waxed or wooden lid of an ointment jar, used for carrying a precious unguent, poison antidote, or rare medicinal paste. Small enough to tuck into a belt pouch or hold in a closed fist, yet sturdy enough to survive being carried deep in a pack among heavier gear.

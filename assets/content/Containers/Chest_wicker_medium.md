@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 35
   value: 9
   weight: 10
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A woven willow chest of moderate size with a fitted lid. It is the storage of choice for anyone who moves house often — a quarter the price of joined wood and a third the weight, at the cost of everything a lock would give.

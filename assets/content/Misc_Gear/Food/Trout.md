@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 1
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Trout is a swift stream fish with delicate pink flesh and small bones, netted or trapped in swift waters. Fresh trout is best cooked whole over a fire, its skin crisping and flesh steaming. Smoked trout is prized by fishermen and mountaineers; salted trout requires careful handling to prevent the delicate meat from turning to mush. Rare enough that it remains a treat rather than a staple food.

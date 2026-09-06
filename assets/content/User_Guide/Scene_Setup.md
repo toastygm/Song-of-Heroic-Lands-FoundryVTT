@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Scene Setup and Tokens"
 shortcode: scnsetuptokug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Overview {#scene-overview}

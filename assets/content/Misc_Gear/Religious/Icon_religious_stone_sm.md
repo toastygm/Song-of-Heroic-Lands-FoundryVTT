@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 6
   weight: 1.5
-folder: 9JkoGqoUGqV8b5aL
+packFolder: religious
 ---
 
 A small devotional figure cut from soapstone, alabaster or a soft limestone, worked with rasp and file rather than thrown and fired. It costs more than the clay sort and weighs half again as much, but it will not shatter when a pack is dropped, and it takes a finer face. Pilgrims returning from a far shrine often carry one.

@@ -20,7 +20,7 @@ sohl:
   durability: 4
   value: 7
   weight: 4
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A small cage of thin battens and withy, about a foot each way, for songbirds, pigeons, or a ferret. Fowlers carry them on a strap; households hang them by a window. Being light and slight, they are as often crushed as worn out.

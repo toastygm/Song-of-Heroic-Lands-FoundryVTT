@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 3
   value: 72
   weight: 0.6
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A moderate drawstring pouch of silk, gathered at the mouth and hung at the hip, sized to carry coin and a small daily necessity. Nothing about it is sensible — the cloth parts under a knife without resistance and frays at the eyelets within the year — and the cost of one would buy a dozen leather pouches that would each outlast it. That is the whole of its purpose.

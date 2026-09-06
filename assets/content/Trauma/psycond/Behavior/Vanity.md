@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Vanity refers to an excessive pride in one’s appearance, achievements, or qualities, often coupled with a preoccupation with how others perceive them. A vain individual tends to focus on superficial attributes and may seek constant validation or praise. While self-confidence and self-care are healthy traits, vanity can lead to shallow behavior, a lack of empathy, and strained relationships due to an overemphasis on external appearance and approval.

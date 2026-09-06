@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: impediment
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Asthma is a chronic condition of the lungs, where the airways become narrowed and inflamed, causing difficulty in breathing. Without modern medicine, those afflicted rely on rest, avoiding known triggers, and natural remedies to manage their symptoms. The condition can be life-threatening during severe attacks.

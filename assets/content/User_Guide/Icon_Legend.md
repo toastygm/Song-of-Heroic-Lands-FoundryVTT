@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Icon Legend"
 shortcode: iconlgndug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Icon Legend

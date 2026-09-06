@@ -10,7 +10,7 @@ name:
   clan: Skathhelm
   aliases: []
 id: elrlXp3vtP02E0Tr
-folder: Nu7AgLZEmR26u2pk
+packFolder: pregens
 shortcode: brunjarskathhel
 img: icons/game-icons/delapouite/person.svg
 portrait: images/being/brunjarskathhel-portrait.webp

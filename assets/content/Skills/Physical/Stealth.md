@@ -23,7 +23,7 @@ sohl:
     - core
     - vital
     - locomotor
-folder: Yt9THlZ0NT8H6aSK
+packFolder: physical
 ---
 
 Stealth is two related crafts: **hiding**, which is not being seen, and **stalking**, which is not being heard. Hiding needs somewhere to do it — shadow, cover, broken ground — and is normally attempted from a standstill, though it may be tried at a half Move for −20. Stalking requires staying out of the target's line of sight and permits a half Move at no penalty at all; noisy footing costs −10 to −20.

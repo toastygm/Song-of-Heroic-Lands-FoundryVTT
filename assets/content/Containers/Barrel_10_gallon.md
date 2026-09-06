@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 80
   value: 8
   weight: 30
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A coopered barrel of riven oak staves drawn together with iron hoops, its bulging middle allowing it to be rolled and pivoted by one person despite its weight. No glue and no nails hold it — only the pressure of the hoops and the swelling of wet wood. A tight cask is the cooper's whole art, and a leaking one is worthless. 10 gallon capacity.

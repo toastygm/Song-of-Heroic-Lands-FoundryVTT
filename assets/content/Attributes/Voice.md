@@ -20,7 +20,7 @@ sohl:
     - Dulcet:999
   initDiceFormula: 3d6
 sort: 130
-folder: FPitxvL8wCmXynax
+packFolder: attributes
 ---
 
 Voice is the musical quality of a person's speech—the timbre, pitch, and natural resonance of the throat and lungs. A pleasant voice draws listeners in and makes words seem wise; a harsh or grating voice undermines even truth. Beyond mere pleasantness, voice carries character: the husky contralto of a weathered sea-captain, the clear soprano of a chapel singer, or the booming bellow of a blacksmith in his forge.

@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psypsychosis
   category: quirk
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Obsessive refers to an individual’s tendency to fixate intensely on specific thoughts, tasks, or ideas. People with obsessive tendencies may become preoccupied with perfection, control, or order, constantly revisiting the same thoughts or behaviors. While obsession can sometimes lead to thoroughness and attention to detail, it can also cause distress and disruption when the individual cannot let go of their preoccupations. In extreme cases, obsessive behavior may lead to compulsions, where the person feels driven to perform certain actions repetitively, even when it negatively impacts their life.

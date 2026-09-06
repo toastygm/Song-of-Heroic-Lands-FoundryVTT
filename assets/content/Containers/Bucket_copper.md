@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 24
   value: 12
   weight: 2
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A tinned-copper bucket, hammered to shape and riveted at the seams, favored in kitchens and by alchemists for heating liquids over flame without imparting iron taste. The copper is expensive and somewhat fragile compared to iron; dents can be hammered out but punctures are costly to repair. Verdigris may form on the surface over time and must be scrubbed clean.

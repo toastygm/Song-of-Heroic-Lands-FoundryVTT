@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 40
   value: 12
   weight: 9
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A wide-mouthed storage urn of thick earthenware, waist-high on a kneeling person, used for the dry goods of a household — grain, flour, salt, dried peas. The broad mouth takes a wooden lid or a stretched and tied cloth. Standing in a cool larder its thick walls hold the chill of the floor, and its weight makes it awkward to tip over, which is rather the point where a season's flour is concerned. 5 gallon capacity.

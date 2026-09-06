@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Chronic Nervousness refers to a persistent state of anxiety and unease that affects an individual's ability to engage with tasks, people, or situations without experiencing significant worry or self-doubt. Those with chronic nervousness are frequently on edge, overthinking potential outcomes, and anticipating negative consequences even in relatively low-risk scenarios. While a degree of nervousness can help prepare for challenges, chronic nervousness can lead to indecision, avoidance, and a diminished ability to cope with stress.

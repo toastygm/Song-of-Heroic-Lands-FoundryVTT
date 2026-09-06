@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psypsychosis
   category: impulse
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Compulsive Disclosure is a behavioral condition where an individual feels an uncontrollable urge to share personal, private, or sensitive information with others, often in inappropriate or unnecessary contexts. While they may sometimes recognize that they have overshared and feel embarrassed by their actions, individuals with more severe forms of this condition can be oblivious to the social consequences of their behavior. This lack of awareness can lead to repeated episodes of oversharing, resulting in damaged relationships, social isolation, and a decline in self-esteem.

@@ -20,7 +20,7 @@ sohl:
   durability: 8
   value: 30
   weight: 2
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A compact iron gin-trap, forged for rabbit and hare, its spring-jaw closing on legs or neck. Lighter than the large trap, a hunter or trapper sets a dozen of them along a warren or woodland path. Most catch their game; when the snare is reset, a skilled woodsman can make a living from the fur and meat.

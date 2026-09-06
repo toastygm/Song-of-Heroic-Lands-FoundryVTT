@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 1
   value: 36
   weight: 1
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 An aludel blown in glass, four times the price of the earthenware sort and worth it for one reason: the alchemist can see what is happening inside without breaking the column apart to find out.

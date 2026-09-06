@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Pteromerhanophobia is an intense, irrational fear of flying creatures, including birds, bats, or any creature with wings. People with pteromerhanophobia may experience a range of symptoms when they think about, see, or are near flying creatures.

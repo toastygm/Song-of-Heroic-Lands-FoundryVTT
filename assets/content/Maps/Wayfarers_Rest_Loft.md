@@ -10,7 +10,7 @@ type: map
 subType: battlemap
 sohl:
   kbcat: map
-  folder: Pw3nJvVsGuMdRb1K
+  packFolder: battlemaps
   place: wayfarersrest
   placeName: Wayfarer's Rest
   img: systems/sohl/assets/ui/parchment.jpg

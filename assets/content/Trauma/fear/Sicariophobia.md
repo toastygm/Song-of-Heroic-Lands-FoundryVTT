@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Sicariophobia is an intense, irrational fear of being murdered or of murder itself. People with sicariophobia may experience a range of symptoms when they think about, see, or are in situations where they perceive a risk of homicide.

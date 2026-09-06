@@ -20,7 +20,7 @@ sohl:
   durability: 7
   value: 30
   weight: 4
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A compact roll of quilted linen lined with fleece, covered in oiled linen and secured with leather straps. Light enough to lash to a merchant's pack, it provides reasonable warmth for mild seasons and dry nights. Scouts, itinerant peddlers, and light cavalry favor these for their portability; they offer modest insulation but wear faster than heavier rolls under constant use.

@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 6
   weight: 0.03
-folder: 3YyFU1QkTs2yFq5t
+packFolder: jewelry
 ---
 
 A copper band, the cheapest metal ring a pedlar carries and the one sold by the tray at fairs and festivals. Copper is soft and works easily, so a village smith can turn out a dozen in an afternoon, but it greens with wear and leaves a stain on the finger beneath. Some hold that the stain draws off aches from the joints, and old folk wear one on that account.

@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: quirk
-folder: SpZzOv4eOwtdsMMo
+packFolder: quirks
 ---
 
 Generous refers to an individual's willingness to give or share resources, time, or care with others without expecting anything in return. A generous person acts with kindness, often putting others' needs ahead of their own. While generosity is typically seen as a positive and admirable trait, excessive generosity can sometimes lead to self-neglect or being taken advantage of by others.

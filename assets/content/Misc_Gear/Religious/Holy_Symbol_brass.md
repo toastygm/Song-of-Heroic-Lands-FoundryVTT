@@ -20,7 +20,7 @@ sohl:
   durability: 5
   value: 15
   weight: 0.1
-folder: 9JkoGqoUGqV8b5aL
+packFolder: religious
 ---
 
 A token of a god cast in brass and hung at the neck on a cord. Brass must be founded and finished rather than raised, so it takes a quarter longer at the bench than the same thing in copper, but it keeps its shine and does not green against the skin as readily. It is what a devout townsman wears.

@@ -20,7 +20,7 @@ sohl:
     - Brilliant:999
   initDiceFormula: 3d6
 sort: 90
-folder: FPitxvL8wCmXynax
+packFolder: attributes
 ---
 
 Reasoning is the faculty of logic, memory, and deduction—the power to hold facts in mind, perceive patterns, and draw conclusions. It governs how quickly one grasps new ideas, whether one remembers the names of a merchant's children year after year, and whether one can unravel a knot of conflicting accounts to find the truth. It is the intellectual foundation upon which learning and craft are built.

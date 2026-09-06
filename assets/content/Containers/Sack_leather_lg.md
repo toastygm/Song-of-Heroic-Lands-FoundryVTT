@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 30
   value: 4.5
   weight: 1.3
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 The largest of the leather sacks, awkward to carry full and heavy before anything goes in it. It survives being dragged, dropped and rained on, which is more than can be said for the cheaper alternatives.

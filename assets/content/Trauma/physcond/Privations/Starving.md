@@ -16,7 +16,7 @@ sohl:
   category: debility
   levelBase: 4
   healingRateBase: 1
-folder: wz4hXqKLntkdXNue
+packFolder: privations
 ---
 
 Starvation is the systemic consequence of prolonged calorie deficit, during which the body first consumes stored fat and then dismantles its own muscle and organ tissue for fuel. Unlike dehydration it unfolds over weeks rather than hours, and damage from late-stage starvation persists long after a normal diet is resumed.

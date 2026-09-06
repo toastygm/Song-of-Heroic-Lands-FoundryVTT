@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Duergarphobia is an intense, irrational fear of dwarves, particularly those depicted in folklore as stout, strong, and skilled in mining, blacksmithing, and underground living. While many cultures view dwarves as industrious and noble beings, individuals with Duergarphobia experience overwhelming anxiety when encountering or thinking about these beings. The fear is often rooted in their physical appearance, underground lifestyle, or perceived mysterious powers, leading to avoidance of any stories, settings, or depictions involving dwarves.

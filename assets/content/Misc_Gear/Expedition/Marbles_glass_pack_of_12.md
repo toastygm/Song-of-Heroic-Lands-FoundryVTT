@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 10
   weight: 1
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A dozen glass spheres, blown and polished smooth, packed in cloth. Children play knucklebones with them; they also serve as ballast in cargo, as gaming tokens, and as crude lenses for observation at a distance.

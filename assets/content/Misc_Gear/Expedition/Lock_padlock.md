@@ -20,7 +20,7 @@ sohl:
   durability: 7
   value: 35
   weight: 0.5
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A portable iron padlock, its U-shaped shackle hinged through a cylindrical body, small enough to hang from a belt or saddle. Merchants use them to secure cargo chests and tent flaps during night camps; the warded mechanism resists casual picking but not a determined thief with proper tools.

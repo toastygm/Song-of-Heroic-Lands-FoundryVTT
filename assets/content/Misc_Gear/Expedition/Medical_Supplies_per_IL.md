@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 3
   weight: 0.1
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 An abstracted unit of the everyday consumables a healer needs to treat a wound of one injury level: pre-measured linen bandages, a splint of split willow, a small length of waxed suture thread on a curved needle, a scrap of boiled sponge, a dab of honey or tallow salve in a waxed-paper twist, and a measure of dried yarrow or comfrey for a poultice. Field-surgeons, barber-surgeons, monastery infirmarians, and anyone prudent enough to travel with an aid bag carry a supply by the handful, replenished at any market town.

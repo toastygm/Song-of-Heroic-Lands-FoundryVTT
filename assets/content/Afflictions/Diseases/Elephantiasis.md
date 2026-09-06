@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: vector
-folder: 3lobflzDt8Hk6VrN
+packFolder: diseases
 ---
 
 Elephantiasis, or lymphatic filariasis, is a parasitic infection caused by filarial worms (_Wuchereria bancrofti, Brugia malayi,_ and _Brugia timori_), transmitted through mosquito bites. People afflicted develop severe swelling and thickening of the skin and underlying tissues, typically in the legs, arms, or genital area. The disease often starts asymptomatically, but chronic infection leads to lymphatic system damage, resulting in lymphedema and significant disability due to the grossly enlarged and disfigured body parts. The condition can cause significant physical impairment and social stigma.

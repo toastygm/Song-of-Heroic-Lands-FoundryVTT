@@ -14,7 +14,7 @@ sohl:
   kbcat: phobias
   category: none
   levelBase: 0
-folder: 0eAg97lKuZbhIoZW
+packFolder: phobias
 ---
 
 Phagophobia is an intense, irrational fear of swallowing or choking. People with phagophobia may experience a range of symptoms when they think about, see, or are in situations where they need to swallow.

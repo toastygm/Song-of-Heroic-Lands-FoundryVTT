@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Physical Condition
   aliases: []
-folder: edGOkxiCotuMzc1O
+packFolder: body
 shortcode: physclcn
 ---
 

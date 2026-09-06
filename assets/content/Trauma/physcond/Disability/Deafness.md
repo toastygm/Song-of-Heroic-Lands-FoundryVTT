@@ -13,7 +13,7 @@ subType: physcond
 sohl:
   kbcat: physdisability
   category: debility
-folder: 4h8qyMcGHlkrfN1g
+packFolder: traumaphysical
 ---
 
 Deafness is the complete loss of the ability to hear, leaving an individual unable to perceive any sounds. Without the ability to hear, the afflicted person must rely entirely on visual cues, gestures, and written communication to interact with the world.

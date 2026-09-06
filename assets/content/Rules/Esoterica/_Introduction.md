@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Esoterica Introduction
   aliases: []
-folder: oPWOe5cjsYc1ev2h
+packFolder: esoterica
 shortcode: estrcint
 ---
 

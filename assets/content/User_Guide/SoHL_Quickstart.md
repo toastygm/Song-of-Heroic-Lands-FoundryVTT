@@ -6,7 +6,7 @@ name:
   full: Song of Heroic Lands Quickstart
   alises: []
 shortcode: quickstartug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 This quickstart gets a user from install to first roll with Song of Heroic Lands (SoHL).

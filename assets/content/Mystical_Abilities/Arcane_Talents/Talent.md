@@ -17,7 +17,7 @@ sohl:
   levelBase: 0
   masteryLevelBase: 0
 
-folder: ZEuidNMK3mhkNrL7
+packFolder: arcanetalents
 ---
 
 A Talent is an arcane knack possessed without formal training — a natural facility for one particular effect. Where an Arcane Incantation is studied, taught, and invoked by learned word and gesture, a Talent is simply _had_. It may surface unbidden in childhood, and what it demands afterwards is practice to control rather than instruction to acquire.

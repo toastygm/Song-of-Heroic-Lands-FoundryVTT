@@ -24,7 +24,7 @@ sohl:
     - vital
     - locomotor
     - manipulator
-folder: Yt9THlZ0NT8H6aSK
+packFolder: physical
 ---
 
 Acrobatics is the trained body used deliberately: balance held where there is nothing to hold onto, and tumbling — vaults, somersaults, handsprings — performed on purpose rather than survived by accident. It asks for coordination and wind in equal measure, and unlike most physical skills it is almost never picked up casually. Someone either has spent years on it or has not.

@@ -5,7 +5,7 @@ subType: userguide
 name:
   full: "Skill Tests and Opposed Tests"
 shortcode: sklltestug
-folder: IgwaG8rAUUO9vrtz
+packFolder: userguide
 ---
 
 # Overview {#tests-overview}

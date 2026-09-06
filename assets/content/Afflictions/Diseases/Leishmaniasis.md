@@ -17,7 +17,7 @@ sohl:
   healingRateBase: 3
   contagionIndex: 3
   transmission: vector
-folder: 3lobflzDt8Hk6VrN
+packFolder: diseases
 ---
 
 Leishmaniasis is a parasitic disease caused by _Leishmania_ parasites, transmitted by the bite of infected sandflies. It manifests in two main forms: cutaneous, causing skin sores that can become ulcers, and visceral, affecting internal organs like the spleen and liver. Visceral leishmaniasis, also known as kala-azar, presents with fever, weight loss, anemia, enlarged spleen, and liver, and can be fatal if untreated. Cutaneous leishmaniasis may heal on its own but can leave significant scars. The disease primarily affects people in tropical and subtropical regions.

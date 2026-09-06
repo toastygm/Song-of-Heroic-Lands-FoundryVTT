@@ -20,7 +20,7 @@ sohl:
   durability: 3
   value: 8
   weight: 5
-folder: 0JqxkW5hHZ8XVILm
+packFolder: natural
 ---
 
 A larger calf's hide—between a true calf and a young steer—salted and dried for the tanner's yard. Cordwainers favor kip leather for everyday shoes and boots, as it splits into usable sole and vamp layers. The hide is moderately sized and flexible when properly tanned.

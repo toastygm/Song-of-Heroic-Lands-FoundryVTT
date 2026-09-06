@@ -19,7 +19,7 @@ sohl:
   maxCapacity: 15
   value: 4.5
   weight: 1.1
-folder: dl8lJ729W1mFlDvt
+packFolder: containers
 ---
 
 A moderate satchel of tanned hide with a buckled flap and a stitched strap. It sheds rain, takes hard use without complaint, and is the standard bag of anyone who travels for a living and can afford not to replace it every season.

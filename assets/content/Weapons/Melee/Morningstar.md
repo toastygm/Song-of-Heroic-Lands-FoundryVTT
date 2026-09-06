@@ -109,7 +109,7 @@ sohl:
       defense:
         blockMod: -10
         counterstrikeMod: -10
-folder: HXiYHvG6igI3Wlmm
+packFolder: weapons
 ---
 
 A spiked iron ball crowned atop a short haft, the morningstar combines crushing weight with radiating spikes that bite through mail and plate alike. More refined than a crude spiked club, it offers both concussive force and penetration—the spikes punch where flange would merely dent. A weapon of shock and versatility favored by mounted men-at-arms who must answer both cavalry and foot.

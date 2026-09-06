@@ -5,7 +5,7 @@ subType: rules
 name:
   full: Mastery Level
   aliases: []
-folder: BTGA1PmN0VlBWpCm
+packFolder: resolution
 shortcode: mstrylvl
 ---
 

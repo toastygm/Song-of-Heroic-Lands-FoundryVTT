@@ -13,7 +13,7 @@ subType: psycond
 sohl:
   kbcat: psybehavior
   category: impulse
-folder: ECrcBb9CUCMX9JeJ
+packFolder: disorders
 ---
 
 Apathy is characterized by a pervasive lack of interest, enthusiasm, or concern for things that others typically find engaging or important. Individuals who exhibit apathetic tendencies may appear emotionally detached, indifferent to social interactions, and unmotivated to participate in activities. This condition can lead to significant social withdrawal, poor performance in personal and professional spheres, and strained relationships.

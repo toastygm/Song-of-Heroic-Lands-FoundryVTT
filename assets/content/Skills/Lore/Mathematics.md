@@ -21,7 +21,7 @@ sohl:
   improveFlag: false
   impairedByRoles:
     - vital
-folder: QlkEHXbk2EXlRiMM
+packFolder: lore
 ---
 
 Mathematics is calculation and formal reasoning. A Reasoning test suffices for counting and for feats of memory; Mathematics is what solves an actual problem, and a Mathematics Success Value test establishes how far up the ladder of complexity the character can reach.

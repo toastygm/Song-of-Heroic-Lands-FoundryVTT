@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 0.5
   weight: 1
-folder: jLdeIpOIZokm8obv
+packFolder: spirits
 ---
 
 A pint of small-beer in a wooden cup or earthenware bowl. Thin and tangy, it is the laborer's drink—cheap, safe, and ever-present in garrison kitchens and public wells. Served warm or cold, it carries no prestige but much practicality.

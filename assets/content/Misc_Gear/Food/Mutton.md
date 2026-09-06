@@ -20,7 +20,7 @@ sohl:
   durability: 0
   value: 2
   weight: 1
-folder: cHM58zOI1EcSG3cP
+packFolder: food
 ---
 
 Mutton—the meat of an aging sheep—is darker and stronger than lamb, best used in stews or heavily seasoned. A butcher quarters it and hangs it to age; it smokes and salts well for journeys. Common folk and soldiers depend on it; the flavor suits hearty broths and long-cooked dishes.

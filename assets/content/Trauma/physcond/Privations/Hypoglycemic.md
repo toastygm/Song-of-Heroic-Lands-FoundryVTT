@@ -16,7 +16,7 @@ sohl:
   category: impediment
   levelBase: 2
   healingRateBase: 5
-folder: wz4hXqKLntkdXNue
+packFolder: privations
 ---
 
 Hypoglycemia is the acute crash that follows hard exertion on too little food, particularly in the cold. The body's reserves of quickly available fuel are exhausted faster than fat can be mobilized to replace them, and the brain — which runs almost exclusively on sugar — fails before any other organ. It is the form of starvation that strikes in minutes rather than weeks.

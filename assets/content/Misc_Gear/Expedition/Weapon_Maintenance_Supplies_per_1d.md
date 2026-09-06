@@ -20,7 +20,7 @@ sohl:
   durability: 2
   value: 1
   weight: 0.02
-folder: FSPVI1eObGEpMVck
+packFolder: expedition
 ---
 
 A standing stock of the small consumables that keep edged steel, hafted iron, and bow-wood in fighting condition: flasks of linseed and olive oil, cakes of beeswax, snapped-off whetstone chips, waxed hemp cord, peening rivets, iron and copper wire, spare bowstrings, and scraps of tanned strap for rebinding grips. Sold in any town of reasonable size by the pence, replenished by soldiers, archers, and huntsmen whenever they pass a smith.
