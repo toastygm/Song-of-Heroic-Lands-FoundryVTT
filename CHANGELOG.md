@@ -1,5 +1,336 @@
 # sohl
 
+## 0.8.4
+
+### Patch Changes
+
+- 24a0b78: An affiliation records what it answers to, where its authority sits, and what it
+  holds sway over (#1781).
+  
+  **`relation` is now `relations`.** The field is a map of standings, one per
+  affiliation — `AffiliationLogic.standingWith` has always read it that way — and the
+  singular named the many as one. A pure rename: the shape, the choices and the
+  behaviour are unchanged.
+  
+  **Three fields are new**, and each was unexpressible before — the content format
+  specified them and the schema could not receive them:
+  
+  - **`parents`** — the affiliations this one is subordinate to, by shortcode. A list,
+    because a body may sit under more than one at once: an arcane tradition within an
+    order, a religion within a pantheon.
+  - **`seat`** — where its authority sits, as a place shortcode. Deliberately not
+    `capital` or `headquarters`: each fits about half the eleven subTypes, while a seat
+    covers a polity, a guild, an order and a faith alike.
+  - **`domain`** — the places it holds sway over. Kept apart from `parents` because
+    they are different relations, _subordinate to_ against _holds sway over_.
+  
+  Both lists initialize to `[]` rather than null, since _answers to nobody_ is a value
+  — a sovereign polity is exactly that — while `seat` is nullable, because "has no
+  seat" and "nobody recorded one" are worth telling apart. A seat outside its own
+  domain is allowed: a government in exile is a real case.
+  
+  **Localization.** Keys are added for the four fields.
+  `SOHL.Affiliation.FIELDS.relation.*` is kept rather than renamed — localization keys
+  are permanent.
+  
+  **Content.** No note is affected: `relation` is authored on five notes across every
+  tree, all in `harn-ensemble`, and every one of them holds an empty list. The three
+  new fields are authored nowhere yet and arrive empty.
+- 91546ac: **Áldrik Hárvenar no longer ships with two Swimming skills.** The actor embedded
+  `skill:swim` twice — once opened at `masteryLevelBase: 30`, once unopened at
+  `initSkillMult: 1` — and neither entry overrode `system.shortcode`, so both
+  inherited `swim` from the template and compiled to two `skill` items keyed
+  `swim` on one actor.
+  
+  `(type, shortcode)` is a logical identity, unique within an actor's own items of
+  one type, so two entries sharing it made "the same thing" ambiguous — and
+  compendium↔world reconciliation, archetype shadowing,
+  `fvttFindItemByShortcode`, cohort membership and expression/effect references
+  all resolve by exactly that key.
+  
+  The unopened entry is removed and the authored score kept: his `sohl.items`
+  holds two alphabetical runs, opened skills carrying an explicit
+  `masteryLevelBase` and unopened ones carrying `initSkillMult`, and `swim`
+  appeared once in each — a default left behind when the skill was given a score.
+  
+  Closes #1827
+- b4e1cc5: **Two content tables were querying the wrong address, and eight sections
+  declare that they are empty on purpose.**
+  
+  A content table that selects no notes fails the build, because a table silently
+  rendering nothing is indistinguishable from a table whose query has rotted. Seven
+  journals were failing that check. They were not one problem:
+  
+  **Stale queries — the notes exist, the query looked in the wrong place.**
+  
+  - _Afflictions._ The Fatigue and Fear tables still asked for
+    `type = "affliction"`. Both moved to `type = "trauma"` and live under
+    `assets/content/Trauma/`; the sections had been rendering nothing ever since.
+    They now show 21 and 77 notes.
+  - _Miscellaneous Gear._ The Religious table filtered on the tag `religous`. Nine
+    notes carry `religious`, and the misspelling appears nowhere else in the tree —
+    the heading is corrected with it.
+  
+  **Genuinely empty — declared rather than silenced.** Concoctions, Mysteries,
+  Mystical Abilities, the esoteric and ritual Skills, the remaining Affliction
+  subtypes, and the retired Birthsign table have no notes to show yet, so each is
+  fenced ```dataview allow-empty. That is the difference between _nothing to show_
+  and _nothing found_: the first is a statement, the second is a defect, and only
+  the first should survive a build.
+  
+  _Not silenced elsewhere._ The repointed tables are deliberately **not**
+  `allow-empty`, so if either address moves again the build fails rather than the
+  section quietly emptying.
+- b56b372: **The `Textile` folder no longer shows as `Dye` in the journals compendium**
+  (#1842).
+  
+  Folder `7r8WTAO2Ac8SF9tf` was declared in both folder files with two different
+  names — `Textile` in `item-folders.yaml` and `Dye` in `journal-folders.yaml` —
+  so an item and its documentation journal were filed in folders that read
+  differently depending on which compendium you were browsing.
+  
+  `Textile` is the correct one: the folder holds 18 notes under
+  `Misc_Gear/Textile/`, including `Linen`, `Cloth` and `Worsted` as well as the
+  dyes, so `Dye` described some of its contents and mislabelled the rest.
+  
+  Nothing compared the two files, which is the defect class
+  HeroicLands/package-build#257 closes by deriving a folder's materialisation from
+  a single note.
+- 8152e94: **This tree's folders are notes** (#1835).
+  
+  The five `assets/content/*-folders.yaml` files are gone. Each folder is now a
+  `type: folder` note under `assets/content/Folders/`, and the 1,503 notes that
+  named a folder by its Foundry id name it by address instead:
+  
+  ```yaml
+  packFolder: possessionscooking # was: folder: ONXsqZAIZr2qzxTb
+  ```
+  
+  **Every folder keeps its authored `id`**, so a world already holding these
+  folders goes on resolving them — this is a build change, not a world migration.
+  
+  **136 folder entries became 79 notes**, because a folder declared in two packs
+  was two entries and is one folder: 57 ids appeared in both `item-folders.yaml`
+  and `journal-folders.yaml`. Where the two disagreed about the parent — three
+  folders, which the journals pack files one level deeper under
+  `Rules/Descriptions` — the note states the parent per pack.
+  
+  Two things about the compiled packs change, both deliberately:
+  
+  - **Three empty folders are no longer shipped** — `Birthsigns` (the retired
+    astrology concept), `Corpora` and `Local Maps`, referenced by no note. A folder
+    materialises where something references it, so an empty one materialises
+    nowhere.
+  - **Two dangling folder references are fixed.** The three map notes' documentation
+    journals are filed in the map's folder, but `Battlemaps` and `Regional Maps`
+    were declared only in `scene-folders.yaml` — so the journals pack emitted
+    journals into folders it never declared. It now materialises them.
+  
+  Everything else is byte-identical: 3,089 of 3,094 compiled documents are
+  unchanged, and no content document differs at all.
+  
+  Requires the folder-note support in `@heroiclands/package-build`
+  (HeroicLands/package-build#276).
+- 024ba4e: **Renamed the Create-dialog archetype marker from `system.archetype` to `system.templatePriority`** (#1836).
+  
+  The field is a _priority_ — the number that decides which of several competing
+  archetypes the Create dialog offers — and it sat one letter from `archetypes`,
+  which authored content already uses for the **sort** a character is (healer,
+  warrior, mage). A priority and a taxonomy cannot be told apart by a plural `s`,
+  so the number took the name that says what it is; `HeroicLands/package-build#266`
+  settles the same name across the toolchain.
+  
+  **Existing worlds migrate themselves.** The shared base data model now carries a
+  `migrateData` that moves a stored `system.archetype` onto the new key, preserving
+  the tri-state exactly — `0` stays `0` (the priority SoHL's own archetypes ship
+  at), `null` and a non-numeric value both mean "not an archetype", and an
+  already-migrated document is untouched. This rename needs a migration where
+  #1780's did not: the archetype contract's **world tier** exists so a GM can
+  duplicate a shipped archetype into their world to shadow it, and that copy holds
+  the marker in world data. Left behind, it would not error — the archetype would
+  simply stop being offered.
+  
+  **A module's existing packs keep working.** Discovery reads a compendium index
+  under either spelling, preferring the new one. An index entry is raw stored data
+  that never passes through a data model, so a `migrateData` alone could not reach
+  it and those archetypes would have vanished from the picker with no error. New
+  packs should emit `system.templatePriority`.
+  
+  Content notes are swept separately (#1837); nothing in this change reads or
+  writes authored frontmatter.
+- 1bd6811: `outcomeTrauma` is now `outcomeTraumas` (#1782).
+  
+  An affliction's outcome field holds **a trauma shortcode, or an array of them** — an
+  affliction whose resolution inflicts two traumas is an ordinary case, and
+  `AfflictionLogic` has always resolved both shapes. The singular name misdescribed it.
+  
+  **A pure rename.** The field is still a `SafeExpressionField` that may evaluate to one
+  shortcode or several; nothing about its shape, its bindings or its behaviour changes.
+  The schema field, the TypeScript property, the `SafeExpression` scope id
+  (`affliction.outcomeTraumas`) and the published `schema.json` move together.
+  
+  **No content or world migration.** Nothing in any tree authors the field — it is
+  declared and unused — which is what makes this the cheapest moment to rename it. The
+  cost only grows once afflictions start carrying it.
+  
+  It is the same defect as `relation` → `relations` in #1781: a field holding many, named
+  as one. That one costs 199 notes; this one costs nothing.
+  
+  **Localization.** `SOHL.Affliction.FIELDS.outcomeTraumas.label` is added.
+  `SOHL.Affliction.FIELDS.outcomeTrauma.label` is **kept**, not renamed — localization
+  keys are permanent, and translations already carry it.
+- f03c315: **A document's id derives from its address, and no note authors one** (#1841).
+  
+  The `id:` field is gone from all 1,684 notes in `assets/content/`. A note's
+  Foundry `_id` is now derived from the canonical address it already has:
+  
+  ```
+  _id = makeId("document", "<package>-<system>-<type>-<shortcode>")
+  ```
+  
+  The authored value said nothing the address did not, could not be read or
+  reviewed, and was guaranteed by nothing — `content-lint` refuses a duplicate
+  _address_ across every pack of a document type, which is exactly the scope a
+  primary document's id must be unique within, while a duplicate `id` was checked
+  nowhere. The derived id inherits a guard the authored one never had. Same
+  principle as `folder: ONXsqZAIZr2qzxTb` becoming `packFolder: <path>`; this was
+  the last hand-maintained identity, and the largest.
+  
+  **An authored `id` still wins**, and remains the escape hatch for a document
+  that must keep its identity across a shortcode rename. No note in this tree
+  pins one: every one of the 1,684 derives cleanly, with no collision.
+  
+  **Every compendium UUID this package publishes changes, once.** A GM's world, a
+  macro, or another module that addresses a SoHL document by UUID must be
+  re-pointed. This is the whole cost of the change, and it is cheap now and
+  expensive after 1.0.
+  
+  _Internal references are unaffected._ They are regenerated from the same source
+  in the same build, so they stay consistent with each other. Verified by
+  compiling `build/packs-json` before and after: all 3,091 pack files are
+  identical except for the identities themselves, 3,034 documents and 2,582
+  internal references on both sides, no duplicate `_id` in any pack, and the same
+  two pre-existing dangling references (to `Bestiary` and `Birthsign`) — renamed,
+  not multiplied.
+  
+  Requires the derived-id support in `@heroiclands/package-build`
+  (HeroicLands/package-build#270, shipped in #277).
+- 164790f: **SoHL refers to nothing outside itself, and a check keeps it that way** (#1839).
+  
+  The base package addressed `sohl-thalorna` from 24 notes — 21 distinct addresses —
+  which made the package graph cyclic: the module referred to the system, as a module
+  should, and the system referred back. That mutual reference is what forced both
+  repositories to vendor each other's link manifests, and what would have deadlocked
+  any manifest format change, since neither could build until the other had published.
+  
+  **The Bestiary is Terran again.** SoHL's animals are real-world animals, and their
+  prose now describes them in real-world terms — savanna, tropical lowlands, arid
+  steppe, the far north, the river lowlands — naming no place, people, or deity from
+  any setting. The habitat and culture sentences previously named Thalorna regions
+  (`Xerathia`, `K'ich'chik`, `Tānvür`, `Vedyara`, `Nordheim`, `Dunhara`, `Khazryn`,
+  `Kheperi`, `Ankaris`), affiliations and deities (`Itzáni Pantheon`, `Tëngvōk Vān
+  Lëi`, `Āsháian`, `Rásikara`, `Thōth`, `Ánubís`, `Sekhet'Neru`), and settlements
+  (`Amradad`, `Byzaría`, `Per-Aás`). All 212 such references across 34 notes are gone
+  — including 11 notes that named a setting in prose without ever linking to it, so
+  the tree is consistent rather than half-converted.
+  
+  A giraffe is not a Thalorna concept; _where a giraffe lives in Thalorna_ is. The
+  animal stays here and the setting does not.
+  
+  **`Rules/Bestiary.md` is animals only.** The chapters on Constructs, Dreadspawn,
+  Elementals, Grukar, Goblins, Helspawn, Mythic and Spirit creatures are removed —
+  they illustrated a base-system rules page with a setting module's creatures, and
+  the six Thalorna beings it cited went with them. The introduction's one-line
+  description of the chapter follows.
+  
+  **Nothing here vendors another package.** `assets/manifests/` is deleted. It held
+  `thalorna.json` and a README describing how to vendor a sibling's manifest; the
+  directory was already inert under `@heroiclands/package-build` 18, which replaced
+  committed manifests with a dependency declared in `relationships` and fetched into a
+  local cache. This repository declares no dependency and consumes no manifest.
+  
+  **The existing guard now enforces it.** `npm run lint:content-links` already fails on
+  an address that resolves in no package, and it is part of `npm run lint`, so it gates
+  every build:
+  
+  ```text
+  Bestiary/Animal/Giraffe.md:337:29: error: address [[doc-xerathia]] resolves to no note — no package publishes it.
+  ```
+  
+  No new check was needed. The vendored manifest was the reason those 21 addresses
+  resolved, so deleting it is what arms the guard — a reference back into a module is
+  now a build error rather than something review has to catch.
+  
+  _Documentation._ `content-links.md`, `link-manifest.md`, `build-and-deployment.md`
+  and `asset-conventions.md` no longer describe this repository as vendoring or citing
+  another package, and no longer point readers at the deleted directory.
+- 9bc8392: Every SoHL system field is authored under `sohl.system` (#1851).
+  
+  The tree wrote its system fields directly under `sohl:`. The content format puts them
+  under `sohl.system`, at the paths the compiled document actually stores — so a note
+  says what the document holds, and a key it does not declare is an error rather than a
+  silent drop.
+  
+  **1,474 notes, 8,286 key moves.** The move list is derived from the field
+  declarations the compiler itself obeys, never from a hand-written list, and three
+  shapes occur: the name already matches (`material`), the note authors the plain name
+  while the document stores the base value (`weight` → `weightBase`), or the
+  destination is nested (`flexloc` → `locations.flexible`, `protection.blunt` →
+  `protectionBase.blunt`).
+  
+  **169 keys authored as `null` are dropped rather than moved.** At the legacy position
+  the compiler reads `value ?? default`, so `null` never reached a document; moved to
+  the destination it would have, because that position returns the value as authored.
+  
+  **90 values are normalised on the way**, since `sohl.system` is a verbatim
+  passthrough and the note must state the stored form. Both cases are pre-existing
+  authoring defects this surfaces rather than creates: `body.weight.calc` authored as a
+  number where the document stores a string, and `movementProfiles[].factors`, a key
+  the compiler has always dropped — authored, ignored, and invisible until now.
+  
+  **Eight notes' content-table queries move with the fields.** A Dataview column
+  naming `sohl.weight` stops resolving the moment the frontmatter moves and renders as
+  em-dashes, compiled and published with nothing reporting it.
+  
+  _No shipped document changes._ `build/packs-json` is byte-identical across all 3,091
+  documents, and `content-build lint` reports the same 376 findings before and after,
+  identical in composition.
+- b90bfdd: **Four being notes describe their subject in `data:`, not a `traits:` block the
+  format never declared** (#1847).
+  
+  `Basic_Folk`, `Aldrik_Harvenar`, `Alverrik_Tarvallor` and `Brunjar_Skathhelm`
+  each carried a top-level `traits:` block holding the facts the content format
+  declares under `data:`. All four already had a `data:` block immediately above
+  it, holding `templatePriority` — so the fields were not merely in the wrong
+  place, they were beside the right one. Each block is now merged into the `data:`
+  the note already had, `templatePriority` intact.
+  
+  Three fields change shape as well as place, because the format declares them
+  differently:
+  
+  | authored             | now                                   |
+  | -------------------- | ------------------------------------- |
+  | `traits.height.m`    | `data.height` — a number in metres    |
+  | `traits.weight.kg`   | `data.weight` — a number in kilograms |
+  | `traits.build.frame` | `data.frame`                          |
+  
+  `gender`, `age`, `birthday` and `appearance.*` move verbatim.
+  
+  **Nothing shipped changes.** None of these fields compiles into a Foundry
+  document: all 3,091 compiled pack documents are byte-identical, `Basic_Folk` —
+  the starter being every integration spec builds on — among them.
+  
+  **Why it matters.** Top level is open by design, so nothing checks a key written
+  there: a misspelled `wieght` under `traits:` was not a finding, it silently
+  became a theme parameter. `data:` is closed, so the same misspelling now names
+  the note and suggests the key it was meant to be. These are the reference beings
+  this system ships, and the example every content author copies.
+  
+  _The published sidebar reads these fields through the Hugo theme, which still
+  reads the legacy `traits:` block. HeroicLands/heroiclands-hugo-theme#55 teaches
+  it to read `data:` first while continuing to read `traits:` underneath, so the
+  two changes can land in either order._
+
 ## 0.8.3
 
 ### Patch Changes
