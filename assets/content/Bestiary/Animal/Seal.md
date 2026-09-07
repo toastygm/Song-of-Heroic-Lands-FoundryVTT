@@ -6,7 +6,7 @@ name:
   full: Seal
   aliases:
     - Grey Seal
-description: "A sleek, fish-eating pinniped of northern coasts whose meat, blubber, and hide sustain coastal Normen communities through bitter winters."
+description: "A sleek, fish-eating pinniped of northern coasts whose meat, blubber, and hide sustain coastal communities through bitter winters."
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/seal-portrait.webp
 shortcode: seal
@@ -246,7 +246,7 @@ The rocks are alive with them. Dozens of sleek, mottled bodies draped across the
 
 # Dossier {#dossier}
 
-The Seal is the common marine mammal of [[doc-kngdmnrdhm|Kingdom of Nordheim]]'s coastlines, fjords, and island chains — a sleek, fish-eating pinniped weighing between one hundred fifty and six hundred pounds depending on species and sex. Seals are the everyday subsistence animal of coastal Normen communities: their meat feeds families through winter, their blubber provides lamp oil and waterproofing, their hides make durable leather for clothing and boat-skins, and their bones and sinew serve a hundred practical purposes. Where reindeer define highland and tundra culture, seals define coastal life. They congregate in breeding colonies on rocky shorelines and haul-out sites, and their seasonal movements along the coast dictate the fishing and hunting calendar of every fjord settlement. Seals are also the primary prey of the polar bear, and their breathing holes in sea ice are the focal points of the most dangerous predator-prey interaction in the north. Adventurers encounter seals during coastal travel, at fishing settlements, and occasionally in sea caves or on ice floes where their colonies provide unexpected obstacles or opportunities.
+The Seal is the common marine mammal of the northern coastlines, fjords, and island chains — a sleek, fish-eating pinniped weighing between one hundred fifty and six hundred pounds depending on species and sex. Seals are the everyday subsistence animal of coastal northern communities: their meat feeds families through winter, their blubber provides lamp oil and waterproofing, their hides make durable leather for clothing and boat-skins, and their bones and sinew serve a hundred practical purposes. Where reindeer define highland and tundra culture, seals define coastal life. They congregate in breeding colonies on rocky shorelines and haul-out sites, and their seasonal movements along the coast dictate the fishing and hunting calendar of every fjord settlement. Seals are also the primary prey of the polar bear, and their breathing holes in sea ice are the focal points of the most dangerous predator-prey interaction in the north. Adventurers encounter seals during coastal travel, at fishing settlements, and occasionally in sea caves or on ice floes where their colonies provide unexpected obstacles or opportunities.
 
 ## Presentation
 

@@ -45,7 +45,7 @@ almost certainly adding an SVG.
 (`package-build assets`, driven by `packageBuild.assets` in
 `package-build.config.yaml`) mirrors
 `assets/{audio,icons,silhouette,fonts,ui}` into `build/stage/`, along with
-`lang/` and `templates/`. `assets/content/`, `assets/manifests/` and
+`lang/` and `templates/`. `assets/content/` and
 build inputs are **not** copied — a file dropped
 into `assets/content/` alongside its note is not an asset and will not be
 served.
