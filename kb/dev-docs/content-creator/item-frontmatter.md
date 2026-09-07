@@ -72,7 +72,7 @@ sohl:
 The prose here compiles into the item's documentation.
 ```
 
-## armor
+## armorgear
 
 | Field                   | Shape                             | Required | Default | Description                                                                                                                          |
 | ----------------------- | --------------------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -95,8 +95,8 @@ The prose here compiles into the item's documentation.
 ```markdown
 ---
 name:
-  full: An Example armor
-type: armor
+  full: An Example armorgear
+type: armorgear
 shortcode: xmpl
 id: <16-character id>
 sohl:
@@ -129,7 +129,7 @@ sohl:
 The prose here compiles into the item's documentation.
 ```
 
-## concoction
+## concoctiongear
 
 | Field        | Shape       | Required | Default         | Description                                            |
 | ------------ | ----------- | -------- | --------------- | ------------------------------------------------------ |
@@ -144,8 +144,8 @@ The prose here compiles into the item's documentation.
 ```markdown
 ---
 name:
-  full: An Example concoction
-type: concoction
+  full: An Example concoctiongear
+type: concoctiongear
 shortcode: xmpl
 id: <16-character id>
 sohl:
@@ -256,7 +256,7 @@ sohl:
 The prose here compiles into the item's documentation.
 ```
 
-## projectile
+## projectilegear
 
 | Field             | Shape                             | Required | Default    | Description                                            |
 | ----------------- | --------------------------------- | -------- | ---------- | ------------------------------------------------------ |
@@ -272,8 +272,8 @@ The prose here compiles into the item's documentation.
 ```markdown
 ---
 name:
-  full: An Example projectile
-type: projectile
+  full: An Example projectilegear
+type: projectilegear
 shortcode: xmpl
 id: <16-character id>
 sohl:

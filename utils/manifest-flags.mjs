@@ -32,6 +32,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { collectContentDocs } from "@heroiclands/package-build/engine/helpers";
+import { indexRecordsFor } from "@heroiclands/package-build/engine/content-index";
 import { compendiumUuid } from "@heroiclands/package-build/engine/ids";
 import { noteDocId } from "@heroiclands/package-build/engine/note-ids";
 import { packRouter } from "@heroiclands/package-build/engine/pack-router";
@@ -55,7 +56,11 @@ const CREDITS = { type: "doc", shortcode: "credits" };
  */
 function creditsUuid(config) {
     const contentBase = config.paths.content;
-    const matches = collectContentDocs(contentBase).filter(
+    // The corpus is derived once and handed to the pass that reads it, so no
+    // two passes can disagree about which files the tree holds; `records` and
+    // the resolved `config` are both required rather than re-derived here.
+    const records = indexRecordsFor({ contentBase, config });
+    const matches = collectContentDocs(contentBase, { config, records }).filter(
         (d) =>
             d.fm?.package === config.contentPackage &&
             d.fm?.type === CREDITS.type &&
