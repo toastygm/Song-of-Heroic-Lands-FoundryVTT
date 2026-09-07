@@ -15,17 +15,18 @@ sohl:
   craft:
     skill: srvl
     secondary: []
-  quality: 0
-  durability: 10
-  value: 0.16
-  weight: 1
-  impact:
-    die: 10
-    modifier: -1
-    aspect: blunt
   traits:
     ARvalue: 0
     bleed: false
+  system:
+    weightBase: 1
+    valueBase: 0.16
+    qualityBase: 0
+    durabilityBase: 10
+    impactBase:
+      die: 10
+      modifier: -1
+      aspect: blunt
 packFolder: projectiles
 ---
 

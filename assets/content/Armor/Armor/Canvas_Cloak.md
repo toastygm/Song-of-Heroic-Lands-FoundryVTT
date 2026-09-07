@@ -16,49 +16,51 @@ sohl:
   kbcat: cloth
   armorType: Cloak
   detailMaterial: Canvas
-  material: Cloth
-  durability: 11
-  value: 31
-  weight: 2.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  facing:
-    - location: thrxloc
-      side: back
-    - location: abdmnloc
-      side: back
-    - location: plvisloc
-      side: back
-    - location: lthghloc
-      side: back
-    - location: rthghloc
-      side: back
-    - location: lkneeloc
-      side: back
-    - location: rkneeloc
-      side: back
-    - location: lcalfloc
-      side: back
-    - location: rcalfloc
-      side: back
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.1
+    valueBase: 31
+    durabilityBase: 11
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+      facing:
+        - location: thrxloc
+          side: back
+        - location: abdmnloc
+          side: back
+        - location: plvisloc
+          side: back
+        - location: lthghloc
+          side: back
+        - location: rthghloc
+          side: back
+        - location: lkneeloc
+          side: back
+        - location: rkneeloc
+          side: back
+        - location: lcalfloc
+          side: back
+        - location: rcalfloc
+          side: back
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 31.1
 origWeight: 2.1

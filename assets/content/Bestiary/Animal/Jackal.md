@@ -5,7 +5,7 @@ tags:
 name:
   full: Jackal
   aliases: []
-description: "A small, adaptable canid of the Kheperi lowlands that hunts and scavenges along riverbanks, village middens, and necropolis complexes among the dead."
+description: "A small, adaptable canid of the river lowlands that hunts and scavenges along riverbanks, village middens, and necropolis complexes among the dead."
 img: icons/game-icons/lorc/hound.svg
 portrait: images/being/jackal-portrait.webp
 shortcode: jackal
@@ -24,204 +24,6 @@ sohl:
     wil: 1d4+8
     rea: 1d4+7
     cre: 1d4+6
-  body:
-    structure:
-      zones:
-        - name: Forequarters
-          shortcode: fqtrzone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 2
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 2
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: fqtrzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: fqtrzone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 5
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: fqtrzone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 5
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 5
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 5
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 10
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 3
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 2
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Thorax
-          shortcode: thoraxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 5
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 3
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Pelvis
-          shortcode: plvsloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 2
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-    weight:
-      base: 25
-      calc: "25"
-    reachBase: 0
-    bodyScaleBase: 0.81
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 80
-      leaguesPerWatch: 5
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 8 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 9 } }
@@ -274,6 +76,203 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Forequarters
+            shortcode: fqtrzone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 2
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 2
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: fqtrzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: fqtrzone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 5
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: fqtrzone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 5
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 5
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 5
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 10
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 3
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 2
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Thorax
+            shortcode: thoraxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 5
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 3
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Pelvis
+            shortcode: plvsloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 2
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+      weight:
+        base: 25
+        calc: "25"
+      reachBase: 0
+      bodyScaleBase: 0.81
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 80
+        leaguesPerWatch: 5
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -282,11 +281,11 @@ A shape slips between the dunes at the edge of firelight — low-slung, tawny, m
 
 # Dossier {#dossier}
 
-The Jackal is the ubiquitous canid of the Kheperi lowlands — a small, adaptable predator-scavenger found along the Tameresh River, in the desert margins, around village middens, and among the necropolis complexes where it feeds on offerings left for the dead. An adult jackal stands roughly sixteen to twenty inches at the shoulder and weighs fifteen to thirty-five pounds — far smaller than a wolf, but compensating with intelligence, speed, and a social flexibility that allows it to hunt alone, in mated pairs, or in loose packs of up to a dozen individuals. Jackals are sacred to Ánubís, lord of the dead, and their presence near tombs and burial sites is considered both natural and spiritually significant. Killing a jackal near a necropolis is a serious religious offense in Kheperi culture, though farmers and herders who lose livestock to jackal predation feel rather differently about the matter. Adventurers encounter jackals constantly in Kheperi lands — trotting along roadsides at dusk, skulking around campsites, scavenging battlefields, and haunting the margins of every settlement. They are rarely dangerous individually, but a pack of hungry jackals is a genuine threat to the wounded, the sleeping, and the unwary.
+The Jackal is the ubiquitous canid of the river lowlands — a small, adaptable predator-scavenger found along the great river, in the desert margins, around village middens, and among the necropolis complexes where it feeds on offerings left for the dead. An adult jackal stands roughly sixteen to twenty inches at the shoulder and weighs fifteen to thirty-five pounds — far smaller than a wolf, but compensating with intelligence, speed, and a social flexibility that allows it to hunt alone, in mated pairs, or in loose packs of up to a dozen individuals. Jackals are sacred to the lord of the dead, and their presence near tombs and burial sites is considered both natural and spiritually significant. Killing a jackal near a necropolis is a serious religious offense in the river kingdoms, though farmers and herders who lose livestock to jackal predation feel rather differently about the matter. Adventurers encounter jackals constantly in the river lands — trotting along roadsides at dusk, skulking around campsites, scavenging battlefields, and haunting the margins of every settlement. They are rarely dangerous individually, but a pack of hungry jackals is a genuine threat to the wounded, the sleeping, and the unwary.
 
 ## Presentation
 
-A slender, long-legged canid built for endurance rather than power. The coat is short and coarse, typically a blend of tawny gold, russet brown, and pale cream, with darker saddle markings across the back and black tips on the ears and tail. The face is narrow and fox-like, with a pointed muzzle, large amber or golden eyes, and oversized ears that give the animal an alert, perpetually watchful expression. The legs are proportionally long for the body, built for sustained trotting over open ground rather than the explosive sprinting of a hunting dog. The tail is bushy and held low when relaxed, raised when alert or dominant. The overall impression is of a creature designed for survival in marginal environments — lightweight, quick, adaptable, and always watching. At night, jackal eyes reflect firelight with an eerie golden-green glow, and their distinctive wailing cry — a rising, ululating howl answered by others across the darkness — is one of the signature sounds of the Kheperi night.
+A slender, long-legged canid built for endurance rather than power. The coat is short and coarse, typically a blend of tawny gold, russet brown, and pale cream, with darker saddle markings across the back and black tips on the ears and tail. The face is narrow and fox-like, with a pointed muzzle, large amber or golden eyes, and oversized ears that give the animal an alert, perpetually watchful expression. The legs are proportionally long for the body, built for sustained trotting over open ground rather than the explosive sprinting of a hunting dog. The tail is bushy and held low when relaxed, raised when alert or dominant. The overall impression is of a creature designed for survival in marginal environments — lightweight, quick, adaptable, and always watching. At night, jackal eyes reflect firelight with an eerie golden-green glow, and their distinctive wailing cry — a rising, ululating howl answered by others across the darkness — is one of the signature sounds of the river night.
 
 ## Key Behaviors
 
@@ -322,7 +321,7 @@ Jackals are among the most intelligent of the smaller canids, capable of learnin
 
 ### Necropolis Haunter
 
-In Kheperi culture, jackals are associated with the dead and the boundary between the living and spirit worlds. Whether this association reflects genuine supernatural sensitivity or merely the jackal's preference for carrion near burial sites is debated by priests and scholars alike. What is certain is that jackals are always present near necropolises, that they seem drawn to sites of recent death, and that their howling chorus near a settlement is considered an omen — sometimes of death approaching, sometimes of Ánubís extending protection.
+In the river kingdoms, jackals are associated with the dead and the boundary between the living and spirit worlds. Whether this association reflects genuine supernatural sensitivity or merely the jackal's preference for carrion near burial sites is debated by priests and scholars alike. What is certain is that jackals are always present near necropolises, that they seem drawn to sites of recent death, and that their howling chorus near a settlement is considered an omen — sometimes of death approaching, sometimes of the lord of the dead extending protection.
 
 ## Attributes
 

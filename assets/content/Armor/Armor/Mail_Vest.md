@@ -16,21 +16,23 @@ sohl:
   kbcat: mail
   armorType: Vest
   detailMaterial: Mail
-  material: Mail
-  durability: 13
-  value: 360
-  weight: 10.8
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 10.8
+    valueBase: 360
+    durabilityBase: 13
+    material: Mail
+    locations:
+      flexible: []
+      rigid:
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 240
 origWeight: 13.2

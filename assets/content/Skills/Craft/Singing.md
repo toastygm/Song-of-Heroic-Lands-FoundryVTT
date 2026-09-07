@@ -12,16 +12,16 @@ data:
 subType: social
 sohl:
   kbcat: craft
-  skillBaseFormula: "sb(attr.voi, attr.cre)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 3
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - manipulator
+  system:
+    skillBaseFormula: sb(attr.voi, attr.cre)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 3
+    impairedByRoles:
+      - core
+      - vital
+      - manipulator
 packFolder: craft
 ---
 

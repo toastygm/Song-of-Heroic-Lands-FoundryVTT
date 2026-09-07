@@ -12,12 +12,13 @@ data:
 subType: divination
 sohl:
   kbcat: divination
-  assocSkillCode: ""
-  levelBase: 0
-  masteryLevelBase: 50
-  charges:
-    value: 5
-    max: 5
+  system:
+    assocSkillCode: ""
+    masteryLevelBase: 50
+    levelBase: 0
+    charges:
+      value: 5
+      max: 5
 packFolder: divination
 ---
 

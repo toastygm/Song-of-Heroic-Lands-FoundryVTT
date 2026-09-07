@@ -16,25 +16,27 @@ sohl:
   kbcat: ring
   armorType: Byrnie
   detailMaterial: Ring
-  material: Ring
-  durability: 13
-  value: 450
-  weight: 17.8
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 17.8
+    valueBase: 450
+    durabilityBase: 13
+    material: Ring
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 445.5
 origWeight: 17.8

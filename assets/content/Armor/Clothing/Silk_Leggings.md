@@ -16,27 +16,29 @@ sohl:
   kbcat: cloth
   armorType: Leggings
   detailMaterial: Silk
-  material: Cloth
-  durability: 7
-  value: 325
-  weight: 0.9
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.9
+    valueBase: 325
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 36
 origWeight: 1.8

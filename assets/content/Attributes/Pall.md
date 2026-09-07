@@ -10,14 +10,15 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Tainted:2
-    - Shadowed:5
-    - Malign:9
-    - Ravening:14
-    - Abyssal:999
-  initDiceFormula: 0
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Tainted:2
+      - Shadowed:5
+      - Malign:9
+      - Ravening:14
+      - Abyssal:999
+    initDiceFormula: 0
 sort: 150
 packFolder: attributes
 ---

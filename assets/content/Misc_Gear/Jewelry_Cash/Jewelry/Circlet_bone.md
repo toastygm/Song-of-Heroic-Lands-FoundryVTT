@@ -15,10 +15,11 @@ sohl:
     skill: jewl
     secondary: []
   kbcat: jewelry
-  quality: 0
-  durability: 3
-  value: 20
-  weight: 0.15
+  system:
+    weightBase: 0.15
+    valueBase: 20
+    qualityBase: 0
+    durabilityBase: 3
 packFolder: jewelry
 ---
 

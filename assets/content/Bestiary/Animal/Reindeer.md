@@ -25,219 +25,6 @@ sohl:
     wil: 1d6+9
     rea: 1d4+4
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 2
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 4
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 3
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 250
-      calc: "250"
-    reachBase: 0
-    bodyScaleBase: 1.06
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 90
-      leaguesPerWatch: 6
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 12 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 14 } }
@@ -326,6 +113,218 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 2
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 4
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 3
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 250
+        calc: "250"
+      reachBase: 0
+      bodyScaleBase: 1.06
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 90
+        leaguesPerWatch: 6
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -334,7 +333,7 @@ The herd appears on the horizon like a dark tide moving across the tundra — hu
 
 # Dossier {#dossier}
 
-The Reindeer is the defining animal of northern [[doc-kngdmnrdhm|Kingdom of Nordheim]] and its sister kingdoms — the creature around which entire cultures are organized. Standing three to four feet at the shoulder and weighing three hundred to five hundred pounds, reindeer are the only cervids in which both sexes grow antlers. They are supreme cold-weather survivors, possessing adaptations that allow them to thrive in conditions that kill most other large mammals. Wild herds numbering in the thousands migrate across the high interior plateau in seasonal patterns that have been followed for millennia. Domesticated herds provide the Normen and the highland clans with transport, milk, leather, sinew, bone tools, and meat — there is no part of the reindeer that northern peoples do not use. Adventurers encounter reindeer constantly in Nordheim: as pack animals, as wild herds blocking passes, as the economic foundation of every settlement they visit, and occasionally as aggressive bulls during the autumn rut.
+The Reindeer is the defining animal of the far north and its kingdoms — the creature around which entire cultures are organized. Standing three to four feet at the shoulder and weighing three hundred to five hundred pounds, reindeer are the only cervids in which both sexes grow antlers. They are supreme cold-weather survivors, possessing adaptations that allow them to thrive in conditions that kill most other large mammals. Wild herds numbering in the thousands migrate across the high interior plateau in seasonal patterns that have been followed for millennia. Domesticated herds provide the northern peoples and the highland clans with transport, milk, leather, sinew, bone tools, and meat — there is no part of the reindeer that northern peoples do not use. Adventurers encounter reindeer constantly in the north: as pack animals, as wild herds blocking passes, as the economic foundation of every settlement they visit, and occasionally as aggressive bulls during the autumn rut.
 
 ## Presentation
 

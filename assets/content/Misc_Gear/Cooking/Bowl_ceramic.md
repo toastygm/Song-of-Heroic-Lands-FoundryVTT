@@ -15,10 +15,11 @@ sohl:
     skill: cmcs
     secondary: []
   kbcat: cooking
-  quality: 0
-  durability: 2
-  value: 6
-  weight: 3
+  system:
+    weightBase: 3
+    valueBase: 6
+    qualityBase: 0
+    durabilityBase: 2
 packFolder: cooking
 ---
 

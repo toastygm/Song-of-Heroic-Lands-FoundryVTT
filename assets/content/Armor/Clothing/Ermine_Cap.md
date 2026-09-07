@@ -16,20 +16,22 @@ sohl:
   kbcat: leather
   armorType: Cap
   detailMaterial: Ermine
-  material: Leather
-  durability: 7
-  value: 100
-  weight: 0.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.4
+    valueBase: 100
+    durabilityBase: 7
+    material: Leather
+    locations:
+      flexible:
+        - skullloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 16
 origWeight: 0.6

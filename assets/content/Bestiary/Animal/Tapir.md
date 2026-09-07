@@ -24,219 +24,6 @@ sohl:
     wil: 1d4+7
     rea: 1d4+4
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 3
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 7
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 4
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 600
-      calc: "600"
-    reachBase: 0
-    bodyScaleBase: 1.17
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 50
-      leaguesPerWatch: 3
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 14 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 13 } }
@@ -325,15 +112,227 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 3
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 7
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 4
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 600
+        calc: "600"
+      reachBase: 0
+      bodyScaleBase: 1.17
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 50
+        leaguesPerWatch: 3
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
 
-The undergrowth parts and something walks out of the jungle that your brain takes several seconds to classify. It is the size of a small pony, heavy-bodied and slung low to the ground, covered in short, dense fur of dark brown that is almost black. The head is the strangest part — elongated and oddly shaped, tapering to a short, flexible trunk or proboscis that writhes and probes the air like a fat, curious finger. The ears are round and edged with white, the eyes small and set deep in the skull, and the overall effect is of something assembled from parts that don't quite belong together — a pig's body, a horse's legs, an elephant's nose in miniature, and an expression of such mild, bewildered gentleness that you cannot help but feel sympathy for a creature so large and so obviously defenseless in a jungle full of jaguars. Then it turns and you see the hindquarters: solid, powerful, built with the same blunt engineering as a battering ram. The Ki'ichek say the tapir was the first animal the gods made, before they learned to make predators, and that it remembers the time when the forest was safe. Watching it shuffle into the undergrowth with patient, unhurried steps, trunk probing ahead for the path of least resistance, you can almost believe it.
+The undergrowth parts and something walks out of the jungle that your brain takes several seconds to classify. It is the size of a small pony, heavy-bodied and slung low to the ground, covered in short, dense fur of dark brown that is almost black. The head is the strangest part — elongated and oddly shaped, tapering to a short, flexible trunk or proboscis that writhes and probes the air like a fat, curious finger. The ears are round and edged with white, the eyes small and set deep in the skull, and the overall effect is of something assembled from parts that don't quite belong together — a pig's body, a horse's legs, an elephant's nose in miniature, and an expression of such mild, bewildered gentleness that you cannot help but feel sympathy for a creature so large and so obviously defenseless in a jungle full of jaguars. Then it turns and you see the hindquarters: solid, powerful, built with the same blunt engineering as a battering ram. The jungle peoples say the tapir was the first animal the gods made, before they learned to make predators, and that it remembers the time when the forest was safe. Watching it shuffle into the undergrowth with patient, unhurried steps, trunk probing ahead for the path of least resistance, you can almost believe it.
 
 # Dossier {#dossier}
 
-The Tapir is the largest native land mammal in [[doc-kchchkcntnnt|K'ich'chik Continent]]'s lowland forests — a barrel-bodied, trunk-nosed herbivore weighing four hundred to seven hundred pounds that inhabits the jungle floor, river margins, and forest wetlands. Despite its bulk, the tapir is a shy, retiring creature that is primarily nocturnal and avoids confrontation whenever possible. It is an excellent swimmer and spends much of its time in or near water, using rivers and pools as refuge from predators, as feeding grounds for aquatic vegetation, and as trails through otherwise impenetrable jungle. In Ki'ichek culture, the tapir is associated with water, the forest floor, and the lower world — a creature of the deep places, the quiet paths, the hidden waterways. It is not sacred in the way the jaguar and quetzal are, but it is respected as the oldest animal, the forest's first inhabitant, and harming one needlessly is considered ill-mannered rather than criminal. The tapir is also an important prey animal for jaguars and human hunters alike, and tapir meat is a staple protein source for forest-dwelling communities. Adventurers encounter tapirs on jungle trails (especially near water), at river crossings, and occasionally in the cleared areas around settlements where they emerge at night to feed on cultivated crops — a behavior that makes them a persistent agricultural nuisance.
+The Tapir is the largest native land mammal of the tropical lowland forests — a barrel-bodied, trunk-nosed herbivore weighing four hundred to seven hundred pounds that inhabits the jungle floor, river margins, and forest wetlands. Despite its bulk, the tapir is a shy, retiring creature that is primarily nocturnal and avoids confrontation whenever possible. It is an excellent swimmer and spends much of its time in or near water, using rivers and pools as refuge from predators, as feeding grounds for aquatic vegetation, and as trails through otherwise impenetrable jungle. In the jungle civilizations, the tapir is associated with water, the forest floor, and the lower world — a creature of the deep places, the quiet paths, the hidden waterways. It is not sacred in the way the jaguar and quetzal are, but it is respected as the oldest animal, the forest's first inhabitant, and harming one needlessly is considered ill-mannered rather than criminal. The tapir is also an important prey animal for jaguars and human hunters alike, and tapir meat is a staple protein source for forest-dwelling communities. Adventurers encounter tapirs on jungle trails (especially near water), at river crossings, and occasionally in the cleared areas around settlements where they emerge at night to feed on cultivated crops — a behavior that makes them a persistent agricultural nuisance.
 
 ## Presentation
 

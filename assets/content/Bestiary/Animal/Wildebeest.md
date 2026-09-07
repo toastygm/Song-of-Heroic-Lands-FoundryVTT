@@ -6,7 +6,7 @@ name:
   full: Wildebeest
   aliases:
     - Gnu
-description: "A large, shaggy savannah bovine whose vast migratory herds define southern Xerathia's grasslands in their sweeping annual movement."
+description: "A large, shaggy savannah bovine whose vast migratory herds define the southern grasslands in their sweeping annual movement."
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/wldbst-portrait.webp
 shortcode: wldbst
@@ -25,219 +25,6 @@ sohl:
     wil: 1d6+8
     rea: 1d4+4
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 4
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 8
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 6
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 1500
-      calc: "1500"
-    reachBase: 0
-    bodyScaleBase: 1.17
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 60
-      leaguesPerWatch: 4
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 14 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 14 } }
@@ -326,6 +113,218 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 4
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 8
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 6
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 1500
+        calc: "1500"
+      reachBase: 0
+      bodyScaleBase: 1.17
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 60
+        leaguesPerWatch: 4
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -334,11 +333,11 @@ You hear the migration before you see it. A low rumbling — not thunder, not dr
 
 # Dossier {#dossier}
 
-The Wildebeest — also called the gnu — is the great herd animal of the Xerathian savannahs, a large, shaggy bovine that forms the migratory herds whose annual movement across the grasslands is the defining ecological event of southern [[doc-xerathia|Xerathia]]. An adult wildebeest stands four to four and a half feet at the shoulder and weighs three hundred and fifty to six hundred pounds, placing it between a stag and an aurochs in size. Individually, the wildebeest is an unremarkable animal — tough, moderately fast, moderately alert, and not particularly dangerous. Collectively, the wildebeest is the most important animal on the continent. The great herds number in the hundreds of thousands, and their annual migration — following the rains across the savanna in a circuit of hundreds of miles — sustains every predator, every scavenger, and every human culture that depends on the grassland ecosystem.
+The Wildebeest — also called the gnu — is the great herd animal of the savannahs, a large, shaggy bovine that forms the migratory herds whose annual movement across the grasslands is the defining ecological event of the southern savanna. An adult wildebeest stands four to four and a half feet at the shoulder and weighs three hundred and fifty to six hundred pounds, placing it between a stag and an aurochs in size. Individually, the wildebeest is an unremarkable animal — tough, moderately fast, moderately alert, and not particularly dangerous. Collectively, the wildebeest is the most important animal on the continent. The great herds number in the hundreds of thousands, and their annual migration — following the rains across the savanna in a circuit of hundreds of miles — sustains every predator, every scavenger, and every human culture that depends on the grassland ecosystem.
 
-The migration is the axis around which southern Xerathian life turns. The nomadic hunter-tribes of the savanna follow the herds, timing their own movements to the wildebeest's seasonal cycle. The herds provide meat, hide, bone, sinew, and horn — the raw materials of survival on the open grassland. The dung fertilizes the grass that feeds the next year's growth. The river crossings, where the herds funnel through narrow passages and swim across crocodile-infested water, are annual gatherings of both predators and peoples, events of both ecological significance and cultural ritual. To understand the southern Xerathian savannahs, you must understand the wildebeest, because without the herds, the grasslands are an empty stage.
+The migration is the axis around which life on the southern savanna turns. The nomadic hunter-tribes of the savanna follow the herds, timing their own movements to the wildebeest's seasonal cycle. The herds provide meat, hide, bone, sinew, and horn — the raw materials of survival on the open grassland. The dung fertilizes the grass that feeds the next year's growth. The river crossings, where the herds funnel through narrow passages and swim across crocodile-infested water, are annual gatherings of both predators and peoples, events of both ecological significance and cultural ritual. To understand the southern savannahs, you must understand the wildebeest, because without the herds, the grasslands are an empty stage.
 
-Adventurers crossing the Xerathian savannahs will encounter wildebeest constantly — scattered grazing groups during the dry season, and the staggering spectacle of the full migration during the wet season. The herds are not dangerous in themselves (a wildebeest will not attack a human), but the migration's scale creates hazards: stampedes that can crush anything in their path, river crossings that churn the water into a chaos of drowning animals and feeding crocodiles, and the cloud of predators — lions, hyenas, painted dogs, cheetahs, vultures — that accompanies the herds at every stage.
+Adventurers crossing the savannahs will encounter wildebeest constantly — scattered grazing groups during the dry season, and the staggering spectacle of the full migration during the wet season. The herds are not dangerous in themselves (a wildebeest will not attack a human), but the migration's scale creates hazards: stampedes that can crush anything in their path, river crossings that churn the water into a chaos of drowning animals and feeding crocodiles, and the cloud of predators — lions, hyenas, painted dogs, cheetahs, vultures — that accompanies the herds at every stage.
 
 ## Presentation
 

@@ -16,26 +16,28 @@ sohl:
   kbcat: leather
   armorType: Skirt
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 160
-  weight: 6.2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 6.2
+    valueBase: 160
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 156
 origWeight: 6.2

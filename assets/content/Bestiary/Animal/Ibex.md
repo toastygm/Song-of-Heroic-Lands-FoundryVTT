@@ -5,7 +5,7 @@ tags:
 name:
   full: Ibex
   aliases: []
-description: "A powerfully built wild goat of the Dunharan cliffs, the supreme climbing specialist scaling sheer rock faces and canyon escarpments with ease."
+description: "A powerfully built wild goat of the desert cliffs, the supreme climbing specialist scaling sheer rock faces and canyon escarpments with ease."
 img: icons/game-icons/skoll/goat.svg
 portrait: images/being/ibex-portrait.webp
 shortcode: ibex
@@ -24,235 +24,6 @@ sohl:
     wil: 1d6+9
     rea: 1d4+5
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 2
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 4
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 3
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 150
-      calc: "150"
-    reachBase: 0
-    bodyScaleBase: 1.06
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 50
-      leaguesPerWatch: 3
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors:
-        - scope: topography
-          key: steep
-          mode: add
-          textValue: "0"
-        - scope: topography
-          key: extreme
-          mode: add
-          textValue: "-1"
-        - scope: surface_cover
-          key: alpine
-          mode: add
-          textValue: "0"
-        - scope: surface_cover
-          key: barren
-          mode: add
-          textValue: "0"
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 12 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 13 } }
@@ -341,6 +112,218 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 2
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 4
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 3
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 150
+        calc: "150"
+      reachBase: 0
+      bodyScaleBase: 1.06
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 50
+        leaguesPerWatch: 3
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -349,9 +332,9 @@ You see it on the cliff face and your first thought is that it cannot possibly b
 
 # Dossier {#dossier}
 
-The Ibex is the wild goat of the Dunharan mesas, wadis, and mountain escarpments — a medium-sized, powerfully built caprid found on the cliff faces, rocky plateaus, and canyon systems that punctuate the desert landscape. An adult male stands two and a half to three feet at the shoulder and weighs a hundred to two hundred and seventy pounds, with females somewhat smaller. The ibex is the supreme specialist of vertical terrain — capable of ascending and descending rock faces that would challenge experienced human climbers, traversing ledges narrower than its own hooves, and leaping between surfaces with a precision and confidence that borders on the supernatural. This mastery of the vertical makes the ibex effectively immune to predation in its preferred habitat; no lion, cheetah, or wolf can follow where an ibex goes, and the few predators that can climb — leopards, eagles — find the ibex's alertness and agility make it a poor investment of effort.
+The Ibex is the wild goat of the desert mesas, wadis, and mountain escarpments — a medium-sized, powerfully built caprid found on the cliff faces, rocky plateaus, and canyon systems that punctuate the desert landscape. An adult male stands two and a half to three feet at the shoulder and weighs a hundred to two hundred and seventy pounds, with females somewhat smaller. The ibex is the supreme specialist of vertical terrain — capable of ascending and descending rock faces that would challenge experienced human climbers, traversing ledges narrower than its own hooves, and leaping between surfaces with a precision and confidence that borders on the supernatural. This mastery of the vertical makes the ibex effectively immune to predation in its preferred habitat; no lion, cheetah, or wolf can follow where an ibex goes, and the few predators that can climb — leopards, eagles — find the ibex's alertness and agility make it a poor investment of effort.
 
-In Dunharan culture, the ibex is a symbol of the wild places — the mesas and canyons that the nomads travel past but do not inhabit. Ibex horns are prized trophies, displayed in the tents of successful hunters, and ibex hunting is considered one of the great tests of desert skill — not because the animal is particularly dangerous, but because reaching it in its cliff-face habitat requires climbing ability and mountain knowledge that few lowland nomads possess. The rocky escarpments where ibex live are also frequently sites of spiritual significance — sacred caves, ancient rock paintings, and pilgrimage destinations — and the ibex's presence at these sites reinforces its association with the liminal spaces between the human world and the divine.
+In desert culture, the ibex is a symbol of the wild places — the mesas and canyons that the nomads travel past but do not inhabit. Ibex horns are prized trophies, displayed in the tents of successful hunters, and ibex hunting is considered one of the great tests of desert skill — not because the animal is particularly dangerous, but because reaching it in its cliff-face habitat requires climbing ability and mountain knowledge that few lowland nomads possess. The rocky escarpments where ibex live are also frequently sites of spiritual significance — sacred caves, ancient rock paintings, and pilgrimage destinations — and the ibex's presence at these sites reinforces its association with the liminal spaces between the human world and the divine.
 
 Adventurers encounter ibex on cliff faces, mesa tops, in rocky canyon systems, and at the few water sources that emerge from the base of desert escarpments. They are also occasionally found in ruined structures built into cliff faces — the ibex's indifference to height and its attraction to the mineral-rich mortar of old stonework make it a common inhabitant of exactly the kinds of ancient, elevated ruins that adventurers tend to explore.
 

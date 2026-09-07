@@ -16,21 +16,23 @@ sohl:
   kbcat: cloth
   armorType: Gloves
   detailMaterial: Russet
-  material: Cloth
-  durability: 7
-  value: 6
-  weight: 0.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lhandloc
-    - rhandloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.1
+    valueBase: 6
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - lhandloc
+        - rhandloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 6
 origWeight: 0.1

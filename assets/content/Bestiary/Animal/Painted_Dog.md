@@ -5,8 +5,8 @@ tags:
 name:
   full: Painted Dog
   aliases:
-    - Xerathian Wild Dog
-description: "A lean, endurance-built savannah canid that hunts in coordinated packs of ten to thirty with unmatched efficiency across the Xerathian plains."
+    - Savanna Wild Dog
+description: "A lean, endurance-built savannah canid that hunts in coordinated packs of ten to thirty with unmatched efficiency across the open plains."
 img: icons/game-icons/lorc/hound.svg
 portrait: images/being/pntddg-portrait.webp
 shortcode: pntddg
@@ -25,215 +25,6 @@ sohl:
     wil: 1d6+9
     rea: 1d4+6
     cre: 1d4+5
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 1
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 3
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 1
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Thorax
-          shortcode: thoraxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 3
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Pelvis
-          shortcode: plvsloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 2
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 80
-      calc: "80"
-    reachBase: 0
-    bodyScaleBase: 1.06
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 70
-      leaguesPerWatch: 6
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors:
-        - scope: surface_cover
-          key: mixed_forest
-          mode: add
-          textValue: "-1"
-        - scope: surface_cover
-          key: needleleaf_forest
-          mode: add
-          textValue: "0"
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 12 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 14 } }
@@ -286,6 +77,206 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 1
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 3
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 1
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Thorax
+            shortcode: thoraxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 3
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Pelvis
+            shortcode: plvsloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 2
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 80
+        calc: "80"
+      reachBase: 0
+      bodyScaleBase: 1.06
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 70
+        leaguesPerWatch: 6
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -294,11 +285,11 @@ You hear the whistling first — a high, birdlike chattering that comes from mul
 
 # Dossier {#dossier}
 
-The Painted Dog is the supreme pack predator of the Xerathian savannahs — a lean, endurance-built canid that hunts in coordinated packs of ten to thirty individuals with an efficiency that no other predator on the continent can match. An adult painted dog stands twenty-four to thirty inches at the shoulder and weighs forty to seventy pounds — substantially smaller than a wolf, lighter than a hyena, and individually no match for a lion or leopard. But painted dogs do not operate as individuals. They operate as a unit, and the unit is one of the most effective killing systems in the natural world. Their hunting success rate — the percentage of hunts that end in a kill — approaches eighty percent. A lion pride succeeds roughly one hunt in four. The difference is coordination.
+The Painted Dog is the supreme pack predator of the savannahs — a lean, endurance-built canid that hunts in coordinated packs of ten to thirty individuals with an efficiency that no other predator on the continent can match. An adult painted dog stands twenty-four to thirty inches at the shoulder and weighs forty to seventy pounds — substantially smaller than a wolf, lighter than a hyena, and individually no match for a lion or leopard. But painted dogs do not operate as individuals. They operate as a unit, and the unit is one of the most effective killing systems in the natural world. Their hunting success rate — the percentage of hunts that end in a kill — approaches eighty percent. A lion pride succeeds roughly one hunt in four. The difference is coordination.
 
-Painted dogs are found across the open savannahs, light woodlands, and scrublands of southern and central [[doc-xerathia|Xerathia]], wherever the migratory herds and resident herbivore populations provide sufficient prey. They are not territorial in the way that wolves are — a pack ranges across enormous areas, sometimes hundreds of square miles, following the prey rather than defending a fixed patch of ground. They are nomadic, sleeping in a different location each night, and their appearance in an area is both unpredictable and, for the prey populations that live there, immediately consequential.
+Painted dogs are found across the open savannahs, light woodlands, and scrublands of the southern and central savanna, wherever the migratory herds and resident herbivore populations provide sufficient prey. They are not territorial in the way that wolves are — a pack ranges across enormous areas, sometimes hundreds of square miles, following the prey rather than defending a fixed patch of ground. They are nomadic, sleeping in a different location each night, and their appearance in an area is both unpredictable and, for the prey populations that live there, immediately consequential.
 
-In the cultures of southern Xerathia, the painted dog occupies a complex position. The savanna peoples respect its hunting prowess — the pack's cooperative efficiency is held up as an example of how a group that works together can overcome individually stronger opponents. Painted dog imagery appears in the traditions of warrior societies and hunting bands, and the mottled coat pattern has been adopted for war paint and ceremonial decoration. At the same time, the painted dog is feared and resented: a pack that establishes itself near a settlement will rapidly deplete the local game, and painted dogs that learn to take livestock are extremely difficult to deter because the pack's intelligence and coordination defeat most conventional predator-control methods.
+In the cultures of the southern savanna, the painted dog occupies a complex position. The savanna peoples respect its hunting prowess — the pack's cooperative efficiency is held up as an example of how a group that works together can overcome individually stronger opponents. Painted dog imagery appears in the traditions of warrior societies and hunting bands, and the mottled coat pattern has been adopted for war paint and ceremonial decoration. At the same time, the painted dog is feared and resented: a pack that establishes itself near a settlement will rapidly deplete the local game, and painted dogs that learn to take livestock are extremely difficult to deter because the pack's intelligence and coordination defeat most conventional predator-control methods.
 
 Adventurers encounter painted dogs on the open savanna, typically spotting the pack at a distance as it moves in its characteristic loose formation — spread out, trotting steadily, with the oversized ears scanning and the whistling calls passing between individuals. The pack will generally avoid humans unless provoked, cornered, or extremely hungry, but a party that comes between a pack and its kill, or that stumbles into a denning area with pups, may face a level of coordinated canid aggression that is qualitatively different from anything a wolf pack produces.
 

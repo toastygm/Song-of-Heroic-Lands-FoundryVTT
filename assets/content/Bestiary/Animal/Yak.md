@@ -5,7 +5,7 @@ tags:
 name:
   full: Yak
   aliases: []
-description: "A massive, cold-adapted highland bovine providing milk, transport, and survival to mountain peoples amid the harsh peaks of Tānvür."
+description: "A massive, cold-adapted highland bovine providing milk, transport, and survival to mountain peoples amid the harshest peaks."
 img: icons/game-icons/delapouite/bison.svg
 portrait: images/being/yak-portrait.webp
 shortcode: yak
@@ -24,219 +24,6 @@ sohl:
     wil: 1d6+11
     rea: 1d4+4
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 4
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 8
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 6
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-    weight:
-      base: 1500
-      calc: "1500"
-    reachBase: 0
-    bodyScaleBase: 1.22
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 60
-      leaguesPerWatch: 4
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 15 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 17 } }
@@ -325,6 +112,218 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 4
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 8
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 6
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+      weight:
+        base: 1500
+        calc: "1500"
+      reachBase: 0
+      bodyScaleBase: 1.22
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 60
+        leaguesPerWatch: 4
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -333,11 +332,11 @@ The trail narrows to nothing against the cliff face, and you are considering ret
 
 # Dossier {#dossier}
 
-The Yak is the essential mountain animal of the [[doc-empiretnvr|Tānvür]] highlands — a massive, cold-adapted bovine that serves the mountain peoples as the reindeer serves the Normen and the camel serves the Dunhari. Wild yaks can weigh over a thousand pounds, standing five to six feet at the shoulder with enormous curved horns. Domesticated yaks are somewhat smaller but no less critical: they provide milk, butter, cheese, wool, leather, dung for fuel, and draft power for plowing and transport at altitudes where no horse or ox can function. Yak caravans are the primary means of moving goods through the mountain passes that connect Tānvür's highland provinces, and the yak-herding peoples of the high plateau are among the most independent and ungovernable subjects of the empire. Wild yaks still roam the highest and most remote plateaus in herds that have never known human contact — these animals are larger, more aggressive, and significantly more dangerous than their domesticated cousins. Adventurers in highland Tānvür encounter yaks constantly: as pack animals on mountain roads, as wild herds on the high plateau, and as the economic foundation of every settlement above the tree line.
+The Yak is the essential animal of the high plateaus — a massive, cold-adapted bovine that serves the mountain peoples as the reindeer serves the far north and the camel serves the desert. Wild yaks can weigh over a thousand pounds, standing five to six feet at the shoulder with enormous curved horns. Domesticated yaks are somewhat smaller but no less critical: they provide milk, butter, cheese, wool, leather, dung for fuel, and draft power for plowing and transport at altitudes where no horse or ox can function. Yak caravans are the primary means of moving goods through the mountain passes that connect the highland provinces, and the yak-herding peoples of the high plateau are among the most independent and ungovernable subjects of the empire. Wild yaks still roam the highest and most remote plateaus in herds that have never known human contact — these animals are larger, more aggressive, and significantly more dangerous than their domesticated cousins. Adventurers in the high country encounter yaks constantly: as pack animals on mountain roads, as wild herds on the high plateau, and as the economic foundation of every settlement above the tree line.
 
 ## Presentation
 
-The yak is unmistakable — a massive bovine draped in a skirt of long, coarse hair that hangs from the belly and flanks nearly to the ground, giving the animal the appearance of a walking tent. The body beneath is heavily muscled, with a pronounced shoulder hump that stores fat reserves for lean seasons and gives the yak its characteristic front-heavy silhouette. The coat is dense and layered: a fine, soft undercoat of extraordinary insulating quality beneath the long, coarse outer guard hairs. Wild yaks are uniformly dark brown to black; domesticated animals have been bred in a range of colors including brown, red, piebald, and occasionally white. The horns are smooth and dark, curving outward and upward from the skull, and they are formidable weapons — a wild bull's horns can span three feet. The head is broad with a wide muzzle adapted for grazing on sparse highland vegetation. The hooves are broad and splayed, with a hard outer rim and softer center that provides grip on rock and ice. The tail is long and bushy, more like a horse's tail than a typical bovine's, and yak tail hair is a trade commodity in its own right — used for fly whisks, ceremonial standards, and decorative tassels throughout Tānvür.
+The yak is unmistakable — a massive bovine draped in a skirt of long, coarse hair that hangs from the belly and flanks nearly to the ground, giving the animal the appearance of a walking tent. The body beneath is heavily muscled, with a pronounced shoulder hump that stores fat reserves for lean seasons and gives the yak its characteristic front-heavy silhouette. The coat is dense and layered: a fine, soft undercoat of extraordinary insulating quality beneath the long, coarse outer guard hairs. Wild yaks are uniformly dark brown to black; domesticated animals have been bred in a range of colors including brown, red, piebald, and occasionally white. The horns are smooth and dark, curving outward and upward from the skull, and they are formidable weapons — a wild bull's horns can span three feet. The head is broad with a wide muzzle adapted for grazing on sparse highland vegetation. The hooves are broad and splayed, with a hard outer rim and softer center that provides grip on rock and ice. The tail is long and bushy, more like a horse's tail than a typical bovine's, and yak tail hair is a trade commodity in its own right — used for fly whisks, ceremonial standards, and decorative tassels throughout the highlands.
 
 ## Key Behaviors
 

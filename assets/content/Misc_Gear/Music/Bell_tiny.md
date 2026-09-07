@@ -15,10 +15,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: music
-  quality: 0
-  durability: 7
-  value: 3
-  weight: 0
+  system:
+    weightBase: 0
+    valueBase: 3
+    qualityBase: 0
+    durabilityBase: 7
 packFolder: music
 ---
 

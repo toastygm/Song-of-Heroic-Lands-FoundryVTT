@@ -5,7 +5,7 @@ tags:
 name:
   full: Cheetah
   aliases: []
-description: "A lightly built sprinting cat of the Khazryn grasslands, built for blistering speed to run down gazelle across open gravel plains."
+description: "A lightly built sprinting cat of the arid grasslands, built for blistering speed to run down gazelle across open gravel plains."
 img: icons/game-icons/lorc/lion.svg
 portrait: images/being/cheetah-portrait.webp
 shortcode: cheetah
@@ -24,208 +24,6 @@ sohl:
     wil: 1d6+8
     rea: 1d4+6
     cre: 1d4+5
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 1
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 3
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 1
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-            - manipulator
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Thorax
-          shortcode: thoraxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 3
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Pelvis
-          shortcode: plvsloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 2
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 60
-      calc: "60"
-    reachBase: 0
-    bodyScaleBase: 1.17
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 70
-      leaguesPerWatch: 4
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 14 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 12 } }
@@ -314,6 +112,207 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 1
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 3
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 1
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+              - manipulator
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Thorax
+            shortcode: thoraxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 3
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Pelvis
+            shortcode: plvsloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 2
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 60
+        calc: "60"
+      reachBase: 0
+      bodyScaleBase: 1.17
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 70
+        leaguesPerWatch: 4
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -322,7 +321,7 @@ You have never seen anything move like that. The gazelle had three hundred yards
 
 # Dossier {#dossier}
 
-The Cheetah is the supreme sprinting predator of the Khazryn steppe — a large, lightly built cat found in open grasslands, scrubland, and the gravel plains where gazelle herds graze. An adult cheetah stands roughly thirty inches at the shoulder and weighs seventy-five to a hundred and forty-five pounds, comparable in mass to a leopard but built on a completely different architecture. Where the leopard is compact and powerful, the cheetah is elongated and aerodynamic — every element of its anatomy optimized for explosive speed over short distances. The cheetah is the fastest land animal in the world, capable of reaching speeds that no horse, no gazelle, and no other predator can match in a straight sprint. This speed comes at a cost: the cheetah is fragile for a large cat, lacking the muscular power of leopards and lions, and it is easily displaced from kills by stronger predators. In Khazryn culture, the cheetah holds a position of extraordinary prestige as a hunting companion of royalty. Tamed cheetahs — captured young and trained by specialist handlers — are used to course gazelle on the open steppe, a form of hunting practiced exclusively by khans, chieftains, and the wealthiest nomad lords. A trained hunting cheetah is among the most valuable animals in the Khazryn world, worth more than a string of horses, and the handlers who train them are specialists whose skills are passed from parent to child across generations. Adventurers encounter wild cheetahs in open steppe country, typically at a distance, and trained cheetahs in the camps and caravans of Khazryn nobility.
+The Cheetah is the supreme sprinting predator of the arid steppe — a large, lightly built cat found in open grasslands, scrubland, and the gravel plains where gazelle herds graze. An adult cheetah stands roughly thirty inches at the shoulder and weighs seventy-five to a hundred and forty-five pounds, comparable in mass to a leopard but built on a completely different architecture. Where the leopard is compact and powerful, the cheetah is elongated and aerodynamic — every element of its anatomy optimized for explosive speed over short distances. The cheetah is the fastest land animal in the world, capable of reaching speeds that no horse, no gazelle, and no other predator can match in a straight sprint. This speed comes at a cost: the cheetah is fragile for a large cat, lacking the muscular power of leopards and lions, and it is easily displaced from kills by stronger predators. In steppe culture, the cheetah holds a position of extraordinary prestige as a hunting companion of royalty. Tamed cheetahs — captured young and trained by specialist handlers — are used to course gazelle on the open steppe, a form of hunting practiced exclusively by khans, chieftains, and the wealthiest nomad lords. A trained hunting cheetah is among the most valuable animals of the steppe, worth more than a string of horses, and the handlers who train them are specialists whose skills are passed from parent to child across generations. Adventurers encounter wild cheetahs in open steppe country, typically at a distance, and trained cheetahs in the camps and caravans of the steppe nobility.
 
 ## Presentation
 
@@ -362,11 +361,11 @@ Raw speed alone would not catch a gazelle — the prey's evasive turns would def
 
 ### Elevated Scanning
 
-Cheetahs possess exceptional distance vision adapted for spotting prey on open terrain. They habitually climb to elevated positions — rock outcrops, termite mounds, fallen trees — to scan the surrounding steppe for game. This behavior makes them excellent scouts of the landscape, and experienced Khazryn hunters watch cheetah scanning behavior to locate gazelle herds that are invisible from ground level.
+Cheetahs possess exceptional distance vision adapted for spotting prey on open terrain. They habitually climb to elevated positions — rock outcrops, termite mounds, fallen trees — to scan the surrounding steppe for game. This behavior makes them excellent scouts of the landscape, and experienced steppe hunters watch cheetah scanning behavior to locate gazelle herds that are invisible from ground level.
 
 ### Noble Companion
 
-The cheetah's unique combination of tractability and hunting prowess makes it the only large cat that has been successfully trained as a hunting companion across multiple cultures and centuries. Unlike the caracal, which cooperates on its own terms, a well-trained cheetah will course and kill gazelle on command, returning to the handler after the kill in exchange for a portion of the meat. This trainability — combined with the cheetah's inability to breed reliably in captivity — means that every hunting cheetah must be captured from the wild and individually trained, making each one irreplaceable and immensely valuable. The bond between a cheetah and its handler is genuine, built on trust and mutual dependence, and the death of a prized hunting cheetah is mourned in Khazryn camps with rituals normally reserved for horses and hounds.
+The cheetah's unique combination of tractability and hunting prowess makes it the only large cat that has been successfully trained as a hunting companion across multiple cultures and centuries. Unlike the caracal, which cooperates on its own terms, a well-trained cheetah will course and kill gazelle on command, returning to the handler after the kill in exchange for a portion of the meat. This trainability — combined with the cheetah's inability to breed reliably in captivity — means that every hunting cheetah must be captured from the wild and individually trained, making each one irreplaceable and immensely valuable. The bond between a cheetah and its handler is genuine, built on trust and mutual dependence, and the death of a prized hunting cheetah is mourned in steppe camps with rituals normally reserved for horses and hounds.
 
 ## Attributes
 

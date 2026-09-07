@@ -15,10 +15,11 @@ sohl:
     skill: anmcft
     secondary: []
   kbcat: scribe
-  quality: 0
-  durability: 1
-  value: 1
-  weight: 0.05
+  system:
+    weightBase: 0.05
+    valueBase: 1
+    qualityBase: 0
+    durabilityBase: 1
 packFolder: scribe
 ---
 

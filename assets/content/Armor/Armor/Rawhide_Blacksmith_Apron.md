@@ -16,24 +16,26 @@ sohl:
   kbcat: leather
   armorType: Blacksmith Apron
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 195
-  weight: 7.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 7.6
+    valueBase: 195
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 192
 origWeight: 7.6

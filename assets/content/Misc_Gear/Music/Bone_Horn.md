@@ -15,10 +15,11 @@ sohl:
     skill: hide
     secondary: []
   kbcat: music
-  quality: 0
-  durability: 4
-  value: 1
-  weight: 0.0625
+  system:
+    weightBase: 0.0625
+    valueBase: 1
+    qualityBase: 0
+    durabilityBase: 4
 packFolder: music
 ---
 

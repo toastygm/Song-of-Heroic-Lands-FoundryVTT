@@ -10,17 +10,18 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Amoral:2
-    - Immoral:4
-    - Hipocritical:7
-    - Unscrupulous:10
-    - Conscientious:13
-    - Principled:16
-    - Virtuous:18
-    - Paragon:999
-  initDiceFormula: 3d6
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Amoral:2
+      - Immoral:4
+      - Hipocritical:7
+      - Unscrupulous:10
+      - Conscientious:13
+      - Principled:16
+      - Virtuous:18
+      - Paragon:999
+    initDiceFormula: 3d6
 sort: 140
 packFolder: attributes
 ---

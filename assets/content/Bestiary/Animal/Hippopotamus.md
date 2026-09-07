@@ -5,7 +5,7 @@ tags:
 name:
   full: Hippopotamus
   aliases: []
-description: "A three-to-four-ton river herbivore of Xerathia's marshes, more lethal and aggressive than any crocodile despite its herbivorous diet."
+description: "A three-to-four-ton river herbivore of tropical marshes, more lethal and aggressive than any crocodile despite its herbivorous diet."
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/hppptms-portrait.webp
 shortcode: hppptms
@@ -24,234 +24,6 @@ sohl:
     wil: 1d6+13
     rea: 1d4+4
     cre: 1d4+2
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 8
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 4
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 16
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 12
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 7
-            edged: 6
-            piercing: 4
-            fire: 6
-    weight:
-      base: 4000
-      calc: "4000"
-    reachBase: 0
-    bodyScaleBase: 1.62
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 50
-      leaguesPerWatch: 3
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors:
-        - scope: surface_cover
-          key: wetlands
-          mode: add
-          textValue: "0"
-        - scope: hydrology
-          key: shallow
-          mode: add
-          textValue: "0"
-      disabled: false
-    - medium: aquatic
-      feetPerRound: 60
-      leaguesPerWatch: 5
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 23 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 22 } }
@@ -376,6 +148,224 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 8
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 4
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 16
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 12
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 7
+              edged: 6
+              piercing: 4
+              fire: 6
+      weight:
+        base: 4000
+        calc: "4000"
+      reachBase: 0
+      bodyScaleBase: 1.62
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 50
+        leaguesPerWatch: 3
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
+      - medium: aquatic
+        feetPerRound: 60
+        leaguesPerWatch: 5
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -384,7 +374,7 @@ The water erupts. What you took for a muddy boulder splits open into a mouth tha
 
 # Dossier {#dossier}
 
-The Hippopotamus is the most dangerous large animal along the rivers and marshes of Xerathia — more lethal than the crocodile, more aggressive than the elephant, and utterly without the caution that governs most herbivores. An adult male stands roughly five feet at the shoulder but stretches twelve to fifteen feet in length and weighs three to four thousand pounds — a mass of bone, muscle, and thick hide shaped into a creature that dominates its river territory through sheer violence. Despite being herbivorous (they graze on riverside grasses at night), hippopotami are extraordinarily territorial and will attack anything that enters their water: boats, swimmers, crocodiles, other hippos, and humans with equal enthusiasm. They are responsible for more human deaths along the Tameresh River than any other animal, including the crocodile. Adventurers encounter them while crossing rivers, traveling by boat, camping on riverbanks, or when hippo herds encroach on farming settlements — as is currently happening along the upper Tameresh, where the [[doc-sekhetneru|Sekhet'Neru]] is struggling to control a population surge.
+The Hippopotamus is the most dangerous large animal along the tropical rivers and marshes — more lethal than the crocodile, more aggressive than the elephant, and utterly without the caution that governs most herbivores. An adult male stands roughly five feet at the shoulder but stretches twelve to fifteen feet in length and weighs three to four thousand pounds — a mass of bone, muscle, and thick hide shaped into a creature that dominates its river territory through sheer violence. Despite being herbivorous (they graze on riverside grasses at night), hippopotami are extraordinarily territorial and will attack anything that enters their water: boats, swimmers, crocodiles, other hippos, and humans with equal enthusiasm. They are responsible for more human deaths along the great rivers than any other animal, including the crocodile. Adventurers encounter them while crossing rivers, traveling by boat, camping on riverbanks, or when hippo herds encroach on farming settlements — as is currently happening along the upper reaches of the great river, where the local authorities are struggling to control a population surge.
 
 ## Presentation
 
@@ -410,7 +400,7 @@ On land or in shallows, the hippo accelerates into a straight-line charge, using
 
 ### Boat Capsize
 
-Against watercraft, the hippo attacks from below, surfacing beneath the hull or biting the gunwale to flip the vessel. Once occupants are in the water, they are in the hippo's element. Smaller reed boats are destroyed outright; larger wooden vessels may survive but will be damaged and destabilized. The Sekhet'Neru considers this the hippo's most dangerous tactic, because it puts hunters in the water where neither their weapons nor their footing can save them.
+Against watercraft, the hippo attacks from below, surfacing beneath the hull or biting the gunwale to flip the vessel. Once occupants are in the water, they are in the hippo's element. Smaller reed boats are destroyed outright; larger wooden vessels may survive but will be damaged and destabilized. River hunters consider this the hippo's most dangerous tactic, because it puts hunters in the water where neither their weapons nor their footing can save them.
 
 ### Trampling
 

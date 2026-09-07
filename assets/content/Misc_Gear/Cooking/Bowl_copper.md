@@ -15,10 +15,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: cooking
-  quality: 0
-  durability: 4
-  value: 6
-  weight: 1
+  system:
+    weightBase: 1
+    valueBase: 6
+    qualityBase: 0
+    durabilityBase: 4
 packFolder: cooking
 ---
 

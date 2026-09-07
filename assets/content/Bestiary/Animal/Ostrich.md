@@ -5,7 +5,7 @@ tags:
 name:
   full: Ostrich
   aliases: []
-description: "The largest living bird of Dunhara, a flightless seven-to-nine-foot desert runner carried on a pair of devastatingly powerful legs."
+description: "The largest living bird of the desert, a flightless seven-to-nine-foot desert runner carried on a pair of devastatingly powerful legs."
 img: icons/game-icons/delapouite/cassowary-head.svg
 portrait: images/being/ostrich-portrait.webp
 shortcode: ostrich
@@ -24,191 +24,6 @@ sohl:
     wil: 1d4+7
     rea: 1d4+4
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 2
-        - name: Body
-          shortcode: torsozone
-          probWeight: 4
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 4
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-          canHoldItem: false
-          probWeight: 10
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreclaw
-          shortcode: lforelegpart
-          bodyZoneCode: torsozone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 2
-        - name: Right Foreclaw
-          shortcode: rforelegpart
-          bodyZoneCode: torsozone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 2
-        - name: Left Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 8
-        - name: Right Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 8
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 4
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Thorax
-          shortcode: thoraxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreclaw
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreclaw
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 250
-      calc: "250"
-    reachBase: 0
-    bodyScaleBase: 1.17
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 100
-      leaguesPerWatch: 8
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 14 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 13 } }
@@ -297,6 +112,190 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 2
+          - name: Body
+            shortcode: torsozone
+            probWeight: 4
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 4
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+            canHoldItem: false
+            probWeight: 10
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreclaw
+            shortcode: lforelegpart
+            bodyZoneCode: torsozone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 2
+          - name: Right Foreclaw
+            shortcode: rforelegpart
+            bodyZoneCode: torsozone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 2
+          - name: Left Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 8
+          - name: Right Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 8
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 4
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Thorax
+            shortcode: thoraxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreclaw
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreclaw
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 250
+        calc: "250"
+      reachBase: 0
+      bodyScaleBase: 1.17
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 100
+        leaguesPerWatch: 8
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -305,9 +304,9 @@ Your first thought is that someone has left a feathered tent in the middle of th
 
 # Dossier {#dossier}
 
-The Ostrich is the largest living bird in [[doc-dunharargn|Dunhara Region]] — a massive, flightless desert runner found on the open plains, gravel wastes, and scrubland margins of the southern deserts. An adult male stands seven to nine feet tall and weighs two hundred and twenty to three hundred and fifty pounds, carried on a pair of legs that are among the most powerful in the animal kingdom. The ostrich cannot fly — its wings are vestigial, useful only for balance and display — but it can run at sustained speeds that outpace horses and deliver kicks that can kill a lion. It is simultaneously one of the most impressive and one of the most ridiculous creatures in the desert: majestic from a distance, comical up close, and lethal if you misjudge which one it is at any given moment.
+The Ostrich is the largest living bird of the desert — a massive, flightless runner found on the open plains, gravel wastes, and scrubland margins of the southern deserts. An adult male stands seven to nine feet tall and weighs two hundred and twenty to three hundred and fifty pounds, carried on a pair of legs that are among the most powerful in the animal kingdom. The ostrich cannot fly — its wings are vestigial, useful only for balance and display — but it can run at sustained speeds that outpace horses and deliver kicks that can kill a lion. It is simultaneously one of the most impressive and one of the most ridiculous creatures in the desert: majestic from a distance, comical up close, and lethal if you misjudge which one it is at any given moment.
 
-Ostriches are economically important across Dunhara. Their feathers — particularly the white plume feathers of the male's wings and tail — are prized trade goods, used for decoration, heraldry, and fan-making in the courts of [[doc-sultntmrdd|Amradad]] and beyond. Their eggs, the largest of any land animal, are used as water vessels in the deep desert, the thick shells carved and decorated as prestige objects, and the contents eaten as a meal that can feed a family. Their leather is tough and supple, valued by leatherworkers. Semi-domesticated ostriches are kept by some Dunharan settlements for egg production, and there are persistent attempts to use them as riding animals that have produced more injuries than successes.
+Ostriches are economically important across the desert. Their feathers — particularly the white plume feathers of the male's wings and tail — are prized trade goods, used for decoration, heraldry, and fan-making in the courts of the desert cities and beyond. Their eggs, the largest of any land animal, are used as water vessels in the deep desert, the thick shells carved and decorated as prestige objects, and the contents eaten as a meal that can feed a family. Their leather is tough and supple, valued by leatherworkers. Semi-domesticated ostriches are kept by some desert settlements for egg production, and there are persistent attempts to use them as riding animals that have produced more injuries than successes.
 
 Adventurers encounter ostriches on open desert plains — small flocks picking their way across the scrub, territorial males displaying with spread wings and booming calls, and nesting females sitting on enormous ground nests that they defend with startling aggression.
 
@@ -363,7 +362,7 @@ At seven to nine feet tall, an ostrich's eyes are the highest natural vantage po
 
 ### Egg and Feather Economy
 
-The ostrich is one of the few wild animals that supports an active trade economy without being domesticated. Feather hunters, egg collectors, and leather traders all pursue ostriches, and the plume trade in particular connects Dunharan desert hunters to luxury markets in [[doc-sultntmrdd|Amradad]], [[doc-byzariargn|Byzaría Region]], and beyond. A single male ostrich's white plume feathers can be worth more than the animal's meat, making feather collection a specialized and sometimes dangerous profession — approaching a live ostrich closely enough to assess its plumage is an activity with a meaningful injury rate.
+The ostrich is one of the few wild animals that supports an active trade economy without being domesticated. Feather hunters, egg collectors, and leather traders all pursue ostriches, and the plume trade in particular connects desert hunters to luxury markets in the great trading cities and beyond. A single male ostrich's white plume feathers can be worth more than the animal's meat, making feather collection a specialized and sometimes dangerous profession — approaching a live ostrich closely enough to assess its plumage is an activity with a meaningful injury rate.
 
 ### Gizzard Stones
 

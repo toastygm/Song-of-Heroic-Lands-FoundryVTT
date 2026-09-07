@@ -10,14 +10,15 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Uncoordinated:4
-    - Awkward:8
-    - Average:12
-    - Deft:16
-    - Adroit:999
-  initDiceFormula: 3d6
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Uncoordinated:4
+      - Awkward:8
+      - Average:12
+      - Deft:16
+      - Adroit:999
+    initDiceFormula: 3d6
 sort: 30
 packFolder: attributes
 ---

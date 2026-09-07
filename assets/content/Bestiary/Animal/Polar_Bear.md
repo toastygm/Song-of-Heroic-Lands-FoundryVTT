@@ -6,7 +6,7 @@ name:
   full: Polar Bear
   aliases:
     - Ice Bear
-description: "The apex arctic predator of Nordheim, a solitary fifteen-hundred-pound hunter of ice and freezing water, a pure carnivore unlike the omnivorous brown bear."
+description: "The apex arctic predator of the far north, a solitary fifteen-hundred-pound hunter of ice and freezing water, a pure carnivore unlike the omnivorous brown bear."
 img: icons/game-icons/cathelineau/polar-bear.svg
 portrait: images/being/plrbr-portrait.webp
 shortcode: plrbr
@@ -25,208 +25,6 @@ sohl:
     wil: 1d6+12
     rea: 1d4+3
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 4
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 4
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 8
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 4
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-            - manipulator
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Thorax
-          shortcode: thoraxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 5
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 3
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Pelvis
-          shortcode: plvsloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 2
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 10
-            edged: 9
-            piercing: 8
-            fire: 10
-    weight:
-      base: 1000
-      calc: "1000"
-    reachBase: 0
-    bodyScaleBase: 1.84
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 90
-      leaguesPerWatch: 4
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 28 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 21 } }
@@ -316,15 +114,216 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 4
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 4
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 8
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 4
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+              - manipulator
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Thorax
+            shortcode: thoraxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 5
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 3
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Pelvis
+            shortcode: plvsloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 2
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 10
+              edged: 9
+              piercing: 8
+              fire: 10
+      weight:
+        base: 1000
+        calc: "1000"
+      reachBase: 0
+      bodyScaleBase: 1.84
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 90
+        leaguesPerWatch: 4
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
 
-The ice field is empty. You are certain of this. You scanned it not thirty seconds ago and there was nothing — nothing but white on white, pressure ridges and blown snow, and the gray sky pressing down. Then a shape stands up sixty paces away, and the world rearranges itself around the fact that the largest land predator in Nordheim has been watching you for some time. The fur is not white — not truly. It is pale yellow, cream, the color of old ivory, and against the snow it simply ceases to exist until the animal chooses to move. It is enormous. Taller than a brown bear, longer, leaner, built along lines that speak of distance and patience and a hunger that never fully abates. The head swings toward you on a neck longer than any bear's should be, and the black nose works the air with visible, deliberate attention. The eyes are dark and calm. There is no threat display. No warning. It has already decided what you are.
+The ice field is empty. You are certain of this. You scanned it not thirty seconds ago and there was nothing — nothing but white on white, pressure ridges and blown snow, and the gray sky pressing down. Then a shape stands up sixty paces away, and the world rearranges itself around the fact that the largest land predator of the far north has been watching you for some time. The fur is not white — not truly. It is pale yellow, cream, the color of old ivory, and against the snow it simply ceases to exist until the animal chooses to move. It is enormous. Taller than a brown bear, longer, leaner, built along lines that speak of distance and patience and a hunger that never fully abates. The head swings toward you on a neck longer than any bear's should be, and the black nose works the air with visible, deliberate attention. The eyes are dark and calm. There is no threat display. No warning. It has already decided what you are.
 
 # Dossier {#dossier}
 
-The Polar Bear is the apex predator of the arctic reaches of [[doc-kngdmnrdhm|Kingdom of Nordheim]] — a solitary, patient, supremely dangerous hunter adapted for life on ice and in freezing water. Males stand five feet at the shoulder and can reach ten feet when rearing, weighing between nine hundred and fifteen hundred pounds of lean, cold-adapted muscle. Unlike the brown bear, which is an omnivorous opportunist, the polar bear is a dedicated carnivore — a pure predator that hunts seals, fish, walrus calves, and anything else it can catch, including humans. The polar bear possesses the keenest nose of any land predator, capable of detecting prey from miles away and through feet of ice. It is an exceptional swimmer, capable of crossing open water for dozens of miles. Among the Normen of the far north, the ice bear is regarded with a mixture of terror and spiritual reverence — it is the embodiment of the killing cold, and its pelt is among the most valued trophies a hunter can claim. Adventurers encounter polar bears on arctic coastlines, on sea ice, in far-northern settlements where bears scavenge, and during winter expeditions into the deep north.
+The Polar Bear is the apex predator of the arctic reaches — a solitary, patient, supremely dangerous hunter adapted for life on ice and in freezing water. Males stand five feet at the shoulder and can reach ten feet when rearing, weighing between nine hundred and fifteen hundred pounds of lean, cold-adapted muscle. Unlike the brown bear, which is an omnivorous opportunist, the polar bear is a dedicated carnivore — a pure predator that hunts seals, fish, walrus calves, and anything else it can catch, including humans. The polar bear possesses the keenest nose of any land predator, capable of detecting prey from miles away and through feet of ice. It is an exceptional swimmer, capable of crossing open water for dozens of miles. Among the peoples of the far north, the ice bear is regarded with a mixture of terror and spiritual reverence — it is the embodiment of the killing cold, and its pelt is among the most valued trophies a hunter can claim. Adventurers encounter polar bears on arctic coastlines, on sea ice, in far-northern settlements where bears scavenge, and during winter expeditions into the deep north.
 
 ## Presentation
 

@@ -16,28 +16,30 @@ sohl:
   kbcat: scale
   armorType: Habergeon
   detailMaterial: Scale
-  material: Scale
-  durability: 14
-  value: 450
-  weight: 24.8
-  encumbrance: 15
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 24.8
+    valueBase: 450
+    durabilityBase: 14
+    material: Scale
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 15
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 450
 origWeight: 24.8

@@ -16,21 +16,23 @@ sohl:
   kbcat: mail
   armorType: Cowl
   detailMaterial: Mail
-  material: Mail
-  durability: 13
-  value: 90
-  weight: 2.7
-  encumbrance: 0
-  perceptionPenaltyBase: -5
-  flexloc: []
-  rigidloc:
-    - skullloc
-    - neckloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.7
+    valueBase: 90
+    durabilityBase: 13
+    material: Mail
+    locations:
+      flexible: []
+      rigid:
+        - skullloc
+        - neckloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: -5
 packFolder: armorarmor
 origValue: 90
 origWeight: 2.7

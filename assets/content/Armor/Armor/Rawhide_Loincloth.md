@@ -16,20 +16,22 @@ sohl:
   kbcat: leather
   armorType: Loincloth
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 40
-  weight: 1.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - plvisloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.6
+    valueBase: 40
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - plvisloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 40
 origWeight: 1.6

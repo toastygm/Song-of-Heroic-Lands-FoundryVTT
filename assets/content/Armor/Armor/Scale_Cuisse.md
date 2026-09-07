@@ -16,23 +16,25 @@ sohl:
   kbcat: scale
   armorType: Cuisse
   detailMaterial: Scale
-  material: Scale
-  durability: 14
-  value: 170
-  weight: 9.4
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 9.4
+    valueBase: 170
+    durabilityBase: 14
+    material: Scale
+    locations:
+      flexible: []
+      rigid:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 170
 origWeight: 9.4

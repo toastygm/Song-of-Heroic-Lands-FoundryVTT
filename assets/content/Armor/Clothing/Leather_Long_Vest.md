@@ -16,24 +16,26 @@ sohl:
   kbcat: leather
   armorType: Long Vest
   detailMaterial: Leather
-  material: Leather
-  durability: 9
-  value: 300
-  weight: 4.1
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 4.1
+    valueBase: 300
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 148
 origWeight: 6.8

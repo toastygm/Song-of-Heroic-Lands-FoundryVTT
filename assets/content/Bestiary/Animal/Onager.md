@@ -5,7 +5,7 @@ tags:
 name:
   full: Onager
   aliases: []
-description: "A wild ass of the Khazryn steppe, a medium equine of legendary speed, endurance, and ferocity ranging across gravel plains and salt flats."
+description: "A wild ass of the arid steppe, a medium equine of legendary speed, endurance, and ferocity ranging across gravel plains and salt flats."
 img: icons/game-icons/skoll/donkey.svg
 portrait: images/being/onager-portrait.webp
 shortcode: onager
@@ -24,219 +24,6 @@ sohl:
     wil: 1d6+12
     rea: 1d4+5
     cre: 1d4+4
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 4
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 8
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 6
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 1000
-      calc: "1000"
-    reachBase: 0
-    bodyScaleBase: 1.06
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 80
-      leaguesPerWatch: 10
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 12 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 15 } }
@@ -325,6 +112,218 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 4
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 8
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 6
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 1000
+        calc: "1000"
+      reachBase: 0
+      bodyScaleBase: 1.06
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 80
+        leaguesPerWatch: 10
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -333,7 +332,7 @@ It stands on the salt flat like something carved from the desert itself — pale
 
 # Dossier {#dossier}
 
-The Onager is the wild ass of the Khazryn steppe — a medium-sized equine of extraordinary speed, endurance, and ferocity found across the gravel plains, salt flats, and semi-arid grasslands of central Ankaris. An adult onager stands eleven to twelve hands at the shoulder and weighs five hundred to six hundred and fifty pounds, smaller and lighter than a wild horse but faster over open ground and possessed of a legendary willfulness that has defeated every historical attempt at domestication. Unlike the patient, cooperative donkey to which it is distantly related, the onager is a creature of explosive temperament — faster than a horse in a sprint, tireless over distance, and willing to fight with a viciousness that makes wild horses seem docile by comparison. For the Khazryn nomads, the onager is both a prized hunting quarry and a symbol of the desert's untameable spirit. Hunting onager on horseback is considered one of the supreme tests of rider and mount — the onager's speed forces the horse to its absolute limit, and the animal's unpredictable behavior and willingness to fight when cornered makes the final approach dangerous. Ancient Khazryn legends speak of warriors who tried to ride captured onagers, and none of these stories end well. Adventurers encounter onagers on the open steppe, often at a distance — the animals are wary and maintain a wide buffer from anything unfamiliar — and at remote watering holes where onager bands gather to drink.
+The Onager is the wild ass of the arid steppe — a medium-sized equine of extraordinary speed, endurance, and ferocity found across the gravel plains, salt flats, and semi-arid grasslands of the continental interior. An adult onager stands eleven to twelve hands at the shoulder and weighs five hundred to six hundred and fifty pounds, smaller and lighter than a wild horse but faster over open ground and possessed of a legendary willfulness that has defeated every historical attempt at domestication. Unlike the patient, cooperative donkey to which it is distantly related, the onager is a creature of explosive temperament — faster than a horse in a sprint, tireless over distance, and willing to fight with a viciousness that makes wild horses seem docile by comparison. For the steppe nomads, the onager is both a prized hunting quarry and a symbol of the desert's untameable spirit. Hunting onager on horseback is considered one of the supreme tests of rider and mount — the onager's speed forces the horse to its absolute limit, and the animal's unpredictable behavior and willingness to fight when cornered makes the final approach dangerous. Ancient steppe legends speak of warriors who tried to ride captured onagers, and none of these stories end well. Adventurers encounter onagers on the open steppe, often at a distance — the animals are wary and maintain a wide buffer from anything unfamiliar — and at remote watering holes where onager bands gather to drink.
 
 ## Presentation
 
@@ -365,11 +364,11 @@ A cornered onager will charge directly at a threat, rearing at the last moment t
 
 ### Desert Speed
 
-The onager is the fastest equine on the Khazryn steppe. Over short distances — the first half-mile of a pursuit — an onager can outrun any horse, reaching speeds that are simply inaccessible to heavier domestic breeds. Even over longer distances, an onager's speed drops only marginally, and it can sustain a pace that exhausts pursuing horses within a few miles. This speed, combined with the onager's ability to navigate rough terrain at full gallop without faltering, makes mounted pursuit a genuinely difficult proposition.
+The onager is the fastest equine on the arid steppe. Over short distances — the first half-mile of a pursuit — an onager can outrun any horse, reaching speeds that are simply inaccessible to heavier domestic breeds. Even over longer distances, an onager's speed drops only marginally, and it can sustain a pace that exhausts pursuing horses within a few miles. This speed, combined with the onager's ability to navigate rough terrain at full gallop without faltering, makes mounted pursuit a genuinely difficult proposition.
 
 ### Untameable Spirit
 
-The onager's legendary willfulness is not merely stubbornness — it is an active, aggressive refusal to submit that has no parallel among equines. Historical attempts to domesticate onagers have universally failed. Captured animals injure handlers, refuse training, attack other livestock, and will starve themselves or fight restraints to the point of self-destruction rather than cooperate. This is not fear-based panic but something closer to rage — an onager that has been restrained becomes genuinely dangerous to everyone around it. The few Khazryn stories of warriors who managed to ride onagers describe animals that cooperated only on their own terms and that could never be fully trusted.
+The onager's legendary willfulness is not merely stubbornness — it is an active, aggressive refusal to submit that has no parallel among equines. Historical attempts to domesticate onagers have universally failed. Captured animals injure handlers, refuse training, attack other livestock, and will starve themselves or fight restraints to the point of self-destruction rather than cooperate. This is not fear-based panic but something closer to rage — an onager that has been restrained becomes genuinely dangerous to everyone around it. The few steppe stories of warriors who managed to ride onagers describe animals that cooperated only on their own terms and that could never be fully trusted.
 
 ### Extreme Endurance
 

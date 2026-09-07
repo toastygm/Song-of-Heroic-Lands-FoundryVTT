@@ -10,14 +10,15 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Jarring:4
-    - Tuneless:8
-    - Average:12
-    - Melodious:16
-    - Dulcet:999
-  initDiceFormula: 3d6
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Jarring:4
+      - Tuneless:8
+      - Average:12
+      - Melodious:16
+      - Dulcet:999
+    initDiceFormula: 3d6
 sort: 130
 packFolder: attributes
 ---

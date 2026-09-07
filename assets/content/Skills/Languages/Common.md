@@ -12,14 +12,14 @@ data:
 subType: language
 sohl:
   kbcat: languages
-  skillBaseFormula: "sb(attr.elo, attr.rea)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 0
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - vital
+  system:
+    skillBaseFormula: sb(attr.elo, attr.rea)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 0
+    impairedByRoles:
+      - vital
 packFolder: language
 ---
 

@@ -16,21 +16,23 @@ sohl:
   kbcat: kurbul
   armorType: Kneecops
   detailMaterial: Kûrbúl
-  material: Kûrbúl
-  durability: 13
-  value: 15
-  weight: 1.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lkneeloc
-    - rkneeloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.1
+    valueBase: 15
+    durabilityBase: 13
+    material: Kûrbúl
+    locations:
+      flexible: []
+      rigid:
+        - lkneeloc
+        - rkneeloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 15
 origWeight: 1.1

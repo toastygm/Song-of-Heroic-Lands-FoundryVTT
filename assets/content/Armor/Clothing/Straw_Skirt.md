@@ -16,26 +16,28 @@ sohl:
   kbcat: cloth
   armorType: Skirt
   detailMaterial: Straw
-  material: Cloth
-  durability: 5
-  value: 10
-  weight: 0.5
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.5
+    valueBase: 10
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 9.8
 origWeight: 0.5

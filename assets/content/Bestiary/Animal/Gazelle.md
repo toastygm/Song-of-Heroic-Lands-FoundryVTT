@@ -5,7 +5,7 @@ tags:
 name:
   full: Gazelle
   aliases: []
-description: "A small, extraordinarily fast antelope of the Khazryn Desert, grazing gravel plains and scrublands in herds that flee predators at blistering speed."
+description: "A small, extraordinarily fast antelope of the deep desert, grazing gravel plains and scrublands in herds that flee predators at blistering speed."
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/gazelle-portrait.webp
 shortcode: gazelle
@@ -24,219 +24,6 @@ sohl:
     wil: 1d4+7
     rea: 1d4+5
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 2
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 4
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 3
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-    weight:
-      base: 200
-      calc: "200"
-    reachBase: 0
-    bodyScaleBase: 0.88
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 100
-      leaguesPerWatch: 7
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 9 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 11 } }
@@ -325,6 +112,218 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 2
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 4
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 3
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+      weight:
+        base: 200
+        calc: "200"
+      reachBase: 0
+      bodyScaleBase: 0.88
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 100
+        leaguesPerWatch: 7
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -333,7 +332,7 @@ The desert shimmers and what you took for heat haze resolves into movement — a
 
 # Dossier {#dossier}
 
-The Gazelle is the primary wild ungulate of the Khazryn Desert and surrounding steppe — a small, extraordinarily fast antelope found in herds across the gravel plains, scrubland margins, sand sea edges, and seasonal grasslands that characterize the great desert interior. An adult gazelle stands two to two and a half feet at the shoulder and weighs forty to seventy-five pounds, making it substantially smaller than a stag but compensating with a speed and agility that no other land animal of its size can match. Gazelles are the ecological keystone of the desert food web — they are the primary prey of steppe lions, cheetahs, jackals, and eagles, and their presence or absence determines the viability of predator populations across vast territories. For the Khazryn nomads, gazelles are equally essential: a staple source of meat and hide, a traditional quarry for the mounted hunts that define warrior status, and a cultural symbol of grace, speed, and the freedom of the open steppe. Adventurers encounter gazelles constantly when crossing Khazryn territory — herds drifting across the plains at dawn and dusk, solitary bucks standing sentinel on rocky outcrops, and the tracks and droppings that mark the seasonal migration routes connecting one water source to the next.
+The Gazelle is the primary wild ungulate of the deep desert and surrounding steppe — a small, extraordinarily fast antelope found in herds across the gravel plains, scrubland margins, sand sea edges, and seasonal grasslands that characterize the great desert interior. An adult gazelle stands two to two and a half feet at the shoulder and weighs forty to seventy-five pounds, making it substantially smaller than a stag but compensating with a speed and agility that no other land animal of its size can match. Gazelles are the ecological keystone of the desert food web — they are the primary prey of steppe lions, cheetahs, jackals, and eagles, and their presence or absence determines the viability of predator populations across vast territories. For the desert nomads, gazelles are equally essential: a staple source of meat and hide, a traditional quarry for the mounted hunts that define warrior status, and a cultural symbol of grace, speed, and the freedom of the open steppe. Adventurers encounter gazelles constantly when crossing desert territory — herds drifting across the plains at dawn and dusk, solitary bucks standing sentinel on rocky outcrops, and the tracks and droppings that mark the seasonal migration routes connecting one water source to the next.
 
 ## Presentation
 
@@ -365,7 +364,7 @@ The gazelle's primary survival trait. From a standing start, a gazelle can reach
 
 ### Desert Endurance
 
-Gazelles are superbly adapted to desert survival. They tolerate temperatures that prostrate larger animals, require minimal water, and can sustain a ground-covering trot for hours across terrain that exhausts horses. Their pale coat reflects heat, their nasal passages cool incoming air through a countercurrent system, and their kidneys concentrate waste to minimize water loss. In the Khazryn, gazelles can range across territory that no horse-mounted pursuer can follow without resupply.
+Gazelles are superbly adapted to desert survival. They tolerate temperatures that prostrate larger animals, require minimal water, and can sustain a ground-covering trot for hours across terrain that exhausts horses. Their pale coat reflects heat, their nasal passages cool incoming air through a countercurrent system, and their kidneys concentrate waste to minimize water loss. In the deep desert, gazelles can range across territory that no horse-mounted pursuer can follow without resupply.
 
 ### Herd Vigilance
 

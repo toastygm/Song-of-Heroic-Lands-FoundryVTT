@@ -4,9 +4,8 @@ tags:
   - image-needed
 name:
   full: Jaguar
-  aliases:
-    - Ix'balam
-description: "The stocky apex cat of K'ich'chik's jungles and riverbanks, wielding the strongest proportional bite of any cat, able to puncture turtle shell and skull."
+  aliases: []
+description: "The stocky apex cat of tropical jungles and riverbanks, wielding the strongest proportional bite of any cat, able to puncture turtle shell and skull."
 img: icons/game-icons/delapouite/feline.svg
 portrait: images/being/jaguar-portrait.webp
 shortcode: jaguar
@@ -25,208 +24,6 @@ sohl:
     wil: 1d6+11
     rea: 1d4+6
     cre: 1d4+5
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 1
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 3
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 1
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-            - manipulator
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Thorax
-          shortcode: thoraxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 3
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Pelvis
-          shortcode: plvsloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 2
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 60
-      calc: "60"
-    reachBase: 0
-    bodyScaleBase: 1.38
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 70
-      leaguesPerWatch: 4
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 18 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 15 } }
@@ -315,23 +112,224 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 1
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 3
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 1
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+              - manipulator
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Thorax
+            shortcode: thoraxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 3
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Pelvis
+            shortcode: plvsloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 2
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 60
+        calc: "60"
+      reachBase: 0
+      bodyScaleBase: 1.38
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 70
+        leaguesPerWatch: 4
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
 
-The jungle is silent. Not the ambient silence of a forest at rest, but the held-breath silence of every living thing that knows what is nearby. You scan the undergrowth and see nothing — dappled shadow, the play of light through canopy, a confusion of leaf and vine. Then the shadows rearrange themselves and you see the eyes. Gold. Absolutely steady. Fixed on you with an intensity that makes the back of your neck go cold. The body materializes around those eyes — low, heavy, impossibly broad across the shoulders, covered in a coat of burnished gold marked with rosettes so dark they seem to absorb light. This is not the lean, nervous grace of the mountain lion. This is something heavier. Something built to crush. The jaw is enormous — wider and more powerful than any cat you have ever seen, set in a skull that looks like it was designed to break things open. When it shifts its weight, the muscles move beneath the spotted fur like tectonic plates, and you understand with sudden, visceral clarity why the Ki'ichek named their warriors after this animal. It does not need to chase you. It was here before you arrived. It will be here after you leave. If it allows you to leave.
+The jungle is silent. Not the ambient silence of a forest at rest, but the held-breath silence of every living thing that knows what is nearby. You scan the undergrowth and see nothing — dappled shadow, the play of light through canopy, a confusion of leaf and vine. Then the shadows rearrange themselves and you see the eyes. Gold. Absolutely steady. Fixed on you with an intensity that makes the back of your neck go cold. The body materializes around those eyes — low, heavy, impossibly broad across the shoulders, covered in a coat of burnished gold marked with rosettes so dark they seem to absorb light. This is not the lean, nervous grace of the mountain lion. This is something heavier. Something built to crush. The jaw is enormous — wider and more powerful than any cat you have ever seen, set in a skull that looks like it was designed to break things open. When it shifts its weight, the muscles move beneath the spotted fur like tectonic plates, and you understand with sudden, visceral clarity why the jungle peoples named their warriors after this animal. It does not need to chase you. It was here before you arrived. It will be here after you leave. If it allows you to leave.
 
 # Dossier {#dossier}
 
-The Jaguar is the apex predator of [[doc-kchchkcntnnt|K'ich'chik Continent]] — a powerful, stocky cat that dominates the jungles, riverbanks, and forest margins of the western continent. Standing roughly two and a half feet at the shoulder and weighing one hundred fifty to two hundred fifty pounds, the jaguar is smaller than the lion or tiger but possesses the strongest bite of any cat in proportion to its size — powerful enough to puncture turtle shells, crack caiman skulls, and pierce bone directly through the cranium. Where other great cats kill by suffocation, the jaguar kills by crushing the skull. This difference in killing method reflects its entire design philosophy: the jaguar is built for power rather than speed, for ambush rather than pursuit, and for water as much as land. It is the most important animal in Ki'ichek civilization. The word _Ix'balam_ appears in personal names, warrior titles, place names, and religious ceremonies. The jaguar warrior orders are the elite military forces of the priest-kings, and jaguar thrones are symbols of supreme authority. To the Ki'ichek, the jaguar is not merely an animal — it is the living embodiment of predatory power, a guardian of the threshold between the mortal world and the spirit realm. Adventurers in K'ich'chik encounter the jaguar's shadow constantly: in the rosette patterns on temple walls, in the spotted cloaks of warrior-priests, and — if they venture into the deep jungle — in the terrible, watching silence of the animal itself.
+The Jaguar is the apex predator of the tropical lowlands — a powerful, stocky cat that dominates the jungles, riverbanks, and forest margins. Standing roughly two and a half feet at the shoulder and weighing one hundred fifty to two hundred fifty pounds, the jaguar is smaller than the lion or tiger but possesses the strongest bite of any cat in proportion to its size — powerful enough to puncture turtle shells, crack caiman skulls, and pierce bone directly through the cranium. Where other great cats kill by suffocation, the jaguar kills by crushing the skull. This difference in killing method reflects its entire design philosophy: the jaguar is built for power rather than speed, for ambush rather than pursuit, and for water as much as land. It is the most important animal in the jungle civilizations. Their word for it appears in personal names, warrior titles, place names, and religious ceremonies. The jaguar warrior orders are the elite military forces of the priest-kings, and jaguar thrones are symbols of supreme authority. To the jungle peoples, the jaguar is not merely an animal — it is the living embodiment of predatory power, a guardian of the threshold between the mortal world and the spirit realm. Adventurers in the deep tropics encounter the jaguar's shadow constantly: in the rosette patterns on temple walls, in the spotted cloaks of warrior-priests, and — if they venture into the deep jungle — in the terrible, watching silence of the animal itself.
 
 ## Presentation
 
-The jaguar is built along fundamentally different lines than other great cats. Where the leopard is lean and the lion is tall, the jaguar is compact and enormously powerful — short-legged, broad-chested, and heavy through the shoulders and skull in a way that speaks of crushing force rather than running speed. The coat is golden-tawny, marked with distinctive rosettes: dark rings enclosing smaller spots, larger and more complex than the leopard's simpler markings. Some jaguars — called _ix'balam ch'ul_ (shadow jaguars) by the Ki'ichek — carry a melanistic gene that turns the coat black, the rosettes visible only in certain light as darker patterns within darkness. These black jaguars are considered especially sacred, ambassadors of the underworld. The head is the most striking feature: disproportionately large, with a broad skull and massive jaw muscles that give the face a squared, heavy appearance unlike the narrower profiles of other cats. The canine teeth are thick and robust, designed for piercing rather than slicing. The paws are broad, with partially webbed toes that make the jaguar an excellent swimmer — a fact that distinguishes it sharply from most other cats. The overall impression is of something designed for maximum force in minimum space: a creature that does not need to be the largest cat to be the most dangerous.
+The jaguar is built along fundamentally different lines than other great cats. Where the leopard is lean and the lion is tall, the jaguar is compact and enormously powerful — short-legged, broad-chested, and heavy through the shoulders and skull in a way that speaks of crushing force rather than running speed. The coat is golden-tawny, marked with distinctive rosettes: dark rings enclosing smaller spots, larger and more complex than the leopard's simpler markings. Some jaguars — called shadow jaguars by the jungle peoples — carry a melanistic gene that turns the coat black, the rosettes visible only in certain light as darker patterns within darkness. These black jaguars are considered especially sacred, ambassadors of the underworld. The head is the most striking feature: disproportionately large, with a broad skull and massive jaw muscles that give the face a squared, heavy appearance unlike the narrower profiles of other cats. The canine teeth are thick and robust, designed for piercing rather than slicing. The paws are broad, with partially webbed toes that make the jaguar an excellent swimmer — a fact that distinguishes it sharply from most other cats. The overall impression is of something designed for maximum force in minimum space: a creature that does not need to be the largest cat to be the most dangerous.
 
 ## Key Behaviors
 
-Jaguars are solitary ambush predators that maintain territories along rivers, lakeshores, and forest margins — wherever water and prey intersect. They are exceptional swimmers and routinely hunt in water, taking caimans, turtles, large fish, and capybaras from rivers and pools. On land, they stalk prey through dense cover with patience that can last hours, then attack with a short, explosive rush. Unlike other cats, jaguars rarely pursue fleeing prey — if the ambush fails, they retreat and try again later. They are crepuscular, most active at dawn and dusk, though jungle jaguars may hunt at any hour in the perpetual twilight beneath the canopy. Jaguars are territorial and mark their ranges with claw marks on trees, scent deposits, and vocalizations — a deep, resonant, coughing roar that carries through jungle for great distances. The sound is distinctive and unmistakable, and experienced Ki'ichek hunters can identify individual jaguars by their calls. Despite their fearsome reputation, jaguars rarely attack humans unprovoked — but a jaguar that has been injured, that is defending cubs, or that has learned that humans are easy prey becomes one of the most dangerous animals in the world.
+Jaguars are solitary ambush predators that maintain territories along rivers, lakeshores, and forest margins — wherever water and prey intersect. They are exceptional swimmers and routinely hunt in water, taking caimans, turtles, large fish, and capybaras from rivers and pools. On land, they stalk prey through dense cover with patience that can last hours, then attack with a short, explosive rush. Unlike other cats, jaguars rarely pursue fleeing prey — if the ambush fails, they retreat and try again later. They are crepuscular, most active at dawn and dusk, though jungle jaguars may hunt at any hour in the perpetual twilight beneath the canopy. Jaguars are territorial and mark their ranges with claw marks on trees, scent deposits, and vocalizations — a deep, resonant, coughing roar that carries through jungle for great distances. The sound is distinctive and unmistakable, and experienced jungle hunters can identify individual jaguars by their calls. Despite their fearsome reputation, jaguars rarely attack humans unprovoked — but a jaguar that has been injured, that is defending cubs, or that has learned that humans are easy prey becomes one of the most dangerous animals in the world.
 
 ## Combat Strategy
 
@@ -376,7 +374,7 @@ The jaguar's rosette pattern provides extraordinary camouflage in the dappled li
 - **Dexterity:** 12-17 (1d6+11) — Precise and controlled; excellent climber and swimmer
 - **Agility:** 13-18 (1d6+12) — Quick and fluid, though stockier than the leopard
 - **Perception:** 13-18 (1d6+12) — Excellent senses; hunts in jungle twilight and murky water
-- **Aura:** 11-16 (1d6+10) — The sacred animal of K'ich'chik; warrior-god avatar; underworld guardian
+- **Aura:** 11-16 (1d6+10) — The sacred animal of the jungle civilizations; warrior-god avatar; underworld guardian
 - **Will:** 12-17 (1d6+11) — Fearless and patient; does not abandon a committed hunt
 - **Reasoning:** 7-10 (1d4+6) — Intelligent predator; learns individual prey behavior
 - **Creativity:** 6-9 (1d4+5) — Adaptable; adjusts hunting strategy to environment

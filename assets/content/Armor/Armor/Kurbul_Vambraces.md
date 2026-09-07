@@ -16,22 +16,24 @@ sohl:
   kbcat: kurbul
   armorType: Vambraces
   detailMaterial: Kûrbúl
-  material: Kûrbúl
-  durability: 13
-  value: 25
-  weight: 1.9
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lfraloc
-    - rfraloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.9
+    valueBase: 25
+    durabilityBase: 13
+    material: Kûrbúl
+    locations:
+      flexible: []
+      rigid:
+        - lfraloc
+        - rfraloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 25
 origWeight: 1.9

@@ -15,10 +15,11 @@ sohl:
     skill: fish
     secondary: []
   kbcat: food
-  quality: 0
-  durability: 0
-  value: 1
-  weight: 0.75
+  system:
+    weightBase: 0.75
+    valueBase: 1
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: food
 ---
 

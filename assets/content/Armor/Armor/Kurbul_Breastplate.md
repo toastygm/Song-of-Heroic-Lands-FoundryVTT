@@ -16,26 +16,28 @@ sohl:
   kbcat: kurbul
   armorType: Breastplate
   detailMaterial: Kûrbúl
-  material: Kûrbúl
-  durability: 13
-  value: 60
-  weight: 4.6
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-  facing:
-    - location: thrxloc
-      side: front
-    - location: abdmnloc
-      side: front
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 4.6
+    valueBase: 60
+    durabilityBase: 13
+    material: Kûrbúl
+    locations:
+      flexible: []
+      rigid:
+        - thrxloc
+        - abdmnloc
+      facing:
+        - location: thrxloc
+          side: front
+        - location: abdmnloc
+          side: front
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 60
 origWeight: 4.5

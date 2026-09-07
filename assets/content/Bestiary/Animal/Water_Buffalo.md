@@ -24,219 +24,6 @@ sohl:
     wil: 1d6+11
     rea: 1d4+4
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 4
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 8
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 6
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 4
-            edged: 3
-            piercing: 2
-            fire: 4
-    weight:
-      base: 1500
-      calc: "1500"
-    reachBase: 0
-    bodyScaleBase: 1.38
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 60
-      leaguesPerWatch: 4
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 18 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 17 } }
@@ -325,6 +112,218 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 4
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 8
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 6
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 4
+              edged: 3
+              piercing: 2
+              fire: 4
+      weight:
+        base: 1500
+        calc: "1500"
+      reachBase: 0
+      bodyScaleBase: 1.38
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 60
+        leaguesPerWatch: 4
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -333,7 +332,7 @@ The mud stirs, and what you took for a low island of dark earth reveals itself a
 
 # Dossier {#dossier}
 
-The Water Buffalo is the great working beast of the Kheperi floodplains — a massive, semi-aquatic bovine found both as a domesticated draft animal and in feral herds along the Tameresh River and its tributaries. A domestic bull stands five to six feet at the shoulder and weighs fifteen hundred to twenty-five hundred pounds; feral bulls can exceed this, reaching twenty-six hundred pounds or more in the rich grazing lands of the river margins. Water buffalo have been domesticated in Kheperi lands for millennia, serving as plow animals, cart haulers, and sources of milk, leather, and horn. They are essential to the agricultural economy of the floodplain — without them, the heavy clay soils of the river margins could not be effectively farmed. However, feral herds represent a genuine danger. Water buffalo that have escaped domestication or descended from escaped stock form herds of twenty to sixty individuals that are fiercely territorial, aggressive, and powerful enough to kill any predator in the region except perhaps an elephant. Adventurers encounter water buffalo constantly in Kheperi farmlands, along river crossings, in marshland passages, and in the wild grasslands of the upper Tameresh where feral herds have established permanent territories.
+The Water Buffalo is the great working beast of the floodplains — a massive, semi-aquatic bovine found both as a domesticated draft animal and in feral herds along the great river and its tributaries. A domestic bull stands five to six feet at the shoulder and weighs fifteen hundred to twenty-five hundred pounds; feral bulls can exceed this, reaching twenty-six hundred pounds or more in the rich grazing lands of the river margins. Water buffalo have been domesticated in the river lands for millennia, serving as plow animals, cart haulers, and sources of milk, leather, and horn. They are essential to the agricultural economy of the floodplain — without them, the heavy clay soils of the river margins could not be effectively farmed. However, feral herds represent a genuine danger. Water buffalo that have escaped domestication or descended from escaped stock form herds of twenty to sixty individuals that are fiercely territorial, aggressive, and powerful enough to kill any predator in the region except perhaps an elephant. Adventurers encounter water buffalo constantly in the river farmlands, along river crossings, in marshland passages, and in the wild grasslands of the upper river where feral herds have established permanent territories.
 
 ## Presentation
 
@@ -341,7 +340,7 @@ A massively built bovine with a heavy, rectangular body covered in sparse, coars
 
 ## Key Behaviors
 
-Water buffalo are gregarious, forming herds structured around a core group of related females and their calves, with bulls either solitary or in small bachelor groups outside of mating season. Dominant bulls join female herds during rut and defend access to females through display and combat. They are semi-aquatic by nature, spending much of the day partially submerged in rivers, marshes, or mud wallows to regulate body temperature and escape biting insects. They graze primarily on coarse marsh grasses, reeds, and aquatic vegetation, feeding in the cooler hours of dawn and dusk and resting during midday heat. Domesticated buffalo are generally docile but can be unpredictable — even well-trained working animals retain the capacity for sudden aggression, particularly bulls during rut or cows defending calves. Feral buffalo are a different matter entirely. Freed from human control, they revert to wild behavior within a generation — suspicious, territorial, and willing to attack perceived threats without provocation. Feral bulls that have been wounded by hunters or harassed by predators become solitary and dangerously aggressive, charging anything that enters their territory. These rogue bulls are among the most feared animals in the Kheperi lowlands, considered more dangerous than lions by experienced hunters.
+Water buffalo are gregarious, forming herds structured around a core group of related females and their calves, with bulls either solitary or in small bachelor groups outside of mating season. Dominant bulls join female herds during rut and defend access to females through display and combat. They are semi-aquatic by nature, spending much of the day partially submerged in rivers, marshes, or mud wallows to regulate body temperature and escape biting insects. They graze primarily on coarse marsh grasses, reeds, and aquatic vegetation, feeding in the cooler hours of dawn and dusk and resting during midday heat. Domesticated buffalo are generally docile but can be unpredictable — even well-trained working animals retain the capacity for sudden aggression, particularly bulls during rut or cows defending calves. Feral buffalo are a different matter entirely. Freed from human control, they revert to wild behavior within a generation — suspicious, territorial, and willing to attack perceived threats without provocation. Feral bulls that have been wounded by hunters or harassed by predators become solitary and dangerously aggressive, charging anything that enters their territory. These rogue bulls are among the most feared animals in the river lowlands, considered more dangerous than lions by experienced hunters.
 
 ## Combat Strategy
 

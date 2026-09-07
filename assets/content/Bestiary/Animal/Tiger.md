@@ -24,208 +24,6 @@ sohl:
     wil: 1d6+11
     rea: 1d4+6
     cre: 1d4+5
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 2
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 4
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 2
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-            - manipulator
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Thorax
-          shortcode: thoraxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 3
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Pelvis
-          shortcode: plvsloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 2
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 150
-      calc: "150"
-    reachBase: 0
-    bodyScaleBase: 1.47
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 80
-      leaguesPerWatch: 4
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 20 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 16 } }
@@ -314,6 +112,207 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 2
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 4
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 2
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+              - manipulator
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Thorax
+            shortcode: thoraxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 3
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Pelvis
+            shortcode: plvsloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 2
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 150
+        calc: "150"
+      reachBase: 0
+      bodyScaleBase: 1.47
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 80
+        leaguesPerWatch: 4
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -322,19 +321,19 @@ The jungle goes silent. Not quiet — silent. The birds stop. The insects stop. 
 
 # Dossier {#dossier}
 
-The Tiger is the supreme predator of [[doc-vedyarargn|Vedyara Region]] — the largest cat in the world, a solitary ambush hunter of jungle, tall grass, river margin, and mountain forest that sits at the absolute apex of every food chain it inhabits. An adult male stands three to three and a half feet at the shoulder, measures nine to twelve feet from nose to tail tip, and weighs four hundred to six hundred and sixty pounds, with exceptional specimens exceeding this range. Females are smaller but still substantially larger than a male lion. The tiger is heavier, stronger, and more powerfully built than any other cat, combining the leopard's ambush tactics with the lion's killing power, amplified to a scale that makes it the single most dangerous terrestrial predator adventurers can encounter.
+The Tiger is the supreme predator of the monsoon south — the largest cat in the world, a solitary ambush hunter of jungle, tall grass, river margin, and mountain forest that sits at the absolute apex of every food chain it inhabits. An adult male stands three to three and a half feet at the shoulder, measures nine to twelve feet from nose to tail tip, and weighs four hundred to six hundred and sixty pounds, with exceptional specimens exceeding this range. Females are smaller but still substantially larger than a male lion. The tiger is heavier, stronger, and more powerfully built than any other cat, combining the leopard's ambush tactics with the lion's killing power, amplified to a scale that makes it the single most dangerous terrestrial predator adventurers can encounter.
 
-In Vedyaran culture, the tiger is woven into the fabric of existence. It is sacred to [[affiliation-varakpnthn|Rásikara]] — the destroyer and transformer — and its image adorns temple walls, warrior shields, and the thrones of kings. The tiger represents divine wrath, the untameable wildness at the heart of nature, and the inescapable consequence of transgression. To kill a tiger is either a supreme act of heroism or a terrible sacrilege, depending on the circumstances and the priesthood consulted. To be killed by a tiger is, in certain theological traditions, a form of divine selection. None of this theology provides much comfort when you hear the silence descend on the forest around you.
+In the culture of the monsoon south, the tiger is woven into the fabric of existence. It is sacred to the god of destruction and transformation, and its image adorns temple walls, warrior shields, and the thrones of kings. The tiger represents divine wrath, the untameable wildness at the heart of nature, and the inescapable consequence of transgression. To kill a tiger is either a supreme act of heroism or a terrible sacrilege, depending on the circumstances and the priesthood consulted. To be killed by a tiger is, in certain theological traditions, a form of divine selection. None of this theology provides much comfort when you hear the silence descend on the forest around you.
 
-Tigers are simultaneously revered and feared in every Vedyaran settlement that borders their territory. Villages at the jungle's edge live with the constant awareness that the greatest predator in the world is hunting within earshot. Livestock losses are expected and endured. Human kills — and tigers do kill and eat humans — are met with a complicated mixture of grief, terror, and religious resignation. The rare tiger that develops a preference for human prey becomes a man-eater, and a man-eater is the most feared phenomenon in Vedyaran life: a creature of supernatural intelligence and boldness that takes people from their homes, their fields, and their paths with an efficiency that borders on the purposeful.
+Tigers are simultaneously revered and feared in every southern settlement that borders their territory. Villages at the jungle's edge live with the constant awareness that the greatest predator in the world is hunting within earshot. Livestock losses are expected and endured. Human kills — and tigers do kill and eat humans — are met with a complicated mixture of grief, terror, and religious resignation. The rare tiger that develops a preference for human prey becomes a man-eater, and a man-eater is the most feared phenomenon in southern life: a creature of supernatural intelligence and boldness that takes people from their homes, their fields, and their paths with an efficiency that borders on the purposeful.
 
-Adventurers encounter tigers in the forests, grasslands, and river margins of Vedyara — or rather, tigers encounter them. You do not find a tiger in the jungle. The tiger finds you, decides whether you are prey, threat, or irrelevance, and acts accordingly. If you see a tiger, it has decided to let you see it. If you do not see a tiger, that does not mean one is not there.
+Adventurers encounter tigers in the forests, grasslands, and river margins of the south — or rather, tigers encounter them. You do not find a tiger in the jungle. The tiger finds you, decides whether you are prey, threat, or irrelevance, and acts accordingly. If you see a tiger, it has decided to let you see it. If you do not see a tiger, that does not mean one is not there.
 
 ## Presentation
 
 The tiger is immediately recognizable and utterly unlike any other animal. The body is massive — long, deep-chested, and carried on proportionally shorter, thicker legs than a lion's, giving the tiger a lower, heavier silhouette that suggests irresistible forward momentum. The forelimbs are enormously powerful, with broad paws the size of dinner plates armed with retractable claws that are thick, curved, and capable of hooking and holding prey while the jaws do their work. The head is broad and round, wider than a lion's, with powerful jaw muscles that give the skull a heavy, square appearance. The canine teeth are the longest of any living cat — three to four inches in length — and the jaw force behind them can crush the vertebrae of animals twice the tiger's own weight.
 
-The coat is the tiger's signature: a base of rich orange-gold to tawny, overlaid with vertical black stripes that vary in width, spacing, and pattern — no two tigers share identical striping, and experienced Vedyaran trackers identify individuals by their markings. The belly and inner legs are white or cream, and the face carries a complex pattern of stripes, white patches, and black accents around the eyes, cheeks, and muzzle that creates a mask of extraordinary expressiveness. The ears are rounded, black-backed with a conspicuous white spot — a "false eye" that may deter attacks from behind. The tail is long, thick, and ringed with dark bands.
+The coat is the tiger's signature: a base of rich orange-gold to tawny, overlaid with vertical black stripes that vary in width, spacing, and pattern — no two tigers share identical striping, and experienced southern trackers identify individuals by their markings. The belly and inner legs are white or cream, and the face carries a complex pattern of stripes, white patches, and black accents around the eyes, cheeks, and muzzle that creates a mask of extraordinary expressiveness. The ears are rounded, black-backed with a conspicuous white spot — a "false eye" that may deter attacks from behind. The tail is long, thick, and ringed with dark bands.
 
 The striping serves as camouflage of devastating effectiveness. In the dappled light of the forest — where sun and shadow create vertical bars through bamboo, grass, and tree trunks — the tiger's stripes dissolve the animal's outline into incoherent fragments. A six-hundred-pound predator can be invisible at twenty feet. This camouflage is not merely effective; it is psychologically disturbing. The human eye recognizes movement and shape, and the tiger's stripes defeat both — the animal can lie in plain sight, and the eye slides over it without assembling the fragments into the shape of the thing that is about to kill you.
 
@@ -382,19 +381,19 @@ A tiger that has seized a target with its forepaws and teeth will bring the hind
 
 ### Jungle Ghost
 
-The tiger's striped camouflage, combined with its ability to move through dense vegetation in near-total silence, makes it effectively invisible in its preferred habitat. A tiger stalking through bamboo, tall grass, or forest undergrowth displaces almost no vegetation, makes almost no sound, and presents a visual profile that the human eye cannot assemble into a recognizable shape until it is far too late. Experienced Vedyaran hunters state that the only reliable way to detect a stalking tiger is to listen for the silence — when the jungle stops making noise, the tiger is close.
+The tiger's striped camouflage, combined with its ability to move through dense vegetation in near-total silence, makes it effectively invisible in its preferred habitat. A tiger stalking through bamboo, tall grass, or forest undergrowth displaces almost no vegetation, makes almost no sound, and presents a visual profile that the human eye cannot assemble into a recognizable shape until it is far too late. Experienced southern hunters state that the only reliable way to detect a stalking tiger is to listen for the silence — when the jungle stops making noise, the tiger is close.
 
 ### Apex Predator
 
-The tiger sits at the absolute top of the Vedyaran food chain. There is nothing in the jungle, the grassland, or the river margin that hunts tigers. This ecological dominance shapes every aspect of the tiger's behavior: it moves through its territory with a confidence that borders on contempt, it does not flee from threats but instead assesses and responds, and it treats everything it encounters as either prey, rival, or irrelevance. Adventurers accustomed to animals that flee from humans must recalibrate their expectations immediately — a tiger will not run from a party of armed humans unless it has specific reason to associate humans with danger.
+The tiger sits at the absolute top of the southern food chain. There is nothing in the jungle, the grassland, or the river margin that hunts tigers. This ecological dominance shapes every aspect of the tiger's behavior: it moves through its territory with a confidence that borders on contempt, it does not flee from threats but instead assesses and responds, and it treats everything it encounters as either prey, rival, or irrelevance. Adventurers accustomed to animals that flee from humans must recalibrate their expectations immediately — a tiger will not run from a party of armed humans unless it has specific reason to associate humans with danger.
 
 ### Water Hunter
 
-Unlike most cats, the tiger is a powerful and willing swimmer, capable of crossing rivers, hunting in marshland, and pursuing prey into water. Tigers have been documented swimming miles across open water and taking prey — deer, boar, even humans in boats — from the water's edge. In the river margins and floodplains of Vedyara, a tiger's hunting territory extends seamlessly from land to water, and the assumption that a river provides safety from pursuit is dangerously incorrect.
+Unlike most cats, the tiger is a powerful and willing swimmer, capable of crossing rivers, hunting in marshland, and pursuing prey into water. Tigers have been documented swimming miles across open water and taking prey — deer, boar, even humans in boats — from the water's edge. In the river margins and floodplains of the south, a tiger's hunting territory extends seamlessly from land to water, and the assumption that a river provides safety from pursuit is dangerously incorrect.
 
 ### Man-Eater Potential
 
-A tiger that has killed and eaten a human may develop a preference for human prey — the beginning of a man-eating career that can claim dozens of victims before it ends. Man-eaters are not aberrant or insane; they are tigers that have made a rational assessment that humans are abundant, predictable, and easy to kill compared to their natural prey. A man-eater learns human patterns and exploits them with a patience and intelligence that makes it the most dangerous animal phenomenon in the Vedyaran world. Communities afflicted by a man-eater live in a state of siege, and the hunter or adventurer who kills a confirmed man-eater earns a reputation that lasts a lifetime.
+A tiger that has killed and eaten a human may develop a preference for human prey — the beginning of a man-eating career that can claim dozens of victims before it ends. Man-eaters are not aberrant or insane; they are tigers that have made a rational assessment that humans are abundant, predictable, and easy to kill compared to their natural prey. A man-eater learns human patterns and exploits them with a patience and intelligence that makes it the most dangerous animal phenomenon in the tropical south. Communities afflicted by a man-eater live in a state of siege, and the hunter or adventurer who kills a confirmed man-eater earns a reputation that lasts a lifetime.
 
 ## Attributes
 

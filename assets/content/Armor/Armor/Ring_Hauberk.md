@@ -16,32 +16,34 @@ sohl:
   kbcat: ring
   armorType: Hauberk
   detailMaterial: Ring
-  material: Ring
-  durability: 13
-  value: 865
-  weight: 34.6
-  encumbrance: 15
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - lfraloc
-    - rfraloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 34.6
+    valueBase: 865
+    durabilityBase: 13
+    material: Ring
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - lfraloc
+        - rfraloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 15
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 864
 origWeight: 34.6

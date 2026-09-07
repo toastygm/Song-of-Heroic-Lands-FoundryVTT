@@ -16,27 +16,29 @@ sohl:
   kbcat: cloth
   armorType: Leggings
   detailMaterial: Linen
-  material: Cloth
-  durability: 5
-  value: 18
-  weight: 0.5
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.5
+    valueBase: 18
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 36
 origWeight: 1.8

@@ -24,219 +24,6 @@ sohl:
     wil: 1d6+7
     rea: 1d4+2
     cre: 1d4+2
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 4
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 8
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 6
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 5
-            edged: 4
-            piercing: 2
-            fire: 4
-    weight:
-      base: 1000
-      calc: "1000"
-    reachBase: 0
-    bodyScaleBase: 1.75
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 140
-      leaguesPerWatch: 10
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 26 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 10 } }
@@ -325,6 +112,218 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 4
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 8
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 6
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 5
+              edged: 4
+              piercing: 2
+              fire: 4
+      weight:
+        base: 1000
+        calc: "1000"
+      reachBase: 0
+      bodyScaleBase: 1.75
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 140
+        leaguesPerWatch: 10
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -333,7 +332,7 @@ The herd appears on the ridge at sunset — twenty, thirty dark shapes silhouett
 
 # Dossier {#dossier}
 
-The Wild Horse is the untamed ancestor of every domestic horse breed in the Khazryn and surrounding regions — a stocky, powerful equine found in bands across the open steppe, gravel plains, and semi-arid grasslands of central Ankaris. A wild horse stands thirteen to fifteen hands at the shoulder and weighs six hundred to eight hundred pounds, smaller and heavier-boned than most domestic breeds but possessed of an endurance, toughness, and sheer will to survive that no stable-raised animal can match. Wild horses live in bands of five to twenty individuals led by a dominant stallion, ranging across vast territories in pursuit of seasonal grazing and water. For the Khazryn nomads, wild horses are culturally sacred — they represent the spirit of the steppe itself, untamed and unbowed, and the ancestral bloodlines from which the nomads' own legendary mounts descend. Capturing and breaking a wild horse is a traditional test of manhood among some tribes, though the resulting mounts are notoriously willful and unpredictable. Other tribes refuse to capture wild horses at all, considering them sacred beings that embody the freedom the desert people prize above all else. Adventurers encounter wild horse bands on the open steppe, at remote watering holes, and occasionally in explosive confrontations when a wild stallion attempts to steal mares from a camp's horse string.
+The Wild Horse is the untamed ancestor of every domestic horse breed of the steppe and surrounding regions — a stocky, powerful equine found in bands across the open steppe, gravel plains, and semi-arid grasslands of the continental interior. A wild horse stands thirteen to fifteen hands at the shoulder and weighs six hundred to eight hundred pounds, smaller and heavier-boned than most domestic breeds but possessed of an endurance, toughness, and sheer will to survive that no stable-raised animal can match. Wild horses live in bands of five to twenty individuals led by a dominant stallion, ranging across vast territories in pursuit of seasonal grazing and water. For the steppe nomads, wild horses are culturally sacred — they represent the spirit of the steppe itself, untamed and unbowed, and the ancestral bloodlines from which the nomads' own legendary mounts descend. Capturing and breaking a wild horse is a traditional test of manhood among some tribes, though the resulting mounts are notoriously willful and unpredictable. Other tribes refuse to capture wild horses at all, considering them sacred beings that embody the freedom the desert people prize above all else. Adventurers encounter wild horse bands on the open steppe, at remote watering holes, and occasionally in explosive confrontations when a wild stallion attempts to steal mares from a camp's horse string.
 
 ## Presentation
 
@@ -369,7 +368,7 @@ Wild horses possess an endurance that exceeds any domestic breed. Generations of
 
 ### Unbreakable Will
 
-The wild horse's defining characteristic. These animals have never been selected for docility, and their instinct for independence is so deep that captured wild horses resist breaking with a tenacity that borders on suicidal. A wild stallion will fight a rope until it collapses from exhaustion, and even horses that are nominally broken retain a willfulness and unpredictability that makes them unsuitable for inexperienced riders. Among the Khazryn, the rare warrior who successfully bonds with a wild-caught horse gains a mount of extraordinary toughness and loyalty — but also one that will never fully submit.
+The wild horse's defining characteristic. These animals have never been selected for docility, and their instinct for independence is so deep that captured wild horses resist breaking with a tenacity that borders on suicidal. A wild stallion will fight a rope until it collapses from exhaustion, and even horses that are nominally broken retain a willfulness and unpredictability that makes them unsuitable for inexperienced riders. Among the steppe tribes, the rare warrior who successfully bonds with a wild-caught horse gains a mount of extraordinary toughness and loyalty — but also one that will never fully submit.
 
 ### Herd Cohesion
 
@@ -377,7 +376,7 @@ A wild horse band responds to threats as a coordinated unit. The lead mare direc
 
 ### Primitive Hardiness
 
-Wild horses thrive in conditions that debilitate domestic breeds. They tolerate extreme heat and cold, subsist on forage that domestic horses cannot digest, and maintain condition through seasonal scarcity that would leave a stable-raised animal starving. Their hooves are naturally harder and more resistant to wear than domestic horses', requiring no shoeing even on rocky ground. Their immune systems are robust, resistant to many of the parasites and diseases that plague domestic herds. This hardiness is the product of millennia of natural selection in one of the harshest environments on Thalorna.
+Wild horses thrive in conditions that debilitate domestic breeds. They tolerate extreme heat and cold, subsist on forage that domestic horses cannot digest, and maintain condition through seasonal scarcity that would leave a stable-raised animal starving. Their hooves are naturally harder and more resistant to wear than domestic horses', requiring no shoeing even on rocky ground. Their immune systems are robust, resistant to many of the parasites and diseases that plague domestic herds. This hardiness is the product of millennia of natural selection in one of the harshest environments in the world.
 
 ## Attributes
 

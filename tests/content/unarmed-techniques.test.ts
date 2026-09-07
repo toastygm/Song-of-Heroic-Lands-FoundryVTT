@@ -133,7 +133,7 @@ describe.each(ROWS)("unarmed %s", (code, name, lng, zd, die, mod, aspect, role) 
     });
 
     it("is impaired by a role a human body actually has", () => {
-        expect(fm.sohl.impairedByRoles).toEqual([role]);
+        expect(fm.sohl.system.impairedByRoles).toEqual([role]);
     });
 });
 

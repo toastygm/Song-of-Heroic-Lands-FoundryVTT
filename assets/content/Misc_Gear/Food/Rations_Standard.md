@@ -15,10 +15,11 @@ sohl:
     skill: cook
     secondary: []
   kbcat: food
-  quality: 0
-  durability: 7
-  value: 2
-  weight: 3
+  system:
+    weightBase: 3
+    valueBase: 2
+    qualityBase: 0
+    durabilityBase: 7
 packFolder: food
 ---
 

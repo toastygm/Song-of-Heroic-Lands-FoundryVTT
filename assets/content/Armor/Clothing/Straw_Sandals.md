@@ -16,21 +16,23 @@ sohl:
   kbcat: cloth
   armorType: Sandals
   detailMaterial: Straw
-  material: Cloth
-  durability: 5
-  value: 2
-  weight: 0.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.1
+    valueBase: 2
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 1.8
 origWeight: 0.1

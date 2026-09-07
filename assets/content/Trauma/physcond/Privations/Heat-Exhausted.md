@@ -12,9 +12,10 @@ data:
 subType: physcond
 sohl:
   kbcat: physprivations
-  category: impediment
-  levelBase: 2
-  healingRateBase: 3
+  system:
+    category: impediment
+    levelBase: 2
+    healingRateBase: 3
 packFolder: privations
 ---
 

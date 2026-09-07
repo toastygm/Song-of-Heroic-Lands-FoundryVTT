@@ -5,7 +5,7 @@ tags:
 name:
   full: Giraffe
   aliases: []
-description: "The tallest animal alive, an improbable long-necked herbivore browsing the high canopy of the Xerathian savannahs and open woodlands."
+description: "The tallest animal alive, an improbable long-necked herbivore browsing the high canopy of the savannahs and open woodlands."
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/giraffe-portrait.webp
 shortcode: giraffe
@@ -24,218 +24,6 @@ sohl:
     wil: 1d6+9
     rea: 1d4+4
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 4
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 8
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 6
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 2000
-      calc: "2000"
-    reachBase: 0
-    bodyScaleBase: 1.38
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 70
-      leaguesPerWatch: 5
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 18 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 15 } }
@@ -324,6 +112,217 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 4
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 8
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 6
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 2000
+        calc: "2000"
+      reachBase: 0
+      bodyScaleBase: 1.38
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 70
+        leaguesPerWatch: 5
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -332,11 +331,11 @@ You have been watching it for several minutes before your mind finishes the calc
 
 # Dossier {#dossier}
 
-The Giraffe is the tallest animal in the world — a massive, extraordinary herbivore of the Xerathian savannahs and open woodlands, standing fifteen to nineteen feet tall and weighing eighteen hundred to twenty-eight hundred pounds. Nothing else in nature looks like it, nothing else occupies its ecological niche, and nothing quite prepares you for the first time you see one. The proportions are improbable: a neck that comprises nearly half the animal's height, legs longer than a tall man, a body that seems too compact for the scaffolding that supports it, and a head that sits at a height where it has no competition for food and no peer for surveillance. The giraffe is the watchtower of the savanna — its height gives it a visual range that exceeds any other animal's, and its presence or absence is read by every other species as an indicator of safety or danger.
+The Giraffe is the tallest animal in the world — a massive, extraordinary herbivore of the savannahs and open woodlands, standing fifteen to nineteen feet tall and weighing eighteen hundred to twenty-eight hundred pounds. Nothing else in nature looks like it, nothing else occupies its ecological niche, and nothing quite prepares you for the first time you see one. The proportions are improbable: a neck that comprises nearly half the animal's height, legs longer than a tall man, a body that seems too compact for the scaffolding that supports it, and a head that sits at a height where it has no competition for food and no peer for surveillance. The giraffe is the watchtower of the savanna — its height gives it a visual range that exceeds any other animal's, and its presence or absence is read by every other species as an indicator of safety or danger.
 
-In the cultures of southern [[doc-xerathia|Xerathia]], the giraffe occupies a position of reverent wonder. The savanna tribes regard it as a creature that walks between earth and sky — its head among the clouds, its feet on the ground, a living bridge between the realms. Giraffe imagery appears in rock paintings, ceremonial masks, and the oral traditions of the nomadic peoples who share the savanna with them. Giraffe hide is prized for shield-making (the thick, tough skin is excellent armor) and giraffe tail hair is braided into jewelry and fly whisks that serve as symbols of authority. Despite this cultural significance, giraffes are hunted — the meat of a single animal can feed a large group for days, and the hunt itself, targeting an animal that can see you coming from miles away and kick hard enough to kill a lion, is a formidable test of skill.
+In the cultures of the southern savanna, the giraffe occupies a position of reverent wonder. The savanna tribes regard it as a creature that walks between earth and sky — its head among the clouds, its feet on the ground, a living bridge between the realms. Giraffe imagery appears in rock paintings, ceremonial masks, and the oral traditions of the nomadic peoples who share the savanna with them. Giraffe hide is prized for shield-making (the thick, tough skin is excellent armor) and giraffe tail hair is braided into jewelry and fly whisks that serve as symbols of authority. Despite this cultural significance, giraffes are hunted — the meat of a single animal can feed a large group for days, and the hunt itself, targeting an animal that can see you coming from miles away and kick hard enough to kill a lion, is a formidable test of skill.
 
-Adventurers crossing the Xerathian savannahs see giraffes constantly — solitary bulls browsing at the woodland edge, small herds of females and young moving across open grassland, and occasionally the spectacular sight of two bulls fighting, swinging their massive necks at each other like siege weapons. They are not aggressive toward humans and will typically move away at a stately pace when approached, but a cornered giraffe or one defending a calf is one of the most dangerous animals on the savanna, capable of killing with a single kick.
+Adventurers crossing the savannahs see giraffes constantly — solitary bulls browsing at the woodland edge, small herds of females and young moving across open grassland, and occasionally the spectacular sight of two bulls fighting, swinging their massive necks at each other like siege weapons. They are not aggressive toward humans and will typically move away at a stately pace when approached, but a cornered giraffe or one defending a calf is one of the most dangerous animals on the savanna, capable of killing with a single kick.
 
 ## Presentation
 
@@ -392,7 +391,7 @@ Despite its ungainly appearance, a giraffe at full gallop is genuinely fast — 
 
 ### Thick Hide
 
-The giraffe's skin is thick and tough — up to an inch in places — and has been used by Xerathian peoples for shield-making for millennia. This natural armor provides meaningful protection against claw strikes and glancing blows, and combined with the animal's size, it makes the giraffe resistant to the predation methods that work against smaller herbivores. A lion that leaps onto a giraffe's back must contend with hide that resists penetration and a body that can simply walk away with the lion still clinging.
+The giraffe's skin is thick and tough — up to an inch in places — and has been used by savanna peoples for shield-making for millennia. This natural armor provides meaningful protection against claw strikes and glancing blows, and combined with the animal's size, it makes the giraffe resistant to the predation methods that work against smaller herbivores. A lion that leaps onto a giraffe's back must contend with hide that resists penetration and a body that can simply walk away with the lion still clinging.
 
 ## Attributes
 

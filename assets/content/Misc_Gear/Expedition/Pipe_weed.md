@@ -15,10 +15,11 @@ sohl:
     skill: agri
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 0
-  value: 2
-  weight: 0.0625
+  system:
+    weightBase: 0.0625
+    valueBase: 2
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: expedition
 ---
 

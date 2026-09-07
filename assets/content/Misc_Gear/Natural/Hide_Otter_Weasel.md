@@ -15,10 +15,11 @@ sohl:
     skill: srvl
     secondary: []
   kbcat: natural
-  quality: 0
-  durability: 3
-  value: 24
-  weight: 1.5
+  system:
+    weightBase: 1.5
+    valueBase: 24
+    qualityBase: 0
+    durabilityBase: 3
 packFolder: natural
 ---
 

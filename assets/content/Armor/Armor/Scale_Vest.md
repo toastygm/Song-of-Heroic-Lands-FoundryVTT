@@ -16,21 +16,23 @@ sohl:
   kbcat: scale
   armorType: Vest
   detailMaterial: Scale
-  material: Scale
-  durability: 14
-  value: 240
-  weight: 13.2
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 13.2
+    valueBase: 240
+    durabilityBase: 14
+    material: Scale
+    locations:
+      flexible: []
+      rigid:
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 240
 origWeight: 13.2

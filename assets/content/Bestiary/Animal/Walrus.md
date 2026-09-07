@@ -24,167 +24,6 @@ sohl:
     wil: 1d6+11
     rea: 1d4+4
     cre: 1d4+2
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 3
-        - name: Body
-          shortcode: torsozone
-          probWeight: 5
-        - name: Tail
-          shortcode: tailzone
-          probWeight: 2
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Body
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Fin
-          shortcode: lfinpart
-          bodyZoneCode: torsozone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 2
-        - name: Right Fin
-          shortcode: rfinpart
-          bodyZoneCode: torsozone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 2
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: tailzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 10
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 6
-            edged: 5
-            piercing: 3
-            fire: 5
-        - name: Gills
-          shortcode: gillloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 6
-            edged: 5
-            piercing: 3
-            fire: 5
-        - name: Body
-          shortcode: bodyloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 6
-            edged: 5
-            piercing: 3
-            fire: 5
-        - name: Underbelly
-          shortcode: underbellyloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 6
-            edged: 5
-            piercing: 3
-            fire: 5
-        - name: Left Fin
-          shortcode: lfinloc
-          bodyPartCode: lfinpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 6
-            edged: 5
-            piercing: 3
-            fire: 5
-        - name: Right Fin
-          shortcode: rfinloc
-          bodyPartCode: rfinpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 6
-            edged: 5
-            piercing: 3
-            fire: 5
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 6
-            edged: 5
-            piercing: 3
-            fire: 5
-    weight:
-      base: 400
-      calc: "400"
-    reachBase: 0
-    bodyScaleBase: 1.52
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 30
-      leaguesPerWatch: 1
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors:
-        - scope: hydrology
-          key: shallow
-          mode: add
-          textValue: "0"
-      disabled: false
-    - medium: aquatic
-      feetPerRound: 80
-      leaguesPerWatch: 8
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 21 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 20 } }
@@ -273,15 +112,170 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 3
+          - name: Body
+            shortcode: torsozone
+            probWeight: 5
+          - name: Tail
+            shortcode: tailzone
+            probWeight: 2
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Body
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Fin
+            shortcode: lfinpart
+            bodyZoneCode: torsozone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 2
+          - name: Right Fin
+            shortcode: rfinpart
+            bodyZoneCode: torsozone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 2
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: tailzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 10
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 6
+              edged: 5
+              piercing: 3
+              fire: 5
+          - name: Gills
+            shortcode: gillloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 6
+              edged: 5
+              piercing: 3
+              fire: 5
+          - name: Body
+            shortcode: bodyloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 6
+              edged: 5
+              piercing: 3
+              fire: 5
+          - name: Underbelly
+            shortcode: underbellyloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 6
+              edged: 5
+              piercing: 3
+              fire: 5
+          - name: Left Fin
+            shortcode: lfinloc
+            bodyPartCode: lfinpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 6
+              edged: 5
+              piercing: 3
+              fire: 5
+          - name: Right Fin
+            shortcode: rfinloc
+            bodyPartCode: rfinpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 6
+              edged: 5
+              piercing: 3
+              fire: 5
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 6
+              edged: 5
+              piercing: 3
+              fire: 5
+      weight:
+        base: 400
+        calc: "400"
+      reachBase: 0
+      bodyScaleBase: 1.52
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 30
+        leaguesPerWatch: 1
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
+      - medium: aquatic
+        feetPerRound: 80
+        leaguesPerWatch: 8
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
 
-The smell arrives first — a wall of fish and musk and rancid blubber that makes your eyes stream. Then you see them: a dozen mountains of wrinkled, pinkish-brown flesh hauled out on the rocks, so densely packed that individual bodies blur into a single undulating mass of hide and tusk. The nearest bull raises its head and you understand immediately why the Normen call them sea-kings. The face is a grotesque masterpiece — small, bloodshot eyes buried in folds of bristled skin, a mustache of coarse whiskers as thick as quills, and two ivory tusks descending from the upper jaw like curved swords, each one as long as your forearm and stained yellow with age. The animal weighs more than a horse. It should be helpless on land. It is not. When it surges toward you, hauling its impossible bulk across the rocks with a lurching, explosive motion, the tusks sweep in an arc that would disembowel anything they caught, and the sound it makes — a deep, bellowing roar that echoes off the cliff face — carries the unmistakable authority of something that has never once been prey.
+The smell arrives first — a wall of fish and musk and rancid blubber that makes your eyes stream. Then you see them: a dozen mountains of wrinkled, pinkish-brown flesh hauled out on the rocks, so densely packed that individual bodies blur into a single undulating mass of hide and tusk. The nearest bull raises its head and you understand immediately why the northern peoples call them sea-kings. The face is a grotesque masterpiece — small, bloodshot eyes buried in folds of bristled skin, a mustache of coarse whiskers as thick as quills, and two ivory tusks descending from the upper jaw like curved swords, each one as long as your forearm and stained yellow with age. The animal weighs more than a horse. It should be helpless on land. It is not. When it surges toward you, hauling its impossible bulk across the rocks with a lurching, explosive motion, the tusks sweep in an arc that would disembowel anything they caught, and the sound it makes — a deep, bellowing roar that echoes off the cliff face — carries the unmistakable authority of something that has never once been prey.
 
 # Dossier {#dossier}
 
-The Walrus is one of the largest and most formidable animals in northern [[doc-kngdmnrdhm|Kingdom of Nordheim]]'s coastal waters — a semi-aquatic pinniped weighing between fifteen hundred and three thousand pounds, armed with tusks that can reach three feet in length, and insulated by blubber several inches thick. Walruses haul out in enormous colonies on rocky shorelines and ice floes, where their combined mass and aggression make them effectively unassailable. They are critical to Normen coastal economy: walrus ivory is a primary trade good, walrus hide is used for ship cordage and shield facings, and the blubber provides lamp oil and waterproofing. Hunting walrus is one of the most dangerous activities in Nordheim — the animals are aggressive, unpredictable, and capable of destroying small boats. Adventurers encounter walruses on coastal missions, during sea voyages through northern waters, or when ivory trade is involved. A walrus in water is a genuine threat to any vessel smaller than a longship.
+The Walrus is one of the largest and most formidable animals of the far northern coastal waters — a semi-aquatic pinniped weighing between fifteen hundred and three thousand pounds, armed with tusks that can reach three feet in length, and insulated by blubber several inches thick. Walruses haul out in enormous colonies on rocky shorelines and ice floes, where their combined mass and aggression make them effectively unassailable. They are critical to the northern coastal economy: walrus ivory is a primary trade good, walrus hide is used for ship cordage and shield facings, and the blubber provides lamp oil and waterproofing. Hunting walrus is one of the most dangerous activities in the north — the animals are aggressive, unpredictable, and capable of destroying small boats. Adventurers encounter walruses on coastal missions, during sea voyages through northern waters, or when ivory trade is involved. A walrus in water is a genuine threat to any vessel smaller than a longship.
 
 ## Presentation
 

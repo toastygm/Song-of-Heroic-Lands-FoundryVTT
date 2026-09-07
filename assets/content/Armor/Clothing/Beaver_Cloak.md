@@ -16,49 +16,51 @@ sohl:
   kbcat: leather
   armorType: Cloak
   detailMaterial: Beaver
-  material: Leather
-  durability: 9
-  value: 145
-  weight: 1.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  facing:
-    - location: thrxloc
-      side: back
-    - location: abdmnloc
-      side: back
-    - location: plvisloc
-      side: back
-    - location: lthghloc
-      side: back
-    - location: rthghloc
-      side: back
-    - location: lkneeloc
-      side: back
-    - location: rkneeloc
-      side: back
-    - location: lcalfloc
-      side: back
-    - location: rcalfloc
-      side: back
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.6
+    valueBase: 145
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+      facing:
+        - location: thrxloc
+          side: back
+        - location: abdmnloc
+          side: back
+        - location: plvisloc
+          side: back
+        - location: lthghloc
+          side: back
+        - location: rthghloc
+          side: back
+        - location: lkneeloc
+          side: back
+        - location: rkneeloc
+          side: back
+        - location: lcalfloc
+          side: back
+        - location: rcalfloc
+          side: back
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 141.1
 origWeight: 1.6

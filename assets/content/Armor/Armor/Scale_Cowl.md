@@ -16,21 +16,23 @@ sohl:
   kbcat: scale
   armorType: Cowl
   detailMaterial: Scale
-  material: Scale
-  durability: 14
-  value: 60
-  weight: 3.3
-  encumbrance: 0
-  perceptionPenaltyBase: -5
-  flexloc: []
-  rigidloc:
-    - skullloc
-    - neckloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3.3
+    valueBase: 60
+    durabilityBase: 14
+    material: Scale
+    locations:
+      flexible: []
+      rigid:
+        - skullloc
+        - neckloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: -5
 packFolder: armorarmor
 origValue: 60
 origWeight: 3.3

@@ -16,21 +16,23 @@ sohl:
   kbcat: leather
   armorType: Gloves
   detailMaterial: Ermine
-  material: Leather
-  durability: 7
-  value: 120
-  weight: 0.5
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lhandloc
-    - rhandloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.5
+    valueBase: 120
+    durabilityBase: 7
+    material: Leather
+    locations:
+      flexible:
+        - lhandloc
+        - rhandloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 120
 origWeight: 0.5

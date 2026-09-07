@@ -5,7 +5,7 @@ tags:
 name:
   full: Howler Monkey
   aliases: []
-description: "A large, heavily built canopy folivore of K'ich'chik's forests, living in troops and producing the loudest vocalization of any land animal."
+description: "A large, heavily built canopy folivore of tropical forests, living in troops and producing the loudest vocalization of any land animal."
 img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/hwlrmnky-portrait.webp
 shortcode: hwlrmnky
@@ -24,478 +24,6 @@ sohl:
     wil: 1d4+6
     rea: 1d6+6
     cre: 1d4+5
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 1
-        - name: Arms
-          shortcode: armszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 2
-        - name: Legs
-          shortcode: legszone
-          probWeight: 2
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Arm
-          shortcode: rarmpart
-          bodyZoneCode: armszone
-          roles:
-            - manipulator
-          canHoldItem: true
-          probWeight: 2
-        - name: Left Arm
-          shortcode: larmpart
-          bodyZoneCode: armszone
-          roles:
-            - manipulator
-          canHoldItem: true
-          probWeight: 2
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 4
-        - name: Right Leg
-          shortcode: rlegpart
-          bodyZoneCode: legszone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 3
-        - name: Left Leg
-          shortcode: llegpart
-          bodyZoneCode: legszone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 3
-      locations:
-        - name: Skull
-          shortcode: skullloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: low
-          amputability: none
-          shockValue: 5
-          probWeight: 500
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Eye
-          shortcode: leyeloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Eye
-          shortcode: reyeloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Nose
-          shortcode: noseloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Cheek
-          shortcode: lcheekloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 60
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Cheek
-          shortcode: rcheekloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 60
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Ear
-          shortcode: learloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Ear
-          shortcode: rearloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Mouth
-          shortcode: mouthloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Jaw
-          shortcode: jawloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 60
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 200
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Shoulder
-          shortcode: rshldloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Upper Arm
-          shortcode: rupaloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Elbow
-          shortcode: relbloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Forearm
-          shortcode: rfraloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 20
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Hand
-          shortcode: rhandloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Shoulder
-          shortcode: lshldloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Upper Arm
-          shortcode: lupaloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Elbow
-          shortcode: lelbloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Forearm
-          shortcode: lfraloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 20
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Hand
-          shortcode: lhandloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Thorax
-          shortcode: thrxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 40
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Abdomen
-          shortcode: abdmnloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 40
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Pelvis
-          shortcode: plvisloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 20
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Thigh
-          shortcode: rthghloc
-          bodyPartCode: rlegpart
-          bleedingSusceptibility: medium
-          amputability: medium
-          shockValue: 3
-          probWeight: 40
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Knee
-          shortcode: rkneeloc
-          bodyPartCode: rlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Calf
-          shortcode: rcalfloc
-          bodyPartCode: rlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Foot
-          shortcode: rfootloc
-          bodyPartCode: rlegpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 2
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Thigh
-          shortcode: lthghloc
-          bodyPartCode: llegpart
-          bleedingSusceptibility: medium
-          amputability: medium
-          shockValue: 3
-          probWeight: 40
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Knee
-          shortcode: lkneeloc
-          bodyPartCode: llegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Calf
-          shortcode: lcalfloc
-          bodyPartCode: llegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Foot
-          shortcode: lfootloc
-          bodyPartCode: llegpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 2
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-    weight:
-      base: 20
-      calc: "20"
-    reachBase: 0
-    bodyScaleBase: 0.75
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 30
-      leaguesPerWatch: 2
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors:
-        - scope: surface_cover
-          key: mixed_forest
-          mode: add
-          textValue: "0"
-        - scope: surface_cover
-          key: needleleaf_forest
-          mode: add
-          textValue: "0"
-        - scope: surface_cover
-          key: woodland
-          mode: add
-          textValue: "0"
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 7 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 8 } }
@@ -548,15 +76,474 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 1
+          - name: Arms
+            shortcode: armszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 2
+          - name: Legs
+            shortcode: legszone
+            probWeight: 2
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Arm
+            shortcode: rarmpart
+            bodyZoneCode: armszone
+            roles:
+              - manipulator
+            canHoldItem: true
+            probWeight: 2
+          - name: Left Arm
+            shortcode: larmpart
+            bodyZoneCode: armszone
+            roles:
+              - manipulator
+            canHoldItem: true
+            probWeight: 2
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 4
+          - name: Right Leg
+            shortcode: rlegpart
+            bodyZoneCode: legszone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 3
+          - name: Left Leg
+            shortcode: llegpart
+            bodyZoneCode: legszone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 3
+        locations:
+          - name: Skull
+            shortcode: skullloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: low
+            amputability: none
+            shockValue: 5
+            probWeight: 500
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Eye
+            shortcode: leyeloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Eye
+            shortcode: reyeloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Nose
+            shortcode: noseloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Cheek
+            shortcode: lcheekloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 60
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Cheek
+            shortcode: rcheekloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 60
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Ear
+            shortcode: learloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Ear
+            shortcode: rearloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Mouth
+            shortcode: mouthloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Jaw
+            shortcode: jawloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 60
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 200
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Shoulder
+            shortcode: rshldloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Upper Arm
+            shortcode: rupaloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Elbow
+            shortcode: relbloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Forearm
+            shortcode: rfraloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 20
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Hand
+            shortcode: rhandloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Shoulder
+            shortcode: lshldloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Upper Arm
+            shortcode: lupaloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Elbow
+            shortcode: lelbloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Forearm
+            shortcode: lfraloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 20
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Hand
+            shortcode: lhandloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Thorax
+            shortcode: thrxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 40
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Abdomen
+            shortcode: abdmnloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 40
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Pelvis
+            shortcode: plvisloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 20
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Thigh
+            shortcode: rthghloc
+            bodyPartCode: rlegpart
+            bleedingSusceptibility: medium
+            amputability: medium
+            shockValue: 3
+            probWeight: 40
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Knee
+            shortcode: rkneeloc
+            bodyPartCode: rlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Calf
+            shortcode: rcalfloc
+            bodyPartCode: rlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Foot
+            shortcode: rfootloc
+            bodyPartCode: rlegpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 2
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Thigh
+            shortcode: lthghloc
+            bodyPartCode: llegpart
+            bleedingSusceptibility: medium
+            amputability: medium
+            shockValue: 3
+            probWeight: 40
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Knee
+            shortcode: lkneeloc
+            bodyPartCode: llegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Calf
+            shortcode: lcalfloc
+            bodyPartCode: llegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Foot
+            shortcode: lfootloc
+            bodyPartCode: llegpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 2
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+      weight:
+        base: 20
+        calc: "20"
+      reachBase: 0
+      bodyScaleBase: 0.75
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 30
+        leaguesPerWatch: 2
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
 
-The sound begins before dawn — a noise so deep and so vast that your first instinct is geological, as though the mountain itself is groaning. It builds in waves, a rolling, resonant roar that seems to come from everywhere at once, filling the jungle canopy with vibration you can feel in your teeth and your sternum. Then another voice joins, and another, and the separate calls merge into a wall of sound that carries for miles through the humid air, drowning out every other forest voice. You look up and see them: dark shapes sitting in the upper canopy, bearded and heavy, mouths open wide, the sound pouring from throats that seem impossibly large for animals weighing less than twenty pounds. The howler monkey's call is the loudest sound produced by any land animal, and hearing it for the first time — feeling it roll through the forest like distant thunder made personal — you understand why the Ki'ichek associate these creatures with the voice of the gods and the scribes of the underworld. The monkey nearest you pauses its calling and turns to regard you with calm, amber eyes. The face is dark and intelligent, framed by a thick beard and an expression of settled, philosophical disdain. It has been watching you since before you noticed it. It will be watching you long after you have passed.
+The sound begins before dawn — a noise so deep and so vast that your first instinct is geological, as though the mountain itself is groaning. It builds in waves, a rolling, resonant roar that seems to come from everywhere at once, filling the jungle canopy with vibration you can feel in your teeth and your sternum. Then another voice joins, and another, and the separate calls merge into a wall of sound that carries for miles through the humid air, drowning out every other forest voice. You look up and see them: dark shapes sitting in the upper canopy, bearded and heavy, mouths open wide, the sound pouring from throats that seem impossibly large for animals weighing less than twenty pounds. The howler monkey's call is the loudest sound produced by any land animal, and hearing it for the first time — feeling it roll through the forest like distant thunder made personal — you understand why the jungle peoples associate these creatures with the voice of the gods and the scribes of the underworld. The monkey nearest you pauses its calling and turns to regard you with calm, amber eyes. The face is dark and intelligent, framed by a thick beard and an expression of settled, philosophical disdain. It has been watching you since before you noticed it. It will be watching you long after you have passed.
 
 # Dossier {#dossier}
 
-The Howler Monkey is the dominant primate of [[doc-kchchkcntnnt|K'ich'chik Continent]]'s lowland and cloud forests — a large, heavily built New World monkey famous for producing the loudest vocalization of any land animal. Weighing fifteen to twenty-two pounds with a body length of two feet plus a prehensile tail of equal length, the howler is a folivorous canopy-dweller that lives in troops of ten to twenty individuals. The howl — produced by a specialized hyoid bone in the throat that amplifies sound to extraordinary volume — carries for three miles or more through dense jungle and serves as a territorial declaration, a dawn census, and a means of spacing troops across the forest without physical confrontation. In Ki'ichek culture, the howler monkey is associated with scribes, artists, and the arts of communication — the connection between the monkey's world-filling voice and the human power of language and writing. Howler monkey imagery appears in the decoration of libraries, scriptoria, and the workshops of artisan castes. The monkey god associated with writing and record-keeping is depicted with howler monkey features. Adventurers in K'ich'chik's jungles will hear howler monkeys long before seeing them — the dawn chorus is one of the defining sounds of the lowland forest, and its sudden absence is an ominous sign that something has disturbed the canopy.
+The Howler Monkey is the dominant primate of the tropical lowland and cloud forests — a large, heavily built canopy monkey famous for producing the loudest vocalization of any land animal. Weighing fifteen to twenty-two pounds with a body length of two feet plus a prehensile tail of equal length, the howler is a folivorous canopy-dweller that lives in troops of ten to twenty individuals. The howl — produced by a specialized hyoid bone in the throat that amplifies sound to extraordinary volume — carries for three miles or more through dense jungle and serves as a territorial declaration, a dawn census, and a means of spacing troops across the forest without physical confrontation. In the jungle civilizations, the howler monkey is associated with scribes, artists, and the arts of communication — the connection between the monkey's world-filling voice and the human power of language and writing. Howler monkey imagery appears in the decoration of libraries, scriptoria, and the workshops of artisan castes. The monkey god associated with writing and record-keeping is depicted with howler monkey features. Adventurers in the tropical jungles will hear howler monkeys long before seeing them — the dawn chorus is one of the defining sounds of the lowland forest, and its sudden absence is an ominous sign that something has disturbed the canopy.
 
 ## Presentation
 
@@ -592,7 +579,7 @@ The howler's tail is a fully functional fifth limb — strong enough to support 
 
 ### Silence Warning
 
-The sudden cessation of howler monkey calling is one of the most reliable indicators of danger in the K'ich'chik jungle. Experienced forest travelers know that when the howlers go silent, something has entered the canopy that frightens even the loudest voice in the forest — typically a jaguar, a large raptor, or something worse.
+The sudden cessation of howler monkey calling is one of the most reliable indicators of danger in the tropical jungle. Experienced forest travelers know that when the howlers go silent, something has entered the canopy that frightens even the loudest voice in the forest — typically a jaguar, a large raptor, or something worse.
 
 ## Attributes
 

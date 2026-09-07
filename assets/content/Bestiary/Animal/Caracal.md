@@ -5,7 +5,7 @@ tags:
 name:
   full: Caracal
   aliases: []
-description: "A powerfully built desert hunting cat of the Khazryn steppe, prowling rocky scrubland and thorn thickets for prey it ambushes with explosive leaps."
+description: "A powerfully built desert hunting cat of the arid steppe, prowling rocky scrubland and thorn thickets for prey it ambushes with explosive leaps."
 img: icons/game-icons/delapouite/lynx-head.svg
 portrait: images/being/caracal-portrait.webp
 shortcode: caracal
@@ -24,208 +24,6 @@ sohl:
     wil: 1d4+8
     rea: 1d4+5
     cre: 1d4+4
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 1
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 3
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 1
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-            - manipulator
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Thorax
-          shortcode: thoraxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 5
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 3
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Pelvis
-          shortcode: plvsloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 2
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-    weight:
-      base: 35
-      calc: "35"
-    reachBase: 0
-    bodyScaleBase: 0.88
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 90
-      leaguesPerWatch: 4
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 9 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 10 } }
@@ -314,6 +112,207 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 1
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 3
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 1
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+              - manipulator
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Thorax
+            shortcode: thoraxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 5
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 3
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Pelvis
+            shortcode: plvsloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 2
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+      weight:
+        base: 35
+        calc: "35"
+      reachBase: 0
+      bodyScaleBase: 0.88
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 90
+        leaguesPerWatch: 4
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -322,7 +321,7 @@ A russet shape launches from the scrub with the explosive force of a released sp
 
 # Dossier {#dossier}
 
-The Caracal is the desert hunting cat of the Khazryn steppe — a medium-sized, powerfully built felid found in rocky scrubland, thorn thickets, desert margins, and the dry grasslands that border the great sand seas. An adult caracal stands sixteen to twenty inches at the shoulder and weighs twenty-five to forty-five pounds, substantially smaller than a mountain lion but far larger than a house cat, occupying a predatory niche between the two as a specialist hunter of birds, hares, and small antelope. The caracal's defining characteristic is its extraordinary leaping ability — it is capable of springing vertically from a standing position to snatch birds from the air at heights that defy its modest size, a feat that has made it legendary among the Khazryn nomads. In Khazryn culture, the caracal occupies a unique position as a hunting companion of the nobility. While never truly domesticated in the way dogs have been, young caracals captured from the wild can be trained as hunting cats, used to bring down game birds, hares, and even young gazelles in the open steppe. A trained caracal is a prized possession of Khazryn chieftains and wealthy merchants — a status symbol comparable to a fine falcon, and considerably rarer. Adventurers encounter caracals in rocky terrain at dawn and dusk, occasionally around settlements where they hunt rats and pigeons, and in the camps of wealthy Khazryn where trained hunting caracals are kept.
+The Caracal is the desert hunting cat of the arid steppe — a medium-sized, powerfully built felid found in rocky scrubland, thorn thickets, desert margins, and the dry grasslands that border the great sand seas. An adult caracal stands sixteen to twenty inches at the shoulder and weighs twenty-five to forty-five pounds, substantially smaller than a mountain lion but far larger than a house cat, occupying a predatory niche between the two as a specialist hunter of birds, hares, and small antelope. The caracal's defining characteristic is its extraordinary leaping ability — it is capable of springing vertically from a standing position to snatch birds from the air at heights that defy its modest size, a feat that has made it legendary among the steppe nomads. In steppe culture, the caracal occupies a unique position as a hunting companion of the nobility. While never truly domesticated in the way dogs have been, young caracals captured from the wild can be trained as hunting cats, used to bring down game birds, hares, and even young gazelles in the open steppe. A trained caracal is a prized possession of steppe chieftains and wealthy merchants — a status symbol comparable to a fine falcon, and considerably rarer. Adventurers encounter caracals in rocky terrain at dawn and dusk, occasionally around settlements where they hunt rats and pigeons, and in the camps of the wealthy where trained hunting caracals are kept.
 
 ## Presentation
 
@@ -358,7 +357,7 @@ The caracal possesses the most powerful vertical leap of any cat relative to its
 
 ### Desert Stealth
 
-The caracal's tawny coat provides excellent camouflage in the scrubland and rocky terrain it inhabits, and its movement through vegetation is as silent as any cat's. It can approach within striking distance of alert prey — birds, hares, even wary gazelle fawns — without being detected. In the Khazryn scrublands, a caracal can be within arms' reach and remain invisible against the sun-bleached rock and dried grass.
+The caracal's tawny coat provides excellent camouflage in the scrubland and rocky terrain it inhabits, and its movement through vegetation is as silent as any cat's. It can approach within striking distance of alert prey — birds, hares, even wary gazelle fawns — without being detected. In the arid scrublands, a caracal can be within arms' reach and remain invisible against the sun-bleached rock and dried grass.
 
 ### Acute Hearing
 
@@ -366,7 +365,7 @@ The caracal's distinctive ear tufts are more than ornamental — the tall, mobil
 
 ### Trainable Hunter
 
-Unlike most wild cats, caracals can be trained as hunting companions when captured young and raised by experienced handlers. A trained caracal will flush and catch game birds, hares, and even young gazelles on command — or rather, on suggestion, for a caracal cooperates rather than obeys. This trainability, combined with the cat's extraordinary hunting ability, has made it a prized asset among Khazryn nobility, and a well-trained hunting caracal commands prices comparable to the finest falcons.
+Unlike most wild cats, caracals can be trained as hunting companions when captured young and raised by experienced handlers. A trained caracal will flush and catch game birds, hares, and even young gazelles on command — or rather, on suggestion, for a caracal cooperates rather than obeys. This trainability, combined with the cat's extraordinary hunting ability, has made it a prized asset among the steppe nobility, and a well-trained hunting caracal commands prices comparable to the finest falcons.
 
 ## Attributes
 

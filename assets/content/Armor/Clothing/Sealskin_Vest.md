@@ -16,21 +16,23 @@ sohl:
   kbcat: leather
   armorType: Vest
   detailMaterial: Sealskin
-  material: Leather
-  durability: 11
-  value: 290
-  weight: 4.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 4.3
+    valueBase: 290
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 96
 origWeight: 3.6

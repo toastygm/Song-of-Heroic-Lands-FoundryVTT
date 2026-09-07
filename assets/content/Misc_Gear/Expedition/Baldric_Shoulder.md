@@ -15,10 +15,11 @@ sohl:
     skill: hide
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 8
-  value: 10
-  weight: 1.75
+  system:
+    weightBase: 1.75
+    valueBase: 10
+    qualityBase: 0
+    durabilityBase: 8
 packFolder: expedition
 ---
 

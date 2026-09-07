@@ -6,7 +6,7 @@ name:
   full: Macaque
   aliases:
     - Temple Monkey
-description: "A stocky, intelligent medium-sized monkey of Vedyara thriving everywhere from temples to cities by stealing and extorting food from humans."
+description: "A stocky, intelligent medium-sized monkey of the monsoon south thriving everywhere from temples to cities by stealing and extorting food from humans."
 img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/macaque-portrait.webp
 shortcode: macaque
@@ -25,478 +25,6 @@ sohl:
     wil: 1d4+7
     rea: 1d6+7
     cre: 1d4+6
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 1
-        - name: Arms
-          shortcode: armszone
-          probWeight: 1
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 2
-        - name: Legs
-          shortcode: legszone
-          probWeight: 2
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Arm
-          shortcode: rarmpart
-          bodyZoneCode: armszone
-          roles:
-            - manipulator
-          canHoldItem: true
-          probWeight: 2
-        - name: Left Arm
-          shortcode: larmpart
-          bodyZoneCode: armszone
-          roles:
-            - manipulator
-          canHoldItem: true
-          probWeight: 2
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 4
-        - name: Right Leg
-          shortcode: rlegpart
-          bodyZoneCode: legszone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 3
-        - name: Left Leg
-          shortcode: llegpart
-          bodyZoneCode: legszone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 3
-      locations:
-        - name: Skull
-          shortcode: skullloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: low
-          amputability: none
-          shockValue: 5
-          probWeight: 500
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Eye
-          shortcode: leyeloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Eye
-          shortcode: reyeloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Nose
-          shortcode: noseloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Cheek
-          shortcode: lcheekloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 60
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Cheek
-          shortcode: rcheekloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 60
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Ear
-          shortcode: learloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Ear
-          shortcode: rearloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Mouth
-          shortcode: mouthloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Jaw
-          shortcode: jawloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 60
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 200
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Shoulder
-          shortcode: rshldloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Upper Arm
-          shortcode: rupaloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Elbow
-          shortcode: relbloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Forearm
-          shortcode: rfraloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 20
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Hand
-          shortcode: rhandloc
-          bodyPartCode: rarmpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Shoulder
-          shortcode: lshldloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Upper Arm
-          shortcode: lupaloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Elbow
-          shortcode: lelbloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Forearm
-          shortcode: lfraloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 20
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Hand
-          shortcode: lhandloc
-          bodyPartCode: larmpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Thorax
-          shortcode: thrxloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 40
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Abdomen
-          shortcode: abdmnloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 40
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Pelvis
-          shortcode: plvisloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 20
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Thigh
-          shortcode: rthghloc
-          bodyPartCode: rlegpart
-          bleedingSusceptibility: medium
-          amputability: medium
-          shockValue: 3
-          probWeight: 40
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Knee
-          shortcode: rkneeloc
-          bodyPartCode: rlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Calf
-          shortcode: rcalfloc
-          bodyPartCode: rlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Foot
-          shortcode: rfootloc
-          bodyPartCode: rlegpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 2
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Thigh
-          shortcode: lthghloc
-          bodyPartCode: llegpart
-          bleedingSusceptibility: medium
-          amputability: medium
-          shockValue: 3
-          probWeight: 40
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Knee
-          shortcode: lkneeloc
-          bodyPartCode: llegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Calf
-          shortcode: lcalfloc
-          bodyPartCode: llegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 1
-          probWeight: 30
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Foot
-          shortcode: lfootloc
-          bodyPartCode: llegpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 2
-          probWeight: 15
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-    weight:
-      base: 25
-      calc: "25"
-    reachBase: 0
-    bodyScaleBase: 0.81
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 40
-      leaguesPerWatch: 3
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors:
-        - scope: surface_cover
-          key: mixed_forest
-          mode: add
-          textValue: "0"
-        - scope: surface_cover
-          key: needleleaf_forest
-          mode: add
-          textValue: "0"
-        - scope: surface_cover
-          key: woodland
-          mode: add
-          textValue: "0"
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 8 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 9 } }
@@ -549,6 +77,465 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 1
+          - name: Arms
+            shortcode: armszone
+            probWeight: 1
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 2
+          - name: Legs
+            shortcode: legszone
+            probWeight: 2
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Arm
+            shortcode: rarmpart
+            bodyZoneCode: armszone
+            roles:
+              - manipulator
+            canHoldItem: true
+            probWeight: 2
+          - name: Left Arm
+            shortcode: larmpart
+            bodyZoneCode: armszone
+            roles:
+              - manipulator
+            canHoldItem: true
+            probWeight: 2
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 4
+          - name: Right Leg
+            shortcode: rlegpart
+            bodyZoneCode: legszone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 3
+          - name: Left Leg
+            shortcode: llegpart
+            bodyZoneCode: legszone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 3
+        locations:
+          - name: Skull
+            shortcode: skullloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: low
+            amputability: none
+            shockValue: 5
+            probWeight: 500
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Eye
+            shortcode: leyeloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Eye
+            shortcode: reyeloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Nose
+            shortcode: noseloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Cheek
+            shortcode: lcheekloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 60
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Cheek
+            shortcode: rcheekloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 60
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Ear
+            shortcode: learloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Ear
+            shortcode: rearloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Mouth
+            shortcode: mouthloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Jaw
+            shortcode: jawloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 60
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 200
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Shoulder
+            shortcode: rshldloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Upper Arm
+            shortcode: rupaloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Elbow
+            shortcode: relbloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Forearm
+            shortcode: rfraloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 20
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Hand
+            shortcode: rhandloc
+            bodyPartCode: rarmpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Shoulder
+            shortcode: lshldloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Upper Arm
+            shortcode: lupaloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Elbow
+            shortcode: lelbloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Forearm
+            shortcode: lfraloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 20
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Hand
+            shortcode: lhandloc
+            bodyPartCode: larmpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Thorax
+            shortcode: thrxloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 40
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Abdomen
+            shortcode: abdmnloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 40
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Pelvis
+            shortcode: plvisloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 20
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Thigh
+            shortcode: rthghloc
+            bodyPartCode: rlegpart
+            bleedingSusceptibility: medium
+            amputability: medium
+            shockValue: 3
+            probWeight: 40
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Knee
+            shortcode: rkneeloc
+            bodyPartCode: rlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Calf
+            shortcode: rcalfloc
+            bodyPartCode: rlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Foot
+            shortcode: rfootloc
+            bodyPartCode: rlegpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 2
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Thigh
+            shortcode: lthghloc
+            bodyPartCode: llegpart
+            bleedingSusceptibility: medium
+            amputability: medium
+            shockValue: 3
+            probWeight: 40
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Knee
+            shortcode: lkneeloc
+            bodyPartCode: llegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Calf
+            shortcode: lcalfloc
+            bodyPartCode: llegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 1
+            probWeight: 30
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Foot
+            shortcode: lfootloc
+            bodyPartCode: llegpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 2
+            probWeight: 15
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+      weight:
+        base: 25
+        calc: "25"
+      reachBase: 0
+      bodyScaleBase: 0.81
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 40
+        leaguesPerWatch: 3
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
@@ -557,13 +544,13 @@ The temple courtyard seems peaceful until you set down your pack. The first one 
 
 # Dossier {#dossier}
 
-The Macaque is the common monkey of [[doc-vedyarargn|Vedyara Region]] — a stocky, medium-sized primate found in forests, temple complexes, cities, agricultural areas, and virtually every other habitat where food can be obtained, stolen, or extorted from humans. An adult macaque stands about twenty inches tall on all fours and weighs ten to twenty-five pounds, with males substantially larger than females. They are social, intelligent, aggressive, adaptable, and found in numbers that range from "several" to "infestation" depending on the local food supply and the tolerance of the human population.
+The Macaque is the common monkey of the monsoon south — a stocky, medium-sized primate found in forests, temple complexes, cities, agricultural areas, and virtually every other habitat where food can be obtained, stolen, or extorted from humans. An adult macaque stands about twenty inches tall on all fours and weighs ten to twenty-five pounds, with males substantially larger than females. They are social, intelligent, aggressive, adaptable, and found in numbers that range from "several" to "infestation" depending on the local food supply and the tolerance of the human population.
 
-Macaques are the monkeys of Vedyaran daily life — the ones that sit on temple walls, steal food from market stalls, raid granaries, snatch items from the hands of pilgrims, and infest the rooftops of every major city in the subcontinent. They are not the graceful, contemplative langurs of the forest canopy; they are the stocky, aggressive, street-smart primates that have discovered that human civilization is the richest ecological niche available and have exploited it with an enthusiasm that borders on the sociopathic. A troop of macaques in a Vedyaran city is simultaneously a tourist attraction, a public menace, a religious obligation, and an unsolvable problem.
+Macaques are the monkeys of daily life in the south — the ones that sit on temple walls, steal food from market stalls, raid granaries, snatch items from the hands of pilgrims, and infest the rooftops of every major city in the subcontinent. They are not the graceful, contemplative langurs of the forest canopy; they are the stocky, aggressive, street-smart primates that have discovered that human civilization is the richest ecological niche available and have exploited it with an enthusiasm that borders on the sociopathic. A troop of macaques in a southern city is simultaneously a tourist attraction, a public menace, a religious obligation, and an unsolvable problem.
 
-Their relationship with Vedyaran culture is complicated. Monkeys in general hold sacred status in Vedyaran religion, and macaques in particular benefit from this protection at temple complexes where they are fed by priests and pilgrims. This protection has produced populations of temple macaques that are fearless, aggressive, and absolutely certain that every human they encounter exists primarily as a food delivery system. The religious prohibition against harming them means that even macaques that have become genuinely dangerous — large males that attack children, troops that destroy crops, individuals that have learned to bite humans who resist theft — cannot be killed or removed without navigating a thicket of religious, social, and legal complications.
+Their relationship with southern culture is complicated. Monkeys in general hold sacred status in southern religion, and macaques in particular benefit from this protection at temple complexes where they are fed by priests and pilgrims. This protection has produced populations of temple macaques that are fearless, aggressive, and absolutely certain that every human they encounter exists primarily as a food delivery system. The religious prohibition against harming them means that even macaques that have become genuinely dangerous — large males that attack children, troops that destroy crops, individuals that have learned to bite humans who resist theft — cannot be killed or removed without navigating a thicket of religious, social, and legal complications.
 
-Adventurers encounter macaques everywhere in Vedyara. They sit on walls and watch you. They follow you. They steal anything they can carry and some things they cannot. They are the background noise of Vedyaran settlement life, and underestimating them is the most common mistake newcomers make.
+Adventurers encounter macaques everywhere in the south. They sit on walls and watch you. They follow you. They steal anything they can carry and some things they cannot. They are the background noise of southern settlement life, and underestimating them is the most common mistake newcomers make.
 
 ## Presentation
 
@@ -571,7 +558,7 @@ A compact, muscular primate built for climbing, fighting, and surviving in close
 
 The hands are the most unsettling feature. They are hands — not paws, not claws, but genuine primate hands with four fingers and an opposable thumb, complete with nails and fingerprints. They are dexterous enough to untie knots, open latches, unbuckle straps, unscrew caps, and pick pockets. The feet are equally dexterous, essentially serving as a second pair of hands, which gives the macaque a four-limbed manipulation capability that allows it to climb, hold, and manipulate objects simultaneously. The tail is medium-length and is used for balance rather than gripping.
 
-The teeth are the feature that demands respect. The canine teeth of an adult male are long, sharp, and prominently displayed in the threat yawn — a wide-mouthed display of the open jaws that communicates aggressive intent. The canines are capable of inflicting deep puncture wounds, and a male macaque in full aggressive display, lips drawn back, canines bared, brow ridges lowered, is a genuinely intimidating sight that experienced Vedyarans treat with appropriate caution.
+The teeth are the feature that demands respect. The canine teeth of an adult male are long, sharp, and prominently displayed in the threat yawn — a wide-mouthed display of the open jaws that communicates aggressive intent. The canines are capable of inflicting deep puncture wounds, and a male macaque in full aggressive display, lips drawn back, canines bared, brow ridges lowered, is a genuinely intimidating sight that experienced southerners treat with appropriate caution.
 
 ## Key Behaviors
 
@@ -609,7 +596,7 @@ Not technically a combat attack, but the macaque's most practiced skill. The mon
 
 ### Urban Intelligence
 
-Macaques are among the most intelligent animals in Vedyara, capable of observational learning, tool use, problem-solving, and social manipulation. They learn the routines of human settlements, they remember productive theft locations across seasons, and they teach their offspring through demonstration. A troop of macaques that has lived near humans for several generations has accumulated a body of cultural knowledge about human behavior, human containers, human food storage, and human vulnerabilities that makes them extraordinarily effective exploiters of the human environment.
+Macaques are among the most intelligent animals in the south, capable of observational learning, tool use, problem-solving, and social manipulation. They learn the routines of human settlements, they remember productive theft locations across seasons, and they teach their offspring through demonstration. A troop of macaques that has lived near humans for several generations has accumulated a body of cultural knowledge about human behavior, human containers, human food storage, and human vulnerabilities that makes them extraordinarily effective exploiters of the human environment.
 
 ### Four-Limbed Climbing
 
@@ -621,7 +608,7 @@ A macaque troop maintains a collective memory of individual humans. A person who
 
 ### Sacred Nuisance
 
-Like the peacock, macaques benefit from religious protection in Vedyaran settlements. Harming a temple monkey carries social and legal consequences, and communities that have lived with macaque troops for generations have developed elaborate accommodations — designated feeding areas, monkey-proofed storage, accepted loss ratios for market goods — that reflect the reality that the monkeys are simultaneously sacred, protected, and a constant, inescapable headache. For adventurers unfamiliar with Vedyaran customs, the discovery that the monkey that just stole their coin purse cannot be legally retaliated against is a formative cultural experience.
+Like the peacock, macaques benefit from religious protection in southern settlements. Harming a temple monkey carries social and legal consequences, and communities that have lived with macaque troops for generations have developed elaborate accommodations — designated feeding areas, monkey-proofed storage, accepted loss ratios for market goods — that reflect the reality that the monkeys are simultaneously sacred, protected, and a constant, inescapable headache. For adventurers unfamiliar with southern customs, the discovery that the monkey that just stole their coin purse cannot be legally retaliated against is a formative cultural experience.
 
 ## Attributes
 

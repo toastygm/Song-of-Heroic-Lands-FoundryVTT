@@ -15,10 +15,11 @@ sohl:
     skill: srvl
     secondary: []
   kbcat: food
-  quality: 0
-  durability: 0
-  value: 1.75
-  weight: 1
+  system:
+    weightBase: 1
+    valueBase: 1.75
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: food
 ---
 

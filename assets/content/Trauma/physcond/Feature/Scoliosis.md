@@ -11,7 +11,8 @@ data:
 subType: physcond
 sohl:
   kbcat: physfeature
-  category: debility
+  system:
+    category: debility
 packFolder: traumaphysical
 ---
 

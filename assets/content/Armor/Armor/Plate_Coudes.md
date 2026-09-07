@@ -16,22 +16,24 @@ sohl:
   kbcat: plate
   armorType: Coudes
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 40
-  weight: 0.8
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lelbloc
-    - relbloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.8
+    valueBase: 40
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - lelbloc
+        - relbloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 40
 origWeight: 0.8

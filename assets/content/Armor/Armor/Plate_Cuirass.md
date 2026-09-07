@@ -16,21 +16,23 @@ sohl:
   kbcat: plate
   armorType: Cuirass
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 480
-  weight: 9.1
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 9.1
+    valueBase: 480
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 480
 origWeight: 9.1

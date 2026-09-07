@@ -16,27 +16,29 @@ sohl:
   kbcat: plate
   armorType: Halfhelm
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 140
-  weight: 2.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - skullloc
-    - jawloc
-    - lcheekloc
-    - rcheekloc
-    - learloc
-    - rearloc
-    - mouthloc
-    - noseloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.7
+    valueBase: 140
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - skullloc
+        - jawloc
+        - lcheekloc
+        - rcheekloc
+        - learloc
+        - rearloc
+        - mouthloc
+        - noseloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 140
 origWeight: 2.7

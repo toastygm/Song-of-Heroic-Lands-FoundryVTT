@@ -16,21 +16,23 @@ sohl:
   kbcat: plate
   armorType: Greaves
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 240
-  weight: 4.6
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lcalfloc
-    - rcalfloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 4.6
+    valueBase: 240
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - lcalfloc
+        - rcalfloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 240
 origWeight: 4.6

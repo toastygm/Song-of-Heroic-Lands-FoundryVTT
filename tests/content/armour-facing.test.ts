@@ -46,8 +46,11 @@ const NOTES: ArmorNote[] = walk(ARMOR_ROOT)
     .map((d) => ({
         name: d.name.full,
         armorType: d.sohl.armorType,
-        covered: [...(d.sohl.flexloc ?? []), ...(d.sohl.rigidloc ?? [])],
-        facing: (d.sohl.facing ?? []) as Facing[],
+        covered: [
+            ...(d.sohl.system.locations?.flexible ?? []),
+            ...(d.sohl.system.locations?.rigid ?? []),
+        ],
+        facing: (d.sohl.system.locations?.facing ?? []) as Facing[],
     }));
 
 const byType = (t: string) => NOTES.filter((n) => n.armorType === t);

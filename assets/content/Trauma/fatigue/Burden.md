@@ -12,9 +12,10 @@ data:
 subType: fatigue
 sohl:
   kbcat: fatigue
-  category: weariness
-  levelBase: 1
-  healingRateBase: 3
+  system:
+    category: weariness
+    levelBase: 1
+    healingRateBase: 3
 packFolder: fatigue
 ---
 

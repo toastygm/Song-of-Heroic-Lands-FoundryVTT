@@ -5,7 +5,7 @@ tags:
 name:
   full: Llama
   aliases: []
-description: "A domesticated highland camelid of K'ich'chik serving as pack animal, fiber and meat source, and guardian of smaller livestock in mountain caravans."
+description: "A domesticated highland camelid serving as pack animal, fiber and meat source, and guardian of smaller livestock in mountain caravans."
 img: icons/game-icons/delapouite/camel-head.svg
 portrait: images/being/llama-portrait.webp
 shortcode: llama
@@ -24,227 +24,6 @@ sohl:
     wil: 1d6+9
     rea: 1d4+5
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 4
-        - name: Forelegs
-          shortcode: forelegszone
-          probWeight: 2
-        - name: Torso
-          shortcode: torsozone
-          probWeight: 8
-        - name: Hindquarters
-          shortcode: hindqtrzone
-          probWeight: 6
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Foreleg
-          shortcode: lforelegpart
-          bodyZoneCode: forelegszone
-          roles: &a1
-            - locomotor
-          canHoldItem: false
-          probWeight: 1
-        - name: Right Foreleg
-          shortcode: rforelegpart
-          bodyZoneCode: forelegszone
-          roles: *a1
-          canHoldItem: false
-          probWeight: 1
-        - name: Torso
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Hind Leg
-          shortcode: lhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Right Hind Leg
-          shortcode: rhindlegpart
-          bodyZoneCode: hindqtrzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 9
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: hindqtrzone
-          roles: []
-          canHoldItem: false
-          probWeight: 2
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Neck
-          shortcode: neckloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Foreleg
-          shortcode: lforelegloc
-          bodyPartCode: lforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Foreleg
-          shortcode: rforelegloc
-          bodyPartCode: rforelegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Flank
-          shortcode: flkloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Abdomen
-          shortcode: abdloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Quarter
-          shortcode: lqtrloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Left Hind Leg
-          shortcode: lhindlegloc
-          bodyPartCode: lhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Quarter
-          shortcode: rqtrloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 3
-          probWeight: 5
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Right Hind Leg
-          shortcode: rhindlegloc
-          bodyPartCode: rhindlegpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 4
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: none
-          amputability: high
-          shockValue: 1
-          probWeight: 10
-          protectionBase:
-            blunt: 3
-            edged: 2
-            piercing: 1
-            fire: 3
-    weight:
-      base: 1100
-      calc: "1100"
-    reachBase: 0
-    bodyScaleBase: 1.06
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 70
-      leaguesPerWatch: 8
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors:
-        - scope: surface_cover
-          key: dunes
-          mode: add
-          textValue: "0"
-        - scope: hydrology
-          key: shallow
-          mode: add
-          textValue: "0"
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 12 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 14 } }
@@ -333,15 +112,227 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 4
+          - name: Forelegs
+            shortcode: forelegszone
+            probWeight: 2
+          - name: Torso
+            shortcode: torsozone
+            probWeight: 8
+          - name: Hindquarters
+            shortcode: hindqtrzone
+            probWeight: 6
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Foreleg
+            shortcode: lforelegpart
+            bodyZoneCode: forelegszone
+            roles: &a1
+              - locomotor
+            canHoldItem: false
+            probWeight: 1
+          - name: Right Foreleg
+            shortcode: rforelegpart
+            bodyZoneCode: forelegszone
+            roles: *a1
+            canHoldItem: false
+            probWeight: 1
+          - name: Torso
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Hind Leg
+            shortcode: lhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Right Hind Leg
+            shortcode: rhindlegpart
+            bodyZoneCode: hindqtrzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 9
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: hindqtrzone
+            roles: []
+            canHoldItem: false
+            probWeight: 2
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Neck
+            shortcode: neckloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Foreleg
+            shortcode: lforelegloc
+            bodyPartCode: lforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Foreleg
+            shortcode: rforelegloc
+            bodyPartCode: rforelegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Flank
+            shortcode: flkloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Abdomen
+            shortcode: abdloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Quarter
+            shortcode: lqtrloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Left Hind Leg
+            shortcode: lhindlegloc
+            bodyPartCode: lhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Quarter
+            shortcode: rqtrloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 3
+            probWeight: 5
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Right Hind Leg
+            shortcode: rhindlegloc
+            bodyPartCode: rhindlegpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 4
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: none
+            amputability: high
+            shockValue: 1
+            probWeight: 10
+            protectionBase:
+              blunt: 3
+              edged: 2
+              piercing: 1
+              fire: 3
+      weight:
+        base: 1100
+        calc: "1100"
+      reachBase: 0
+      bodyScaleBase: 1.06
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 70
+        leaguesPerWatch: 8
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}
 
-The caravan rounds the switchback above you, and you hear them before you see them — the soft, rhythmic clatter of small hooves on stone, the creak of pack frames, and a sound you cannot immediately identify: a low, musical humming, almost like distant singing. Then the first animal appears on the ledge and you see a creature of improbable elegance for a beast of burden. It is tall and slender, standing nearly six feet at the head, with a long, curved neck that gives it a haughty, aristocratic bearing. The coat is thick and luxuriant — waves of fine fiber in shades of brown, cream, and russet that ripple in the mountain wind. The face is extraordinary: a narrow, delicate head with enormous dark eyes fringed with lashes so long they seem theatrical, small pointed ears that swivel independently, and an expression of such serene superiority that you feel personally judged. The animal regards you for a long moment, then turns its head with studied indifference and continues along the trail with the calm, flat-footed certainty of something that has walked these mountains since before your civilization existed. Behind it come twenty more, each loaded with bundled goods, each moving with the same unhurried, aristocratic patience, and the humming sound resolves into their collective vocalization — a continuous, musical murmur that the K'ich'chik herders say is the animal talking to itself about the quality of the trail.
+The caravan rounds the switchback above you, and you hear them before you see them — the soft, rhythmic clatter of small hooves on stone, the creak of pack frames, and a sound you cannot immediately identify: a low, musical humming, almost like distant singing. Then the first animal appears on the ledge and you see a creature of improbable elegance for a beast of burden. It is tall and slender, standing nearly six feet at the head, with a long, curved neck that gives it a haughty, aristocratic bearing. The coat is thick and luxuriant — waves of fine fiber in shades of brown, cream, and russet that ripple in the mountain wind. The face is extraordinary: a narrow, delicate head with enormous dark eyes fringed with lashes so long they seem theatrical, small pointed ears that swivel independently, and an expression of such serene superiority that you feel personally judged. The animal regards you for a long moment, then turns its head with studied indifference and continues along the trail with the calm, flat-footed certainty of something that has walked these mountains since before your civilization existed. Behind it come twenty more, each loaded with bundled goods, each moving with the same unhurried, aristocratic patience, and the humming sound resolves into their collective vocalization — a continuous, musical murmur that the highland herders say is the animal talking to itself about the quality of the trail.
 
 # Dossier {#dossier}
 
-The Llama is the essential highland animal of [[doc-kchchkcntnnt|K'ich'chik Continent]] — a domesticated camelid that serves the mountain civilizations as the yak serves Tānvür and the reindeer serves Nordheim. Standing five to six feet at the head and weighing two hundred fifty to four hundred pounds, the llama is a pack animal, a fiber producer, a source of meat, leather, and dung fuel, and a guardian of smaller livestock. Llama caravans are the primary means of moving goods through the mountain passes that connect the highland city-states, and the llama-herding peoples of the high plateau are among the most essential economic classes in Ki'ichek society. The animal has been domesticated for so long that no truly wild populations remain — the llama's identity is inseparable from the civilization that bred it. A smaller, finer-coated relative provides luxury fiber prized by the priest-kings, but the common llama is the workhorse of the highlands: steady, sure-footed, capable of carrying loads at altitudes where horses cannot breathe, and possessed of a personality that ranges from placid cooperation to stubborn refusal to theatrical spite. Adventurers in highland K'ich'chik encounter llamas constantly — as pack animals on every mountain road, as fiber sources in every market, and as the bleating, humming, occasionally spitting backdrop to highland life.
+The Llama is the essential animal of the tropical highlands — a domesticated camelid that serves the mountain civilizations as the yak serves the high plateaus and the reindeer serves the far north. Standing five to six feet at the head and weighing two hundred fifty to four hundred pounds, the llama is a pack animal, a fiber producer, a source of meat, leather, and dung fuel, and a guardian of smaller livestock. Llama caravans are the primary means of moving goods through the mountain passes that connect the highland city-states, and the llama-herding peoples of the high plateau are among the most essential economic classes in highland society. The animal has been domesticated for so long that no truly wild populations remain — the llama's identity is inseparable from the civilization that bred it. A smaller, finer-coated relative provides luxury fiber prized by the priest-kings, but the common llama is the workhorse of the highlands: steady, sure-footed, capable of carrying loads at altitudes where horses cannot breathe, and possessed of a personality that ranges from placid cooperation to stubborn refusal to theatrical spite. Adventurers in the high country encounter llamas constantly — as pack animals on every mountain road, as fiber sources in every market, and as the bleating, humming, occasionally spitting backdrop to highland life.
 
 ## Presentation
 

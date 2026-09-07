@@ -16,27 +16,29 @@ sohl:
   kbcat: cloth
   armorType: Leggings
   detailMaterial: Worsted
-  material: Cloth
-  durability: 9
-  value: 90
-  weight: 1.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.4
+    valueBase: 90
+    durabilityBase: 9
+    material: Cloth
+    locations:
+      flexible:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 86.6
 origWeight: 1.8

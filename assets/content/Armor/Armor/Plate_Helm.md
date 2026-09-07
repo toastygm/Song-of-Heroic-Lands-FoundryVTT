@@ -16,20 +16,22 @@ sohl:
   kbcat: plate
   armorType: Helm
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 80
-  weight: 3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - skullloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3
+    valueBase: 80
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - skullloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 80
 origWeight: 3

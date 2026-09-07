@@ -10,14 +10,15 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Banal:4
-    - Predictable:8
-    - Average:12
-    - Innovative:16
-    - Visionary:999
-  initDiceFormula: 3d6
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Banal:4
+      - Predictable:8
+      - Average:12
+      - Innovative:16
+      - Visionary:999
+    initDiceFormula: 3d6
 sort: 100
 packFolder: attributes
 ---
