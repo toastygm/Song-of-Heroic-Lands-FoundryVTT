@@ -12,7 +12,7 @@ Esoteric knowledge and hidden lore.
 
 ## Grace
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mystery" and subType = "grace"
 SORT name.full ASC
@@ -20,7 +20,7 @@ SORT name.full ASC
 
 ## Piety
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mystery" and subType = "piety"
 SORT name.full ASC
@@ -28,7 +28,7 @@ SORT name.full ASC
 
 ## Fate
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mystery" and subType = "fate"
 SORT name.full ASC
@@ -36,7 +36,7 @@ SORT name.full ASC
 
 ## Fate Bonus
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mystery" and subType = "fateBonus"
 SORT name.full ASC
@@ -44,7 +44,7 @@ SORT name.full ASC
 
 ## Fate Point Bonus
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mystery" and subType = "fatePointBonus"
 SORT name.full ASC
@@ -52,7 +52,7 @@ SORT name.full ASC
 
 ## Blessing
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mystery" and subType = "blessing"
 SORT name.full ASC
@@ -60,7 +60,7 @@ SORT name.full ASC
 
 ## Ancestor Spirit Power
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mystery" and subType = "ancestorSpiritPower"
 SORT name.full ASC
@@ -68,7 +68,7 @@ SORT name.full ASC
 
 ## Totem Spirit Power
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mystery" and subType = "totemSpiritPower"
 SORT name.full ASC

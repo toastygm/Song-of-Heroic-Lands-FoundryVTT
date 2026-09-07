@@ -94,7 +94,7 @@ SORT name.full ASC
 
 Occult arts and hidden disciplines — alchemy, astrology, runecraft, tarotry, and the contemplative practices that brush against the supernatural.
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "skill" and subType = "esoteric"
 SORT name.full ASC
@@ -104,7 +104,7 @@ SORT name.full ASC
 
 Formal devotional practice — the sacred rites by which a character petitions a pantheon or faith for its aid, blessing, or intercession.
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "skill" and subType = "ritual"
 SORT name.full ASC
