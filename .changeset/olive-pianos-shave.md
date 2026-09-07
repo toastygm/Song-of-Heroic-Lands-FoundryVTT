@@ -1,5 +1,5 @@
 ---
-"sohl": minor
+"sohl": patch
 ---
 
 **Renamed the Create-dialog archetype marker from `system.archetype` to `system.templatePriority`** (#1836).

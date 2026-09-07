@@ -1,5 +1,5 @@
 ---
-"sohl": minor
+"sohl": patch
 ---
 
 **A document's id derives from its address, and no note authors one** (#1841).

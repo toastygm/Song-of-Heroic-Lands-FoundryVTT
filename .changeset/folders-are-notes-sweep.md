@@ -1,5 +1,5 @@
 ---
-"sohl": minor
+"sohl": patch
 ---
 
 **This tree's folders are notes** (#1835).
