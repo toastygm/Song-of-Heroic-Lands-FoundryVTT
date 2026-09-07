@@ -39,7 +39,7 @@ Because the better of two always applies, a cusp comes out ahead of either neigh
 
 Reading a sign — a stranger's, or a newborn's — is the work of [[doc-astrlgy|Astrology]], which needs the hour and place of birth to cast a natal chart.
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID
   link(file.path, name.full) AS "Sign",
   shortcode AS "Shortcode",

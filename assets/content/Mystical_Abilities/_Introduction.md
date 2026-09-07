@@ -10,7 +10,7 @@ description: Magical and supernatural powers.
 
 ## Arcane Incantation
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mysticalability" and subType = "arcaneincantation"
 SORT name.full ASC
@@ -26,7 +26,7 @@ SORT name.full ASC
 
 ## Shamanic Rite
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mysticalability" and subType = "shamanicrite"
 SORT name.full ASC
@@ -42,7 +42,7 @@ SORT name.full ASC
 
 ## Spirit Power
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mysticalability" and subType = "spiritpower"
 SORT name.full ASC
@@ -50,7 +50,7 @@ SORT name.full ASC
 
 ## Benediction
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mysticalability" and subType = "benediction"
 SORT name.full ASC
@@ -58,7 +58,7 @@ SORT name.full ASC
 
 ## Divine Devotion
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mysticalability" and subType = "divinedevotion"
 SORT name.full ASC
@@ -66,7 +66,7 @@ SORT name.full ASC
 
 ## Divine Incantation
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mysticalability" and subType = "divineincantation"
 SORT name.full ASC
@@ -74,7 +74,7 @@ SORT name.full ASC
 
 ## Spirit Talent
 
-```dataview
+```dataview allow-empty
 TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
 WHERE type = "mysticalability" and subType = "spirittalent"
 SORT name.full ASC
