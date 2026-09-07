@@ -16,21 +16,23 @@ sohl:
   kbcat: leather
   armorType: Cowl
   detailMaterial: Ermine
-  material: Leather
-  durability: 7
-  value: 145
-  weight: 0.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.6
+    valueBase: 145
+    durabilityBase: 7
+    material: Leather
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 144
 origWeight: 0.6

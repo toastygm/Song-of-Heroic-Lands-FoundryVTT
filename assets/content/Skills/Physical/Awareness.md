@@ -12,14 +12,14 @@ data:
 subType: physical
 sohl:
   kbcat: physical
-  skillBaseFormula: "sb(attr.per, attr.wil)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 3
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - vital
+  system:
+    skillBaseFormula: sb(attr.per, attr.wil)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 3
+    impairedByRoles:
+      - vital
 packFolder: physical
 ---
 

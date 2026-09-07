@@ -15,10 +15,11 @@ sohl:
     skill: glas
     secondary: []
   kbcat: instruments
-  quality: 0
-  durability: 2
-  value: 150
-  weight: 0.3
+  system:
+    weightBase: 0.3
+    valueBase: 150
+    qualityBase: 0
+    durabilityBase: 2
 packFolder: instruments
 ---
 

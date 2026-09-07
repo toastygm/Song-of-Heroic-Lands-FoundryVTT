@@ -10,14 +10,15 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Incoherent:4
-    - Muddled:8
-    - Average:12
-    - Articulate:16
-    - Expressive:999
-  initDiceFormula: 3d6
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Incoherent:4
+      - Muddled:8
+      - Average:12
+      - Articulate:16
+      - Expressive:999
+    initDiceFormula: 3d6
 sort: 120
 packFolder: attributes
 ---

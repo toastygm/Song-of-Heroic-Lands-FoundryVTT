@@ -14,100 +14,101 @@ sohl:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: flail
-  durability: 11
-  weight: 5
-  value: 60
-  heft: 17
   weaponType: Flail
-  strikeModes:
-    - shortcode: crush
-      type: melee
-      name: Crush
-      assocSkillCode: melee
-      minParts: 1
-      attack:
-        spread: 8
-        modifier: 0
-      impactBase:
-        numDice: 1
-        die: 6
-        modifier: 6
-        aspect: blunt
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 3
-        AR: 0
-        noAttack: false
-        noBlock: false
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: false
-        thrust: false
-        swung: true
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: false
-        noStrMod: false
-        halfImpact: false
-        lowAim: false
-      lengthBase: 6
-      defense:
-        blockMod: 0
-        counterstrikeMod: 0
-    - shortcode: pommel
-      type: melee
-      name: Pommel
-      assocSkillCode: melee
-      minParts: 1
-      attack:
-        spread: 4
-        modifier: 0
-      impactBase:
-        numDice: 1
-        die: 6
-        modifier: 0
-        aspect: blunt
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 3
-        AR: 0
-        noAttack: false
-        noBlock: false
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: false
-        thrust: false
-        swung: false
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: true
-        noStrMod: false
-        halfImpact: false
-        lowAim: false
-      lengthBase: 6
-      defense:
-        blockMod: 0
-        counterstrikeMod: 0
+  system:
+    weightBase: 5
+    valueBase: 60
+    durabilityBase: 11
+    heftBase: 17
+    strikeModes:
+      - shortcode: crush
+        type: melee
+        name: Crush
+        assocSkillCode: melee
+        minParts: 1
+        attack:
+          spread: 8
+          modifier: 0
+        impactBase:
+          numDice: 1
+          die: 6
+          modifier: 6
+          aspect: blunt
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 3
+          AR: 0
+          noAttack: false
+          noBlock: false
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: false
+          thrust: false
+          swung: true
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: false
+          noStrMod: false
+          halfImpact: false
+          lowAim: false
+        lengthBase: 6
+        defense:
+          blockMod: 0
+          counterstrikeMod: 0
+      - shortcode: pommel
+        type: melee
+        name: Pommel
+        assocSkillCode: melee
+        minParts: 1
+        attack:
+          spread: 4
+          modifier: 0
+        impactBase:
+          numDice: 1
+          die: 6
+          modifier: 0
+          aspect: blunt
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 3
+          AR: 0
+          noAttack: false
+          noBlock: false
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: false
+          thrust: false
+          swung: false
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: true
+          noStrMod: false
+          halfImpact: false
+          lowAim: false
+        lengthBase: 6
+        defense:
+          blockMod: 0
+          counterstrikeMod: 0
 packFolder: weapons
 ---
 

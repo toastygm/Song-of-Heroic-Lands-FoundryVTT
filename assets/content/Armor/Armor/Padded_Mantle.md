@@ -16,24 +16,26 @@ sohl:
   kbcat: padded
   armorType: Mantle
   detailMaterial: Padded
-  material: Padded
-  durability: 10
-  value: 45
-  weight: 1.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.7
+    valueBase: 45
+    durabilityBase: 10
+    material: Padded
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 42
 origWeight: 1.7

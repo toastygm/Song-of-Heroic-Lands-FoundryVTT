@@ -25,167 +25,6 @@ sohl:
     wil: 1d4+6
     rea: 1d4+5
     cre: 1d4+3
-  body:
-    structure:
-      zones:
-        - name: Head
-          shortcode: headzone
-          probWeight: 3
-        - name: Body
-          shortcode: torsozone
-          probWeight: 5
-        - name: Tail
-          shortcode: tailzone
-          probWeight: 2
-      parts:
-        - name: Head
-          shortcode: headpart
-          bodyZoneCode: headzone
-          roles:
-            - vital
-            - manipulator
-          canHoldItem: false
-          probWeight: 10
-        - name: Body
-          shortcode: torsopart
-          bodyZoneCode: torsozone
-          roles:
-            - core
-          canHoldItem: false
-          probWeight: 10
-        - name: Left Fin
-          shortcode: lfinpart
-          bodyZoneCode: torsozone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 2
-        - name: Right Fin
-          shortcode: rfinpart
-          bodyZoneCode: torsozone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 2
-        - name: Tail
-          shortcode: tailpart
-          bodyZoneCode: tailzone
-          roles:
-            - locomotor
-          canHoldItem: false
-          probWeight: 10
-      locations:
-        - name: Head
-          shortcode: headloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 5
-          probWeight: 6
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Gills
-          shortcode: gillloc
-          bodyPartCode: headpart
-          bleedingSusceptibility: high
-          amputability: low
-          shockValue: 5
-          probWeight: 4
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Body
-          shortcode: bodyloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: medium
-          amputability: none
-          shockValue: 4
-          probWeight: 6
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Underbelly
-          shortcode: underbellyloc
-          bodyPartCode: torsopart
-          bleedingSusceptibility: high
-          amputability: none
-          shockValue: 4
-          probWeight: 4
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Left Fin
-          shortcode: lfinloc
-          bodyPartCode: lfinpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Right Fin
-          shortcode: rfinloc
-          bodyPartCode: rfinpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-        - name: Tail
-          shortcode: tailloc
-          bodyPartCode: tailpart
-          bleedingSusceptibility: low
-          amputability: medium
-          shockValue: 2
-          probWeight: 10
-          protectionBase:
-            blunt: 2
-            edged: 1
-            piercing: 0
-            fire: 2
-    weight:
-      base: 400
-      calc: "400"
-    reachBase: 0
-    bodyScaleBase: 0.88
-    personalFatigue: enc + 5
-  currentMoveMedium: terrestrial
-  movementProfiles:
-    - medium: terrestrial
-      feetPerRound: 30
-      leaguesPerWatch: 1
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors:
-        - scope: hydrology
-          key: shallow
-          mode: add
-          textValue: "0"
-      disabled: false
-    - medium: aquatic
-      feetPerRound: 80
-      leaguesPerWatch: 8
-      encumbrance: floor(wt/4)
-      strMod: -5 * floor((str - 10) / 2)
-      factors: []
-      disabled: false
-  defaultCombatGroup: null
   items:
     - { shortcode: str, type: attribute, system: { scoreBase: 9 } }
     - { shortcode: end, type: attribute, system: { scoreBase: 12 } }
@@ -238,6 +77,161 @@ sohl:
               successLevelMod: 0
           traits:
             noBlock: true
+  system:
+    body:
+      structure:
+        zones:
+          - name: Head
+            shortcode: headzone
+            probWeight: 3
+          - name: Body
+            shortcode: torsozone
+            probWeight: 5
+          - name: Tail
+            shortcode: tailzone
+            probWeight: 2
+        parts:
+          - name: Head
+            shortcode: headpart
+            bodyZoneCode: headzone
+            roles:
+              - vital
+              - manipulator
+            canHoldItem: false
+            probWeight: 10
+          - name: Body
+            shortcode: torsopart
+            bodyZoneCode: torsozone
+            roles:
+              - core
+            canHoldItem: false
+            probWeight: 10
+          - name: Left Fin
+            shortcode: lfinpart
+            bodyZoneCode: torsozone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 2
+          - name: Right Fin
+            shortcode: rfinpart
+            bodyZoneCode: torsozone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 2
+          - name: Tail
+            shortcode: tailpart
+            bodyZoneCode: tailzone
+            roles:
+              - locomotor
+            canHoldItem: false
+            probWeight: 10
+        locations:
+          - name: Head
+            shortcode: headloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 5
+            probWeight: 6
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Gills
+            shortcode: gillloc
+            bodyPartCode: headpart
+            bleedingSusceptibility: high
+            amputability: low
+            shockValue: 5
+            probWeight: 4
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Body
+            shortcode: bodyloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: medium
+            amputability: none
+            shockValue: 4
+            probWeight: 6
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Underbelly
+            shortcode: underbellyloc
+            bodyPartCode: torsopart
+            bleedingSusceptibility: high
+            amputability: none
+            shockValue: 4
+            probWeight: 4
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Left Fin
+            shortcode: lfinloc
+            bodyPartCode: lfinpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Right Fin
+            shortcode: rfinloc
+            bodyPartCode: rfinpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+          - name: Tail
+            shortcode: tailloc
+            bodyPartCode: tailpart
+            bleedingSusceptibility: low
+            amputability: medium
+            shockValue: 2
+            probWeight: 10
+            protectionBase:
+              blunt: 2
+              edged: 1
+              piercing: 0
+              fire: 2
+      weight:
+        base: 400
+        calc: "400"
+      reachBase: 0
+      bodyScaleBase: 0.88
+      personalFatigue: enc + 5
+    currentMoveMedium: terrestrial
+    movementProfiles:
+      - medium: terrestrial
+        feetPerRound: 30
+        leaguesPerWatch: 1
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
+      - medium: aquatic
+        feetPerRound: 80
+        leaguesPerWatch: 8
+        encumbrance: floor(wt/4)
+        strMod: -5 * floor((str - 10) / 2)
+        disabled: false
 ---
 
 # Appearance {#appearance}

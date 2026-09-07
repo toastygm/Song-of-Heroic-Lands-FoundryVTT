@@ -16,22 +16,24 @@ sohl:
   kbcat: ring
   armorType: Gauntlets
   detailMaterial: Ring
-  material: Ring
-  durability: 13
-  value: 70
-  weight: 2.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lhandloc
-    - rhandloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.7
+    valueBase: 70
+    durabilityBase: 13
+    material: Ring
+    locations:
+      flexible: []
+      rigid:
+        - lhandloc
+        - rhandloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 67.5
 origWeight: 2.7

@@ -12,14 +12,6 @@ data:
 subType: combattechnique
 sohl:
   kbcat: unarmed
-  skillBaseFormula: "sb(attr.dex, attr.agl)"
-  combatCategory: melee
-  parentSkillCode: ""
-  initSkillMult: 2
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - locomotor
   strikeMode:
     type: melee
     shortcode: trip
@@ -73,6 +65,14 @@ sohl:
       halfImpact: false
       lowAim: false
       strRoll: true
+  system:
+    skillBaseFormula: sb(attr.dex, attr.agl)
+    improveFlag: false
+    combatCategory: melee
+    parentSkillCode: ""
+    initSkillMult: 2
+    impairedByRoles:
+      - locomotor
 packFolder: combat
 ---
 

@@ -16,23 +16,25 @@ sohl:
   kbcat: cloth
   armorType: Breeches
   detailMaterial: Velvet
-  material: Cloth
-  durability: 10
-  value: 60
-  weight: 0.9
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.9
+    valueBase: 60
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 17
 origWeight: 0.9

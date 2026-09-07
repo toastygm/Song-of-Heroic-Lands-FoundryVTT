@@ -16,24 +16,26 @@ sohl:
   kbcat: cloth
   armorType: Apron
   detailMaterial: Linen
-  material: Cloth
-  durability: 5
-  value: 25
-  weight: 0.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.6
+    valueBase: 25
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 24.2
 origWeight: 0.6

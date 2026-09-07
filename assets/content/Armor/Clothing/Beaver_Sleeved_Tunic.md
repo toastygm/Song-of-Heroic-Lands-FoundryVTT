@@ -16,30 +16,32 @@ sohl:
   kbcat: leather
   armorType: Sleeved Tunic
   detailMaterial: Beaver
-  material: Leather
-  durability: 9
-  value: 600
-  weight: 6.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - lfraloc
-    - rfraloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 6.1
+    valueBase: 600
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - lfraloc
+        - rfraloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 600
 origWeight: 6.1

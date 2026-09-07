@@ -15,10 +15,11 @@ sohl:
     skill: cmcs
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 2
-  value: 6
-  weight: 2
+  system:
+    weightBase: 2
+    valueBase: 6
+    qualityBase: 0
+    durabilityBase: 2
 packFolder: expedition
 ---
 

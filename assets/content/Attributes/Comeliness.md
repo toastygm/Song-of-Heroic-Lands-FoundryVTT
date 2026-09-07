@@ -10,14 +10,15 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Ugly:4
-    - Unattractive:8
-    - Plain:12
-    - Attractive:16
-    - Striking:999
-  initDiceFormula: 3d6
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Ugly:4
+      - Unattractive:8
+      - Plain:12
+      - Attractive:16
+      - Striking:999
+    initDiceFormula: 3d6
 sort: 60
 packFolder: attributes
 ---

@@ -16,26 +16,28 @@ sohl:
   kbcat: mail
   armorType: Longshirt
   detailMaterial: Mail
-  material: Mail
-  durability: 13
-  value: 645
-  weight: 19.4
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 19.4
+    valueBase: 645
+    durabilityBase: 13
+    material: Mail
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 645
 origWeight: 19.4

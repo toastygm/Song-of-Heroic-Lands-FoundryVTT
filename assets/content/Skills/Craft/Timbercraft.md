@@ -12,17 +12,17 @@ data:
 subType: nature
 sohl:
   kbcat: craft
-  skillBaseFormula: "sb(attr.per, attr.rea)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 0
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - manipulator
-    - locomotor
+  system:
+    skillBaseFormula: sb(attr.per, attr.rea)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 0
+    impairedByRoles:
+      - core
+      - vital
+      - manipulator
+      - locomotor
 packFolder: craft
 ---
 

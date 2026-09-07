@@ -16,21 +16,23 @@ sohl:
   kbcat: leather
   armorType: Vest
   detailMaterial: Ermine
-  material: Leather
-  durability: 7
-  value: 580
-  weight: 2.2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.2
+    valueBase: 580
+    durabilityBase: 7
+    material: Leather
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 96
 origWeight: 3.6

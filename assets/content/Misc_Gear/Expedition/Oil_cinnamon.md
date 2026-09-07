@@ -15,10 +15,11 @@ sohl:
     skill: pfmy
     secondary: []
   kbcat: expedition
-  quality: 0
-  durability: 0
-  value: 60
-  weight: 0.0625
+  system:
+    weightBase: 0.0625
+    valueBase: 60
+    qualityBase: 0
+    durabilityBase: 0
 packFolder: expedition
 ---
 

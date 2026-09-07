@@ -16,23 +16,25 @@ sohl:
   kbcat: cloth
   armorType: Swaddle
   detailMaterial: Worsted
-  material: Cloth
-  durability: 9
-  value: 50
-  weight: 0.8
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.8
+    valueBase: 50
+    durabilityBase: 9
+    material: Cloth
+    locations:
+      flexible:
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 19
 origWeight: 1

@@ -16,20 +16,22 @@ sohl:
   kbcat: leather
   armorType: Cap
   detailMaterial: Sealskin
-  material: Leather
-  durability: 11
-  value: 50
-  weight: 0.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.7
+    valueBase: 50
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - skullloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 16
 origWeight: 0.6

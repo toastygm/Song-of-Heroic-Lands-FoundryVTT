@@ -16,28 +16,30 @@ sohl:
   kbcat: quilted
   armorType: Surcoat
   detailMaterial: Quilted
-  material: Quilted
-  durability: 11
-  value: 220
-  weight: 9.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 9.7
+    valueBase: 220
+    durabilityBase: 11
+    material: Quilted
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 216
 origWeight: 9.7

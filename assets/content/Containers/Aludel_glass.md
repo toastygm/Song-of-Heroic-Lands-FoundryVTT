@@ -13,11 +13,12 @@ sohl:
   craft:
     skill: glas
     secondary: []
-  quality: 0
-  durability: 2
-  maxCapacity: 1
-  value: 36
-  weight: 1
+  system:
+    weightBase: 1
+    valueBase: 36
+    qualityBase: 0
+    durabilityBase: 2
+    maxCapacityBase: 1
 packFolder: containers
 ---
 

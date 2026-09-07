@@ -11,8 +11,9 @@ data:
 subType: fear
 sohl:
   kbcat: phobias
-  category: none
-  levelBase: 0
+  system:
+    category: none
+    levelBase: 0
 packFolder: phobias
 ---
 

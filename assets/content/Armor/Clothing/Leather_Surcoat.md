@@ -16,28 +16,30 @@ sohl:
   kbcat: leather
   armorType: Surcoat
   detailMaterial: Leather
-  material: Leather
-  durability: 9
-  value: 435
-  weight: 5.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 5.4
+    valueBase: 435
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 432
 origWeight: 5.4

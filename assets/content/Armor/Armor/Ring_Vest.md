@@ -16,21 +16,23 @@ sohl:
   kbcat: ring
   armorType: Vest
   detailMaterial: Ring
-  material: Ring
-  durability: 13
-  value: 325
-  weight: 13
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 13
+    valueBase: 325
+    durabilityBase: 13
+    material: Ring
+    locations:
+      flexible: []
+      rigid:
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 324
 origWeight: 13

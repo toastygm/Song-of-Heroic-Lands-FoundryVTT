@@ -12,17 +12,17 @@ data:
 subType: combat
 sohl:
   kbcat: combat
-  skillBaseFormula: "sb(attr.dex, attr.agl)"
-  combatCategory: melee
-  parentSkillCode: ""
-  initSkillMult: 2
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - manipulator
-    - locomotor
+  system:
+    skillBaseFormula: sb(attr.dex, attr.agl)
+    improveFlag: false
+    combatCategory: melee
+    parentSkillCode: ""
+    initSkillMult: 2
+    impairedByRoles:
+      - core
+      - vital
+      - manipulator
+      - locomotor
 packFolder: combat
 ---
 

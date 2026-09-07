@@ -16,28 +16,30 @@ sohl:
   kbcat: cloth
   armorType: Surcoat
   detailMaterial: Linen
-  material: Cloth
-  durability: 5
-  value: 30
-  weight: 0.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.7
+    valueBase: 30
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 54
 origWeight: 2.7

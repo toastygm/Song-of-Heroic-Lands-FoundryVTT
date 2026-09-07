@@ -16,25 +16,27 @@ sohl:
   kbcat: padded
   armorType: Shirt
   detailMaterial: Padded
-  material: Padded
-  durability: 10
-  value: 70
-  weight: 2.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.6
+    valueBase: 70
+    durabilityBase: 10
+    material: Padded
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 66
 origWeight: 2.6

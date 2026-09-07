@@ -16,21 +16,23 @@ sohl:
   kbcat: leather
   armorType: Vest
   detailMaterial: Beaver
-  material: Leather
-  durability: 9
-  value: 290
-  weight: 2.9
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.9
+    valueBase: 290
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 96
 origWeight: 3.6

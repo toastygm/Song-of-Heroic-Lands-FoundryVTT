@@ -12,10 +12,11 @@ data:
 subType: poisontoxin
 sohl:
   kbcat: poisontoxin
-  levelBase: 1
-  healingRateBase: 3
-  contagionIndex: 3
-  transmission: vector
+  system:
+    levelBase: 1
+    healingRateBase: 3
+    contagionIndexBase: 3
+    transmission: vector
 packFolder: poisonsandtoxins
 ---
 

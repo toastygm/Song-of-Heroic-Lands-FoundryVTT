@@ -16,24 +16,26 @@ sohl:
   kbcat: cloth
   armorType: Mantle
   detailMaterial: Homespun
-  material: Cloth
-  durability: 5
-  value: 6
-  weight: 0.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.3
+    valueBase: 6
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 21
 origWeight: 1.1

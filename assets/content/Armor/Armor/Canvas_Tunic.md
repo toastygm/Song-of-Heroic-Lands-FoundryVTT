@@ -16,28 +16,30 @@ sohl:
   kbcat: cloth
   armorType: Tunic
   detailMaterial: Canvas
-  material: Cloth
-  durability: 11
-  value: 41
-  weight: 2.9
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.9
+    valueBase: 41
+    durabilityBase: 11
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 40.5
 origWeight: 2.9

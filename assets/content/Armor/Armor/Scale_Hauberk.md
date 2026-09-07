@@ -16,32 +16,34 @@ sohl:
   kbcat: scale
   armorType: Hauberk
   detailMaterial: Scale
-  material: Scale
-  durability: 14
-  value: 640
-  weight: 35.2
-  encumbrance: 20
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - lfraloc
-    - rfraloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 35.2
+    valueBase: 640
+    durabilityBase: 14
+    material: Scale
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - lfraloc
+        - rfraloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 20
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 640
 origWeight: 35.2

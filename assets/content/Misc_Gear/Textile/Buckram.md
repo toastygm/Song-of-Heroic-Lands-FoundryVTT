@@ -15,10 +15,11 @@ sohl:
     skill: txtl
     secondary: []
   kbcat: cloth
-  quality: 0
-  durability: 5
-  value: 10
-  weight: 1.5
+  system:
+    weightBase: 1.5
+    valueBase: 10
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: textile
 ---
 

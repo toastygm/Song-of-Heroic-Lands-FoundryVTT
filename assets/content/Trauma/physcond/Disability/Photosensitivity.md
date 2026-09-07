@@ -11,7 +11,8 @@ data:
 subType: physcond
 sohl:
   kbcat: physdisability
-  category: trait
+  system:
+    category: trait
 packFolder: traumaphysical
 ---
 

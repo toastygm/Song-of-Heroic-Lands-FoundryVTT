@@ -16,21 +16,23 @@ sohl:
   kbcat: cloth
   armorType: Cowl
   detailMaterial: Linen
-  material: Cloth
-  durability: 5
-  value: 3
-  weight: 0.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.1
+    valueBase: 3
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 6
 origWeight: 0.3

@@ -16,21 +16,23 @@ sohl:
   kbcat: leather
   armorType: Vest
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 100
-  weight: 3.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3.6
+    valueBase: 100
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 96
 origWeight: 3.6

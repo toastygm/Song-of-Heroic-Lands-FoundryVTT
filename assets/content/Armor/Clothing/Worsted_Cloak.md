@@ -16,49 +16,51 @@ sohl:
   kbcat: cloth
   armorType: Cloak
   detailMaterial: Worsted
-  material: Cloth
-  durability: 9
-  value: 85
-  weight: 1.4
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  facing:
-    - location: thrxloc
-      side: back
-    - location: abdmnloc
-      side: back
-    - location: plvisloc
-      side: back
-    - location: lthghloc
-      side: back
-    - location: rthghloc
-      side: back
-    - location: lkneeloc
-      side: back
-    - location: rkneeloc
-      side: back
-    - location: lcalfloc
-      side: back
-    - location: rcalfloc
-      side: back
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.4
+    valueBase: 85
+    durabilityBase: 9
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+      facing:
+        - location: thrxloc
+          side: back
+        - location: abdmnloc
+          side: back
+        - location: plvisloc
+          side: back
+        - location: lthghloc
+          side: back
+        - location: rthghloc
+          side: back
+        - location: lkneeloc
+          side: back
+        - location: rkneeloc
+          side: back
+        - location: lcalfloc
+          side: back
+        - location: rcalfloc
+          side: back
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 82.6
 origWeight: 1.4

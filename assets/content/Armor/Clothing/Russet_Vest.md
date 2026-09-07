@@ -16,21 +16,23 @@ sohl:
   kbcat: cloth
   armorType: Vest
   detailMaterial: Russet
-  material: Cloth
-  durability: 7
-  value: 30
-  weight: 0.6
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.6
+    valueBase: 30
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 24
 origWeight: 1.2

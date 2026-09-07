@@ -11,7 +11,8 @@ data:
 subType: psycond
 sohl:
   kbcat: psypsychosis
-  category: quirk
+  system:
+    category: quirk
 packFolder: disorders
 ---
 

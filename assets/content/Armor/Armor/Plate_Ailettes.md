@@ -16,22 +16,24 @@ sohl:
   kbcat: plate
   armorType: Ailettes
   detailMaterial: Plate
-  material: Plate
-  durability: 14
-  value: 60
-  weight: 1.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1.1
+    valueBase: 60
+    durabilityBase: 14
+    material: Plate
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 60
 origWeight: 1.1

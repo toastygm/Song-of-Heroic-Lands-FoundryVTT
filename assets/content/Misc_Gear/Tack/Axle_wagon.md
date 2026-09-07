@@ -15,10 +15,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: tack
-  quality: 0
-  durability: 8
-  value: 36
-  weight: 15
+  system:
+    weightBase: 15
+    valueBase: 36
+    qualityBase: 0
+    durabilityBase: 8
 packFolder: tack
 ---
 

@@ -13,11 +13,12 @@ sohl:
   craft:
     skill: mtlc
     secondary: []
-  quality: 0
-  durability: 4
-  maxCapacity: 16
-  value: 10
-  weight: 3
+  system:
+    weightBase: 3
+    valueBase: 10
+    qualityBase: 0
+    durabilityBase: 4
+    maxCapacityBase: 16
 packFolder: containers
 ---
 

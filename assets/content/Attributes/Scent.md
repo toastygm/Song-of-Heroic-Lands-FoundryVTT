@@ -10,16 +10,17 @@ type: attribute
 data:
   templatePriority: 0
 sohl:
-  scoreBase: 0
-  valueDesc:
-    - Anosmic:4
-    - Dull:7
-    - Common:10
-    - Keen:13
-    - Acute:17
-    - Preternatural:22
-    - Uncanny:999
-  initDiceFormula: 3d6
+  system:
+    scoreBase: 0
+    valueDesc:
+      - Anosmic:4
+      - Dull:7
+      - Common:10
+      - Keen:13
+      - Acute:17
+      - Preternatural:22
+      - Uncanny:999
+    initDiceFormula: 3d6
 sort: 55
 packFolder: attributes
 ---

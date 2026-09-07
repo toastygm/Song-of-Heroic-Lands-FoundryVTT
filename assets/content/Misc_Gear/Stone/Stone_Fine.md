@@ -15,10 +15,11 @@ sohl:
     skill: mnrl
     secondary: []
   kbcat: stone
-  quality: 0
-  durability: 7
-  value: 1
-  weight: 400
+  system:
+    weightBase: 400
+    valueBase: 1
+    qualityBase: 0
+    durabilityBase: 7
 packFolder: stone
 ---
 

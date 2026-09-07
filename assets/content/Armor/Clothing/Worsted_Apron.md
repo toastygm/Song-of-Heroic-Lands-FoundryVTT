@@ -16,24 +16,26 @@ sohl:
   kbcat: cloth
   armorType: Apron
   detailMaterial: Worsted
-  material: Cloth
-  durability: 9
-  value: 120
-  weight: 2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2
+    valueBase: 120
+    durabilityBase: 9
+    material: Cloth
+    locations:
+      flexible:
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 115.5
 origWeight: 2

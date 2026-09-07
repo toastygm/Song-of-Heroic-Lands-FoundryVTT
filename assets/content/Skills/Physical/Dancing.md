@@ -12,16 +12,16 @@ data:
 subType: physical
 sohl:
   kbcat: physical
-  skillBaseFormula: "sb(attr.agl, attr.cre)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 2
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
-    - locomotor
+  system:
+    skillBaseFormula: sb(attr.agl, attr.cre)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 2
+    impairedByRoles:
+      - core
+      - vital
+      - locomotor
 packFolder: physical
 ---
 

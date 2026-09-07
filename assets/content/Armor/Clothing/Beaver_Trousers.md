@@ -16,26 +16,28 @@ sohl:
   kbcat: leather
   armorType: Trousers
   detailMaterial: Beaver
-  material: Leather
-  durability: 9
-  value: 468
-  weight: 4.8
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 4.8
+    valueBase: 468
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 468
 origWeight: 4.8

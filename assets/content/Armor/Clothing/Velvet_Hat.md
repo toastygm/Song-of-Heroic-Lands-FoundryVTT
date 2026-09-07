@@ -16,20 +16,22 @@ sohl:
   kbcat: cloth
   armorType: Hat
   detailMaterial: Velvet
-  material: Cloth
-  durability: 10
-  value: 14
-  weight: 0.2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.2
+    valueBase: 14
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 14
 origWeight: 0.2

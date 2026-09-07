@@ -16,27 +16,29 @@ sohl:
   kbcat: scale
   armorType: Leggings
   detailMaterial: Scale
-  material: Scale
-  durability: 14
-  value: 360
-  weight: 19.8
-  encumbrance: 10
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 19.8
+    valueBase: 360
+    durabilityBase: 14
+    material: Scale
+    locations:
+      flexible: []
+      rigid:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 10
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 360
 origWeight: 19.8

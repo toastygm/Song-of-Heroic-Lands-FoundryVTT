@@ -16,36 +16,38 @@ sohl:
   kbcat: cloth
   armorType: Dress
   detailMaterial: Serge
-  material: Cloth
-  durability: 7
-  value: 50
-  weight: 2.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - lfraloc
-    - rfraloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.1
+    valueBase: 50
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - lfraloc
+        - rfraloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 47.2
 origWeight: 2.1

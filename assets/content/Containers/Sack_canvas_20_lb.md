@@ -13,11 +13,12 @@ sohl:
   craft:
     skill: txtl
     secondary: []
-  quality: 0
-  durability: 3
-  maxCapacity: 20
-  value: 0.75
-  weight: 0.6
+  system:
+    weightBase: 0.6
+    valueBase: 0.75
+    qualityBase: 0
+    durabilityBase: 3
+    maxCapacityBase: 20
 packFolder: containers
 ---
 

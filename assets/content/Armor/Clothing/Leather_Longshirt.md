@@ -16,26 +16,28 @@ sohl:
   kbcat: leather
   armorType: Longshirt
   detailMaterial: Leather
-  material: Leather
-  durability: 9
-  value: 345
-  weight: 4.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 4.3
+    valueBase: 345
+    durabilityBase: 9
+    material: Leather
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 344
 origWeight: 4.3

@@ -11,7 +11,7 @@ description: "Sacks, packs, pouches, and other carriers."
 Sacks, packs, pouches, and other carriers.
 
 ```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.value as "Value", sohl.weight as "Weight", description AS "Description"
+TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
 WHERE type = "containergear"
 SORT name.full ASC
 ```

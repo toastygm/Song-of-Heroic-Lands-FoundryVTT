@@ -16,26 +16,28 @@ sohl:
   kbcat: cloth
   armorType: Trousers
   detailMaterial: Russet
-  material: Cloth
-  durability: 7
-  value: 50
-  weight: 1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 1
+    valueBase: 50
+    durabilityBase: 7
+    material: Cloth
+    locations:
+      flexible:
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 39
 origWeight: 2

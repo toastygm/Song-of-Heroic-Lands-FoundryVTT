@@ -16,23 +16,25 @@ sohl:
   kbcat: cloth
   armorType: Swaddle
   detailMaterial: Linen
-  material: Cloth
-  durability: 5
-  value: 10
-  weight: 0.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.3
+    valueBase: 10
+    durabilityBase: 5
+    material: Cloth
+    locations:
+      flexible:
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 19
 origWeight: 1

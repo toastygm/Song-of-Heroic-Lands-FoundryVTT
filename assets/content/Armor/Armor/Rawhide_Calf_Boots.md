@@ -16,23 +16,25 @@ sohl:
   kbcat: leather
   armorType: Calf Boots
   detailMaterial: Rawhide
-  material: Leather
-  durability: 11
-  value: 80
-  weight: 3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3
+    valueBase: 80
+    durabilityBase: 11
+    material: Leather
+    locations:
+      flexible:
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 76
 origWeight: 3

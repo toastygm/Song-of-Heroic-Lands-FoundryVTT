@@ -12,13 +12,13 @@ data:
 subType: mystical
 sohl:
   kbcat: mystical
-  skillBaseFormula: "sb(attr.aur, attr.wil)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 3
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles: []
+  system:
+    skillBaseFormula: sb(attr.aur, attr.wil)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 3
+    impairedByRoles: []
 packFolder: mysticalskills
 ---
 

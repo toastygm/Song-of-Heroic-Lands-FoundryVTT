@@ -16,25 +16,27 @@ sohl:
   kbcat: mail
   armorType: Byrnie
   detailMaterial: Mail
-  material: Mail
-  durability: 13
-  value: 495
-  weight: 14.9
-  encumbrance: 5
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - thrxloc
-    - abdmnloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 14.9
+    valueBase: 495
+    durabilityBase: 13
+    material: Mail
+    locations:
+      flexible: []
+      rigid:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - thrxloc
+        - abdmnloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 5
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 495
 origWeight: 14.9

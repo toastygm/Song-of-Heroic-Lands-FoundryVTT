@@ -16,32 +16,34 @@ sohl:
   kbcat: cloth
   armorType: Coat
   detailMaterial: Cloth
-  material: Cloth
-  durability: 10
-  value: 65
-  weight: 3.2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - lfraloc
-    - rfraloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 3.2
+    valueBase: 65
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - lfraloc
+        - rfraloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 64
 origWeight: 3.2

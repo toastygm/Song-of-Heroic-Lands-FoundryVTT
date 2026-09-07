@@ -16,28 +16,30 @@ sohl:
   kbcat: cloth
   armorType: Surcoat
   detailMaterial: Buckram
-  material: Cloth
-  durability: 10
-  value: 55
-  weight: 2.7
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.7
+    valueBase: 55
+    durabilityBase: 10
+    material: Cloth
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 54
 origWeight: 2.7

@@ -16,21 +16,23 @@ sohl:
   kbcat: cloth
   armorType: Cowl
   detailMaterial: Worsted
-  material: Cloth
-  durability: 9
-  value: 14
-  weight: 0.2
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - skullloc
-    - neckloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 0.2
+    valueBase: 14
+    durabilityBase: 9
+    material: Cloth
+    locations:
+      flexible:
+        - skullloc
+        - neckloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: clothing
 origValue: 6
 origWeight: 0.3

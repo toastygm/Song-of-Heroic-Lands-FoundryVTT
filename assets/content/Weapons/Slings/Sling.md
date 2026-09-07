@@ -14,56 +14,57 @@ sohl:
     skill: hide
     secondary: []
   kbcat: sling
-  durability: 9
-  weight: 0.1
-  value: 6
-  heft: 0
   weaponType: Sling
-  strikeModes:
-    - shortcode: ranged
-      type: missile
-      name: Ranged
-      assocSkillCode: slng
-      minParts: 2
-      attack:
-        spread: 0
-        modifier: 0
-      impactBase:
-        numDice: 1
-        die: 10
-        modifier: 0
-        aspect: blunt
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 0
-        AR: 0
-        noAttack: false
-        noBlock: false
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: false
-        thrust: false
-        swung: false
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: false
-        noStrMod: false
-        halfImpact: false
-        lowAim: false
-      projectileType: bullet
-      maxVolleyMult: 4
-      baseRangeBase: 180
-      drawBase: 0
+  system:
+    weightBase: 0.1
+    valueBase: 6
+    durabilityBase: 9
+    heftBase: 0
+    strikeModes:
+      - shortcode: ranged
+        type: missile
+        name: Ranged
+        assocSkillCode: slng
+        minParts: 2
+        attack:
+          spread: 0
+          modifier: 0
+        impactBase:
+          numDice: 1
+          die: 10
+          modifier: 0
+          aspect: blunt
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 0
+          AR: 0
+          noAttack: false
+          noBlock: false
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: false
+          thrust: false
+          swung: false
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: false
+          noStrMod: false
+          halfImpact: false
+          lowAim: false
+        projectileType: bullet
+        maxVolleyMult: 4
+        baseRangeBase: 180
+        drawBase: 0
 packFolder: weapons
 ---
 

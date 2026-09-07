@@ -15,10 +15,11 @@ sohl:
     skill: hide
     secondary: []
   kbcat: natural
-  quality: 0
-  durability: 5
-  value: 20
-  weight: 1.2
+  system:
+    weightBase: 1.2
+    valueBase: 20
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: natural
 ---
 

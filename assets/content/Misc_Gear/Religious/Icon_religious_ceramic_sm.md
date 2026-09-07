@@ -15,10 +15,11 @@ sohl:
     skill: cmcs
     secondary: []
   kbcat: religious
-  quality: 0
-  durability: 2
-  value: 2
-  weight: 1
+  system:
+    weightBase: 1
+    valueBase: 2
+    qualityBase: 0
+    durabilityBase: 2
 packFolder: religious
 ---
 

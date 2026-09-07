@@ -12,15 +12,15 @@ data:
 subType: combat
 sohl:
   kbcat: combat
-  skillBaseFormula: "sb(attr.str, attr.end)"
-  combatCategory: none
-  parentSkillCode: ""
-  initSkillMult: 3
-  masteryLevelBase: null
-  improveFlag: false
-  impairedByRoles:
-    - core
-    - vital
+  system:
+    skillBaseFormula: sb(attr.str, attr.end)
+    improveFlag: false
+    combatCategory: none
+    parentSkillCode: ""
+    initSkillMult: 3
+    impairedByRoles:
+      - core
+      - vital
 packFolder: combat
 ---
 

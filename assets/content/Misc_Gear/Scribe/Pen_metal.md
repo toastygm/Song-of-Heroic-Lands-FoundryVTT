@@ -15,10 +15,11 @@ sohl:
     skill: mtlc
     secondary: []
   kbcat: scribe
-  quality: 0
-  durability: 5
-  value: 4
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 4
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: scribe
 ---
 

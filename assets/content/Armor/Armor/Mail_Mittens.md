@@ -16,22 +16,24 @@ sohl:
   kbcat: mail
   armorType: Mittens
   detailMaterial: Mail
-  material: Mail
-  durability: 13
-  value: 75
-  weight: 2.3
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  encumbranceGroup: arm
-  flexloc: []
-  rigidloc:
-    - lhandloc
-    - rhandloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 2.3
+    valueBase: 75
+    durabilityBase: 13
+    material: Mail
+    locations:
+      flexible: []
+      rigid:
+        - lhandloc
+        - rhandloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    encumbranceGroup: arm
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 75
 origWeight: 2.3

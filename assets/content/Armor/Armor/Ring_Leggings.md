@@ -16,27 +16,29 @@ sohl:
   kbcat: ring
   armorType: Leggings
   detailMaterial: Ring
-  material: Ring
-  durability: 13
-  value: 490
-  weight: 19.4
-  encumbrance: 10
-  perceptionPenaltyBase: 0
-  flexloc: []
-  rigidloc:
-    - lthghloc
-    - rthghloc
-    - lkneeloc
-    - rkneeloc
-    - lcalfloc
-    - rcalfloc
-    - lfootloc
-    - rfootloc
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 19.4
+    valueBase: 490
+    durabilityBase: 13
+    material: Ring
+    locations:
+      flexible: []
+      rigid:
+        - lthghloc
+        - rthghloc
+        - lkneeloc
+        - rkneeloc
+        - lcalfloc
+        - rcalfloc
+        - lfootloc
+        - rfootloc
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 10
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 486
 origWeight: 19.4

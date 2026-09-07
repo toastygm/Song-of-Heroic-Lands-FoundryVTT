@@ -15,10 +15,11 @@ sohl:
     skill: anmcft
     secondary: []
   kbcat: natural
-  quality: 0
-  durability: 3
-  value: 10
-  weight: 10
+  system:
+    weightBase: 10
+    valueBase: 10
+    qualityBase: 0
+    durabilityBase: 3
 packFolder: natural
 ---
 

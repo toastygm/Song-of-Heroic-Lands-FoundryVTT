@@ -15,10 +15,11 @@ sohl:
     skill: lock
     secondary: [mtlc]
   kbcat: expedition
-  quality: 0
-  durability: 5
-  value: 2
-  weight: 0.1
+  system:
+    weightBase: 0.1
+    valueBase: 2
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: expedition
 ---
 

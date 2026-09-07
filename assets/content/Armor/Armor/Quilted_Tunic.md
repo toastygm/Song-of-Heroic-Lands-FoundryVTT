@@ -16,28 +16,30 @@ sohl:
   kbcat: quilted
   armorType: Tunic
   detailMaterial: Quilted
-  material: Quilted
-  durability: 11
-  value: 180
-  weight: 8.1
-  encumbrance: 0
-  perceptionPenaltyBase: 0
-  flexloc:
-    - lshldloc
-    - rshldloc
-    - lupaloc
-    - rupaloc
-    - lelbloc
-    - relbloc
-    - thrxloc
-    - abdmnloc
-    - plvisloc
-  rigidloc: []
-  protection:
-    blunt: 4
-    edged: 8
-    piercing: 5
-    fire: 5
+  system:
+    weightBase: 8.1
+    valueBase: 180
+    durabilityBase: 11
+    material: Quilted
+    locations:
+      flexible:
+        - lshldloc
+        - rshldloc
+        - lupaloc
+        - rupaloc
+        - lelbloc
+        - relbloc
+        - thrxloc
+        - abdmnloc
+        - plvisloc
+      rigid: []
+    protectionBase:
+      blunt: 4
+      edged: 8
+      piercing: 5
+      fire: 5
+    encumbrance: 0
+    perceptionPenaltyBase: 0
 packFolder: armorarmor
 origValue: 180
 origWeight: 8.1

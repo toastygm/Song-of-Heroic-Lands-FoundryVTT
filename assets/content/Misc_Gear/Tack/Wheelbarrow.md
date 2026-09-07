@@ -15,10 +15,11 @@ sohl:
     skill: wood
     secondary: []
   kbcat: tack
-  quality: 0
-  durability: 5
-  value: 10
-  weight: 24
+  system:
+    weightBase: 24
+    valueBase: 10
+    qualityBase: 0
+    durabilityBase: 5
 packFolder: tack
 ---
 

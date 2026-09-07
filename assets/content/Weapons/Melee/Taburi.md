@@ -14,144 +14,145 @@ sohl:
     skill: wpnc
     secondary: [mtlc, mnrl]
   kbcat: knife
-  durability: 10
-  weight: 1
-  value: 20
-  heft: 7
   weaponType: Knife
-  strikeModes:
-    - shortcode: impale
-      type: melee
-      name: Impale
-      assocSkillCode: melee
-      minParts: 1
-      attack:
-        spread: 4
-        modifier: 0
-      impactBase:
-        numDice: 1
-        die: 8
-        modifier: 2
-        aspect: piercing
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 4
-        AR: 0
-        noAttack: false
-        noBlock: false
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: false
-        thrust: true
-        swung: false
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: false
-        noStrMod: false
-        halfImpact: false
-        lowAim: false
-      lengthBase: 2
-      defense:
-        blockMod: -10
-        counterstrikeMod: -10
-    - shortcode: pommel
-      type: melee
-      name: Pommel
-      assocSkillCode: melee
-      minParts: 1
-      attack:
-        spread: 4
-        modifier: 0
-      impactBase:
-        numDice: 1
-        die: 6
-        modifier: 0
-        aspect: blunt
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 3
-        AR: 0
-        noAttack: false
-        noBlock: false
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: false
-        thrust: false
-        swung: false
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: true
-        noStrMod: false
-        halfImpact: false
-        lowAim: false
-      lengthBase: 2
-      defense:
-        blockMod: -10
-        counterstrikeMod: -10
-    - shortcode: thrown
-      type: missile
-      name: Thrown
-      assocSkillCode: thro
-      minParts: 1
-      attack:
-        spread: 4
-        modifier: 0
-      impactBase:
-        numDice: 1
-        die: 8
-        modifier: 2
-        aspect: piercing
-      traits:
-        meleeMod: 0
-        blockSLMod: 0
-        durabilityMod: 0
-        cxSLMod: 0
-        oppDef: 0
-        impTA: 3
-        AR: 0
-        noAttack: false
-        noBlock: false
-        entangle: false
-        envelop: false
-        couched: false
-        long: false
-        onlyInClose: false
-        shieldMod: 0
-        slow: false
-        thrust: false
-        swung: false
-        halfSword: false
-        bleed: false
-        twoHndLen: 0
-        shaft: false
-        pommel: false
-        noStrMod: false
-        halfImpact: false
-        lowAim: false
-      projectileType: ""
-      maxVolleyMult: 2
-      baseRangeBase: 30
-      drawBase: 0
+  system:
+    weightBase: 1
+    valueBase: 20
+    durabilityBase: 10
+    heftBase: 7
+    strikeModes:
+      - shortcode: impale
+        type: melee
+        name: Impale
+        assocSkillCode: melee
+        minParts: 1
+        attack:
+          spread: 4
+          modifier: 0
+        impactBase:
+          numDice: 1
+          die: 8
+          modifier: 2
+          aspect: piercing
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 4
+          AR: 0
+          noAttack: false
+          noBlock: false
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: false
+          thrust: true
+          swung: false
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: false
+          noStrMod: false
+          halfImpact: false
+          lowAim: false
+        lengthBase: 2
+        defense:
+          blockMod: -10
+          counterstrikeMod: -10
+      - shortcode: pommel
+        type: melee
+        name: Pommel
+        assocSkillCode: melee
+        minParts: 1
+        attack:
+          spread: 4
+          modifier: 0
+        impactBase:
+          numDice: 1
+          die: 6
+          modifier: 0
+          aspect: blunt
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 3
+          AR: 0
+          noAttack: false
+          noBlock: false
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: false
+          thrust: false
+          swung: false
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: true
+          noStrMod: false
+          halfImpact: false
+          lowAim: false
+        lengthBase: 2
+        defense:
+          blockMod: -10
+          counterstrikeMod: -10
+      - shortcode: thrown
+        type: missile
+        name: Thrown
+        assocSkillCode: thro
+        minParts: 1
+        attack:
+          spread: 4
+          modifier: 0
+        impactBase:
+          numDice: 1
+          die: 8
+          modifier: 2
+          aspect: piercing
+        traits:
+          meleeMod: 0
+          blockSLMod: 0
+          durabilityMod: 0
+          cxSLMod: 0
+          oppDef: 0
+          impTA: 3
+          AR: 0
+          noAttack: false
+          noBlock: false
+          entangle: false
+          envelop: false
+          couched: false
+          long: false
+          onlyInClose: false
+          shieldMod: 0
+          slow: false
+          thrust: false
+          swung: false
+          halfSword: false
+          bleed: false
+          twoHndLen: 0
+          shaft: false
+          pommel: false
+          noStrMod: false
+          halfImpact: false
+          lowAim: false
+        projectileType: ""
+        maxVolleyMult: 2
+        baseRangeBase: 30
+        drawBase: 0
 packFolder: weapons
 ---
 

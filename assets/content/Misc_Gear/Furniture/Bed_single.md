@@ -15,10 +15,11 @@ sohl:
     skill: wood
     secondary: []
   kbcat: furniture
-  quality: 0
-  durability: 6
-  value: 48
-  weight: 85
+  system:
+    weightBase: 85
+    valueBase: 48
+    qualityBase: 0
+    durabilityBase: 6
 packFolder: furniture
 ---
 
