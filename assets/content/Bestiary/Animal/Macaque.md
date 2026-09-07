@@ -6,7 +6,7 @@ name:
   full: Macaque
   aliases:
     - Temple Monkey
-description: "A stocky, intelligent medium-sized monkey of Vedyara thriving everywhere from temples to cities by stealing and extorting food from humans."
+description: "A stocky, intelligent medium-sized monkey of the monsoon south thriving everywhere from temples to cities by stealing and extorting food from humans."
 img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/macaque-portrait.webp
 shortcode: macaque
@@ -544,13 +544,13 @@ The temple courtyard seems peaceful until you set down your pack. The first one 
 
 # Dossier {#dossier}
 
-The Macaque is the common monkey of [[doc-vedyarargn|Vedyara Region]] — a stocky, medium-sized primate found in forests, temple complexes, cities, agricultural areas, and virtually every other habitat where food can be obtained, stolen, or extorted from humans. An adult macaque stands about twenty inches tall on all fours and weighs ten to twenty-five pounds, with males substantially larger than females. They are social, intelligent, aggressive, adaptable, and found in numbers that range from "several" to "infestation" depending on the local food supply and the tolerance of the human population.
+The Macaque is the common monkey of the monsoon south — a stocky, medium-sized primate found in forests, temple complexes, cities, agricultural areas, and virtually every other habitat where food can be obtained, stolen, or extorted from humans. An adult macaque stands about twenty inches tall on all fours and weighs ten to twenty-five pounds, with males substantially larger than females. They are social, intelligent, aggressive, adaptable, and found in numbers that range from "several" to "infestation" depending on the local food supply and the tolerance of the human population.
 
-Macaques are the monkeys of Vedyaran daily life — the ones that sit on temple walls, steal food from market stalls, raid granaries, snatch items from the hands of pilgrims, and infest the rooftops of every major city in the subcontinent. They are not the graceful, contemplative langurs of the forest canopy; they are the stocky, aggressive, street-smart primates that have discovered that human civilization is the richest ecological niche available and have exploited it with an enthusiasm that borders on the sociopathic. A troop of macaques in a Vedyaran city is simultaneously a tourist attraction, a public menace, a religious obligation, and an unsolvable problem.
+Macaques are the monkeys of daily life in the south — the ones that sit on temple walls, steal food from market stalls, raid granaries, snatch items from the hands of pilgrims, and infest the rooftops of every major city in the subcontinent. They are not the graceful, contemplative langurs of the forest canopy; they are the stocky, aggressive, street-smart primates that have discovered that human civilization is the richest ecological niche available and have exploited it with an enthusiasm that borders on the sociopathic. A troop of macaques in a southern city is simultaneously a tourist attraction, a public menace, a religious obligation, and an unsolvable problem.
 
-Their relationship with Vedyaran culture is complicated. Monkeys in general hold sacred status in Vedyaran religion, and macaques in particular benefit from this protection at temple complexes where they are fed by priests and pilgrims. This protection has produced populations of temple macaques that are fearless, aggressive, and absolutely certain that every human they encounter exists primarily as a food delivery system. The religious prohibition against harming them means that even macaques that have become genuinely dangerous — large males that attack children, troops that destroy crops, individuals that have learned to bite humans who resist theft — cannot be killed or removed without navigating a thicket of religious, social, and legal complications.
+Their relationship with southern culture is complicated. Monkeys in general hold sacred status in southern religion, and macaques in particular benefit from this protection at temple complexes where they are fed by priests and pilgrims. This protection has produced populations of temple macaques that are fearless, aggressive, and absolutely certain that every human they encounter exists primarily as a food delivery system. The religious prohibition against harming them means that even macaques that have become genuinely dangerous — large males that attack children, troops that destroy crops, individuals that have learned to bite humans who resist theft — cannot be killed or removed without navigating a thicket of religious, social, and legal complications.
 
-Adventurers encounter macaques everywhere in Vedyara. They sit on walls and watch you. They follow you. They steal anything they can carry and some things they cannot. They are the background noise of Vedyaran settlement life, and underestimating them is the most common mistake newcomers make.
+Adventurers encounter macaques everywhere in the south. They sit on walls and watch you. They follow you. They steal anything they can carry and some things they cannot. They are the background noise of southern settlement life, and underestimating them is the most common mistake newcomers make.
 
 ## Presentation
 
@@ -558,7 +558,7 @@ A compact, muscular primate built for climbing, fighting, and surviving in close
 
 The hands are the most unsettling feature. They are hands — not paws, not claws, but genuine primate hands with four fingers and an opposable thumb, complete with nails and fingerprints. They are dexterous enough to untie knots, open latches, unbuckle straps, unscrew caps, and pick pockets. The feet are equally dexterous, essentially serving as a second pair of hands, which gives the macaque a four-limbed manipulation capability that allows it to climb, hold, and manipulate objects simultaneously. The tail is medium-length and is used for balance rather than gripping.
 
-The teeth are the feature that demands respect. The canine teeth of an adult male are long, sharp, and prominently displayed in the threat yawn — a wide-mouthed display of the open jaws that communicates aggressive intent. The canines are capable of inflicting deep puncture wounds, and a male macaque in full aggressive display, lips drawn back, canines bared, brow ridges lowered, is a genuinely intimidating sight that experienced Vedyarans treat with appropriate caution.
+The teeth are the feature that demands respect. The canine teeth of an adult male are long, sharp, and prominently displayed in the threat yawn — a wide-mouthed display of the open jaws that communicates aggressive intent. The canines are capable of inflicting deep puncture wounds, and a male macaque in full aggressive display, lips drawn back, canines bared, brow ridges lowered, is a genuinely intimidating sight that experienced southerners treat with appropriate caution.
 
 ## Key Behaviors
 
@@ -596,7 +596,7 @@ Not technically a combat attack, but the macaque's most practiced skill. The mon
 
 ### Urban Intelligence
 
-Macaques are among the most intelligent animals in Vedyara, capable of observational learning, tool use, problem-solving, and social manipulation. They learn the routines of human settlements, they remember productive theft locations across seasons, and they teach their offspring through demonstration. A troop of macaques that has lived near humans for several generations has accumulated a body of cultural knowledge about human behavior, human containers, human food storage, and human vulnerabilities that makes them extraordinarily effective exploiters of the human environment.
+Macaques are among the most intelligent animals in the south, capable of observational learning, tool use, problem-solving, and social manipulation. They learn the routines of human settlements, they remember productive theft locations across seasons, and they teach their offspring through demonstration. A troop of macaques that has lived near humans for several generations has accumulated a body of cultural knowledge about human behavior, human containers, human food storage, and human vulnerabilities that makes them extraordinarily effective exploiters of the human environment.
 
 ### Four-Limbed Climbing
 
@@ -608,7 +608,7 @@ A macaque troop maintains a collective memory of individual humans. A person who
 
 ### Sacred Nuisance
 
-Like the peacock, macaques benefit from religious protection in Vedyaran settlements. Harming a temple monkey carries social and legal consequences, and communities that have lived with macaque troops for generations have developed elaborate accommodations — designated feeding areas, monkey-proofed storage, accepted loss ratios for market goods — that reflect the reality that the monkeys are simultaneously sacred, protected, and a constant, inescapable headache. For adventurers unfamiliar with Vedyaran customs, the discovery that the monkey that just stole their coin purse cannot be legally retaliated against is a formative cultural experience.
+Like the peacock, macaques benefit from religious protection in southern settlements. Harming a temple monkey carries social and legal consequences, and communities that have lived with macaque troops for generations have developed elaborate accommodations — designated feeding areas, monkey-proofed storage, accepted loss ratios for market goods — that reflect the reality that the monkeys are simultaneously sacred, protected, and a constant, inescapable headache. For adventurers unfamiliar with southern customs, the discovery that the monkey that just stole their coin purse cannot be legally retaliated against is a formative cultural experience.
 
 ## Attributes
 

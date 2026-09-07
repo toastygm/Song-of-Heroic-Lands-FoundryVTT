@@ -5,7 +5,7 @@ tags:
 name:
   full: Onager
   aliases: []
-description: "A wild ass of the Khazryn steppe, a medium equine of legendary speed, endurance, and ferocity ranging across gravel plains and salt flats."
+description: "A wild ass of the arid steppe, a medium equine of legendary speed, endurance, and ferocity ranging across gravel plains and salt flats."
 img: icons/game-icons/skoll/donkey.svg
 portrait: images/being/onager-portrait.webp
 shortcode: onager
@@ -332,7 +332,7 @@ It stands on the salt flat like something carved from the desert itself — pale
 
 # Dossier {#dossier}
 
-The Onager is the wild ass of the Khazryn steppe — a medium-sized equine of extraordinary speed, endurance, and ferocity found across the gravel plains, salt flats, and semi-arid grasslands of central Ankaris. An adult onager stands eleven to twelve hands at the shoulder and weighs five hundred to six hundred and fifty pounds, smaller and lighter than a wild horse but faster over open ground and possessed of a legendary willfulness that has defeated every historical attempt at domestication. Unlike the patient, cooperative donkey to which it is distantly related, the onager is a creature of explosive temperament — faster than a horse in a sprint, tireless over distance, and willing to fight with a viciousness that makes wild horses seem docile by comparison. For the Khazryn nomads, the onager is both a prized hunting quarry and a symbol of the desert's untameable spirit. Hunting onager on horseback is considered one of the supreme tests of rider and mount — the onager's speed forces the horse to its absolute limit, and the animal's unpredictable behavior and willingness to fight when cornered makes the final approach dangerous. Ancient Khazryn legends speak of warriors who tried to ride captured onagers, and none of these stories end well. Adventurers encounter onagers on the open steppe, often at a distance — the animals are wary and maintain a wide buffer from anything unfamiliar — and at remote watering holes where onager bands gather to drink.
+The Onager is the wild ass of the arid steppe — a medium-sized equine of extraordinary speed, endurance, and ferocity found across the gravel plains, salt flats, and semi-arid grasslands of the continental interior. An adult onager stands eleven to twelve hands at the shoulder and weighs five hundred to six hundred and fifty pounds, smaller and lighter than a wild horse but faster over open ground and possessed of a legendary willfulness that has defeated every historical attempt at domestication. Unlike the patient, cooperative donkey to which it is distantly related, the onager is a creature of explosive temperament — faster than a horse in a sprint, tireless over distance, and willing to fight with a viciousness that makes wild horses seem docile by comparison. For the steppe nomads, the onager is both a prized hunting quarry and a symbol of the desert's untameable spirit. Hunting onager on horseback is considered one of the supreme tests of rider and mount — the onager's speed forces the horse to its absolute limit, and the animal's unpredictable behavior and willingness to fight when cornered makes the final approach dangerous. Ancient steppe legends speak of warriors who tried to ride captured onagers, and none of these stories end well. Adventurers encounter onagers on the open steppe, often at a distance — the animals are wary and maintain a wide buffer from anything unfamiliar — and at remote watering holes where onager bands gather to drink.
 
 ## Presentation
 
@@ -364,11 +364,11 @@ A cornered onager will charge directly at a threat, rearing at the last moment t
 
 ### Desert Speed
 
-The onager is the fastest equine on the Khazryn steppe. Over short distances — the first half-mile of a pursuit — an onager can outrun any horse, reaching speeds that are simply inaccessible to heavier domestic breeds. Even over longer distances, an onager's speed drops only marginally, and it can sustain a pace that exhausts pursuing horses within a few miles. This speed, combined with the onager's ability to navigate rough terrain at full gallop without faltering, makes mounted pursuit a genuinely difficult proposition.
+The onager is the fastest equine on the arid steppe. Over short distances — the first half-mile of a pursuit — an onager can outrun any horse, reaching speeds that are simply inaccessible to heavier domestic breeds. Even over longer distances, an onager's speed drops only marginally, and it can sustain a pace that exhausts pursuing horses within a few miles. This speed, combined with the onager's ability to navigate rough terrain at full gallop without faltering, makes mounted pursuit a genuinely difficult proposition.
 
 ### Untameable Spirit
 
-The onager's legendary willfulness is not merely stubbornness — it is an active, aggressive refusal to submit that has no parallel among equines. Historical attempts to domesticate onagers have universally failed. Captured animals injure handlers, refuse training, attack other livestock, and will starve themselves or fight restraints to the point of self-destruction rather than cooperate. This is not fear-based panic but something closer to rage — an onager that has been restrained becomes genuinely dangerous to everyone around it. The few Khazryn stories of warriors who managed to ride onagers describe animals that cooperated only on their own terms and that could never be fully trusted.
+The onager's legendary willfulness is not merely stubbornness — it is an active, aggressive refusal to submit that has no parallel among equines. Historical attempts to domesticate onagers have universally failed. Captured animals injure handlers, refuse training, attack other livestock, and will starve themselves or fight restraints to the point of self-destruction rather than cooperate. This is not fear-based panic but something closer to rage — an onager that has been restrained becomes genuinely dangerous to everyone around it. The few steppe stories of warriors who managed to ride onagers describe animals that cooperated only on their own terms and that could never be fully trusted.
 
 ### Extreme Endurance
 

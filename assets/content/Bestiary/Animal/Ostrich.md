@@ -5,7 +5,7 @@ tags:
 name:
   full: Ostrich
   aliases: []
-description: "The largest living bird of Dunhara, a flightless seven-to-nine-foot desert runner carried on a pair of devastatingly powerful legs."
+description: "The largest living bird of the desert, a flightless seven-to-nine-foot desert runner carried on a pair of devastatingly powerful legs."
 img: icons/game-icons/delapouite/cassowary-head.svg
 portrait: images/being/ostrich-portrait.webp
 shortcode: ostrich
@@ -304,9 +304,9 @@ Your first thought is that someone has left a feathered tent in the middle of th
 
 # Dossier {#dossier}
 
-The Ostrich is the largest living bird in [[doc-dunharargn|Dunhara Region]] — a massive, flightless desert runner found on the open plains, gravel wastes, and scrubland margins of the southern deserts. An adult male stands seven to nine feet tall and weighs two hundred and twenty to three hundred and fifty pounds, carried on a pair of legs that are among the most powerful in the animal kingdom. The ostrich cannot fly — its wings are vestigial, useful only for balance and display — but it can run at sustained speeds that outpace horses and deliver kicks that can kill a lion. It is simultaneously one of the most impressive and one of the most ridiculous creatures in the desert: majestic from a distance, comical up close, and lethal if you misjudge which one it is at any given moment.
+The Ostrich is the largest living bird of the desert — a massive, flightless runner found on the open plains, gravel wastes, and scrubland margins of the southern deserts. An adult male stands seven to nine feet tall and weighs two hundred and twenty to three hundred and fifty pounds, carried on a pair of legs that are among the most powerful in the animal kingdom. The ostrich cannot fly — its wings are vestigial, useful only for balance and display — but it can run at sustained speeds that outpace horses and deliver kicks that can kill a lion. It is simultaneously one of the most impressive and one of the most ridiculous creatures in the desert: majestic from a distance, comical up close, and lethal if you misjudge which one it is at any given moment.
 
-Ostriches are economically important across Dunhara. Their feathers — particularly the white plume feathers of the male's wings and tail — are prized trade goods, used for decoration, heraldry, and fan-making in the courts of [[doc-sultntmrdd|Amradad]] and beyond. Their eggs, the largest of any land animal, are used as water vessels in the deep desert, the thick shells carved and decorated as prestige objects, and the contents eaten as a meal that can feed a family. Their leather is tough and supple, valued by leatherworkers. Semi-domesticated ostriches are kept by some Dunharan settlements for egg production, and there are persistent attempts to use them as riding animals that have produced more injuries than successes.
+Ostriches are economically important across the desert. Their feathers — particularly the white plume feathers of the male's wings and tail — are prized trade goods, used for decoration, heraldry, and fan-making in the courts of the desert cities and beyond. Their eggs, the largest of any land animal, are used as water vessels in the deep desert, the thick shells carved and decorated as prestige objects, and the contents eaten as a meal that can feed a family. Their leather is tough and supple, valued by leatherworkers. Semi-domesticated ostriches are kept by some desert settlements for egg production, and there are persistent attempts to use them as riding animals that have produced more injuries than successes.
 
 Adventurers encounter ostriches on open desert plains — small flocks picking their way across the scrub, territorial males displaying with spread wings and booming calls, and nesting females sitting on enormous ground nests that they defend with startling aggression.
 
@@ -362,7 +362,7 @@ At seven to nine feet tall, an ostrich's eyes are the highest natural vantage po
 
 ### Egg and Feather Economy
 
-The ostrich is one of the few wild animals that supports an active trade economy without being domesticated. Feather hunters, egg collectors, and leather traders all pursue ostriches, and the plume trade in particular connects Dunharan desert hunters to luxury markets in [[doc-sultntmrdd|Amradad]], [[doc-byzariargn|Byzaría Region]], and beyond. A single male ostrich's white plume feathers can be worth more than the animal's meat, making feather collection a specialized and sometimes dangerous profession — approaching a live ostrich closely enough to assess its plumage is an activity with a meaningful injury rate.
+The ostrich is one of the few wild animals that supports an active trade economy without being domesticated. Feather hunters, egg collectors, and leather traders all pursue ostriches, and the plume trade in particular connects desert hunters to luxury markets in the great trading cities and beyond. A single male ostrich's white plume feathers can be worth more than the animal's meat, making feather collection a specialized and sometimes dangerous profession — approaching a live ostrich closely enough to assess its plumage is an activity with a meaningful injury rate.
 
 ### Gizzard Stones
 

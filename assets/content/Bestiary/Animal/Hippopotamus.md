@@ -5,7 +5,7 @@ tags:
 name:
   full: Hippopotamus
   aliases: []
-description: "A three-to-four-ton river herbivore of Xerathia's marshes, more lethal and aggressive than any crocodile despite its herbivorous diet."
+description: "A three-to-four-ton river herbivore of tropical marshes, more lethal and aggressive than any crocodile despite its herbivorous diet."
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/hppptms-portrait.webp
 shortcode: hppptms
@@ -374,7 +374,7 @@ The water erupts. What you took for a muddy boulder splits open into a mouth tha
 
 # Dossier {#dossier}
 
-The Hippopotamus is the most dangerous large animal along the rivers and marshes of Xerathia — more lethal than the crocodile, more aggressive than the elephant, and utterly without the caution that governs most herbivores. An adult male stands roughly five feet at the shoulder but stretches twelve to fifteen feet in length and weighs three to four thousand pounds — a mass of bone, muscle, and thick hide shaped into a creature that dominates its river territory through sheer violence. Despite being herbivorous (they graze on riverside grasses at night), hippopotami are extraordinarily territorial and will attack anything that enters their water: boats, swimmers, crocodiles, other hippos, and humans with equal enthusiasm. They are responsible for more human deaths along the Tameresh River than any other animal, including the crocodile. Adventurers encounter them while crossing rivers, traveling by boat, camping on riverbanks, or when hippo herds encroach on farming settlements — as is currently happening along the upper Tameresh, where the [[doc-sekhetneru|Sekhet'Neru]] is struggling to control a population surge.
+The Hippopotamus is the most dangerous large animal along the tropical rivers and marshes — more lethal than the crocodile, more aggressive than the elephant, and utterly without the caution that governs most herbivores. An adult male stands roughly five feet at the shoulder but stretches twelve to fifteen feet in length and weighs three to four thousand pounds — a mass of bone, muscle, and thick hide shaped into a creature that dominates its river territory through sheer violence. Despite being herbivorous (they graze on riverside grasses at night), hippopotami are extraordinarily territorial and will attack anything that enters their water: boats, swimmers, crocodiles, other hippos, and humans with equal enthusiasm. They are responsible for more human deaths along the great rivers than any other animal, including the crocodile. Adventurers encounter them while crossing rivers, traveling by boat, camping on riverbanks, or when hippo herds encroach on farming settlements — as is currently happening along the upper reaches of the great river, where the local authorities are struggling to control a population surge.
 
 ## Presentation
 
@@ -400,7 +400,7 @@ On land or in shallows, the hippo accelerates into a straight-line charge, using
 
 ### Boat Capsize
 
-Against watercraft, the hippo attacks from below, surfacing beneath the hull or biting the gunwale to flip the vessel. Once occupants are in the water, they are in the hippo's element. Smaller reed boats are destroyed outright; larger wooden vessels may survive but will be damaged and destabilized. The Sekhet'Neru considers this the hippo's most dangerous tactic, because it puts hunters in the water where neither their weapons nor their footing can save them.
+Against watercraft, the hippo attacks from below, surfacing beneath the hull or biting the gunwale to flip the vessel. Once occupants are in the water, they are in the hippo's element. Smaller reed boats are destroyed outright; larger wooden vessels may survive but will be damaged and destabilized. River hunters consider this the hippo's most dangerous tactic, because it puts hunters in the water where neither their weapons nor their footing can save them.
 
 ### Trampling
 

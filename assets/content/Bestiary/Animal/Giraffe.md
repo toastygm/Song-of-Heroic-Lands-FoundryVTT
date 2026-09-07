@@ -5,7 +5,7 @@ tags:
 name:
   full: Giraffe
   aliases: []
-description: "The tallest animal alive, an improbable long-necked herbivore browsing the high canopy of the Xerathian savannahs and open woodlands."
+description: "The tallest animal alive, an improbable long-necked herbivore browsing the high canopy of the savannahs and open woodlands."
 img: icons/game-icons/lorc/paw-print.svg
 portrait: images/being/giraffe-portrait.webp
 shortcode: giraffe
@@ -331,11 +331,11 @@ You have been watching it for several minutes before your mind finishes the calc
 
 # Dossier {#dossier}
 
-The Giraffe is the tallest animal in the world — a massive, extraordinary herbivore of the Xerathian savannahs and open woodlands, standing fifteen to nineteen feet tall and weighing eighteen hundred to twenty-eight hundred pounds. Nothing else in nature looks like it, nothing else occupies its ecological niche, and nothing quite prepares you for the first time you see one. The proportions are improbable: a neck that comprises nearly half the animal's height, legs longer than a tall man, a body that seems too compact for the scaffolding that supports it, and a head that sits at a height where it has no competition for food and no peer for surveillance. The giraffe is the watchtower of the savanna — its height gives it a visual range that exceeds any other animal's, and its presence or absence is read by every other species as an indicator of safety or danger.
+The Giraffe is the tallest animal in the world — a massive, extraordinary herbivore of the savannahs and open woodlands, standing fifteen to nineteen feet tall and weighing eighteen hundred to twenty-eight hundred pounds. Nothing else in nature looks like it, nothing else occupies its ecological niche, and nothing quite prepares you for the first time you see one. The proportions are improbable: a neck that comprises nearly half the animal's height, legs longer than a tall man, a body that seems too compact for the scaffolding that supports it, and a head that sits at a height where it has no competition for food and no peer for surveillance. The giraffe is the watchtower of the savanna — its height gives it a visual range that exceeds any other animal's, and its presence or absence is read by every other species as an indicator of safety or danger.
 
-In the cultures of southern [[doc-xerathia|Xerathia]], the giraffe occupies a position of reverent wonder. The savanna tribes regard it as a creature that walks between earth and sky — its head among the clouds, its feet on the ground, a living bridge between the realms. Giraffe imagery appears in rock paintings, ceremonial masks, and the oral traditions of the nomadic peoples who share the savanna with them. Giraffe hide is prized for shield-making (the thick, tough skin is excellent armor) and giraffe tail hair is braided into jewelry and fly whisks that serve as symbols of authority. Despite this cultural significance, giraffes are hunted — the meat of a single animal can feed a large group for days, and the hunt itself, targeting an animal that can see you coming from miles away and kick hard enough to kill a lion, is a formidable test of skill.
+In the cultures of the southern savanna, the giraffe occupies a position of reverent wonder. The savanna tribes regard it as a creature that walks between earth and sky — its head among the clouds, its feet on the ground, a living bridge between the realms. Giraffe imagery appears in rock paintings, ceremonial masks, and the oral traditions of the nomadic peoples who share the savanna with them. Giraffe hide is prized for shield-making (the thick, tough skin is excellent armor) and giraffe tail hair is braided into jewelry and fly whisks that serve as symbols of authority. Despite this cultural significance, giraffes are hunted — the meat of a single animal can feed a large group for days, and the hunt itself, targeting an animal that can see you coming from miles away and kick hard enough to kill a lion, is a formidable test of skill.
 
-Adventurers crossing the Xerathian savannahs see giraffes constantly — solitary bulls browsing at the woodland edge, small herds of females and young moving across open grassland, and occasionally the spectacular sight of two bulls fighting, swinging their massive necks at each other like siege weapons. They are not aggressive toward humans and will typically move away at a stately pace when approached, but a cornered giraffe or one defending a calf is one of the most dangerous animals on the savanna, capable of killing with a single kick.
+Adventurers crossing the savannahs see giraffes constantly — solitary bulls browsing at the woodland edge, small herds of females and young moving across open grassland, and occasionally the spectacular sight of two bulls fighting, swinging their massive necks at each other like siege weapons. They are not aggressive toward humans and will typically move away at a stately pace when approached, but a cornered giraffe or one defending a calf is one of the most dangerous animals on the savanna, capable of killing with a single kick.
 
 ## Presentation
 
@@ -391,7 +391,7 @@ Despite its ungainly appearance, a giraffe at full gallop is genuinely fast — 
 
 ### Thick Hide
 
-The giraffe's skin is thick and tough — up to an inch in places — and has been used by Xerathian peoples for shield-making for millennia. This natural armor provides meaningful protection against claw strikes and glancing blows, and combined with the animal's size, it makes the giraffe resistant to the predation methods that work against smaller herbivores. A lion that leaps onto a giraffe's back must contend with hide that resists penetration and a body that can simply walk away with the lion still clinging.
+The giraffe's skin is thick and tough — up to an inch in places — and has been used by savanna peoples for shield-making for millennia. This natural armor provides meaningful protection against claw strikes and glancing blows, and combined with the animal's size, it makes the giraffe resistant to the predation methods that work against smaller herbivores. A lion that leaps onto a giraffe's back must contend with hide that resists penetration and a body that can simply walk away with the lion still clinging.
 
 ## Attributes
 

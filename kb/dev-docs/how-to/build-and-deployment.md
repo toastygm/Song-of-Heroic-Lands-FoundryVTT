@@ -413,7 +413,9 @@ its entry in `package-build.config.yaml`, rather than the guard being relaxed fo
 everyone.
 
 Cross-package references are resolved through published link manifests rather
-than a shared tree; see `@heroiclands/package-build/engine/kb-manifest` and `assets/manifests/`.
+than a shared tree, fetched into a local cache by `content-build deps fetch`. This
+repository is the base package and resolves nothing outside itself (#1839); see
+[The Link Manifest](../reference/link-manifest.md).
 
 ### Authoring content notes
 
