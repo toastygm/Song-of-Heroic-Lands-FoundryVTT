@@ -5,7 +5,7 @@ tags:
 name:
   full: Baboon
   aliases: []
-description: "A powerfully built, highly social monkey of the Kheperi lowlands, dwelling in rocky escarpments and river margins near human settlements."
+description: "A powerfully built, highly social monkey of the river lowlands, dwelling in rocky escarpments and river margins near human settlements."
 img: icons/game-icons/lorc/monkey.svg
 portrait: images/being/baboon-portrait.webp
 shortcode: baboon
@@ -580,7 +580,7 @@ The noise reaches you before the sight — a cacophony of barking screams that e
 
 # Dossier {#dossier}
 
-The Baboon is the largest and most dangerous primate of the Kheperi lowlands — a powerfully built, highly social monkey found in rocky escarpments, river margins, and increasingly around the edges of human settlements along the Tameresh. An adult male stands two to three feet at the shoulder when on all fours and weighs fifty to a hundred pounds, with the largest dominant males occasionally exceeding this range. They live in troops of twenty to over a hundred individuals organized around a strict dominance hierarchy, and it is the troop — not the individual — that makes baboons genuinely dangerous. A lone baboon is a nuisance; a troop of angry baboons is a disaster. Baboons are sacred to Thōth in Kheperi religion, associated with wisdom, writing, and the judgment of souls, and troops that inhabit temple complexes are fed and protected by priests. This sacred status creates constant tension with farmers, whose crops and granaries suffer devastating raids from troops that have learned human agriculture represents an easy food source. Adventurers encounter baboons along cliff faces and rocky outcrops near rivers, in temple complexes where they are semi-domesticated, raiding agricultural areas, and occasionally in wilderness areas where troops have established territories across mountain passes or canyon systems.
+The Baboon is the largest and most dangerous primate of the river lowlands — a powerfully built, highly social monkey found in rocky escarpments, river margins, and increasingly around the edges of human settlements along the great river. An adult male stands two to three feet at the shoulder when on all fours and weighs fifty to a hundred pounds, with the largest dominant males occasionally exceeding this range. They live in troops of twenty to over a hundred individuals organized around a strict dominance hierarchy, and it is the troop — not the individual — that makes baboons genuinely dangerous. A lone baboon is a nuisance; a troop of angry baboons is a disaster. Baboons are sacred to the scribe-god of the river kingdoms, associated with wisdom, writing, and the judgment of souls, and troops that inhabit temple complexes are fed and protected by priests. This sacred status creates constant tension with farmers, whose crops and granaries suffer devastating raids from troops that have learned human agriculture represents an easy food source. Adventurers encounter baboons along cliff faces and rocky outcrops near rivers, in temple complexes where they are semi-domesticated, raiding agricultural areas, and occasionally in wilderness areas where troops have established territories across mountain passes or canyon systems.
 
 ## Presentation
 
@@ -624,7 +624,7 @@ The troop functions as a military unit in defense. Alarm calls are specific — 
 
 ### Sacred Status
 
-In Kheperi lands, baboons benefit from religious protection as creatures of Thōth. Temple troops are fed, sheltered, and defended by priests, and harming baboons near temple complexes can bring severe legal and social consequences. This protection has made temple baboons unusually bold around humans, and troops that have outgrown their temple territory often expand into surrounding agricultural land with an arrogance born of generations of immunity from human retaliation.
+In the river lands, baboons benefit from religious protection as creatures of the scribe-god. Temple troops are fed, sheltered, and defended by priests, and harming baboons near temple complexes can bring severe legal and social consequences. This protection has made temple baboons unusually bold around humans, and troops that have outgrown their temple territory often expand into surrounding agricultural land with an arrogance born of generations of immunity from human retaliation.
 
 ## Attributes
 

@@ -207,19 +207,28 @@ are the long-standing placeholder for worldbuilding notes kept outside this
 repository, and a hyphenated _name_ (`[[Grukar-ahk]]`) stays a name, since a hyphen
 only qualifies on a known type.
 
-**Addressing another package.** `assets/content/` holds the `sohl` package alone,
-but a page may legitimately address material in another — `Rules/Bestiary.md` links
-Thalorna creatures, and Bestiary pages cite Thalorna geography. Such an address
-resolves through that package's **link manifest**, vendored under
-`assets/manifests/<package>.json` and produced by its own build (#1446). Nothing
-special is needed to write one: address the note as `type-shortcode` exactly as you
-would a local one, and it resolves if the target package publishes it.
+**Addressing another package — not from here.** `assets/content/` holds the `sohl`
+package alone, and **`sohl` is the base: nothing it ships may address another
+package** (#1839). Modules depend on the system; the system depends on nothing, so
+the package graph is a tree rather than a cycle. Every address you write in this
+repository resolves within this repository.
 
-An address that resolves in no package — local or vendored — is a typo and fails the
-build. That check is live only while every package in `LINK_PACKAGES`
-(`@heroiclands/package-build/engine/kb-manifest`) is accounted for; if a manifest is missing, unresolved
-addresses are tolerated and the build says so, because the distinction is not
-decidable without it.
+The dependency runs the other way. `sohl-thalorna` and `sohl-kethira-basic` address
+`sohl`, declaring it in `relationships` with `itemCatalog: true` and filling a local
+cache with `content-build deps fetch`; a compile never touches the network, and one
+whose cache is cold fails saying so. That is the mechanism a _consuming_ repository
+uses — this one is on the other end of it.
+
+An address that resolves in no package is a typo and **fails the build**:
+
+```text
+Bestiary/Animal/Giraffe.md:337:29: error: address [[doc-xerathia]] resolves to no note — no package publishes it.
+```
+
+`npm run lint:content-links` (part of `npm run lint`, so it gates every build) is
+what enforces it. Because this repository declares no dependency, that check is
+also what keeps the base package free of outbound references: a link into a module
+resolves nowhere and stops the build.
 
 **What a manifest entry records is package-relative** (#1465). An entry is
 `{ path, name }`, and `path` says where the page sits _inside its own package_

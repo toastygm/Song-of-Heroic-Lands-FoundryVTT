@@ -5,7 +5,7 @@ tags:
 name:
   full: Jackal
   aliases: []
-description: "A small, adaptable canid of the Kheperi lowlands that hunts and scavenges along riverbanks, village middens, and necropolis complexes among the dead."
+description: "A small, adaptable canid of the river lowlands that hunts and scavenges along riverbanks, village middens, and necropolis complexes among the dead."
 img: icons/game-icons/lorc/hound.svg
 portrait: images/being/jackal-portrait.webp
 shortcode: jackal
@@ -282,11 +282,11 @@ A shape slips between the dunes at the edge of firelight — low-slung, tawny, m
 
 # Dossier {#dossier}
 
-The Jackal is the ubiquitous canid of the Kheperi lowlands — a small, adaptable predator-scavenger found along the Tameresh River, in the desert margins, around village middens, and among the necropolis complexes where it feeds on offerings left for the dead. An adult jackal stands roughly sixteen to twenty inches at the shoulder and weighs fifteen to thirty-five pounds — far smaller than a wolf, but compensating with intelligence, speed, and a social flexibility that allows it to hunt alone, in mated pairs, or in loose packs of up to a dozen individuals. Jackals are sacred to Ánubís, lord of the dead, and their presence near tombs and burial sites is considered both natural and spiritually significant. Killing a jackal near a necropolis is a serious religious offense in Kheperi culture, though farmers and herders who lose livestock to jackal predation feel rather differently about the matter. Adventurers encounter jackals constantly in Kheperi lands — trotting along roadsides at dusk, skulking around campsites, scavenging battlefields, and haunting the margins of every settlement. They are rarely dangerous individually, but a pack of hungry jackals is a genuine threat to the wounded, the sleeping, and the unwary.
+The Jackal is the ubiquitous canid of the river lowlands — a small, adaptable predator-scavenger found along the great river, in the desert margins, around village middens, and among the necropolis complexes where it feeds on offerings left for the dead. An adult jackal stands roughly sixteen to twenty inches at the shoulder and weighs fifteen to thirty-five pounds — far smaller than a wolf, but compensating with intelligence, speed, and a social flexibility that allows it to hunt alone, in mated pairs, or in loose packs of up to a dozen individuals. Jackals are sacred to the lord of the dead, and their presence near tombs and burial sites is considered both natural and spiritually significant. Killing a jackal near a necropolis is a serious religious offense in the river kingdoms, though farmers and herders who lose livestock to jackal predation feel rather differently about the matter. Adventurers encounter jackals constantly in the river lands — trotting along roadsides at dusk, skulking around campsites, scavenging battlefields, and haunting the margins of every settlement. They are rarely dangerous individually, but a pack of hungry jackals is a genuine threat to the wounded, the sleeping, and the unwary.
 
 ## Presentation
 
-A slender, long-legged canid built for endurance rather than power. The coat is short and coarse, typically a blend of tawny gold, russet brown, and pale cream, with darker saddle markings across the back and black tips on the ears and tail. The face is narrow and fox-like, with a pointed muzzle, large amber or golden eyes, and oversized ears that give the animal an alert, perpetually watchful expression. The legs are proportionally long for the body, built for sustained trotting over open ground rather than the explosive sprinting of a hunting dog. The tail is bushy and held low when relaxed, raised when alert or dominant. The overall impression is of a creature designed for survival in marginal environments — lightweight, quick, adaptable, and always watching. At night, jackal eyes reflect firelight with an eerie golden-green glow, and their distinctive wailing cry — a rising, ululating howl answered by others across the darkness — is one of the signature sounds of the Kheperi night.
+A slender, long-legged canid built for endurance rather than power. The coat is short and coarse, typically a blend of tawny gold, russet brown, and pale cream, with darker saddle markings across the back and black tips on the ears and tail. The face is narrow and fox-like, with a pointed muzzle, large amber or golden eyes, and oversized ears that give the animal an alert, perpetually watchful expression. The legs are proportionally long for the body, built for sustained trotting over open ground rather than the explosive sprinting of a hunting dog. The tail is bushy and held low when relaxed, raised when alert or dominant. The overall impression is of a creature designed for survival in marginal environments — lightweight, quick, adaptable, and always watching. At night, jackal eyes reflect firelight with an eerie golden-green glow, and their distinctive wailing cry — a rising, ululating howl answered by others across the darkness — is one of the signature sounds of the river night.
 
 ## Key Behaviors
 
@@ -322,7 +322,7 @@ Jackals are among the most intelligent of the smaller canids, capable of learnin
 
 ### Necropolis Haunter
 
-In Kheperi culture, jackals are associated with the dead and the boundary between the living and spirit worlds. Whether this association reflects genuine supernatural sensitivity or merely the jackal's preference for carrion near burial sites is debated by priests and scholars alike. What is certain is that jackals are always present near necropolises, that they seem drawn to sites of recent death, and that their howling chorus near a settlement is considered an omen — sometimes of death approaching, sometimes of Ánubís extending protection.
+In the river kingdoms, jackals are associated with the dead and the boundary between the living and spirit worlds. Whether this association reflects genuine supernatural sensitivity or merely the jackal's preference for carrion near burial sites is debated by priests and scholars alike. What is certain is that jackals are always present near necropolises, that they seem drawn to sites of recent death, and that their howling chorus near a settlement is considered an omen — sometimes of death approaching, sometimes of the lord of the dead extending protection.
 
 ## Attributes
 

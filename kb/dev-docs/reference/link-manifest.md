@@ -13,16 +13,19 @@ treat every rule below as load-bearing rather than descriptive.
 
 ## Where it lives
 
-|                  |                                                                       |
-| ---------------- | --------------------------------------------------------------------- |
-| **Emitted to**   | `build/manifests/<package>.json`, by `npm run build:link-manifest`    |
-| **Emitted by**   | `content-build manifest`, from configuration — no script in this repo |
-| **Published by** | copying that file into the consuming repository's `assets/manifests/` |
-| **Committed?**   | yes, in the consumer                                                  |
+|                  |                                                                              |
+| ---------------- | ---------------------------------------------------------------------------- |
+| **Emitted to**   | `build/manifests/<package>.json`, by `npm run build:link-manifest`           |
+| **Emitted by**   | `content-build manifest`, from configuration — no script in this repo        |
+| **Published by** | the package's release; a consumer fetches it with `content-build deps fetch` |
+| **Committed?**   | no — it lands in a local cache, not in the consumer's tree                   |
 
-The vendored copy is committed deliberately. A contributor without every
-repository checked out then resolves exactly the links CI does, and a build never
-depends on a sibling checkout being present or current.
+A consumer declares the dependency in `relationships` (with `itemCatalog: true`)
+and fills a local cache from the dependency's release. **A compile never touches
+the network**, so a build stays reproducible and a cold cache fails loudly rather
+than silently downloading. Manifests were once vendored as committed
+`assets/manifests/<package>.json` files; that is retired, and **this repository
+vendors nothing at all** — as the base package it consumes no manifest (#1839).
 
 ## How an entry's `path` is derived
 
