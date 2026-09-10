@@ -28,6 +28,7 @@ import { describe, it, expect } from "vitest";
 import { parse as parseYaml } from "yaml";
 import { BodyStructure } from "@src/entity/body/BodyStructure";
 import { bodyOptions } from "@tests/mocks/bodyFixture";
+import { entryShortcode, entryType } from "@tests/content/item-entries";
 
 const CONTENT = path.resolve(__dirname, "../../assets/content/Bestiary/Animal");
 
@@ -499,10 +500,16 @@ const SHARED_TECHNIQUES = (() => {
     return found;
 })();
 
-/** Every embedded item of the given `(type, subType)`. */
+/**
+ * Every embedded item of the given `(type, subType)`.
+ *
+ * The type comes from {@link entryType}: a custom entry writes it, while an
+ * entry copied from the catalogue leaves it to the `model:` address.
+ */
 function items(sohl: any, type: string, subType?: string): any[] {
     return (sohl.items ?? []).filter(
-        (i: any) => i.type === type && (subType === undefined || i.system?.subType === subType),
+        (i: any) =>
+            entryType(i) === type && (subType === undefined || i.system?.subType === subType),
     );
 }
 
@@ -510,15 +517,14 @@ function items(sohl: any, type: string, subType?: string): any[] {
  * The note's ability scores, by attribute shortcode.
  *
  * Attributes are ordinary `sohl.items` entries rather than a `sohl.attributes`
- * map, so the scores are read back the same way every other embedded item is.
- * The effective shortcode is `system.shortcode ?? shortcode`: a top-level
- * `shortcode` only selects the template it is written from and never reaches
- * the document, while `system.shortcode` is the instance's own key.
+ * map, so the scores are read back the same way every other embedded item is —
+ * through {@link entryShortcode}, since an entry names the attribute it copies
+ * with a `model:` address rather than stating a bare shortcode.
  */
 function attrScores(sohl: any): Record<string, number> {
     const scores: Record<string, number> = {};
     for (const item of items(sohl, "attribute")) {
-        const code = item.system?.shortcode ?? item.shortcode;
+        const code = entryShortcode(item);
         if (code) scores[code] = item.system?.scoreBase;
     }
     return scores;
@@ -558,7 +564,7 @@ describe.each(ROWS)("$file", (row) => {
 
     it("carries the AWARE / STEALTH / SPIRIT / INITIATIVE / DODGE / SHOCK values", () => {
         for (const [i, code] of RATING_CODES.entries()) {
-            const entry = (sohl.items ?? []).find((x: any) => x.shortcode === code);
+            const entry = (sohl.items ?? []).find((x: any) => entryShortcode(x) === code);
             expect(entry, `missing "${code}"`).toBeDefined();
             expect(entry.system.masteryLevelBase, code).toBe(row.ratings[i]);
         }
@@ -750,9 +756,10 @@ describe.each(ALL_CREATURES)("%s (every creature)", (file) => {
 
     it("can attack with at least one combat technique", () => {
         const techniques = items(sohl, "skill", "combattechnique");
-        const referenced = (sohl.items ?? []).filter((i: any) =>
-            SHARED_TECHNIQUES.has(i.shortcode),
-        );
+        const referenced = (sohl.items ?? []).filter((i: any) => {
+            const code = entryShortcode(i);
+            return code !== undefined && SHARED_TECHNIQUES.has(code);
+        });
         if (!NO_WEAPON_YET.has(file)) {
             expect(techniques.length + referenced.length, "no combat technique").toBeGreaterThan(0);
         }
