@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Steel upper-arm guards; covers triceps and rear shoulder."
 img: icons/game-icons/lorc/dorsal-scales.svg
-shortcode: PlRebr
+shortcode: plrebr
 type: armorgear
 data:
   templatePriority: 0

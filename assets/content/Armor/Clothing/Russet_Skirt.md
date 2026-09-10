@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool skirt; practical leg-wear for colder climes."
 img: icons/game-icons/delapouite/skirt.svg
-shortcode: RSkirt
+shortcode: rskirt
 type: armorgear
 data:
   templatePriority: 0

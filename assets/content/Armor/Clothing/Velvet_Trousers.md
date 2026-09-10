@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet trousers; luxurious garment for high-status formal events."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: VTrsr
+shortcode: vtrsr
 type: armorgear
 data:
   templatePriority: 0

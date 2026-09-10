@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sleeveless scale-armor; overlapping metal scales cover torso only."
 img: icons/game-icons/lorc/scale-mail.svg
-shortcode: SVest
+shortcode: svest
 type: armorgear
 data:
   templatePriority: 0

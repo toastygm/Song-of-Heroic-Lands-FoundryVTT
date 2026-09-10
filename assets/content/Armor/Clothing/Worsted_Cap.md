@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool cap; durable, versatile head covering."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: WCap
+shortcode: wcap
 type: armorgear
 data:
   templatePriority: 0

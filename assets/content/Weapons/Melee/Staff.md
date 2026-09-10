@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Six-foot ashwood pole; reach and parry for peasant and veteran."
 img: icons/game-icons/delapouite/bo.svg
-shortcode: Stf
+shortcode: stf
 type: weapongear
 data:
   templatePriority: 0

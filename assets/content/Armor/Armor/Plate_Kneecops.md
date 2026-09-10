@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Steel knee-guards; protects joints from heavy blows."
 img: icons/game-icons/delapouite/knee-pad.svg
-shortcode: PlKncp
+shortcode: plkncp
 type: armorgear
 data:
   templatePriority: 0

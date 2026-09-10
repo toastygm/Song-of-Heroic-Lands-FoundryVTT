@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable torso covering for warm weather and everyday activity."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: LShirt
+shortcode: lshirt
 type: armorgear
 data:
   templatePriority: 0

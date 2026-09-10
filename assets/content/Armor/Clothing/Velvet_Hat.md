@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet hat; luxury status symbol for formal occasions."
 img: icons/game-icons/lorc/pointy-hat.svg
-shortcode: VHat
+shortcode: vhat
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable leg covering for warm weather casual outings."
 img: icons/game-icons/delapouite/skirt.svg
-shortcode: LSkirt
+shortcode: lskirt
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tough hide garment; leg coverage for hard labor."
 img: icons/game-icons/delapouite/skirt.svg
-shortcode: RhSkirt
+shortcode: rhskirt
 type: armorgear
 data:
   templatePriority: 0

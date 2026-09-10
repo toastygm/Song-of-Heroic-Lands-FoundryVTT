@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Hard-wearing canvas surcoat worn over gear on the march."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: CvScoat
+shortcode: cvscoat
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Extended hide vest; tough torso protection without sleeves."
 img: icons/game-icons/delapouite/leather-armor.svg
-shortcode: RhLngVst
+shortcode: rhlngvst
 type: armorgear
 data:
   templatePriority: 0

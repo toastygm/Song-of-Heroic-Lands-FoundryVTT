@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather leggings studded with rings; thigh and shin protection."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: RnLeg
+shortcode: rnleg
 type: armorgear
 data:
   templatePriority: 0

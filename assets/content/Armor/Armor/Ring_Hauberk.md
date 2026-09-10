@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Long leather coat with metal-ring overlay; full-torso and arm-coverage."
 img: icons/game-icons/willdabeast/chain-mail.svg
-shortcode: RHbk
+shortcode: rhbk
 type: armorgear
 data:
   templatePriority: 0

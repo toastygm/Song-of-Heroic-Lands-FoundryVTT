@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet cowl; elegant, luxury garment for formal occasions."
 img: icons/game-icons/lorc/hood.svg
-shortcode: VCowl
+shortcode: vcowl
 type: armorgear
 data:
   templatePriority: 0

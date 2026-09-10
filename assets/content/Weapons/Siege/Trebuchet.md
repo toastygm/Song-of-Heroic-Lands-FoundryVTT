@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Counterweight stone-thrower; the heaviest engine there is, and the only one that breaks a curtain wall."
 img: icons/game-icons/lorc/stone-sphere.svg
-shortcode: Trebch
+shortcode: trebch
 type: weapongear
 data:
   templatePriority: 0

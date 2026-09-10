@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Long thrusting pole for couched cavalry charge; shield-breaker."
 img: icons/game-icons/delapouite/cavalry.svg
-shortcode: Lnc
+shortcode: lnc
 type: weapongear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool hand-covers; cold-weather protection."
 img: icons/game-icons/delapouite/gloves.svg
-shortcode: RGlv
+shortcode: rglv
 type: armorgear
 data:
   templatePriority: 0

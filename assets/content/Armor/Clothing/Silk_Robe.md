@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Elegant silk robe; luxurious garment for formal occasions and refinement."
 img: icons/game-icons/lorc/robe.svg
-shortcode: SlkRobe
+shortcode: slkrobe
 type: armorgear
 data:
   templatePriority: 0

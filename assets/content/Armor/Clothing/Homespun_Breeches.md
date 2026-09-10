@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade cloth breeches; practical for laborers and farmers."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: HsBrch
+shortcode: hsbrch
 type: armorgear
 data:
   templatePriority: 0

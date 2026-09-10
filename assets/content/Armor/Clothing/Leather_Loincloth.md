@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple lightweight leather garment providing basic coverage and rugged charm."
 img: icons/game-icons/delapouite/loincloth.svg
-shortcode: LtLoin
+shortcode: ltloin
 type: armorgear
 data:
   templatePriority: 0

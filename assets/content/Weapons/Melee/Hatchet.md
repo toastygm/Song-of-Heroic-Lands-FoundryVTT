@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light tool-blade for kindling and ambush; road's most common sidearm."
 img: icons/game-icons/lorc/battle-axe.svg
-shortcode: Hcht
+shortcode: hcht
 type: weapongear
 data:
   templatePriority: 0

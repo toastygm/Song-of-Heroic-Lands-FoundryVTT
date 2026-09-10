@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stylish and practical leather garment offering minimal protection."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: LtShirt
+shortcode: ltshirt
 type: armorgear
 data:
   templatePriority: 0

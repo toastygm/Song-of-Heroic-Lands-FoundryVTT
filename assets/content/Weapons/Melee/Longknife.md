@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Extended single-edged blade for close-quarters reach; soldier's secondary weapon."
 img: icons/game-icons/lorc/broadsword.svg
-shortcode: LKni
+shortcode: lkni
 type: weapongear
 data:
   templatePriority: 0

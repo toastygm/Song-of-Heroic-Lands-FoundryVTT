@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Treated leather helm with reinforced ridges and embossing for protection and style."
 img: icons/game-icons/lorc/crested-helmet.svg
-shortcode: K34Hlm
+shortcode: k34hlm
 type: armorgear
 data:
   templatePriority: 0

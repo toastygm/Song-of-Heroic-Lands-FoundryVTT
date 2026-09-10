@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Heavy torsion bolt-thrower; four-crew engine that spits a shaft through shield, mail and man."
 img: icons/game-icons/lorc/aerodynamic-harpoon.svg
-shortcode: Ballsta
+shortcode: ballsta
 type: weapongear
 data:
   templatePriority: 0

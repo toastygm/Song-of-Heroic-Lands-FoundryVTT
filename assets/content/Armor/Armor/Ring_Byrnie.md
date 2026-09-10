@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather tunic reinforced with overlapping metal rings; upper-body defense."
 img: icons/game-icons/willdabeast/chain-mail.svg
-shortcode: RByr
+shortcode: rbyr
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable outer layer suitable for warm weather casual wear."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: LScoat
+shortcode: lscoat
 type: armorgear
 data:
   templatePriority: 0

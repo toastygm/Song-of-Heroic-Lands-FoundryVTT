@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Oak circular shield with iron-domed boss; common soldier's line-wall reliable."
 img: icons/game-icons/willdabeast/round-shield.svg
-shortcode: RndSh
+shortcode: rndsh
 type: weapongear
 data:
   templatePriority: 0

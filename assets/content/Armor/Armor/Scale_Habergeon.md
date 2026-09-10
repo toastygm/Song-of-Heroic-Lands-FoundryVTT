@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Scaled sleeveless jerkin; overlapping metal scales without sleeves."
 img: icons/game-icons/lorc/scale-mail.svg
-shortcode: SHabg
+shortcode: shabg
 type: armorgear
 data:
   templatePriority: 0

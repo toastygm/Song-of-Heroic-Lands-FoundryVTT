@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sixty-pound compact horse-bow; mounted skirmisher's maneuvrable reach."
 img: icons/game-icons/lorc/pocket-bow.svg
-shortcode: CBw60
+shortcode: cbw60
 type: weapongear
 data:
   templatePriority: 0

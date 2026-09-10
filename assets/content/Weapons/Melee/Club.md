@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Iron-bound wooden bludgeon; garrison guard and desperate levy weapon."
 img: icons/game-icons/badges/club.svg
-shortcode: Clb
+shortcode: clb
 type: weapongear
 data:
   templatePriority: 0

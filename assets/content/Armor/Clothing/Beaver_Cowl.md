@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver-fur cowl offering warmth and quiet opulence in cold weather."
 img: icons/game-icons/lorc/hood.svg
-shortcode: BvCowl
+shortcode: bvcowl
 type: armorgear
 data:
   templatePriority: 0

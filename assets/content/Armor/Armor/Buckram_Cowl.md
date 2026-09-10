@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram cowl providing durability and rigid head-shoulder coverage."
 img: icons/game-icons/lorc/hood.svg
-shortcode: BCowl
+shortcode: bcowl
 type: armorgear
 data:
   templatePriority: 0

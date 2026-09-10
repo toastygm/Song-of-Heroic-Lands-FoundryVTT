@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned leg covering providing warmth under armor or standalone."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: PPant
+shortcode: ppant
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool hat; durable, stylish head covering."
 img: icons/game-icons/lorc/pointy-hat.svg
-shortcode: WHat
+shortcode: what
 type: armorgear
 data:
   templatePriority: 0

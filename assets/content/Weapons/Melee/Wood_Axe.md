@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Heavy felling tool; slow-swinging militia arm pressed into service."
 img: icons/game-icons/lorc/battle-axe.svg
-shortcode: WAxe
+shortcode: waxe
 type: weapongear
 data:
   templatePriority: 0

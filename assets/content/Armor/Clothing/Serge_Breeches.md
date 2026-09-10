@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Durable twilled serge breeches for everyday wear and reliable attire."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: SgBrch
+shortcode: sgbrch
 type: armorgear
 data:
   templatePriority: 0

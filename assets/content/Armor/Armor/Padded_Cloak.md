@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Quilted and padded cloak; cheap protection that doubles as a warm travelling garment."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: PdClk
+shortcode: pdclk
 type: armorgear
 data:
   templatePriority: 0

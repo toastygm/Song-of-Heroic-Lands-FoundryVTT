@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+1
     cre: 1d4+1
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 18 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 28 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 68 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 18 } }
+    - { model: attribute-str, system: { scoreBase: 6 } }
+    - { model: attribute-end, system: { scoreBase: 8 } }
+    - { model: attribute-dex, system: { scoreBase: 14 } }
+    - { model: attribute-agl, system: { scoreBase: 16 } }
+    - { model: attribute-per, system: { scoreBase: 18 } }
+    - { model: attribute-aur, system: { scoreBase: 4 } }
+    - { model: attribute-wil, system: { scoreBase: 9 } }
+    - { model: attribute-rea, system: { scoreBase: 4 } }
+    - { model: attribute-cre, system: { scoreBase: 4 } }
+    - { model: skill-awar, system: { masteryLevelBase: 70 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 60 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 18 } }
+    - { model: skill-init, system: { masteryLevelBase: 28 } }
+    - { model: skill-dge, system: { masteryLevelBase: 68 } }
+    - { model: skill-shok, system: { masteryLevelBase: 18 } }
     - name: Venomous Bite
       type: skill
       system:
