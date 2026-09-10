@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Layered shoulder-wrap; insulates without restriction."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: QMntl
+shortcode: qmntl
 type: armorgear
 data:
   templatePriority: 0

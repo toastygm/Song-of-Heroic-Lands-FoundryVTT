@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver fur vest combining comfort and status for the elite wearer."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: BvVest
+shortcode: bvvest
 type: armorgear
 data:
   templatePriority: 0

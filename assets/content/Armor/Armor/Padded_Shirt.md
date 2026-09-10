@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned torso covering for warmth and cold weather protection."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: PSht
+shortcode: psht
 type: armorgear
 data:
   templatePriority: 0

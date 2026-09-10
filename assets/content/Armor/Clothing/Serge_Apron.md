@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Diagonal-twill apron; durable and functional for heavy labor."
 img: icons/game-icons/delapouite/cook.svg
-shortcode: SgApn
+shortcode: sgapn
 type: armorgear
 data:
   templatePriority: 0

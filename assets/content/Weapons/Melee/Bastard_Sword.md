@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Versatile straight blade for one or two hands; knight's choice."
 img: icons/game-icons/lorc/broadsword.svg
-shortcode: BstdSwd
+shortcode: bstdswd
 type: weapongear
 data:
   templatePriority: 0

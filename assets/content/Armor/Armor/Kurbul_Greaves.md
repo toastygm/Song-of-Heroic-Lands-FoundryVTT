@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Treated leather leg armor combining protection and flexibility with decorative patterns."
 img: icons/game-icons/delapouite/greaves.svg
-shortcode: KGrvs
+shortcode: kgrvs
 type: armorgear
 data:
   templatePriority: 0

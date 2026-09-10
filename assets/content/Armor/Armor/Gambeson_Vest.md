@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Padded vest providing protection under or worn standalone."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: GVest
+shortcode: gvest
 type: armorgear
 data:
   templatePriority: 0

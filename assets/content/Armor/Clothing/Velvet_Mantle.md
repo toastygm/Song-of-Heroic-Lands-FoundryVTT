@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet mantle; opulent garment for nobility and grandeur."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: VMntl
+shortcode: vmntl
 type: armorgear
 data:
   templatePriority: 0

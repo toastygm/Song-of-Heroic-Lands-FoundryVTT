@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool coat; warm, durable garment for protection."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: WCoat
+shortcode: wcoat
 type: armorgear
 data:
   templatePriority: 0

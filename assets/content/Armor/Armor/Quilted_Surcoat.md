@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stitched outer garment; layered insulation over other dress."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: QScoat
+shortcode: qscoat
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Breathable outer layer providing sun protection without causing overheating."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: LMntl
+shortcode: lmntl
 type: armorgear
 data:
   templatePriority: 0

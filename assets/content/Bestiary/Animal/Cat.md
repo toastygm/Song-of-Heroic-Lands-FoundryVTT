@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+3
     cre: 1d4+3
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 3 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: snt, type: attribute, system: { scoreBase: 3 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 85 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 85 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 33 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 36 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 68 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 15 } }
+    - { model: attribute-str, system: { scoreBase: 3 } }
+    - { model: attribute-end, system: { scoreBase: 8 } }
+    - { model: attribute-agl, system: { scoreBase: 18 } }
+    - { model: attribute-per, system: { scoreBase: 16 } }
+    - { model: attribute-snt, system: { scoreBase: 3 } }
+    - { model: attribute-aur, system: { scoreBase: 4 } }
+    - { model: attribute-wil, system: { scoreBase: 18 } }
+    - { model: attribute-rea, system: { scoreBase: 5 } }
+    - { model: attribute-cre, system: { scoreBase: 5 } }
+    - { model: skill-awar, system: { masteryLevelBase: 85 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 85 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 33 } }
+    - { model: skill-init, system: { masteryLevelBase: 36 } }
+    - { model: skill-dge, system: { masteryLevelBase: 68 } }
+    - { model: skill-shok, system: { masteryLevelBase: 15 } }
     - name: Claw
       type: skill
       system:

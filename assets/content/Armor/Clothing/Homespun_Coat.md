@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Basic homemade coat providing warmth and simple protection."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: HsCoat
+shortcode: hscoat
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Full-length ermine robe; ceremonial dress of the highest rank."
 img: icons/game-icons/lorc/robe.svg
-shortcode: ERobe
+shortcode: erobe
 type: armorgear
 data:
   templatePriority: 0

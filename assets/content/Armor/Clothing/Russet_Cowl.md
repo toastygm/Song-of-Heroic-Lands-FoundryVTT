@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool hood; practical head and neck covering."
 img: icons/game-icons/lorc/hood.svg
-shortcode: RCowl
+shortcode: rcowl
 type: armorgear
 data:
   templatePriority: 0

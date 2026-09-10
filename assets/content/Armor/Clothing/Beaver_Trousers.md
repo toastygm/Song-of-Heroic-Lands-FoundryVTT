@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver fur leg-wear for hard winters."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: BvTrsr
+shortcode: bvtrsr
 type: armorgear
 data:
   templatePriority: 0

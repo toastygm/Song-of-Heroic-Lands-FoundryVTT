@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Flanged iron head on steel haft; armored knight's shock-weapon."
 img: icons/game-icons/delapouite/flanged-mace.svg
-shortcode: StlMce
+shortcode: stlmce
 type: weapongear
 data:
   templatePriority: 0

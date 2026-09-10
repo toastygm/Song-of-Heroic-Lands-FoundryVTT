@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Padded sleeved tunic; cold-weather garment with full-arm coverage."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: QSTnc
+shortcode: qstnc
 type: armorgear
 data:
   templatePriority: 0

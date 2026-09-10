@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet cap; luxury status symbol for formal settings."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: VCap
+shortcode: vcap
 type: armorgear
 data:
   templatePriority: 0

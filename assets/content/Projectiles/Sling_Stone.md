@@ -8,7 +8,7 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bullet
-shortcode: SSton
+shortcode: sston
 img: icons/game-icons/delapouite/stone-pile.svg
 easyname: Stone
 sohl:

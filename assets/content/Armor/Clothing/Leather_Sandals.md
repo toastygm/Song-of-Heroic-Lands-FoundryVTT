@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lightweight leather foot covering combining comfort with rugged charm."
 img: icons/game-icons/delapouite/flip-flops.svg
-shortcode: LtSndls
+shortcode: ltsndls
 type: armorgear
 data:
   templatePriority: 0

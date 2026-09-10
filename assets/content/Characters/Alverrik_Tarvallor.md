@@ -46,65 +46,65 @@ gear:
 sohl:
   kbcat: npc
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: cml, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: emp, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: elo, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: mor, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: voi, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: cook, type: skill, system: { masteryLevelBase: 24 } }
-    - { shortcode: eng, type: skill, system: { masteryLevelBase: 9 } }
-    - { shortcode: folklr, type: skill, system: { masteryLevelBase: 11 } }
-    - { shortcode: hrld, type: skill, system: { masteryLevelBase: 22 } }
-    - { shortcode: pysn, type: skill, system: { masteryLevelBase: 24 } }
-    - { shortcode: ritual, type: skill, system: { masteryLevelBase: 11 } }
-    - { shortcode: chrm, type: skill, system: { masteryLevelBase: 27 } }
-    - { shortcode: cmd, type: skill, system: { masteryLevelBase: 22 } }
-    - { shortcode: dscr, type: skill, system: { masteryLevelBase: 20 } }
-    - { shortcode: guil, type: skill, system: { masteryLevelBase: 27 } }
-    - { shortcode: intr, type: skill, system: { masteryLevelBase: 40 } }
-    - { shortcode: sing, type: skill, system: { masteryLevelBase: 27 } }
-    - { shortcode: thtcs, type: skill, system: { masteryLevelBase: 8 } }
-    - { shortcode: herb, type: skill, system: { masteryLevelBase: 24 } }
-    - { shortcode: pilt, type: skill, system: { masteryLevelBase: 24 } }
-    - { shortcode: srvl, type: skill, system: { masteryLevelBase: 55 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 65 } }
-    - { shortcode: clmb, type: skill, system: { masteryLevelBase: 33 } }
-    - { shortcode: dnce, type: skill, system: { masteryLevelBase: 18 } }
-    - { shortcode: jump, type: skill, system: { masteryLevelBase: 39 } }
-    - { shortcode: ridg, type: skill, system: { masteryLevelBase: 10 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 33 } }
-    - { shortcode: swim, type: skill, system: { masteryLevelBase: 12 } }
-    - { shortcode: archery, type: skill, system: { masteryLevelBase: 13 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 55 } }
-    - { shortcode: melee, type: skill, system: { masteryLevelBase: 44 } }
-    - { shortcode: thro, type: skill, system: { masteryLevelBase: 52 } }
-    - { shortcode: draw, type: skill, system: { masteryLevelBase: 10 } }
-    - { shortcode: fltch, type: skill, system: { masteryLevelBase: 13 } }
-    - { shortcode: glas, type: skill, system: { masteryLevelBase: 26 } }
-    - { shortcode: masn, type: skill, system: { masteryLevelBase: 14 } }
-    - { shortcode: mtlc, type: skill, system: { masteryLevelBase: 14 } }
-    - { shortcode: mill, type: skill, system: { masteryLevelBase: 30 } }
-    - { shortcode: wpnc, type: skill, system: { masteryLevelBase: 56 } }
-    - { shortcode: tlnt, type: mysticalability, system: { masteryLevelBase: 33 } }
-    - { shortcode: spirit, type: skill, initSkillMult: 3 }
-    - { shortcode: bflkbite, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkgrab, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkheadbutt, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkkick, type: skill, initSkillMult: 2 }
-    - { shortcode: limbblock, type: skill, initSkillMult: 2 }
-    - { shortcode: press, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkpunch, type: skill, initSkillMult: 2 }
-    - { shortcode: trip, type: skill, initSkillMult: 2 }
-    - { shortcode: sprt, type: mysticalability }
+    - { model: attribute-str, system: { scoreBase: 16 } }
+    - { model: attribute-end, system: { scoreBase: 15 } }
+    - { model: attribute-dex, system: { scoreBase: 12 } }
+    - { model: attribute-agl, system: { scoreBase: 10 } }
+    - { model: attribute-per, system: { scoreBase: 14 } }
+    - { model: attribute-cml, system: { scoreBase: 9 } }
+    - { model: attribute-aur, system: { scoreBase: 11 } }
+    - { model: attribute-wil, system: { scoreBase: 12 } }
+    - { model: attribute-rea, system: { scoreBase: 10 } }
+    - { model: attribute-cre, system: { scoreBase: 8 } }
+    - { model: attribute-emp, system: { scoreBase: 10 } }
+    - { model: attribute-elo, system: { scoreBase: 9 } }
+    - { model: attribute-mor, system: { scoreBase: 13 } }
+    - { model: attribute-voi, system: { scoreBase: 11 } }
+    - { model: skill-cook, system: { masteryLevelBase: 24 } }
+    - { model: skill-eng, system: { masteryLevelBase: 9 } }
+    - { model: skill-folklr, system: { masteryLevelBase: 11 } }
+    - { model: skill-hrld, system: { masteryLevelBase: 22 } }
+    - { model: skill-pysn, system: { masteryLevelBase: 24 } }
+    - { model: skill-ritual, system: { masteryLevelBase: 11 } }
+    - { model: skill-chrm, system: { masteryLevelBase: 27 } }
+    - { model: skill-cmd, system: { masteryLevelBase: 22 } }
+    - { model: skill-dscr, system: { masteryLevelBase: 20 } }
+    - { model: skill-guil, system: { masteryLevelBase: 27 } }
+    - { model: skill-intr, system: { masteryLevelBase: 40 } }
+    - { model: skill-sing, system: { masteryLevelBase: 27 } }
+    - { model: skill-thtcs, system: { masteryLevelBase: 8 } }
+    - { model: skill-herb, system: { masteryLevelBase: 24 } }
+    - { model: skill-pilt, system: { masteryLevelBase: 24 } }
+    - { model: skill-srvl, system: { masteryLevelBase: 55 } }
+    - { model: skill-awar, system: { masteryLevelBase: 65 } }
+    - { model: skill-clmb, system: { masteryLevelBase: 33 } }
+    - { model: skill-dnce, system: { masteryLevelBase: 18 } }
+    - { model: skill-jump, system: { masteryLevelBase: 39 } }
+    - { model: skill-ridg, system: { masteryLevelBase: 10 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 33 } }
+    - { model: skill-swim, system: { masteryLevelBase: 12 } }
+    - { model: skill-archery, system: { masteryLevelBase: 13 } }
+    - { model: skill-init, system: { masteryLevelBase: 55 } }
+    - { model: skill-melee, system: { masteryLevelBase: 44 } }
+    - { model: skill-thro, system: { masteryLevelBase: 52 } }
+    - { model: skill-draw, system: { masteryLevelBase: 10 } }
+    - { model: skill-fltch, system: { masteryLevelBase: 13 } }
+    - { model: skill-glas, system: { masteryLevelBase: 26 } }
+    - { model: skill-masn, system: { masteryLevelBase: 14 } }
+    - { model: skill-mtlc, system: { masteryLevelBase: 14 } }
+    - { model: skill-mill, system: { masteryLevelBase: 30 } }
+    - { model: skill-wpnc, system: { masteryLevelBase: 56 } }
+    - { model: mysticalability-tlnt, system: { masteryLevelBase: 33 } }
+    - { model: skill-spirit, initSkillMult: 3 }
+    - { model: skill-bflkbite, initSkillMult: 2 }
+    - { model: skill-bflkgrab, initSkillMult: 2 }
+    - { model: skill-bflkheadbutt, initSkillMult: 2 }
+    - { model: skill-bflkkick, initSkillMult: 2 }
+    - { model: skill-limbblock, initSkillMult: 2 }
+    - { model: skill-press, initSkillMult: 2 }
+    - { model: skill-bflkpunch, initSkillMult: 2 }
+    - { model: skill-trip, initSkillMult: 2 }
+    - { model: mysticalability-sprt }
   system:
     body:
       structure:

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Luxurious silk cloak for high-status occasions and formal events."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: SlkClk
+shortcode: slkclk
 type: armorgear
 data:
   templatePriority: 0

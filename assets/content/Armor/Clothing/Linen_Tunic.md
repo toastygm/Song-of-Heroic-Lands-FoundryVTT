@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable torso garment perfect for warm weather casual wear."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: LTunic
+shortcode: ltunic
 type: armorgear
 data:
   templatePriority: 0

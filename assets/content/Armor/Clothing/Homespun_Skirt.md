@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade skirt offering coverage and practical comfort."
 img: icons/game-icons/delapouite/skirt.svg
-shortcode: HsSkirt
+shortcode: hsskirt
 type: armorgear
 data:
   templatePriority: 0

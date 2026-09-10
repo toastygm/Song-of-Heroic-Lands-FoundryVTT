@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff, structured buckram tunic offering durable and reliable fit."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: BSTnc
+shortcode: bstnc
 type: armorgear
 data:
   templatePriority: 0

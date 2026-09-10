@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Rugged hide boots; leg protection in harsh terrain."
 img: icons/game-icons/lorc/leather-boot.svg
-shortcode: RhKBoot
+shortcode: rhkboot
 type: armorgear
 data:
   templatePriority: 0
