@@ -152,7 +152,7 @@
         "acorn": "^8.18.0",
         "archiver": "^8.0.0",
         "classic-level": "^3.0.0",
-        "cypress": "^15.21.1",
+        "cypress": "^16.0.0",
         "dotenv": "^17.4.2",
         "eslint": "^10.9.1",
         "eslint-config-prettier": "^10.1.1",
