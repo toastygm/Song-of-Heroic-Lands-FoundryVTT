@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+5
     cre: 1d4+5
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 2 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 24 } }
-    - { shortcode: snt, type: attribute, system: { scoreBase: 3 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 80 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 72 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 18 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 32 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 72 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 20 } }
+    - { model: attribute-str, system: { scoreBase: 2 } }
+    - { model: attribute-end, system: { scoreBase: 8 } }
+    - { model: attribute-agl, system: { scoreBase: 13 } }
+    - { model: attribute-per, system: { scoreBase: 24 } }
+    - { model: attribute-snt, system: { scoreBase: 3 } }
+    - { model: attribute-aur, system: { scoreBase: 4 } }
+    - { model: attribute-wil, system: { scoreBase: 8 } }
+    - { model: attribute-rea, system: { scoreBase: 7 } }
+    - { model: attribute-cre, system: { scoreBase: 7 } }
+    - { model: skill-awar, system: { masteryLevelBase: 80 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 72 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 18 } }
+    - { model: skill-init, system: { masteryLevelBase: 32 } }
+    - { model: skill-dge, system: { masteryLevelBase: 72 } }
+    - { model: skill-shok, system: { masteryLevelBase: 20 } }
     - name: Talon
       type: skill
       system:

@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+5
     cre: 1d4+3
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 21 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 19 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 39 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 48 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 44 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 50 } }
+    - { model: attribute-str, system: { scoreBase: 21 } }
+    - { model: attribute-end, system: { scoreBase: 19 } }
+    - { model: attribute-dex, system: { scoreBase: 11 } }
+    - { model: attribute-agl, system: { scoreBase: 10 } }
+    - { model: attribute-per, system: { scoreBase: 13 } }
+    - { model: attribute-aur, system: { scoreBase: 12 } }
+    - { model: attribute-wil, system: { scoreBase: 15 } }
+    - { model: attribute-rea, system: { scoreBase: 8 } }
+    - { model: attribute-cre, system: { scoreBase: 6 } }
+    - { model: skill-awar, system: { masteryLevelBase: 70 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 60 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 39 } }
+    - { model: skill-init, system: { masteryLevelBase: 48 } }
+    - { model: skill-dge, system: { masteryLevelBase: 44 } }
+    - { model: skill-shok, system: { masteryLevelBase: 50 } }
     - name: Lunging Bite
       type: skill
       system:

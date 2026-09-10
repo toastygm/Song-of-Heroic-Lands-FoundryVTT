@@ -26,21 +26,21 @@ sohl:
     rea: 1d4+6
     cre: 1d4+5
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 36 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 44 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 33 } }
+    - { model: attribute-str, system: { scoreBase: 12 } }
+    - { model: attribute-end, system: { scoreBase: 14 } }
+    - { model: attribute-dex, system: { scoreBase: 15 } }
+    - { model: attribute-agl, system: { scoreBase: 15 } }
+    - { model: attribute-per, system: { scoreBase: 15 } }
+    - { model: attribute-aur, system: { scoreBase: 11 } }
+    - { model: attribute-wil, system: { scoreBase: 13 } }
+    - { model: attribute-rea, system: { scoreBase: 9 } }
+    - { model: attribute-cre, system: { scoreBase: 8 } }
+    - { model: skill-awar, system: { masteryLevelBase: 70 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 70 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 36 } }
+    - { model: skill-init, system: { masteryLevelBase: 44 } }
+    - { model: skill-dge, system: { masteryLevelBase: 60 } }
+    - { model: skill-shok, system: { masteryLevelBase: 33 } }
     - name: Pack Tear-Down
       type: skill
       system:
