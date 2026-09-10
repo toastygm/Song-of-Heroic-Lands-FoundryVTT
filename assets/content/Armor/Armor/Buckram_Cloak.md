@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff, glue-stiffened cloth cloak providing structure and reliable durability."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: BClk
+shortcode: bclk
 type: armorgear
 data:
   templatePriority: 0

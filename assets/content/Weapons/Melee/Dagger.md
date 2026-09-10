@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Short double-edged blade for parry and stab; universal sidearm."
 img: icons/game-icons/lorc/broad-dagger.svg
-shortcode: Dgr
+shortcode: dgr
 type: weapongear
 data:
   templatePriority: 0

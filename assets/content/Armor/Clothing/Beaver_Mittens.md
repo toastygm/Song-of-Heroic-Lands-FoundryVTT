@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver fur mittens offering comfort and warmth for cold climates."
 img: icons/game-icons/delapouite/gloves.svg
-shortcode: BvMitt
+shortcode: bvmitt
 type: armorgear
 data:
   templatePriority: 0

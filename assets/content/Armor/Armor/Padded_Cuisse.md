@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned thigh protection ideal for wear under heavier armor."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: PCuis
+shortcode: pcuis
 type: armorgear
 data:
   templatePriority: 0

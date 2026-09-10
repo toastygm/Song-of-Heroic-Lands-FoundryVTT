@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Twilled serge tunic; practical, versatile garment for everyday wear."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: SgTunic
+shortcode: sgtunic
 type: armorgear
 data:
   templatePriority: 0

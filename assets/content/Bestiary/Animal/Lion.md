@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+3
     cre: 1d4+3
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: snt, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 85 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 90 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 30 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 44 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 72 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 60 } }
+    - { model: attribute-str, system: { scoreBase: 12 } }
+    - { model: attribute-end, system: { scoreBase: 13 } }
+    - { model: attribute-agl, system: { scoreBase: 18 } }
+    - { model: attribute-per, system: { scoreBase: 16 } }
+    - { model: attribute-snt, system: { scoreBase: 4 } }
+    - { model: attribute-aur, system: { scoreBase: 5 } }
+    - { model: attribute-wil, system: { scoreBase: 16 } }
+    - { model: attribute-rea, system: { scoreBase: 5 } }
+    - { model: attribute-cre, system: { scoreBase: 5 } }
+    - { model: skill-awar, system: { masteryLevelBase: 85 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 90 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 30 } }
+    - { model: skill-init, system: { masteryLevelBase: 44 } }
+    - { model: skill-dge, system: { masteryLevelBase: 72 } }
+    - { model: skill-shok, system: { masteryLevelBase: 60 } }
     - name: Claw
       type: skill
       system:

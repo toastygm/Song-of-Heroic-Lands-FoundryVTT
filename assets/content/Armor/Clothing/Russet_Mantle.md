@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool shoulder-wrap; practical outer layer."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: RMntl
+shortcode: rmntl
 type: armorgear
 data:
   templatePriority: 0

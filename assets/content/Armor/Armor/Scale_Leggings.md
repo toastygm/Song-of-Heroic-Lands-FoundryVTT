@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leggings with sewn metal scales; leg-and-thigh armor."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: SLeg
+shortcode: sleg
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Massive double-bladed ash-haft for two-handed cleaves; line-breaker."
 img: icons/game-icons/lorc/battle-axe.svg
-shortcode: BAxe
+shortcode: baxe
 type: weapongear
 data:
   templatePriority: 0

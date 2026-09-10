@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade trousers offering comfort for laborers and folk."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: HsTrsr
+shortcode: hstrsr
 type: armorgear
 data:
   templatePriority: 0

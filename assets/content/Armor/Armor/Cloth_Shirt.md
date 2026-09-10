@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple cloth shirt offering basic comfort and everyday coverage."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: CShirt
+shortcode: cshirt
 type: armorgear
 data:
   templatePriority: 0

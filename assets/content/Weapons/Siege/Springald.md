@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light torsion bolt-thrower; two-crew wall-top engine for picking men off a rampart."
 img: icons/game-icons/lorc/spear-hook.svg
-shortcode: Sprngld
+shortcode: sprngld
 type: weapongear
 data:
   templatePriority: 0

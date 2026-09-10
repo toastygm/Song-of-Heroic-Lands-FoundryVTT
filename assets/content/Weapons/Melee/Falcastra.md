@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Curved-blade polearm for shield-wall sweeping; foot soldier's reach."
 img: icons/game-icons/lorc/halberd.svg
-shortcode: Falcstra
+shortcode: falcstra
 type: weapongear
 data:
   templatePriority: 0

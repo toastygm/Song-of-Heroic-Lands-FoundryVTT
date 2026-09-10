@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Breathable linen apron ideal for daily chores and cooking."
 img: icons/game-icons/delapouite/cook.svg
-shortcode: LApn
+shortcode: lapn
 type: armorgear
 data:
   templatePriority: 0

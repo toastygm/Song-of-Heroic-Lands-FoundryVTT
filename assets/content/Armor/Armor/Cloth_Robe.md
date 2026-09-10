@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple cloth robe providing comfort and warmth for practical wear."
 img: icons/game-icons/lorc/robe.svg
-shortcode: CRobe
+shortcode: crobe
 type: armorgear
 data:
   templatePriority: 0

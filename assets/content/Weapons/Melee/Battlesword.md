@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Broad heavy blade for mounted sweeping cuts; pitched-field workhorse."
 img: icons/game-icons/lorc/broadsword.svg
-shortcode: BatlSwd
+shortcode: batlswd
 type: weapongear
 data:
   templatePriority: 0

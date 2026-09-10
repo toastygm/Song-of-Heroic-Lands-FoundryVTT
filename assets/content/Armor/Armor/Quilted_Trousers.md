@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Layered quilted leg covering; warmth and light padding."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: QTrsr
+shortcode: qtrsr
 type: armorgear
 data:
   templatePriority: 0

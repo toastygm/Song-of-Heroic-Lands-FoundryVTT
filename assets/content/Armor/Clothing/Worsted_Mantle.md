@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool mantle; durable, practical protective garment."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: WMntl
+shortcode: wmntl
 type: armorgear
 data:
   templatePriority: 0

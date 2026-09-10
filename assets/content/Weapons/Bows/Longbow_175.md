@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Hundred-seventy-five pound champion's warbow; childhood-trained terror of cavalry."
 img: icons/game-icons/lorc/pocket-bow.svg
-shortcode: LBw175
+shortcode: lbw175
 type: weapongear
 data:
   templatePriority: 0

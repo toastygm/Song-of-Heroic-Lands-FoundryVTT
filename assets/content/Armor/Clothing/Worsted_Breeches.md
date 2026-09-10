@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool breeches; durable, comfortable for regular wear."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: WBrch
+shortcode: wbrch
 type: armorgear
 data:
   templatePriority: 0

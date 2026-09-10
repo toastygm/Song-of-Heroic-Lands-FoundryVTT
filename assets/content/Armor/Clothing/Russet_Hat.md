@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool hat; hardy and practical."
 img: icons/game-icons/lorc/pointy-hat.svg
-shortcode: RHat
+shortcode: rhat
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Two-handed wooden hammer for siege breach; assault engineer's door-crasher."
 img: icons/game-icons/lorc/claw-hammer.svg
-shortcode: Maul
+shortcode: maul
 type: weapongear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool apron; durable for tasks requiring resilience."
 img: icons/game-icons/delapouite/cook.svg
-shortcode: WApn
+shortcode: wapn
 type: armorgear
 data:
   templatePriority: 0

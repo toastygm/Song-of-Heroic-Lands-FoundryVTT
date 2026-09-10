@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather helm covering head and jawline with styled design and reduced weight."
 img: icons/game-icons/lorc/barbute.svg
-shortcode: KHlfHelm
+shortcode: khlfhelm
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reinforced gloves with sewn metal scales; hand-and-wrist protection."
 img: icons/game-icons/delapouite/gauntlet.svg
-shortcode: SGntl
+shortcode: sgntl
 type: armorgear
 data:
   templatePriority: 0

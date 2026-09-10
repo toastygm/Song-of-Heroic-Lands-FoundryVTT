@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "White ermine fur vest signifying high status and elite prestige."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: EVest
+shortcode: evest
 type: armorgear
 data:
   templatePriority: 0

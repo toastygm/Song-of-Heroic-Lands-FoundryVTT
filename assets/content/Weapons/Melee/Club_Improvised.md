@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Branch or timber wrenched to hand; widow-maker of necessity."
 img: icons/game-icons/badges/club.svg
-shortcode: ClbImp
+shortcode: clbimp
 type: weapongear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade cap offering warmth for common folk."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: HsCap
+shortcode: hscap
 type: armorgear
 data:
   templatePriority: 0

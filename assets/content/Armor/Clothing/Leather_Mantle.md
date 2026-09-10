@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Rugged leather outer garment protecting against elements for travelers."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: LtMntl
+shortcode: ltmntl
 type: armorgear
 data:
   templatePriority: 0

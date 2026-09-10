@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Two-hundred pound horn-and-sinew crossbow; siege crew wall-assault weapon."
 img: icons/game-icons/carl-olsen/crossbow.svg
-shortcode: CCxBw200
+shortcode: ccxbw200
 type: weapongear
 data:
   templatePriority: 0

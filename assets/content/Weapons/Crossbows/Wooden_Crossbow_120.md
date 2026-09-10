@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Town-watch crossbow; balanced draw for long patrols and garrison duty."
 img: icons/game-icons/carl-olsen/crossbow.svg
-shortcode: WCxBw120
+shortcode: wcxbw120
 type: weapongear
 data:
   templatePriority: 0

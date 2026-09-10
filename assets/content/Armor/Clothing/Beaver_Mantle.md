@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver fur mantle blending function and status; warm and luxurious."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: BvMntl
+shortcode: bvmntl
 type: armorgear
 data:
   templatePriority: 0

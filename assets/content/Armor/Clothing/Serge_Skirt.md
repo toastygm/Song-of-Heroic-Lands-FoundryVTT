@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Twilled serge skirt; practical, durable garment for various activities."
 img: icons/game-icons/delapouite/skirt.svg
-shortcode: SgSkirt
+shortcode: sgskirt
 type: armorgear
 data:
   templatePriority: 0

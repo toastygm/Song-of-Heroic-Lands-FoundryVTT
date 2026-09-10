@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lightweight leather hand covering offering style and minor protection."
 img: icons/game-icons/delapouite/gloves.svg
-shortcode: LtGlove
+shortcode: ltglove
 type: armorgear
 data:
   templatePriority: 0

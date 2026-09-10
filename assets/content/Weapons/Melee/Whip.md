@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather lash reaching beyond guard; reaches, entangles, intimidates and wounds."
 img: icons/game-icons/lorc/whip.svg
-shortcode: Whp
+shortcode: whp
 type: weapongear
 data:
   templatePriority: 0

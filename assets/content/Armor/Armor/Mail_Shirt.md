@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Metal ring torso and upper arm protection with excellent defense."
 img: icons/game-icons/lorc/mail-shirt.svg
-shortcode: MShirt
+shortcode: mshirt
 type: armorgear
 data:
   templatePriority: 0

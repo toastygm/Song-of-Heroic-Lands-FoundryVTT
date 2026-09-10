@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Durable twilled serge mantle; versatile protective outer garment."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: SgMntl
+shortcode: sgmntl
 type: armorgear
 data:
   templatePriority: 0

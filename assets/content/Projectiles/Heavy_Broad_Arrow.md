@@ -8,7 +8,7 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: arrow
-shortcode: ArwHBrd
+shortcode: arwhbrd
 img: icons/game-icons/lorc/broadhead-arrow.svg
 easyname: Heavy Broad
 sohl:

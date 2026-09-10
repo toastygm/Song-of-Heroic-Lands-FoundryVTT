@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff hide garment; minimal coverage for rough environments."
 img: icons/game-icons/delapouite/loincloth.svg
-shortcode: RhLoin
+shortcode: rhloin
 type: armorgear
 data:
   templatePriority: 0
