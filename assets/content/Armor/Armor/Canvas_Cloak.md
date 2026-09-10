@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Heavy hemp-weave cloak shedding wind and wear on the road."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: CvCloak
+shortcode: cvcloak
 type: armorgear
 data:
   templatePriority: 0

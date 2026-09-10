@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade vest offering comfort and practical warmth."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: HsVest
+shortcode: hsvest
 type: armorgear
 data:
   templatePriority: 0

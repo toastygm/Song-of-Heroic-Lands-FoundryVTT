@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Comfortable lightweight leather foot covering for everyday wear or light adventuring."
 img: icons/game-icons/lorc/leather-boot.svg
-shortcode: LtShoe
+shortcode: ltshoe
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool head-cover; practical and warm."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: RCap
+shortcode: rcap
 type: armorgear
 data:
   templatePriority: 0

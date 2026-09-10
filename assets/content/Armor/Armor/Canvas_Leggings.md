@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tough canvas leg-wear built for labour and long marches."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: CvLeg
+shortcode: cvleg
 type: armorgear
 data:
   templatePriority: 0

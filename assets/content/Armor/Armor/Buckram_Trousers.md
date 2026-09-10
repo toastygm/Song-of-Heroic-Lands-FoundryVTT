@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram trousers providing durability and dependable rigid fit."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: BTrsr
+shortcode: btrsr
 type: armorgear
 data:
   templatePriority: 0

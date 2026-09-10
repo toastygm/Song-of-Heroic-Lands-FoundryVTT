@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft cloth hand coverings offering basic protection for light work."
 img: icons/game-icons/delapouite/gloves.svg
-shortcode: CGntl
+shortcode: cgntl
 type: armorgear
 data:
   templatePriority: 0

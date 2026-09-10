@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Steel plate protecting torso; cornerstone of knightly armor."
 img: icons/game-icons/lorc/breastplate.svg
-shortcode: PlBreast
+shortcode: plbreast
 type: armorgear
 data:
   templatePriority: 0

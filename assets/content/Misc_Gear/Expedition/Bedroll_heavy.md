@@ -6,7 +6,7 @@ name:
   aliases: []
 description: "Quilted wool and linen roll with oiled canvas cover; durable field bedding."
 img: icons/game-icons/delapouite/sleeping-bag.svg
-shortcode: HvyBdrl
+shortcode: hvybdrl
 type: miscgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Waterproof seal-fur tunic; sleeved torso garment for wet climates."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: SlsTunic
+shortcode: slstunic
 type: armorgear
 data:
   templatePriority: 0

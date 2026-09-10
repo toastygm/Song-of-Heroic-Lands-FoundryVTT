@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Heavy hide cloak; harsh-weather outer layer."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: RhMntl
+shortcode: rhmntl
 type: armorgear
 data:
   templatePriority: 0

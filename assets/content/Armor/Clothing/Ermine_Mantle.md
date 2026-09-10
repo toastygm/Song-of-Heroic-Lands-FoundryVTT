@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "White ermine mantle signifying wealth and elite nobility."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: EMntl
+shortcode: emntl
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Luxurious silk swaddle for infants; soft, elegant formal wear."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: SlkSwd
+shortcode: slkswd
 type: armorgear
 data:
   templatePriority: 0

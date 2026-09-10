@@ -6,7 +6,7 @@ name:
   aliases: []
 description: "Compact military bundle of hardtack and salt pork, sustains one day."
 img: icons/game-icons/lorc/swap-bag.svg
-shortcode: FRtns
+shortcode: frtns
 type: miscgear
 data:
   templatePriority: 0

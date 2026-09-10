@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft white ermine fur cap signifying nobility and great wealth."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: ECap
+shortcode: ecap
 type: armorgear
 data:
   templatePriority: 0

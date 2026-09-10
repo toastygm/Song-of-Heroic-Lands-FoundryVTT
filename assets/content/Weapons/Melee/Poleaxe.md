@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Axe-head, hammer, and spike combination; armored melee knight's versatile reach."
 img: icons/game-icons/lorc/halberd.svg
-shortcode: PAxe
+shortcode: paxe
 type: weapongear
 data:
   templatePriority: 0

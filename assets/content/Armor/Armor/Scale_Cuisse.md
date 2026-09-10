@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Fabric-backed metal scales covering thighs; flexible leg armor."
 img: icons/game-icons/lorc/scale-mail.svg
-shortcode: SCui
+shortcode: scui
 type: armorgear
 data:
   templatePriority: 0

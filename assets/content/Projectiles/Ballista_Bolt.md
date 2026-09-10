@@ -8,7 +8,7 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bolt
-shortcode: BltSge
+shortcode: bltsge
 img: icons/game-icons/lorc/barbed-spear.svg
 easyname: Ballista
 sohl:

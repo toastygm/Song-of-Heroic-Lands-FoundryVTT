@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Treated leather shoulder guards combining functionality with elaborate decorative patterns."
 img: icons/game-icons/lorc/dorsal-scales.svg
-shortcode: KSpld
+shortcode: kspld
 type: armorgear
 data:
   templatePriority: 0

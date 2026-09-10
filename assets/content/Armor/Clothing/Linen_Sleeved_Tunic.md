@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable sleeved garment perfect for warm weather activities."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: LSTnc
+shortcode: lstnc
 type: armorgear
 data:
   templatePriority: 0

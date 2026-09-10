@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather forearm guards with intricate designs providing function and style."
 img: icons/game-icons/delapouite/bracer.svg
-shortcode: KVamb
+shortcode: kvamb
 type: armorgear
 data:
   templatePriority: 0

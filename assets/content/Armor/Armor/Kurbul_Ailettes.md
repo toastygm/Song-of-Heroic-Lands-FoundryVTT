@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lightweight decorated leather shoulder guards, ideal for agile combatants."
 img: icons/game-icons/lorc/dorsal-scales.svg
-shortcode: KAil
+shortcode: kail
 type: armorgear
 data:
   templatePriority: 0

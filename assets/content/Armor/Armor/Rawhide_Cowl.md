@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sturdy hide hood; protects head and shoulders."
 img: icons/game-icons/lorc/hood.svg
-shortcode: RhCowl
+shortcode: rhcowl
 type: armorgear
 data:
   templatePriority: 0
