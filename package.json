@@ -148,7 +148,7 @@
         "@typescript-eslint/eslint-plugin": "^8.69.0",
         "@typescript-eslint/parser": "^8.69.0",
         "@vitest/coverage-v8": "^4.1.10",
-        "@vitest/ui": "^4.1.10",
+        "@vitest/ui": "^5.0.0",
         "acorn": "^8.18.0",
         "archiver": "^8.0.0",
         "classic-level": "^3.0.0",
