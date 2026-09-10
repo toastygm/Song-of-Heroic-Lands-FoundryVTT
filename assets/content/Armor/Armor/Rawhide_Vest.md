@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Thick hide sleeveless vest; torso-only durability."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: RhVest
+shortcode: rhvest
 type: armorgear
 data:
   templatePriority: 0

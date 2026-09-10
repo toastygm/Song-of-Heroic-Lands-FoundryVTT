@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sinew-and-leather tribal lash; barbed, heavy, breaking mounted formations."
 img: icons/game-icons/lorc/whip.svg
-shortcode: RWhp
+shortcode: rwhp
 type: weapongear
 data:
   templatePriority: 0

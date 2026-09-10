@@ -24,21 +24,21 @@ sohl:
     rea: 1d6+7
     cre: 1d4+7
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 25 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 19 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 75 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 45 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 56 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 52 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 55 } }
+    - { model: attribute-str, system: { scoreBase: 25 } }
+    - { model: attribute-end, system: { scoreBase: 19 } }
+    - { model: attribute-dex, system: { scoreBase: 13 } }
+    - { model: attribute-agl, system: { scoreBase: 12 } }
+    - { model: attribute-per, system: { scoreBase: 14 } }
+    - { model: attribute-aur, system: { scoreBase: 14 } }
+    - { model: attribute-wil, system: { scoreBase: 16 } }
+    - { model: attribute-rea, system: { scoreBase: 11 } }
+    - { model: attribute-cre, system: { scoreBase: 10 } }
+    - { model: skill-awar, system: { masteryLevelBase: 75 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 70 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 45 } }
+    - { model: skill-init, system: { masteryLevelBase: 56 } }
+    - { model: skill-dge, system: { masteryLevelBase: 52 } }
+    - { model: skill-shok, system: { masteryLevelBase: 55 } }
     - name: Devastating Punch
       type: skill
       system:

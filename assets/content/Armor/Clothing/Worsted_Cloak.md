@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool cloak; durable, practical garment for weather."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: WClk
+shortcode: wclk
 type: armorgear
 data:
   templatePriority: 0

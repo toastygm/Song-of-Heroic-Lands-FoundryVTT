@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade leggings offering coverage and warmth."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: HsLeg
+shortcode: hsleg
 type: armorgear
 data:
   templatePriority: 0

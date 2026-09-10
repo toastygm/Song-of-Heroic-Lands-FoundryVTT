@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sleeveless canvas vest offering tough, unfussy body cover."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: CvVest
+shortcode: cvvest
 type: armorgear
 data:
   templatePriority: 0

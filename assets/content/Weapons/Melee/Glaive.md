@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Single-edged polearm cleaver; line infantry cavalry-breaker."
 img: icons/game-icons/lorc/halberd.svg
-shortcode: Glv
+shortcode: glv
 type: weapongear
 data:
   templatePriority: 0

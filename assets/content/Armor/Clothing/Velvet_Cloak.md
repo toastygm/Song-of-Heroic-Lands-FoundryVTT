@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet cloak; opulent garment for nobility and grandeur."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: VClk
+shortcode: vclk
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather upper arm guards offering protection and flexibility with ornamental designs."
 img: icons/game-icons/lorc/dorsal-scales.svg
-shortcode: KRebr
+shortcode: krebr
 type: armorgear
 data:
   templatePriority: 0

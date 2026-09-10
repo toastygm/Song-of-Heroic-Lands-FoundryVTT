@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool wrap; infant comfort in cold."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: RSwd
+shortcode: rswd
 type: armorgear
 data:
   templatePriority: 0

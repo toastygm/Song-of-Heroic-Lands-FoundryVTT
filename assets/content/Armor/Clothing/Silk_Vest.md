@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Elegant silk vest; luxurious, refined garment for formal occasions."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: SlkVest
+shortcode: slkvest
 type: armorgear
 data:
   templatePriority: 0

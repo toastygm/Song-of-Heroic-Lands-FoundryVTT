@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+4
     cre: 1d4+5
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 17 } }
-    - { shortcode: snt, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 80 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 27 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 50 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 55 } }
+    - { model: attribute-str, system: { scoreBase: 11 } }
+    - { model: attribute-end, system: { scoreBase: 10 } }
+    - { model: attribute-agl, system: { scoreBase: 13 } }
+    - { model: attribute-per, system: { scoreBase: 17 } }
+    - { model: attribute-snt, system: { scoreBase: 5 } }
+    - { model: attribute-aur, system: { scoreBase: 4 } }
+    - { model: attribute-wil, system: { scoreBase: 14 } }
+    - { model: attribute-rea, system: { scoreBase: 6 } }
+    - { model: attribute-cre, system: { scoreBase: 7 } }
+    - { model: skill-awar, system: { masteryLevelBase: 80 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 60 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 27 } }
+    - { model: skill-init, system: { masteryLevelBase: 50 } }
+    - { model: skill-dge, system: { masteryLevelBase: 60 } }
+    - { model: skill-shok, system: { masteryLevelBase: 55 } }
     - name: Bite
       type: skill
       system:

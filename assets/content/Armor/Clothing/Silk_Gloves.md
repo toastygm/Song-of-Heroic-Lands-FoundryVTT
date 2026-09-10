@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft silk gloves; luxury touch for formal occasions and high-status."
 img: icons/game-icons/delapouite/gloves.svg
-shortcode: SlkGlv
+shortcode: slkglv
 type: armorgear
 data:
   templatePriority: 0

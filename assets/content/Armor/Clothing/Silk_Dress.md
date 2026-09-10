@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Elegant flowing silk dress; perfect for formal events and occasions."
 img: icons/game-icons/skoll/dress.svg
-shortcode: SlkDress
+shortcode: slkdress
 type: armorgear
 data:
   templatePriority: 0

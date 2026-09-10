@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+6
     cre: 1d4+7
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 65 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 65 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 27 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 40 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 15 } }
+    - { model: attribute-str, system: { scoreBase: 5 } }
+    - { model: attribute-end, system: { scoreBase: 7 } }
+    - { model: attribute-dex, system: { scoreBase: 15 } }
+    - { model: attribute-agl, system: { scoreBase: 16 } }
+    - { model: attribute-per, system: { scoreBase: 14 } }
+    - { model: attribute-aur, system: { scoreBase: 8 } }
+    - { model: attribute-wil, system: { scoreBase: 11 } }
+    - { model: attribute-rea, system: { scoreBase: 9 } }
+    - { model: attribute-cre, system: { scoreBase: 10 } }
+    - { model: skill-awar, system: { masteryLevelBase: 65 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 65 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 27 } }
+    - { model: skill-init, system: { masteryLevelBase: 40 } }
+    - { model: skill-dge, system: { masteryLevelBase: 60 } }
+    - { model: skill-shok, system: { masteryLevelBase: 15 } }
     - name: Swift Peck
       type: skill
       system:

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lightweight leather leg coverings extending below the knee for active pursuers."
 img: icons/game-icons/lorc/leather-boot.svg
-shortcode: LtCBoot
+shortcode: ltcboot
 type: armorgear
 data:
   templatePriority: 0

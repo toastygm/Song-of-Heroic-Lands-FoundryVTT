@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Twilled serge vest; practical, durable garment for various activities."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: SgVest
+shortcode: sgvest
 type: armorgear
 data:
   templatePriority: 0

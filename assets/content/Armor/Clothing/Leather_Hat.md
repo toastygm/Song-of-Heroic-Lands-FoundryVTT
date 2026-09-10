@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Rugged leather head covering providing basic weather protection with adventurer charm."
 img: icons/game-icons/lorc/pointy-hat.svg
-shortcode: LtHat
+shortcode: lthat
 type: armorgear
 data:
   templatePriority: 0

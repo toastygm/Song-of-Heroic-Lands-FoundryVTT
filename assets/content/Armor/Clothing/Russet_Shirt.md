@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool shirt; basic cold-weather core."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: RShirt
+shortcode: rshirt
 type: armorgear
 data:
   templatePriority: 0

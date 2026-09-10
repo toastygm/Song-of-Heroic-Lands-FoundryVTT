@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff, glue-stiffened cloth breeches offering structured fit and durability."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: BBrch
+shortcode: bbrch
 type: armorgear
 data:
   templatePriority: 0

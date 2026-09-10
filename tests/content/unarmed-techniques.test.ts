@@ -26,6 +26,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, it, expect } from "vitest";
 import { parse as parseYaml } from "yaml";
+import { entryShortcode } from "@tests/content/item-entries";
 
 const UNARMED = path.resolve(__dirname, "../../assets/content/Skills/Combat_Techniques");
 const CONTENT = path.resolve(__dirname, "../../assets/content");
@@ -141,7 +142,7 @@ describe("everyone who fights with their hands", () => {
     it.each(HUMANOIDS)("%s carries every unarmed technique", (file) => {
         const fm = read(CONTENT, file);
         const items = fm.sohl.items ?? [];
-        const codes = new Set(items.map((i: { shortcode?: string }) => i.shortcode));
+        const codes = new Set(items.map(entryShortcode));
         for (const [code] of ROWS) {
             expect(codes.has(code), `missing "${code}"`).toBe(true);
         }

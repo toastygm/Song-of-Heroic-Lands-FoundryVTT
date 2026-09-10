@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather cradle on cords; low-cost ranged arm for skirmishers."
 img: icons/game-icons/delapouite/sling.svg
-shortcode: Slng
+shortcode: slng
 type: weapongear
 data:
   templatePriority: 0

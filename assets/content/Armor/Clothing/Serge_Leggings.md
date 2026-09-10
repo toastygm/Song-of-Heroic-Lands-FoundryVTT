@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Twilled serge leggings; warm, durable leg covering for daily activities."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: SgLeg
+shortcode: sgleg
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Coarse canvas cowl giving hard-wearing head and shoulder cover."
 img: icons/game-icons/lorc/hood.svg
-shortcode: CvCowl
+shortcode: cvcowl
 type: armorgear
 data:
   templatePriority: 0

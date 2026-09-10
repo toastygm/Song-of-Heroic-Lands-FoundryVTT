@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stylish leather outer layer providing minimal protection for everyday wear."
 img: icons/game-icons/delapouite/leather-armor.svg
-shortcode: LtLngVst
+shortcode: ltlngvst
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft cloth infant swaddle offering comfort and basic warmth."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: CSwd
+shortcode: cswd
 type: armorgear
 data:
   templatePriority: 0

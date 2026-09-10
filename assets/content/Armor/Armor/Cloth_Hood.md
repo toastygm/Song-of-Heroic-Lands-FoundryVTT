@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple cloth hood covering head and neck."
 img: icons/game-icons/lorc/hood.svg
-shortcode: CHood
+shortcode: chood
 type: armorgear
 data:
   templatePriority: 0

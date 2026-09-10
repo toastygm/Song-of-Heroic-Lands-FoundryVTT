@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Blunted tournament pole breaks cleanly; knight's horsemanship-testing reach."
 img: icons/game-icons/delapouite/cavalry.svg
-shortcode: JPole
+shortcode: jpole
 type: weapongear
 data:
   templatePriority: 0

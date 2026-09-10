@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Mining tool with point and adze; siege and armor-cracking weapon."
 img: icons/game-icons/lorc/mining.svg
-shortcode: PkAxe
+shortcode: pkaxe
 type: weapongear
 data:
   templatePriority: 0

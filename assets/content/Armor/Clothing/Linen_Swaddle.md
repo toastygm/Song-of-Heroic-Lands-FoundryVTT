@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable infant wrapping perfect for warm climates."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: LnSwd
+shortcode: lnswd
 type: armorgear
 data:
   templatePriority: 0

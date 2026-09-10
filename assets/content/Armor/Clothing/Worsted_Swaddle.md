@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool swaddle; warm, durable infant wrapping."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: WSwd
+shortcode: wswd
 type: armorgear
 data:
   templatePriority: 0

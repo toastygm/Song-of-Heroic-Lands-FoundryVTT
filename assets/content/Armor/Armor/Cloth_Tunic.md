@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple cloth tunic offering comfort and warmth for daily wear."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: CTunic
+shortcode: ctunic
 type: armorgear
 data:
   templatePriority: 0

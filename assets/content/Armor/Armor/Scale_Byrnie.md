@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Fabric-backed overlapping metal scales; flexible torso defense."
 img: icons/game-icons/lorc/scale-mail.svg
-shortcode: SByrn
+shortcode: sbyrn
 type: armorgear
 data:
   templatePriority: 0

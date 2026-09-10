@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Heavy prod spanning by cranequin; castle-wall and convoy suppression weapon."
 img: icons/game-icons/carl-olsen/crossbow.svg
-shortcode: WCxBw160
+shortcode: wcxbw160
 type: weapongear
 data:
   templatePriority: 0

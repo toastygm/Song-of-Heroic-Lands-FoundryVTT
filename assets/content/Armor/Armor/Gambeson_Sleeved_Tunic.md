@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Padded tunic worn under armor or as standalone defense."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: GSTnc
+shortcode: gstnc
 type: armorgear
 data:
   templatePriority: 0

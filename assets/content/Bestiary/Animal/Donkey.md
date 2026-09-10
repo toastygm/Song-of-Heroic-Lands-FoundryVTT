@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+2
     cre: 1d4+3
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 24 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: snt, type: attribute, system: { scoreBase: 3 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 75 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 24 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 24 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 39 } }
+    - { model: attribute-str, system: { scoreBase: 24 } }
+    - { model: attribute-end, system: { scoreBase: 13 } }
+    - { model: attribute-agl, system: { scoreBase: 12 } }
+    - { model: attribute-per, system: { scoreBase: 18 } }
+    - { model: attribute-snt, system: { scoreBase: 3 } }
+    - { model: attribute-aur, system: { scoreBase: 4 } }
+    - { model: attribute-wil, system: { scoreBase: 12 } }
+    - { model: attribute-rea, system: { scoreBase: 4 } }
+    - { model: attribute-cre, system: { scoreBase: 5 } }
+    - { model: skill-awar, system: { masteryLevelBase: 75 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 60 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 24 } }
+    - { model: skill-init, system: { masteryLevelBase: 24 } }
+    - { model: skill-dge, system: { masteryLevelBase: 60 } }
+    - { model: skill-shok, system: { masteryLevelBase: 39 } }
     - name: Kick
       type: skill
       system:

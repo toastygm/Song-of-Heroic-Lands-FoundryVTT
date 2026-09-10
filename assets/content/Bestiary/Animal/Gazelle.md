@@ -25,21 +25,21 @@ sohl:
     rea: 1d4+5
     cre: 1d4+3
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 65 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 27 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 36 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 68 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 25 } }
+    - { model: attribute-str, system: { scoreBase: 9 } }
+    - { model: attribute-end, system: { scoreBase: 11 } }
+    - { model: attribute-dex, system: { scoreBase: 15 } }
+    - { model: attribute-agl, system: { scoreBase: 18 } }
+    - { model: attribute-per, system: { scoreBase: 16 } }
+    - { model: attribute-aur, system: { scoreBase: 8 } }
+    - { model: attribute-wil, system: { scoreBase: 10 } }
+    - { model: attribute-rea, system: { scoreBase: 8 } }
+    - { model: attribute-cre, system: { scoreBase: 6 } }
+    - { model: skill-awar, system: { masteryLevelBase: 65 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 70 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 27 } }
+    - { model: skill-init, system: { masteryLevelBase: 36 } }
+    - { model: skill-dge, system: { masteryLevelBase: 68 } }
+    - { model: skill-shok, system: { masteryLevelBase: 25 } }
     - name: Horn Thrust
       type: skill
       system:

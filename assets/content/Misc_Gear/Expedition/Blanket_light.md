@@ -6,7 +6,7 @@ name:
   aliases: []
 description: "Thin linen or light wool blanket; pocketable and quick-drying for mild seasons."
 img: icons/game-icons/lorc/swap-bag.svg
-shortcode: LiteBlkt
+shortcode: liteblkt
 type: miscgear
 data:
   templatePriority: 0

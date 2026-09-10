@@ -25,21 +25,21 @@ sohl:
     rea: 1d4+6
     cre: 1d4+5
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 80 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 75 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 42 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 48 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 64 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 43 } }
+    - { model: attribute-str, system: { scoreBase: 18 } }
+    - { model: attribute-end, system: { scoreBase: 15 } }
+    - { model: attribute-dex, system: { scoreBase: 15 } }
+    - { model: attribute-agl, system: { scoreBase: 16 } }
+    - { model: attribute-per, system: { scoreBase: 16 } }
+    - { model: attribute-aur, system: { scoreBase: 14 } }
+    - { model: attribute-wil, system: { scoreBase: 15 } }
+    - { model: attribute-rea, system: { scoreBase: 9 } }
+    - { model: attribute-cre, system: { scoreBase: 8 } }
+    - { model: skill-awar, system: { masteryLevelBase: 80 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 75 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 42 } }
+    - { model: skill-init, system: { masteryLevelBase: 48 } }
+    - { model: skill-dge, system: { masteryLevelBase: 64 } }
+    - { model: skill-shok, system: { masteryLevelBase: 43 } }
     - name: Skull Crush
       type: skill
       system:

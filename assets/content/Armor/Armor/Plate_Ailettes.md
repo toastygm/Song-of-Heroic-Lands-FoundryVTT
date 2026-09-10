@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Broad steel shoulder-guards; display heraldic pride and shield upper arms."
 img: icons/game-icons/lorc/dorsal-scales.svg
-shortcode: PlAil
+shortcode: plail
 type: armorgear
 data:
   templatePriority: 0
