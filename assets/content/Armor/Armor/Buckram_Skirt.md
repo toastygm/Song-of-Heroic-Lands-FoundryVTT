@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram skirt offering durability and dependable rigid structure."
 img: icons/game-icons/delapouite/skirt.svg
-shortcode: BSkirt
+shortcode: bskirt
 type: armorgear
 data:
   templatePriority: 0

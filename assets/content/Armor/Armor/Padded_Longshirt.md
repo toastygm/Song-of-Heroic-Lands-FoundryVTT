@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned long-sleeved garment for under-armor padding or standalone wear."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: PLgSht
+shortcode: plgsht
 type: armorgear
 data:
   templatePriority: 0

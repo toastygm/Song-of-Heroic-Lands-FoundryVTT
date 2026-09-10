@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Dense beaver fur cloak providing exceptional warmth and opulent status marking."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: BvCloak
+shortcode: bvcloak
 type: armorgear
 data:
   templatePriority: 0

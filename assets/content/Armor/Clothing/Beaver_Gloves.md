@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver fur gloves delivering warmth and luxury for the cold-season wearer."
 img: icons/game-icons/delapouite/gloves.svg
-shortcode: BvGlv
+shortcode: bvglv
 type: armorgear
 data:
   templatePriority: 0

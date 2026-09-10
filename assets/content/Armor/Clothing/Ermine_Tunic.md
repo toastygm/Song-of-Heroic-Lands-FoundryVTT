@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Ermine-furred tunic; conspicuous wealth worn close."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: ETunic
+shortcode: etunic
 type: armorgear
 data:
   templatePriority: 0

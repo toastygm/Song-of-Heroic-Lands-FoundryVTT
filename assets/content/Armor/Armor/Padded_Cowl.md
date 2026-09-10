@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned head and shoulder covering providing warmth and helmet compatibility."
 img: icons/game-icons/lorc/hood.svg
-shortcode: PCwl
+shortcode: pcwl
 type: armorgear
 data:
   templatePriority: 0

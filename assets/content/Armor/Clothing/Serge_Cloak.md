@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Durable twilled serge cloak; protective outer garment for all weather."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: SgClk
+shortcode: sgclk
 type: armorgear
 data:
   templatePriority: 0

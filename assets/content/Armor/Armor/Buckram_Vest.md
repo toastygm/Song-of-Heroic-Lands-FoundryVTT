@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram vest offering durable and reliable rigid fit."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: BVest
+shortcode: bvest
 type: armorgear
 data:
   templatePriority: 0

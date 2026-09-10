@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Steel helm covering crown and sides; exposes face for visibility."
 img: icons/game-icons/lorc/barbute.svg
-shortcode: PlHHelm
+shortcode: plhhelm
 type: armorgear
 data:
   templatePriority: 0

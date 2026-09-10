@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft silk apron for formal settings; luxurious but delicate."
 img: icons/game-icons/delapouite/cook.svg
-shortcode: SlkApn
+shortcode: slkapn
 type: armorgear
 data:
   templatePriority: 0

@@ -8,7 +8,7 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bolt
-shortcode: BltLBlt
+shortcode: bltlblt
 img: icons/game-icons/lorc/broadhead-arrow.svg
 easyname: Light Blunt
 sohl:

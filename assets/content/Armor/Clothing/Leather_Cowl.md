@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lightweight leather head and shoulder covering offering rugged simplicity."
 img: icons/game-icons/lorc/hood.svg
-shortcode: LtCowl
+shortcode: ltcowl
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable straw sandals; minimal protection, maximum airflow."
 img: icons/game-icons/delapouite/flip-flops.svg
-shortcode: StShoes
+shortcode: stshoes
 type: armorgear
 data:
   templatePriority: 0

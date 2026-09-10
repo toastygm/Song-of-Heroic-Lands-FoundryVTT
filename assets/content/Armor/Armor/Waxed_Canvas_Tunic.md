@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Waxed canvas tunic proofed against rain and sea spray."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: WxCvTunic
+shortcode: wxcvtunic
 type: armorgear
 data:
   templatePriority: 0

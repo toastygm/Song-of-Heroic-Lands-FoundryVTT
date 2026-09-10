@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Durable twilled serge dress for everyday activities and general wear."
 img: icons/game-icons/skoll/dress.svg
-shortcode: SgDress
+shortcode: sgdress
 type: armorgear
 data:
   templatePriority: 0

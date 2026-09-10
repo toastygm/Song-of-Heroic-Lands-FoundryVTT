@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Rugged leather outer garment protecting against wind and light rain."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: LtCloak
+shortcode: ltcloak
 type: armorgear
 data:
   templatePriority: 0

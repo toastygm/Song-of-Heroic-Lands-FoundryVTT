@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram surcoat providing durability and reliable structured fit."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: BScoat
+shortcode: bscoat
 type: armorgear
 data:
   templatePriority: 0

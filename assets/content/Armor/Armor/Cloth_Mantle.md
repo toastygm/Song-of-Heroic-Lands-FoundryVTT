@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple cloth mantle offering comfort and warmth for everyday wear."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: CMntl
+shortcode: cmntl
 type: armorgear
 data:
   templatePriority: 0

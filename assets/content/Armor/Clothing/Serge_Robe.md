@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Twilled serge robe; practical, versatile everyday garment."
 img: icons/game-icons/lorc/robe.svg
-shortcode: SgRobe
+shortcode: sgrobe
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Fully enclosed steel helm; maximum head-and-face coverage for warriors."
 img: icons/game-icons/lorc/visored-helm.svg
-shortcode: PlGtHlm
+shortcode: plgthlm
 type: armorgear
 data:
   templatePriority: 0

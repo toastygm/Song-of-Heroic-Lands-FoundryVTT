@@ -34,56 +34,56 @@ social:
 sohl:
   kbcat: archetype
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: cml, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: emp, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: elo, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: mor, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: voi, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: archery, type: skill, initSkillMult: 1 }
-    - { shortcode: awar, type: skill, initSkillMult: 3 }
-    - { shortcode: chrm, type: skill, initSkillMult: 3 }
-    - { shortcode: clmb, type: skill, initSkillMult: 3 }
-    - { shortcode: cmd, type: skill, initSkillMult: 2 }
-    - { shortcode: cook, type: skill, initSkillMult: 2 }
-    - { shortcode: dnce, type: skill, initSkillMult: 2 }
-    - { shortcode: dscr, type: skill, initSkillMult: 2 }
-    - { shortcode: draw, type: skill, initSkillMult: 1 }
-    - { shortcode: folklr, type: skill, initSkillMult: 1 }
-    - { shortcode: guil, type: skill, initSkillMult: 3 }
-    - { shortcode: init, type: skill, initSkillMult: 3 }
-    - { shortcode: shok, type: skill, initSkillMult: 3 }
-    - { shortcode: intr, type: skill, initSkillMult: 3 }
-    - { shortcode: jump, type: skill, initSkillMult: 3 }
-    - { shortcode: melee, type: skill, initSkillMult: 2 }
-    - { shortcode: dge, type: skill, initSkillMult: 2 }
-    - { shortcode: pysn, type: skill, initSkillMult: 1 }
-    - { shortcode: ridg, type: skill, initSkillMult: 1 }
-    - { shortcode: sing, type: skill, initSkillMult: 3 }
-    - { shortcode: stlth, type: skill, initSkillMult: 3 }
-    - { shortcode: srvl, type: skill, initSkillMult: 1 }
-    - { shortcode: spirit, type: skill, initSkillMult: 3 }
-    - { shortcode: swim, type: skill, initSkillMult: 1 }
-    - { shortcode: thtcs, type: skill, initSkillMult: 1 }
-    - { shortcode: thro, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkbite, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkgrab, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkheadbutt, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkkick, type: skill, initSkillMult: 2 }
-    - { shortcode: limbblock, type: skill, initSkillMult: 2 }
-    - { shortcode: press, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkpunch, type: skill, initSkillMult: 2 }
-    - { shortcode: trip, type: skill, initSkillMult: 2 }
-    - { shortcode: sprt, type: mysticalability }
-    - { shortcode: pence, type: miscgear }
+    - { model: attribute-str, system: { scoreBase: 11 } }
+    - { model: attribute-end, system: { scoreBase: 11 } }
+    - { model: attribute-dex, system: { scoreBase: 11 } }
+    - { model: attribute-agl, system: { scoreBase: 11 } }
+    - { model: attribute-per, system: { scoreBase: 11 } }
+    - { model: attribute-cml, system: { scoreBase: 11 } }
+    - { model: attribute-aur, system: { scoreBase: 11 } }
+    - { model: attribute-wil, system: { scoreBase: 11 } }
+    - { model: attribute-rea, system: { scoreBase: 11 } }
+    - { model: attribute-cre, system: { scoreBase: 11 } }
+    - { model: attribute-emp, system: { scoreBase: 11 } }
+    - { model: attribute-elo, system: { scoreBase: 11 } }
+    - { model: attribute-mor, system: { scoreBase: 11 } }
+    - { model: attribute-voi, system: { scoreBase: 11 } }
+    - { model: skill-archery, initSkillMult: 1 }
+    - { model: skill-awar, initSkillMult: 3 }
+    - { model: skill-chrm, initSkillMult: 3 }
+    - { model: skill-clmb, initSkillMult: 3 }
+    - { model: skill-cmd, initSkillMult: 2 }
+    - { model: skill-cook, initSkillMult: 2 }
+    - { model: skill-dnce, initSkillMult: 2 }
+    - { model: skill-dscr, initSkillMult: 2 }
+    - { model: skill-draw, initSkillMult: 1 }
+    - { model: skill-folklr, initSkillMult: 1 }
+    - { model: skill-guil, initSkillMult: 3 }
+    - { model: skill-init, initSkillMult: 3 }
+    - { model: skill-shok, initSkillMult: 3 }
+    - { model: skill-intr, initSkillMult: 3 }
+    - { model: skill-jump, initSkillMult: 3 }
+    - { model: skill-melee, initSkillMult: 2 }
+    - { model: skill-dge, initSkillMult: 2 }
+    - { model: skill-pysn, initSkillMult: 1 }
+    - { model: skill-ridg, initSkillMult: 1 }
+    - { model: skill-sing, initSkillMult: 3 }
+    - { model: skill-stlth, initSkillMult: 3 }
+    - { model: skill-srvl, initSkillMult: 1 }
+    - { model: skill-spirit, initSkillMult: 3 }
+    - { model: skill-swim, initSkillMult: 1 }
+    - { model: skill-thtcs, initSkillMult: 1 }
+    - { model: skill-thro, initSkillMult: 2 }
+    - { model: skill-bflkbite, initSkillMult: 2 }
+    - { model: skill-bflkgrab, initSkillMult: 2 }
+    - { model: skill-bflkheadbutt, initSkillMult: 2 }
+    - { model: skill-bflkkick, initSkillMult: 2 }
+    - { model: skill-limbblock, initSkillMult: 2 }
+    - { model: skill-press, initSkillMult: 2 }
+    - { model: skill-bflkpunch, initSkillMult: 2 }
+    - { model: skill-trip, initSkillMult: 2 }
+    - { model: mysticalability-sprt }
+    - { model: miscgear-pence }
   system:
     body:
       structure:

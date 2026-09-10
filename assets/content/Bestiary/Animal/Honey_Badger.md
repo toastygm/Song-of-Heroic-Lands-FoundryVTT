@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+5
     cre: 1d4+4
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 17 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 17 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 80 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 42 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 52 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 48 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 40 } }
+    - { model: attribute-str, system: { scoreBase: 15 } }
+    - { model: attribute-end, system: { scoreBase: 17 } }
+    - { model: attribute-dex, system: { scoreBase: 13 } }
+    - { model: attribute-agl, system: { scoreBase: 11 } }
+    - { model: attribute-per, system: { scoreBase: 14 } }
+    - { model: attribute-aur, system: { scoreBase: 12 } }
+    - { model: attribute-wil, system: { scoreBase: 17 } }
+    - { model: attribute-rea, system: { scoreBase: 8 } }
+    - { model: attribute-cre, system: { scoreBase: 7 } }
+    - { model: skill-awar, system: { masteryLevelBase: 80 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 70 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 42 } }
+    - { model: skill-init, system: { masteryLevelBase: 52 } }
+    - { model: skill-dge, system: { masteryLevelBase: 48 } }
+    - { model: skill-shok, system: { masteryLevelBase: 40 } }
     - name: Sharp Claws
       type: skill
       system:

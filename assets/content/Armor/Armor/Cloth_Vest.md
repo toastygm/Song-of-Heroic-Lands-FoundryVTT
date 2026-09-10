@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple cloth vest offering comfort and warmth for casual wear."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: CVest
+shortcode: cvest
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Twilled serge cap; comfortable, durable head covering for daily use."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: SgCap
+shortcode: sgcap
 type: armorgear
 data:
   templatePriority: 0

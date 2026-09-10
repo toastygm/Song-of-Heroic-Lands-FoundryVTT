@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "White ermine fur shirt signifying high status and elite prestige."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: EShirt
+shortcode: eshirt
 type: armorgear
 data:
   templatePriority: 0

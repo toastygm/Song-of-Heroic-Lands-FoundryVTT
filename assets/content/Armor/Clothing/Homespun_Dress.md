@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade dress providing coverage and comfort."
 img: icons/game-icons/skoll/dress.svg
-shortcode: HsDress
+shortcode: hsdress
 type: armorgear
 data:
   templatePriority: 0

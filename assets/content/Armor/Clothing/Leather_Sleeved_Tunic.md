@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Rugged leather sleeved garment with stylish look and minimal defense."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: LtSTunic
+shortcode: ltstunic
 type: armorgear
 data:
   templatePriority: 0

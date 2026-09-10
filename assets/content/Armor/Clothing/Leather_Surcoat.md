@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Rugged styled leather outer layer offering minimal protection and flexibility."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: LtScoat
+shortcode: ltscoat
 type: armorgear
 data:
   templatePriority: 0

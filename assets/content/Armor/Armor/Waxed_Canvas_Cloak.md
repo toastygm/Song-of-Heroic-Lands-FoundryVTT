@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Wax-impregnated canvas cloak turning rain and spray."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: WxCvCloak
+shortcode: wxcvcloak
 type: armorgear
 data:
   templatePriority: 0

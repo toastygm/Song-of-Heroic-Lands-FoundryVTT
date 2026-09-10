@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple cloth gloves offering comfort and protection for everyday tasks."
 img: icons/game-icons/delapouite/gloves.svg
-shortcode: CGlv
+shortcode: cglv
 type: armorgear
 data:
   templatePriority: 0

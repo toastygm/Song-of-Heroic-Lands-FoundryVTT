@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft cloth loincloth offering basic coverage and casual comfort."
 img: icons/game-icons/delapouite/loincloth.svg
-shortcode: CLoin
+shortcode: cloin
 type: armorgear
 data:
   templatePriority: 0

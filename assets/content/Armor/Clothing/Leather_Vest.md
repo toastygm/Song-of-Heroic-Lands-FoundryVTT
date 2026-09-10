@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lightweight styled leather sleeveless garment offering minimal protection and edge."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: LtVest
+shortcode: ltvest
 type: armorgear
 data:
   templatePriority: 0

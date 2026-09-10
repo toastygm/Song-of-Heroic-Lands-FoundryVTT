@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Steel forearm-guards; protects wrists and inner arms."
 img: icons/game-icons/delapouite/bracer.svg
-shortcode: PlVamb
+shortcode: plvamb
 type: armorgear
 data:
   templatePriority: 0

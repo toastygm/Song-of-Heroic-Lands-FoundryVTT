@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver fur cap offering warmth and luxury for high-status individuals."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: BvCap
+shortcode: bvcap
 type: armorgear
 data:
   templatePriority: 0

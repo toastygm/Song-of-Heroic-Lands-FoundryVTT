@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned head covering providing warmth for wear under helmets."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: PCap
+shortcode: pcap
 type: armorgear
 data:
   templatePriority: 0

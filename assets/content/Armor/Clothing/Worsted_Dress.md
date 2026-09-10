@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool dress; durable, versatile garment for activities."
 img: icons/game-icons/skoll/dress.svg
-shortcode: WDress
+shortcode: wdress
 type: armorgear
 data:
   templatePriority: 0

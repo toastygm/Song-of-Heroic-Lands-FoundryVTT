@@ -25,21 +25,21 @@ sohl:
     rea: 1d4+5
     cre: 1d4+4
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 17 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 30 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 40 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 68 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 25 } }
+    - { model: attribute-str, system: { scoreBase: 9 } }
+    - { model: attribute-end, system: { scoreBase: 10 } }
+    - { model: attribute-dex, system: { scoreBase: 17 } }
+    - { model: attribute-agl, system: { scoreBase: 18 } }
+    - { model: attribute-per, system: { scoreBase: 16 } }
+    - { model: attribute-aur, system: { scoreBase: 9 } }
+    - { model: attribute-wil, system: { scoreBase: 11 } }
+    - { model: attribute-rea, system: { scoreBase: 8 } }
+    - { model: attribute-cre, system: { scoreBase: 7 } }
+    - { model: skill-awar, system: { masteryLevelBase: 70 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 70 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 30 } }
+    - { model: skill-init, system: { masteryLevelBase: 40 } }
+    - { model: skill-dge, system: { masteryLevelBase: 68 } }
+    - { model: skill-shok, system: { masteryLevelBase: 25 } }
     - name: Slashing Rake
       type: skill
       system:

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Rugged outer garment of treated leather for adventurers and wanderers."
 img: icons/game-icons/lorc/robe.svg
-shortcode: LtRobe
+shortcode: ltrobe
 type: armorgear
 data:
   templatePriority: 0

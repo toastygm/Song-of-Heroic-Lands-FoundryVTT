@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lightweight styled leather leg garment adding edge with minimal protection."
 img: icons/game-icons/delapouite/skirt.svg
-shortcode: LtSkirt
+shortcode: ltskirt
 type: armorgear
 data:
   templatePriority: 0

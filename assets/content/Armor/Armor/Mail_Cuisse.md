@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Metal ring thigh protection offering flexibility and defense for soldiers."
 img: icons/game-icons/willdabeast/chain-mail.svg
-shortcode: MCui
+shortcode: mcui
 type: armorgear
 data:
   templatePriority: 0

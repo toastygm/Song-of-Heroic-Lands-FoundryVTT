@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Short double-edged blade for stabbing thrust; footman's close-quarters steel."
 img: icons/game-icons/lorc/broadsword.svg
-shortcode: ShrtSwd
+shortcode: shrtswd
 type: weapongear
 data:
   templatePriority: 0
