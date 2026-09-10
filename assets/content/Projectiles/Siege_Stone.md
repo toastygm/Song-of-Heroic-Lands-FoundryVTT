@@ -8,7 +8,7 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bullet
-shortcode: StnSge
+shortcode: stnsge
 img: icons/game-icons/lorc/stone-block.svg
 easyname: Siege Stone
 sohl:

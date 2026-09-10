@@ -26,21 +26,21 @@ sohl:
     rea: 1d4+4
     cre: 1d4+3
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 55 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 55 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 33 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 32 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 56 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 15 } }
+    - { model: attribute-str, system: { scoreBase: 5 } }
+    - { model: attribute-end, system: { scoreBase: 7 } }
+    - { model: attribute-dex, system: { scoreBase: 14 } }
+    - { model: attribute-agl, system: { scoreBase: 15 } }
+    - { model: attribute-per, system: { scoreBase: 14 } }
+    - { model: attribute-aur, system: { scoreBase: 14 } }
+    - { model: attribute-wil, system: { scoreBase: 8 } }
+    - { model: attribute-rea, system: { scoreBase: 7 } }
+    - { model: attribute-cre, system: { scoreBase: 6 } }
+    - { model: skill-awar, system: { masteryLevelBase: 55 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 55 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 33 } }
+    - { model: skill-init, system: { masteryLevelBase: 32 } }
+    - { model: skill-dge, system: { masteryLevelBase: 56 } }
+    - { model: skill-shok, system: { masteryLevelBase: 15 } }
     - name: Spur Slash
       type: skill
       system:

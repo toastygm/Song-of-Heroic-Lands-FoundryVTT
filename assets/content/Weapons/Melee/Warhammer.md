@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Flat-faced hammer with spike; one-handed armor-breaker for knights."
 img: icons/game-icons/delapouite/warhammer.svg
-shortcode: Whmr
+shortcode: whmr
 type: weapongear
 data:
   templatePriority: 0

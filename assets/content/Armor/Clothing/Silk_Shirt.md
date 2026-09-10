@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Elegant silk shirt; luxurious, refined garment for formal occasions."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: SlkShirt
+shortcode: slkshirt
 type: armorgear
 data:
   templatePriority: 0

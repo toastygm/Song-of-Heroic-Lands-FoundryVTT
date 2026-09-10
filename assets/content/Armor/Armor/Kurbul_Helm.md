@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Plain treated-leather skullcap helm; covers the crown alone and leaves the face open."
 img: icons/game-icons/lorc/crested-helmet.svg
-shortcode: KHlm
+shortcode: khlm
 type: armorgear
 data:
   templatePriority: 0

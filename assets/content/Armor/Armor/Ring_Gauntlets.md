@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather gloves with ring-reinforced back and fingers."
 img: icons/game-icons/lorc/mailed-fist.svg
-shortcode: RMtn
+shortcode: rmtn
 type: armorgear
 data:
   templatePriority: 0

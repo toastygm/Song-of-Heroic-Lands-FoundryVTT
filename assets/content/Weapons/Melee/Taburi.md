@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Short tapered blade; southern thrusting dagger worn at belt."
 img: icons/game-icons/lorc/broad-dagger.svg
-shortcode: Taburi
+shortcode: taburi
 type: weapongear
 data:
   templatePriority: 0

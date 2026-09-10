@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stitched thigh-guard; adds padding beneath heavier armor."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: QCui
+shortcode: qcui
 type: armorgear
 data:
   templatePriority: 0

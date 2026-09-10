@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Water-resistant seal-fur sleeveless vest; core protection from wet."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: SlsVest
+shortcode: slsvest
 type: armorgear
 data:
   templatePriority: 0

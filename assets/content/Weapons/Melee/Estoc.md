@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Narrow rigid blade for plate seams; knight's piercing thrust."
 img: icons/game-icons/lorc/broadsword.svg
-shortcode: Estc
+shortcode: estc
 type: weapongear
 data:
   templatePriority: 0

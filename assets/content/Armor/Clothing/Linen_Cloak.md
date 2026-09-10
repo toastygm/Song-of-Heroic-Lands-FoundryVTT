@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Breathable outer garment protecting from sun without causing overheating."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: LClk
+shortcode: lclk
 type: armorgear
 data:
   templatePriority: 0

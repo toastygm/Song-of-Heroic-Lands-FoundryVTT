@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram knee boots offering durability and structured leg protection."
 img: icons/game-icons/lorc/leather-boot.svg
-shortcode: BBoot
+shortcode: bboot
 type: armorgear
 data:
   templatePriority: 0

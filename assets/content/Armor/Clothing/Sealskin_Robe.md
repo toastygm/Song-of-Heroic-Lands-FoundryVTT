@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Water-resistant seal-fur robe; comfort for seafaring folk."
 img: icons/game-icons/lorc/robe.svg
-shortcode: SlsRobe
+shortcode: slsrobe
 type: armorgear
 data:
   templatePriority: 0

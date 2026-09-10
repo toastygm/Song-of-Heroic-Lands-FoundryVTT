@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Nine-foot hardwood pole; sweeping reach for pike-levies holding ground."
 img: icons/game-icons/lorc/halberd.svg
-shortcode: LStf
+shortcode: lstf
 type: weapongear
 data:
   templatePriority: 0

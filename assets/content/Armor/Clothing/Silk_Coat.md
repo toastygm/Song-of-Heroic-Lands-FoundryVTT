@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Elegant silk coat; luxurious garment for formal events and occasions."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: SlkCoat
+shortcode: slkcoat
 type: armorgear
 data:
   templatePriority: 0

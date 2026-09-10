@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable leg covering perfect for warm climates or strenuous activity."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: LnBrch
+shortcode: lnbrch
 type: armorgear
 data:
   templatePriority: 0

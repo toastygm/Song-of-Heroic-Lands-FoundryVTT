@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable head covering protecting from sun in warmer weather."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: LCap
+shortcode: lcap
 type: armorgear
 data:
   templatePriority: 0

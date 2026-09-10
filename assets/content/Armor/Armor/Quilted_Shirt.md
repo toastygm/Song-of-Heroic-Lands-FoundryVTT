@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stitched-layer shirt; winter-weight padding for torso."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: QSht
+shortcode: qsht
 type: armorgear
 data:
   templatePriority: 0

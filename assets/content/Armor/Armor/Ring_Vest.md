@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sleeveless ring-reinforced leather vest; light-duty torso armor."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: RnVest
+shortcode: rnvest
 type: armorgear
 data:
   templatePriority: 0

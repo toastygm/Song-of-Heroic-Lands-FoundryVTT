@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Water-resistant seal-fur cap; cold and wet climate protection."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: SlsCap
+shortcode: slscap
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Extended metal ring head and neck armor for combat scenarios."
 img: icons/game-icons/lorc/hood.svg
-shortcode: MLCowl
+shortcode: mlcowl
 type: armorgear
 data:
   templatePriority: 0

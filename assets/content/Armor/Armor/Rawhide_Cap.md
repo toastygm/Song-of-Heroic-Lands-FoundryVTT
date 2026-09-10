@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Thick hide cap; durable head-cover for tough work."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: RhCap
+shortcode: rhcap
 type: armorgear
 data:
   templatePriority: 0

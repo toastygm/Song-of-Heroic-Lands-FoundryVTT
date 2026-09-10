@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet robe; opulent garment for formal settings and grandeur."
 img: icons/game-icons/lorc/robe.svg
-shortcode: VRobe
+shortcode: vrobe
 type: armorgear
 data:
   templatePriority: 0

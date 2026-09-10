@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Weighted mesh entangles limbs; gladiatorial disarm-and-strike with spear."
 img: icons/game-icons/lorc/fishing-net.svg
-shortcode: Net
+shortcode: net
 type: weapongear
 data:
   templatePriority: 0

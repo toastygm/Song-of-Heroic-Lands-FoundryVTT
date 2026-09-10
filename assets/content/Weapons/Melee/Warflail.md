@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Spiked chain-joined heads bypassing guard; armor-defeating reach for professionals."
 img: icons/game-icons/delapouite/flail.svg
-shortcode: WFl
+shortcode: wfl
 type: weapongear
 data:
   templatePriority: 0

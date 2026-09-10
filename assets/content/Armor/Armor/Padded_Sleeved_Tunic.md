@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned sleeved garment for cold weather or under-armor protection."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: PSTnc
+shortcode: pstnc
 type: armorgear
 data:
   templatePriority: 0

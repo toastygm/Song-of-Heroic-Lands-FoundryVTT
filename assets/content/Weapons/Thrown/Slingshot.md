@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Y-framed pouch-cord; concealed, silent, favored by hunters and footpads."
 img: icons/game-icons/delapouite/slingshot.svg
-shortcode: SlngSht
+shortcode: slngsht
 type: weapongear
 data:
   templatePriority: 0

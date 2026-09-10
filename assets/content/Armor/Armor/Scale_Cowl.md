@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Scale-sewn hood; overlapping metal scales for head protection."
 img: icons/game-icons/lorc/hood.svg
-shortcode: SCwl
+shortcode: scwl
 type: armorgear
 data:
   templatePriority: 0

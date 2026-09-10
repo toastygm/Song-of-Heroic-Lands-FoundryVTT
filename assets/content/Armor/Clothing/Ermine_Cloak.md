@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "White ermine cloak; status symbol of nobility and high prestige."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: ECloak
+shortcode: ecloak
 type: armorgear
 data:
   templatePriority: 0

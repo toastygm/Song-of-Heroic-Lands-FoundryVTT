@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Plain steel skullcap helm; covers the crown alone and leaves the face open."
 img: icons/game-icons/lorc/crested-helmet.svg
-shortcode: PHlm
+shortcode: phlm
 type: armorgear
 data:
   templatePriority: 0

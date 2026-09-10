@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade robe providing comfort and warmth for everyday."
 img: icons/game-icons/lorc/robe.svg
-shortcode: HsRobe
+shortcode: hsrobe
 type: armorgear
 data:
   templatePriority: 0
