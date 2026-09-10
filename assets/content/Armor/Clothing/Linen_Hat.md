@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable head covering for warm climates with sun protection."
 img: icons/game-icons/lorc/pointy-hat.svg
-shortcode: LHat
+shortcode: lhat
 type: armorgear
 data:
   templatePriority: 0

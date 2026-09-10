@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool calf boots; warm, practical footwear for cold."
 img: icons/game-icons/lorc/leather-boot.svg
-shortcode: WCBoot
+shortcode: wcboot
 type: armorgear
 data:
   templatePriority: 0

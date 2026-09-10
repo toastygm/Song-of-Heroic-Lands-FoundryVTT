@@ -6,7 +6,7 @@ name:
   aliases: []
 description: "Thick felted wool blanket; provides substantial winter warmth for sleeping."
 img: icons/game-icons/lorc/swap-bag.svg
-shortcode: HvyBlkt
+shortcode: hvyblkt
 type: miscgear
 data:
   templatePriority: 0

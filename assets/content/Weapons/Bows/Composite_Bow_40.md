@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light forty-pound scout's composite; training bow or child's reach."
 img: icons/game-icons/lorc/pocket-bow.svg
-shortcode: CBw40
+shortcode: cbw40
 type: weapongear
 data:
   templatePriority: 0

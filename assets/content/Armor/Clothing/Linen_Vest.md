@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable sleeveless garment perfect for warm weather activities."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: LVest
+shortcode: lvest
 type: armorgear
 data:
   templatePriority: 0

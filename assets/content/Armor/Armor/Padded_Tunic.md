@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned garment providing warmth and protection for various activities."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: PTnc
+shortcode: ptnc
 type: armorgear
 data:
   templatePriority: 0

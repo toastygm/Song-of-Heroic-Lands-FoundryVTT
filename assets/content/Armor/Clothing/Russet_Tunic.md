@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool tunic; everyday wear for rough labor."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: RTunic
+shortcode: rtunic
 type: armorgear
 data:
   templatePriority: 0

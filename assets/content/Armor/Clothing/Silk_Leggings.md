@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Luxurious silk leggings; soft, elegant for formal occasions."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: SlkLeg
+shortcode: slkleg
 type: armorgear
 data:
   templatePriority: 0

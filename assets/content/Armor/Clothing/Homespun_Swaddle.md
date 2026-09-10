@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade infant swaddle offering comfort and warmth."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: HsSwd
+shortcode: hsswd
 type: armorgear
 data:
   templatePriority: 0

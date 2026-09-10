@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Thick untanned hide leg-wear for rough labor and harsh climates."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: RhTrsr
+shortcode: rhtrsr
 type: armorgear
 data:
   templatePriority: 0

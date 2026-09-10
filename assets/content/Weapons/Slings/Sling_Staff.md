@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Pole-mounted sling multiplying range and power for peasant levy."
 img: icons/game-icons/delapouite/sling.svg
-shortcode: SlngStf
+shortcode: slngstf
 type: weapongear
 data:
   templatePriority: 0

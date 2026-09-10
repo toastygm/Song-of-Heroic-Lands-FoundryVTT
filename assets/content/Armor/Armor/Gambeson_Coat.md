@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Padded coat worn under armor or standalone, offering cushioning protection."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: GCoat
+shortcode: gcoat
 type: armorgear
 data:
   templatePriority: 0

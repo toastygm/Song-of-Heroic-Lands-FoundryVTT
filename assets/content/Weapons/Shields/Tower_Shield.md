@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Man-tall standing shield providing total cover against arrow storms."
 img: icons/game-icons/badges/shield.svg
-shortcode: TwrSh
+shortcode: twrsh
 type: weapongear
 data:
   templatePriority: 0

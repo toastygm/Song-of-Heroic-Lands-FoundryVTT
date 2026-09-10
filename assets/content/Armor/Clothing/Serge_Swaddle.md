@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Durable twilled serge swaddle for infants; warm, secure, reliable."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: SgSwd
+shortcode: sgswd
 type: armorgear
 data:
   templatePriority: 0

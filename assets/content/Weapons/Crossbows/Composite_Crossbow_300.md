@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Three-hundred pound windlass-spanned arbalest; wall-breach devastating volley."
 img: icons/game-icons/carl-olsen/crossbow.svg
-shortcode: CCxBw300
+shortcode: ccxbw300
 type: weapongear
 data:
   templatePriority: 0

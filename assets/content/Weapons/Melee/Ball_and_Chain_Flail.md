@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Chain-slung metal sphere slides past shields; heavy cavalry's armor-breaker."
 img: icons/game-icons/delapouite/flail.svg
-shortcode: BCFl
+shortcode: bcfl
 type: weapongear
 data:
   templatePriority: 0

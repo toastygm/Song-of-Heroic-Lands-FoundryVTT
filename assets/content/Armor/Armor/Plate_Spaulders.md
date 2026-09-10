@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Broad steel shoulder-plates; guards vulnerable arm-sockets."
 img: icons/game-icons/lorc/dorsal-scales.svg
-shortcode: PlSpld
+shortcode: plspld
 type: armorgear
 data:
   templatePriority: 0

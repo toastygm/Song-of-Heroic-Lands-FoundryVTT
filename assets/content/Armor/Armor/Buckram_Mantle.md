@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram mantle providing durability and reliable rigid cloaking."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: BMntl
+shortcode: bmntl
 type: armorgear
 data:
   templatePriority: 0

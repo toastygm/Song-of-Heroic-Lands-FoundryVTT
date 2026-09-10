@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lightweight leather arm guards allowing full flexibility and movement."
 img: icons/game-icons/delapouite/bracer.svg
-shortcode: LtBrcr
+shortcode: ltbrcr
 type: armorgear
 data:
   templatePriority: 0

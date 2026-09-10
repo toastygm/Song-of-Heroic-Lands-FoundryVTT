@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Thick hide apron; guards against forge-spark and heat."
 img: icons/game-icons/delapouite/cook.svg
-shortcode: RhApr
+shortcode: rhapr
 type: armorgear
 data:
   templatePriority: 0

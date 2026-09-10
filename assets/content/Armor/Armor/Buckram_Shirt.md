@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram shirt providing durability and reliable rigid fit."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: BShirt
+shortcode: bshirt
 type: armorgear
 data:
   templatePriority: 0

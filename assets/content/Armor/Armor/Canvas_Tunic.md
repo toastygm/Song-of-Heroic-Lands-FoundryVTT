@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stout canvas tunic cut for work and hard travel."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: CvTunic
+shortcode: cvtunic
 type: armorgear
 data:
   templatePriority: 0

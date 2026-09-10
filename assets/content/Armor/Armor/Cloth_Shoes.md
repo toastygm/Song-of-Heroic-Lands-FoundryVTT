@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Breathable cloth footwear for casual, light-duty wear."
 img: icons/game-icons/lorc/leather-boot.svg
-shortcode: CShoe
+shortcode: cshoe
 type: armorgear
 data:
   templatePriority: 0

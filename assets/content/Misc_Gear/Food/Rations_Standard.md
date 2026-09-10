@@ -6,7 +6,7 @@ name:
   aliases: []
 description: "Bread, dried meat, cheese, fruit bundle for traveler's day of moderate labor."
 img: icons/game-icons/lorc/swap-bag.svg
-shortcode: StdRtns
+shortcode: stdrtns
 type: miscgear
 data:
   templatePriority: 0

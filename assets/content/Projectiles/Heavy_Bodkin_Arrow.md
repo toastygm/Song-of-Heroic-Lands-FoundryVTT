@@ -8,7 +8,7 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: arrow
-shortcode: ArwHBod
+shortcode: arwhbod
 img: icons/game-icons/lorc/broadhead-arrow.svg
 easyname: Heavy Bodkin
 sohl:

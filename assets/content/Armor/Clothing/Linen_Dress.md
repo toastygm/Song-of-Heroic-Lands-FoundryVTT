@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light breathable torso garment perfect for warm weather activities."
 img: icons/game-icons/skoll/dress.svg
-shortcode: LDress
+shortcode: ldress
 type: armorgear
 data:
   templatePriority: 0

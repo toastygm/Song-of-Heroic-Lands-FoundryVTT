@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver fur shirt combining function and status for cold regions."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: BvShirt
+shortcode: bvshirt
 type: armorgear
 data:
   templatePriority: 0

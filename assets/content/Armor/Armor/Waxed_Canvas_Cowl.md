@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Waxed canvas cowl keeping rain off head and shoulders."
 img: icons/game-icons/lorc/hood.svg
-shortcode: WxCvCowl
+shortcode: wxcvcowl
 type: armorgear
 data:
   templatePriority: 0

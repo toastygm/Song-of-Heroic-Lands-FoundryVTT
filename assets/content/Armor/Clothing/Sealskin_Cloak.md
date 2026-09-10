@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Waterproof seal-fur cloak; harsh-weather outer garment for seafarers."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: SlsCloak
+shortcode: slscloak
 type: armorgear
 data:
   templatePriority: 0

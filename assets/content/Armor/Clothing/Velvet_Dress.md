@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet dress; symbol of luxury and high status."
 img: icons/game-icons/skoll/dress.svg
-shortcode: VDress
+shortcode: vdress
 type: armorgear
 data:
   templatePriority: 0

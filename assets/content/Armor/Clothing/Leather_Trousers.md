@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Full-length supple leather leg covering for travel and hard wear."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: LtTrsr
+shortcode: lttrsr
 type: armorgear
 data:
   templatePriority: 0

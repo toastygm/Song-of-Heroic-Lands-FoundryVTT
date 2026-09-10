@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Wooden club; town watch tool enforcing order without obvious intent."
 img: icons/game-icons/badges/club.svg
-shortcode: Trunch
+shortcode: trunch
 type: weapongear
 data:
   templatePriority: 0

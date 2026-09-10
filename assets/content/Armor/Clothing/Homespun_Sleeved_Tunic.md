@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Simple homemade tunic providing comfort and practical warmth."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: HsSTnc
+shortcode: hsstnc
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Metal ring shirt providing significant protection against slashes and thrusts."
 img: icons/game-icons/willdabeast/chain-mail.svg
-shortcode: MByr
+shortcode: mbyr
 type: armorgear
 data:
   templatePriority: 0

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Waxed canvas leg-wear shedding wet on foul-weather journeys."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: WxCvLeg
+shortcode: wxcvleg
 type: armorgear
 data:
   templatePriority: 0

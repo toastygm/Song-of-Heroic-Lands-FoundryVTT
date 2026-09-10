@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool sleeved tunic; durable, practical garment."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: WSTnc
+shortcode: wstnc
 type: armorgear
 data:
   templatePriority: 0
