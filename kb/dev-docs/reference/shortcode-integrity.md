@@ -45,9 +45,16 @@ would be ambiguous and every match above would be unsound.
 
 ## The shape rule
 
-A `shortcode` is **strictly alphanumeric** — `^[A-Za-z0-9]+$`. No hyphens, no
-underscores, no spaces, no punctuation, no accented letters. Case is unconstrained
-(hundreds of authored codes are mixed-case, e.g. `armorgear:BCap`).
+A `shortcode` is **lowercase alphanumeric** — `^[a-z0-9]+$`. No hyphens, no
+underscores, no spaces, no punctuation, no accented letters, and no capitals.
+
+Case was unconstrained until #1882, when it was tightened alongside
+`@heroiclands/package-build` 20.0.0 (package-build#340). It had to be, because
+case was never carrying a distinction: the **address** built from a shortcode is
+lowercased, so `Clb` and `clb` published one address, one document `_id` and one
+URL while the shortcode check saw two distinct keys. Two notes differing only in
+case collapsed onto a single identity with nothing to report it. Requiring
+lowercase makes the key equal the thing derived from it.
 
 The rule is not cosmetic. A shortcode is half of the `type-shortcode` address that
 content wikilinks and knowledgebase pages parse, and that parse depends on the
@@ -64,12 +71,12 @@ import a build dependency, so neither copy can be removed;
 `tests/build/shortcode-format-agreement.test.ts` compares them and is the only
 thing that would notice a drift.
 
-Repair, where a violation cannot simply be refused, **spells every letter it can and
-drops the rest, keeping case** — `B&CFl` → `BCFl`, `self-pro` → `selfpro`,
-`Tabûri` → `Taburi`, `Æthelred` → `AEthelred`. That is deliberately not
-`slugifyShortcode`, which also lowercases and abbreviates: that one derives a _new_ key
-from a display name, while a repair keeps an _existing_ identity as recognizable as
-possible.
+Repair, where a violation cannot simply be refused, **spells every letter it can,
+drops the rest, and folds to lowercase** — `B&CFl` → `bcfl`, `self-pro` → `selfpro`,
+`Tabûri` → `taburi`, `Æthelred` → `aethelred`. That is deliberately not
+`slugifyShortcode`, which also **abbreviates and shortens**: that one derives a _new_
+key from a display name, while a repair keeps an _existing_ identity as recognizable as
+possible, so every letter survives.
 
 Keeping the identity recognizable is why a letter is **folded rather than deleted**.
 `sanitizeShortcode` carries the value into ASCII with `toAsciiLetters` — the same fold
@@ -80,7 +87,14 @@ repaired from `Tabûri` to `Tabri` no longer matches the compendium entry it cam
 which the identity semantics above make a silent, irreversible break (issue #1748).
 Folding is a no-op on an ASCII key, so the two punctuation repairs are unaffected; what
 the fold cannot carry into a letter or digit is still dropped, so `Kûrbúl ¾-Helm`
-repairs to `KurbulHelm`.
+repairs to `kurbulhelm`.
+
+**Lowercasing is a different operation from dropping, and is safe where dropping is
+not.** The address and the document `_id` derived from a shortcode were already built
+from the lowercased form, so `Clb` and `clb` always denoted one entity: folding case is
+a canonical respelling, not a change of key. It is also what makes the repair
+**converge** — with the rule requiring lowercase, a case-preserving repair would return
+the very value the guard had just refused (#1882).
 
 ### The rule binds the system's own keys too
 
@@ -145,7 +159,7 @@ disables **Create** for either, so a human never reaches the `_preCreate` reject
 Authored compendium content is Markdown under `assets/content/`, seeded into packs by
 the compendium CLI, which **bypasses `_preCreate`**. The build-time guard
 `lint:addresses` (`content-build lint`, part of `npm run lint`) walks that
-content and fails on any shortcode that is not strictly alphanumeric, and on any
+content and fails on any shortcode that is not lowercase alphanumeric, and on any
 duplicate `(type, shortcode)`.
 
 **The rule lives in the toolchain, not here.** Three repositories author notes
@@ -172,9 +186,13 @@ since `shortcode` is identity referenced from saved world data.
 ### Existing worlds — migration
 
 The 0.9.0 migration `alphanumericShortcode` (`MigrationRegistry.ts`) rewrites any
-stored shortcode that fails the shape rule, applying the same strip-and-keep-case
-repair, so a world that imported a legacy key keeps pointing at the same entity as its
-renamed compendium origin. It leaves a blank shortcode alone (filling one in is the
+stored shortcode that fails the shape rule, applying the same strip-and-fold repair,
+so a world that imported a legacy key keeps pointing at the same entity as its renamed
+compendium origin. Since #1882 it also folds a mixed-case key that broke no earlier
+rule (`Clb` → `clb`) — a canonical respelling rather than a change of identity, since
+the address and `_id` derived from a shortcode were already lowercased. Folding is
+also what makes the repair **converge**: a case-preserving repair would hand the guard
+back the same value it had just refused, repairing nothing on every load. It leaves a blank shortcode alone (filling one in is the
 create/update guard's job, and only the guard knows the scope's taken-set) and leaves
 a key untouched when neither it nor the document name yields anything alphanumeric —
 a random id would sever the identity rather than preserve it.
@@ -185,16 +203,16 @@ The pure decision logic is {@link sohl.utils.resolveShortcodeKey} — Foundry-fr
 unit-tested. It takes the desired shortcode, the document name, the taken set, and a
 `shortcodeDedupe` flag, and returns `{ shortcode }` or `{ reject: true }`:
 
-| shortcode in data          | name → slug | `shortcodeDedupe` | result                                              |
-| -------------------------- | ----------- | ----------------- | --------------------------------------------------- |
-| provided, alphanumeric     | —           | `true`            | collides → suffix (`arrow` → `arrow2`); else accept |
-| provided, alphanumeric     | —           | `false`/absent    | collides → **reject** (`collision`); else accept    |
-| provided, not alphanumeric | —           | `true`            | stripped (`B&CFl` → `BCFl`), then as above          |
-| provided, not alphanumeric | —           | `false`/absent    | **reject** (`invalid`)                              |
-| blank                      | non-empty   | `true`            | base = slug; collides → suffix                      |
-| blank                      | non-empty   | `false`/absent    | base = slug; collides → **reject**                  |
-| blank                      | blank       | `true`            | random 16-char id                                   |
-| blank                      | blank       | `false`/absent    | **reject** (`missing`)                              |
+| shortcode in data      | name → slug | `shortcodeDedupe` | result                                                      |
+| ---------------------- | ----------- | ----------------- | ----------------------------------------------------------- |
+| provided, matches rule | —           | `true`            | collides → suffix (`arrow` → `arrow2`); else accept         |
+| provided, matches rule | —           | `false`/absent    | collides → **reject** (`collision`); else accept            |
+| provided, fails rule   | —           | `true`            | repaired (`B&CFl` → `bcfl`, `BCap` → `bcap`), then as above |
+| provided, fails rule   | —           | `false`/absent    | **reject** (`invalid`)                                      |
+| blank                  | non-empty   | `true`            | base = slug; collides → suffix                              |
+| blank                  | non-empty   | `false`/absent    | base = slug; collides → **reject**                          |
+| blank                  | blank       | `true`            | random 16-char id                                           |
+| blank                  | blank       | `false`/absent    | **reject** (`missing`)                                      |
 
 A reject carries a `reason` (`collision` / `invalid` / `missing`) so the veto can say
 which mistake was made. Shape is settled before uniqueness: a malformed key cannot be

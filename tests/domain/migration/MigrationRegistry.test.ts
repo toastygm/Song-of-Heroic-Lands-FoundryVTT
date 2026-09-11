@@ -581,21 +581,32 @@ describe("0.9.0 — alphanumeric shortcodes (#1397)", () => {
                 name: "Ball & Chain Flail",
                 system: { shortcode: "B&CFl" },
             }),
-        ).toEqual({ system: { shortcode: "BCFl" } });
+        ).toEqual({ system: { shortcode: "bcfl" } });
     });
 
-    it("repairs any other non-alphanumeric key, preserving case", () => {
+    it("repairs any other non-alphanumeric key, folding to lowercase", () => {
         expect(migrateItem({ type: "skill", system: { shortcode: "my_code" } })).toEqual({
             system: { shortcode: "mycode" },
         });
         expect(migrateActor({ type: "being", system: { shortcode: "Sir Kay" } })).toEqual({
-            system: { shortcode: "SirKay" },
+            system: { shortcode: "sirkay" },
+        });
+    });
+
+    // #1882: the rule requires lowercase, so a mixed-case key a pre-0.9 world
+    // holds is repaired too, even though it broke no earlier rule.
+    it("folds a mixed-case key that was valid before the rule tightened", () => {
+        expect(migrateItem({ type: "weapongear", system: { shortcode: "Clb" } })).toEqual({
+            system: { shortcode: "clb" },
+        });
+        expect(migrateActor({ type: "being", system: { shortcode: "BCap2" } })).toEqual({
+            system: { shortcode: "bcap2" },
         });
     });
 
     it("leaves an already-valid shortcode alone, writing nothing", () => {
         expect(migrateItem({ type: "weapongear", system: { shortcode: "bsw" } })).toBeUndefined();
-        expect(migrateActor({ type: "being", system: { shortcode: "BCap2" } })).toBeUndefined();
+        expect(migrateActor({ type: "being", system: { shortcode: "bcap2" } })).toBeUndefined();
     });
 
     it("leaves a blank or absent shortcode to the create/update guard", () => {
