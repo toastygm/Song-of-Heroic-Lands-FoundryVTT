@@ -49,9 +49,14 @@ describe("the shortcode shape rule agrees across the boundary", () => {
     // pattern differently — a blank-string allowance on one side, say.
     it.each([
         ["aconite", true],
-        ["BCFl", true],
         ["weapon2", true],
-        ["A", true],
+        ["a", true],
+        // Lowercase since #1882 / package-build#340: the address built from a
+        // shortcode is lowercased, so a capital was a second spelling of one
+        // key rather than a key of its own.
+        ["BCFl", false],
+        ["A", false],
+        ["bswD", false],
         ["self-pro", false],
         ["B&CFl", false],
         ["two words", false],

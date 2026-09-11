@@ -11,7 +11,7 @@ Every item note carries the frontmatter envelope described in [The Authoring Wor
 
 The tables are rendered from the declaration that _builds_ each document, not from a description of it, so a field listed here is a field the compiler reads and a field absent here is one it ignores. An unrecognised `sohl:` key is silently dropped, so a typo shows up as a missing value rather than an error — check the spelling here first.
 
-13 of the 13 item types this repository compiles declare their frontmatter below. Every field is written under a note's `sohl:` block; a dotted name such as `impact.die` is a nested key. A field a note does not carry takes the default shown, and a **required** field has none — omitting it fails the build rather than guessing.
+13 of the 13 item types this repository compiles declare their frontmatter below. Every field is written under a note's `sohl:` block; a dotted name such as `impact.die` is a nested key. A field a note does not carry takes the default shown; a **required** field has none — omitting it fails the build rather than guessing — and one shown as _omitted_ has none either, because leaving it out leaves the key out of the compiled document, so the data model's own initial value stands.
 
 ## affiliation
 
@@ -35,7 +35,6 @@ name:
   full: An Example affiliation
 type: affiliation
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
   subType: <string>
@@ -46,16 +45,29 @@ The prose here compiles into the item's documentation.
 
 ## affliction
 
-| Field             | Shape                             | Required | Default | Description                                                                                  |
-| ----------------- | --------------------------------- | -------- | ------- | -------------------------------------------------------------------------------------------- |
-| `subType`         | string                            | **yes**  | —       | What kind of affliction it is.                                                               |
-| `category`        | as authored                       | no       | `""`    | The grouping it belongs to within its subtype.                                               |
-| `levelBase`       | number                            | no       | `0`     | Severity, before any modifier.                                                               |
-| `healingRateBase` | number                            | no       | `0`     | How readily the host throws it off.                                                          |
-| `contagionIndex`  | number                            | no       | `0`     | How readily it passes to someone else.                                                       |
-| `transmission`    | as authored                       | no       | `none`  | The route by which it spreads.                                                               |
-| `onsetFormula`    | as authored, blank is unset       | no       | `null`  | Days from contracting to onset, rolled by the receiving actor. Unset means no incubation.    |
-| `outcome`         | as authored, blank is the default | no       | `cured` | What running the course to the end does to the host: `death`, or the benign default `cured`. |
+| Field                         | Shape                                      | Required | Default   | Description                                                                                                |
+| ----------------------------- | ------------------------------------------ | -------- | --------- | ---------------------------------------------------------------------------------------------------------- |
+| `subType`                     | string                                     | **yes**  | —         | What kind of affliction it is.                                                                             |
+| `category`                    | as authored                                | no       | `""`      | The grouping it belongs to within its subtype.                                                             |
+| `levelBase`                   | number                                     | no       | `0`       | Severity, before any modifier.                                                                             |
+| `healingRateBase`             | number                                     | no       | `0`       | How readily the host throws it off.                                                                        |
+| `contagionIndex`              | number                                     | no       | `0`       | How readily it passes to someone else.                                                                     |
+| `transmission`                | as authored                                | no       | `none`    | The route by which it spreads.                                                                             |
+| `onsetFormula`                | as authored, blank is unset                | no       | `null`    | Days from contracting to onset, rolled by the receiving actor. Unset means no incubation.                  |
+| `outcome`                     | as authored, blank is the default          | no       | `cured`   | What running the course to the end does to the host: `death`, or the benign default `cured`.               |
+| `onsetDurationFormula`        | roll formula, or a whole number of seconds | no       | _omitted_ | Interval from contracting the affliction to the start of onset. Omitted when unset, leaving no incubation. |
+| `onsetDurationBase`           | whole number of seconds                    | no       | _omitted_ | The onset interval in seconds, standing in for a roll of the formula. Omitted when unset.                  |
+| `healingCheckDurationFormula` | roll formula, or a whole number of seconds | no       | _omitted_ | Interval between healing checks, once the affliction is symptomatic. Omitted when unset.                   |
+| `healingCheckDurationBase`    | whole number of seconds                    | no       | _omitted_ | The healing-check interval in seconds, standing in for a roll of the formula. Omitted when unset.          |
+| `resolutionDurationFormula`   | roll formula, or a whole number of seconds | no       | _omitted_ | Interval from onset to the affliction running its course. Omitted when unset.                              |
+| `resolutionDurationBase`      | whole number of seconds                    | no       | _omitted_ | The resolution interval in seconds, standing in for a roll of the formula. Omitted when unset.             |
+
+**Never authored.** These fields are part of the document and are written during play, so a note that declares one fails the build. Left out of the compiled document entirely, they carry the data model's own initial value until play writes them.
+
+- `contractDate` — the world time the host contracted the affliction
+- `onsetDate` — the world time onset fired at
+- `treatmentDate` — the world time the affliction was last treated
+- `resolutionDate` — the world time the affliction ran its course
 
 ```markdown
 ---
@@ -63,7 +75,6 @@ name:
   full: An Example affliction
 type: affliction
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
   subType: <string>
@@ -98,7 +109,6 @@ name:
   full: An Example armorgear
 type: armorgear
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
 ---
@@ -121,7 +131,6 @@ name:
   full: An Example attribute
 type: attribute
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
 ---
@@ -147,7 +156,6 @@ name:
   full: An Example concoctiongear
 type: concoctiongear
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
   subType: <string>
@@ -172,7 +180,6 @@ name:
   full: An Example containergear
 type: containergear
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
 ---
@@ -195,7 +202,6 @@ name:
   full: An Example miscgear
 type: miscgear
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
 ---
@@ -220,7 +226,6 @@ name:
   full: An Example mystery
 type: mystery
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
   subType: <string>
@@ -247,7 +252,6 @@ name:
   full: An Example mysticalability
 type: mysticalability
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
   subType: <string>
@@ -275,7 +279,6 @@ name:
   full: An Example projectilegear
 type: projectilegear
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
   subType: <string>
@@ -303,7 +306,6 @@ name:
   full: An Example skill
 type: skill
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
   subType: <string>
@@ -314,14 +316,25 @@ The prose here compiles into the item's documentation.
 
 ## trauma
 
-| Field              | Shape           | Required | Default | Description                                                               |
-| ------------------ | --------------- | -------- | ------- | ------------------------------------------------------------------------- |
-| `subType`          | string          | **yes**  | —       | What kind of trauma it is.                                                |
-| `category`         | as authored     | no       | `null`  | The grouping it belongs to within its subtype.                            |
-| `levelBase`        | number or unset | no       | `null`  | Injury level. Unset on a descriptive condition, which has no level.       |
-| `healingRateBase`  | number          | no       | `0`     | How readily it heals.                                                     |
-| `aspect`           | as authored     | no       | `null`  | How the injury was inflicted. Unset on a descriptive condition.           |
-| `bodyLocationCode` | as authored     | no       | `null`  | Shortcode of the body location injured. Unset on a descriptive condition. |
+| Field                             | Shape                                      | Required | Default   | Description                                                                                                               |
+| --------------------------------- | ------------------------------------------ | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `subType`                         | string                                     | **yes**  | —         | What kind of trauma it is.                                                                                                |
+| `category`                        | as authored                                | no       | `null`    | The grouping it belongs to within its subtype.                                                                            |
+| `levelBase`                       | number or unset                            | no       | `null`    | Injury level. Unset on a descriptive condition, which has no level.                                                       |
+| `healingRateBase`                 | number                                     | no       | `0`       | How readily it heals.                                                                                                     |
+| `aspect`                          | as authored                                | no       | `null`    | How the injury was inflicted. Unset on a descriptive condition.                                                           |
+| `bodyLocationCode`                | as authored                                | no       | `null`    | Shortcode of the body location injured. Unset on a descriptive condition.                                                 |
+| `healingCheckDurationFormula`     | roll formula, or a whole number of seconds | no       | _omitted_ | Interval between healing checks. Omitted when unset, leaving the world's configured interval to apply.                    |
+| `healingCheckDurationBase`        | whole number of seconds                    | no       | _omitted_ | The healing-check interval in seconds, standing in for a roll of the formula. Omitted when unset.                         |
+| `bloodLossAdvanceDurationFormula` | roll formula, or a whole number of seconds | no       | _omitted_ | Interval between blood-loss advances. Omitted when unset, leaving the world's configured interval to apply.               |
+| `bloodLossAdvanceDurationBase`    | whole number of seconds                    | no       | _omitted_ | The blood-loss interval in seconds. Setting it is what makes the wound bleed; omitted when unset, and the wound does not. |
+| `courseDurationFormula`           | roll formula, or a whole number of seconds | no       | _omitted_ | Interval between course tests, for a condition that runs one — shock, coma, infection. Omitted when unset.                |
+| `courseDurationBase`              | whole number of seconds                    | no       | _omitted_ | The course-test interval in seconds, standing in for a roll of the formula. Omitted when unset.                           |
+
+**Never authored.** These fields are part of the document and are written during play, so a note that declares one fails the build. Left out of the compiled document entirely, they carry the data model's own initial value until play writes them.
+
+- `contractDate` — the world time the injury was taken
+- `treatmentDate` — the world time the injury was last treated
 
 ```markdown
 ---
@@ -329,7 +342,6 @@ name:
   full: An Example trauma
 type: trauma
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
   subType: <string>
@@ -356,7 +368,6 @@ name:
   full: An Example weapongear
 type: weapongear
 shortcode: xmpl
-id: <16-character id>
 sohl:
   templatePriority: null
 ---

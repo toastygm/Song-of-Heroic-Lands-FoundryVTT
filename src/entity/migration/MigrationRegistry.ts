@@ -219,13 +219,21 @@ const stampAffiliationSubType: DocMigrator = (source) => {
  * world that imported them holds copies keyed by identity, as may any
  * hand-authored or third-party document.
  *
- * The repair strips the offending characters while keeping case, which maps each
- * of the three to exactly the replacement its content note now carries
- * (`selfpro`, `selfsuf`, `BCFl`), so a world copy and its compendium origin stay
- * the same entity. When nothing alphanumeric survives, the key is derived from
- * the document name instead; when even that is empty the shortcode is left
- * alone — there is nothing to derive from, and a random id would sever the
- * identity rather than preserve it.
+ * The repair strips the offending characters and folds the result to lowercase,
+ * which maps each of the three to exactly the replacement its content note now
+ * carries (`selfpro`, `selfsuf`, `bcfl`), so a world copy and its compendium
+ * origin stay the same entity. When nothing alphanumeric survives, the key is
+ * derived from the document name instead; when even that is empty the shortcode
+ * is left alone — there is nothing to derive from, and a random id would sever
+ * the identity rather than preserve it.
+ *
+ * **It also folds case (#1882).** The rule now requires lowercase, so this step
+ * additionally rewrites every mixed-case key a pre-0.9 world holds — `Clb` →
+ * `clb`. That is a canonical respelling rather than a change of identity: the
+ * address and the document `_id` derived from a shortcode were already
+ * lowercased, so the two spellings always denoted one entity. Folding here is
+ * what makes the repair *converge*; a case-preserving repair would hand the
+ * guard back the same value it had just refused.
  *
  * A blank or absent shortcode is likewise left alone: filling one in is the
  * create/update guard's job, and it holds a scope-aware taken-set this migrator
@@ -278,8 +286,9 @@ export const SOHL_MIGRATIONS: readonly MigrationStep[] = Object.freeze([
     {
         version: "0.9.0",
         description:
-            "Rewrite any shortcode that is not strictly alphanumeric, which " +
-            "the create/update guard now refuses (#1397).",
+            "Rewrite any shortcode the create/update guard now refuses: one " +
+            "that is not strictly alphanumeric (#1397), or that carries a " +
+            "capital (#1882).",
         migrators: {
             Actor: alphanumericShortcode,
             Item: alphanumericShortcode,

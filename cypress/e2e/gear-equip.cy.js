@@ -37,7 +37,7 @@
 
 // Stable, id-independent descriptor for the Mail Shirt armorgear (carry & equip
 // toggles) — resolved by `system.shortcode`, so it survives pack-id regeneration.
-const MAIL_SHIRT_REF = { shortcode: "MShirt", type: "armorgear" };
+const MAIL_SHIRT_REF = { shortcode: "mshirt", type: "armorgear" };
 
 /** Minimal weapongear with the correct nested defense schema (avoids #246). */
 const INLINE_WEAPON = {
