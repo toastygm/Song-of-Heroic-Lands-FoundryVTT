@@ -10,8 +10,13 @@ description: Arms used in combat.
 
 Arms used in combat.
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "weapongear"
-SORT weaponType, name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+ORDER BY sohl.weaponType COLLATE NOCASE, name.full COLLATE NOCASE
 ```

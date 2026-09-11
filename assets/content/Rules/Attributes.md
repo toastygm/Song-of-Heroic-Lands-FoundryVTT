@@ -12,10 +12,11 @@ An **attribute** is an innate capacity a character is born with and develops onl
 
 Attributes matter chiefly through [[doc-mstrylvl#skill-base|Skill Base]]: a skill's starting [[doc-mstrylvl#mastery-level|Mastery Level]] is derived from the attributes that skill depends on, so a character's innate capacities shape what they can readily learn. They are also tested directly when a situation calls on raw capacity rather than trained technique.
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  description AS "Description"
-WHERE type = "attribute"
+```sql
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       shortcode    AS "Shortcode",
+       description  AS "Description"
+FROM notes
+WHERE type = 'attribute'
 ```

@@ -12,42 +12,75 @@ Infusions, potions, elixirs, polutices, etc.
 
 ## Simples
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "concoctiongear" and subType = "mundane"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'concoctiongear'
+  AND subType = 'mundane'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Potions
 
 ### Mild
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "concoctiongear" and subType = "exotic" and sohl.system.potency = "mild"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'concoctiongear'
+  AND subType = 'exotic'
+  AND json_extract_string(to_json(sohl.system), 'potency') = 'mild'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ### Strong
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "concoctiongear" and subType = "exotic" and sohl.system.potency = "strong"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'concoctiongear'
+  AND subType = 'exotic'
+  AND json_extract_string(to_json(sohl.system), 'potency') = 'strong'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ### Great
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "concoctiongear" and subType = "exotic" and sohl.system.potency = "great"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'concoctiongear'
+  AND subType = 'exotic'
+  AND json_extract_string(to_json(sohl.system), 'potency') = 'great'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Elixirs
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "concoctiongear" and subType = "elixir"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'concoctiongear'
+  AND subType = 'elixir'
+ORDER BY name.full COLLATE NOCASE
 ```
