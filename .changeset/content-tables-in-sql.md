@@ -16,7 +16,7 @@ Of the 106, 68 emit byte-identical markdown. What a reader sees change:
 | ------------------------------ | -------------------------------------------------- | ------------------------------------ |
 | The weapon catalog             | sorted by name — the `weaponType` key read nothing | grouped by weapon type, then by name |
 | Eight of the _Gear_ catalogs   | rows in note-path order                            | rows in index order                  |
-| The 26 deliberately-empty ones | a bare header row and a rule                       | nothing until content is written     |
+| The 29 deliberately-empty ones | a bare header row and a rule                       | nothing until content is written     |
 
 The rest sort exactly as before: a table ordered by a name asks for
 `COLLATE NOCASE`, which is what keeps _Horn, Hunting_ beside _Horn, fanfare_
