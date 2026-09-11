@@ -10,12 +10,24 @@ import { SOHL_MIGRATIONS } from "@src/entity/migration/MigrationRegistry";
 
 describe("shortcode-format (the shape rule, #1397)", () => {
     describe("isValidShortcode", () => {
-        it("accepts ASCII letters and digits, in any case", () => {
+        it("accepts lowercase ASCII letters and digits", () => {
             expect(isValidShortcode("bsw")).toBe(true);
-            expect(isValidShortcode("BCap")).toBe(true);
-            expect(isValidShortcode("Sprngld")).toBe(true);
+            expect(isValidShortcode("bcap")).toBe(true);
+            expect(isValidShortcode("sprngld")).toBe(true);
             expect(isValidShortcode("arrow2")).toBe(true);
             expect(isValidShortcode("2h")).toBe(true);
+        });
+
+        // A capital was accepted until #1882. It had to stop being accepted
+        // because the *address* built from a shortcode is lowercased, so `Clb`
+        // and `clb` published one address, one `_id` and one URL while the
+        // shortcode check saw two distinct keys — an identity collapse nothing
+        // reported.
+        it("rejects a capital, which reads as a second spelling of one key", () => {
+            expect(isValidShortcode("BCap")).toBe(false);
+            expect(isValidShortcode("Sprngld")).toBe(false);
+            expect(isValidShortcode("A")).toBe(false);
+            expect(isValidShortcode("bswD")).toBe(false);
         });
 
         it("rejects the three keys that violated the rule", () => {
@@ -48,15 +60,19 @@ describe("shortcode-format (the shape rule, #1397)", () => {
     });
 
     describe("sanitizeShortcode", () => {
-        it("strips the offending characters while preserving case", () => {
+        it("strips the offending characters and folds to lowercase", () => {
             expect(sanitizeShortcode("self-pro")).toBe("selfpro");
             expect(sanitizeShortcode("self-suf")).toBe("selfsuf");
-            expect(sanitizeShortcode("B&CFl")).toBe("BCFl");
+            expect(sanitizeShortcode("B&CFl")).toBe("bcfl");
         });
 
-        it("leaves a valid shortcode untouched", () => {
+        it("leaves an already-valid shortcode untouched", () => {
             expect(sanitizeShortcode("bsw")).toBe("bsw");
-            expect(sanitizeShortcode("BCap")).toBe("BCap");
+            expect(sanitizeShortcode("arrow2")).toBe("arrow2");
+        });
+
+        it("folds a capital rather than refusing it", () => {
+            expect(sanitizeShortcode("BCap")).toBe("bcap");
         });
 
         it("returns '' when nothing alphanumeric survives", () => {
@@ -78,30 +94,33 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         // `Tabûri` into `Tabri`, which denotes a different entity and stops
         // matching the compendium document it came from (#1748).
         it("folds an accented letter rather than deleting it", () => {
-            expect(sanitizeShortcode("Tabûri")).toBe("Taburi");
-            expect(sanitizeShortcode("Kûrbúl")).toBe("Kurbul");
-            expect(sanitizeShortcode("Nüsvōrroth")).toBe("Nusvorroth");
+            expect(sanitizeShortcode("Tabûri")).toBe("taburi");
+            expect(sanitizeShortcode("Kûrbúl")).toBe("kurbul");
+            expect(sanitizeShortcode("Nüsvōrroth")).toBe("nusvorroth");
             expect(sanitizeShortcode("café")).toBe("cafe");
         });
 
         it("spells out a letter that carries no separable mark", () => {
             // Stripping ate the first letter of the name outright.
-            expect(sanitizeShortcode("Æthelred")).toBe("AEthelred");
-            expect(sanitizeShortcode("Þorn")).toBe("THorn");
+            expect(sanitizeShortcode("Æthelred")).toBe("aethelred");
+            expect(sanitizeShortcode("Þorn")).toBe("thorn");
             expect(sanitizeShortcode("straße")).toBe("strasse");
         });
 
-        it("folds without lowercasing or abbreviating", () => {
-            // This is what keeps the repair distinct from `slugifyShortcode`,
-            // which derives a *new* key and does both.
-            expect(sanitizeShortcode("KÛRBÚL")).toBe("KURBUL");
-            expect(sanitizeShortcode("Tabûri")).not.toBe("taburi");
+        it("lowercases, but does not abbreviate or shorten", () => {
+            // Case folding is what #1882 added; the rest is what still keeps
+            // the repair distinct from `slugifyShortcode`, which derives a
+            // *new* key and abbreviates and reduces it as well.
+            expect(sanitizeShortcode("KÛRBÚL")).toBe("kurbul");
+            // `slugifyShortcode("Long Sword")` is `longswd`; the repair keeps
+            // every letter it was given.
+            expect(sanitizeShortcode("Long Sword")).toBe("longsword");
         });
 
         it("still drops what the fold cannot carry into a letter or digit", () => {
             // A vulgar fraction has no *canonical* decomposition, so nothing
             // spells it; punctuation and spaces go as before.
-            expect(sanitizeShortcode("Kûrbúl ¾-Helm")).toBe("KurbulHelm");
+            expect(sanitizeShortcode("Kûrbúl ¾-Helm")).toBe("kurbulhelm");
             expect(sanitizeShortcode("—")).toBe("");
         });
 
@@ -119,7 +138,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
                 resolveShortcodeKey("Tabûri", "Tabûri", new Set(), {
                     dedupe: true,
                 }),
-            ).toEqual({ shortcode: "Taburi" });
+            ).toEqual({ shortcode: "taburi" });
         });
 
         it("the 0.9.0 world migration folds a legacy accented key", () => {
@@ -132,7 +151,39 @@ describe("shortcode-format (the shape rule, #1397)", () => {
                     name: "Tabûri",
                     system: { shortcode: "Tabûri" },
                 }),
-            ).toEqual({ system: { shortcode: "Taburi" } });
+            ).toEqual({ system: { shortcode: "taburi" } });
+        });
+
+        // The repair has to reach a value the rule accepts, or the migration
+        // writes back something the guard still refuses and never converges —
+        // which is exactly what a case-preserving repair did once the rule
+        // required lowercase (#1882).
+        it("the migration's repair converges: its output is always valid", () => {
+            const step = SOHL_MIGRATIONS.find((s) =>
+                s.description.toLowerCase().includes("shortcode"),
+            );
+            for (const shortcode of ["Clb", "RndSh", "BodJav", "B&CFl", "Tabûri"]) {
+                const out = step!.migrators!.Item!({
+                    type: "weapongear",
+                    name: "Anything",
+                    system: { shortcode },
+                }) as { system: { shortcode: string } } | undefined;
+                expect(out).toBeDefined();
+                expect(isValidShortcode(out!.system.shortcode)).toBe(true);
+            }
+        });
+
+        it("the migration leaves an already-lowercase key alone", () => {
+            const step = SOHL_MIGRATIONS.find((s) =>
+                s.description.toLowerCase().includes("shortcode"),
+            );
+            expect(
+                step!.migrators!.Item!({
+                    type: "weapongear",
+                    name: "Club",
+                    system: { shortcode: "clb" },
+                }),
+            ).toBeUndefined();
         });
     });
 

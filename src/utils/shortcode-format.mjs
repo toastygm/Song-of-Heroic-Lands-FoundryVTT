@@ -30,18 +30,35 @@
  * content wikilinks and knowledgebase pages parse — a parse that depends on the
  * separating hyphen being the only hyphen in the string. Any other punctuation
  * likewise has to survive URLs, YAML frontmatter, and expression source
- * unescaped. Case is *not* constrained: 418 authored shortcodes are mixed-case
- * and collide with nothing, so tightening that would be a separate decision.
+ * unescaped.
+ *
+ * **Why lowercase (#1882).** This was once left open — "case is not
+ * constrained … tightening that would be a separate decision" — and #1882 is
+ * that decision, taken alongside `@heroiclands/package-build` 20.0.0, which
+ * narrows the build-time rule the same way (package-build#340). The reason is
+ * that case was never actually carrying a distinction: the **address** built
+ * from a shortcode is lowercased, so `Clb` and `clb` published one address, one
+ * document `_id` and one URL while the shortcode check saw two distinct keys.
+ * That is an identity collapse nothing reported — a difference you can only see
+ * by looking twice and cannot say out loud. Requiring lowercase makes the key
+ * equal the thing derived from it.
  *
  * @module shortcode-format
  */
 
-/** The shape every `shortcode` must match: ASCII letters and digits only. */
-export const SHORTCODE_PATTERN = /^[A-Za-z0-9]+$/;
+/**
+ * The shape every `shortcode` must match: lowercase ASCII letters and digits.
+ *
+ * This must stay identical to `@heroiclands/package-build`'s build-time copy —
+ * `tests/build/shortcode-format-agreement.test.ts` is the only thing comparing
+ * them, and a drift means the build accepts a key the runtime refuses to save,
+ * or the reverse.
+ */
+export const SHORTCODE_PATTERN = /^[a-z0-9]+$/;
 
 /**
- * Whether a value is a well-formed shortcode: a non-empty string of ASCII
- * letters and digits.
+ * Whether a value is a well-formed shortcode: a non-empty string of lowercase
+ * ASCII letters and digits.
  *
  * A blank value is **not** valid here. Blank is handled separately by the
  * runtime resolver (it derives a key from the document name), so this predicate
@@ -55,14 +72,23 @@ export function isValidShortcode(value) {
 }
 
 /**
- * Reduce a shortcode to the characters the rule allows, **preserving case** —
- * `B&CFl` → `BCFl`, `self-pro` → `selfpro`, `Tabûri` → `Taburi`.
+ * Reduce a shortcode to the characters the rule allows — `B&CFl` → `bcfl`,
+ * `self-pro` → `selfpro`, `Tabûri` → `taburi`.
  *
  * This is the repair used where rejecting is not an option (the world migration,
  * and a create that opted into `shortcodeDedupe`). It differs from
- * `slugifyShortcode` (`src/utils/helpers.ts`), which lowercases and abbreviates
+ * `slugifyShortcode` (`src/utils/helpers.ts`), which **abbreviates and shortens**
  * as well because it derives a *new* key from a display name; here an existing
- * key is being kept as recognizable as possible.
+ * key is being kept as recognizable as possible, so every letter survives.
+ *
+ * **It lowercases, and must (#1882).** A repair has to land on a value the rule
+ * accepts, or the world migration writes back something the create/update guard
+ * still refuses — repairing nothing, every load, forever. Folding case is safe
+ * in the way dropping characters is not, because the address and the document
+ * `_id` derived from a shortcode were *already* lowercased: `Clb` and `clb`
+ * denote the same entity, so `Clb` → `clb` is a canonical spelling of one key
+ * rather than a change of key. Contrast `Tabûri` → `Tabri` below, which would
+ * denote a different entity.
  *
  * **A letter is spelled, not deleted.** The value is carried into ASCII by
  * {@link toAsciiLetters} before anything is dropped, so an accented letter folds
@@ -83,8 +109,12 @@ export function isValidShortcode(value) {
 export function sanitizeShortcode(value) {
     return typeof value === "string" ?
             // `toAsciiLetters` is declared below; the hoisted declaration is what
-            // lets the repair read in the order the reader meets it.
-            toAsciiLetters(value).replace(/[^A-Za-z0-9]+/g, "")
+            // lets the repair read in the order the reader meets it. Lowercasing
+            // happens after the fold, so a spelled-out letter folds with it
+            // (`Æ` → `AE` → `ae`).
+            toAsciiLetters(value)
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "")
         :   "";
 }
 

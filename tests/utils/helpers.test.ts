@@ -33,6 +33,7 @@ import {
     slugifyShortcode,
     uniqueShortcode,
 } from "@src/utils/helpers";
+import { isValidShortcode } from "@src/utils/shortcode-format.mjs";
 import { fvttResolveUuid } from "@src/core/FoundryHelpers";
 
 describe("romanize", () => {
@@ -936,7 +937,32 @@ describe("resolveShortcodeKey (shortcodeDedupe matrix)", () => {
                     dedupe: true,
                     makeRandomId: rnd,
                 }),
-            ).toEqual({ shortcode: "RANDOMID12345678" });
+            ).toEqual({ shortcode: "randomid12345678" });
+        });
+
+        // Foundry's `randomID` is mixed-case base62, so the generated key has
+        // to be folded like any other — otherwise the create that needed a
+        // fallback would write a key its own update guard then refuses (#1882).
+        it("folds a mixed-case generated id to satisfy the rule", () => {
+            const result = resolveShortcodeKey("", "—", new Set(), {
+                dedupe: true,
+                makeRandomId: () => "aB3xK9zQ7mN2pL5r",
+            });
+            expect(result).toEqual({ shortcode: "ab3xk9zq7mn2pl5r" });
+            expect(isValidShortcode((result as { shortcode: string }).shortcode)).toBe(true);
+        });
+
+        it("compares the folded id against the taken set, not the raw one", () => {
+            // Two generated ids differing only in case are one key now, so the
+            // free-id loop must test what it will actually write.
+            const ids = ["TakenOne12345678", "FreeOne123456789"];
+            let i = 0;
+            expect(
+                resolveShortcodeKey("", "", new Set(["takenone12345678"]), {
+                    dedupe: true,
+                    makeRandomId: () => ids[i++],
+                }),
+            ).toEqual({ shortcode: "freeone123456789" });
         });
 
         it("regenerates the random id until it is free", () => {
@@ -958,7 +984,26 @@ describe("resolveShortcodeKey (shortcodeDedupe matrix)", () => {
         });
     });
 
-    describe("shape rule — shortcodes are strictly alphanumeric (#1397)", () => {
+    describe("shape rule — shortcodes are lowercase alphanumeric (#1397, #1882)", () => {
+        // A capital is refused on the same footing as punctuation: the guard
+        // does not silently rewrite what an author typed, it tells them. The
+        // repair path below is the one that folds.
+        it("rejects an explicit shortcode carrying a capital", () => {
+            expect(
+                resolveShortcodeKey("BCap", "Buckram Cap", new Set(), {
+                    dedupe: false,
+                }),
+            ).toEqual({ reject: true, reason: "invalid" });
+        });
+
+        it("folds a capital when dedupe is on", () => {
+            expect(
+                resolveShortcodeKey("BCap", "Buckram Cap", new Set(), {
+                    dedupe: true,
+                }),
+            ).toEqual({ shortcode: "bcap" });
+        });
+
         it("rejects a non-alphanumeric explicit shortcode, collision or not", () => {
             expect(
                 resolveShortcodeKey("B&CFl", "Ball & Chain Flail", new Set(), {
@@ -977,7 +1022,7 @@ describe("resolveShortcodeKey (shortcodeDedupe matrix)", () => {
                 resolveShortcodeKey("B&CFl", "Ball & Chain Flail", new Set(), {
                     dedupe: true,
                 }),
-            ).toEqual({ shortcode: "BCFl" });
+            ).toEqual({ shortcode: "bcfl" });
             expect(
                 resolveShortcodeKey("self-pro", "Self-protective", new Set(["selfpro"]), {
                     dedupe: true,
@@ -991,7 +1036,7 @@ describe("resolveShortcodeKey (shortcodeDedupe matrix)", () => {
                     dedupe: false,
                     isDuplicate: true,
                 }),
-            ).toEqual({ shortcode: "BCFl" });
+            ).toEqual({ shortcode: "bcfl" });
         });
 
         it("falls back to the name slug when nothing alphanumeric survives", () => {

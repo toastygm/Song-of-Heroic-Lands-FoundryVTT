@@ -165,7 +165,7 @@ at a document — writes an ordinary markdown link to its URL.
 ## What the build checks
 
 `npm run lint:addresses` (part of `npm run lint`) enforces the identity rules a
-link depends on: a `shortcode` is ASCII-alphanumeric, `(type, shortcode)` names one
+link depends on: a `shortcode` is lowercase alphanumeric, `(type, shortcode)` names one
 note, and exactly one note claims the package's own address. It verifies and fails;
 it never rewrites a note.
 
