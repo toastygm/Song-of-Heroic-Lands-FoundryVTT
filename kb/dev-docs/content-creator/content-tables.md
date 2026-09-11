@@ -8,157 +8,182 @@ Authoring such a table by hand duplicates that data and guarantees drift: the it
 weight changes, the table does not, and nothing in the build notices.
 
 A content body therefore declares **what it wants tabulated** and the build fills in
-the rows. The declaration is a
-[Dataview](https://blacksmithgu.github.io/obsidian-dataview/) `TABLE` query, in a
-fenced `dataview` block:
+the rows. The declaration is a **SQL query**, in a fenced `sql` block:
 
 ````text
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  sohl.weight AS "Weight",
-  sohl.protection.blunt AS "B"
-WHERE type = "armorgear" and sohl.material = "Cloth"
-SORT name.full ASC
+```sql
+SELECT address.slug                     AS _ref,
+       name.full                        AS "Name",
+       sohl.system.weightBase           AS "Weight",
+       sohl.system.protectionBase.blunt AS "B"
+FROM notes
+WHERE type = 'armorgear' AND sohl.kbcat = 'cloth'
+ORDER BY name.full COLLATE NOCASE
 ```
 ````
 
-The build renders that query against the frontmatter of the notes it selects, so one
-authored query yields the same table in both places it ships: the Foundry compendium
-packs and the knowledgebase. The query is the single statement of what the table
-holds — there is no second copy to fall out of date.
+The build runs that query against the **content index** — one row per note, derived
+from the same frontmatter the compilers read — so one authored query yields the same
+table in both places it ships: the Foundry compendium packs and the knowledgebase.
+The query is the single statement of what the table holds; there is no second copy to
+fall out of date.
 
-Both content builds run the same expander (`@heroiclands/package-build/engine/content-tables`).
+**The query is real SQL, run by [DuckDB](https://duckdb.org/docs/stable/sql/introduction).**
+It is not a dialect maintained by this project, and there is no supported subset to
+learn: anything DuckDB's `SELECT` accepts works here, including joins, `CASE`,
+aggregates and window functions. This replaced a hand-written parser for
+[Dataview](https://blacksmithgu.github.io/obsidian-dataview/)'s query language
+(HeroicLands/package-build#246), whose boundary was invisible — it accepted some
+queries and silently misread others.
 
-## Supported grammar
+## What you are querying
 
-Only the subset below is implemented. Anything outside it is a **build error** that
-names the offending clause — never a silently wrong table.
+`FROM notes` is this package's content index: **one row per note**, plus one per
+documentation entry, which is why `type = 'miscgear'` selects the items and never the
+journal pages describing them.
 
-```text
-TABLE [WITHOUT ID] <column> [, <column>]*
-[FROM <source>]
-[WHERE <expression>]
-[SORT <key> [ASC|DESC] [, …]]
-[LIMIT <n>]
+A nested field is addressed exactly as a note authors it — `sohl.system.weightBase`,
+`name.full`, `sohl.protectionBase.blunt` — because the index is read as JSON and every
+nested object is inferred as a `STRUCT`. Any frontmatter property is addressable,
+however deeply nested, and a field a note _type_ does not carry reads `NULL` rather
+than failing.
+
+The index adds a few fields no note authors:
+
+| Field          | Value                                                                  |
+| -------------- | ---------------------------------------------------------------------- |
+| `address.slug` | The note's address — `armorgear-tunicquilt`. This is what `_ref` wants |
+| `file.path`    | Location below `assets/content/` — `Armor/Cloth/Tunic_Quilted.md`      |
+| `file.folder`  | Its directory — `Armor/Cloth`                                          |
+| `file.name`    | Its filename without the extension — `Tunic_Quilted`                   |
+| `package`      | The package the note belongs to                                        |
+
+**Beware `packFolder`.** That is a note's _pack_ folder — where the document lands in
+the compendium — not its directory. The directory is `file.folder`.
+
+### Reading another package's notes
+
+Each package this one **depends on** is attached as a schema named after it, so a
+query can tabulate what it builds on — `FROM sohl.notes` from a setting repository,
+for instance. This package's own notes stay at the unqualified `notes`, and a query
+may read both at once. It needs no fetch and no configuration: a dependency's
+published index is already cached when a compile starts.
+
+## The two aliases the renderer reads
+
+Which column links and where a section breaks are decisions about _output_, not
+relational operations, so they are carried as **underscore-prefixed aliases**. They
+are ordinary SQL, they need no fence options, and they are visible in the query where
+you are already looking. Neither is printed as a column.
+
+| Alias      | What it does                                                           |
+| ---------- | ---------------------------------------------------------------------- |
+| `_ref`     | Makes the row's **first** rendered column a wikilink to that address.  |
+| `_section` | Emits a headed table per distinct value, in the order the rows arrive. |
+
+`SELECT address.slug AS _ref` is therefore how a row links to its own note. Each build
+resolves that wikilink the way it resolves any other: into a `@UUID` enricher for
+Foundry, and into a site href for the knowledgebase. A row whose address does not
+resolve renders as plain text rather than shipping a dead link.
+
+`_section` is what lets **one** query replace a run of near-identical blocks:
+
+````text
+```sql
+SELECT address.slug AS _ref, sohl.kbcat AS _section, name.full AS "Name"
+FROM notes WHERE type = 'miscgear'
+ORDER BY sohl.kbcat, name.full COLLATE NOCASE
 ```
+````
 
-Keywords are case-insensitive (`table`/`TABLE`, `as`/`AS`, `and`/`AND`). Clauses must
-appear in the order above, once each — which is what lets a **frontmatter field share
-a clause keyword's name**, as the traits table's `SORT sort ASC` does.
+The authored `ORDER BY` decides the section order too. Use it when the headings _are_
+the grouping value; where a page wants authored headings — `## Knives` over
+`sohl.kbcat = 'knife'` — write a table per heading, as `Rules/Gear.md` does.
 
-| Clause  | Meaning                                                                    |
-| ------- | -------------------------------------------------------------------------- |
-| `TABLE` | The columns. `WITHOUT ID` drops Dataview's implicit leading `File` column. |
-| `FROM`  | Restrict to a folder (`FROM "Creatures"`) or a tag (`FROM #animal`).       |
-| `WHERE` | Keep the notes the expression holds for.                                   |
-| `SORT`  | Sort keys, each optionally `ASC` (default) or `DESC`.                      |
-| `LIMIT` | Keep only the first _n_ rows, after sorting.                               |
+## Header arguments
 
-`LIST`, `TASK`, and `CALENDAR` queries, and the `GROUP BY` and `FLATTEN` commands,
-are refused by name.
+Statements _about the directive_, as opposed to the query, are written after the
+language word as **org-babel header arguments**:
 
-## Columns
+````text
+```sql :section-level 3 :allow-empty
+SELECT name.full AS "Name", sohl.kbcat AS _section FROM notes WHERE type = 'affliction'
+```
+````
 
-A column is an expression, optionally named with `AS "Header"`; without `AS`, the
-expression's own text is the header. Values render as follows:
+| Argument               | What it does                                                                             |
+| ---------------------- | ---------------------------------------------------------------------------------------- |
+| `:allow-empty`         | A table selecting nothing is intended, not a stale query. Without it, empty is an error. |
+| `:section-level <1-6>` | The heading level `_section` emits. Default `2`.                                         |
 
-- absent or empty → an em dash (`—`);
-- an array → its elements, comma-separated;
+The language word stays first and stays plain, so GitHub, Prettier and every other
+markdown reader still highlight the block as SQL and ignore what follows. A key is
+`:name` starting a word, its value runs to the next key, and a key with no value means
+`true`.
+
+## How values render
+
+- absent or `NULL` → an em dash (`—`);
+- a list → its elements, comma-separated;
 - a boolean → `yes` / `no`;
-- an **object** → a build error. An expression resolving to an object is almost always
-  a truncated path (`sohl.protection` for `sohl.protection.blunt`), and would otherwise
-  ship as `[object Object]`.
+- a **struct** → a build error. A column resolving to an object is almost always a
+  truncated path (`sohl.system.protectionBase` for `…protectionBase.blunt`), and would
+  otherwise ship as `[object Object]`.
 
 A column whose every shown value is numeric is right-aligned; `|` and newlines in a
 value are escaped so a cell cannot break out of the table.
 
-### Linking a row to its note
+## Ordering
 
-`link(file.path, name.full)` is emitted as a `[[type/shortcode|Name]]` wikilink to the
-row's own note, which each build then resolves the way it resolves any other wikilink:
-into a `@UUID` enricher for Foundry, and into a site href for the knowledgebase. The
-same query therefore yields a clickable catalog in all three places. The implicit
-`File` column (a `TABLE` written without `WITHOUT ID`) links the same way.
+`ORDER BY` is SQL's, which collates **binary** — every capital before every
+lowercase. Text columns therefore take an explicit collation:
 
-A note the build cannot address that way — one carrying no `type` or no `shortcode` —
-renders as plain text rather than shipping a literal `[[…]]` into a journal.
+```sql
+ORDER BY name.full COLLATE NOCASE
+```
 
-## Fields
+That is what keeps `Horn, Hunting` beside `Horn, fanfare` rather than before it, and
+it is worth writing on any table sorted by a name. `NULL`s sort last. With no
+`ORDER BY` at all, rows arrive in the index's own order, which is stable between
+builds but is not alphabetical.
 
-**Any frontmatter property is addressable**, in either the columns or the `WHERE`
-clause, as a dotted path (`sohl.protection.blunt`) or a bracketed key
-(`sohl["subType"]`, needed when a key is not a bare word). A path that names nothing
-is `null`, not an error.
+## When a query selects nothing
 
-`file.*` names the note's place in the tree instead:
+**A table that selects nothing is a build error.** A zero-row table publishes as a bare
+header and a rule, and a stale query — a renamed type, a retired category, a typo'd
+path — is then indistinguishable from a category that is legitimately empty. Eight
+tables in `Rules/Bestiary.md` published that way for months after the
+`creature` → `being` rename, and no build said a word (#1814).
 
-| Field         | Value                                                                |
-| ------------- | -------------------------------------------------------------------- |
-| `file.path`   | Location below `assets/content/` — `Creatures/Animal/Aurochs.md`     |
-| `file.folder` | Its directory — `Creatures/Animal`                                   |
-| `file.name`   | Its filename without the extension — `Aurochs`                       |
-| `file.link`   | A link to the note itself                                            |
-| `file.tags`   | Its tags, each with a leading `#`, plus every parent of a nested tag |
-| `file.etags`  | Its tags exactly as written, without parent expansion                |
+Where a table is _meant_ to be empty — a category whose content is not written yet —
+say so on the fence with `:allow-empty`.
 
-An unknown `file.*` field is a build error — it would otherwise read as a table that
-silently matches nothing.
+## When a field exists in the data model but in no note
 
-`this` is the note **containing** the query (not the row), so `this.package` or
-`this["name.full"]` reads the page the table is written on.
+A field **no note in the corpus authors** has no column in the inferred struct, so
+naming it is a binder error rather than a `NULL` — the error names the key and lists
+the ones that do exist. That is usually the report you want. Where a table is a
+deliberate placeholder for content not yet written, read the field back out as JSON,
+which tolerates its absence:
 
-## Expressions
+```sql
+WHERE type = 'concoctiongear'
+  AND subType = 'exotic'
+  AND json_extract_string(to_json(sohl.system), 'potency') = 'mild'
+```
 
-| Form                                        | Meaning                                                          |
-| ------------------------------------------- | ---------------------------------------------------------------- |
-| `a and b`, `a or b`, `not a`, `!a`, `( … )` | Boolean combination                                              |
-| `type = "being"`                            | Equality — **case-sensitive**, as Dataview's is                  |
-| `intensity != "attribute"`                  | Inequality                                                       |
-| `sohl.value > 90`, `>=`, `<`, `<=`          | Ordering; numeric when both sides are numbers                    |
-| `shortcode`                                 | A bare field is a **presence** test (absent/empty/zero is false) |
-| `!shortcode`                                | Absence                                                          |
-| `"text"`, `12`, `true`, `null`, `[a, b]`    | Literals                                                         |
+## Failure and where it runs
 
-Functions: `contains` / `icontains` / `econtains`, `startswith`, `endswith`, `lower`,
-`upper`, `length`, `default`, `number`, `string`, `join`, `regexmatch`, `regextest`,
-and `link`. An unknown function is a build error.
+A query that cannot be honoured — a syntax error, an unknown column, a column
+resolving to a struct — is a **build error** naming the query, and the block is left in
+the body verbatim so the failure is visible in the output as well as on the console.
+In the pack build the note fails to compile; in the knowledgebase build the run exits
+non-zero. One bad directive costs its own table, not the whole build's report.
 
-`contains()` recurses into a list and substring-matches a string — which is why
-`contains(file.tags, "cooking")` matches the tag `#cooking`. It is case-sensitive;
-`icontains()` is the forgiving variant and `econtains()` demands an exact element.
-
-## Sorting
-
-Rows are ordered by the `SORT` keys — numerically where both values are numbers,
-otherwise as text and **case-insensitively**, with empty values last. Ties break on
-the note's content path and then its id, so a table emits identically on every build.
-With no `SORT` clause, rows keep content-path order.
-
-Note the asymmetry, which Dataview shares: `=` is case-sensitive, but ordering is not.
-`"Horn, Hunting"` belongs beside `"Horn, fanfare"`, not before it.
-
-## Scope and failure
-
-A table searches only notes of the **source note's own `package`**, so a SoHL page
-never tabulates setting-package content, and vice versa.
-
-A query that cannot be honoured — malformed, naming an unsupported clause, or calling
-an unknown function — is a **build error**, and the block is left in the body verbatim
-so the failure is visible in the output as well as on the console. In the pack build
-the note fails to compile; in the knowledgebase build the run exits non-zero.
-
-A query that matches **no** note is _not_ an error: it renders as an empty table,
-headers only. A category with no content written yet is a normal state of the corpus,
-not a broken build.
-
-## Where it runs
-
-Expansion happens **before** wikilink resolution, in all four content compilers:
-`@heroiclands/package-build/engine/journals`, `@heroiclands/package-build/sohl/items`, `@heroiclands/package-build/sohl/actors`, and
-`@heroiclands/package-build/engine/site-build` (`content-build site`). That ordering
-is what lets a generated cell contain a
-wikilink. In the knowledgebase build it also runs _outside_ that build's code-fence
-protection — a query **is** a fenced block, so protecting it first would hide it from
-the expander. The expander itself is dependency-free ESM and is unit-tested in
-`HeroicLands/content-build's `tests/content-tables.test.ts``.
+Expansion happens **before** wikilink resolution, in every content compiler —
+`@heroiclands/package-build/engine/base-compiler` (which every pack compiler extends)
+and `@heroiclands/package-build/engine/site-build` (`content-build site`) — which is
+what lets a generated cell contain a wikilink. The link checker expands the same
+tables from the same prepared results, so it cannot disagree with the compilers about
+what a table selects. The expander is unit-tested in package-build's
+`tests/sql-tables.test.ts`.

@@ -12,64 +12,96 @@ Esoteric knowledge and hidden lore.
 
 ## Grace
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mystery" and subType = "grace"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mystery'
+  AND subType = 'grace'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Piety
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mystery" and subType = "piety"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mystery'
+  AND subType = 'piety'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Fate
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mystery" and subType = "fate"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mystery'
+  AND subType = 'fate'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Fate Bonus
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mystery" and subType = "fateBonus"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mystery'
+  AND subType = 'fateBonus'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Fate Point Bonus
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mystery" and subType = "fatePointBonus"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mystery'
+  AND subType = 'fatePointBonus'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Blessing
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mystery" and subType = "blessing"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mystery'
+  AND subType = 'blessing'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Ancestor Spirit Power
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mystery" and subType = "ancestorSpiritPower"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mystery'
+  AND subType = 'ancestorSpiritPower'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Totem Spirit Power
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mystery" and subType = "totemSpiritPower"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mystery'
+  AND subType = 'totemSpiritPower'
+ORDER BY name.full COLLATE NOCASE
 ```

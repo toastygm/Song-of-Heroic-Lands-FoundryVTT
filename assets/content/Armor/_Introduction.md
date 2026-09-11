@@ -10,8 +10,13 @@ description: "Defensive gear — mail, plate, shields, and more."
 
 Defensive gear — mail, plate, shields, and more.
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "armorgear"
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'armorgear'
+ORDER BY name.full COLLATE NOCASE
 ```

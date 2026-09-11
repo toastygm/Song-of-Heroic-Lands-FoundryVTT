@@ -50,8 +50,8 @@ Rules that apply across every note type.
   and why an item and its documentation need two different addresses.
 - [Asset Conventions](asset-conventions.md) — where art files live, how `img:`
   resolves to a shipped path, image formats, and what makes an SVG themeable.
-- [Generated Content Tables](content-tables.md) — Dataview `TABLE` queries that
-  tabulate content notes from their frontmatter.
+- [Generated Content Tables](content-tables.md) — SQL queries that tabulate
+  content notes from their frontmatter.
 
 ## Also relevant, filed elsewhere
 
