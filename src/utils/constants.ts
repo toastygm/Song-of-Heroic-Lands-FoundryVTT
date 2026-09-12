@@ -234,7 +234,7 @@ export const {
     labels: itemMetadataLabels,
 } = defineType("SOHL.Item.METADATA", {
     affiliation: {
-        IconCssClass: "fa-duotone fa-solid fa-handshake",
+        IconCssClass: "fa-solid fa-certificate",
         Image: "systems/sohl/assets/icons/other/people-group.svg",
         KeyChoices: [] as StrictObject<string>[],
     },

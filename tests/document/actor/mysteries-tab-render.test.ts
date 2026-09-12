@@ -192,8 +192,8 @@ describe("Being Mysteries tab — per-sub-type Mystical Ability columns (#990)",
     });
 });
 
-describe("Being Mysteries tab — the ☆ improve star (#1130)", () => {
-    it("shows the star on an ability that governs its own mastery level", () => {
+describe("Being Mysteries tab — the improve control (#1130)", () => {
+    it("shows the improve control on an ability that governs its own mastery level", () => {
         const html = render(MYSTICALABILITY_SUBTYPE.ARCANETALENT, [
             abilityLike({
                 name: "Sixth Sense",
@@ -201,10 +201,12 @@ describe("Being Mysteries tab — the ☆ improve star (#1130)", () => {
             }),
         ]);
         expect(html).toContain('data-action="toggleImproveFlag"');
-        expect(html).toContain("far fa-star");
+        // A hollow circle unset, a rising arrow set: a shape change, so the
+        // control cannot be read as a Victory Star (#1892).
+        expect(html).toContain("fa-regular fa-circle");
     });
 
-    it("fills the star when the ability is flagged for improvement", () => {
+    it("marks the control when the ability is flagged for improvement", () => {
         const html = render(MYSTICALABILITY_SUBTYPE.ARCANETALENT, [
             abilityLike({
                 name: "Sixth Sense",
@@ -212,7 +214,7 @@ describe("Being Mysteries tab — the ☆ improve star (#1130)", () => {
                 logic: { assocRef: undefined, canImprove: true },
             }),
         ]);
-        expect(html).toContain("fas fa-star ledger__flag");
+        expect(html).toContain("fa-solid fa-circle-up ledger__flag");
         expect(html).toContain("icon-button--on");
     });
 
