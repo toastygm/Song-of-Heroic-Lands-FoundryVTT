@@ -95,9 +95,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <div class="ledger__cell">{{row.value}} {{localize "SOHL.Being.movement.unit"}}</div>
             <div class="ledger__controls">
                 {{#if row.isCurrent}}
-                <span class="icon-button is-on" data-tooltip="{{localize 'SOHL.Actor.movement.default'}}"><i class="fa-solid fa-star"></i></span>
+                <span class="icon-button is-on" data-tooltip="{{localize 'SOHL.Actor.movement.default'}}"><i class="fa-solid fa-circle-check"></i></span>
                 {{else}}
-                <a class="icon-button" data-action="makeDefaultMedium" data-medium="{{row.medium}}" data-tooltip="{{localize 'SOHL.Actor.movement.makeDefault'}}"><i class="fa-regular fa-star"></i></a>
+                <a class="icon-button" data-action="makeDefaultMedium" data-medium="{{row.medium}}" data-tooltip="{{localize 'SOHL.Actor.movement.makeDefault'}}"><i class="fa-regular fa-circle"></i></a>
                 {{/if}}
             </div>
         </div>

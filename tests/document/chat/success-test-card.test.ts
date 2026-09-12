@@ -233,8 +233,11 @@ describe("standard-test-card renders a Skill Value Test (#848)", () => {
         const { html, result } = await renderSvCard(50, 32);
         // SV 5 → one Value Diamond of the five on the scale.
         expect(result.valueDiamonds).toBe(1);
-        expect(html.match(/fa-solid fa-diamond/g) ?? []).toHaveLength(1);
-        expect(html.match(/fa-regular fa-diamond/g) ?? []).toHaveLength(4);
+        // `fa-gem`, not `fa-diamond`: the latter is Font Awesome's playing-card
+        // suit and ships in solid only, so it could spell no hollow half of the
+        // scale (#1893).
+        expect(html.match(/fa-solid fa-gem/g) ?? []).toHaveLength(1);
+        expect(html.match(/fa-regular fa-gem/g) ?? []).toHaveLength(4);
         // The count is still available to screen readers.
         // "of 5" keeps the bounded scale audible and sidesteps "1 Diamonds".
         expect(html).toContain('aria-label="1 of 5 Value Diamonds"');

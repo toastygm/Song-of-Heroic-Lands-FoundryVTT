@@ -24,21 +24,21 @@ Icons come from two families: [Font Awesome](https://fontawesome.com) (its free 
 
 ## Items
 
-|                                           Glyph                                           | Name                 | Where you see it                    |
-| :---------------------------------------------------------------------------------------: | -------------------- | ----------------------------------- |
-| <i class="fa-duotone fa-solid fa-handshake" style="font-size:2em" aria-hidden="true"></i> | **Affiliation**      | Item sheet, sidebar, and compendium |
-|       <i class="fa-solid fa-disease" style="font-size:2em" aria-hidden="true"></i>        | **Affliction**       | Item sheet, sidebar, and compendium |
-|    <i class="fa-solid fa-shield-halved" style="font-size:2em" aria-hidden="true"></i>     | **Armor**            | Item sheet, sidebar, and compendium |
-|      <i class="fa-solid fa-user-gear" style="font-size:2em" aria-hidden="true"></i>       | **Attribute**        | Item sheet, sidebar, and compendium |
-|    <i class="fa-solid fa-bottle-droplet" style="font-size:2em" aria-hidden="true"></i>    | **Concoction**       | Item sheet, sidebar, and compendium |
-|            <i class="ginf-chest" style="font-size:2em" aria-hidden="true"></i>            | **Container**        | Item sheet, sidebar, and compendium |
-|         <i class="ginf-stockpiles" style="font-size:2em" aria-hidden="true"></i>          | **Misc Gear**        | Item sheet, sidebar, and compendium |
-|          <i class="ginf-sparkles" style="font-size:2em" aria-hidden="true"></i>           | **Mystery**          | Item sheet, sidebar, and compendium |
-|    <i class="fa-solid fa-hand-sparkles" style="font-size:2em" aria-hidden="true"></i>     | **Mystical Ability** | Item sheet, sidebar, and compendium |
-|          <i class="ginf-bow-arrow" style="font-size:2em" aria-hidden="true"></i>          | **Projectile**       | Item sheet, sidebar, and compendium |
-|           <i class="ginf-skills" style="font-size:2em" aria-hidden="true"></i>            | **Skill**            | Item sheet, sidebar, and compendium |
-|     <i class="fa-solid fa-user-injured" style="font-size:2em" aria-hidden="true"></i>     | **Trauma**           | Item sheet, sidebar, and compendium |
-|         <i class="ginf-broadsword" style="font-size:2em" aria-hidden="true"></i>          | **Weapon**           | Item sheet, sidebar, and compendium |
+|                                        Glyph                                        | Name                 | Where you see it                    |
+| :---------------------------------------------------------------------------------: | -------------------- | ----------------------------------- |
+|  <i class="fa-solid fa-certificate" style="font-size:2em" aria-hidden="true"></i>   | **Affiliation**      | Item sheet, sidebar, and compendium |
+|    <i class="fa-solid fa-disease" style="font-size:2em" aria-hidden="true"></i>     | **Affliction**       | Item sheet, sidebar, and compendium |
+| <i class="fa-solid fa-shield-halved" style="font-size:2em" aria-hidden="true"></i>  | **Armor**            | Item sheet, sidebar, and compendium |
+|   <i class="fa-solid fa-user-gear" style="font-size:2em" aria-hidden="true"></i>    | **Attribute**        | Item sheet, sidebar, and compendium |
+| <i class="fa-solid fa-bottle-droplet" style="font-size:2em" aria-hidden="true"></i> | **Concoction**       | Item sheet, sidebar, and compendium |
+|         <i class="ginf-chest" style="font-size:2em" aria-hidden="true"></i>         | **Container**        | Item sheet, sidebar, and compendium |
+|      <i class="ginf-stockpiles" style="font-size:2em" aria-hidden="true"></i>       | **Misc Gear**        | Item sheet, sidebar, and compendium |
+|       <i class="ginf-sparkles" style="font-size:2em" aria-hidden="true"></i>        | **Mystery**          | Item sheet, sidebar, and compendium |
+| <i class="fa-solid fa-hand-sparkles" style="font-size:2em" aria-hidden="true"></i>  | **Mystical Ability** | Item sheet, sidebar, and compendium |
+|       <i class="ginf-bow-arrow" style="font-size:2em" aria-hidden="true"></i>       | **Projectile**       | Item sheet, sidebar, and compendium |
+|        <i class="ginf-skills" style="font-size:2em" aria-hidden="true"></i>         | **Skill**            | Item sheet, sidebar, and compendium |
+|  <i class="fa-solid fa-user-injured" style="font-size:2em" aria-hidden="true"></i>  | **Trauma**           | Item sheet, sidebar, and compendium |
+|      <i class="ginf-broadsword" style="font-size:2em" aria-hidden="true"></i>       | **Weapon**           | Item sheet, sidebar, and compendium |
 
 ## Being sheet tabs
 
@@ -122,41 +122,43 @@ Icons come from two families: [Font Awesome](https://fontawesome.com) (its free 
 
 ## Stars & Diamonds
 
-|                                     Glyph                                      | Name                         | Where you see it                                                                                                               |
-| :----------------------------------------------------------------------------: | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-|  <i class="fa-solid fa-diamond" style="font-size:2em" aria-hidden="true"></i>  | **Value Diamond (earned)**   | Success Value test cards — one filled diamond per point of quality earned above Base Value, out of the five on the scale       |
-| <i class="fa-regular fa-diamond" style="font-size:2em" aria-hidden="true"></i> | **Value Diamond (unearned)** | The remainder of the five-diamond scale, drawn hollow — so the row reads as a rating rather than a bare tally                  |
-|  <i class="fa-regular fa-star" style="font-size:2em" aria-hidden="true"></i>   | **Victory Star (target's)**  | The same margin drawn hollow, when the side that answered the contest won it — so the line says who won as well as by how much |
-|   <i class="fa-solid fa-star" style="font-size:2em" aria-hidden="true"></i>    | **Victory Star (tester's)**  | Opposed and attack result cards — one filled star per step of success level, when the side that started the contest won it     |
+|                                    Glyph                                    | Name                         | Where you see it                                                                                                               |
+| :-------------------------------------------------------------------------: | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+|  <i class="fa-solid fa-gem" style="font-size:2em" aria-hidden="true"></i>   | **Value Diamond (earned)**   | Success Value test cards — one filled diamond per point of quality earned above Base Value, out of the five on the scale       |
+| <i class="fa-regular fa-gem" style="font-size:2em" aria-hidden="true"></i>  | **Value Diamond (unearned)** | The remainder of the five-diamond scale, drawn hollow — so the row reads as a rating rather than a bare tally                  |
+| <i class="fa-regular fa-star" style="font-size:2em" aria-hidden="true"></i> | **Victory Star (target's)**  | The same margin drawn hollow, when the side that answered the contest won it — so the line says who won as well as by how much |
+|  <i class="fa-solid fa-star" style="font-size:2em" aria-hidden="true"></i>  | **Victory Star (tester's)**  | Opposed and attack result cards — one filled star per step of success level, when the side that started the contest won it     |
 
 **Victory Stars** are the margin of a contest — how far the winner's success level exceeded the loser's — drawn filled for the tester and hollow for the target, and worth one star when a tiebreak settles a tie. The margin has no ceiling, so only the earned stars are drawn. **Value Diamonds** are an unrelated measure: the quality of a single Success Value test (see [[doc-sklltestug|Skill Tests]]). That scale does have a ceiling — five — so the whole scale is drawn and the earned diamonds are filled. The same filled/hollow star pair marks a skill flagged for improvement on the Skills tab.
 
 ## Indicators
 
-|                                              Glyph                                              | Name                       | Where you see it                             |
-| :---------------------------------------------------------------------------------------------: | -------------------------- | -------------------------------------------- |
-|            <i class="fa-solid fa-plus" style="font-size:2em" aria-hidden="true"></i>            | **Add**                    | Sheets                                       |
-|       <i class="fa-regular fa-square-plus" style="font-size:2em" aria-hidden="true"></i>        | **Add Effect Change**      | Active Effect Sheet                          |
-|           <i class="fa-solid fa-clone" style="font-size:2em" aria-hidden="true"></i>            | **Clone**                  | Sheets                                       |
-|  <i class="fa-solid fa-ellipsis-vertical fa-fw" style="font-size:2em" aria-hidden="true"></i>   | **Context Menu**           | Sheets                                       |
-|        <i class="fa-solid fa-folder-plus" style="font-size:2em" aria-hidden="true"></i>         | **Create Folder**          | Sheets                                       |
-|      <i class="fa-solid fa-file-circle-plus" style="font-size:2em" aria-hidden="true"></i>      | **Create Item**            | Sheets                                       |
-|        <i class="fa-solid fa-folder-minus" style="font-size:2em" aria-hidden="true"></i>        | **Delete Folder**          | Sheets                                       |
-|        <i class="fa-solid fa-xmark fa-lg" style="font-size:2em" aria-hidden="true"></i>         | **Disabled**               | Sheets                                       |
-|       <i class="fa-solid fa-grip-vertical" style="font-size:2em" aria-hidden="true"></i>        | **Drag Handle**            | Sheets                                       |
-|            <i class="fa-solid fa-code" style="font-size:2em" aria-hidden="true"></i>            | **Edit Expression**        | Beside any Safe Expression field             |
-|         <i class="fa-solid fa-file-code" style="font-size:2em" aria-hidden="true"></i>          | **Edit Macro**             | Actions Tab on Item and Actor Sheets         |
-|           <i class="fa-solid fa-gears" style="font-size:2em" aria-hidden="true"></i>            | **Execute Macro**          | Sheets                                       |
-|      <i class="fa-solid fa-circle-question" style="font-size:2em" aria-hidden="true"></i>       | **Help**                   | Sheets                                       |
-|        <i class="fa-solid fa-file-import" style="font-size:2em" aria-hidden="true"></i>         | **Import**                 | Sheets                                       |
-|         <i class="fa-solid fa-circle-up" style="font-size:2em" aria-hidden="true"></i>          | **Improve Flag Set**       | Skills and Mysteries tabs on the Being sheet |
-|          <i class="fa-regular fa-circle" style="font-size:2em" aria-hidden="true"></i>          | **Improve Flag Unset**     | Skills and Mysteries tabs on the Being sheet |
-|     <i class="fa-solid fa-heart-circle-plus" style="font-size:2em" aria-hidden="true"></i>      | **Injury Healed**          | Trauma Tab on Actor Sheet                    |
-|            <i class="fa-solid fa-play" style="font-size:2em" aria-hidden="true"></i>            | **Perform Action**         | Actions Tab on Item and Actor Sheets         |
-|           <i class="fa-solid fa-trash" style="font-size:2em" aria-hidden="true"></i>            | **Remove Effect Change**   | Active Effect Sheet                          |
-|            <i class="fa-solid fa-play" style="font-size:2em" aria-hidden="true"></i>            | **Start Tour**             | Sheets                                       |
-|           <i class="fa-solid fa-globe" style="font-size:2em" aria-hidden="true"></i>            | **Visit HeroicLands Site** | Sheets                                       |
-| <i class="fa-solid fa-triangle-exclamation fa-fw" style="font-size:2em" aria-hidden="true"></i> | **Warning**                | Sheets                                       |
+|                                              Glyph                                              | Name                        | Where you see it                                                              |
+| :---------------------------------------------------------------------------------------------: | --------------------------- | ----------------------------------------------------------------------------- |
+|            <i class="fa-solid fa-plus" style="font-size:2em" aria-hidden="true"></i>            | **Add**                     | Sheets                                                                        |
+|       <i class="fa-regular fa-square-plus" style="font-size:2em" aria-hidden="true"></i>        | **Add Effect Change**       | Active Effect Sheet                                                           |
+|           <i class="fa-solid fa-clone" style="font-size:2em" aria-hidden="true"></i>            | **Clone**                   | Sheets                                                                        |
+|  <i class="fa-solid fa-ellipsis-vertical fa-fw" style="font-size:2em" aria-hidden="true"></i>   | **Context Menu**            | Sheets                                                                        |
+|        <i class="fa-solid fa-folder-plus" style="font-size:2em" aria-hidden="true"></i>         | **Create Folder**           | Sheets                                                                        |
+|      <i class="fa-solid fa-file-circle-plus" style="font-size:2em" aria-hidden="true"></i>      | **Create Item**             | Sheets                                                                        |
+|        <i class="fa-solid fa-circle-check" style="font-size:2em" aria-hidden="true"></i>        | **Default Movement Medium** | Movement rows on the Being sheet's Profile tab                                |
+|        <i class="fa-solid fa-folder-minus" style="font-size:2em" aria-hidden="true"></i>        | **Delete Folder**           | Sheets                                                                        |
+|        <i class="fa-solid fa-xmark fa-lg" style="font-size:2em" aria-hidden="true"></i>         | **Disabled**                | Sheets                                                                        |
+|       <i class="fa-solid fa-grip-vertical" style="font-size:2em" aria-hidden="true"></i>        | **Drag Handle**             | Sheets                                                                        |
+|            <i class="fa-solid fa-code" style="font-size:2em" aria-hidden="true"></i>            | **Edit Expression**         | Beside any Safe Expression field                                              |
+|         <i class="fa-solid fa-file-code" style="font-size:2em" aria-hidden="true"></i>          | **Edit Macro**              | Actions Tab on Item and Actor Sheets                                          |
+|           <i class="fa-solid fa-gears" style="font-size:2em" aria-hidden="true"></i>            | **Execute Macro**           | Sheets                                                                        |
+|      <i class="fa-solid fa-circle-question" style="font-size:2em" aria-hidden="true"></i>       | **Help**                    | Sheets                                                                        |
+|        <i class="fa-solid fa-file-import" style="font-size:2em" aria-hidden="true"></i>         | **Import**                  | Sheets                                                                        |
+|         <i class="fa-solid fa-circle-up" style="font-size:2em" aria-hidden="true"></i>          | **Improve Flag Set**        | Skills and Mysteries tabs on the Being sheet                                  |
+|          <i class="fa-regular fa-circle" style="font-size:2em" aria-hidden="true"></i>          | **Improve Flag Unset**      | Skills and Mysteries tabs on the Being sheet                                  |
+|     <i class="fa-solid fa-heart-circle-plus" style="font-size:2em" aria-hidden="true"></i>      | **Injury Healed**           | Trauma Tab on Actor Sheet                                                     |
+|          <i class="fa-regular fa-circle" style="font-size:2em" aria-hidden="true"></i>          | **Not the Default Medium**  | Movement rows on the Being sheet's Profile tab — click to make it the default |
+|            <i class="fa-solid fa-play" style="font-size:2em" aria-hidden="true"></i>            | **Perform Action**          | Actions Tab on Item and Actor Sheets                                          |
+|           <i class="fa-solid fa-trash" style="font-size:2em" aria-hidden="true"></i>            | **Remove Effect Change**    | Active Effect Sheet                                                           |
+|            <i class="fa-solid fa-play" style="font-size:2em" aria-hidden="true"></i>            | **Start Tour**              | Sheets                                                                        |
+|           <i class="fa-solid fa-globe" style="font-size:2em" aria-hidden="true"></i>            | **Visit HeroicLands Site**  | Sheets                                                                        |
+| <i class="fa-solid fa-triangle-exclamation fa-fw" style="font-size:2em" aria-hidden="true"></i> | **Warning**                 | Sheets                                                                        |
 
 ## See also
 

@@ -236,13 +236,6 @@ function collectActionIcons(lang) {
 }
 
 /**
- * The star and diamond icons the result cards draw, which nothing in the source
- * declares as a set \u2014 the only hand-maintained rows on this page. Font
- * Awesome's solid and regular weights are the same shape filled and hollow, which
- * is what carries both the "whose stars are these" distinction and the earned /
- * unearned split on the diamond scale; a Game-Icons glyph has no hollow twin.
- */
-/**
  * The affordance icons the sheets draw — a disabled marker, a drag handle, the
  * control that adds a row — and the second set of hand-maintained rows here.
  *
@@ -382,6 +375,20 @@ const INDICATOR_ROWS = [
     // No "Add Occupant" row: it is a declared intrinsic action, so the Actions
     // section already emits it from `iconFAClass` under that exact name. A hand
     // row here would print the same glyph and the same name twice.
+    // The chosen-one-of-a-set pair, drawn the way the improve flag is: a shape
+    // change rather than a weight change, because it is a toggle and not a
+    // scale. It was a filled/hollow `fa-star` until #1894, which made it a
+    // second star pair beside the Victory Stars with an unrelated meaning.
+    {
+        cls: "fa-solid fa-circle-check",
+        name: "Default Movement Medium",
+        note: "Movement rows on the Being sheet's Profile tab",
+    },
+    {
+        cls: "fa-regular fa-circle",
+        name: "Not the Default Medium",
+        note: "Movement rows on the Being sheet's Profile tab — click to make it the default",
+    },
     {
         cls: "fa-solid fa-triangle-exclamation fa-fw",
         name: "Warning",
@@ -394,6 +401,22 @@ const INDICATOR_ROWS = [
     },
 ];
 
+/**
+ * The star and gem icons the result cards draw, which nothing in the source
+ * declares as a set — one of the two hand-maintained tables on this page.
+ *
+ * Both are **scales**, which is why each is one glyph in two weights: a reader
+ * totals them, so filled and hollow copies of the same shape is what lets the
+ * eye do that. Toggles get two different glyphs instead, for the opposite
+ * reason — see INDICATOR_ROWS.
+ *
+ * The gems were `fa-diamond` until #1893. That glyph is Font Awesome's
+ * playing-card suit and ships in **solid only**, so the hollow half of the
+ * scale was asking the shipped font for something it does not contain. `fa-gem`
+ * has both weights and is a gemstone, which is what a quality scale means; the
+ * rules term "Value Diamond" survives it, Font Awesome listing "diamond" as the
+ * gem's own first search term.
+ */
 const MARK_ROWS = [
     {
         cls: "fa-solid fa-star",
@@ -410,14 +433,14 @@ const MARK_ROWS = [
             " contest won it \u2014 so the line says who won as well as by how much",
     },
     {
-        cls: "fa-solid fa-diamond",
+        cls: "fa-solid fa-gem",
         name: "Value Diamond (earned)",
         note:
             "Success Value test cards \u2014 one filled diamond per point of" +
             " quality earned above Base Value, out of the five on the scale",
     },
     {
-        cls: "fa-regular fa-diamond",
+        cls: "fa-regular fa-gem",
         name: "Value Diamond (unearned)",
         note:
             "The remainder of the five-diamond scale, drawn hollow \u2014 so the" +
