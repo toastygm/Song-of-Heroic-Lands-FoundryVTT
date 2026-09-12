@@ -289,7 +289,7 @@ describe("driven-tour: drive steps (SohlTour)", () => {
     // adventure + scene + token fixtures they need. Headless runs suppress the
     // placeable-Token canvas draw (see kb/dev-docs/how-to/testing.md), so combat/target
     // primitives can't be proven on pixels here.
-    it.skip("imports an adventure, starts combat, and sets a target", () => {
+    it.skip("imports an adventure, starts combat, and sets a target (#620)", () => {
         // RED — blocked on the Automated Combat tour: needs its fixtures and a
         // drawn canvas (headless suppresses placeable-Token rendering).
     });

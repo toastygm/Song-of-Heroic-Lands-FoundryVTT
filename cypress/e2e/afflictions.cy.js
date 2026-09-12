@@ -125,8 +125,8 @@ describe("afflictions", () => {
     // is a stub returning null. The condition predicates (canTransmit /
     // canContract) are missing too. Un-skip and assert the resolved effects
     // once implemented.
-    it.skip("contract test resolves an affliction", () => {});
-    it.skip("transmit propagates an affliction", () => {});
-    it.skip("course advances an affliction", () => {});
-    it.skip("treat / heal resolves an affliction", () => {});
+    it.skip("contract test resolves an affliction (#67/#68)", () => {});
+    it.skip("transmit propagates an affliction (#67/#68)", () => {});
+    it.skip("course advances an affliction (#67/#68)", () => {});
+    it.skip("treat / heal resolves an affliction (#67/#68)", () => {});
 });

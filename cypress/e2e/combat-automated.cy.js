@@ -262,17 +262,17 @@ describe("automated combat", () => {
     // it emits "no usable strike mode" and returns undefined. Two implemented
     // collectors (availableStrikeModes / collectAttackableStrikeModes) are
     // unwired. Un-skip and assert an attack card is produced once wired.
-    it.skip("automated attack start produces an attack card", () => {});
+    it.skip("automated attack start produces an attack card (#177)", () => {});
 
     // RED — blocked on the same: Counterstrike resume routes through the same
     // getUsableStrikeModes stub → aborts.
-    it.skip("counterstrike resume resolves an attack", () => {});
+    it.skip("counterstrike resume resolves an attack (#177)", () => {});
 
     // RED — blocked on ungating Dodge from the Dodge skill (FIXME) — today
     // the Dodge button requires a `dge` skill (see the capability-gate test
     // above). Un-skip and assert Dodge survives without a Dodge skill once that
     // removes the gate.
-    it.skip("Dodge is available without a Dodge skill", () => {});
+    it.skip("Dodge is available without a Dodge skill (#64)", () => {});
 
     // NOTE: the Block / Dodge / Ignore resume *evaluation* is implemented, but
     // driving it requires synthesizing a full CombatResult scope on the defender;

@@ -30,7 +30,7 @@ describe("turn / round rules", () => {
     // work) but no rule consumes them. Un-skip and assert that a combatant's
     // `didAction` clears at the start of its turn and the move budget resets each
     // round once the rules are implemented.
-    it.skip("didAction resets at the start of a combatant's turn", () => {});
-    it.skip("the movement budget resets each round", () => {});
-    it.skip("acting past the movement budget is prevented", () => {});
+    it.skip("didAction resets at the start of a combatant's turn (#185)", () => {});
+    it.skip("the movement budget resets each round (#185)", () => {});
+    it.skip("acting past the movement budget is prevented (#185)", () => {});
 });

@@ -225,5 +225,5 @@ describe("non-being actors: cohort / structure / vehicle", () => {
     // are no-op `super` today (no capacity/HP/move/invariant computation). Assert
     // a derived property (structure capacity, cohort aggregate, vehicle load)
     // once implemented.
-    it.skip("non-being logic derives capacity/HP/move/invariants", () => {});
+    it.skip("non-being logic derives capacity/HP/move/invariants (#184)", () => {});
 });

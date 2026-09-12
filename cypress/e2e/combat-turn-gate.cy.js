@@ -127,5 +127,5 @@ describe("automated combat turn gate", () => {
     // is itself stubbed (`getUsableStrikeModes()` returns []). The
     // current-vs-other distinction is unit-tested via `outOfTurnAttackReason`.
     // Un-skip once automated attack start lands and a viewport is available.
-    it.skip("the current combatant may start an automated attack (needs canvas)", () => {});
+    it.skip("the current combatant may start an automated attack (#177, needs canvas)", () => {});
 });
