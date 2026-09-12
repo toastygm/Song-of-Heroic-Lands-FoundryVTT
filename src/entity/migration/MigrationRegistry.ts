@@ -186,7 +186,7 @@ const remapAffiliationSubType: DocMigrator = (source) => {
  * dropped, which lands in the same place. Both are stamped `fellowship`, the
  * secular default, which is what an unclassified body most often is.
  *
- * **A legacy value is skipped, not stamped.** The four values #1788 replaced are
+ * **A legacy value is skipped, not stamped.** The four replaced values are
  * unrecognized under the new vocabulary, so without this guard a `divine`
  * affiliation would be defaulted here instead of remapped by
  * {@link remapAffiliationSubType} — and which of the two ran first would decide

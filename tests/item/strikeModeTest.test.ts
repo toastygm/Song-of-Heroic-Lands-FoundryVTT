@@ -113,7 +113,7 @@ describe("resolveStrikeMode", () => {
         expect(sm).toBeUndefined();
     });
 
-    it("passes the mode names via `data`, never interpolated into the content (Rule #10)", async () => {
+    it("passes the mode names via `data`, never interpolated into the content", async () => {
         const evil = meleeMode("m1", "<img src=x onerror=alert(1)>");
         const spy = vi.spyOn(FoundryHelpers, "dialog").mockResolvedValue(undefined);
         await resolveStrikeMode(combatant("Sword", [evil, meleeMode("m2", "Thrust")]), ctxWith());

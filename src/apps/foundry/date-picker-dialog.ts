@@ -23,7 +23,7 @@ import { dialog, fvttWorldTime } from "@src/core/FoundryHelpers";
 import { toHTMLString } from "@src/utils/helpers";
 
 /**
- * The picker dialog body. **Author-static** Handlebars source (Rule #10): the
+ * The picker dialog body. **Author-static** Handlebars source: the
  * month names, current values, and unit maxima ride in `data` (escaped), and the
  * labels are static localization keys. Live preview / validity / day-skip are
  * wired in {@link openDatePickerDialog}'s render hook; the `data-*` hooks below

@@ -184,7 +184,7 @@ describe("lang/en.json key naming", () => {
         it("never uses Handlebars double braces", () => {
             // Foundry interpolates with `format()` and single braces. A `{{…}}`
             // value only renders because some call sites hand their content to a
-            // Handlebars pass — which is the rule-#10 pattern (prose spliced into
+            // Handlebars pass — the pattern to avoid (prose spliced into
             // template source) rather than a placeholder.
             const offenders = Object.entries(lang)
                 .filter(([, value]) => /\{\{|\}\}/.test(value))

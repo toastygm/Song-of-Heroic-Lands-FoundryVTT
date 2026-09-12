@@ -8,7 +8,7 @@ import { WORLD_HOST_SHORTCODE } from "@src/utils/constants";
 import { resolveShortcodeKey } from "@src/utils/helpers";
 import { SOHL_MIGRATIONS } from "@src/entity/migration/MigrationRegistry";
 
-describe("shortcode-format (the shape rule, #1397)", () => {
+describe("shortcode-format (the shape rule)", () => {
     describe("isValidShortcode", () => {
         it("accepts lowercase ASCII letters and digits", () => {
             expect(isValidShortcode("bsw")).toBe(true);
@@ -18,7 +18,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
             expect(isValidShortcode("2h")).toBe(true);
         });
 
-        // A capital was accepted until #1882. It had to stop being accepted
+        // A capital is refused. It has to be
         // because the *address* built from a shortcode is lowercased, so `Clb`
         // and `clb` published one address, one `_id` and one URL while the
         // shortcode check saw two distinct keys — an identity collapse nothing
@@ -108,7 +108,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         });
 
         it("lowercases, but does not abbreviate or shorten", () => {
-            // Case folding is what #1882 added; the rest is what still keeps
+            // Case folding is part of the rule; the rest is what keeps
             // the repair distinct from `slugifyShortcode`, which derives a
             // *new* key and abbreviates and reduces it as well.
             expect(sanitizeShortcode("KÛRBÚL")).toBe("kurbul");

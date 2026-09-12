@@ -439,8 +439,8 @@ export namespace SohlAction {
         /**
          * i18n **key** explaining why the action is refused while its
          * {@link SohlAction.Data.trigger} is false, surfaced as
-         * {@link sohl.entity.action.SohlAction.unavailableReason} (issue
-         * #1135) — e.g. a gear action gated on the item being carried says so
+         * {@link sohl.entity.action.SohlAction.unavailableReason} — e.g. a
+         * gear action gated on the item being carried says so
          * rather than leaving the user with a control that does nothing.
          * Optional; a generic reason
          * ({@link sohl.entity.action.SohlAction.DEFAULT_DISABLED_REASON}) is
@@ -542,9 +542,9 @@ function compileVisibility(
         try {
             const item = resolveContextItem(element);
             // Resolved before evaluation, not after: the permission gate below
-            // needs it either way, and `visible` expressions bind it too (#1090
-            // — `actorLogic` used to be an unknown identifier here, which hid
-            // the action unconditionally). The owning logic's own actor is the
+            // needs it either way, and `visible` expressions bind it too —
+            // unresolved, `actorLogic` is an unknown identifier here and hides
+            // the action unconditionally. The owning logic's own actor is the
             // last fallback, exactly as `getContextOptions`' callback resolves
             // the acting actor, so a menu on a document without a
             // `data-actor-id` marker still sees the actor it will act on.

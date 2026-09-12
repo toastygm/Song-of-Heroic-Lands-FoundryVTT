@@ -194,7 +194,7 @@ export class AfflictionLogic<
     /**
      * The effective seconds of a duration modifier, guarded so a not-yet-
      * initialized affliction (freshly dropped, read by the sheet before its
-     * lifecycle runs — the #511 class) reads the persisted base rather than
+     * lifecycle runs) reads the persisted base rather than
      * throwing on an unset `ValueModifier`.
      *
      * @param modifier - The seeded duration modifier (may be unset).
@@ -323,7 +323,7 @@ export class AfflictionLogic<
      */
     get canHeal(): boolean {
         // `healingRate` is seeded in initialize(); guard against reading it on a
-        // not-yet-initialized affliction so this getter can't throw (#511 class).
+        // not-yet-initialized affliction so this getter can't throw.
         return !this.healingRate?.disabled && this.hasUsableEndurance;
     }
 
@@ -587,7 +587,7 @@ export class AfflictionLogic<
 
     /**
      * Re-arm the affliction's persisted schedules into the event queue on every
-     * preparation, on every client (issue #588 generic store; #579 consent). The
+     * preparation, on every client (the generic store; consent model). The
      * phase machine's arming now lives in the executors: `onsetCheck` schedules
      * the resolution and recurring healing-check events at onset and clears
      * itself; `resolutionCheck` clears the rest at resolution; the recurring
@@ -616,7 +616,7 @@ export class AfflictionLogic<
         // not a target of zero — so the modifier is DISABLED rather than seeded,
         // exactly as a wound's is. Being disabled is itself the trigger for the
         // auto-Critical-Failure in `healingTest`, so anything that disables
-        // healing gets that outcome for free (#1146/#1148/#1181). The Healing
+        // healing gets that outcome for free. The Healing
         // Test stays offered either way; it simply cannot succeed.
         this.healing = new entity.ValueModifier({}, { parent: this });
         if (!this.isTreated) {
@@ -661,9 +661,9 @@ export class AfflictionLogic<
      * @remarks The onset **effect** marks the affliction symptomatic (crystallizes
      *   `onsetDate`) and starts its course/resolution cycle; the symptoms
      *   themselves are role-played, out of VTT scope. Scheduling the next
-     *   phase is the direct consequence of this human-performed transition (issue
-     *   #579 gates the *firing* via the `[Perform]` reminder, not the phase
-     *   progression itself). An optional author
+     *   phase is the direct consequence of this human-performed transition (the
+     *   consent model gates the *firing* via the `[Perform]` reminder, not the
+     *   phase progression itself). An optional author
      *   {@link AfflictionData.onsetMacroUuid | onset Macro} then runs and may
      *   schedule further events.
      */
@@ -831,7 +831,7 @@ export class AfflictionLogic<
         mlMod.setBase(this.healing?.effective ?? 0);
 
         // Nothing to roll against: an affliction with no Healing Rate resolves
-        // as a Critical Failure with no die cast (#1146/#1148). Hand the test a
+        // as a Critical Failure with no die cast. Hand the test a
         // pre-seeded d100 showing the `00` face — it exceeds every target and its
         // last digit is a critical-failure digit, so the outcome is a Critical
         // Failure whatever the Healing Base, and the card still shows a roll.

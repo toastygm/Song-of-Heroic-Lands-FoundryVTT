@@ -90,7 +90,7 @@ describe("shortcode uniqueness", () => {
     it("repairs a non-alphanumeric shortcode with shortcodeDedupe", () => {
         // `shortcodeDedupe` is the "manage the key for me" opt-in, so it strips
         // the offending characters rather than failing the create — and folds
-        // the result to lowercase, since #1882 made that part of the rule.
+        // the result to lowercase, which is part of the rule.
         cy.foundry((win) =>
             win.Item.create(
                 toRealm(win, {

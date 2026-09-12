@@ -17,7 +17,7 @@ import { JSX } from "typedoc";
  * TypeDoc plugin: wrap the API site in the shared Heroic Lands brand chrome.
  *
  * The API documentation, the knowledgebase and the site are one property, and
- * since #1470 one hostname: everything this repository publishes is a path under
+ * one hostname: everything this repository publishes is a path under
  * www.heroiclands.org/sohl/. The site and the KB share
  * `HeroicLands/heroiclands-hugo-theme`;
  * this plugin brings the generated API docs into the same look without a bespoke

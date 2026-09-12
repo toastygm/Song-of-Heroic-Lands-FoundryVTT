@@ -352,8 +352,8 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * determines the special injury effects — a bleeder (which arms the
      * blood-loss timer) and permanent-impairment eligibility.
      *
-     * With no owning being able to roll (a headless/GM context, until the
-     * interactive physician card of #547 exists), the treatment auto-resolves as
+     * With no owning being able to roll (a headless/GM context), the treatment
+     * auto-resolves as
      * though the Physician roll were a **Critical Failure** — the rule that "an
      * untreated wound is resolved as though its treatment roll were a Critical
      * Failure."
@@ -453,7 +453,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         await this.item.update(update);
 
         // A treatment that leaves the wound bleeding OFFERS to track the
-        // blood-loss advance (issue #579 — nothing auto-schedules); the physician
+        // blood-loss advance (nothing auto-schedules); the physician
         // is present, so it prompts (honoring the action's skipDialog).
         if (bleederInterval != null) {
             await offerSchedule(context, this.item, "bloodLossAdvanceCheck", bleederInterval);
@@ -1015,8 +1015,8 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * `ScheduledAction` the sub-type's recovery check runs on (mapped by
      * `RECOVERY_ACTION_BY_SUBTYPE`) from the generic `system.scheduledActions`
      * store and returns its `anchor + interval`. The
-     * store is the source of truth: nothing is auto-armed (consent model,
-     * issue #579), so an unscheduled trauma — or one whose only matching entry is
+     * store is the source of truth: nothing is auto-armed (consent model), so
+     * an unscheduled trauma — or one whose only matching entry is
      * event-driven rather than time-based — reports `undefined`, which the sheets
      * render as an em-dash.
      */
@@ -1091,7 +1091,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Re-arm this trauma's persisted schedules into the event queue on every
-     * preparation, on every client (issue #588 generic store; #579 consent). The
+     * preparation, on every client (the generic store; consent model). The
      * recurrence anchor and interval now live in `system.scheduledActions` (the
      * retired bespoke `last*Date` anchors are gone); a reschedule `update()`
      * replicates, every client re-preps, and this generic re-arm restores the
@@ -1112,7 +1112,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         // not a target of zero — so the modifier is DISABLED rather than seeded.
         // Being disabled is itself the trigger for the auto-Critical-Failure in
         // `rollHealingTest`, so anything that disables healing (now or later)
-        // gets that outcome for free (#1146/#1148/#1181).
+        // gets that outcome for free.
         this.healing = new entity.ValueModifier({}, { parent: this });
         if (!this.isTreated) {
             this.healing.disabled = "SOHL.Trauma.Untreated";
@@ -1144,7 +1144,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Whether this trauma recovers through a **Course Test** — an Extended Shock,
-     * Coma, or Infection lasting condition (#556/#557).
+     * Coma, or Infection lasting condition.
      */
     private get isCourseTrauma(): boolean {
         return this.isShockOrComa || this.data.subType === TRAUMA_SUBTYPE.INFECTION;
@@ -1300,7 +1300,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * An **untreated** wound has no Healing Rate to test against, so its test
      * resolves against a forced die rather than a cast one — a Critical
      * Failure every time, which by the same rule leaves it exposed to infection
-     * ({@link UNTREATED}, #1146).
+     * ({@link UNTREATED}).
      *
      * Exactly one test runs per invocation: there is no catch-up over missed
      * intervals. A wound that reaches Level 0 ends the recurrence and may leave a
@@ -1355,7 +1355,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
             // A wound is exposed to infection when a Treatment Test left it so
             // — or when it is untreated, since the rule that resolves an
             // untreated wound as a critically-failed treatment is the same rule
-            // that marks such a wound infectable (the UNTREATED baseline, #1146).
+            // that marks such a wound infectable (the UNTREATED baseline).
             (this.data.infectable || (untreated && UNTREATED.infect))
         ) {
             contractInfection = true;
@@ -1699,7 +1699,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Intrinsic-action executor for the **Course Test** (#556/#557) — the `*Test`
+     * Intrinsic-action executor for the **Course Test** — the `*Test`
      * half of an Extended Shock, Coma, or Infection's cycle.
      *
      * Rolls **one** test, moves the condition's Healing Rate by the result, and

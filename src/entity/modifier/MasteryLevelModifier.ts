@@ -484,7 +484,7 @@ export class MasteryLevelModifier extends ValueModifier {
                     // A caller-supplied die (`scope.roll`) is resolved untouched
                     // by `evaluate()` instead of a fresh d100 being cast — used
                     // where the outcome is fixed by rule and there is nothing to
-                    // test (an untreated wound, #1148). Omitted for an ordinary
+                    // test (an untreated wound). Omitted for an ordinary
                     // test, which rolls normally.
                     roll: context.scope.roll,
                     autoCriticalFail,

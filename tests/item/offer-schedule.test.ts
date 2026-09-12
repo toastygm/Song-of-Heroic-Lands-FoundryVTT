@@ -230,7 +230,7 @@ describe("offerSchedule anchoring", () => {
 });
 
 /**
- * #1086 — the offer dialog names the effect from
+ * The offer dialog names the effect from
  * `SOHL.Reminder.effect.<actionName>`, a key built at runtime from the action
  * name. `npm run lint:lang-coverage` reads only concrete key literals, so three
  * Trauma recovery checks shipped with no key and the dialog showed the raw key

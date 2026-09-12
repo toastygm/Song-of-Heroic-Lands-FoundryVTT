@@ -105,7 +105,7 @@ describe("AfflictionLogic course/healing targets", () => {
     });
 });
 
-describe("AfflictionLogic intrinsic action set (#1183, supersedes #1126)", () => {
+describe("AfflictionLogic intrinsic action set", () => {
     /** Every intrinsic action shortcode the affliction defines. */
     function shortcodes() {
         return AfflictionLogic.defineIntrinsicActions().map((a) => a.shortcode as string);
@@ -185,7 +185,7 @@ describe("AfflictionLogic intrinsic action set (#1183, supersedes #1126)", () =>
 describe("an untreated affliction resolves its healing test as a CF", () => {
     it("disables the healing target rather than seeding a real 0", () => {
         // Untreated is a state, not a target of zero — the same rule a wound
-        // follows (#1146/#1148).
+        // follows.
         const logic = makeAffliction({ treatmentDate: null }, 12);
         expect(logic.healing.disabled).toBeTruthy();
     });

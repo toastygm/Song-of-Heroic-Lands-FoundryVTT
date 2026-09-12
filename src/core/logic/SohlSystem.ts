@@ -468,8 +468,8 @@ export class SohlSystem {
         );
 
         // An anchored recurrence can land a fire time that is *already* past —
-        // that is how a player who is behind works through a backlog (issue
-        // #1181). The queue only dispatches on a world-time tick, so without
+        // that is how a player who is behind works through a backlog. The
+        // queue only dispatches on a world-time tick, so without
         // this the schedule would sit due-but-silent until someone nudged the
         // clock, and the chain would look broken. Dispatching here is not a
         // cascade: what fires is a `*Check`, which posts a card and stops dead

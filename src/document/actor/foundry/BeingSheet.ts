@@ -276,9 +276,9 @@ export class BeingSheet extends SohlActorSheetBase {
         // `_onRender`, since the ledgers carrying them are shared tab templates.
 
         // Profile tab Body Structure tree: click the per-row ⋮ to Edit a body
-        // zone, part, or location in its own auto-saving editor (#721 / #722).
-        // The tree moved from Combat to Profile in #782; the menu binds at the
-        // sheet root, matching whichever tab carries the `*-contextmenu` hooks.
+        // zone, part, or location in its own auto-saving editor. The tree lives
+        // on Profile; the menu binds at the sheet root, matching whichever tab
+        // carries the `*-contextmenu` hooks.
         if ((this as any).isEditable && (this as any).element) {
             bindBodyStructureContextMenu(this.document, (this as any).element);
         }
@@ -517,7 +517,7 @@ export class BeingSheet extends SohlActorSheetBase {
      * hit location (dropping a location onto a part header appends it to that
      * part); anything else defers to the base handler. Source and destination are
      * addressed by shortcode and resolved to indices against the live structure,
-     * then written through the structure's #247-safe whole-array update builders.
+     * then written through the structure's whole-array update builders.
      *
      * @param event - The originating drop event.
      */
@@ -617,8 +617,8 @@ export class BeingSheet extends SohlActorSheetBase {
 
     /**
      * `data-action="addBodyPart"`: prompt for a new body part and append it to
-     * the zone named by the control's `data-zone-shortcode`, opening its editor
-     * (#720/#780).
+     * the zone named by the control's `data-zone-shortcode`, opening its
+     * editor.
      *
      * @param _event - The triggering pointer event (unused).
      * @param target - The clicked add control, inside a `data-zone-shortcode` row.
@@ -889,7 +889,7 @@ export class BeingSheet extends SohlActorSheetBase {
             {
                 // Body Structure editor: drag a zone header, part header, or
                 // location row to reorder/move it within the Profile tab tree
-                // (#720; the tree lives on Profile now — Combat is read-only).
+                // (the tree lives on Profile — Combat is read-only).
                 dragSelector: ".body-structure [draggable]",
                 dropSelector: ".body-structure",
             },
@@ -1034,7 +1034,7 @@ export class BeingSheet extends SohlActorSheetBase {
         // Force the light theme: the Manuscript light palette IS the print form,
         // and it must not flip to the dark token swap when the viewer's browser
         // prefers dark (`prefers-color-scheme`), which would waste ink and read
-        // wrong on paper (#782 — light-first / print-native).
+        // wrong on paper: the sheet is light-first and print-native.
         return `<!doctype html>
 <html lang="en" data-theme="light">
 <head>
@@ -1074,7 +1074,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
         const system = this.document.system as PlainObject;
 
         // Letterhead summaries — the print-safe re-expression of the header's
-        // color-coded status pills and body-part lozenges (#464 print rule).
+        // color-coded status pills and body-part lozenges (print rule).
         const healthLine =
             (h.health as unknown) ?
                 formatPrintHealthLine(
@@ -1634,7 +1634,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
 
         // Aural-Shock and Fatigue are read-only indicators lit from the actor's
         // active traumas of that subtype (they are modeled as traumas, not
-        // toggleable statuses; Fatigue is not a status) — #306.
+        // toggleable statuses; Fatigue is not a status).
         const activeTraumaSubTypes = new Set<string>();
         for (const item of ((actor.itemTypes as any)?.[ITEM_KIND.TRAUMA] ?? []) as Iterable<any>) {
             const tl = item?.logic;
@@ -1995,7 +1995,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
                 heldItemId: part.heldItem?.id ?? "",
             }));
 
-        // Read-only Body Locations tree: Zone → Part → Location (#509/#780),
+        // Read-only Body Locations tree: Zone → Part → Location,
         // each location showing effective protection (natural `protectionBase` +
         // worn-armor `armorProtection`, aggregated during the actor's evaluate
         // phase), the covering material layers, and shock. Held items are shown
@@ -2015,7 +2015,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
             defaultCombatGroup: (actor.system as any).defaultCombatGroup ?? "",
             isGM: !!(game as any).user?.isGM,
             // Body Structure add / drag-sort controls are shown only to a user
-            // who can edit this actor (owner/GM) — #720.
+            // who can edit this actor (owner/GM).
             canEditBody: this.isEditable,
         });
     }
@@ -2031,7 +2031,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
      * Format a trauma's next recovery/heal/course test world time as a compact
      * relative label ("in 5 days") for the Trauma tab, or an em-dash when no
      * test is scheduled. The schedule is the source of truth — nothing is
-     * auto-armed (consent model, #579).
+     * auto-armed (consent model).
      *
      * @param at - The next-test world time (seconds), or `undefined`.
      * @returns A relative date label, or `"—"`.

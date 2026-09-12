@@ -208,7 +208,7 @@ describe("SohlItemBaseLogic.resultEdit — GM result-edit on the frozen roll", (
 });
 
 /**
- * #1099 — the edit dialog re-uses `standard-test-dialog.hbs` and passes
+ * The edit dialog re-uses `standard-test-dialog.hbs` and passes
  * `rollModes`, so it renders a **Roll Visibility** dropdown pre-set to the
  * result's current mode. The callback read only the two modifiers, so the
  * choice was silently discarded and the reposted card kept the original

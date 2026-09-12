@@ -17,11 +17,11 @@ const REPO_ROOT = path.resolve(__dirname, "../..");
  * subdirectory is never read, so a tree ignored only from there is invisible to
  * git and fully visible to Prettier.
  *
- * That is the whole of #1632: `kb/.gitignore` ignores the generated `content/`,
- * `public/`, and `resources/_gen/` trees, and `npm run format:check` walked
- * straight into them — reporting 735 warnings on generated markdown once
- * `build:kb-content` had run, then failing outright with a `SyntaxError` on
- * Hugo's minified HTML once `build:kb` had. The command's result depended on
+ * `kb/.gitignore` ignores the generated `content/`, `public/`, and
+ * `resources/_gen/` trees. Without this, `npm run format:check` walks straight
+ * into them — warning on generated markdown once `build:kb-content` has run,
+ * then failing outright with a `SyntaxError` on Hugo's minified HTML once
+ * `build:kb` has. The command's result would depend on
  * what had been built rather than on what had been written.
  *
  * The fix is to restate each such tree in `.prettierignore`, and this is what

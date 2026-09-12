@@ -268,9 +268,9 @@ describe("automated combat", () => {
     // getUsableStrikeModes stub → aborts.
     it.skip("counterstrike resume resolves an attack", () => {});
 
-    // RED — blocked by #64: Dodge should no longer be skill-gated (FIXME) — today
+    // RED — blocked on ungating Dodge from the Dodge skill (FIXME) — today
     // the Dodge button requires a `dge` skill (see the capability-gate test
-    // above). Un-skip and assert Dodge survives without a Dodge skill once #64
+    // above). Un-skip and assert Dodge survives without a Dodge skill once that
     // removes the gate.
     it.skip("Dodge is available without a Dodge skill", () => {});
 

@@ -136,7 +136,7 @@ export abstract class SohlLogic<TData extends SohlLogicData<any> = SohlLogicData
             }),
             // `dialog()` Handlebars-compiles `content`, so the template source
             // stays author-static and the localized prose rides in `data`, where
-            // Handlebars escapes it (rule #10).
+            // Handlebars escapes it.
             content: toHTMLString(`<p>{{caution}}</p>`),
             data: {
                 name: this.name,

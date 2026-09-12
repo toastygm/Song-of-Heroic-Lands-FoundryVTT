@@ -217,7 +217,7 @@ export function itemSheetSuite(kind, opts = {}) {
                         // and conditionally hide another (e.g. trauma shows
                         // `aspect` only when `subType` is "injury") — or
                         // disable it (armor's `isWorn` is gated on
-                        // `isCarried`, #1097). Skip a planned field a prior
+                        // `isCarried`). Skip a planned field a prior
                         // edit removed or locked: a field not shown, or
                         // shown disabled, can't be set in the current state.
                         cy.then(function () {

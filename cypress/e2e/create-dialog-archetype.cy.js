@@ -13,7 +13,7 @@
 
 /**
  * Create-dialog archetype picker, on `system.templatePriority`
- * (#1780, renamed off `system.archetype` by #1836). The dialog seeds a new Being
+ * (`system.archetype` is the legacy spelling). The dialog seeds a new Being
  * from a populated archetype, or a blank one for **(none)**. The marker is
  * cleared to `null` when an archetype is _instantiated_ (dialog seed,
  * drop-to-embed) and preserved when copied verbatim (Import, Duplicate).
@@ -350,9 +350,9 @@ describe("Create dialog: archetype seeding", () => {
     // The migration rule itself is unit-tested (`migrateTemplatePriority`).
     // What only a live client can prove is that it is *wired* — that Foundry
     // actually routes a `system` block through `SohlDataModel.migrateData` on
-    // the way in, for every SoHL subtype. A world that pre-dates #1836 is
+    // the way in, for every SoHL subtype. A world carrying the legacy name is
     // exactly this: stored data carrying the old key.
-    it("migrates a pre-#1836 system.archetype to system.templatePriority", () => {
+    it("migrates a legacy system.archetype to system.templatePriority", () => {
         cy.foundry(async (win) => {
             // Priority 0 on purpose: it is what SoHL's own archetypes ship at,
             // and the value any truthiness bug in the migration would swallow.

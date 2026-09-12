@@ -226,7 +226,7 @@ describe("SohlActorBaseLogic.opposedResultEdit — GM re-edit of a settled conte
             expect((dlg.mock.calls[1][0] as any).data.situationalModifier).toBe(0);
         });
 
-        // #1099 — the same standard-test dialog is used per side, so it offers
+        // The same standard-test dialog is used per side, so it offers
         // a Roll Visibility field there too. The contest posts ONE card, so the
         // source side's choice governs the repost.
         it("honors the visibility chosen for the source side on the repost", async () => {

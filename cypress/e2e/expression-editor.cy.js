@@ -12,8 +12,8 @@
  */
 
 /**
- * SafeExpression editor — the CodeMirror popup for formula fields (#1031 Phase 1,
- * #1035 Phase 2: highlighting, autocomplete, rollout). Piloted on the Skill
+ * SafeExpression editor — the CodeMirror popup for formula fields, with
+ * highlighting, autocomplete and rollout. Piloted on the Skill
  * sheet's Skill Base field.
  *
  * Drives the real seam: the edit button opens the CodeMirror dialog; live

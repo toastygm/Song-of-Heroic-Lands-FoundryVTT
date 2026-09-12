@@ -130,7 +130,7 @@ describe("StructureLogic", () => {
     });
 
     /**
-     * #1098 — the action is a normal, selectable ESSENTIAL action, but its
+     * The action is a normal, selectable ESSENTIAL action, but its
      * executor required `scope.medium`, which only the Profile-tab star
      * supplies. Invoked any other way it returned immediately: no dialog, no
      * notice, no change. Per the prefer-dialog rule it now offers the choice.

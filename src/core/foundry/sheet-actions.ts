@@ -249,8 +249,7 @@ export async function deleteAction(doc: ActionOwner, target: HTMLElement): Promi
  * An action whose trigger currently refuses it is reported rather than run: the
  * ledger already renders its control disabled, but a disabled `<a>` is not
  * inert to Foundry's delegated click dispatch, so the click still arrives here
- * and must say why nothing happened instead of no-op'ing silently (issue
- * #1135).
+ * and must say why nothing happened instead of no-op'ing silently.
  *
  * @param doc - The action-owning document.
  * @param target - The clicked control inside an action row.

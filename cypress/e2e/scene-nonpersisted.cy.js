@@ -26,9 +26,9 @@
  * require it to be inert. `cy.login()`'s `guardHeadlessRegionShapeConstraints`
  * is what makes it so.
  *
- * That guard covers a second, unrelated defect too (#1535: no scene viewed), and
+ * That guard covers a second, unrelated defect too (no scene viewed), and
  * its clause for that one is tested *first*. Were `canvas.scene` `null` it would
- * short-circuit every call here and this spec would pass with the #1550 fix
+ * short-circuit every call here and this spec would pass with the fix
  * reverted — so `withViewedScene` below pins the precondition the draw path
  * actually presents: a live, truthy `canvas.scene` that is merely no longer
  * persisted.
@@ -68,9 +68,9 @@ describe("scene: a nonpersisted Scene is inert", () => {
      * `canvas.scene` is live and truthy — it is only `persisted` that has gone
      * false, and it is the *deleted* scene, not whichever one the client happens
      * to view. Leave that to the environment and the guard's *other* clause (no
-     * scene viewed, #1535) short-circuits first in any run with nothing viewed,
+     * scene viewed) short-circuits first in any run with nothing viewed,
      * the nonpersisted clause is never reached, and this spec passes with the
-     * #1550 fix reverted — which is worth nothing. Setting it pins the real
+     * fix reverted — which is worth nothing. Setting it pins the real
      * precondition rather than working around the guard.
      */
     function withViewedScene(win, scene, fn) {

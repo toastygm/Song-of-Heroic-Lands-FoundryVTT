@@ -7,7 +7,7 @@
 
 /**
  * Render the real Weapon Gear properties sheet template in Node and assert the
- * emitted binding placeholders. Covers #1179: the Encumbrance control bound its
+ * emitted binding placeholders. The Encumbrance control must not bind its
  * `value=` to `system.encumbrance`, which `WeaponGearDataModel` does not define
  * (the schema field is `encumbranceBase`), so the input rendered blank and a
  * saved encumbrance never showed back on the sheet.

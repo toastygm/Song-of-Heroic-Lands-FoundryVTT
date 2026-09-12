@@ -109,7 +109,7 @@ describe("Being Trauma tab: Afflictions section", () => {
                 name: "Withering Curse",
                 system: {
                     // maladiction: the supernatural affliction subtype added in
-                    // #1003 (curse/hex/divine blight).
+                    // curse/hex/divine blight.
                     subType: "maladiction",
                     levelBase: 2,
                     healingRateBase: 3,

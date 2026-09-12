@@ -112,12 +112,10 @@ export const ORIGIN_SUFFIX = "pkg.heroiclands.org";
  * same pages, and left alone they are indexed and compete with the canonical
  * URL in search results.
  *
- * The third rule is the newest, and until #1765 this file did not carry it:
- * measured at the edge on 2026-08-30, `https://sohl-kb.pages.dev/sohl/` answered
- * with `X-Robots-Tag: noindex` while `https://sohl.pkg.heroiclands.org/sohl/` —
- * the *same deployment*, byte-identical body — answered 200 with none. So the
- * two-rule payload left the address a reader is most plausibly handed fully
- * indexable.
+ * The third rule covers the address a reader is most plausibly handed:
+ * `https://sohl.pkg.heroiclands.org/sohl/` and `https://sohl-kb.pages.dev/sohl/`
+ * are the *same deployment* with byte-identical bodies, so without it the
+ * host-assigned name answers 200 with no `X-Robots-Tag` and stays indexable.
  *
  * The rules are **scoped to those hostnames**, which is what keeps this file
  * correct for anyone who takes the repository elsewhere: deployed under its own
@@ -138,12 +136,11 @@ export const ORIGIN_SUFFIX = "pkg.heroiclands.org";
  * it is the same URL at the same address — so this header reaches
  * `www.heroiclands.org` too, and the router (`heroiclands-site`, `worker/`,
  * `canonicalHeaders`) removes it there. That is the only place the two
- * addresses are distinguishable, and it is why the third rule carries a risk the
- * first two did not: until heroiclands-site#26 the router's origin *was*
- * `<project>.pages.dev`, so the first rule already set `noindex` on every
- * response it fetched and `www` never carried it. #26 moved the origin to the
- * custom domain, which in one change opened this hole and left the strip with
- * nothing to strip; this restores an arrangement that ran in production.
+ * addresses are distinguishable, and it is why the third rule carries a risk
+ * the first two do not: the router fetches its origin from the custom domain,
+ * so the header reaches `www` and the strip is what keeps it off the canonical
+ * address. A router pointed back at `<project>.pages.dev` would make the first
+ * rule cover it instead.
  *
  * A page that needs `noindex` at *every* address must say so in the document
  * (`<meta name="robots">`), which is body content and is passed through

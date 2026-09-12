@@ -22,9 +22,9 @@ import type { ExpressionScope } from "@src/entity/expr/ExpressionScopeRegistry";
  *
  * The scope is what makes the offered identifiers *right* rather than merely
  * plausible: it is the same declaration the runtime validates against, so
- * autocomplete cannot suggest a name that construction would reject (issue
- * #1142 — the editor used to be fed a hand-typed list from a template
- * attribute, with nothing tying it to the evaluating call site).
+ * autocomplete cannot suggest a name that construction would reject. A
+ * hand-typed list fed from a template attribute would have nothing tying it to
+ * the evaluating call site.
  *
  * This is deliberately CodeMirror-runtime-free — it imports only the
  * `CompletionContext`/`CompletionResult` **types** — so it can be unit-tested in

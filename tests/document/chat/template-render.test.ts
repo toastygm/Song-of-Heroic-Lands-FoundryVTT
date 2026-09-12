@@ -214,7 +214,7 @@ describe("dialogs render through the same shim as cards", () => {
         expect(html).toMatch(/name="healingRate"[^>]*value=""/);
     });
 
-    // #1098 — Make Default Medium now offers the choice when the caller does
+    // Make Default Medium offers the choice when the caller does
     // not name a medium, so the dialog must render a real, preselected option
     // list built from the actor's authored profiles.
     it("select-medium-dialog renders the offered media, preselecting the current one", () => {

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 /**
- * #1105 — the Attribute sheet's Properties tab rendered its two scalar fields
+ * The Attribute sheet's Properties tab must not render its two scalar fields
  * (`system.scoreBase`, `system.initDiceFormula`) with **empty** `<label>`s.
  *
  * The cause is not in the template: `formGroup` labels a field from

@@ -29,8 +29,8 @@ export const SCHEMA_VERSION_KEY: string = "__schemaVer" as const;
  * document world-scoped scheduled actions and events hang off of.
  * Found or created via `sohl.worldHost()`.
  *
- * Like every other `shortcode` it must be **strictly alphanumeric** (issue
- * #1397): the host is created through the same `(type, shortcode)` guard as any
+ * Like every other `shortcode` it must be **strictly alphanumeric**: the host
+ * is created through the same `(type, shortcode)` guard as any
  * document, which refuses a malformed key outright — so the original
  * `_sohlworld` vetoed the host's own creation. The underscore is
  * dropped rather than exempted, which is also what the 0.9.0 repair migration

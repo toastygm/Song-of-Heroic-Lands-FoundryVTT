@@ -32,16 +32,13 @@
  * likewise has to survive URLs, YAML frontmatter, and expression source
  * unescaped.
  *
- * **Why lowercase.** This was once left open — "case is not
- * constrained … tightening that would be a separate decision" — and #1882 is
- * that decision, taken alongside `@heroiclands/package-build` 20.0.0, which
- * narrows the build-time rule the same way (package-build#340). The reason is
- * that case was never actually carrying a distinction: the **address** built
- * from a shortcode is lowercased, so `Clb` and `clb` published one address, one
- * document `_id` and one URL while the shortcode check saw two distinct keys.
- * That is an identity collapse nothing reported — a difference you can only see
- * by looking twice and cannot say out loud. Requiring lowercase makes the key
- * equal the thing derived from it.
+ * **Why lowercase.** `@heroiclands/package-build` narrows the build-time rule
+ * the same way, because case carries no distinction here: the **address** built
+ * from a shortcode is lowercased, so `Clb` and `clb` publish one address, one
+ * document `_id` and one URL while the shortcode check would see two distinct
+ * keys. That is an identity collapse nothing reports — a difference you can only
+ * see by looking twice and cannot say out loud. Requiring lowercase makes the
+ * key equal the thing derived from it.
  *
  * @module shortcode-format
  */

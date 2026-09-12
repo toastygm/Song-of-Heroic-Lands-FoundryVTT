@@ -56,7 +56,7 @@ describe("sohl.entity registry", () => {
         expect(entity.BodyStructure).toBe(BodyStructure);
     });
 
-    it("is a frozen, getter-backed surface (stable for register() in #83)", () => {
+    it("is a frozen, getter-backed surface, stable for register()", () => {
         expect(Object.isFrozen(entity)).toBe(true);
         for (const name of EXPECTED_NAMES) {
             const desc = Object.getOwnPropertyDescriptor(entity, name);

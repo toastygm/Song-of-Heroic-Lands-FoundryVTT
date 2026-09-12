@@ -195,7 +195,7 @@ describe("gear-row context menu bindings", () => {
             cy.createItemOn(actor, "weapongear", meleeWeapon()).then((weapon) => {
                 // Attack needs the weapon held; Block/Counterstrike also
                 // need a melee strike mode (both `visible` predicates name
-                // itemLogic, which is what #1132 could not resolve).
+                // itemLogic, which is what would otherwise not resolve).
                 cy.holdItem(weapon);
                 cy.foundry((win) => {
                     const w = win.game.actors.get(actor.id).items.get(weapon.id);

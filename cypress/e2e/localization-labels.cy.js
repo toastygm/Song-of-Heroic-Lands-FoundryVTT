@@ -21,7 +21,7 @@
  *   2. Structure actor sheet labels. Structure declares no fields of its own, so
  *      every label comes from the `SOHL.Actor` prefix; this asserts they resolve
  *      rather than falling back to raw keys.
- *   3. Gear subtype labels. #1352 moved the shared gear words onto `SOHL.Gear`
+ *   3. Gear subtype labels. The shared gear words live on `SOHL.Gear`
  *      and dropped MiscGear's own prefix, so the subtype → Gear → Item prefix
  *      chain is now load-bearing.
  */
@@ -78,7 +78,7 @@ describe("localized labels reach the user", () => {
     // ------------------------------------------------- shared gear prefix labels
 
     it("labels a gear subtype's shared fields from the SOHL.Gear prefix", () => {
-        // #1352 moved `encumbrance` (and the shared effect-key labels) onto
+        // `encumbrance` (and the shared effect-key labels) live on
         // `SOHL.Gear`, relying on each subtype's LOCALIZATION_PREFIXES chain
         // ["SOHL.<Subtype>", "SOHL.Gear", "SOHL.Item"] to resolve them. Misc gear
         // no longer declares a subtype prefix at all, so it is the strictest case.

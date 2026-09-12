@@ -107,7 +107,7 @@ export async function resolveStrikeMode(
 
     // Two or more modes and none specified — ask which to use. The template is
     // author-static; the mode names ride in `data`, where Handlebars escapes
-    // them (Rule #10 — never interpolate item data into the source string).
+    // them — never interpolate item data into the source string.
     const picked = await dialog({
         title: sohl.i18n.localize("SOHL.StrikeMode.picker.title"),
         content: toHTMLString(

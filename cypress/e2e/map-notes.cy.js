@@ -200,7 +200,7 @@ describe("Map notes → Scenes", () => {
     /**
      * Run `fn()` with no scene viewed, then hand `canvas.scene` back to core.
      *
-     * The state #1535 is about is a client viewing nothing, and this harness is
+     * The state under test is a client viewing nothing, and this harness is
      * not that client: `package-build e2e seed` writes an **active** default
      * scene (#451, so the canvas is ready and the new-user tour never overlays a
      * sheet), which the client views at load — so `canvas.scene` here is a live
@@ -259,7 +259,7 @@ describe("Map notes → Scenes", () => {
             const viewedScene = win.canvas?.scene?.id ?? null;
             const writesWhileViewed = await flagAndSettle();
             // With none viewed it is inert. Unguarded on the 14.359 floor this
-            // is the #1535 crash itself: the deferred callback reads
+            // is the crash itself: the deferred callback reads
             // `canvas.scene.id` and throws `reading 'id'` out of the ticker.
             const writesWhileUnviewed = await withNoSceneViewed(win, () => flagAndSettle());
 

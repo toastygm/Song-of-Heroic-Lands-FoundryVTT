@@ -21,7 +21,7 @@
  * expression is evaluated against a context matching its scope. The unit suite
  * covers the grammar and the registry.
  *
- * Also covers #1090, the defect that motivated the scope work: `shockReTest`
+ * Also covers the defect that motivates the scope work: `shockReTest`
  * binds `actorLogic`, which the action-visible scope did not supply, so the
  * action was hidden in every state.
  */
@@ -36,7 +36,7 @@ function offersShockReTest(actorId) {
         // `getContextOptions` runs each action's real `visible` predicate. The
         // sheet element is the natural target; the actor's own sheet may not be
         // rendered, so a bare element stands in for the menu's DOM anchor —
-        // which is exactly the case #1090 broke (no `data-actor-id` ancestor).
+        // which is exactly the case that breaks (no `data-actor-id` ancestor).
         const target = win.document.createElement("div");
         return actor.logic
             .getContextOptions()

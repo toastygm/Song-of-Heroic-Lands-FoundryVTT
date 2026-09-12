@@ -10,8 +10,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 // The two seams the pack pipeline used to reach into `src/` for. They now live
-// in the shared build package, which is where the pipeline is headed (#1501),
-// and the runtime imports the same modules from there (#1510).
+// in the shared build package, which is where the pipeline is headed,
+// and the runtime imports the same modules from there.
 import { DEFAULT_ITEM_ART } from "@heroiclands/package-build/sohl/default-item-art";
 import { AFFILIATION_STANDINGS } from "@heroiclands/package-build/sohl/affiliation-standings";
 // The runtime enum the shared standings list mirrors.
@@ -19,12 +19,12 @@ import { AffiliationStandings } from "@src/utils/constants";
 // The runtime rule that decides whether a description is a pointer, and the
 // pack-side pieces that write one. The agreement between them is a
 // repository-side fact, so it is asserted here rather than travelling with the
-// pack tests into the package (#1511).
+// pack tests into the package.
 import { descriptionLinkTarget } from "@src/utils/description-link";
 import { itemDocEntryId, itemDocPointer } from "@heroiclands/package-build/engine/item-docs";
 import { splitPages, journalPageId } from "@heroiclands/package-build/engine/journals";
 
-// The pipeline lives in its own repository now (#1589) and arrives here as an
+// The pipeline lives in its own repository now and arrives here as an
 // installed dependency, so the guard walks what npm actually delivered rather
 // than a working copy. That is the stronger check: it asserts the severance of
 // the *published tarball*, which is the only form any consumer ever sees, and
@@ -49,7 +49,7 @@ function importSpecifiers(source: string): string[] {
     return out;
 }
 
-describe("pack pipeline severance from src/ (#1510)", () => {
+describe("pack pipeline severance from src/", () => {
     it("finds the pipeline it is guarding", () => {
         // A walk that found nothing would make the case below vacuously pass.
         expect(packModules(PACKS_DIR).length).toBeGreaterThan(20);
@@ -92,7 +92,7 @@ describe("the pack pipeline and the runtime agree on description pointers", () =
 
     it("is a pointer by the system's own rule", () => {
         // The round-trip that matters: what the pack writes is what
-        // `descriptionLinkTarget` recognises at runtime (#1356).
+        // `descriptionLinkTarget` recognises at runtime.
         const pointer = pointerFor("xPisQgs7pKDaYaKs", "Dehydrated", "body");
         expect(descriptionLinkTarget(pointer)).toBe(
             pointer.slice("@UUID[".length, pointer.indexOf("]")),

@@ -66,7 +66,7 @@ describe("TraumaLogic.healing — the Healing Test target", () => {
     });
 
     it("is DISABLED — not zero — for an untreated wound", () => {
-        // "Untreated" is a real state, distinct from a target of 0 (#1146/#1148),
+        // "Untreated" is a real state, distinct from a target of 0,
         // and being disabled is what makes the test auto-Critically-Fail.
         expect(makeWound({ healingRateBase: null }, 12).healing.disabled).toBeTruthy();
         // A rate on record but no treatment date is still untreated.

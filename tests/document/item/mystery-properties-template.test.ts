@@ -11,7 +11,7 @@
  * array editor bound to a nonexistent `system.skills` field must be gone,
  * replaced by the single-skill control bound to the existing
  * `system.assocSkillCode` field. Also covers #815: the phantom
- * `system.domainCode` control (no such schema field) must be gone, and #1129:
+ * `system.domainCode` control (no such schema field) must be gone, and
  * the unlabelled, inert `system.charges.usesCharges` checkbox is gone —
  * whether a mystery uses charges is carried by `system.charges.max` alone.
  */

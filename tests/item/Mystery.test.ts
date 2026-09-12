@@ -77,7 +77,7 @@ afterEach(() => {
 
 describe("MysteryLogic", () => {
     describe("construction", () => {
-        // #1089: a Mystery models what a character *is* — a standing
+        // A Mystery models what a character *is* — a standing
         // condition, pool, or blessing. Anything a character actively invokes
         // is a Mystical Ability, which carries its own action and roll. There
         // is no universal meaning to "use" a Mystery, so the item offers no

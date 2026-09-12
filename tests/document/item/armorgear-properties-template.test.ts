@@ -7,7 +7,7 @@
 
 /**
  * Render the real Armor Gear properties sheet template in Node and assert the
- * emitted binding placeholders. Covers #1133: the four `system.protectionBase.*`
+ * emitted binding placeholders. The four `system.protectionBase.*`
  * aspects and `system.encumbrance` feed play directly (armor protection folded
  * onto every covered body location, and the wearer's encumbrance) but had no
  * editor at all, so armor built on the sheet always protected for 0/0/0/0.

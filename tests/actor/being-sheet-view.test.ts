@@ -1012,7 +1012,7 @@ describe("being-sheet-view", () => {
             );
         });
 
-        // #1131 — the Chgs/Max header filled its 4rem track exactly and butted
+        // The Chgs/Max header must not fill its 4rem track exactly and butt
         // against the adjoining Notes header, reading as one word
         // (`CHGS/MAXNOTES`). The ledger grid has no column-gap (head and rows
         // must share one track template to stay aligned), so a fixed-width

@@ -14,7 +14,7 @@
 import "../support/commands";
 
 /**
- * #1269 — a limb being **immobilized** and a limb being unable to **hold** are
+ * A limb being **immobilized** and a limb being unable to **hold** are
  * two different states.
  *
  * `BodyPart` carries one settable switch (`isUnusable`) and two derivations

@@ -139,10 +139,9 @@ describe("automated combat start: target resolution", () => {
                     expect(r.warnings, "the targetless-context abort is gone").to.not.match(
                         /requires a target combatant/i,
                     );
-                    expect(
-                        r.warnings,
-                        "the resolved target is used as the defender",
-                    ).to.not.match(/valid defender combatant/i);
+                    expect(r.warnings, "the resolved target is used as the defender").to.not.match(
+                        /valid defender combatant/i,
+                    );
                     expect(
                         r.warnings,
                         "reaches strike-mode selection (the post-target step)",

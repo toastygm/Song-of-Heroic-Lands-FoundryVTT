@@ -277,7 +277,7 @@ describe("armour coverage", () => {
      * **Weight is the honest checksum**, because it follows from how much
      * material the article is made of, which is exactly what coverage measures.
      * Asserting it needs the per-grade weights reconciled first — four grades
-     * hold ratios varying by a factor of three — so until #1716 lands, nothing
+     * hold ratios varying by a factor of three — so for now, nothing
      * in this file verifies an article's coverage, and a mis-authored
      * `flexloc`/`facing` list will pass.
      */

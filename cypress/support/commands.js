@@ -191,7 +191,7 @@ function guardHeadlessTokenDraw(win) {
  * `persisted` clause: that is where core throws, and the private one has no such
  * check on any supported build.
  *
- * `Level` is patched separately, for #1550 only. It carries its own copy of the
+ * `Level` is patched separately. It carries its own copy of the
  * public method — new in 14.367; the 14.359 floor has no such member at all —
  * and throws from it *before* delegating, so the callers that address a level
  * directly (the levels a moved token affects, and the equivalent light and wall

@@ -22,14 +22,14 @@ import { REQUIRED, REDIRECTS, missingRequired } from "../../utils/build-site.mjs
  * for any path the site does not publish, and falls back to the site **root**
  * when that file is missing. The fallback is a soft-404: a 200 and the landing
  * page, which reads as success to every "does this URL resolve?" check and lets
- * search engines index retired content as live (issue #1416).
+ * search engines index retired content as live.
  *
  * The **template** lives in the shared theme, because every consumer needs one
- * and none should keep its own copy (issue #1454). That splits the contract in
+ * and none should keep its own copy. That splits the contract in
  * two, and only one half is ours:
  *
  * - _The theme_ owns `layouts/404.html`. It arrives as the npm package
- *   `@heroiclands/hugo-theme` (#1640), which the job running this suite does
+ *   `@heroiclands/hugo-theme`, which the job running this suite does
  *   not install, so these assertions do not read it — asserting on an absent
  *   directory would fail for the wrong reason.
  * - _This repository_ owns the wording and the routes back, via
@@ -41,22 +41,20 @@ import { REQUIRED, REDIRECTS, missingRequired } from "../../utils/build-site.mjs
  * missing the file, and a deploy that puts the theme in front of Hugo at all.
  *
  * That last one is deliberately pinned to the *outcome* rather than to a
- * mechanism. It used to read `submodules: recursive`, and when the theme became
- * a dependency (#1641) the assertion failed while the behaviour it guarded was
- * perfectly fine — a stale test that blocked an unrelated pull request (#1645).
- * What must hold is that the theme is installed before Hugo runs, whatever
- * installs it.
+ * mechanism. Pinning how the theme arrives makes the assertion fail whenever
+ * that changes, while the behaviour it guards is fine. What must hold is that
+ * the theme is installed before Hugo runs, whatever installs it.
  */
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
 const read = (rel: string) => fs.readFileSync(path.join(REPO_ROOT, rel), "utf8");
 
-describe("the /sohl/ site's 404 page (#1416)", () => {
+describe("the /sohl/ site's 404 page", () => {
     const CONFIG = "kb/hugo.toml";
     const DEPLOY = ".github/workflows/deploy-sohl.yml";
 
     it("supplies the 404 page's wording, which the theme leaves to us", () => {
-        // The theme carries layout, not addresses (#1464): it renders generic
+        // The theme carries layout, not addresses: it renders generic
         // wording when the consumer supplies none, so an empty section here
         // publishes a page that never names the site.
         const config = read(CONFIG);
@@ -71,7 +69,7 @@ describe("the /sohl/ site's 404 page (#1416)", () => {
     it("routes back to the surfaces this site actually publishes", () => {
         // One 404 page serves the whole of /sohl/, so a reader who mistyped an
         // API address is handed the same file as one who mistyped a
-        // knowledgebase address — and it has to offer both (#1470).
+        // knowledgebase address — and it has to offer both.
         const urls = [...read(CONFIG).matchAll(/^\s*url\s*=\s*"(.*)"$/gm)].map(([, u]) => u);
         expect(urls).toContain("kb/");
         expect(urls).toContain("api/");
@@ -106,7 +104,7 @@ describe("the /sohl/ site's 404 page (#1416)", () => {
     });
 });
 
-describe("assembling the /sohl/ deployment (#1470)", () => {
+describe("assembling the /sohl/ deployment", () => {
     it("requires an entry point for every surface it publishes", () => {
         // One deploy carries the landing page, the knowledgebase and the API
         // documentation; a half-assembled tree would 404 an advertised address.
@@ -132,7 +130,7 @@ describe("assembling the /sohl/ deployment (#1470)", () => {
 
     it("sends the deployment's own root to the package", () => {
         // Only reachable at the hosting project's own address; once routing
-        // exists (#1468) the site root is a different project's deploy.
+        // exists, the site root is a different project's deploy.
         expect(REDIRECTS.trim()).toBe("/ /sohl/ 302");
     });
 });

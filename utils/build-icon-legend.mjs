@@ -377,8 +377,8 @@ const INDICATOR_ROWS = [
     // row here would print the same glyph and the same name twice.
     // The chosen-one-of-a-set pair, drawn the way the improve flag is: a shape
     // change rather than a weight change, because it is a toggle and not a
-    // scale. It was a filled/hollow `fa-star` until #1894, which made it a
-    // second star pair beside the Victory Stars with an unrelated meaning.
+    // scale. A filled/hollow `fa-star` here would be a second star pair beside
+    // the Victory Stars with an unrelated meaning.
     {
         cls: "fa-solid fa-circle-check",
         name: "Default Movement Medium",
@@ -410,7 +410,7 @@ const INDICATOR_ROWS = [
  * eye do that. Toggles get two different glyphs instead, for the opposite
  * reason — see INDICATOR_ROWS.
  *
- * The gems were `fa-diamond` until #1893. That glyph is Font Awesome's
+ * The gems are not `fa-diamond`. That glyph is Font Awesome's
  * playing-card suit and ships in **solid only**, so the hollow half of the
  * scale was asking the shipped font for something it does not contain. `fa-gem`
  * has both weights and is a gemstone, which is what a quality scale means; the

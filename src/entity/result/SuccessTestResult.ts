@@ -291,11 +291,10 @@ export class SuccessTestResult extends TestResult {
      * on reconstruction. The derived outcome data (`resultText`, `resultDesc`,
      * `valueDiamonds`) is deliberately **not** emitted — it recomputes on read
      * from the serialized table
-     * plus the success level (see the getters and issue #205).
+     * plus the success level (see the getters).
      *
      * Two fields are carried in full as a deliberate exception to the
-     * "store only the minimum" corollary of the reference-on-wire rule
-     * (see issue #202):
+     * "store only the minimum" corollary of the reference-on-wire rule:
      * - `masteryLevelModifier` carries its complete delta breakdown across the
      *   wire because the receiver renders it verbatim for combat transparency —
      *   `mlMod.chatHtml` (the per-delta name/adjustment breakdown) is shown on
@@ -305,7 +304,7 @@ export class SuccessTestResult extends TestResult {
      * - `resultDescTable` is serialized as data (not a table reference)
      *   because custom, per-result tables are a supported design goal; the
      *   table is the datum the receiver renders against, so it travels with the
-     *   result rather than through a registry (see issue #206).
+     *   result rather than through a registry.
      * @returns The plain-object representation.
      */
     override toJSON(): PlainObject {
@@ -463,8 +462,8 @@ export class SuccessTestResult extends TestResult {
      * {@link sohl.entity.expr.SafeExpression} row against the test bindings.
      *
      * Purely computed — the source of {@link resultText}, {@link resultDesc},
-     * and {@link valueDiamonds}, none of which are stored (issue #205; the
-     * table itself rides the wire as data, #206). Returns empty text and a zero
+     * and {@link valueDiamonds}, none of which are stored — the table itself
+     * rides the wire as data. Returns empty text and a zero
      * star count when the table is empty or no row matches.
      *
      * @returns The resolved label, description, and star count.
@@ -718,10 +717,10 @@ export class SuccessTestResult extends TestResult {
      *
      * @remarks
      * This is the shared core of the GM result-edit: the single-test pencil
-     * ({@link sohl.document.item.logic.SohlItemBaseLogic.resultEdit}, #856) and
+     * ({@link sohl.document.item.logic.SohlItemBaseLogic.resultEdit}) and
      * the opposed-contest pencil
-     * ({@link sohl.document.actor.logic.SohlActorBaseLogic.opposedResultEdit},
-     * #1082) both fold their sides through it. It **never rolls** — the die
+     * ({@link sohl.document.actor.logic.SohlActorBaseLogic.opposedResultEdit})
+     * both fold their sides through it. It **never rolls** — the die
      * stays frozen and the caller re-evaluates on it.
      *
      * A situational modifier of `0` *removes* the delta rather than recording a
@@ -921,8 +920,8 @@ export class SuccessTestResult extends TestResult {
         const { label, description, result, success } = this.resolveDescription();
         // Serialize this result once under `priorTestResult` — the reconstruction
         // seam a card control revives to act on *this* result without re-rolling.
-        // The GM edit pencil (`editScopeJSON`, #856) carries it on every card; the
-        // Fate button (`fateScopeJSON`, #854) carries it only when Fate is offered.
+        // The GM edit pencil (`editScopeJSON`) carries it on every card; the
+        // Fate button (`fateScopeJSON`) carries it only when Fate is offered.
         // (The item/actor uuids these controls dispatch against are folded into
         // the card data below.)
         const priorResultScopeJSON = JSON.stringify(defaultToJSON({ priorTestResult: this }));
@@ -995,7 +994,7 @@ export class SuccessTestResult extends TestResult {
         options.roll = await fvttToFoundryRoll(this.roll);
         options.sound = SOHL_SPEAKER_SOUND.DICE;
         // A caller that names a visibility gets it (the GM result-edit reposts
-        // with the mode chosen in the edit dialog, #1099). Without one the
+        // with the mode chosen in the edit dialog). Without one the
         // speaker resolves the mode as it always has, so the ordinary pre-roll
         // post is unchanged.
         if (isSohlSpeakerRollMode(String(rest.rollMode))) options.rollMode = String(rest.rollMode);

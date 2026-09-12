@@ -7,7 +7,7 @@
 
 /**
  * Render the real item Description tab template in Node and assert the emitted
- * HTML. Covers #1357: a description that is only a link is a **pointer**, and
+ * HTML. A description that is only a link is a **pointer**, and
  * the tab must show what it points at — read-only, with an edit control that
  * reveals the editor — while an ordinary description still gets the editor
  * directly.

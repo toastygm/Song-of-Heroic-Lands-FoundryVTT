@@ -85,9 +85,9 @@ describe("skill improveWithSDR persistence", () => {
         });
     });
 
-    // #1103: the card used to render through standard-test-card.hbs under keys
-    // that template does not read, so Target and Roll came out blank and a GM
-    // result-edit pencil was drawn with an empty scope.
+    // The card renders through standard-test-card.hbs. Posting it under keys
+    // that template does not read leaves Target and Roll blank and draws the GM
+    // result-edit pencil with an empty scope.
     it("posts a card carrying the roll total and the target mastery level", () => {
         cy.importActor().then((actor) => {
             makeFlaggedSkill(actor).then((skill) => {

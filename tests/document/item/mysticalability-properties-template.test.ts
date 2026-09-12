@@ -14,7 +14,7 @@
  * the real `system.improveFlag` control still renders. Also covers #973: the
  * dead `system.skillBaseFormula` control (a Mystical Ability has no Skill Base —
  * its rolled value derives from `masteryLevelBase`) must be gone too, and
- * #1129: the unlabelled, inert `system.charges.usesCharges` checkbox is gone —
+ * The unlabelled, inert `system.charges.usesCharges` checkbox must be gone —
  * whether an ability uses charges is carried by `system.charges.max` alone.
  */
 

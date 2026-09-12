@@ -301,7 +301,7 @@ describe("resolveContextItem / resolveContextActor", () => {
 });
 
 /**
- * #1188 — `makeLogicMethodCallback` is the fallback callback for an entry that
+ * `makeLogicMethodCallback` is the fallback callback for an entry that
  * names a `functionName` but supplies no `callback`. Its resolver guarded on
  * `data-effect-id` (an *effect* marker) before an *item* lookup and then passed
  * the row's bare `data-item-id` to a UUID resolver, so the item never resolved

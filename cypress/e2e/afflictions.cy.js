@@ -19,7 +19,7 @@
  * diseases or describe a custom one, roll CI×Endurance, create on failure). The
  * per-affliction `AfflictionLogic` lifecycle is still unimplemented: transmit
  * warns "Not Implemented" and the course / diagnosis / treatment tests
- * `throw "… Not Implemented"`. RED against #67/#68.
+ * `throw "… Not Implemented"`. RED until the affliction lifecycle lands.
  */
 
 describe("afflictions", () => {
@@ -119,12 +119,12 @@ describe("afflictions", () => {
         });
     });
 
-    // RED — blocked by #67/#68: the affliction lifecycle is unimplemented —
+    // RED — blocked on the affliction lifecycle, which is unimplemented —
     // contract / transmit / course / diagnosis / treatment throw or warn
     // "Not Implemented" (AfflictionLogic), and BeingLogic.contractAfflictionTest
-    // is a stub returning null. #68 is the affliction test-suite epic; #67 covers
-    // the remaining condition predicates (canTransmit / canContract). Un-skip and
-    // assert the resolved effects once implemented.
+    // is a stub returning null. The condition predicates (canTransmit /
+    // canContract) are missing too. Un-skip and assert the resolved effects
+    // once implemented.
     it.skip("contract test resolves an affliction", () => {});
     it.skip("transmit propagates an affliction", () => {});
     it.skip("course advances an affliction", () => {});

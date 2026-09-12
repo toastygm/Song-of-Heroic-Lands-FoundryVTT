@@ -453,7 +453,7 @@ describe("SafeExpression", () => {
             expect(sbRefs("sb(attr.str, attr.dex)")).toEqual(["str", "dex"]);
         });
 
-        it("excludes refs outside the call — the #1175 false positive", () => {
+        it("excludes refs outside the call", () => {
             // Aura merely adjusts the result; it is not part of the basis.
             expect(sbRefs("sb(attr.str, attr.dex) + attr.aur / 10")).toEqual(["str", "dex"]);
         });
@@ -641,7 +641,7 @@ describe("SafeExpression", () => {
         });
 
         it("rejects an identifier the scope does not declare, at construction", () => {
-            // Issue #1090 in miniature: this compiled fine and then failed
+            // The defect in miniature: this compiles fine and then fails
             // silently at every evaluation.
             expect(compileScoped("nonesuch.shockState === 2")).toThrow(SafeExpressionError);
         });

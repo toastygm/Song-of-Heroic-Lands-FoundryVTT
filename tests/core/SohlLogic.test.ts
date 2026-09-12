@@ -233,7 +233,7 @@ describe("SohlLogic", () => {
         });
 
         it("builds its caution from an author-static template, prose riding in data", async () => {
-            // Rule #10: `dialog()` Handlebars-compiles `content`, so localized
+            // `dialog()` Handlebars-compiles `content`, so localized
             // prose must arrive through `data` (escaped) rather than be spliced
             // into the template source. Mirrors ContainerGearLogic.
             const spec = await captureDeleteSpec();

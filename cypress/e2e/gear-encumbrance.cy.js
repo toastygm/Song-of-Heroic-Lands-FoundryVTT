@@ -14,10 +14,10 @@
 /**
  * Gear → encumbrance interaction, verified end-to-end on a live being:
  *
- * - **#1009** Worn armor weight is *excluded* from the being's carried weight
+ * - Worn armor weight is *excluded* from the being's carried weight
  *   (and therefore encumbrance) — a fitted harness rides the body. The same
  *   armor carried but **not** worn counts its full weight like any other cargo.
- * - **#1010** An armor's or weapon's optional per-item *encumbrance value* is
+ * - An armor's or weapon's optional per-item *encumbrance value* is
  *   added to the being's encumbrance while the item is in use (armor worn, a
  *   weapon carried), on top of the weight-derived base.
  *

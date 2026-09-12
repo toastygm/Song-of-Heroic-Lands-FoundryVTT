@@ -597,7 +597,7 @@ describe("0.9.0 — alphanumeric shortcodes", () => {
         });
     });
 
-    // #1882: the rule requires lowercase, so a mixed-case key a pre-0.9 world
+    // The rule requires lowercase, so a mixed-case key a pre-0.9 world
     // holds is repaired too, even though it broke no earlier rule.
     it("folds a mixed-case key that was valid before the rule tightened", () => {
         expect(migrateItem({ type: "weapongear", system: { shortcode: "Clb" } })).toEqual({

@@ -18,8 +18,8 @@ import {
 
 /**
  * A retired hostname fails at DNS rather than redirecting, so a link carrying
- * one is a hard dead end with nothing to follow — the defect #1485 shipped 71
- * times. What makes it worth a guard is that no build notices: an absolute URL
+ * one is a hard dead end with nothing to follow. What makes it worth a guard
+ * is that no build notices: an absolute URL
  * is opaque to the wikilink checks, compiles cleanly into the journals, and
  * publishes to the knowledgebase looking exactly like a working link.
  */
@@ -64,11 +64,10 @@ describe("rewriteHint", () => {
 });
 
 /**
- * The published API documentation is built from the newest *release tag*
- * (#1452), so it can carry addresses that were correct when the tag was cut and
- * have since been withdrawn — which is what #1487 found on `/sohl/api/`. That
- * tag cannot be edited, so the deployment repairs those links as it assembles
- * the tree. These are the pure parts of that repair.
+ * The published API documentation is built from the newest *release tag*, so it
+ * can carry addresses that were correct when the tag was cut and have since
+ * been withdrawn. That tag cannot be edited, so the deployment repairs those
+ * links as it assembles the tree. These are the pure parts of that repair.
  */
 describe("findRetiredHrefs", () => {
     it("finds a retired host in an href", () => {
