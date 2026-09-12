@@ -80,7 +80,7 @@ describe("strike-mode-config template", () => {
         expect(html).toContain("Num Dice");
         // Attack-section modifier label is just "Modifier".
         expect(html).toMatch(/<span>Modifier<\/span>/);
-        // The scatter is always presented as a Zone Die (#828).
+        // The scatter is always presented as a Zone Die.
         expect(html).toContain("<span>Zone Die</span>");
         expect(html).not.toContain("<span>Spread</span>");
     });

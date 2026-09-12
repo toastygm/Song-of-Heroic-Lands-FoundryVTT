@@ -21,7 +21,7 @@
  *   1. the Contagion Test dialog (affliction dropdown keyed by shortcode, plus
  *      the modifiers and the record-on-sheet checkbox);
  *   2. the success-test pre-roll dialog — the contagion d100 is forced to 100 via
- *      `SimpleRoll.forceValues` (#598) so the roll FAILS and the affliction is
+ *      `SimpleRoll.forceValues` so the roll FAILS and the affliction is
  *      contracted deterministically;
  *   3. the onset offer ("Set an Affliction Onset Reminder?") — pressed by content
  *      via `cy.submitDialogMatching`.

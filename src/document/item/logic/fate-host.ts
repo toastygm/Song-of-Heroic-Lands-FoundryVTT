@@ -37,7 +37,7 @@ import { dialog, fvttGetSetting, fvttToFoundryRoll } from "@src/core/FoundryHelp
 
 /**
  * The Fate **spend flow**, shared by every logic type whose tests may be fated
- * (issue #1106).
+ *.
  *
  * The pure eligibility and outcome math lives in [`fate.ts`](./fate.ts); this
  * module is the flow built on top of it — seeding the fate mastery level,
@@ -202,7 +202,7 @@ export function buildFateMasteryLevel(host: FateHost, auraBased: boolean): Maste
  *
  * The association field is named for skills historically, but the rule is the
  * same for any fatable test — an attribute matches a point associated with its
- * own shortcode (#1106).
+ * own shortcode.
  *
  * @param host - The logic whose eligible points to select.
  * @returns The eligible-and-charged Fate {@link MysteryLogic} instances (empty
@@ -230,7 +230,7 @@ export function availableFateFor(host: FateHost): MysteryLogic[] {
 
 /**
  * Spend Fate on a test: roll a Fate test and apply its **post-roll success-level
- * bump** to the original test — the die is never re-rolled (#854).
+ * bump** to the original test — the die is never re-rolled.
  *
  * The flow, all at the player's behest (the card's Fate button or the sheet cell
  * is the human trigger):

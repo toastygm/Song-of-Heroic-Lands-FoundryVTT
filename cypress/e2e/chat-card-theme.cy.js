@@ -12,7 +12,7 @@
  */
 
 /**
- * Chat cards blend into Foundry's always-light chat log (#903).
+ * Chat cards blend into Foundry's always-light chat log.
  *
  * Foundry pins the chat log to light in both modes — every message is painted on
  * a fixed-light `/ui/parchment.jpg` and the message frame is not ours to theme.

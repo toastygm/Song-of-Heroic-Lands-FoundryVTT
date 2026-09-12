@@ -12,7 +12,7 @@
  */
 
 /**
- * GM result-edit end-to-end (#856): the test-card edit pencil re-evaluates a
+ * GM result-edit end-to-end: the test-card edit pencil re-evaluates a
  * settled test on its **frozen roll** — never a re-roll, no Fate cost. This
  * drives the real logic in the live client (as a GM, which the seeded user is):
  *

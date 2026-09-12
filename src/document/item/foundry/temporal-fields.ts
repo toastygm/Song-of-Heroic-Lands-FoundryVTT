@@ -85,6 +85,6 @@ export function durationFormulaField(): foundry.data.fields.DataField.Any {
  * could not describe a third of what `affliction` and `trauma` actually store.
  *
  * The recurrence *anchor* is not among them: it lives in the generic
- * `system.scheduledActions` store (issue #588), whose entry's
+ * `system.scheduledActions` store, whose entry's
  * `anchor + interval` is the next fire time.
  */

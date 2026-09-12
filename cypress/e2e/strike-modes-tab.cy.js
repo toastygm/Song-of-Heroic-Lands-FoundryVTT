@@ -12,7 +12,7 @@
  */
 
 /**
- * Strike Modes tab + editor on the Weapongear and CombatTechnique sheets (#663).
+ * Strike Modes tab + editor on the Weapongear and CombatTechnique sheets.
  *
  * Drives the real UI: the tab renders one row per strike mode, "Add Strike Mode"
  * appends a blank mode and opens the StrikeModeConfig editor on it, the editor

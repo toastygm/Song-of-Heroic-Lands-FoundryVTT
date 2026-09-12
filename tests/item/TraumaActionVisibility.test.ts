@@ -5,7 +5,7 @@ import { TraumaSubTypes, AfflictionSubTypes } from "@src/utils/constants";
 
 /**
  * Guard against a `visible` expression naming a subtype value that does not
- * exist (#1182). Five Trauma actions were gated on `'physical'` — a **Skill**
+ * exist. Five Trauma actions were gated on `'physical'` — a **Skill**
  * subtype — so they never appeared in the Actions context menu for any trauma
  * that has ever existed, and nothing noticed.
  */

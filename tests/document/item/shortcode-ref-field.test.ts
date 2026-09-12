@@ -13,7 +13,7 @@
 
 /**
  * Render the real item property templates in Node (no Foundry) and assert the
- * HTML the shortcode-reference field widget (#974) emits: a `<select>` of
+ * HTML the shortcode-reference field widget emits: a `<select>` of
  * candidate items when the item is embedded on an actor, and the free-text
  * fallback otherwise. Uses the shared render harness ({@link renderTemplateReal}),
  * which registers the `shortcodeRefField` partial via `registerPureHandlebarsHelpers`.

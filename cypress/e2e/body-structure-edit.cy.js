@@ -12,12 +12,12 @@
  */
 
 /**
- * Body Part (#721) and Body Location (#722) editors, opened from the Profile-tab
+ * Body Part and Body Location editors, opened from the Profile-tab
  * Body Structure tree's per-row ⋮ menu (the editable tree moved to Profile in
  * the Manuscript redesign; Combat keeps a read-only armor table). Each editor is
  * a small ApplicationV2 that auto-saves (submitOnChange, no Save button) and
  * writes back to the being's flat `system.body.structure.{zones,parts,locations}`
- * arrays via a whole-array update (#780).
+ * arrays via a whole-array update.
  */
 
 /** Find the open Body Part / Location editor by its id prefix (minifier-safe). */
@@ -294,7 +294,7 @@ describe("Body Structure editors (Profile tab)", () => {
 });
 
 /**
- * Body Structure add / drag-sort / delete (#720) — layered on the #721/#722
+ * Body Structure add / drag-sort / delete — layered on the #721/#722
  * editors. Proves the Combat tab renders the add / drag / ⋮ controls for an
  * owner, and that the #247-safe whole-array update builders (reorder / move /
  * add / remove) persist correctly against a live actor. The add dialog, the

@@ -176,7 +176,7 @@ describe("AfflictionLogic intrinsic action set (#1183, supersedes #1126)", () =>
         expect(courseTest?.visible).toBe("true");
         expect(courseCheck?.group).toBe("hidden");
         // The run record follows the ACT, so the test carries it and the check
-        // — which only posts the offer — does not (#1192).
+        // — which only posts the offer — does not.
         expect(courseTest?.recordsLastRun).toBe(true);
         expect(courseCheck?.recordsLastRun ?? false).toBe(false);
     });

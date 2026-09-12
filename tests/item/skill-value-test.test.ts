@@ -18,7 +18,7 @@ import { SohlSpeaker } from "@src/core/logic/SohlSpeaker";
 import { makeItemLogic, makeMockActor } from "@tests/mocks/logicHarness";
 
 /**
- * The Skill Value Test (#848) is exposed as a human-triggered intrinsic action
+ * The Skill Value Test is exposed as a human-triggered intrinsic action
  * whose executor delegates to the graded {@link MasteryLevelModifier.successValueTest}
  * path — "special results are data (the svTable), not new code".
  */

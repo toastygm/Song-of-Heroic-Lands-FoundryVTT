@@ -73,7 +73,7 @@ describe("skill properties sheet — Impaired By Roles (#713)", () => {
     it("renders the Impaired By Roles list with an Add control wired to the array editor", () => {
         const html = render("social");
         expect(html).toContain("Impaired By Roles");
-        // Wired via ApplicationV2's delegated data-action dispatch (#734).
+        // Wired via ApplicationV2's delegated data-action dispatch.
         expect(html).toContain('data-action="addArrayItem"');
         expect(html).toContain('data-array="system.impairedByRoles"');
     });

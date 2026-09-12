@@ -12,7 +12,7 @@
  */
 
 /**
- * Derived Melee/Missile Strike Mode sections (#293). The Combat tab aggregates
+ * Derived Melee/Missile Strike Mode sections. The Combat tab aggregates
  * strike modes from combat-technique skills (always available) and held weapons,
  * grouped by source, with clickable Atk/Blk/CX.
  */

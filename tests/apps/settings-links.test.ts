@@ -7,7 +7,7 @@
 
 /**
  * The branded "Game System" section injected into the Game Settings sidebar
- * tab (issue #915). The context builder is pure and the section template
+ * tab. The context builder is pure and the section template
  * renders in Node, so both are asserted here; the DOM injection into the live
  * sidebar — and removal of Foundry's native system row — is an e2e concern.
  */
@@ -128,7 +128,7 @@ describe("settings sidebar — context builder", () => {
     });
 
     it("surfaces the API docs URL as given, composing nothing", () => {
-        // One unversioned tree is published, for the newest release (#1452), so
+        // One unversioned tree is published, for the newest release, so
         // there is no per-version address to build — the manifest's value is
         // the link. The assertion is that nothing is appended to it.
         const ctx = buildSettingsLinksContext(SYSTEM, idLocalize);

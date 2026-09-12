@@ -170,7 +170,7 @@ describe("runStrikeModeTest", () => {
         expect(result).toBe(false);
         expect(sm.attack.successTest).not.toHaveBeenCalled();
         // On screen, not console-only: an invoked action that can do nothing
-        // must say so (#1137).
+        // must say so.
         expect(uiWarn).toHaveBeenCalledWith(
             "SOHL.StrikeMode.unsupportedTest",
             expect.objectContaining({ item: "Javelin", mode: "Throw" }),
@@ -197,7 +197,7 @@ describe("runStrikeModeTest", () => {
 });
 
 /*
- * The gate the block/counterstrike actions hang their visibility on (#1137):
+ * The gate the block/counterstrike actions hang their visibility on:
  * an item with no melee strike mode can never block or counterstrike, so those
  * actions must not be offered on it. A mixed weapon (thrust + throw) keeps
  * them — the picker resolves which mode.

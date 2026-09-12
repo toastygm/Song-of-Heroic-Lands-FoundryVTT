@@ -12,7 +12,7 @@
  */
 
 /**
- * Seedable PRNG (#599) + non-dice randomness routed through it (#601).
+ * Seedable PRNG + non-dice randomness routed through it.
  *
  * The shared `sohl.random` singleton is the ambient generator behind
  * `SimpleRoll`, hit-location selection, and the `rand()` expression helper. In

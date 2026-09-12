@@ -169,7 +169,7 @@ describe.each(GENERATORS)("%s — Rng contract", (_name, make) => {
 
 /**
  * Golden-value lock: the algorithms' output for a fixed seed is a **frozen
- * contract** (issue #599). If either array changes, an algorithm's stream
+ * contract**. If either array changes, an algorithm's stream
  * changed — that breaks reproducibility for every world and must not happen.
  */
 describe("frozen golden streams (determinism contract)", () => {

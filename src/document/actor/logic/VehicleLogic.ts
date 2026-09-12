@@ -178,7 +178,7 @@ export class VehicleLogic<
     /**
      * Build an `update()` payload appending an occupant to
      * {@link VehicleData.occupants}. The whole array is written back — never an
-     * element by index (#247).
+     * element by index.
      *
      * @param occupant - The occupant entry to add.
      * @returns An update payload (does not itself persist the change).

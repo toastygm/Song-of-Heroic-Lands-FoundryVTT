@@ -79,7 +79,7 @@ function fieldPlaceholder(name: string) {
             `data-value="${esc(String(value))}"`,
             hash.disabled ? "data-disabled" : "",
             // Surface the localize binding: a choices control that omits it
-            // renders raw i18n keys as option labels (#751).
+            // renders raw i18n keys as option labels.
             hash.localize ? "data-localize" : "",
         ]
             .filter(Boolean)
@@ -119,7 +119,7 @@ export function registerTestHbsHelpers(): void {
     H.registerHelper("disabled", (v) => (v ? "disabled" : ""));
     H.registerHelper("numberFormat", (n) => String(n)); // simplified
     H.registerHelper("localize", localize); // reads real lang/en.json
-    // Foundry also provides these two; SoHL no longer redefines them (#583), so
+    // Foundry also provides these two; SoHL no longer redefines them, so
     // the harness supplies Foundry's (no such global exists in Node).
     H.registerHelper("object", (opts: any) => opts?.hash ?? {});
     H.registerHelper("concat", function () {

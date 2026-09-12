@@ -130,7 +130,7 @@ export class SkillSheet extends SohlItemSheetBase {
         return Object.assign(context, {
             skillBaseFormula: system.skillBaseFormula,
             // Surface a malformed Skill-Base expression next to its field so the
-            // author can fix it (#972); `undefined` when the formula is valid.
+            // author can fix it; `undefined` when the formula is valid.
             skillBaseError: logic?.skillBaseError,
             masteryLevelBase: system.masteryLevelBase,
             initSkillMult: system.initSkillMult,
@@ -140,7 +140,7 @@ export class SkillSheet extends SohlItemSheetBase {
             subType: system.subType,
             combatCategory: system.combatCategory,
             impairedByRoles: system.impairedByRoles ?? [],
-            // Shortcode-reference dropdown (#974): the actor's other skills when
+            // Shortcode-reference dropdown: the actor's other skills when
             // embedded (excluding this skill, which cannot be its own parent);
             // empty off-actor, so the template falls back to free-text entry.
             embedded: this.document.actor != null,

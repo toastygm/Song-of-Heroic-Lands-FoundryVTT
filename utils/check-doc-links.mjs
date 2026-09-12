@@ -22,7 +22,7 @@
  *
  * The cost of a path is that it encodes location, so moving a page breaks every
  * link into it and nothing says so. That is not hypothetical: when this guard
- * was first run it found **25** dead links (#1364). The `docs/` → `kb/dev-docs/`
+ * was first run it found **25** dead links. The `docs/` → `kb/dev-docs/`
  * move had left 22 repo-root links one directory too high — invisible in both
  * places it mattered, since the knowledgebase rewrote them to a GitHub 404 under
  * `blob/main/kb/src/…` and in the repository they simply pointed at nothing.
@@ -150,7 +150,7 @@ export function linksIn(source) {
         if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(raw)) continue; // external
         // A site-root link is a published address, not a path in this tree:
         // the knowledgebase renders under /sohl/kb/, so a page reaching a
-        // sibling surface writes `/sohl/api/` (#1470). Resolving it here would
+        // sibling surface writes `/sohl/api/`. Resolving it here would
         // look for that path inside `kb/dev-docs/` and call it dead.
         if (raw.startsWith("/")) continue;
         const hash = raw.indexOf("#");

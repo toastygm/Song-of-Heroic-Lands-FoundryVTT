@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill sheet Parent Skill control (#710).
+ * Skill sheet Parent Skill control.
  *
  * `system.parentSkillCode` is a real schema field (nullable, initial null,
  * blank false) that marks a skill as a specialization of another skill, but no

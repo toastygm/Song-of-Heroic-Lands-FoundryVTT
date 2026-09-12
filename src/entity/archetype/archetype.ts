@@ -13,7 +13,7 @@
 
 /**
  * Archetype discovery — the Foundry-free core of the Create-dialog archetype
- * picker (issue #604).
+ * picker.
  *
  * An **archetype** is an existing Actor/Item document marked as a starting
  * template (`system.templatePriority = <priority:number>`, issues #1780 and
@@ -175,7 +175,7 @@ export interface ArchetypeIdentity {
 
 /**
  * Resolve the final Name and (pre-uniqueness) Shortcode base for a Create-dialog
- * confirmation, honoring the **archetype-first** defaulting rules (issue #643):
+ * confirmation, honoring the **archetype-first** defaulting rules:
  *
  * - A user-typed value always wins (`typedName` / `typedShortcode`).
  * - Otherwise, when an **archetype** is chosen, its own `name` / `shortcode`
@@ -217,7 +217,7 @@ export function resolveCreateIdentity(
 
 /**
  * Whether the archetype-marker control should be offered on a document's sheet
- * (issue #1780). Two conditions, and both are about what an archetype _is_
+ *. Two conditions, and both are about what an archetype _is_
  * rather than about the UI:
  *
  * - **Only a GM.** An archetype is world-configuration — it changes what every

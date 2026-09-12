@@ -12,7 +12,7 @@
  */
 
 /**
- * Item-sheet array editors persist on a **real DOM click** (#734).
+ * Item-sheet array editors persist on a **real DOM click**.
  *
  * The shared `.add-array-item` / `.delete-array-item` controls used to be bound
  * with per-node `addEventListener` in `_onRender`; those nodes were detached by

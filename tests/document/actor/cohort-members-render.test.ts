@@ -7,7 +7,7 @@
 
 /**
  * Render the Cohort **Members** tab for real in Node and assert the emitted
- * HTML (issue #1151). The tab previously bound fields the schema does not have
+ * HTML. The tab previously bound fields the schema does not have
  * (`member.name` / `member.shortcode` / `moveRepName`), so it listed nothing at
  * all; these specs pin the row to what a member entry actually carries — its
  * `shortcodeOrUuid` handle and role — and pin the three controls the tab owns:

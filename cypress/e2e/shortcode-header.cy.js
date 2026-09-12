@@ -12,7 +12,7 @@
  */
 
 /**
- * Shortcode in the sheet header (#351):
+ * Shortcode in the sheet header:
  *
  * - **Item** sheets show an editable `system.shortcode` input directly under the
  *   Name field — no label, a localized placeholder (`SOHL.Common.shortcode`) —
@@ -20,7 +20,7 @@
  * - **Being** (actor) sheets, after the Manuscript redesign (#782/#798), show the
  *   shortcode as read-only header text (`span.sheet-header__shortcode`) edited
  *   together with the name through the `editIdentity` DialogV2 pencil — routing the
- *   change through the `(type, shortcode)` uniqueness guard (#766) rather than a raw
+ *   change through the `(type, shortcode)` uniqueness guard rather than a raw
  *   inline input.
  */
 describe("shortcode header input (#351)", () => {

@@ -130,7 +130,7 @@ export class AttackResult extends SuccessTestResult {
      * item itself. A caller resolves it against the actor (e.g. with
      * {@link sohl.document.item.logic.resolveAssocSkill}) to reach that skill's
      * `fateMasteryLevel` and `availableFate`, then runs its `fateTest` with this
-     * result as `context.scope.priorTestResult` (#854). `null` when the mode
+     * result as `context.scope.priorTestResult`. `null` when the mode
      * names no skill (an untrained/innate strike).
      */
     get fateSkillCode(): string | null {

@@ -74,7 +74,7 @@ function defineAfflictionSchema(): foundry.data.fields.DataSchema {
         }),
         // A SimpleRoll formula giving the number of **days** between contracting
         // the affliction and the start of onset. Rolled by the Contagion Test on
-        // the receiving actor (#1183). Unset (`null`) means no incubation.
+        // the receiving actor. Unset (`null`) means no incubation.
         onsetFormula: new StringField({
             nullable: true,
             blank: false,
@@ -91,7 +91,7 @@ function defineAfflictionSchema(): foundry.data.fields.DataSchema {
             initial: null,
         }),
         // The authored outcome applied at resolution if the affliction was not
-        // defeated (#490): DEATH or CURED (defaults to the benign CURED).
+        // defeated: DEATH or CURED (defaults to the benign CURED).
         outcome: new StringField({
             initial: AFFLICTION_OUTCOME.CURED,
             choices: AfflictionOutcomeChoices,

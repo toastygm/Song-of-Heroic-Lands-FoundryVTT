@@ -56,7 +56,7 @@ export interface StrikeModeCombatant {
  * Block and counterstrike are melee-defense tests — a missile mode carries no
  * block or counterstrike modifier — so an item with no melee mode (a bow, a
  * sling, a missile combat technique) can never run them, and those actions are
- * gated on this rather than offered as dead entries (#1137). The gate is "has at
+ * gated on this rather than offered as dead entries. The gate is "has at
  * least one melee mode", not "is melee-only": a mixed weapon (a spear that
  * thrusts *and* throws) keeps offering them, and the picker resolves the mode.
  *
@@ -173,7 +173,7 @@ export async function runStrikeModeTest(
     const modifier = selectStrikeModeModifier(strikeMode, testKind);
     if (!modifier) {
         // On screen, not console-only: the user invoked this and nothing else
-        // will happen, so they are owed the reason (#1137). The action itself is
+        // will happen, so they are owed the reason. The action itself is
         // normally hidden in this case (see {@link anyMeleeStrikeMode}), but a
         // macro, a chat-card button, or a mixed weapon whose picker landed on a
         // missile mode can still reach here.

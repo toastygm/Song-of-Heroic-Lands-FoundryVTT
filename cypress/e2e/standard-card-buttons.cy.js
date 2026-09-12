@@ -12,7 +12,7 @@
  */
 
 /**
- * Follow-up action buttons on the standard test result card (#853), end to end.
+ * Follow-up action buttons on the standard test result card, end to end.
  *
  * `SuccessTestResult.toChat` can now carry arbitrary follow-up consent buttons —
  * the same shape the action-card framework posts — folded through the shared

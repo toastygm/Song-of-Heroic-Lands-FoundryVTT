@@ -85,12 +85,12 @@ describe("MasteryLevelModifier", () => {
         });
         it.todo("initializes testDescTable and svTable from data or defaults");
         it.todo("constructs type from parent.data.kind and parent.name");
-        // The default title is covered for real below, in "default title (#1107)".
+        // The default title is covered for real below, in "default title".
     });
 
     // The default title is what a standard test-result card shows in its
     // header, so it must resolve to prose — not the bare namespace prefix the
-    // constructor used to format (#1107).
+    // constructor used to format.
     describe("default title (#1107)", () => {
         afterEach(() => vi.restoreAllMocks());
 

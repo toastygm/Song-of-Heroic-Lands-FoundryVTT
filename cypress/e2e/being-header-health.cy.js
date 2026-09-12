@@ -12,7 +12,7 @@
  */
 
 /**
- * Being sheet header — health bar (#463).
+ * Being sheet header — health bar.
  *
  * Health is a token-bar-shaped `{ value, max }` on `actor.system.health` (max a
  * fixed 100), derived every preparation and never persisted; the qualitative

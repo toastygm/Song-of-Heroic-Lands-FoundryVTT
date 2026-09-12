@@ -24,9 +24,9 @@ import { makeActorLogic } from "@tests/mocks/logicHarness";
 import { ACTOR_KIND, VALUE_DELTA_INFO } from "@src/utils/constants";
 
 /**
- * GM re-edit of a **settled opposed contest** (#1082) — the edit pencil in the
+ * GM re-edit of a **settled opposed contest** — the edit pencil in the
  * Opposed Action Result card's header. It is the two-sided counterpart to the
- * standard card's `resultEdit` (#856): each side's situational and
+ * standard card's `resultEdit`: each side's situational and
  * success-level modifiers are re-opened, the contest is re-evaluated on both
  * **frozen** rolls (never a re-roll), and the result card is reposted.
  *

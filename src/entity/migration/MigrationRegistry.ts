@@ -101,7 +101,7 @@ export interface MigrationStep {
 
 /**
  * Rewrite a document's `system` object with the retired `docUrl` key removed
- * (#1394).
+ *.
  *
  * `docUrl` persisted an absolute documentation URL into every compiled item and,
  * on import, into every world; nothing ever read it. Removing it from the schema
@@ -134,7 +134,7 @@ const stripDocUrl: DocMigrator = (source) => {
 
 /**
  * The four values the affiliation subtype vocabulary replaced, and what each
- * becomes (#1788).
+ * becomes.
  *
  * Three are renames: they named a tradition and the new vocabulary names the
  * same tradition more precisely. `social` is not — it was a bucket covering
@@ -149,7 +149,7 @@ const LEGACY_AFFILIATION_SUBTYPE: Readonly<Record<string, string>> = Object.free
 });
 
 /**
- * Move an affiliation off the four-value vocabulary onto the eleven (#1788).
+ * Move an affiliation off the four-value vocabulary onto the eleven.
  *
  * `arcane`, `divine` and `spirit` map onto the tradition each already named.
  * **`social` cannot be resolved from the stored value alone**: it covered guild,
@@ -178,7 +178,7 @@ const remapAffiliationSubType: DocMigrator = (source) => {
 };
 
 /**
- * Stamp the default subtype on an affiliation that predates the field (#1405).
+ * Stamp the default subtype on an affiliation that predates the field.
  *
  * `subType` is `required` with no `initial`, so an affiliation authored before it
  * existed carries no value at all — and an unrecognized value (hand-edited, or
@@ -210,7 +210,7 @@ const stampAffiliationSubType: DocMigrator = (source) => {
 };
 
 /**
- * Repair a `shortcode` that is not strictly alphanumeric (#1397).
+ * Repair a `shortcode` that is not strictly alphanumeric.
  *
  * `shortcode` is the system's identity key, and the create/update guard now
  * refuses any character outside `[A-Za-z0-9]` — so a world holding a legacy key
@@ -227,7 +227,7 @@ const stampAffiliationSubType: DocMigrator = (source) => {
  * is left alone — there is nothing to derive from, and a random id would sever
  * the identity rather than preserve it.
  *
- * **It also folds case (#1882).** The rule now requires lowercase, so this step
+ * **It also folds case.** The rule now requires lowercase, so this step
  * additionally rewrites every mixed-case key a pre-0.9 world holds — `Clb` →
  * `clb`. That is a canonical respelling rather than a change of identity: the
  * address and the document `_id` derived from a shortcode were already

@@ -12,7 +12,7 @@
  */
 
 /**
- * The Assisted Combat tour (#620): the second SohlTour after Character Creation.
+ * The Assisted Combat tour: the second SohlTour after Character Creation.
  * It is single-actor and "pretend" throughout — no token, no scene, no turn order
  * — matching how Assisted Combat actually works. This spec asserts the tour
  * registers and lists, that its gated steps hold **Next** until the user acts

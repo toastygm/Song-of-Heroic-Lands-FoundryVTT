@@ -68,7 +68,7 @@ export class BodyPartConfig extends (BodyPartConfig_Base as typeof foundry.appli
             // Annotated so declaration emit does not have to name the
             // private static `#onSubmit`, which it can only spell with a
             // synthetic `__#N@#onSubmit` that no downstream `.d.ts`
-            // consumer can parse (issue #1613).
+            // consumer can parse.
             handler: BodyPartConfig
                 .#onSubmit as foundry.applications.api.ApplicationV2.FormSubmission,
             closeOnSubmit: false,
@@ -140,7 +140,7 @@ export class BodyPartConfig extends (BodyPartConfig_Base as typeof foundry.appli
     protected override async _prepareContext(_options: any): Promise<any> {
         const part = this.#currentData() ?? blankBodyPart(this.#actor.name, this.#key);
         const roles = part.roles ?? [];
-        // Zone-reference dropdown (#982): the body's own zones, so a part picks
+        // Zone-reference dropdown: the body's own zones, so a part picks
         // its parent zone by display name. A dangling `bodyZoneCode` (a zone
         // that no longer exists) is surfaced as a flagged option, never blanked.
         const zones =
@@ -207,7 +207,7 @@ export class BodyPartConfig extends (BodyPartConfig_Base as typeof foundry.appli
             : rawRoles ? [rawRoles]
             : []).filter((r: unknown): r is string => isBodyRole(r));
 
-        // Re-parenting via the zone dropdown (#982): accept a submitted
+        // Re-parenting via the zone dropdown: accept a submitted
         // `bodyZoneCode` only when it names an existing zone; otherwise keep the
         // current one (preserving a dangling code rather than orphaning to a
         // typo). The dropdown only ever offers real zones plus the current value.

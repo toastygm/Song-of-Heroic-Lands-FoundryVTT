@@ -57,7 +57,7 @@ export function gateActionCardButtons(
 }
 
 /**
- * Render-time gating for the test-card **edit pencil** (#856).
+ * Render-time gating for the test-card **edit pencil**.
  *
  * The result-edit control (`a.edit-action`) re-evaluates a settled test with GM
  * fidelity — it is the GM's counterpart to Fate — so it is shown **only to a GM**

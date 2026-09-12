@@ -50,7 +50,7 @@ export interface TimedTestOptions {
      * the result, its description, and any card derive normally. Used where the
      * outcome is fixed by rule and there is nothing to test: an untreated wound
      * has no Healing Rate to roll against, so it resolves against
-     * {@link sohl.document.item.logic.UNTREATED | UNTREATED.roll} (#1148).
+     * {@link sohl.document.item.logic.UNTREATED | UNTREATED.roll}.
      */
     forcedDie?: number;
 }
@@ -85,7 +85,7 @@ export async function rollTimedTest(
 
     // A forced die is handed to the test as a pre-seeded d100; `successTest`
     // passes it to the result, whose `evaluate()` then resolves the supplied die
-    // untouched instead of drawing one (#1148).
+    // untouched instead of drawing one.
     const roll =
         options.forcedDie == null ?
             undefined

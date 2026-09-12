@@ -64,7 +64,7 @@ export class SohlCombatant<
     async onChatCardButton(btn: HTMLElement): Promise<void> {
         // Only an owner of this combatant (a GM owns all) may run a chat-card
         // action against it; the render-time gate is UX only and a direct or
-        // synthesized call bypasses it (issue #167).
+        // synthesized call bypasses it.
         if (!this.isOwner) return;
         await dispatchChatCardAction(this.logic, btn);
     }

@@ -224,7 +224,7 @@ describe("SohlLogic", () => {
 
         it("names the document type from the TYPES.* root Foundry reads", async () => {
             // `TYPE.<DOCUMENT>.<type>` was the pre-v10 spelling; those keys are
-            // gone (#1351), so building one yields a raw key in the dialog.
+            // gone, so building one yields a raw key in the dialog.
             const localize = vi.spyOn(sohl.i18n, "localize");
             await captureDeleteSpec();
             const asked = localize.mock.calls.map((c) => c[0]);

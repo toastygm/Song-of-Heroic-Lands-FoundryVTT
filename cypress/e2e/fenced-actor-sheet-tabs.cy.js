@@ -13,7 +13,7 @@
 
 /**
  * Vehicle / Structure / Cohort sheets: every declared tab must render its body,
- * not just Facade (issue #1088). The base actor sheet used to hard-code its
+ * not just Facade. The base actor sheet used to hard-code its
  * render list to header/tabs/facade, so the gear/actions/effects/members parts
  * these sheets declare never reached the DOM — the nav buttons switched, but the
  * panel below them was empty and there was no way to run an action from the

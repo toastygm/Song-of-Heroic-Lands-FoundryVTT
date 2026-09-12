@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill Development Roll chat card (#1103). The SDR used to render through
+ * Skill Development Roll chat card. The SDR used to render through
  * `standard-test-card.hbs` under keys that template does not read, so the two
  * numbers that make the card worth reading — the Target and the Roll — came out
  * blank, and the card carried a GM result-edit pencil with an empty scope even

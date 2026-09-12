@@ -15,7 +15,7 @@ import { describe, it, expect } from "vitest";
 import { renderTemplateReal } from "@tests/mocks/hbs-helpers";
 
 /**
- * The **archetype sheet control** (issues #1780, #1836) — the point of moving
+ * The **archetype sheet control** — the point of moving
  * the marker from `flags.sohl.docArchetype` into a schema field. Marking a
  * document as a Create-dialog archetype used to require exporting it,
  * hand-editing the JSON and re-importing, because Foundry ships no flag editor.

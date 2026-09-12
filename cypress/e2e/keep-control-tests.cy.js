@@ -22,7 +22,7 @@
  * so a created skill placed above/below the attribute's own mastery level pins
  * which ability wins — proving the better-of selection in both directions. The
  * attribute's ML is read off the actor rather than hard-coded, because it tracks
- * the compendium's attribute scores and content moves them (#1271). A forced
+ * the compendium's attribute scores and content moves them. A forced
  * d100 (`SimpleRoll.forceValues`) drives the pass/fail outcome deterministically;
  * the bespoke result label is read off the returned result. `skipDialog`
  * pre-answers the pre-roll dialog so the headless run never hangs.

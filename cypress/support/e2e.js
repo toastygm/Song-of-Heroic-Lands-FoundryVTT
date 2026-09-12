@@ -35,7 +35,7 @@ import "./commands/dialogs.js";
  *   shape controls, which reads a canvas group that is absent headless (#593
  *   region-trigger spec). Canvas rendering, not region-trigger logic.
  *
- * A restricted Region's shape-constraint pass (#1535) used to be a third entry
+ * A restricted Region's shape-constraint pass used to be a third entry
  * here — `Scene#updateRegionShapeConstraints` throws `reading 'id'` out of a
  * PIXI ticker callback headless. It is now neutralized at the source instead,
  * by `guardHeadlessRegionShapeConstraints` in `commands.js`: `reading 'id'` is

@@ -74,7 +74,7 @@ function defineAffiliationDataSchema(): foundry.data.fields.DataSchema {
             { initial: {} },
         ),
         // The bodies this one is subordinate to, by affiliation shortcode
-        // (#1781). A list because an organization may sit under more than one
+        //. A list because an organization may sit under more than one
         // at once — Eídma Pyréthos is an arcane tradition within the Ordo
         // Arcanis, and nothing says a body answers to a single parent.
         //

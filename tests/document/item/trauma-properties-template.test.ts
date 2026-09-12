@@ -26,7 +26,7 @@ const fieldStub = (name: string) => ({ fieldPath: `system.${name}` });
 function render(subType: string): string {
     return renderTemplateReal(TRAUMA_PROPS, {
         tab: { active: true, group: "sheet" },
-        // The per-sub-type field-visibility flags the sheet computes (#939).
+        // The per-sub-type field-visibility flags the sheet computes.
         ...traumaSheetFields(subType),
         categoryChoices: {},
         nextTestDisplay: "—",

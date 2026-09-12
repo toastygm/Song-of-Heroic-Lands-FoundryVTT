@@ -12,7 +12,7 @@
  */
 
 /**
- * Gear state controls (#294).
+ * Gear state controls.
  *
  * - **Gear tab** per-row toggles: **carried** (`isCarried`) and **worn**
  *   (`isWorn`, armor-only).

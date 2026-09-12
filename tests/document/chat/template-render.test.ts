@@ -31,7 +31,7 @@ describe("treatment cards (TraumaLogic.requestTreatment / performTreatmentTest)"
         expect(html).toContain("Treatment Requested");
         expect(html).toContain("Aldric");
         expect(html).toContain("gash on the thorax");
-        // Aspect renders the localized label, not the bare enum value (#951).
+        // Aspect renders the localized label, not the bare enum value.
         expect(html).toContain("Edged");
         expect(html).not.toContain(">edged<");
     });

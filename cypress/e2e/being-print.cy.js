@@ -12,7 +12,7 @@
  */
 
 /**
- * Being print / export (#795). The window-header print control renders a
+ * Being print / export. The window-header print control renders a
  * dedicated, static, all-sections character record from the same view-models
  * the interactive sheet uses, into a new browser window, and opens that
  * window's print dialog. Setup imports Basic Folk so every section has content.

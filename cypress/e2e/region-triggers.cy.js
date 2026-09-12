@@ -12,7 +12,7 @@
  */
 
 /**
- * Scene-region & environment event triggers (#593). Proven end to end in a real
+ * Scene-region & environment event triggers. Proven end to end in a real
  * Foundry:
  *
  * - A **"SoHL Event Trigger"** RegionBehavior (`trigger`) can be created on a

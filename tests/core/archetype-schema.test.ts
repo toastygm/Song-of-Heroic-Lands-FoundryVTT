@@ -16,11 +16,11 @@ import fs from "node:fs";
 import path from "node:path";
 
 /**
- * `system.templatePriority` (issues #1780, #1836) — the Create-dialog archetype
+ * `system.templatePriority` — the Create-dialog archetype
  * marker, moved off `flags.sohl.docArchetype` and into the schema so it can be
  * authored on a sheet instead of by export / hand-edit / re-import, then
  * renamed off `archetype` so that word is free for the character-sort taxonomy
- * (HeroicLands/package-build#266).
+ *.
  *
  * Two different claims are asserted here.
  *
@@ -37,7 +37,7 @@ import path from "node:path";
  *   `initial: null` triple is asserted against the source of
  *   `defineSohlDataSchema()`. It is read as text rather than imported for the
  *   same reason `temporal-fields.test.ts` reads the artifact: importing the
- *   DataModel classes pulls in a circular Foundry-coupled chain (#481, #588).
+ *   DataModel classes pulls in a circular Foundry-coupled chain.
  */
 const ROOT = path.join(import.meta.dirname, "../..");
 const artifact = JSON.parse(fs.readFileSync(path.join(ROOT, "schema.json"), "utf8"));

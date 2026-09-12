@@ -92,7 +92,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         // and `(type, shortcode)` is that identity — so a letter that has an
         // ASCII sense must be spelled, not deleted. Dropping the `û` turned
         // `Tabûri` into `Tabri`, which denotes a different entity and stops
-        // matching the compendium document it came from (#1748).
+        // matching the compendium document it came from.
         it("folds an accented letter rather than deleting it", () => {
             expect(sanitizeShortcode("Tabûri")).toBe("taburi");
             expect(sanitizeShortcode("Kûrbúl")).toBe("kurbul");
@@ -157,7 +157,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         // The repair has to reach a value the rule accepts, or the migration
         // writes back something the guard still refuses and never converges —
         // which is exactly what a case-preserving repair did once the rule
-        // required lowercase (#1882).
+        // required lowercase.
         it("the migration's repair converges: its output is always valid", () => {
             const step = SOHL_MIGRATIONS.find((s) =>
                 s.description.toLowerCase().includes("shortcode"),
@@ -208,7 +208,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         });
 
         it("a v0.8 host's legacy `_sohlworld` key migrates onto it", () => {
-            // The 0.9.0 repair (#1397) rewrites the key a v0.8 world's host
+            // The 0.9.0 repair rewrites the key a v0.8 world's host
             // carries; it must land on the code `worldHost()` now looks the
             // singleton up by, or the upgraded world grows a second host.
             const step = SOHL_MIGRATIONS.find((s) =>

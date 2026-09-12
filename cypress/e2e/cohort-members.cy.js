@@ -12,7 +12,7 @@
  */
 
 /**
- * The Cohort sheet's **Members** tab (#1151), in a live client.
+ * The Cohort sheet's **Members** tab, in a live client.
  *
  * The tab used to render its section and list nothing at all: the template bound
  * fields the schema never carried, and the sheet built no context for the part.

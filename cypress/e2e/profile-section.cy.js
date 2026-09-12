@@ -12,7 +12,7 @@
  */
 
 /**
- * Being Profile tab (#373): the biography editor must bind to a real datamodel
+ * Being Profile tab: the biography editor must bind to a real datamodel
  * field. It previously targeted `system.biography`, which is not in the actor
  * schema, so it always rendered empty and edits were silently dropped. It now
  * binds to `system.dossier` ("rich-text dossier / background notes").

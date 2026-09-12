@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill sheet Combat Category control (#709).
+ * Skill sheet Combat Category control.
  *
  * `system.combatCategory` is a real schema field, but the properties template
  * referenced a phantom `weaponGroup` field so no control ever rendered. The

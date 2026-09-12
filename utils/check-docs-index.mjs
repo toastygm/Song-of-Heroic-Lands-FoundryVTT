@@ -24,7 +24,7 @@
  * **The sections are read off disk, not listed here.** They used to be a literal
  * array, which meant a *new* section was invisible to this guard rather than
  * covered by it — every page in it could be orphaned silently, which is the one
- * failure this script exists to prevent (#1571). Discovering them makes adding a
+ * failure this script exists to prevent. Discovering them makes adding a
  * section safe by default: the guard picks it up the moment the directory exists.
  *
  * (The API site no longer carries the guide tree — `projectDocuments` was removed

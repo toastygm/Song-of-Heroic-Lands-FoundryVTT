@@ -546,7 +546,7 @@ describe("ValueModifier", () => {
         // A delta's `name` is a localization key by convention across the
         // system (`SOHL.MOD.*`, `SOHL.MysticalAbility.*`, …), so the breakdown
         // must localize it at render time — the same treatment `disabledReason`
-        // got in #948 (#1127).
+        // got in #948.
         it("localizes each delta name instead of emitting the raw key", () => {
             const vm = createVM();
             pushNamedDelta(vm, "SOHL.MysticalAbility.LevelPenalty", -6);
@@ -573,7 +573,7 @@ describe("ValueModifier", () => {
     });
 
     // Renamed from `shortcode` (which collides with the document identity key)
-    // to `deltaLabel` — the derivation summary: base contribution + deltas (#769).
+    // to `deltaLabel` — the derivation summary: base contribution + deltas.
     describe("deltaLabel", () => {
         it("leads with the base contribution when there are no deltas", () => {
             const vm = createVM({ baseValue: 30 });

@@ -12,7 +12,7 @@
  */
 
 /**
- * Assemble the deployable `/sohl/` site (#1470).
+ * Assemble the deployable `/sohl/` site.
  *
  * This repository publishes one standalone site covering everything under
  * `/sohl/`, and two different builds produce it:
@@ -28,7 +28,7 @@
  * hosting project be checked at its own address before any routing points at
  * it — every link the pages emit is `/sohl/…`, and it resolves against the
  * deployment exactly as it will against www — and it leaves the routing layer
- * (#1468) a pure path-preserving pass-through with nothing to rewrite.
+ * a pure path-preserving pass-through with nothing to rewrite.
  *
  * Usage: node utils/build-site.mjs [--api <dir>]
  */
@@ -58,7 +58,7 @@ export const API_SRC = "build/docs-html";
  * page itself. That last one matters most: Cloudflare Pages serves the nearest
  * `404.html` with a genuine 404 status and, with none, falls back to the site
  * root — a soft-404 that answers 200 with the landing page and reads as success
- * to every link checker (#1416).
+ * to every link checker.
  */
 export const REQUIRED = Object.freeze([
     `${PACKAGE_DIR}/index.html`,
@@ -82,7 +82,7 @@ export function missingRequired(root, exists = fs.existsSync) {
  * The deployment root's `_redirects`, sending its own root to the package.
  *
  * Only ever consulted at the hosting project's own address: once routing is in
- * place (#1468) `www.heroiclands.org/` is another project's deploy entirely and
+ * place `www.heroiclands.org/` is another project's deploy entirely and
  * never reaches this one. Without it that address answers with the host's bare
  * default page, which is a poor first impression of a deploy whose whole
  * purpose is to be checked there.
@@ -102,7 +102,7 @@ export const ORIGIN_SUFFIX = "pkg.heroiclands.org";
 
 /**
  * The deployment root's `_headers`, marking the hosting project's own
- * addresses `noindex` (#1469, #1765).
+ * addresses `noindex`.
  *
  * A Cloudflare Pages project answers at **three** families of address besides
  * its canonical path on `www.heroiclands.org`: `<project>.pages.dev`, one
@@ -222,10 +222,10 @@ function htmlUnder(dir, rel = "") {
  * actually publishes.
  *
  * Applied to the API documentation only, and only because its source is out of
- * reach: it is generated from the newest **release tag** (#1452), so a tag cut
+ * reach: it is generated from the newest **release tag**, so a tag cut
  * before a hostname was withdrawn rebuilds the dead links on every deploy no
  * matter what `main` says — which is how `/sohl/api/` came to offer two
- * hostnames that no longer resolve (#1487). Everything else under `/sohl/` is
+ * hostnames that no longer resolve. Everything else under `/sohl/` is
  * built from `main`, where the source can simply be corrected, so a hit there
  * is left for {@link retiredHrefsUnder} to fail the build over.
  *
@@ -353,7 +353,7 @@ function main(argv) {
 
     // …and refuse to publish whatever is left. A link to a withdrawn hostname
     // fails at DNS with no redirect to follow, so it is a hard dead end on the
-    // canonical surface, and nothing downstream would notice it (#1487).
+    // canonical surface, and nothing downstream would notice it.
     const dead = retiredHrefsUnder(root);
     if (dead.length) {
         console.error(`\nbuild-site: ${dead.length} link(s) address a retired hostname:\n`);

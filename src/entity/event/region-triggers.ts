@@ -12,7 +12,7 @@
  */
 
 /**
- * **Scene-region trigger vocabulary** (issue #593) — the curated set of Foundry
+ * **Scene-region trigger vocabulary** — the curated set of Foundry
  * v14 scene-region events SoHL bridges into its {@link SohlEventQueue | event
  * queue}, and the SoHL trigger names they arrive under.
  *
@@ -37,7 +37,7 @@
 
 // The vocabulary itself is plain ESM in the build package, so the map-note
 // pack compiler — which runs under bare `node` — validates against the very
-// list this bridge forwards (#1510). Reached through the package's own leaf
+// list this bridge forwards. Reached through the package's own leaf
 // entry point, never a path into it.
 import {
     CURATED_REGION_EVENTS as CURATED_EVENTS_DATA,

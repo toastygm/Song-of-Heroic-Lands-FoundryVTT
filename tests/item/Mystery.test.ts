@@ -226,7 +226,7 @@ describe("MysteryLogic", () => {
     // A Mystery can also name the faction/Affiliation whose standing it draws on
     // (a Piety or Grace pool conferred by a religion, an ancestor/totem/spirit),
     // stored independently of the associated skill as assocAffiliationCode and
-    // resolved to an AffiliationLogic on the same actor (#1076).
+    // resolved to an AffiliationLogic on the same actor.
     describe("affiliation", () => {
         it("resolves affiliation from the actor's affiliations by shortcode", () => {
             const actor = makeMysteryActor();

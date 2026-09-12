@@ -12,7 +12,7 @@
  */
 
 /**
- * The version-keyed migration runner (#957) runs on `ready` for the active GM
+ * The version-keyed migration runner runs on `ready` for the active GM
  * and stamps `systemMigrationVersion` forward to the running system version.
  * These specs prove the runtime surface: the boot stamp, and that rewinding the
  * stored version and reloading re-runs the real `ready` path and re-stamps
@@ -24,7 +24,7 @@
  * (what `cy.login()` waits on) can flip true *before* the migration's stamp
  * lands. Both specs therefore poll the setting with a retry-able
  * `cy.window().should(...)` rather than reading it once, letting the async
- * migration settle instead of racing it (#1032).
+ * migration settle instead of racing it.
  */
 describe("migration runner — systemMigrationVersion (#957)", () => {
     before(() => cy.login());
@@ -65,7 +65,7 @@ describe("migration runner — systemMigrationVersion (#957)", () => {
 });
 
 /**
- * The `0.9.0` step retires `system.docUrl` (#1394). Three things need a live
+ * The `0.9.0` step retires `system.docUrl`. Three things need a live
  * client: that the schema has really stopped accepting the field, that the
  * runner plans the registered step, and that the step's payload — a replacement
  * of the whole `system` object, which is what forces the stored record to be

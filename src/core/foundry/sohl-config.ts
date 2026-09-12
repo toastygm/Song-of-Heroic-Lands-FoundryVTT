@@ -682,7 +682,7 @@ export const SOHLCONFIG: SohlConfig = {
         ],
         // A Scene is not a typed document — `BaseScene` declares no
         // `hasTypeData`, so it has no `system` and Foundry ignores any
-        // `dataModels` registered for it (issue #1155). Scene-scoped SoHL state
+        // `dataModels` registered for it. Scene-scoped SoHL state
         // lives in flags instead, read through `SohlScene.logic`.
         dataModels: {},
         typeLabels: {

@@ -183,7 +183,7 @@ export class AffiliationSheet extends SohlItemSheetBase {
             office: system.office,
             title: system.title,
             level: system.level,
-            // Standing table (#1404): one row per recorded relation, named from
+            // Standing table: one row per recorded relation, named from
             // the actor's other affiliations where they resolve.
             relationRows: buildRelationRows(
                 system.relations,

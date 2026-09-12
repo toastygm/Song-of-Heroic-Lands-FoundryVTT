@@ -490,7 +490,7 @@ describe("createTraumaFromInjury (#286)", () => {
     });
 
     /**
-     * The drop is a **one-time write at the injury event** (#1269), not a
+     * The drop is a **one-time write at the injury event**, not a
      * lifecycle side effect — so re-preparation never re-drops, and an item the
      * player picks back up stays put.
      */

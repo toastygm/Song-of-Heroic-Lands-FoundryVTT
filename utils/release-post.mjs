@@ -16,7 +16,7 @@
  * repository does.
  *
  * Every HeroicLands Foundry package now releases through one shared workflow
- * (HeroicLands/.github#12), which knows how to version, build, package and cut
+ *, which knows how to version, build, package and cut
  * the Release — and deliberately knows nothing about what any one package does
  * afterwards. This script is that seam: the shared workflow runs
  * `npm run release:post` once the Release exists, with `GH_TOKEN` and
@@ -65,7 +65,7 @@ function versionOf(packageJsonPath) {
  * Dispatched from here rather than watched from outside: the release workflow
  * completes successfully on every push to `main` whether it released or not, so
  * a `workflow_run` trigger on that completion fired a second, redundant deploy
- * every time (#1484). `workflow_dispatch` is one of the two events a
+ * every time. `workflow_dispatch` is one of the two events a
  * `GITHUB_TOKEN` may still use to start a workflow run.
  */
 function republishSite() {

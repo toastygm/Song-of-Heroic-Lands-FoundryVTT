@@ -133,7 +133,7 @@ export class SohlItemBaseLogic<TData extends SohlItemData = SohlItemData> extend
     }
 
     /**
-     * **GM result-edit** for a posted test card (#856) — the higher-fidelity
+     * **GM result-edit** for a posted test card — the higher-fidelity
      * counterpart to Fate. Re-opens the standard test dialog pre-filled with the
      * result's current situational and success-level modifiers; on submit it
      * applies the new modifiers and **re-evaluates on the SAME frozen roll**
@@ -179,7 +179,7 @@ export class SohlItemBaseLogic<TData extends SohlItemData = SohlItemData> extend
         }
 
         // Re-open the pre-filled editor and fold the new modifiers in. The
-        // dialog/apply half is shared with the opposed-contest pencil (#1082),
+        // dialog/apply half is shared with the opposed-contest pencil,
         // which runs it once per side.
         const edit = await original.editModifiers({
             skipDialog: context.skipDialog,
@@ -196,7 +196,7 @@ export class SohlItemBaseLogic<TData extends SohlItemData = SohlItemData> extend
         // Re-evaluate on the SAME frozen roll (idempotent; never re-rolls) and
         // repost the card with the new outcome, under the visibility the editor
         // settled on — a GM correcting a result is exactly when they may want to
-        // take it private (#1099).
+        // take it private.
         await original.evaluate();
         await original.toChat({ rollMode: original.rollMode });
         return original;

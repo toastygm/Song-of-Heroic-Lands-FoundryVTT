@@ -12,7 +12,7 @@
  */
 
 /**
- * Shock-state model (#550) — a being's transient shock state.
+ * Shock-state model — a being's transient shock state.
  *
  * The shock state **is** a set of status effects (Active Effects on the actor):
  * one per state — **Stunned**, **Incapacitated**, **Unconscious**, **Dead** — and
@@ -200,7 +200,7 @@ export const SHOCK_RETEST_MODIFIER = -20;
 export const SHOCK_RETEST_UNCONSCIOUS_DELAY = 600;
 
 /**
- * The gate for an **Incapacitated** victim's Shock Re-Test (issue #569): a
+ * The gate for an **Incapacitated** victim's Shock Re-Test: a
  * {@link sohl.entity.expr.SafeExpression} predicate that scopes the `turnEnd`
  * schedule to the end of the victim's **own** combat turn — the queue offers the
  * `[Perform]` card only when the combatant whose turn just ended is this being's,

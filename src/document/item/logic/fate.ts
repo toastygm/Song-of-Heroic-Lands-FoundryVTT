@@ -14,7 +14,7 @@
 import { CRITICAL_FAILURE, CRITICAL_SUCCESS, MARGINAL_SUCCESS } from "@src/utils/constants";
 
 /**
- * Foundry-free helpers backing the **Fate** mechanic (issue #854).
+ * Foundry-free helpers backing the **Fate** mechanic.
  *
  * A player may spend a Fate Point *after* a test is rolled to raise that test's
  * success level — the die is never re-rolled. These pure functions encode the

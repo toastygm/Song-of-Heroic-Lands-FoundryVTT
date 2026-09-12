@@ -20,7 +20,7 @@ import * as FoundryHelpersMock from "@src/core/FoundryHelpers";
 import * as ActionCard from "@src/document/chat/action-card";
 
 /**
- * A `system.scheduledActions` seed — the generic store (issue #588) that replaces
+ * A `system.scheduledActions` seed — the generic store that replaces
  * the retired bespoke `last*Date` anchors. The executor reads its catch-up anchor
  * and interval from this entry.
  */
@@ -30,7 +30,7 @@ function sched(actionName: string, anchor: number, interval: number) {
     };
 }
 
-/** Action contexts pre-answering the schedule offer (issue #579). */
+/** Action contexts pre-answering the schedule offer. */
 const RESCHEDULE_YES = { skipDialog: true, scope: { schedule: true } } as any;
 const RESCHEDULE_NO = { skipDialog: true, scope: { schedule: false } } as any;
 
@@ -61,7 +61,7 @@ describe("time-based healing / blood-loss on the generic store (#482, #579, #588
             .mockResolvedValue({ normSuccessLevel: level } as any);
     }
 
-    /** A treated injury — the only shape the healing cycle runs on (#1181). */
+    /** A treated injury — the only shape the healing cycle runs on. */
     function injury(overrides: Record<string, unknown> = {}) {
         return trauma({
             subType: "injury",
@@ -333,7 +333,7 @@ describe("TraumaLogic", () => {
         });
 
         // treatmentTest behavior is covered by the "Injury Treatment Test
-        // effect (#553)" suite below.
+        // effect" suite below.
 
         it("healingTest — warns and resolves null (not yet implemented)", async () => {
             const logic = makeTrauma();
@@ -444,7 +444,7 @@ describe("TraumaLogic", () => {
 
         it("UNTREATED supplies the untreated-wound baseline", () => {
             expect(UNTREATED).toEqual({
-                // No rate determined (#1148) — not the real rate 0.
+                // No rate determined — not the real rate 0.
                 hr: null,
                 // The 00 face: always a Critical Failure, whatever the target.
                 roll: 100,
@@ -842,7 +842,7 @@ describe("Injury Healing Test effect (#486)", () => {
         (logic.item.update as any).mockClear();
         const result = await logic.healingTest({} as any);
         // No roll, no progress, and no write — but the recurrence survives, so
-        // healing resumes once the infection is beaten (#1181).
+        // healing resumes once the infection is beaten.
         expect(spy).not.toHaveBeenCalled();
         expect(result).toEqual({ level: 5 });
         expect(logic.item.update).not.toHaveBeenCalled();
@@ -1520,7 +1520,7 @@ describe("Injury Treatment Test effect (#553)", () => {
         mockRoll(MARGINAL_FAILURE); // grievous MF, SUR → bleeder
         const { logic } = injury({ levelBase: 4, aspect: "edged" });
         // The physician is present; a pre-answered scheduling context accepts the
-        // offer (the interactive path would prompt) — nothing auto-arms (#579).
+        // offer (the interactive path would prompt) — nothing auto-arms.
         await logic.treatmentTest({
             skipDialog: true,
             scope: { schedule: true },

@@ -65,7 +65,7 @@ import {
 import { SohlTokenDocumentLogic } from "@src/document/token/logic/SohlTokenDocumentLogic";
 
 /*
- * ── Construction indirection: base class (#83) ───────────────────────────────
+ * ── Construction indirection: base class ───────────────────────────────
  * Registered entity classes are constructed through the registry so a variant
  * module can override them. Inside SoHL that means `import { entity }` then
  * `new entity.X(...)`; outside SoHL it is `new sohl.entity.X(...)`.
@@ -156,7 +156,7 @@ export class SuccessTestResult extends TestResult {
     protected _rollSupplied: boolean;
     /**
      * Whether this test **auto-Critically-Fails** because it requires a body part
-     * the actor cannot use (#568). When `true`, {@link evaluate} still casts the
+     * the actor cannot use. When `true`, {@link evaluate} still casts the
      * die (for display) but short-circuits the outcome to a Critical Failure, and
      * {@link isCritical} reports `true` regardless of the modifier's crit digits.
      */
@@ -165,7 +165,7 @@ export class SuccessTestResult extends TestResult {
     protected _mishaps: Set<string>;
     protected _canFate: boolean;
     /**
-     * Whether this is a **Success Value test** (#848) — a success test whose
+     * Whether this is a **Success Value test** — a success test whose
      * roll is graded into a Success Value (Index + Modifier) and Value Diamonds
      * via the `resultDescTable`. Drives the card's Success Value / Value Diamonds
      * display. Serialized so a reconstructed result keeps the distinction.
@@ -372,7 +372,7 @@ export class SuccessTestResult extends TestResult {
 
     /**
      * Raise this result's stored success level by `delta` — the **post-roll Fate
-     * bump** (#854). This mutates the already-settled outcome: it does **not**
+     * bump**. This mutates the already-settled outcome: it does **not**
      * re-roll and does **not** re-evaluate. Because the outcome text/stars are
      * derived on read (see {@link resultText} / {@link valueDiamonds}), re-posting
      * the card after a bump re-resolves the description table against the new
@@ -412,7 +412,7 @@ export class SuccessTestResult extends TestResult {
     /**
      * Number of **Value Diamonds** (quality grade), **derived on read** from the
      * description table. Never
-     * stored (issue #205) — recomputed from the table plus the evaluated
+     * stored — recomputed from the table plus the evaluated
      * success level / target value / roll last-digit.
      */
     get valueDiamonds(): number {
@@ -601,7 +601,7 @@ export class SuccessTestResult extends TestResult {
     /**
      * Whether this result is a critical (success or failure). Always `false` when
      * {@link critAllowed} is `false` — except a forced auto-Critical-Failure
-     * (#568), which is always critical.
+     *, which is always critical.
      */
     get isCritical() {
         return (
@@ -620,14 +620,14 @@ export class SuccessTestResult extends TestResult {
      * Whether a Fate Point may be spent on this test — true only when the owning
      * item has an eligible, charged Fate Mystery (`availableFate`) and the test
      * permits it. Fate is a **post-roll success-level bump**, never a re-roll: a
-     * spend raises this result's stored {@link successLevel} (#854).
+     * spend raises this result's stored {@link successLevel}.
      */
     get canFate() {
         return this._canFate;
     }
 
     /**
-     * Whether this is a Success Value test (#848) — its roll is graded into a
+     * Whether this is a Success Value test — its roll is graded into a
      * Success Value and Value Diamonds rather than a plain pass/fail. Drives the
      * card's Success Value / Value Diamonds rows.
      */
@@ -744,7 +744,7 @@ export class SuccessTestResult extends TestResult {
         // bypasses it (headless / scripted) — straight from the caller.
         let newSit: number;
         let newSLM: number;
-        // The dialog also carries the roll visibility (#1099). A value it does
+        // The dialog also carries the roll visibility. A value it does
         // not offer is ignored rather than thrown on: this is an edit of a
         // settled result, and an unrecognized mode must not cancel it.
         let newRollMode: string =
@@ -832,7 +832,7 @@ export class SuccessTestResult extends TestResult {
             this._roll.roll();
         }
 
-        // A test that requires an unusable body part auto-Critically-Fails (#568):
+        // A test that requires an unusable body part auto-Critically-Fails:
         // the die is cast for display, but the outcome is forced to a Critical
         // Failure regardless of the roll.
         if (this._autoCriticalFail) {
@@ -901,14 +901,14 @@ export class SuccessTestResult extends TestResult {
      * @remarks
      * The derived display outcome (`resultText`, `resultDesc`, `valueDiamonds`)
      * is not carried by {@link toJSON} — it is folded into the card data here,
-     * rendered once by the sender with a live `targetValueFunc` (issue #205).
+     * rendered once by the sender with a live `targetValueFunc`.
      *
      * An optional `buttons` entry in `data` (one {@link ActionCardButton} or an
      * array) is folded through {@link toRenderableButtons} — the same normalizer
      * the action-card framework uses — so the standard card can carry arbitrary
      * follow-up consent buttons (a graded test = `resultDescTable` mapping +
      * `buttons` follow-ups), dispatched through the shared chat-card chokepoint
-     * exactly like an action card. Nothing auto-fires (#853).
+     * exactly like an action card. Nothing auto-fires.
      * @param data - Extra template data merged into the card. A `buttons` key
      *   ({@link ActionCardButton} or `ActionCardButton[]`) becomes follow-up
      *   action buttons on the card.
@@ -938,7 +938,7 @@ export class SuccessTestResult extends TestResult {
             // Spread from the count resolved just above, not re-derived, so the
             // icons and the count can never disagree.
             vdMarks: toValueDiamondMarks(result),
-            // Success Value test (#848): the card shows the Success Value (the
+            // Success Value test: the card shows the Success Value (the
             // graded target value = Index + Modifier) and the Value Diamonds
             // (`valueDiamonds` above). `svSuccess` styles the graded outcome the
             // way `isSuccess` styles a plain one.
@@ -970,7 +970,7 @@ export class SuccessTestResult extends TestResult {
             // Default to the standard card, but let a caller render a different
             // one (e.g. OpposedTestResult delegates its shaped data here to render
             // the opposed request/result cards). Placed after `...rest` so the
-            // caller's `template` is honored, not clobbered (#845).
+            // caller's `template` is honored, not clobbered.
             template:
                 (rest.template as string | undefined) ??
                 "systems/sohl/templates/chat/standard-test-card.hbs",
@@ -1027,7 +1027,7 @@ export namespace SuccessTestResult {
         /**
          * The new roll visibility (`skipDialog` only); defaults to the mode
          * already on the result. A value that is not a
-         * {@link sohl.utils.SohlSpeakerRollMode} is ignored (#1099).
+         * {@link sohl.utils.SohlSpeakerRollMode} is ignored.
          */
         rollMode?: string;
         /**
@@ -1101,9 +1101,9 @@ export namespace SuccessTestResult {
         masteryLevelModifier: MasteryLevelModifier;
         /**
          * The description table used to derive result text and stars. Rides the
-         * wire as data (#206); the display outcome ({@link SuccessTestResult.resultText | text},
+         * wire as data; the display outcome ({@link SuccessTestResult.resultText | text},
          * {@link SuccessTestResult.valueDiamonds | stars}) is computed from it on
-         * read, never stored (#205).
+         * read, never stored.
          */
         resultDescTable: LimitedDescription[];
         /** Foundry roll mode for chat output. */
@@ -1113,7 +1113,7 @@ export namespace SuccessTestResult {
         /** A pre-seeded d100 roll (omit to roll fresh in {@link SuccessTestResult.evaluate}). */
         roll: SimpleRoll;
         /**
-         * Force an auto-Critical-Failure (#568) — the test requires a body part
+         * Force an auto-Critical-Failure — the test requires a body part
          * the actor cannot use. Defaults `false`.
          */
         autoCriticalFail?: boolean;
@@ -1124,7 +1124,7 @@ export namespace SuccessTestResult {
         /** Whether fate may be spent on this test. */
         canFate: boolean;
         /**
-         * Whether this is a Success Value test (#848) — graded into a Success
+         * Whether this is a Success Value test — graded into a Success
          * Value and Value Diamonds via {@link resultDescTable}. Defaults `false`.
          */
         isSuccessValue?: boolean;
@@ -1155,7 +1155,7 @@ export namespace SuccessTestResult {
         /** A situational modifier to apply to the mastery level. */
         situationalModifier: number;
         /**
-         * A pre-seeded die to resolve instead of casting one (#1148). Unlike
+         * A pre-seeded die to resolve instead of casting one. Unlike
          * {@link priorTestResult}, which reuses a whole evaluated result, this
          * supplies only the die: the test is built and evaluated normally, but
          * `evaluate()` resolves the supplied roll untouched. Used where the
@@ -1169,7 +1169,7 @@ export namespace SuccessTestResult {
          * owning item does not. Seeds the result's
          * {@link SuccessTestResult.token}, which chat cards read the
          * combatant's name from. Set by the responding side of an opposed test
-         * (#1164); omitted by an ordinary item-menu test.
+         *; omitted by an ordinary item-menu test.
          */
         tokenUuid?: string;
         /** Maps a success level to the test's target value. */
@@ -1179,11 +1179,11 @@ export namespace SuccessTestResult {
         /**
          * Whether the resulting card may offer a Fate spend (gated further by the
          * item's `availableFate`). Defaults `true`; the Fate test itself passes
-         * `false` so a Fate roll cannot in turn be fated (#854).
+         * `false` so a Fate roll cannot in turn be fated.
          */
         canFate?: boolean;
         /**
-         * Mark the test as a **Success Value test** (#848), so its card shows the
+         * Mark the test as a **Success Value test**, so its card shows the
          * Success Value and Value Diamonds. Set by
          * {@link sohl.entity.modifier.MasteryLevelModifier.successValueTest}
          * alongside the svTable and grading `targetValueFunc`.

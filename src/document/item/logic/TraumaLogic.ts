@@ -97,7 +97,7 @@ import {
 import { SohlItemBaseLogic, type SohlItemData } from "@src/document/item/logic/SohlItemBaseLogic";
 import { rollTimedTest } from "@src/document/item/logic/timed-test";
 
-/** Seconds in a day — for converting healing world-time spans to days (#554). */
+/** Seconds in a day — for converting healing world-time spans to days. */
 const SECONDS_PER_DAY = 86400;
 
 // Category → localization-key maps, derived once from the enums so
@@ -188,7 +188,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * {@link sohl.entity.modifier.ValueModifier} — `Healing Rate × Healing Base`.
      * Active Effects keyed `TRAUMA_EFFECT_KEY.HEALING` (`mod:logic.healing`)
      * modify it, so what a wound is tested against is now open to influence
-     * rather than an expression buried at the roll (#1181).
+     * rather than an expression buried at the roll.
      */
     healing!: ValueModifier;
     /**
@@ -283,7 +283,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * is the dire rate that leaves the wound making no progress, never a cure.
      * A wound whose rate is still undetermined (`healingRateBase` `null`) opens
      * the dialog **blank** rather than pre-filled with `0`, and a blank
-     * submission records nothing (issue #1087).
+     * submission records nothing.
      *
      * @param context - The action context; `scope.healingRate` supplies the rate
      *   when present (card path), else the dialog gathers it.
@@ -306,7 +306,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
                 template: toFilePath("systems/sohl/templates/dialog/treat-injury-dialog.hbs"),
                 // `null` (rate not yet determined) renders as an empty field —
                 // pre-filling 0 would invite a blind confirm to record the
-                // worst available rate (issue #1087).
+                // worst available rate.
                 data: { healingRate: this.data.healingRateBase },
                 callback: (data: PlainObject) => data,
                 rejectClose: false,
@@ -338,7 +338,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Roll the **Physician Treatment Test** (#553), establishing this injury's
+     * Roll the **Physician Treatment Test**, establishing this injury's
      * Healing Rate and its special effects.
      *
      * Intrinsic-action executor for the `treatmenttest` action. The wound's
@@ -413,7 +413,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     ): Promise<void> {
         const now = fvttWorldTime();
         // Derive every special effect once, from the same `treatmentOutcome` the
-        // Treatment Result card displays, so persisted state and card agree (#846).
+        // Treatment Result card displays, so persisted state and card agree.
         const outcome = treatmentOutcome(
             this.data.aspect ?? IMPACT_ASPECT.BLUNT,
             band,
@@ -432,7 +432,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         update["system.healingRateBase"] = outcome.healingRate;
 
         // A poorly-treated wound (a failed Treatment Test) is exposed to infection
-        // (#557); a marginal/critical success clears the risk.
+        //; a marginal/critical success clears the risk.
         update["system.infectable"] = outcome.infectable;
 
         // Special injury effects. A surgical mishap (EXT/SUR on a failure) or a
@@ -485,7 +485,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Intrinsic-action executor for the recurring `psycheRecovery` — the `*Check` half
-     * of this condition's cycle (#1181).
+     * of this condition's cycle.
      *
      * A `*Check` **offers, and does nothing else**: it posts a card whose button
      * invites the owner to perform one {@link psycheRecoveryTest}. No roll is made and
@@ -503,7 +503,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Intrinsic-action executor for the **Psyche Stress Recovery Test** (#560) —
+     * Intrinsic-action executor for the **Psyche Stress Recovery Test** —
      * the `*Test` half of a psychological condition's recovery.
      *
      * Rolls **one** headless Will test (fatigue does not apply). `MS`/`CS` recover
@@ -564,7 +564,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Intrinsic-action executor for the recurring `auralShockRecovery` — the `*Check` half
-     * of this condition's cycle (#1181).
+     * of this condition's cycle.
      *
      * A `*Check` **offers, and does nothing else**: it posts a card whose button
      * invites the owner to perform one {@link auralShockRecoveryTest}. No roll is made and
@@ -583,7 +583,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Intrinsic-action executor for the **Aural Shock Recovery Test** — the `*Test` half of
-     * this condition's recovery cycle (#1181).
+     * this condition's recovery cycle.
      *
      * Rolls **one** headless Will test and applies its outcome; exactly one runs
      * per invocation, however much world time has elapsed. The condition ends
@@ -640,7 +640,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Intrinsic-action executor for the recurring `pallRecovery` — the `*Check` half
-     * of this condition's cycle (#1181).
+     * of this condition's cycle.
      *
      * A `*Check` **offers, and does nothing else**: it posts a card whose button
      * invites the owner to perform one {@link pallRecoveryTest}. No roll is made and
@@ -659,7 +659,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Intrinsic-action executor for the **Pall Recovery Test** — the `*Test` half of
-     * this condition's recovery cycle (#1181).
+     * this condition's recovery cycle.
      *
      * Rolls **one** headless Will test and applies its outcome; exactly one runs
      * per invocation, however much world time has elapsed. The condition ends
@@ -929,7 +929,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Whether the trauma has received medical treatment. Derived (#1148): true
+     * Whether the trauma has received medical treatment. Derived: true
      * when a {@link TraumaData.healingRateBase | Healing Rate} has been
      * determined **and** a {@link TraumaData.treatmentDate | treatmentDate} is
      * set.
@@ -944,7 +944,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Whether the wound is actively bleeding. Derived (#482): true when the
+     * Whether the wound is actively bleeding. Derived: true when the
      * blood-loss advance timer is armed — i.e. `bloodLossAdvanceDurationBase`
      * is set. A non-bleeding wound leaves that field `null`.
      */
@@ -964,7 +964,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         // `level` is a ValueModifier seeded in initialize(); guard against it
         // being unset (a not-yet-initialized trauma, e.g. freshly dropped and
         // read by the sheet before its lifecycle runs) so this getter can never
-        // throw and brick the whole sheet render (#511).
+        // throw and brick the whole sheet render.
         const lvl = Math.max(0, Math.round(this.level?.effective ?? 0));
         return String(lvl);
     }
@@ -1038,7 +1038,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         super.initialize();
         this.level = new entity.ValueModifier(this).setBase(this.data.levelBase ?? 0);
         // An undetermined Healing Rate disables the modifier rather than reading
-        // as a rate of 0 (#1148) — the same treatment AfflictionLogic gives it,
+        // as a rate of 0 — the same treatment AfflictionLogic gives it,
         // and what the Being ledger renders as ✗ instead of a number.
         this.healingRate = new entity.ValueModifier({}, { parent: this });
         if (this.data.healingRateBase == null) {
@@ -1064,7 +1064,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Pin the body part this trauma names, when it is the **Immobilized**
-     * condition (#1269).
+     * condition.
      *
      * Runs in {@link initialize}, which the actor's own `initialize()` — where
      * the body is built — precedes. The flag lives only on the rebuilt
@@ -1172,7 +1172,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Intrinsic-action executor for the recurring `healingCheck` — the `*Check`
-     * half of a wound's recovery cycle (#1181).
+     * half of a wound's recovery cycle.
      *
      * A `*Check` **offers, and does nothing else**: it posts a card whose button
      * invites the wound's controller to perform one {@link healingTest}. No roll
@@ -1214,7 +1214,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      *
      * This, not the moment the player pressed the button, is what the next
      * occurrence anchors on, so a check answered late does not push the cadence
-     * later (#1181).
+     * later.
      *
      * @param actionName - The scheduled action to read.
      * @returns The due time in world-time seconds.
@@ -1239,7 +1239,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Post a `*Check` card — the offer half of a recurring cycle (#1181).
+     * Post a `*Check` card — the offer half of a recurring cycle.
      *
      * The card names the effect that has come due and carries a single button
      * running `testAction`, with this occurrence's due time in its scope so the
@@ -1277,7 +1277,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      *
      * This, not the moment the player pressed the button, is what the next
      * occurrence anchors on, so a check answered late does not push the cadence
-     * later (#1181).
+     * later.
      *
      * @returns The due time in world-time seconds.
      */
@@ -1287,7 +1287,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Intrinsic-action executor for the **Injury Healing Test** (#486) — the
+     * Intrinsic-action executor for the **Injury Healing Test** — the
      * `*Test` half of the wound's recovery cycle, and the action that actually
      * mends a wound.
      *
@@ -1298,13 +1298,13 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * infectable wound contracts an **infection**, which then halts all healing.
      *
      * An **untreated** wound has no Healing Rate to test against, so its test
-     * resolves against a forced die rather than a cast one (#1148) — a Critical
+     * resolves against a forced die rather than a cast one — a Critical
      * Failure every time, which by the same rule leaves it exposed to infection
      * ({@link UNTREATED}, #1146).
      *
      * Exactly one test runs per invocation: there is no catch-up over missed
      * intervals. A wound that reaches Level 0 ends the recurrence and may leave a
-     * **permanent impairment** scaled by how long it took to heal (#554);
+     * **permanent impairment** scaled by how long it took to heal;
      * otherwise the next test is **offered**, anchored on this occurrence's due
      * time rather than on now.
      *
@@ -1353,7 +1353,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         else if (
             sl <= CRITICAL_FAILURE &&
             // A wound is exposed to infection when a Treatment Test left it so
-            // (#557) — or when it is untreated, since the rule that resolves an
+            // — or when it is untreated, since the rule that resolves an
             // untreated wound as a critically-failed treatment is the same rule
             // that marks such a wound infectable (the UNTREATED baseline, #1146).
             (this.data.infectable || (untreated && UNTREATED.infect))
@@ -1370,7 +1370,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         } as PlainObject);
 
         // An eligible injury that just healed to level 0 leaves a permanent
-        // impairment scaled by how long it took to heal (#554).
+        // impairment scaled by how long it took to heal.
         if (
             this.data.permanentImpairmentEligible &&
             (this.data.levelBase ?? 0) > 0 &&
@@ -1391,7 +1391,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
         // A healed wound (level 0) ends its recurrence; otherwise offer the next
         // test, anchored on THIS occurrence's due time so a late answer does not
-        // push the cadence later (#1181).
+        // push the cadence later.
         if (level <= 0) await sohl.unschedule(this.item, "healingCheck");
         else
             await offerSchedule(
@@ -1407,13 +1407,13 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Contract an **infection** (#557) from this wound: create a separate
+     * Contract an **infection** from this wound: create a separate
      * `infection`-subtype trauma starting at a Healing Rate one step above this
      * injury's (Injury Level "X", aspect "Inf"). While any infection is active it
      * halts all Injury Healing Tests (see {@link healingHalted}).
      *
      * @param context - The healing-check context, forwarded to the new
-     *   infection's course-check schedule offer (issue #579).
+     *   infection's course-check schedule offer.
      * @returns A promise that resolves once the infection trauma is created.
      */
     private async contractInfection(context: SohlActionContext): Promise<void> {
@@ -1433,7 +1433,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
             },
         ]);
         // Offer the new infection's recovery Course Test rather than auto-arming
-        // it (issue #579); forwards the healing-check context's skipDialog.
+        // it; forwards the healing-check context's skipDialog.
         const infection = created?.[0];
         if (!infection) return;
         const interval = Number(infection.system?.courseDurationBase) || 0;
@@ -1448,7 +1448,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     get healingHalted(): boolean {
         const traumas = (this.actorLogic?.logicTypes?.[ITEM_KIND.TRAUMA] ?? []) as TraumaLogic[];
         // An infection has Injury Level "X" (0), so its *activity* is measured by
-        // its Healing Rate: it is unhealed while HR is below 6 (#557).
+        // its Healing Rate: it is unhealed while HR is below 6.
         return traumas.some(
             (t) =>
                 t.data.subType === TRAUMA_SUBTYPE.INFECTION && (t.healingRate?.effective ?? 0) < 6,
@@ -1464,14 +1464,14 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * An **untreated** wound has no Healing Rate to test against, so no die is
      * cast: the test is handed {@link UNTREATED.roll} — the `00` face, which
      * exceeds every target and ends in a critical-failure digit — and therefore
-     * resolves as a Critical Failure every time (#1148). The test still runs in
+     * resolves as a Critical Failure every time. The test still runs in
      * full, so the result and its description derive normally.
      *
      * @returns The normalized success level, or `null`.
      */
     private async rollHealingTest(): Promise<number | null> {
         // The target is the `healing` modifier, not a product recomputed here —
-        // that is what makes it reachable by an Active Effect (#1181).
+        // that is what makes it reachable by an Active Effect.
         const eml = this.healing?.effective ?? 0;
         const result = await rollTimedTest(this, eml, {
             noChat: true,
@@ -1487,7 +1487,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Intrinsic-action executor for the recurring `bloodLossAdvanceCheck` — the
-     * `*Check` half of a bleeding wound's cycle (#1181).
+     * `*Check` half of a bleeding wound's cycle.
      *
      * Offers one {@link bloodLossAdvanceTest} and does nothing else: no blood is
      * lost, no shock advances, nothing is written.
@@ -1500,7 +1500,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Intrinsic-action executor for the **Blood Loss Advance Test** (#487) — the
+     * Intrinsic-action executor for the **Blood Loss Advance Test** — the
      * `*Test` half of a bleeding wound's cycle.
      *
      * Applies **one** advance: Blood Loss Points accrue, the shock state advances
@@ -1510,7 +1510,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * silent cascade of them.
      *
      * A physician's Marginal-Success Blood Stoppage stops the bleeding **after
-     * the next** advance (#547), so a pending stoppage is spent here. A wound that
+     * the next** advance, so a pending stoppage is spent here. A wound that
      * has stopped bleeding ends the recurrence; otherwise the next test is
      * offered, anchored on this occurrence's due time.
      *
@@ -1529,7 +1529,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         }
         await this.applyBloodLossAdvance();
 
-        // A pending Marginal-Success stoppage is spent by this advance (#547).
+        // A pending Marginal-Success stoppage is spent by this advance.
         const stopNow = !!(await this.item.getFlag("sohl", "bloodStoppagePending"));
 
         const nextInterval = this.rollDuration(this.data.bloodLossAdvanceDurationFormula);
@@ -1541,7 +1541,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         await this.item.update(update);
 
         // A wound that has stopped bleeding ends its recurrence; otherwise offer
-        // the next advance, anchored on THIS occurrence's due time (#1181).
+        // the next advance, anchored on THIS occurrence's due time.
         if (stopNow || !this.isBleeding) {
             await sohl.unschedule(this.item, "bloodLossAdvanceCheck");
         } else {
@@ -1558,7 +1558,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Request a **Blood Stoppage Test** for this bleeding injury (#547) — the
+     * Request a **Blood Stoppage Test** for this bleeding injury — the
      * bleeder's owner posts an **open** action card that any Physician-skilled
      * character's controller may answer. Mirrors
      * {@link requestTreatment}; a no-op (warns) if the injury is not bleeding.
@@ -1593,7 +1593,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Record a physician's **Blood Stoppage Test** result on this bleeding injury
-     * (#547) — run from the result card's owner-gated Accept button. The
+     * — run from the result card's owner-gated Accept button. The
      * {@link sohl.entity.body.BloodStoppageOutcome} decides the effect: **stop
      * immediately** (clear the bleeder), **stop after the next advance** (a flag
      * the next {@link bloodLossAdvanceCheck} honors), **continue +10 next** (a
@@ -1636,7 +1636,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
     }
 
     /**
-     * Resolve one Blood Loss Advance Test (#487): the auto-resolve fallback
+     * Resolve one Blood Loss Advance Test: the auto-resolve fallback
      * (bleeding continues), a headless roll against the victim's Strength Mastery
      * Level, and its consequences — shock-state advance and anemia fatigue.
      *
@@ -1681,7 +1681,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Intrinsic-action executor for the recurring `courseCheck` — the `*Check` half
-     * of this condition's cycle (#1181).
+     * of this condition's cycle.
      *
      * A `*Check` **offers, and does nothing else**: it posts a card whose button
      * invites the owner to perform one {@link courseTest}. No roll is made and
@@ -1709,7 +1709,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * test anchored on this occurrence's due time.
      *
      * A still-active infection saps the body by its Healing-Rate band each test
-     * (#557).
+     *.
      *
      * Exactly one test runs per invocation — a condition that can kill never
      * resolves several rolls from a single click.
@@ -1736,7 +1736,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         const nextInterval = this.rollDuration(this.data.courseDurationFormula);
         this.courseDurationBase.setBase(nextInterval);
 
-        // A still-active infection saps the body by its Healing-Rate band (#557).
+        // A still-active infection saps the body by its Healing-Rate band.
         if (isInfection && hr < 6) await this.inflictInfectionWeakness(hr);
 
         if (hr <= 0) {
@@ -1764,7 +1764,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
         }
 
         // Course still running (HR 1–5): offer the next test, anchored on THIS
-        // occurrence's due time (#1181).
+        // occurrence's due time.
         await this.item.update({
             "system.healingRateBase": hr,
             "system.courseDurationBase": nextInterval,
@@ -1782,7 +1782,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
     /**
      * Inflict an infection's **weakness fatigue** by its current Healing Rate
-     * band (#557): Healing Rate 1–2 → 10 Fatigue Levels, 3–4 → 5, 5+ → none.
+     * band: Healing Rate 1–2 → 10 Fatigue Levels, 3–4 → 5, 5+ → none.
      *
      * @param hr - The infection's current Healing Rate.
      * @returns A promise that resolves once any fatigue is inflicted.
@@ -1935,16 +1935,16 @@ export interface TraumaData<
     courseDurationBase: number | null;
     /**
      * Whether this injury is eligible for **permanent impairment** should it
-     * heal slowly. Set by the Treatment Test (#553) from the wound's aspect,
+     * heal slowly. Set by the Treatment Test from the wound's aspect,
      * severity, and resulting Healing Rate; the impairment magnitude itself is
-     * applied by the Impairment system (#554). Always `false` for non-injury
+     * applied by the Impairment system. Always `false` for non-injury
      * traumas.
      */
     permanentImpairmentEligible: boolean;
     /**
      * Whether this injury is exposed to **infection** — set by the Treatment Test
-     * for a poorly-treated wound (#553). A Critical-Failure Injury Healing Test on
-     * an infectable wound contracts an infection (#557).
+     * for a poorly-treated wound. A Critical-Failure Injury Healing Test on
+     * an infectable wound contracts an infection.
      */
     infectable: boolean;
     /**
@@ -1987,14 +1987,14 @@ export type Shock = (typeof SHOCK)[keyof typeof SHOCK];
  */
 export const UNTREATED = {
     /**
-     * Healing rate for an untreated wound: **none** (#1148). `null` — not the
+     * Healing rate for an untreated wound: **none**. `null` — not the
      * catastrophic real rate `0` — is how "no rate determined" is spelled, and
      * it is what makes a wound read as untreated.
      */
     hr: null,
     /**
      * The die value an untreated wound's tests resolve against, in place of a
-     * cast one (#1148): the **`00` face** of a d100. It exceeds every ordinary
+     * cast one: the **`00` face** of a d100. It exceeds every ordinary
      * target, so the test always fails, and its last digit `0` is a
      * critical-failure digit — a Critical Failure whatever the target. A low
      * value such as `5` would not do: it *succeeds* against any target of 5 or

@@ -647,7 +647,7 @@ describe("SkillLogic", () => {
     describe("improveWithSDR visibility predicate", () => {
         // The action's `visible` predicate is evaluated against the logic layer
         // (`itemLogic`), not the raw document, since #459. It must read live
-        // logic state; the pre-#459 `item.system.*` document paths (#458) are
+        // logic state; the pre-#459 `item.system.*` document paths are
         // always falsy — the Improve entry would never appear.
         function visibleSource(): string {
             const action = makeSkill().actions.get("improveWithSDR");
@@ -818,7 +818,7 @@ describe("SkillLogic", () => {
 
         /*
          * A missile technique carries no block or counterstrike modifier, so
-         * those actions must not be offered on it (#1137).
+         * those actions must not be offered on it.
          */
         describe("melee-defense gating (#1137)", () => {
             it("reports hasMeleeStrikeMode for a melee technique", () => {

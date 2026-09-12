@@ -41,7 +41,7 @@ describe("afflictions", () => {
         });
     });
 
-    // GREEN (#65): the Course / Treatment / Healing action-visibility predicates
+    // GREEN: the Course / Treatment / Healing action-visibility predicates
     // are restored against the live actor. Course and Healing require the bearer
     // to have a usable Endurance attribute (as the pre-port gate did); Course is
     // additionally gated on the affliction being active, Treatment on it being
@@ -79,7 +79,7 @@ describe("afflictions", () => {
                         levelBase: 2,
                         healingRateBase: null,
                         isDormant: true,
-                        // `isTreated` is derived from `treatmentDate` (#484), so a
+                        // `isTreated` is derived from `treatmentDate`, so a
                         // treated affliction is modelled by setting the date, not
                         // the (now read-only) flag — otherwise canTreat stays true.
                         treatmentDate: 1,

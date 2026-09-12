@@ -53,7 +53,7 @@ const log = {
     setLogThreshold(_level: number): void {},
 };
 
-// The shared `sohl.random` singleton (issue #599). A fixed string seed makes
+// The shared `sohl.random` singleton. A fixed string seed makes
 // the fallback stream deterministic across the whole suite; tests that need
 // isolation inject their own `createRng(name)` instance, and tests that need an
 // exact value use `SimpleRoll.forceValues(...)`. Seeded (not entropy) so a
@@ -61,9 +61,9 @@ const log = {
 const random = new Sfc32Rng("sohl-vitest-singleton");
 
 // Minimal SohlSystem mock. `schedule`/`unschedule` are the generic scheduled-
-// action API (issue #588); default no-ops here so timed-effect executors run in
+// action API; default no-ops here so timed-effect executors run in
 // Node — tests spy on them (e.g. `vi.spyOn(globalThis.sohl, "schedule")`) to
-// assert the offer-to-reschedule behavior (issue #579).
+// assert the offer-to-reschedule behavior.
 const sohlMock = {
     id: "sohl",
     i18n,

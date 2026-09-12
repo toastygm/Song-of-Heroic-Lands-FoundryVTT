@@ -12,7 +12,7 @@
  */
 
 /**
- * Timed-effect consent (#579): when a scheduled effect comes due, the event
+ * Timed-effect consent: when a scheduled effect comes due, the event
  * queue posts a [Perform] reminder card — it does NOT perform the effect. Proven
  * end to end: a treated wound with a scheduled healing check, world time advanced
  * well past the check → a reminder card appears with a [Perform] button addressed

@@ -12,7 +12,7 @@
  */
 
 /**
- * The flagship Character Creation tour (#614): the SohlTour registers and is
+ * The flagship Character Creation tour: the SohlTour registers and is
  * listed in Tour Management, is recommended by the general welcome card (a
  * non-blocking, once-per-user whisper), and its gated steps hold **Next**
  * disabled until the user has done the

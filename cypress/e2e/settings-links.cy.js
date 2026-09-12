@@ -13,7 +13,7 @@
 
 /**
  * The branded "Game System" section injected into the Game Settings sidebar
- * tab by the `renderSettings` hook (issue #915). Unit tests cover the pure
+ * tab by the `renderSettings` hook. Unit tests cover the pure
  * builder + template HTML; this proves the hook injects the branded section
  * into the live tab, sources its links from `system.json` `flags.sohl`, removes
  * Foundry's native system row, and survives re-render without duplicating.
@@ -41,7 +41,7 @@ function readGameSystemSection(win) {
             rel: a.getAttribute("rel"),
         })),
         // The Credits entry is a button, not an anchor — it opens a sheet in
-        // the client rather than a browser tab (#1517).
+        // the client rather than a browser tab.
         credits: (() => {
             const b = section.querySelector('button[data-action="sohlOpenCredits"]');
             if (!b) return null;
@@ -93,8 +93,8 @@ describe("settings sidebar — branded Game System section", () => {
                 flags.discordInviteUrl,
             ]);
             // One unversioned tree of API documentation is published, for
-            // the newest release (#1452), and it is served as part of /sohl/
-            // (#1470) — so the manifest carries a plain address with no
+            // the newest release, and it is served as part of /sohl/
+            // — so the manifest carries a plain address with no
             // version, no /latest, and nothing composed onto it.
             expect(flags.apiDocsUrl).to.eq("https://www.heroiclands.org/sohl/api/");
             expect(flags.knowledgeBaseUrl).to.eq("https://www.heroiclands.org/sohl/kb/");

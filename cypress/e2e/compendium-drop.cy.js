@@ -12,7 +12,7 @@
  */
 
 /**
- * Drag-and-drop an Item onto a Being (#341). A compendium or world item dropped
+ * Drag-and-drop an Item onto a Being. A compendium or world item dropped
  * on the actor sheet is created as an embedded clone.
  */
 describe("drop item onto actor", () => {
@@ -60,7 +60,7 @@ describe("drop item onto actor", () => {
     it("clones a compendium item onto the actor", () => {
         // Bare being (empty) so the dropped compendium item is always a fresh
         // `(type, shortcode)` key: Basic Folk already owns most authored items,
-        // and a same-key general drop is now rejected by the key invariant (#347).
+        // and a same-key general drop is now rejected by the key invariant.
         cy.createActor("being", { name: "Recipient" }).then((actor) => {
             cy.prepare(actor);
             cy.openSheet(actor);

@@ -137,13 +137,13 @@ export async function improveWithSDR(
     // The SDR renders its own card rather than `standard-test-card.hbs`: it is
     // not a success test, so it has no mastery-level modifier, no Fate button,
     // no success level, and nothing for the GM result-edit pencil to
-    // re-evaluate. Its keys are the ones `sdr-card.hbs` reads (#1103).
+    // re-evaluate. Its keys are the ones `sdr-card.hbs` reads.
     const chatTemplate: FilePath = toFilePath("systems/sohl/templates/chat/sdr-card.hbs");
     // No `type` key: `SohlSpeaker._prepareChat` spreads this object straight
     // into the ChatMessage payload, so a `type` here becomes the message's
     // *document subtype*. The SDR's old `"<kind>-<name>-improve-sdr"` label is
     // not a registered subtype, so Foundry rejected the create and the card
-    // never posted at all (#1103). No template reads it.
+    // never posted at all. No template reads it.
     const chatTemplateData = {
         actorUuid: logic.actorLogic?.uuid,
         title: sohl.i18n.format("SOHL.MasteryLevel.improveSDR.title", {
@@ -247,7 +247,7 @@ export function defineImproveSdrActions(titlePrefix: string): Partial<SohlAction
             executor: "improveWithSDR",
             // Offered for an item that *is* flagged for improvement — the SDR
             // is the roll a flagged item is waiting for, and it spends the flag
-            // as part of its outcome (#1102).
+            // as part of its outcome.
             visible: "itemLogic.canImprove && itemLogic.data.improveFlag",
             group: SOHL_CONTEXT_MENU_SORT_GROUP.GENERAL,
         },

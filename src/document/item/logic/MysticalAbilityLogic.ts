@@ -188,7 +188,7 @@ export class MysticalAbilityLogic<
     };
 
     /**
-     * Whether the ability uses finite, capped charges and none remain (#990).
+     * Whether the ability uses finite, capped charges and none remain.
      * An exhausted ability's Being-sheet row is greyed out and its EML roll is
      * blocked until it is recharged. This is distinct from an ability that does
      * not use charges (`max` disabled), one with infinite remaining charges
@@ -214,7 +214,7 @@ export class MysticalAbilityLogic<
      * This is what makes improvement meaningful: only a self-governed ability
      * has a mastery level of its own to raise. An ability drawing on a Skill (or
      * a Spirit Power) improves when *that* item improves — so it shows no ☆ star
-     * and offers no improve actions (#1130).
+     * and offers no improve actions.
      */
     get usesOwnMasteryLevel(): boolean {
         return !this.data.assocSkillCode;
@@ -328,7 +328,7 @@ export class MysticalAbilityLogic<
      *
      * When the ability uses finite charges, invoking it consumes one: after a
      * completed roll (a real result, not a cancel or error) the persisted charge
-     * count is decremented by one (#990). A {@link isDisabled | disabled}
+     * count is decremented by one. A {@link isDisabled | disabled}
      * ability — one that is exhausted, or a spirit-power subtype without a valid
      * Spirit Power — cannot be invoked at all: the roll is refused with a notice.
      * Consumption is a direct consequence of the player's own roll, so it needs
@@ -385,7 +385,7 @@ export class MysticalAbilityLogic<
                 group: SOHL_CONTEXT_MENU_SORT_GROUP.ESSENTIAL,
             },
             // The improvement-flag / SDR quartet, shared verbatim with the
-            // Skill (#1130) — an ability with no associated skill has a mastery
+            // Skill — an ability with no associated skill has a mastery
             // level of its own, so it develops exactly the way a skill does.
             // `canImprove` keeps them off an ability that borrows its mastery
             // level from a skill or spirit power.

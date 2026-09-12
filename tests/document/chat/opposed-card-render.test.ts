@@ -29,7 +29,7 @@ const RESULT = "systems/sohl/templates/chat/opposed-result-card.hbs";
  * The rendered tie label. Asserted in full rather than as a bare `"Tie"`: the
  * card's GM edit pencil embeds the serialized contest in `data-scope`, and its
  * `breakTies` key contains that substring — so the short form would match the
- * markup of *any* opposed card (#1082).
+ * markup of *any* opposed card.
  */
 const TIE_LABEL = "Tie — No Winner!";
 const TEST_DIALOG = "systems/sohl/templates/dialog/standard-test-dialog.hbs";
@@ -181,7 +181,7 @@ describe("OpposedTestResult.toChat builds shaped opposed-card data (#845)", () =
         // `SohlSpeaker._prepareChat` spreads this data into the ChatMessage
         // payload, so a `rolls` array of SoHL `SimpleRoll`s (not Foundry `Roll`s)
         // makes Foundry silently drop the message — and the card never posts.
-        // Guards the fix that made the opposed cards post at all (#1081).
+        // Guards the fix that made the opposed cards post at all.
         expect(msg.rolls).toBeUndefined();
     });
 });

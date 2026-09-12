@@ -12,7 +12,7 @@
  */
 
 /**
- * Automated-combat turn gate (#384).
+ * Automated-combat turn gate.
  *
  * Only the current combatant may **start** an automated attack:
  * `SohlCombatantLogic.startAutomatedAttack` aborts up front via the pure
@@ -37,7 +37,7 @@
  * (#638/#644). Pinning the turn removes that order dependence.
  *
  * The in-turn *pass* is still not e2e-reachable — the attack-start flow past the
- * gate is stubbed (#177). See the skipped RED case at the end.
+ * gate is stubbed. See the skipped RED case at the end.
  */
 
 import { toRealm } from "../support/resolve";
@@ -78,7 +78,7 @@ describe("automated combat turn gate (#384)", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
-    // The known logger recursion (#267) turns a stray `uiWarn` into a stack
+    // The known logger recursion turns a stray `uiWarn` into a stack
     // overflow; don't let an unrelated background warning fail the assertions.
     Cypress.on("uncaught:exception", () => false);
 

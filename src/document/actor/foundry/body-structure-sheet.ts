@@ -188,7 +188,7 @@ export async function addBodyPart(actor: SohlActor, zoneShortcode: string): Prom
  * Prompt for a new hit location (Name / Shortcode), append it to the given
  * body part, and open the editor on it. Dismissing the dialog adds nothing; a
  * blank name, or a blank / duplicate shortcode, is refused with a warning.
- * Location shortcodes are unique body-wide, not merely within the part (#780).
+ * Location shortcodes are unique body-wide, not merely within the part.
  * @param actor - The owning being.
  * @param partShortcode - The shortcode of the part to add a location to.
  */
@@ -298,7 +298,7 @@ export async function deleteBodyLocation(
  * offering **Edit** and **Delete** on each body-part header and each
  * body-location row. Edit opens the relevant config editor (#721 / #722);
  * Delete removes the entry after confirmation, with the part-delete guard
- * (#720). The add / drag-sort affordances are wired on the sheet.
+ *. The add / drag-sort affordances are wired on the sheet.
  *
  * Part headers carry `data-part-shortcode`; location rows carry
  * `data-part-shortcode` **and** `data-location-shortcode`, so a single handler

@@ -47,7 +47,7 @@ export interface HandlebarsLike {
 export const SHORTCODE_REF_PARTIAL_NAME = "shortcodeRefField";
 
 /**
- * The reusable shortcode-reference field widget (#974), registered as the named
+ * The reusable shortcode-reference field widget, registered as the named
  * partial `shortcodeRefField`. It renders a reference to another document by its
  * shortcode either as a **dropdown** (when the referencing item is embedded on an
  * actor, so a candidate list exists) or as the current **free-text input** (for a
@@ -85,7 +85,7 @@ export const SHARED_COHORTS_PARTIAL_NAME = "sharedWithCohortsField";
 /**
  * The reusable **cohort-sharing** control, registered as the named partial
  * `sharedWithCohortsField` and rendered on every gear item's Properties tab
- * (issue #76). It is the one place a gear item is marked as shared with a
+ *. It is the one place a gear item is marked as shared with a
  * Cohort — a multi-select of the world's cohorts, storing each choice as that
  * cohort's `system.shortcode` in `system.sharedWithCohortIds`. The cohort's
  * **Shared Gear** tab is the read-only other end of the same link.
@@ -113,11 +113,11 @@ export const SHARED_COHORTS_PARTIAL = `{{#if cohortChoices.length}}
 export const ARCHETYPE_FIELD_PARTIAL_NAME = "archetypeField";
 
 /**
- * The reusable **archetype-marker** control (issue #1780), registered as the
+ * The reusable **archetype-marker** control, registered as the
  * named partial `archetypeField` and rendered in the identity block of every
  * Actor and Item sheet header. It is the one place a document is marked as a
  * Create-dialog **archetype** — a populated starting template the Create dialog
- * offers to clone from (issue #604).
+ * offers to clone from.
  *
  * The marker lives in the schema (`system.templatePriority`, renamed off
  * `system.archetype` by #1836), so it binds to an ordinary number input: **a
@@ -168,7 +168,7 @@ export const EXPRESSION_FIELD_PARTIAL_NAME = "expressionField";
  * {@link sohl.core.foundry.SafeExpressionField} carries its
  * {@link sohl.entity.expr.ExpressionScope} id, which this partial forwards as
  * `data-expr-scope` for the editor to resolve. Nothing about the binding
- * contract is typed into a template (issue #1142).
+ * contract is typed into a template.
  */
 export const EXPRESSION_FIELD_PARTIAL = `<div class="expression-field">
     {{formGroup field rootId=rootId classes="text-field" stacked=true value=value}}
@@ -294,7 +294,7 @@ export function registerPureHandlebarsHelpers(H: HandlebarsLike): void {
         return args.slice(0, args.length - 1);
     });
 
-    // The shared shortcode-reference field widget (#974). Registered here — the
+    // The shared shortcode-reference field widget. Registered here — the
     // one seam both production init and the Node render harness call — so the
     // two register it identically and template rendering never drifts.
     H.registerPartial(SHORTCODE_REF_PARTIAL_NAME, SHORTCODE_REF_PARTIAL);

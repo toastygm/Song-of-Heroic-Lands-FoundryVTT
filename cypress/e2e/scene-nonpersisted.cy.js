@@ -9,7 +9,7 @@
  */
 
 /**
- * A deleted Scene is inert on the region-constraint path (issue #1550).
+ * A deleted Scene is inert on the region-constraint path.
  *
  * Foundry 14.367 made `updateRegionShapeConstraints` throw
  * "A nonpersisted Document cannot be updated." unless `this.persisted`, but the

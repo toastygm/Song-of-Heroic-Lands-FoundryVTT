@@ -259,7 +259,7 @@ export function buildInjuryCardData(
         shockIndex: injury.shockIndex,
         needsShockRoll: injury.needsShockRoll,
         shockRollBonus: shockBonus,
-        // Scope payload for the card's Shock Roll button (#555): the wound's
+        // Scope payload for the card's Shock Roll button: the wound's
         // precomputed shock contribution + glancing-blow roll bonus (and any
         // amputation shock penalty), which the being's `injuryShock` handler
         // resolves into a shock-state change.
@@ -402,7 +402,7 @@ export async function createTraumaFromInjury(
     const trauma = created?.[0];
     if (!trauma) return;
     // A **grievous** wound puts the limb out of action, and it drops what it was
-    // holding (#1269). This is the one-time injury *event*, so the write happens
+    // holding. This is the one-time injury *event*, so the write happens
     // here and exactly once — never as a lifecycle side effect that would fight a
     // player who picks the item back up. Losing the *ability* to hold needs no
     // write: it derives from the part's `isUnusable`.
@@ -412,7 +412,7 @@ export async function createTraumaFromInjury(
     const healInterval = Number(trauma.system?.healingCheckDurationBase) || 0;
     await offerSchedule(context, trauma, "healingCheck", healInterval);
     // A wound that bleeds on infliction (a non-null blood-loss base) also offers
-    // its blood-loss advance (issue #579) rather than auto-arming it.
+    // its blood-loss advance rather than auto-arming it.
     if (trauma.system?.bloodLossAdvanceDurationBase != null) {
         const bloodInterval = Number(trauma.system.bloodLossAdvanceDurationBase) || 0;
         await offerSchedule(context, trauma, "bloodLossAdvanceCheck", bloodInterval);

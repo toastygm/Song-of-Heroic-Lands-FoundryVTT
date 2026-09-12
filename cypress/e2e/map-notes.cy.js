@@ -12,7 +12,7 @@
  */
 
 /**
- * Map notes compiled to Scenes (#1525), against the shipped packs.
+ * Map notes compiled to Scenes, against the shipped packs.
  *
  * The unit suite proves the markdown → document translation; this proves the
  * result is a real Foundry Scene in a real client: the synthesised Level
@@ -215,7 +215,7 @@ describe("Map notes → Scenes (#1525)", () => {
      * is the same handle `scene-nonpersisted.cy.js` uses to pin the sibling
      * defect's precondition, and it keeps the assertion off a real
      * `canvas.draw(null)` teardown/redraw — headless canvas churn being the very
-     * thing this suite keeps getting bitten by (#611, #1550).
+     * thing this suite keeps getting bitten by.
      */
     async function withNoSceneViewed(win, fn) {
         const prior = Object.getOwnPropertyDescriptor(win.canvas, "scene");

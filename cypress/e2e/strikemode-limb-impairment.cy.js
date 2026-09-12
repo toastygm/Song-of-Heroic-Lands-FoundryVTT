@@ -12,14 +12,14 @@
  */
 
 /**
- * Strike-mode required-limb impairment (#628).
+ * Strike-mode required-limb impairment.
  *
  * A weapon strike mode depends on the *specific* body part(s) holding the weapon,
  * not on a role — so the impairment of that held limb gates the roll. This spec
  * drives the full runtime chain the unit tests cannot: `heldBy` → the being's
  * `bodyPartImpairments` → `GearLogic.heldLimbImpairments` → the `successTest`
  * auto-Critical-Failure / mastery-level penalty seam. It is the per-part
- * counterpart to the role-based skill/attribute gating (#568), which
+ * counterpart to the role-based skill/attribute gating, which
  * `combattechnique-skill.cy.js` and `injury.cy.js` already exercise.
  *
  * Basic Folk has a body with Right/Left Arm parts (`canHoldItem`), so holding the

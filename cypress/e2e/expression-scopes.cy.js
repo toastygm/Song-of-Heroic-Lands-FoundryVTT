@@ -12,7 +12,7 @@
  */
 
 /**
- * Expression scopes (#1142) — every SafeExpression call site declares the
+ * Expression scopes — every SafeExpression call site declares the
  * identifiers legal there, and that one declaration drives validation, the
  * editor, and the docs.
  *

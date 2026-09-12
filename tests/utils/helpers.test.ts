@@ -942,7 +942,7 @@ describe("resolveShortcodeKey (shortcodeDedupe matrix)", () => {
 
         // Foundry's `randomID` is mixed-case base62, so the generated key has
         // to be folded like any other — otherwise the create that needed a
-        // fallback would write a key its own update guard then refuses (#1882).
+        // fallback would write a key its own update guard then refuses.
         it("folds a mixed-case generated id to satisfy the rule", () => {
             const result = resolveShortcodeKey("", "—", new Set(), {
                 dedupe: true,

@@ -104,7 +104,7 @@ describe("combat.hbs strike-mode value tooltips (#769)", () => {
     it("positions the melee value tooltips above the row (direction UP)", () => {
         const html = renderTemplateReal(COMBAT, { meleeStrikeModes });
         // Every value cell that carries a tooltip also declares UP so the
-        // tooltip renders above the row rather than overlapping it (#769).
+        // tooltip renders above the row rather than overlapping it.
         const cells = html.match(/<div\b[^>]*\bdata-tooltip=[^>]*>/g) ?? [];
         const valueCells = cells.filter((c) => c.includes("rollStrikeMode"));
         expect(valueCells.length).toBeGreaterThan(0);

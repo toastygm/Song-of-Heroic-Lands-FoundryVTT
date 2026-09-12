@@ -47,7 +47,7 @@ describe("BodyPart", () => {
             // item it is `undefined`, not `null`.
             expect(part.heldItem).toBeUndefined();
             // The entity's probWeight is a ValueModifier derived from the
-            // persisted scalar, so effects can adjust a part's odds (#739).
+            // persisted scalar, so effects can adjust a part's odds.
             expect(part.probWeight.effective).toBe(20);
             expect(part.index).toBe(0);
         });
@@ -139,7 +139,7 @@ describe("BodyPart", () => {
     });
 
     /**
-     * Immobilization vs. usability vs. the ability to hold (#1269). The three
+     * Immobilization vs. usability vs. the ability to hold. The three
      * are one switch and two derivations:
      *
      * ```

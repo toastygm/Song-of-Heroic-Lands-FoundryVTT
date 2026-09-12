@@ -217,7 +217,7 @@ export class CohortLogic<TData extends CohortData = CohortData> extends SohlActo
     }
 
     /**
-     * The gear this cohort's members have shared with it (issue #76).
+     * The gear this cohort's members have shared with it.
      *
      * A cohort carries nothing of its own: this walks each resolvable member and
      * collects the gear whose sharing list names this cohort, pairing every item

@@ -12,7 +12,7 @@
  */
 
 /**
- * Item Actions tab (#501): the item sheet now offers the same custom-action
+ * Item Actions tab: the item sheet now offers the same custom-action
  * authoring the being sheet has — create (bind a Macro), run, edit (open the
  * Macro sheet), and delete — split into a Custom section and a run-only
  * Intrinsic section. Both sheets share the `core/foundry/sheet-actions` helper,

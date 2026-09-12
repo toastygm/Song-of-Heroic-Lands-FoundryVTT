@@ -106,7 +106,7 @@ describe("automated combat", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
-    // The known logger recursion (#267) turns any stray `uiWarn` into a stack
+    // The known logger recursion turns any stray `uiWarn` into a stack
     // overflow; don't let an unrelated background warning fail these gating
     // assertions.
     Cypress.on("uncaught:exception", () => false);

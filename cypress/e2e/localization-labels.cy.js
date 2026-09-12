@@ -12,7 +12,7 @@
  */
 
 /**
- * Localization rendering (issues #1353, #1352). Surfaces the unit suite cannot
+ * Localization rendering. Surfaces the unit suite cannot
  * prove, because Foundry assembles them itself:
  *
  *   1. The delete-confirmation dialog. It names the document's type from the

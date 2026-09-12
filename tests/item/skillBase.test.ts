@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill-Base pipeline contract (#972) — `SkillLogic.initialize()` computing
+ * Skill-Base pipeline contract — `SkillLogic.initialize()` computing
  * `skillBase` / `skillBaseValid` / `skillBaseError` by evaluating the
  * `skillBaseFormula` as a value-returning `SafeExpression` against a Foundry-free
  * context of attribute **values** (`attr.<shortcode>`).

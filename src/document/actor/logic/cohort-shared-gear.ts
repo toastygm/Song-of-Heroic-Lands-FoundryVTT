@@ -12,7 +12,7 @@
  */
 
 /**
- * The pure aggregation behind a Cohort's **Shared Gear** tab (issue #76).
+ * The pure aggregation behind a Cohort's **Shared Gear** tab.
  *
  * A cohort owns nothing. What it displays is the gear its *members* carry and
  * have marked as shared with it — the item stays on the carrying actor (its

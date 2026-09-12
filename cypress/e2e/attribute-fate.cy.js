@@ -12,7 +12,7 @@
  */
 
 /**
- * Fate on **attribute** tests (#1106).
+ * Fate on **attribute** tests.
  *
  * The rules allow a Fate Point on _any_ skill or attribute test, but
  * `availableFate` existed only on skills, so an attribute's test card never

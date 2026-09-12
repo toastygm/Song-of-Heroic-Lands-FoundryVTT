@@ -12,7 +12,7 @@
  */
 
 /**
- * Per-creature injury scaling via the body's `bodyScale` factor (#468).
+ * Per-creature injury scaling via the body's `bodyScale` factor.
  *
  * The `bodyScaleBase` datamodel field (on the actor's inline body,
  * `system.body`) flows through `BodyLogic` into a scaled `injuryTable`, exposed

@@ -76,7 +76,7 @@ export class BodyLocationConfig extends (BodyLocationConfig_Base as typeof found
             // Annotated so declaration emit does not have to name the
             // private static `#onSubmit`, which it can only spell with a
             // synthetic `__#N@#onSubmit` that no downstream `.d.ts`
-            // consumer can parse (issue #1613).
+            // consumer can parse.
             handler: BodyLocationConfig
                 .#onSubmit as foundry.applications.api.ApplicationV2.FormSubmission,
             closeOnSubmit: false,
@@ -159,14 +159,14 @@ export class BodyLocationConfig extends (BodyLocationConfig_Base as typeof found
 
     /**
      * Build the render context from the persisted location: its fields, the
-     * owning-part dropdown options (#982), and the tier-select options with the
+     * owning-part dropdown options, and the tier-select options with the
      * location's current values pre-selected.
      * @param _options - The render options (unused).
      * @returns The template context describing the current location.
      */
     protected override async _prepareContext(_options: any): Promise<any> {
         const loc = this.#currentData() ?? blankBodyLocation("", this.#key);
-        // Part-reference dropdown (#982): the body's own parts, so a location
+        // Part-reference dropdown: the body's own parts, so a location
         // picks its parent part by display name. A dangling `bodyPartCode` (a
         // part that no longer exists) is surfaced as a flagged option, never
         // blanked — the same treatment `orphanedLocations` gets in storage.
@@ -198,7 +198,7 @@ export class BodyLocationConfig extends (BodyLocationConfig_Base as typeof found
      * the stored location and write the structure's whole flat `locations`
      * array back. A changed shortcode is validated for uniqueness among the
      * being's *other* locations — location codes are unique body-wide, not just
-     * within their part (#780); a rejected shortcode keeps the current one
+     * within their part; a rejected shortcode keeps the current one
      * (warning the user). A changed `bodyPartCode` (the part dropdown, #982)
      * re-parents the location to another part, accepted only when it names an
      * existing part.
@@ -234,7 +234,7 @@ export class BodyLocationConfig extends (BodyLocationConfig_Base as typeof found
         );
         if (plan.error) sohl.log.uiWarn(plan.error);
 
-        // Re-parenting via the part dropdown (#982): accept a submitted
+        // Re-parenting via the part dropdown: accept a submitted
         // `bodyPartCode` only when it names an existing part; otherwise keep the
         // current one (preserving a dangling code rather than orphaning to a
         // typo). The dropdown only ever offers real parts plus the current value.
@@ -272,7 +272,7 @@ export class BodyLocationConfig extends (BodyLocationConfig_Base as typeof found
         );
         this.#key = plan.shortcode;
         // Track the (possibly new) owning part so the still-open form re-renders
-        // against the location's new parent (#982).
+        // against the location's new parent.
         this.#partKey = bodyPartCode;
     }
 }

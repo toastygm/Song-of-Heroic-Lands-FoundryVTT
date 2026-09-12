@@ -12,7 +12,7 @@
  */
 
 /**
- * The general **Shock Test** action (#850), end to end in a real Foundry. Shock
+ * The general **Shock Test** action, end to end in a real Foundry. Shock
  * is a general primitive: a caller supplies a base Shock State Index (SSI) and
  * the action rolls the Shock skill, maps the result to a shock state, and OFFERS
  * to set it (worsen-only). Applying it toggles the real Stunned / Incapacitated /

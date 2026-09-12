@@ -12,7 +12,7 @@
  */
 
 /**
- * Being Trauma tab — Afflictions section (#309): afflictions grouped by subtype
+ * Being Trauma tab — Afflictions section: afflictions grouped by subtype
  * with Name / Category / Level / HR / Next Heal Test columns (#943 — the former
  * Source column is now the explicit Category column, and a calendar-formatted
  * Next Heal Test replaces Notes), a custom-create control (data-type=affliction),
@@ -28,8 +28,8 @@ describe("Being Trauma tab: Afflictions section (#309)", () => {
             cy.createItemOn(actor, "affliction", {
                 name: "Wasting Fever",
                 system: {
-                    // fatigue moved to TRAUMA_SUBTYPE (#565); afflictions are
-                    // other / disease / poisontoxin / maladiction (#1003).
+                    // fatigue moved to TRAUMA_SUBTYPE; afflictions are
+                    // other / disease / poisontoxin / maladiction.
                     subType: "disease",
                     levelBase: 2,
                     healingRateBase: 4,
@@ -96,7 +96,7 @@ describe("Being Trauma tab: Afflictions section (#309)", () => {
             cy.get(
                 'section.tab[data-tab="trauma"] .afflictions-list .item .item-contextmenu',
             ).should("exist");
-            // The Trauma tab is not searchable (#312).
+            // The Trauma tab is not searchable.
             cy.get('section.tab[data-tab="trauma"] input[name="search-afflictions"]').should(
                 "not.exist",
             );

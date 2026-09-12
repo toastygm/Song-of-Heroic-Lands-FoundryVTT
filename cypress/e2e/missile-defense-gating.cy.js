@@ -11,7 +11,7 @@
 import { toRealm } from "../support/resolve";
 
 /**
- * Block and counterstrike on a missile-only weapon (#1137). A missile strike
+ * Block and counterstrike on a missile-only weapon. A missile strike
  * mode carries no block or counterstrike modifier, so those actions could never
  * do anything — they must not be offered, and a request that reaches the
  * executor anyway must say so on screen instead of failing silently.

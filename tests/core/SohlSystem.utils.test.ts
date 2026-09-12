@@ -6,10 +6,10 @@ import { ACTOR_KIND } from "@src/utils/constants";
 import { SohlMap } from "@src/utils/collection/SohlMap";
 
 /**
- * The `sohl.utils` / `sohl.constants` reconciliation (#408). `sohl.utils` is
+ * The `sohl.utils` / `sohl.constants` reconciliation. `sohl.utils` is
  * bound (in `sohl.ts`) to the **`utils` namespace** — the superset barrel that
  * re-exports helpers and constants at its top level and nests `collection` — so
- * the runtime surface matches the namespace tree the docs (#404) render. The
+ * the runtime surface matches the namespace tree the docs render. The
  * curated `sohl.constants` alias is kept for backwards compatibility.
  *
  * These assert the shape of the objects the global is bound to (`@src/utils` and

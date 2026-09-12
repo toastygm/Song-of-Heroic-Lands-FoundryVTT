@@ -192,7 +192,7 @@ describe("movement + reach read paths", () => {
         // A bare being, not Basic Folk: Basic Folk owns unarmed combat
         // techniques whose intrinsic melee modes give it a reach of its own
         // (2, from Kick/Trip) with nothing held, so it no longer models "no
-        // melee modes" (#1271). The contract under test is the empty case.
+        // melee modes". The contract under test is the empty case.
         cy.createActor("being", { name: "Reachless Being" }).then((actor) => {
             cy.prepare(actor);
             cy.foundry((win) => {

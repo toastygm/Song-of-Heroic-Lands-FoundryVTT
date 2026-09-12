@@ -174,7 +174,7 @@ export class AfflictionLogic<
         // `level` is a ValueModifier seeded in initialize(); guard against it
         // being unset (a not-yet-initialized affliction, e.g. freshly dropped
         // and read by the sheet before its lifecycle runs) so this getter can
-        // never throw and brick the whole sheet render (#511).
+        // never throw and brick the whole sheet render.
         const lvl = Math.max(0, Math.round(this.level?.effective ?? 0));
         return String(lvl);
     }
@@ -332,7 +332,7 @@ export class AfflictionLogic<
     /* --------------------------------------------- */
 
     /**
-     * Post a **treatment request** for this affliction (#1183) — the patient's
+     * Post a **treatment request** for this affliction — the patient's
      * half of the treatment exchange.
      *
      * Unlike an injury, treatment for an affliction is mostly ineffectual: the
@@ -367,7 +367,7 @@ export class AfflictionLogic<
     }
 
     /**
-     * Record treatment of this affliction (#1183) — the patient's half of the
+     * Record treatment of this affliction — the patient's half of the
      * treatment exchange, and the counterpart to {@link requestTreatment}.
      *
      * Opens a dialog confirming the **treatment date** and a **Course Bonus**.
@@ -660,7 +660,7 @@ export class AfflictionLogic<
      * @returns A promise that resolves once the phase transition is persisted.
      * @remarks The onset **effect** marks the affliction symptomatic (crystallizes
      *   `onsetDate`) and starts its course/resolution cycle; the symptoms
-     *   themselves are role-played, out of VTT scope (#488). Scheduling the next
+     *   themselves are role-played, out of VTT scope. Scheduling the next
      *   phase is the direct consequence of this human-performed transition (issue
      *   #579 gates the *firing* via the `[Perform]` reminder, not the phase
      *   progression itself). An optional author
@@ -701,7 +701,7 @@ export class AfflictionLogic<
      * the two events that carry it from here — the recurring
      * {@link courseCheck} and the one-shot {@link resolutionCheck}. They are
      * offered, never armed: pressing Set Onset consents to the affliction being
-     * symptomatic, not to a schedule (issue #579).
+     * symptomatic, not to a schedule.
      *
      * @param context - The action context; `skipDialog` sets the onset without
      *   confirming, and `scope.schedule` pre-answers the two schedule offers.
@@ -752,7 +752,7 @@ export class AfflictionLogic<
         // Onset is what starts the affliction running, so this is the moment to
         // ask about the two events that carry it the rest of the way — but they
         // are *offered*, not armed: pressing Set Onset consents to the affliction
-        // being symptomatic, not to a schedule (issue #579). The two offers carry
+        // being symptomatic, not to a schedule. The two offers carry
         // distinct titles so a player answering them back-to-back can tell which
         // is which.
         await offerSchedule(context, this.item, "courseCheck", healing);
@@ -867,7 +867,7 @@ export class AfflictionLogic<
 
     /**
      * Intrinsic-action executor for the recurring `courseCheck` — the `*Check`
-     * half of the course cycle (#1183).
+     * half of the course cycle.
      *
      * A `*Check` **offers, and does nothing else**: it posts a card whose button
      * invites the affliction's controller to perform one {@link courseTest}. No
@@ -899,7 +899,7 @@ export class AfflictionLogic<
     }
 
     /**
-     * Intrinsic-action executor for the **Course Test** (#1183) — the `*Test`
+     * Intrinsic-action executor for the **Course Test** — the `*Test`
      * half of the course cycle, and the action that actually advances an
      * affliction.
      *
@@ -1106,7 +1106,7 @@ export class AfflictionLogic<
      * @param _context - The action context (its `scope` is the trigger context).
      * @returns A promise that resolves once the resolution is persisted.
      * @remarks Crystallizes `resolutionDate` and, when the affliction was **not**
-     *   defeated (Healing Rate below 6), applies its authored **outcome** (#490):
+     *   defeated (Healing Rate below 6), applies its authored **outcome**:
      *   `DEATH` sets the being's shock state to Dead; `CURED` sets Healing Rate to
      *   6. Either combines with an optional `outcomeTraumas`
      *   {@link sohl.entity.expr.SafeExpression} whose result — a trauma shortcode

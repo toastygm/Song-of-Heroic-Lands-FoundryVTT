@@ -35,7 +35,7 @@
  * The combat case additionally dispatches the `resolveInjury` action through the
  * **document's** chat-card handler (`SohlActor.onChatCardButton` →
  * `dispatchChatCardAction` → `BeingLogic.resolveInjury`), exercising the
- * actor-addressed chat-card dispatch path (issue #572).
+ * actor-addressed chat-card dispatch path.
  */
 
 describe("impact → injury → trauma", () => {
@@ -87,7 +87,7 @@ describe("impact → injury → trauma", () => {
                 const a = win.game.actors.get(actor.id);
                 const loc = a.logic.body.structure.getAllLocations()[0].shortcode;
                 // Headless resolve (skipDialog) → no dialog opens. `schedule:
-                // false` pre-answers the healing-check offer (issue #579) so the
+                // false` pre-answers the healing-check offer so the
                 // flow stays dialog-free; `autoAddInjury` defaults from the world
                 // "record trauma" setting (enable) → the wound is recorded.
                 win.__injury = a.logic.resolveInjury({
@@ -195,7 +195,7 @@ describe("impact → injury → trauma", () => {
                 });
                 // Dispatch through the *document's* chat-card handler — the real
                 // click path — exercising SohlActor.onChatCardButton →
-                // dispatchChatCardAction → BeingLogic.resolveInjury (issue #572).
+                // dispatchChatCardAction → BeingLogic.resolveInjury.
                 win.__injury = a.onChatCardButton(btn);
                 return null;
             });

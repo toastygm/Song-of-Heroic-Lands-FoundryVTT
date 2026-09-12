@@ -280,7 +280,7 @@ describe("SOHL_MIGRATIONS", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 0.9.0 — strip the retired system.docUrl field (#1394)
+// 0.9.0 — strip the retired system.docUrl field
 // ---------------------------------------------------------------------------
 
 describe("0.9.0 — strip system.docUrl (#1394)", () => {
@@ -384,7 +384,7 @@ describe("0.9.0 — strip system.docUrl (#1394)", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 0.9.0 — stamp the new required affiliation subType (#1405)
+// 0.9.0 — stamp the new required affiliation subType
 // ---------------------------------------------------------------------------
 
 describe("0.9.0 — affiliation subType (#1405)", () => {
@@ -472,7 +472,7 @@ describe("0.9.0 — affiliation subType (#1405)", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 0.9.0 — remap the four legacy affiliation subtypes onto the eleven (#1788)
+// 0.9.0 — remap the four legacy affiliation subtypes onto the eleven
 // ---------------------------------------------------------------------------
 
 describe("0.9.0 — affiliation subType vocabulary (#1788)", () => {

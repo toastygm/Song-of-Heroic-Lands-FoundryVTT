@@ -12,7 +12,7 @@
  */
 
 /**
- * Combat-technique-as-skill contract (epic #322).
+ * Combat-technique-as-skill contract.
  *
  * A `combattechnique` skill carries an embedded strike mode whose
  * Attack/Block/Counterstrike derive from the skill's own mastery level. This

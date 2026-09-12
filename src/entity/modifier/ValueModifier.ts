@@ -32,7 +32,7 @@ import {
 import { SohlEntity } from "../SohlEntity";
 
 /*
- * ── Construction indirection: base class (#83) ───────────────────────────────
+ * ── Construction indirection: base class ───────────────────────────────
  * Registered entity classes are constructed through the registry so a variant
  * module can override them:
  *   - Inside SoHL:            `import { entity }` then `new entity.X(...)`
@@ -144,7 +144,7 @@ export class ValueModifier extends SohlEntity {
         // compute the effective value and delta summary from incomplete state
         // and cache it (dirty=false) before those fields exist — leaving, e.g.,
         // an enabled impact showing a stale "Dsbl" summary. Each subclass runs
-        // its own guarded _apply() at the end of its constructor instead (#769).
+        // its own guarded _apply() at the end of its constructor instead.
         if (new.target === ValueModifier) this._apply();
     }
 
@@ -301,7 +301,7 @@ export class ValueModifier extends SohlEntity {
     /**
      * The disabled reason as stored — an i18n **key** (or `""` when enabled).
      * A non-empty value forces {@link effective} to 0. This is the serialized
-     * form; use {@link disabledLabel} for localized display (#948).
+     * form; use {@link disabledLabel} for localized display.
      */
     get disabled(): string {
         return this.disabledReason ?? "";
@@ -312,7 +312,7 @@ export class ValueModifier extends SohlEntity {
      *
      * {@link disabledReason} always stores an i18n key (never localized prose),
      * so callers that surface the reason to a human must localize it here rather
-     * than emitting the raw key (#948). Idempotent on already-plain text.
+     * than emitting the raw key. Idempotent on already-plain text.
      */
     get disabledLabel(): string {
         const reason = this.disabledReason ?? "";
@@ -673,7 +673,7 @@ export class ValueModifier extends SohlEntity {
         }
 
         // When disabled, the delta breakdown is moot — surface *why* instead of
-        // rendering nothing, localizing the stored i18n-key reason (#948).
+        // rendering nothing, localizing the stored i18n-key reason.
         if (this.disabled)
             return `<div class="adjustment adjustment--disabled">${escapeHTML(
                 this.disabledLabel,
@@ -686,7 +686,7 @@ export class ValueModifier extends SohlEntity {
             .map((m) => {
                 // A delta's `name` is an i18n key by convention, so the
                 // breakdown localizes it here — escaping *after* the lookup, so
-                // a key that resolves to itself is still rendered inert (#1127).
+                // a key that resolves to itself is still rendered inert.
                 return `<div class="flexrow">
             <span class="adj-name">${escapeHTML(m.label)}</span>
             <span class="adj-value">${escapeHTML(getValue(m))}</span></div>`;

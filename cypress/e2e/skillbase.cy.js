@@ -82,7 +82,7 @@ describe("skillbase calculation contract", () => {
                 };
             }).should(({ scores, rows }) => {
                 // Both the attribute score and the skill roster move with
-                // content (#1271), so derive the expectation from the actor
+                // content, so derive the expectation from the actor
                 // rather than pinning either. Every Basic Folk attribute shares
                 // one score, and averaging equal attributes — two of them or
                 // three — yields exactly that score.

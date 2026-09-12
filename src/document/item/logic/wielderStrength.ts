@@ -12,7 +12,7 @@
  */
 
 /**
- * Folding the wielder's Strength into their strike modes' impact (#1253).
+ * Folding the wielder's Strength into their strike modes' impact.
  *
  * The rule itself is Foundry-free and lives in
  * {@link sohl.entity.strikemode.applyStrengthImpact}; this module is the thin

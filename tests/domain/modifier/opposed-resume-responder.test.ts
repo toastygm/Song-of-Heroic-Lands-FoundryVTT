@@ -22,7 +22,7 @@ import * as FoundryHelpersMock from "@src/core/FoundryHelpers";
 import { BRAND, VALUE_DELTA_INFO } from "@src/utils/constants";
 
 /**
- * The **responder's** half of an opposed test (#1164) — phase 2, the Respond
+ * The **responder's** half of an opposed test — phase 2, the Respond
  * button's handler.
  *
  * `MasteryLevelModifier.opposedTestResume` is called on the mastery level of the

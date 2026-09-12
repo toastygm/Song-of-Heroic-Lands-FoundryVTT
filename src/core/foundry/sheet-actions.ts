@@ -52,7 +52,7 @@ export interface ActionRow {
     data: SohlAction.Data;
     /**
      * Whether the action's trigger currently passes. `false` renders the run
-     * control disabled rather than live-but-inert (issue #1135).
+     * control disabled rather than live-but-inert.
      */
     available: boolean;
     /** i18n key explaining the refusal; localized at render. */

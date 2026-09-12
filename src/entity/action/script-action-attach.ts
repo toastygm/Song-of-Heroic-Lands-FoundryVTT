@@ -170,7 +170,7 @@ export async function attachScriptAction(
     spec: ScriptActionSpec,
 ): Promise<SohlAction.Data> {
     // `sohl.worldHost()` yields `undefined` for a user who cannot see the host,
-    // and callers pass its result straight in (issue #1536). Name the missing
+    // and callers pass its result straight in. Name the missing
     // document rather than letting the dereference below report itself.
     if (!doc?.system) {
         throw new Error("addScriptAction: `doc` must be a document carrying system data.");

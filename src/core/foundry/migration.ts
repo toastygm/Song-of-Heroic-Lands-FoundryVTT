@@ -48,7 +48,7 @@ const MIGRATION_VERSION_KEY = "systemMigrationVersion";
 
 /**
  * Build the "unrecognized retired type" error message for a single document, or
- * `null` when the document is not a legacy `trait` (#651). Pure and Foundry-free
+ * `null` when the document is not a legacy `trait`. Pure and Foundry-free
  * so it can be unit-tested.
  *
  * The `trait` item type was retired and is deliberately **not** auto-converted:

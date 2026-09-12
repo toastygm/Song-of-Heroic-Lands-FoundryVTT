@@ -87,7 +87,7 @@ describe("MasteryLevelModifier", () => {
             // substituted; this key's `{label}` is not in the key text, so it
             // comes back verbatim. The key must be the `.title` string, not the
             // `…successTest` namespace prefix, which has no value in
-            // `lang/en.json` and reached the card raw (#1107) — asserted for
+            // `lang/en.json` and reached the card raw — asserted for
             // real against `lang/en.json` in
             // tests/domain/modifier/MasteryLevelModifier.test.ts.
             expect(ml.title).toBe("SOHL.MasteryLevelModifier.successTest.title");

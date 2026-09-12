@@ -274,7 +274,7 @@ describe("BeingLogic", () => {
     });
 
     // Body derivation (structure/weight/reach/bodyScale/injury table) — re-homed
-    // from the former CorpusLogic tests (#535). The body is now Being-owned
+    // from the former CorpusLogic tests. The body is now Being-owned
     // (`being.body`), and its entities are parented to the BeingLogic.
     describe("body derivation", () => {
         it("builds the BodyStructure from persisted system.body data", () => {
@@ -453,7 +453,7 @@ describe("BeingLogic", () => {
         });
 
         /**
-         * Per-item encumbrance value (#1010): worn armor and carried/wielded
+         * Per-item encumbrance value: worn armor and carried/wielded
          * weapons may declare an explicit encumbrance value that is added on top
          * of the weight-derived base while the item is in use. These builders and
          * setup wire real armor/weapon logics onto a being with a movement profile.
@@ -1006,7 +1006,7 @@ describe("BeingLogic", () => {
                 scope: { shockIndex: 7, applyShockState: true },
             } as any);
             // A being-parented modifier exposes no `impairedByRoles`, so
-            // successTest adds no BPImp penalty (#850).
+            // successTest adds no BPImp penalty.
             expect(capturedParent).toBe(being);
         });
 
@@ -2501,7 +2501,7 @@ describe("BeingLogic", () => {
                 undefined,
                 undefined,
                 "turnEnd",
-                // Gated to this being's own combatant turn (#569).
+                // Gated to this being's own combatant turn.
                 "combatant.actor.uuid === subscriberUuid",
             );
             expect(unschedule).not.toHaveBeenCalled();

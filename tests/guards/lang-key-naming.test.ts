@@ -12,14 +12,14 @@
  */
 
 /**
- * Naming guard (issue #1351): `lang/en.json` follows the key-naming standard
+ * Naming guard: `lang/en.json` follows the key-naming standard
  * published at `kb/dev-docs/reference/localization-keys.md`. Keys are permanent
  * (`CLAUDE.md` rule 4), so a mis-named key is expensive to undo — these assertions
  * hold the two structural consolidations that standard required, and stop the
  * shapes they removed from creeping back in.
  *
  * Deliberately narrow. The file predates the standard and still carries legacy
- * spellings that the epic (#1355) retires block by block; asserting full
+ * spellings that the epic retires block by block; asserting full
  * conformance here would fail on that legacy rather than on new work.
  */
 import { readFileSync } from "node:fs";
@@ -74,7 +74,7 @@ describe("lang/en.json key naming", () => {
         it("adds no new namespace named after a Sohl* class", () => {
             // A class name is internal and refactorable; `SOHL.SohlItem` and
             // `SOHL.Item` are the same concept spelled two ways. A ratchet, not a
-            // census: the epic (#1355) retires the list below block by block, so
+            // census: the epic retires the list below block by block, so
             // only *additions* fail here.
             const KNOWN_CLASS_NAMESPACES = [
                 "SohlAction",

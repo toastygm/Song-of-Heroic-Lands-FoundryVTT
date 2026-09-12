@@ -64,7 +64,7 @@ function buildTabs(): Record<string, any> {
  * The TotM checkbox writes directly to the `flags.sohl.isTotm` scene flag via
  * the normal ApplicationV2 form-submit path; no custom submit handling is
  * needed. A Scene is not a typed document, so the toggle cannot live in
- * `system` (issue #1155).
+ * `system`.
  *
  * @internal
  */

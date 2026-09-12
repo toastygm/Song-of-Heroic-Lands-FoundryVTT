@@ -7,7 +7,7 @@
 
 /**
  * Render the real BodyLocationConfig editor template in Node and assert the
- * emitted HTML — the identity header, the owning-part dropdown (#982) pre-selected
+ * emitted HTML — the identity header, the owning-part dropdown pre-selected
  * to the location's `bodyPartCode`, the tier selects pre-selected to the
  * location's current values, the four protectionBase inputs, the mishap
  * checkboxes, and no Save button. Mirrors what

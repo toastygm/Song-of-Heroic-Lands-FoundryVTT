@@ -43,7 +43,7 @@ const OUT_PATH = "assets/content/User_Guide/Icon_Legend.md";
 
 /**
  * The pack folder this page routes into, by path rather than by folder id
- * (#1835): folders are notes, and a note names the folder it belongs to the
+ *: folders are notes, and a note names the folder it belongs to the
  * same way every other note does.
  */
 const PAGE_PACK_FOLDER = "userguide";
@@ -54,7 +54,7 @@ const PAGE_PACK_FOLDER = "userguide";
  * **No top-level `aliases` block.** The generator used to emit one, naming the
  * page and a couple of synonyms, because the bare `[[Alias]]` wikilink form
  * resolved through it. That form and its index are retired
- * (HeroicLands/package-build#180): a link now names an address,
+ *: a link now names an address,
  * `[[type-shortcode|Text]]`, which both resolvers reach through
  * `readQualifier` → `type/shortcode` without consulting any alias. The field is
  * refused outright, so a generator that kept emitting one would fail the build
@@ -253,7 +253,7 @@ function collectActionIcons(lang) {
  *
  * So this is not duplication to be tidied away later. Deleting it does not move
  * the knowledge somewhere better; it loses it. The rows arrived by hand-editing
- * the generated page (#1891), which the `--check` mode then correctly refused —
+ * the generated page, which the `--check` mode then correctly refused —
  * moving them here is what makes both the page and the check right.
  */
 const INDICATOR_ROWS = [
@@ -541,7 +541,7 @@ ${body}
  * what this generator would write.
  *
  * The check exists because the generator's output and the file it owns had
- * silently diverged (#1620): the page's own header says "do not edit by hand",
+ * silently diverged: the page's own header says "do not edit by hand",
  * and nothing said so when someone did. Drift here is not cosmetic — the copy on
  * disk had gained the `doc-iconlgndug` address alias the generator never emitted,
  * so the *next* run of `npm run build:icon-legend` would have deleted it and

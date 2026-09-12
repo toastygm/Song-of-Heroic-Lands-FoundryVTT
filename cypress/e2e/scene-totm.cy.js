@@ -9,7 +9,7 @@
  */
 
 /**
- * Theatre of the Mind (issue #1155). A Scene is not a typed document, so the
+ * Theatre of the Mind. A Scene is not a typed document, so the
  * toggle lives in the `sohl.isTotm` scene flag and is read through
  * `scene.logic`. Only a live client can prove the flag round-trips — that the
  * logic accessor exists on a real Scene, and that the Scene config's SoHL tab

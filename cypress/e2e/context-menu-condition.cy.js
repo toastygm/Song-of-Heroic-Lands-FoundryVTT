@@ -12,7 +12,7 @@
  */
 
 /**
- * Default context-menu / action visibility predicates (#458). The improve-flag,
+ * Default context-menu / action visibility predicates. The improve-flag,
  * transmit, and diagnosis predicates previously referenced stale document paths
  * (`item.system.canImprove`, `item.system.data.improveFlag`, …) that always
  * resolved falsy, so the entries never appeared. They now bind the logic layer
@@ -23,7 +23,7 @@
  * the clicked row's `data-item-id` (via `resolveContextItem`) and reads live
  * logic state. It must show for a skill that can improve and **is** flagged for
  * improvement, and hide for one that is not — the SDR is the roll a flagged
- * skill is waiting for, and it spends the flag as part of its outcome (#1102).
+ * skill is waiting for, and it spends the flag as part of its outcome.
  */
 import { toRealm } from "../support/resolve";
 

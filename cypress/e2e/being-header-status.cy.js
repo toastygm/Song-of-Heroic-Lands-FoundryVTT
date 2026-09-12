@@ -12,7 +12,7 @@
  */
 
 /**
- * Being sheet header — status-effect toggles + affliction indicators (#306).
+ * Being sheet header — status-effect toggles + affliction indicators.
  *
  * Six pills are toggleable ActiveEffect statuses (Sleep/Prone/Stun/Incapacitated/
  * Unconscious/Dead); Aural-Shock and Fatigue are read-only indicators lit from an

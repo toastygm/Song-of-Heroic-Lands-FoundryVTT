@@ -97,7 +97,7 @@ describe("WeaponGearLogic", () => {
 
             it("defines the inherited gear intrinsic actions", () => {
                 // Assisted combat (attack/block/counterstrike) is per-strike-mode
-                // on the Combat tab, not weapon-level actions (#69), so weapon
+                // on the Combat tab, not weapon-level actions, so weapon
                 // gear only carries the inherited gear/lifecycle actions.
                 const logic = makeWeapon();
                 for (const shortcode of ["toggleCarried", "editDocument", "deleteDocument"]) {
@@ -552,7 +552,7 @@ describe("WeaponGearLogic", () => {
 /*
  * Block and counterstrike are melee-defense tests. A weapon with no melee
  * strike mode (a bow, a sling) can never run them, so the actions must not be
- * offered on it; a mixed weapon (thrust + throw) keeps them (#1137).
+ * offered on it; a mixed weapon (thrust + throw) keeps them.
  */
 describe("WeaponGearLogic — melee-defense gating (#1137)", () => {
     afterEach(() => vi.restoreAllMocks());

@@ -12,10 +12,10 @@
  */
 
 /**
- * Shock Re-Test scheduling (#569), end to end in a real Foundry. Entering a
+ * Shock Re-Test scheduling, end to end in a real Foundry. Entering a
  * shock state OFFERS (never auto-arms) the Re-Test reminder on the state's
  * cadence — an event-driven `turnEnd` schedule for Incapacitated, a +10-minute
- * time schedule for Unconscious (#622). When due, the queue posts an owner-gated
+ * time schedule for Unconscious. When due, the queue posts an owner-gated
  * `[Perform]` card addressed to the being; performing it clears the reminder.
  * Nothing runs on its own.
  *
@@ -48,7 +48,7 @@ describe("Shock Re-Test scheduling", () => {
                     await a.logic.offerShockReTest(win.structuredClone(ACCEPT));
 
                     // Persisted as an event-driven turnEnd schedule (#622 seam),
-                    // gated to this being's own combatant (#569).
+                    // gated to this being's own combatant.
                     const entry = a.system.scheduledActions.find(
                         (e) => e.actionName === "shockReTest",
                     );

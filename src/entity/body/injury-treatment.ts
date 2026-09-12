@@ -12,7 +12,7 @@
  */
 
 /**
- * Injury Treatment tables (#553) — the Physician **Treatment Test** and its
+ * Injury Treatment tables — the Physician **Treatment Test** and its
  * consequences, as pure, Foundry-free lookups over the tables in the Injury
  * rules (`https://www.heroiclands.org/sohl/kb/dev-docs/` → Injury → _Injury Treatment_).
  *
@@ -333,7 +333,7 @@ export function treatmentOutcome(
 
     return {
         healingRate,
-        // A failed Treatment Test exposes the wound to infection (#557); a
+        // A failed Treatment Test exposes the wound to infection; a
         // marginal/critical success clears the risk.
         infectable: normSuccessLevel < MARGINAL_SUCCESS,
         bleeder,

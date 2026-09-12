@@ -101,7 +101,7 @@ function defineTraumaDataSchema(): foundry.data.fields.DataSchema {
         healingCheckDurationBase: durationBaseField(),
         bloodLossAdvanceDurationFormula: durationFormulaField(),
         bloodLossAdvanceDurationBase: durationBaseField(),
-        // Extended Shock / Coma recovery Course Test (#556): its own recurring
+        // Extended Shock / Coma recovery Course Test: its own recurring
         // cadence (Extended Shock every 4 hours; Coma every d10 days).
         courseDurationFormula: durationFormulaField(),
         courseDurationBase: durationBaseField(),
@@ -112,7 +112,7 @@ function defineTraumaDataSchema(): foundry.data.fields.DataSchema {
         permanentImpairmentEligible: new BooleanField({ initial: false }),
         // Whether this injury is exposed to infection — a poorly-treated wound
         // (#553 sets it). A Critical-Failure Injury Healing Test on an infectable
-        // wound contracts an infection (#557).
+        // wound contracts an infection.
         infectable: new BooleanField({ initial: false }),
         // Body location the trauma affects. Nullable: a whole-body trauma or a
         // descriptive condition has no specific location (`null`).
@@ -172,12 +172,12 @@ export class TraumaDataModel<
      * settings and their duration bases from a numeric read of the formula (the
      * defaults are bare second counts). The recurring checks are seeded as
      * `system.scheduledActions` entries anchored at the current world time — the
-     * generic store (issue #588) replaces the retired bespoke `last*Date` anchors
+     * generic store replaces the retired bespoke `last*Date` anchors
      * — so {@link TraumaLogic.finalize} arms them on the following preparation
      * (a `0` interval fires the first check immediately, at which point the
      * executor rolls the real interval). Creation still auto-arms the first
      * occurrence; the *reschedule* of later occurrences is offered, not automatic
-     * (issue #579).
+     *.
      *
      * @param data - The pending creation data.
      * @param options - The create operation options.
@@ -240,7 +240,7 @@ export class TraumaDataModel<
     }
 
     /**
-     * Stamp the treatment date when a Healing Rate first appears (#1148).
+     * Stamp the treatment date when a Healing Rate first appears.
      *
      * The Healing Rate is the source of truth for whether a trauma has been
      * treated, so the moment one is established — the stored rate going from

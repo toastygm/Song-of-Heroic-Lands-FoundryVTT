@@ -12,7 +12,7 @@
  */
 
 /**
- * Being sheet header — body-part impairment grid (#464).
+ * Being sheet header — body-part impairment grid.
  *
  * Each body part in the header grid is colored by its derived impairment status
  * (none/minor/major/unusable), taken from the worst injury across its hit

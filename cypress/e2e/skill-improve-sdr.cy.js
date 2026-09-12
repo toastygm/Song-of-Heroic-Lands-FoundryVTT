@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill Development Roll persistence (#716).
+ * Skill Development Roll persistence.
  *
  * `SkillLogic.improveWithSDR` rolls `1d100 + skillBase` against the current base
  * mastery level and, on a success, raises `system.masteryLevelBase` by `sdrIncr`

@@ -12,7 +12,7 @@
  */
 
 /**
- * Mystical Ability improvement flag and Skill Development Roll (#1130).
+ * Mystical Ability improvement flag and Skill Development Roll.
  *
  * A Mystical Ability with no Associated Skill carries a mastery level of its
  * own, so it develops exactly the way a Skill does — the same

@@ -202,7 +202,7 @@ describe("Being Mysteries tab — the improve control (#1130)", () => {
         ]);
         expect(html).toContain('data-action="toggleImproveFlag"');
         // A hollow circle unset, a rising arrow set: a shape change, so the
-        // control cannot be read as a Victory Star (#1892).
+        // control cannot be read as a Victory Star.
         expect(html).toContain("fa-regular fa-circle");
     });
 

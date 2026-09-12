@@ -12,7 +12,7 @@
  */
 
 /**
- * Fence enforcement (issue #959): the experimental actor types (cohort /
+ * Fence enforcement: the experimental actor types (cohort /
  * structure / vehicle) are visibly marked so testers don't build campaigns on
  * schemas that may still change. Two surfaces, both driven from the single
  * `FENCED_TYPES` source of truth:

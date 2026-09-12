@@ -12,7 +12,7 @@
  */
 
 /**
- * Boon / Boost skill-affecting Mysteries (#975).
+ * Boon / Boost skill-affecting Mysteries.
  *
  * A `boon` Mystery contributes a flat ±N delta to its associated skill's EML; a
  * `boost` Mystery contributes the Mastery-Boost-table delta. Both are
@@ -118,7 +118,7 @@ describe("mystery boon/boost skill contribution (#975)", () => {
         });
     });
 
-    // ---- Absent-skill Boost: drop-time offer + ML-0 confer (#981) -----------
+    // ---- Absent-skill Boost: drop-time offer + ML-0 confer -----------
 
     /**
      * A Boost dropped onto an actor that names a skill the actor lacks offers to

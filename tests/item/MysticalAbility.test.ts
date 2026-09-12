@@ -260,7 +260,7 @@ describe("MysticalAbilityLogic", () => {
     // A Mystical Ability can also draw its standing from a faction/Affiliation
     // (e.g. an Arcane Incantation's arcane school), stored independently of the
     // activating skill as assocAffiliationCode and resolved to an
-    // AffiliationLogic on the same actor (#1012).
+    // AffiliationLogic on the same actor.
     describe("affiliation", () => {
         it("resolves affiliation from the actor's affiliations by shortcode", () => {
             const actor = makeAbilityActor();
@@ -714,7 +714,7 @@ describe("MysticalAbilityLogic — improvement flag and SDR (#1130)", () => {
             const sdr = logic.actions.get("improveWithSDR") as any;
             expect(sdr.data.group).toBe(SOHL_CONTEXT_MENU_SORT_GROUP.GENERAL);
             // Gated on canImprove *and* on the improve flag being set — the
-            // SDR is the roll a flagged item is waiting for (#1102).
+            // SDR is the roll a flagged item is waiting for.
             expect(sdr.data.visible).toBe("itemLogic.canImprove && itemLogic.data.improveFlag");
         });
 

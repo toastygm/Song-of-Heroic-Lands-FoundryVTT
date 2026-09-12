@@ -12,7 +12,7 @@
  */
 
 /**
- * Generic scheduled actions (#588), end to end in a real Foundry:
+ * Generic scheduled actions, end to end in a real Foundry:
  * `sohl.schedule` persists to the document's `system.scheduledActions` **and**
  * arms the queue; the `ready` re-arm hook reconstructs the schedule from that
  * persisted state (the reload path); and when due the queue offers a `[Perform]`

@@ -87,7 +87,7 @@ Cypress.Commands.add("editSheetField", (doc, name, value) =>
  * retrieve the control, then click it after the sheet re-renders under load,
  * landing on a detached node so the AppV2 delegated action listener never fires
  * (the action no-ops). Querying within `sheet.element` at dispatch time, and
- * awaiting a settle, avoids that race (#748).
+ * awaiting a settle, avoids that race.
  *
  * The event must be a `PointerEvent` (not a bare `Event`): AppV2's frame click
  * handler only runs a `[data-action]` handler when `event.button === 0`, which a

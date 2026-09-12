@@ -407,7 +407,7 @@ describe("SohlCalendarData", () => {
             expect(out).toMatch(/^FUT\[/);
         });
 
-        // Regression (#477): the future-tense wrapper key is SoHL-owned (unlike
+        // Regression: the future-tense wrapper key is SoHL-owned (unlike
         // the Foundry-core "TIME.Since" past wrapper), so it must be present in
         // lang/en.json or "… from now" durations render the raw key. The unit
         // tests above stub the key, so only a real-file assertion catches the gap.

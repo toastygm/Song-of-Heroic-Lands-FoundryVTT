@@ -73,7 +73,7 @@ export interface SohlSubscription {
      */
     payload?: Record<string, unknown>;
     /**
-     * Optional uuid of the scene this subscription is bound to (issue #590).
+     * Optional uuid of the scene this subscription is bound to.
      * When set, a due subscription is offered only while that scene is the
      * **active** scene ({@link fvttActiveSceneUuid}); while its scene is inactive
      * the due subscription is skipped **without being consumed**, so it stays
@@ -216,7 +216,7 @@ export class SohlEventQueue {
      * @param actionName - The subscription actionName passed to the handler.
      * @param fireAt - The world time at or after which to fire.
      * @param payload - Optional payload forwarded to the handler.
-     * @param sceneUuid - Optional scene the schedule is bound to (issue #590);
+     * @param sceneUuid - Optional scene the schedule is bound to;
      *   offered only while that scene is active. Omit for a world-wide schedule.
      */
     scheduleAt(
@@ -350,7 +350,7 @@ export class SohlEventQueue {
                     }
                     if (!pass) continue;
                 }
-                // Scene gate (issue #590): a scene-bound subscription is offered
+                // Scene gate: a scene-bound subscription is offered
                 // only while its scene is the active scene. When its scene is
                 // inactive, skip it **without consuming** — it is neither
                 // dispatched nor deleted (the one-shot deletion is below), so it
@@ -389,14 +389,14 @@ export class SohlEventQueue {
     /**
      * Resolve `uuid` and **offer** `actionName` on its logic — post an
      * owner-gated `[Perform]` reminder card rather than performing the action.
-     * The single consent primitive (issue #579): the queue *reminds*; the human
+     * The single consent primitive: the queue *reminds*; the human
      * *performs*. The card's button is addressed to `uuid` (an item, actor, or
      * any document with a `logic.speaker`), so the owner's click runs the *same*
      * action on that document's logic. Errors are logged and swallowed so one
      * failure cannot abort a batch.
      *
      * Reused by `dispatchOne` (time/combat subscriptions) and by the
-     * scene-region bridge (issue #593), which offers a region-authored action to
+     * scene-region bridge, which offers a region-authored action to
      * the entering token's actor.
      *
      * @param uuid - The document whose logic runs the action on `[Perform]`.

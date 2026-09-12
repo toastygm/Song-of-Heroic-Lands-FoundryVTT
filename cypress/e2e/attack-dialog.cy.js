@@ -12,7 +12,7 @@
  */
 
 /**
- * The automated-combat attack dialog (#1080).
+ * The automated-combat attack dialog.
  *
  * The dialog is where the attacker picks their **strike mode** — but the
  * template rendered only Aim and Additional Modifier while the result callback

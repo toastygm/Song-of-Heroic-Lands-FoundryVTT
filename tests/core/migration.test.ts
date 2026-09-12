@@ -44,7 +44,7 @@ describe("legacyTraitError — retired trait item type is unrecognized (#651)", 
 });
 
 // ---------------------------------------------------------------------------
-// runWorldMigrations — the version-keyed runner (#957)
+// runWorldMigrations — the version-keyed runner
 // ---------------------------------------------------------------------------
 
 /** A live-document double: carries a source and records update calls. */

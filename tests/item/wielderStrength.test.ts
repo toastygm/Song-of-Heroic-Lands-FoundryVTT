@@ -13,7 +13,7 @@
 
 /**
  * The Strength Impact Modifier reaching a real weapon on a real wielder
- * (#1253) — the wiring, as opposed to the rule, which
+ * — the wiring, as opposed to the rule, which
  * `tests/domain/strikemode/strengthImpact.test.ts` pins down.
  */
 

@@ -23,7 +23,7 @@
  * pre-answering through a scripted `scope`. Three non-obvious facts shape how:
  *
  * 0. **RNG-gated creations are forced deterministic.** The infection only appears
- *    on a critical-failure healing test, so `SimpleRoll.forceValues(100)` (#598)
+ *    on a critical-failure healing test, so `SimpleRoll.forceValues(100)`
  *    drives that d100 to a critical failure — no flakiness.
  *
  * 1. **Two offers fire back-to-back.** Inflicting a bleeder wound
@@ -129,10 +129,10 @@ describe("Timed-effect creation offer (#595)", () => {
         });
     });
 
-    // The recovery-course offer (#595) fires when a lasting condition is created —
+    // The recovery-course offer fires when a lasting condition is created —
     // here an INFECTION from a critical-failure healing test. That outcome is
     // RNG-gated, so this drives it deterministically with the forced-dice seam
-    // (#598): forcing the healing test's d100 to 100 (a critical failure, digits
+    //: forcing the healing test's d100 to 100 (a critical failure, digits
     // [0,5]) on an infectable wound contracts the infection, which then offers its
     // course check. Then we model the player pressing Schedule on that offer.
     it("a critical-failure healing test contracts an infection and offers its course check — pressing Schedule arms it (models the player)", () => {
@@ -170,7 +170,7 @@ describe("Timed-effect creation offer (#595)", () => {
                 // Force that healing test's d100 to 100 — a critical failure that,
                 // on an infectable wound, contracts an infection.
                 win.sohl.entity.roll.SimpleRoll.forceValues(100);
-                // The check only OFFERS now; the test is what rolls (#1181).
+                // The check only OFFERS now; the test is what rolls.
                 win.__perf = wound.logic.executeAction("healingtest", {});
                 return null;
             });

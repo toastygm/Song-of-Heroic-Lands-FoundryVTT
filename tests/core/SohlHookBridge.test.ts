@@ -70,9 +70,9 @@ describe("SohlHookBridge", () => {
         expect(captured.hooks.has("deleteCombat")).toBe(true);
         expect(captured.hooks.has("combatRound")).toBe(true);
         expect(captured.hooks.has("combatTurn")).toBe(true);
-        // Scheduled-action re-arm hook (#588).
+        // Scheduled-action re-arm hook.
         expect(captured.hooks.has("ready")).toBe(true);
-        // Scene-bound schedule flush hook (#590).
+        // Scene-bound schedule flush hook.
         expect(captured.hooks.has("updateScene")).toBe(true);
     });
 

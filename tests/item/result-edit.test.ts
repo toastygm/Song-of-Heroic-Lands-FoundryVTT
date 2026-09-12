@@ -26,7 +26,7 @@ import { VALUE_DELTA_INFO } from "@src/utils/constants";
 const speaker = new SohlSpeaker({ alias: "GM" });
 
 /**
- * GM result-edit (#856): the test-card edit pencil re-evaluates a settled test
+ * GM result-edit: the test-card edit pencil re-evaluates a settled test
  * on its **frozen roll** — adjusting the situational and/or success-level
  * modifier — without a re-roll or a Fate cost. These tests drive the shared
  * `resultEdit` executor through the `skipDialog` path (situational/success-level

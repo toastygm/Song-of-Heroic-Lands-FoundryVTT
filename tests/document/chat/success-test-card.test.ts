@@ -45,10 +45,10 @@ async function renderCard(
     opts: {
         /**
          * Take the card's title from the modifier's own default rather than a
-         * literal, so the rendered header exercises the real derivation (#1107).
+         * literal, so the rendered header exercises the real derivation.
          */
         useModifierTitle?: boolean;
-        /** Ad-hoc deltas added to the modifier before evaluating (#1127). */
+        /** Ad-hoc deltas added to the modifier before evaluating. */
         deltas?: { name: string; abbrev: string; value: number }[];
     } = {},
 ) {
@@ -110,7 +110,7 @@ describe("standard-test-card renders the evaluated success test", () => {
     it("shows a localized outcome in the footer, not a raw i18n key", async () => {
         const { html } = await renderCard(50, 32);
         // Assert on the footer specifically: the edit pencil's `data-scope`
-        // (#856) legitimately serializes the result — including the
+        // legitimately serializes the result — including the
         // `resultDescTable`, whose entries are i18n keys — so a whole-HTML key
         // check would match that reconstruction payload, not a display string.
         const footer = html.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? "";
@@ -235,7 +235,7 @@ describe("standard-test-card renders a Skill Value Test (#848)", () => {
         expect(result.valueDiamonds).toBe(1);
         // `fa-gem`, not `fa-diamond`: the latter is Font Awesome's playing-card
         // suit and ships in solid only, so it could spell no hollow half of the
-        // scale (#1893).
+        // scale.
         expect(html.match(/fa-solid fa-gem/g) ?? []).toHaveLength(1);
         expect(html.match(/fa-regular fa-gem/g) ?? []).toHaveLength(4);
         // The count is still available to screen readers.
@@ -296,7 +296,7 @@ describe("standard-test-card localizes its display strings", () => {
             ],
         });
         // Assert on the Adjustment block specifically: the edit pencil's
-        // `data-scope` (#856) serializes the result — deltas included — and
+        // `data-scope` serializes the result — deltas included — and
         // that payload legitimately keeps each delta's stored i18n *key*.
         const adjustment =
             /<div class="adjustment">[\s\S]*?<\/div>\s*<\/div>/.exec(html)?.[0] ?? "";

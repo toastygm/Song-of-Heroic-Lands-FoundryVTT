@@ -12,7 +12,7 @@
  */
 
 /**
- * HTML sanitization (#161).
+ * HTML sanitization.
  *
  * SoHL's `FoundryHelpers.toSanitizedHTML` — the single sanitizer for all
  * chat-card and dialog content — delegates to Foundry's built-in allowlist

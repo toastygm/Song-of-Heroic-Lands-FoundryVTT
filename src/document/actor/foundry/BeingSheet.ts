@@ -211,7 +211,7 @@ export class BeingSheet extends SohlActorSheetBase {
 
     // The render-part list is derived from `PARTS` by the base sheet (which also
     // withholds the detail tabs under limited permission), so this sheet does
-    // not restate it — restating it is what broke the fenced sheets (#1088).
+    // not restate it — restating it is what broke the fenced sheets.
 
     protected _filters: foundry.applications.ux.SearchFilter[] = [
         new foundry.applications.ux.SearchFilter({
@@ -272,7 +272,7 @@ export class BeingSheet extends SohlActorSheetBase {
                 select.addEventListener("change", (event: Event) => this._onSetHeldItem(event)),
             );
 
-        // The item/effect context menus (#517) are bound by the base sheet's
+        // The item/effect context menus are bound by the base sheet's
         // `_onRender`, since the ledgers carrying them are shared tab templates.
 
         // Profile tab Body Structure tree: click the per-row ⋮ to Edit a body
@@ -453,7 +453,7 @@ export class BeingSheet extends SohlActorSheetBase {
     static readonly SKILL_SORT_DENSITY = 100000;
 
     /**
-     * Reorder a skill within its own group after a drag (#1528).
+     * Reorder a skill within its own group after a drag.
      *
      * **A drag never re-parents.** A skill's group is its `subType`, so dropping
      * it on another group clamps it to the near edge of its own — bottom when
@@ -602,7 +602,7 @@ export class BeingSheet extends SohlActorSheetBase {
 
     /**
      * `data-action="addBodyZone"`: prompt for a new body zone and append it to
-     * this being's body structure (#780).
+     * this being's body structure.
      *
      * @param _event - The triggering pointer event (unused).
      * @param _target - The clicked add control (unused).
@@ -635,7 +635,7 @@ export class BeingSheet extends SohlActorSheetBase {
 
     /**
      * `data-action="addBodyLocation"`: prompt for a new hit location and append
-     * it to the body part named by the control's `data-part-shortcode` (#720).
+     * it to the body part named by the control's `data-part-shortcode`.
      *
      * @param _event - The triggering pointer event (unused).
      * @param target - The clicked add control, inside a `data-part-shortcode` row.
@@ -655,12 +655,12 @@ export class BeingSheet extends SohlActorSheetBase {
      * `system.shortcode` and — for a GM — its `system.templatePriority` marker together
      * (the header identity pencil). All are applied in a single `actor.update`;
      * the document's update-path guard enforces the unique `(type, shortcode)`
-     * key and warns on a duplicate (#766). A blank name is refused; only changed
+     * key and warns on a duplicate. A blank name is refused; only changed
      * fields are written. The dialog content is static markup with the current
      * values HTML-escaped into value attributes — never interpolated as markup.
      *
      * The Being header shows its identity as text rather than as inputs, so this
-     * dialog is where a Being is marked as a Create-dialog archetype (#1780) —
+     * dialog is where a Being is marked as a Create-dialog archetype —
      * the equivalent of the header control every other sheet carries. A blank
      * Archetype field means "not an archetype"; a number is its priority, and
      * `0` is a real priority, not a blank.
@@ -894,7 +894,7 @@ export class BeingSheet extends SohlActorSheetBase {
                 dropSelector: ".body-structure",
             },
             {
-                // Skills tab: reorder a skill within its own group (#1528). The
+                // Skills tab: reorder a skill within its own group. The
                 // drop target is the whole tab rather than one group's ledger,
                 // because a drop onto another group is legal — it clamps to the
                 // near edge of the skill's own group rather than being refused.
@@ -921,14 +921,14 @@ export class BeingSheet extends SohlActorSheetBase {
             // The shared Gear/Actions tab controls (createItem, editItem,
             // deleteItem, toggleCarried, toggleWorn, and the action controls)
             // are registered by the base sheet — those templates render on
-            // every actor type (#1088).
+            // every actor type.
             makeDefaultMedium: BeingSheet._onMakeDefaultMedium,
             printSheet: BeingSheet._onPrintSheet,
         },
     };
 
     /**
-     * Add the window-header **print** control (#795). Clicking it renders the
+     * Add the window-header **print** control. Clicking it renders the
      * dedicated, document-first print/export view (all sections at once, static
      * text) into a new browser window and opens that window's print dialog — from
      * which the viewer chooses print-to-printer, save-as-PDF, or (cancel and)
@@ -949,7 +949,7 @@ export class BeingSheet extends SohlActorSheetBase {
     }
 
     /* -------------------------------------------- */
-    /*  Print / Export (#795)                       */
+    /*  Print / Export                       */
     /* -------------------------------------------- */
 
     /**
@@ -1051,7 +1051,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
     }
 
     /**
-     * Build the render context for the print/export view (#795) by reusing the
+     * Build the render context for the print/export view by reusing the
      * interactive sheet's own `_prepare*Context` builders — the **same** data
      * layer — and re-presenting it for a static record: the letterhead's
      * health/status/injury summary lines (the color-coded header pills and
@@ -1366,7 +1366,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
     ): Promise<void> {
         // `resolveInjury` lives on the actor's BeingLogic, not the actor
         // document itself — dispatch it with an empty-scope context so the
-        // dialog gathers the wound from scratch (#268).
+        // dialog gathers the wound from scratch.
         const actorLogic = this.document.logic as BeingLogic;
         const context = new SohlActionContext({
             speaker: actorLogic.speaker,
@@ -1646,7 +1646,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
 
         // Body-part lozenges, sourced from the being's body structure
         // (dynamic — varies by being), each colored by its derived impairment
-        // status (#464). Impairment comes from the actor's active injuries,
+        // status. Impairment comes from the actor's active injuries,
         // grouped onto parts by the injured location's shortcode.
         const structure = getActorBody(actor.logic)?.structure;
         const injuries: LocationInjury[] = [];
@@ -1665,7 +1665,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
         const bodyParts = buildBodyPartLozenges(structure, injuries);
 
         // Health bar: the banded impairment value against a fixed max of 100
-        // (#470). `healthBand` is the qualitative label shown to the player.
+        //. `healthBand` is the qualitative label shown to the player.
         const health = logic?.data?.health;
         const healthMax = health?.max ?? 0;
         const healthPct = healthMax > 0 ? clampHealthPct((health!.value / healthMax) * 100) : 0;
@@ -1799,7 +1799,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
                 score,
                 descriptor: attributeDescriptor(score, bands),
                 tl: attrLogic?.masteryLevel?.effective ?? 0,
-                // Derivation summaries for the score / TL hover tooltips (#769).
+                // Derivation summaries for the score / TL hover tooltips.
                 scoreDeltaLabel: attrLogic?.score?.deltaLabel ?? "",
                 tlDeltaLabel: attrLogic?.masteryLevel?.deltaLabel ?? "",
             };
@@ -1848,7 +1848,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
         }
 
         // Body structure editor: the editable Zone → Part → Location tree lives
-        // on the Profile tab (#782). `structure` gates the whole section;
+        // on the Profile tab. `structure` gates the whole section;
         // `bodyZones` is the same tree Combat renders read-only; `canEditBody`
         // gates the add / drag-sort / ⋮ authoring affordances (owner/GM only).
         const structure = getActorBody(actor.logic)?.structure;
@@ -1882,7 +1882,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
         // Sorted stably by the Foundry `sort` field, falling back to name —
         // the same treatment the attribute boxes above get. Without this the
         // groups render in raw collection order, so the `sort` values a drag
-        // writes would have no visible effect (#1528).
+        // writes would have no visible effect.
         const skills = [...(this.document.itemTypes[ITEM_KIND.SKILL] ?? [])].sort(
             (a, b) =>
                 ((a as any).sort ?? 0) - ((b as any).sort ?? 0) ||
@@ -1958,7 +1958,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
                 // `minParts` (a longbow's missile mode needs two hands to draw).
                 // Combat-technique skills have no `heldBy` — they are intrinsic
                 // and always available (`null`). Mirrors
-                // `BeingLogic.availableStrikeModes` (#836).
+                // `BeingLogic.availableStrikeModes`.
                 const heldBy = (source.logic as any)?.heldBy;
                 return usableHeldStrikeModes(modes, heldBy ? heldBy.length : null);
             });
@@ -1990,7 +1990,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
             .map((part: any) => ({
                 index: part.index,
                 // Readable limb name ("Right Arm"), not the raw part code
-                // ("RARMPART") — the code is only a fallback (#509).
+                // ("RARMPART") — the code is only a fallback.
                 label: part.name ?? part.shortcode,
                 heldItemId: part.heldItem?.id ?? "",
             }));
@@ -2030,7 +2030,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
     /**
      * Format a trauma's next recovery/heal/course test world time as a compact
      * relative label ("in 5 days") for the Trauma tab, or an em-dash when no
-     * test is scheduled (#939). The schedule is the source of truth — nothing is
+     * test is scheduled. The schedule is the source of truth — nothing is
      * auto-armed (consent model, #579).
      *
      * @param at - The next-test world time (seconds), or `undefined`.
@@ -2083,7 +2083,7 @@ html, body { margin: 0; padding: 0; background: #fff; }
                 // The "Category" column shows the localized sub-category for every
                 // category-bearing sub-type — FATIGUE / PSYCOND / PHYSCOND and the
                 // named severity state (Afraid, Routed, …) for FEAR / MORALE, all of
-                // which now live in the `category` field (#961).
+                // which now live in the `category` field.
                 const categoryDisplay = tl?.categoryLabel ?? "";
                 return {
                     id: item.id!,

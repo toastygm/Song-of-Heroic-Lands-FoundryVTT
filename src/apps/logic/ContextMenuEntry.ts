@@ -87,7 +87,7 @@ export interface ContextMenuEntryContext {
  * Resolution goes through {@link resolveContextItem} — the one path every
  * context-menu consumer shares — so a row identified by an actor-embedded
  * `data-item-id` and one identified by its own `data-uuid` both resolve, and
- * the two resolvers cannot drift apart (#1188). The speaker comes from the
+ * the two resolvers cannot drift apart. The speaker comes from the
  * item's logic, which falls back to a blank speaker for a world (unowned) item
  * rather than leaving the action context without one.
  * @param functionName - The logic method to invoke.

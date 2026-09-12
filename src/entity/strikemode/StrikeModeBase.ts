@@ -42,7 +42,7 @@ import { SohlActionContext } from "../action/SohlActionContext";
 import { SohlEntity } from "../SohlEntity";
 
 /*
- * ── Construction indirection: base class (#83) ───────────────────────────────
+ * ── Construction indirection: base class ───────────────────────────────
  * Registered entity classes are constructed through the registry so a variant
  * module can override them:
  *   - Inside SoHL:            `import { entity }` then `new entity.X(...)`

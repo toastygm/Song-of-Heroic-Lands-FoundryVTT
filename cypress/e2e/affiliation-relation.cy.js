@@ -14,8 +14,8 @@
 import { toRealm } from "../support/resolve.js";
 
 /**
- * The Affiliation sheet's standing-toward-others table (#1404) and the subtype
- * it now declares (#1405).
+ * The Affiliation sheet's standing-toward-others table and the subtype
+ * it now declares.
  *
  * The generic `itemSheetSuite` already proves the subtype `<select>` round-trips
  * like any other choice field; what only a live client can prove is the relation

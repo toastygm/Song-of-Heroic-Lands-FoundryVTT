@@ -85,7 +85,7 @@ describe("offerSchedule — the consent step for scheduling timed effects (#579)
         expect(schedule).not.toHaveBeenCalled();
     });
 
-    // ---- event-driven schedules (issue #622) ----
+    // ---- event-driven schedules ----
 
     it("event-driven: an accepted offer schedules bound to the lifecycle trigger", async () => {
         const { schedule, unschedule } = spies();

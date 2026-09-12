@@ -12,7 +12,7 @@
  */
 
 /**
- * Being Actions tab (#313): actions from `logic.actions` are split into a
+ * Being Actions tab: actions from `logic.actions` are split into a
  * Custom (script) section and an Intrinsic (code-defined) section, with
  * hidden-group lifecycle actions omitted. Custom actions bind a Macro; this
  * spec drives the real UI — create (bind an existing Macro), run, edit (open

@@ -117,11 +117,11 @@ describe("SuccessTestResult", () => {
         it.todo("sets MARGINAL_FAILURE when roll > constrainedEffective (no crits)");
         // CRITICAL_SUCCESS / CRITICAL_FAILURE from the last digit, and the
         // matching descriptions, are covered by the
-        // "critical outcomes on a standard test (#908)" block below.
+        // "critical outcomes on a standard test" block below.
         it.todo("applies successLevelMod to the success level");
         it.todo("clamps success level to MS/MF range when crits not allowed");
         // valueDiamonds is no longer computed in evaluate() — it derives on read
-        // from the description table (see the "derived outcome data (#205)" block).
+        // from the description table (see the "derived outcome data" block).
     });
 
     describe("testDialog()", () => {

@@ -40,7 +40,7 @@ export interface SceneFlagStore {
  *
  * A Foundry {@link Scene} is **not** a typed document — it declares no
  * `hasTypeData`, so it has no `system` and no system DataModel can ever be
- * attached to it (issue #1155). Scene-scoped state therefore lives in document
+ * attached to it. Scene-scoped state therefore lives in document
  * flags, and this adapter reads them live.
  */
 export interface SceneData {

@@ -12,7 +12,7 @@
  */
 
 /**
- * The driven-tour capabilities (#624): seeded-RNG mode and the drive-step
+ * The driven-tour capabilities: seeded-RNG mode and the drive-step
  * pipeline, driven against the live client.
  *
  * The headline is the **all-exit-paths RNG restore matrix** — the acceptance

@@ -123,7 +123,7 @@ export class ArmorGearLogic<TData extends ArmorGearData = ArmorGearData> extends
     }
 
     /**
-     * Clear the worn state when the armor is set down (issue #1097).
+     * Clear the worn state when the armor is set down.
      *
      * `toggleWorn` is gated on the armor being carried, so armor left worn
      * while being set down could never be taken off again — and would keep
@@ -162,7 +162,7 @@ export class ArmorGearLogic<TData extends ArmorGearData = ArmorGearData> extends
     /**
      * Worn armor is excluded from the being's carried weight: a fitted harness
      * rides the body rather than hanging off it as load. Armor that is carried
-     * but **not** worn counts its full weight like any other cargo (#1009).
+     * but **not** worn counts its full weight like any other cargo.
      *
      * @returns `true` only when this armor is carried and not currently worn.
      */

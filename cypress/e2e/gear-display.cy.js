@@ -12,7 +12,7 @@
  */
 
 /**
- * Being Gear tab display (#302): gear listed under On Body and under each
+ * Being Gear tab display: gear listed under On Body and under each
  * container as its own section, with the Type / Qty / Weight / Qual / Dur / Notes
  * columns.
  *

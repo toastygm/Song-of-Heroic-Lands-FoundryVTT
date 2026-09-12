@@ -163,7 +163,7 @@ describe("armScheduledActions (load-side re-arm)", () => {
         );
     });
 
-    // ---- event-driven triggers (issue #622) ----
+    // ---- event-driven triggers ----
 
     it("arms an event-driven entry via subscribe (not scheduleAt)", () => {
         const queue = mockQueue();

@@ -12,7 +12,7 @@
  */
 
 /**
- * Boundary guard (issue #125): unit tests are scoped to the logic layer and must
+ * Boundary guard: unit tests are scoped to the logic layer and must
  * reach Foundry only through the mock-swapped `FoundryHelpers` shim — never by
  * poking `globalThis.game`. Foundry-global setup belongs solely in
  * `tests/setup.ts` and `tests/mocks/`.

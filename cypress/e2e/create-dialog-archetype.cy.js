@@ -12,7 +12,7 @@
  */
 
 /**
- * Create-dialog archetype picker (issue #604), on `system.templatePriority`
+ * Create-dialog archetype picker, on `system.templatePriority`
  * (#1780, renamed off `system.archetype` by #1836). The dialog seeds a new Being
  * from a populated archetype, or a blank one for **(none)**. The marker is
  * cleared to `null` when an archetype is _instantiated_ (dialog seed,
@@ -22,7 +22,7 @@
  * shipped compendium being marked. That is deliberate, and it is not merely
  * hygiene: which documents the built packs carry a marker on — and under which
  * key — depends on `@heroiclands/package-build`'s builders, which follow this
- * rename on their own schedule (HeroicLands/package-build#266). A spec that
+ * rename on their own schedule. A spec that
  * presents its own archetype is evidence about SoHL's discovery rules either
  * side of that, instead of evidence about which build produced the packs.
  *
@@ -126,7 +126,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
                 expect(r.archetype, "archetype cleared on instantiation").to.be.null;
                 // The typed Name wins…
                 expect(r.name, "typed name overrides").to.eq(tagName("Archetype Being"));
-                // …but a blank Shortcode now defaults to the archetype's own (#643),
+                // …but a blank Shortcode now defaults to the archetype's own,
                 // subject only to uniqueness bumping.
                 expect(r.shortcode, "archetype shortcode default").to.match(
                     new RegExp(`^${arch.shortcode}\\d*$`),
@@ -237,7 +237,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
             // what the packs happen to carry.
             const data = src.toObject();
             data.name = tagName("Imported Folk");
-            // Alphanumeric only — the create guard rejects anything else (#1397).
+            // Alphanumeric only — the create guard rejects anything else.
             data.system.shortcode = `imp${Date.now()}`;
             data.system.templatePriority = 3;
             const created = await win.Actor.create(data);

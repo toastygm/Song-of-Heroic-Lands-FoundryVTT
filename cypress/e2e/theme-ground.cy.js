@@ -13,7 +13,7 @@
 
 /**
  * The Being sheet header/ground must follow the Manuscript light/dark token swap
- * (#810). Three regressions are gated here:
+ *. Three regressions are gated here:
  *
  * 1. The parchment ground. `.window-content` painted a fixed light `parchment.jpg`
  *    with no theme-aware base, so in dark mode the token surfaces darkened while

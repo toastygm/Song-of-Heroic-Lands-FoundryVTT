@@ -18,7 +18,7 @@ import { TRAUMA_SUBTYPE } from "@src/utils/constants";
 
 const TEMPLATE = "systems/sohl/templates/actor/being/trauma.hbs";
 
-/** One TraumaLike input; overrides fill the sub-type-specific fields (#939). */
+/** One TraumaLike input; overrides fill the sub-type-specific fields. */
 function traumaLike(over: Record<string, unknown> = {}) {
     return {
         id: "t1",

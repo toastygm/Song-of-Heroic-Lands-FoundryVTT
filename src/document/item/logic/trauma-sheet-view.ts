@@ -14,7 +14,7 @@
 import { TRAUMA_SUBTYPE } from "@src/utils/constants";
 
 /**
- * Foundry-free view-model for the Trauma item sheet's properties tab (#939):
+ * Foundry-free view-model for the Trauma item sheet's properties tab:
  * which fields each sub-type displays and edits. The sheet
  * (`TraumaSheet._preparePropertiesContext`) turns these flags into rendered
  * controls and supplies the Foundry-facing pieces (schema `fields`, the category
@@ -91,7 +91,7 @@ const NEXT_TEST_LABEL_KEY: Record<string, string> = {
 };
 
 /**
- * The field-visibility view-model for a Trauma sub-type's properties tab (#939).
+ * The field-visibility view-model for a Trauma sub-type's properties tab.
  *
  * @param subType - The trauma `subType` value.
  * @returns Which controls the sheet renders for that sub-type.

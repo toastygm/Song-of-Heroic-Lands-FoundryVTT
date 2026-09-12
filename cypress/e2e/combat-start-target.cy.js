@@ -12,7 +12,7 @@
  */
 
 /**
- * Automated-combat start: target resolution (#1079).
+ * Automated-combat start: target resolution.
  *
  * The combat tracker's **Automated Combat** entry builds its action context
  * with a speaker only (`SohlLogic.getContextOptions` supplies no `target`), so
@@ -72,7 +72,7 @@ describe("automated combat start: target resolution (#1079)", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
-    // The known logger recursion (#267) turns a stray `uiWarn` into a stack
+    // The known logger recursion turns a stray `uiWarn` into a stack
     // overflow; don't let an unrelated background warning fail the assertions.
     Cypress.on("uncaught:exception", () => false);
 

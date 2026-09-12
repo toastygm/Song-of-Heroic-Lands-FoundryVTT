@@ -12,7 +12,7 @@
  */
 
 /**
- * **Item docs** (#1348) — a shipped item's prose lives in the journals pack, and
+ * **Item docs** — a shipped item's prose lives in the journals pack, and
  * the item carries only a `@UUID` pointer to it.
  *
  * The pointer is built by one pack pass and the page it addresses by another,
@@ -62,7 +62,7 @@ describe("Item docs — a shipped description is a pointer (#1348)", () => {
                     content: page?.text?.content ?? "",
                     // The doc is filed with its item: the journals pack
                     // declares the same folder tree the items pack does
-                    // (#1358), so the id resolves to a real Folder on both
+                    //, so the id resolves to a real Folder on both
                     // sides rather than dropping the entry at the root.
                     docFolder: page?.parent?.folder?.id ?? null,
                     itemFolder: doc.folder?.id ?? null,
@@ -112,7 +112,7 @@ describe("Item docs — a shipped description is a pointer (#1348)", () => {
 });
 
 /**
- * **The Description tab** (#1357) — the sheet half of the same convention. A
+ * **The Description tab** — the sheet half of the same convention. A
  * pointer must read as its target on the tab, not as the link that addresses it,
  * with an edit control that hands the author the editor when they ask for it.
  */

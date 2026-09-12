@@ -16,8 +16,8 @@
  *
  * Each is a `SohlActorDataModel` subtype with its own schema. Containment and
  * schema-field round-trip are GREEN today, as is the cohort's read-only Shared
- * Gear tab (#76); the rest of derived behavior is a no-op (their Logic classes
- * call `super` only), so capacity/HP/move/invariant computation is RED (#184).
+ * Gear tab; the rest of derived behavior is a no-op (their Logic classes
+ * call `super` only), so capacity/HP/move/invariant computation is RED.
  */
 
 /** Update a document's `system` with a realm-cloned patch; resolves after settle. */
@@ -66,7 +66,7 @@ describe("non-being actors: cohort / structure / vehicle", () => {
             cy.foundry((win) =>
                 patchSystem(win, actor.id, {
                     // The leader is one of the members, named by the same
-                    // handle its member entry carries (#1151).
+                    // handle its member entry carries.
                     "system.leaderCode": "vell",
                     "system.members": [{ shortcodeOrUuid: "vell" }, { shortcodeOrUuid: "arn" }],
                 }),
@@ -121,7 +121,7 @@ describe("non-being actors: cohort / structure / vehicle", () => {
         });
     });
 
-    // ------------------------------------------------------------ shared gear (#76)
+    // ------------------------------------------------------------ shared gear
 
     describe("cohort shared gear", () => {
         /**

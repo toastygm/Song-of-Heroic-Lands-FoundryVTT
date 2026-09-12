@@ -26,13 +26,13 @@ export const KIND_KEY = "__kind" as const;
 export const SCHEMA_VERSION_KEY: string = "__schemaVer" as const;
 /**
  * Reserved shortcode identifying the singleton **world host** actor — the
- * document world-scoped scheduled actions and events hang off of (issue #588).
+ * document world-scoped scheduled actions and events hang off of.
  * Found or created via `sohl.worldHost()`.
  *
  * Like every other `shortcode` it must be **strictly alphanumeric** (issue
  * #1397): the host is created through the same `(type, shortcode)` guard as any
  * document, which refuses a malformed key outright — so the original
- * `_sohlworld` vetoed the host's own creation (issue #1536). The underscore is
+ * `_sohlworld` vetoed the host's own creation. The underscore is
  * dropped rather than exempted, which is also what the 0.9.0 repair migration
  * does to a host a v0.8 world already created, so an upgraded world keeps the
  * one host it has instead of growing a second.
@@ -184,7 +184,7 @@ export const FENCE_EXPERIMENTAL_LABEL_KEY = "SOHL.Fence.experimental";
  * Foundry `documentName` → the fenced type values.
  *
  * Fenced actor kinds are `cohort` / `structure` / `vehicle` (logic stubs). Mystery
- * and Mystical Ability graduated into the frozen subset (#956) and are **not**
+ * and Mystical Ability graduated into the frozen subset and are **not**
  * fenced; the region-behavior `trigger` is GM-only and Automated Attack is a flow,
  * not a creatable type, so neither appears here.
  */
@@ -717,7 +717,7 @@ export const {
     },
     {
         // The five mishaps a defender shares with an attacker are the same words;
-        // `SOHL.AttackResult.Mishap` owns them (issue #1352).
+        // `SOHL.AttackResult.Mishap` owns them.
         STUMBLE_TEST: "SOHL.AttackResult.Mishap.stumbletest",
         STUMBLE: "SOHL.AttackResult.Mishap.stumble",
         FUMBLE_TEST: "SOHL.AttackResult.Mishap.fumbletest",
@@ -1100,7 +1100,7 @@ export const {
     },
     {
         // Members that restate a label another namespace already owns
-        // borrow it rather than minting a duplicate (issue #1352).
+        // borrow it rather than minting a duplicate.
         MASTERY_LEVEL: "SOHL.MasteryLevel.FIELDS.masteryLevelBase.label",
     },
 );
@@ -1127,7 +1127,7 @@ export const {
     },
     {
         // Members that restate a label another namespace already owns
-        // borrow it rather than minting a duplicate (issue #1352).
+        // borrow it rather than minting a duplicate.
         LEVEL: "SOHL.Affliction.FIELDS.levelBase.label",
         HEALING_RATE: "SOHL.Affliction.FIELDS.healingRateBase.label",
     },
@@ -1143,7 +1143,7 @@ export type AfflictionEffectKey =
  * encumbrance effect keys, and `SOHL.Gear.FIELDS.*` already owns each of those
  * words. Passing this as {@link defineType}'s `labelKeys` makes each subtype
  * borrow the shared label instead of minting `SOHL.<Subtype>.EffectKey.WEIGHT`
- * and friends — one word, translated once (issue #1352).
+ * and friends — one word, translated once.
  */
 const GEAR_SHARED_EFFECT_LABELS = {
     WEIGHT: "SOHL.Gear.FIELDS.weightBase.label",
@@ -1198,7 +1198,7 @@ export const {
     },
     {
         // Members that restate a label another namespace already owns
-        // borrow it rather than minting a duplicate (issue #1352).
+        // borrow it rather than minting a duplicate.
         LEVEL: "SOHL.Mystery.FIELDS.levelBase.label",
         CHARGES: "SOHL.Mystery.FIELDS.charges.label",
         MAX_CHARGES: "SOHL.Mystery.FIELDS.charges.max.label",
@@ -1227,7 +1227,7 @@ export const {
     },
     {
         // Members that restate a label another namespace already owns
-        // borrow it rather than minting a duplicate (issue #1352).
+        // borrow it rather than minting a duplicate.
         MASTERY_LEVEL: "SOHL.MasteryLevel.FIELDS.masteryLevelBase.label",
         LEVEL: "SOHL.MysticalAbility.FIELDS.levelBase.label",
         CHARGES: "SOHL.MysticalAbility.FIELDS.charges.label",
@@ -1257,7 +1257,7 @@ export const {
     },
     {
         // Members that restate a label another namespace already owns
-        // borrow it rather than minting a duplicate (issue #1352).
+        // borrow it rather than minting a duplicate.
         MASTERY_LEVEL: "SOHL.MasteryLevel.FIELDS.masteryLevelBase.label",
     },
 );
@@ -1354,7 +1354,7 @@ export const {
     },
     {
         ...GEAR_SHARED_EFFECT_LABELS,
-        // Restates the strike-mode impact label; borrow it (issue #1352).
+        // Restates the strike-mode impact label; borrow it.
         IMPACT: "SOHL.ProjectileGear.FIELDS.impactBase.label",
     },
 );
@@ -1380,7 +1380,7 @@ export const {
     },
     {
         // Members that restate a label another namespace already owns
-        // borrow it rather than minting a duplicate (issue #1352).
+        // borrow it rather than minting a duplicate.
         LEVEL: "SOHL.Trauma.FIELDS.levelBase.label",
         HEALING_RATE: "SOHL.Trauma.FIELDS.healingRateBase.label",
     },
@@ -1435,7 +1435,7 @@ export const {
     },
     {
         // Members that restate a label another namespace already owns
-        // borrow it rather than minting a duplicate (issue #1352).
+        // borrow it rather than minting a duplicate.
         IMPACT: "SOHL.StrikeMode.FIELDS.impactBase.label",
     },
 );
@@ -1465,7 +1465,7 @@ export const {
     },
     {
         // Members that restate a label another namespace already owns
-        // borrow it rather than minting a duplicate (issue #1352).
+        // borrow it rather than minting a duplicate.
         IMPACT: "SOHL.StrikeMode.FIELDS.impactBase.label",
     },
 );
@@ -1778,7 +1778,7 @@ export const {
  * section of the content format specification. It replaced a four-value
  * partition — `arcane` / `divine` / `spirit` / `social` — that was a picker
  * filter wearing a taxonomy's name: `social` covered a guild, a bank, a noble
- * house and a legion alike, and distinguished none of them (#1788).
+ * house and a legion alike, and distinguished none of them.
  */
 export type AffiliationSubType = (typeof AFFILIATION_SUBTYPE)[keyof typeof AFFILIATION_SUBTYPE];
 
@@ -2274,7 +2274,7 @@ export const BASE_INJURY_THRESHOLDS: readonly number[] = [1, 5, 10, 15, 20];
 export const MIN_BODY_SCALE = 0.01;
 
 /**
- * Largest body scale a being may have (#1242).
+ * Largest body scale a being may have.
  *
  * Impact grows with Strength at about `STR ÷ 2`, while an unbounded body scale
  * grows the thresholds at `20 × STR ÷ 11` — roughly `STR × 1.8`, some 3.6 times
@@ -2370,7 +2370,7 @@ export const {
         iconClass: "fa-solid fa-arrow-trend-up",
         // Offered for an item that *is* flagged for improvement — the SDR is
         // the roll a flagged item is waiting for, and it spends the flag as
-        // part of its outcome (#1102). Kept identical to the `visible`
+        // part of its outcome. Kept identical to the `visible`
         // predicate in `defineImproveSdrActions` so the two cannot disagree.
         condition: "itemLogic.canImprove && itemLogic.data.improveFlag",
         group: SOHL_CONTEXT_MENU_SORT_GROUP.GENERAL,
@@ -2632,7 +2632,7 @@ export interface DefinedType<KMap extends Record<string, unknown>> {
  * @param labelKeys - Per-member overrides that point a member at an **existing**
  *   localization key instead of minting one under `prefix`. Use it when a set
  *   inherits a label that already has an owner elsewhere, so the word is
- *   translated once rather than restated per subtype (issue #1352) — e.g. every
+ *   translated once rather than restated per subtype — e.g. every
  *   gear subtype's `WEIGHT` effect key resolving to
  *   `SOHL.Gear.FIELDS.weightBase.label`. Members left out keep the default
  *   `<prefix>.<segment>` key.

@@ -12,7 +12,7 @@
  */
 
 /**
- * Blood Stoppage (#547) — the pure, Foundry-free outcome of a **Blood Stoppage
+ * Blood Stoppage — the pure, Foundry-free outcome of a **Blood Stoppage
  * Test** (a Physician skill test on a bleeding injury).
  *
  * A physician may answer a bleeder's request and roll a Blood Stoppage Test; the

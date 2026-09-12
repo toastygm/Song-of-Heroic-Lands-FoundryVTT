@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill sheet "Adopt Parent Mastery" option (#719).
+ * Skill sheet "Adopt Parent Mastery" option.
  *
  * `system.adoptParentMasteryLevel` (BooleanField, initial false) lets a
  * specialization skill track its parent skill's mastery level. The control must

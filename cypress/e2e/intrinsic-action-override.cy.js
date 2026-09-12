@@ -12,7 +12,7 @@
  */
 
 /**
- * Overriding an intrinsic action (#1060). A Script action whose `shortcode`
+ * Overriding an intrinsic action. A Script action whose `shortcode`
  * matches a built-in (intrinsic) action WHOLLY OVERRIDES it: the live `actions`
  * map, the context menu, and `executeAction` resolve only the script, never the
  * intrinsic. The intrinsic's capability is the executor METHOD on the Logic,

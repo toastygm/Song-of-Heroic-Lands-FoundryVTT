@@ -24,11 +24,11 @@
  * The display + aggregation gating landed in #180; the hold roundtrip depends on
  * the parts-array fix in #247. (The `set*`/`holdItem`/`releaseItem` gear actions
  * were retired: carry became a single toggle, worn moved to the armor-scoped
- * `toggleWorn` action / `isWorn` field (#662), and hold is a Combat-tab operation.)
+ * `toggleWorn` action / `isWorn` field, and hold is a Combat-tab operation.)
  *
  * Compendium weapongear cannot be embedded here: every weapon in `sohl.items`
  * still stores `strikeModes.defense` in the old flat schema, which throws in
- * `MeleeStrikeMode` during `prepareData()` (#246). Hold / combat-tab tests
+ * `MeleeStrikeMode` during `prepareData()`. Hold / combat-tab tests
  * therefore use an inline weapon with the correct nested defense schema. The
  * armor-gating test uses inline armor keyed to a body-location shortcode for a
  * controlled input; the compendium-armor path is now exercised too (the covered
@@ -219,7 +219,7 @@ describe("gear equip / hold → combat-tab display", () => {
                 // combat techniques (punch, kick, bite, …) whose natural
                 // strike modes are intrinsic — they render with nothing
                 // held, so an unscoped `[data-sm-id]` never reaches zero
-                // (#1271). Each row carries its source item's id.
+                //. Each row carries its source item's id.
                 const rows = `section.tab[data-tab="combat"] [data-sm-id][data-item-id="${weapon.id}"]`;
 
                 // Not held: filterHeldWeapons excludes it, so no rows render.

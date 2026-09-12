@@ -26,7 +26,7 @@
  * keys `` `${prefix}.${seg}` ``, where `seg` is the **value** when that value
  * is a plain identifier string (no `.` or `:`) and the **key** otherwise. A
  * third argument maps a member to an *existing* label key it borrows instead of
- * minting one under `prefix` (#1352); those members contribute the borrowed key.
+ * minting one under `prefix`; those members contribute the borrowed key.
  *
  * A bundle's labels are only *required* to exist when its `labels` / `choices`
  * is actually **consumed** — destructured into a binding that is used, or read

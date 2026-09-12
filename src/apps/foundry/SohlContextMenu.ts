@@ -165,7 +165,7 @@ export class SohlContextMenu extends (foundry.applications as any).ux.ContextMen
         // class — and for a DocumentSheetV2 the frame element is a `<form>`, not
         // a `<div>`. The pre-v13 `div.app` selector (and even `div.application`)
         // matched nothing here, so the menu threw "Container not found" on open
-        // (#517). Match on the class alone so it finds the form or div frame.
+        //. Match on the class alone so it finds the form or div frame.
         let container = target.closest(".application");
         if (!container) {
             throw Error("Container not found");
@@ -179,7 +179,7 @@ export class SohlContextMenu extends (foundry.applications as any).ux.ContextMen
         // used to drop absolutely-positioned corner triggers (`.item-contextmenu`
         // and siblings) back into normal flow — shifting the ⋮ icon and the
         // card's text — and, because nothing cleared the inline style on close,
-        // the layout never recovered (#924).
+        // the layout never recovered.
         element.style.visibility = "hidden";
         element.style.width = "fit-content";
 

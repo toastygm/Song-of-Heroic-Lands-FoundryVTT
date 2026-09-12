@@ -736,7 +736,7 @@ describe("BodyStructure", () => {
     });
 });
 
-// Zone-Number + Zone-Die aiming (#828). The sample body has zone numbers
+// Zone-Number + Zone-Die aiming. The sample body has zone numbers
 // 1 (headzone) and 2-3 (bodyzone), so maxZoneNumber === 3. With zoneDie === 1
 // the die result is always 1, so hitZoneNumber === targetZoneNumber — which
 // makes the zone/part/location resolution deterministic to assert.

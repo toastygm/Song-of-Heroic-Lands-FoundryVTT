@@ -362,7 +362,7 @@ describe("AfflictionLogic", () => {
 
         // hasCourse gates the Course Test on the affliction being active
         // (not dormant) AND the actor having a usable Endurance attribute —
-        // matching the pre-port v0.5.6 courseTest contextCondition (#65).
+        // matching the pre-port v0.5.6 courseTest contextCondition.
         describe("hasCourse", () => {
             it("true when active and the actor has a usable Endurance attribute", () => {
                 expect(makeAfflictionOnActor({ isDormant: false }).hasCourse).toBe(true);
@@ -394,7 +394,7 @@ describe("AfflictionLogic", () => {
 
         // canTreat gates the Treatment Test on the affliction not yet having
         // been treated — matching the pre-port v0.5.6 treatmentTest
-        // contextCondition (#65). Afflictions have no `isBleeding` field (that
+        // contextCondition. Afflictions have no `isBleeding` field (that
         // lives on Trauma), so the old FIXME's pysn/isBleeding gate never applied.
         describe("canTreat", () => {
             it("true when the affliction is untreated", () => {
@@ -402,14 +402,14 @@ describe("AfflictionLogic", () => {
             });
 
             it("false when the affliction is already treated", () => {
-                // isTreated is derived from treatmentDate (#484).
+                // isTreated is derived from treatmentDate.
                 expect(makeAffliction({ treatmentDate: 123456 }).canTreat).toBe(false);
             });
         });
 
         // canHeal gates the Healing Test on the affliction having a usable
         // (non-disabled) healing rate AND the actor having a usable Endurance
-        // attribute — matching the pre-port v0.5.6 healingTest contextCondition (#65).
+        // attribute — matching the pre-port v0.5.6 healingTest contextCondition.
         describe("canHeal", () => {
             it("true when healing rate is enabled and the actor has usable Endurance", () => {
                 expect(makeAfflictionOnActor({ healingRateBase: 4 }).canHeal).toBe(true);

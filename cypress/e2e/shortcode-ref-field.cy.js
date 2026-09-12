@@ -12,7 +12,7 @@
  */
 
 /**
- * Shortcode-reference field widget (#974).
+ * Shortcode-reference field widget.
  *
  * Fields that reference another item by its shortcode render as a dropdown of
  * the actor's items when the referencing item is embedded, and as the free-text
@@ -114,7 +114,7 @@ describe("shortcode-reference field (#974)", () => {
         });
     });
 
-    // A Mystical Ability's associated-Affiliation reference (#1012) drives the
+    // A Mystical Ability's associated-Affiliation reference drives the
     // same widget against the actor's Affiliations (Mystical Ability →
     // Affiliation), independent of its assocSkillCode.
     it("lists the actor's Affiliations for a Mystical Ability's assocAffiliationCode and persists the pick (#1012)", () => {

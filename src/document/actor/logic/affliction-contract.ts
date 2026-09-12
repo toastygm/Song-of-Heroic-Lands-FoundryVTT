@@ -51,7 +51,7 @@ function toInt(value: unknown): number {
 }
 
 /**
- * The being's answers from the **Contagion Test** dialog (#1183): which
+ * The being's answers from the **Contagion Test** dialog: which
  * affliction they were exposed to, how the roll is modified, and whether a
  * contracted affliction is recorded on the sheet.
  */
@@ -91,7 +91,7 @@ export function readContagionTestForm(
 }
 
 /**
- * Build the item-creation data for a contracted affliction (#1183): the source
+ * Build the item-creation data for a contracted affliction: the source
  * affliction copied verbatim (minus its `_id`, so Foundry mints a fresh one),
  * with the contract anchored at `now` and the rolled incubation recorded.
  *

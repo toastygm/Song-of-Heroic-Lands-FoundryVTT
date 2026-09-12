@@ -26,7 +26,7 @@ function useRealStrings(): void {
 describe("SohlLocalize.format", () => {
     afterEach(() => vi.restoreAllMocks());
 
-    // Regression (#1095): `format` interpolates SINGLE-brace `{key}`
+    // Regression: `format` interpolates SINGLE-brace `{key}`
     // placeholders, so a `{{key}}` in en.json matched as `{{key}` — the lookup
     // missed, the delete-confirmation title read "Delete undefined}: Dagger",
     // and the surplus brace survived into the window title.
@@ -51,7 +51,7 @@ describe("SohlLocalize.format", () => {
 });
 
 describe("SohlLocalize.normalizeText", () => {
-    // Regression (#312): the ascii branch used a non-negated class
+    // Regression: the ascii branch used a non-negated class
     // (`/[%\x20-\x7E]/`) that matched *printable ASCII* and blanked every letter
     // to a space, so search-name matching (which compares against a regex) never
     // matched — every list-search filter hid all rows.

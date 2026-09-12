@@ -15,7 +15,7 @@ import { tagName } from "../support/factories/ids.js";
 import { toRealm } from "../support/resolve";
 
 /**
- * `(type, shortcode)` uniqueness (#766): the runtime enforces the key on create
+ * `(type, shortcode)` uniqueness: the runtime enforces the key on create
  * and update. A colliding explicit shortcode is rejected by default and
  * auto-suffixed when the caller passes `shortcodeDedupe: true`.
  */
@@ -45,7 +45,7 @@ describe("shortcode uniqueness (#766)", () => {
                     toRealm(win, {
                         name: tagName("Beta"),
                         type: "skill",
-                        // subType is required with no initial (#956); without it
+                        // subType is required with no initial; without it
                         // the create is vetoed and the dedupe never runs.
                         system: { subType: "social", shortcode: "dupsc" },
                     }),

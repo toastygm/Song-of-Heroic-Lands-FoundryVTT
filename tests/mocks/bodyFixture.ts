@@ -13,7 +13,7 @@
 
 /**
  * Builders for {@link sohl.entity.body.BodyStructure} test data in the flat
- * three-array shape (#780). Suites that need a body compose one from these
+ * three-array shape. Suites that need a body compose one from these
  * rather than hand-rolling nested literals, so a schema change lands in one
  * place.
  */

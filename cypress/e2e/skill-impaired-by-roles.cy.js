@@ -12,13 +12,13 @@
  */
 
 /**
- * Skill sheet Impaired By Roles control (#713).
+ * Skill sheet Impaired By Roles control.
  *
  * `system.impairedByRoles` is a real schema field read by the impairment logic,
  * but the Skill properties template never rendered it, so a skill could only be
  * marked impaired by editing raw data. The Properties tab now renders an
  * "Impaired By Roles" list (at parity with the Attribute sheet) whose Add/Delete
- * controls are wired via ApplicationV2's delegated `data-action` (#734), so these
+ * controls are wired via ApplicationV2's delegated `data-action`, so these
  * specs drive real DOM clicks on the live controls and assert the array persists.
  */
 

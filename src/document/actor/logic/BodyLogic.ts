@@ -27,7 +27,7 @@ import {
 /**
  * A being's **body** — its physical baseline, derived from `system.body`.
  *
- * Dissolved from the former Corpus item into the Being (#535): rather than a
+ * Dissolved from the former Corpus item into the Being: rather than a
  * separate embedded document, a Being owns its body directly. `BodyLogic` is a
  * plain, Being-owned domain object (not a `SohlLogic`) that wraps the persisted
  * {@link BodyLogic.Data | body data} into live derived state — the
@@ -59,7 +59,7 @@ export class BodyLogic {
      * with everything else, so an enlarge cannot lift a being past the cap.
      *
      * The ceiling exists because an unbounded scale outruns every impact the
-     * system can produce; see {@link MAX_BODY_SCALE} (#1242).
+     * system can produce; see {@link MAX_BODY_SCALE}.
      */
     bodyScale!: ValueModifier;
 

@@ -13,7 +13,7 @@
 
 /**
  * The shape rule for `shortcode` — the system's identity key must be strictly
- * ASCII-alphanumeric (issue #1397). This is the single source of truth for that
+ * ASCII-alphanumeric. This is the single source of truth for that
  * rule, shared by the runtime create/update guard (`resolveShortcodeKey` in
  * `src/utils/helpers.ts`), the world migration that repairs legacy keys, and
  * the build-time `lint:packs` guard.
@@ -32,7 +32,7 @@
  * likewise has to survive URLs, YAML frontmatter, and expression source
  * unescaped.
  *
- * **Why lowercase (#1882).** This was once left open — "case is not
+ * **Why lowercase.** This was once left open — "case is not
  * constrained … tightening that would be a separate decision" — and #1882 is
  * that decision, taken alongside `@heroiclands/package-build` 20.0.0, which
  * narrows the build-time rule the same way (package-build#340). The reason is
@@ -81,7 +81,7 @@ export function isValidShortcode(value) {
  * as well because it derives a *new* key from a display name; here an existing
  * key is being kept as recognizable as possible, so every letter survives.
  *
- * **It lowercases, and must (#1882).** A repair has to land on a value the rule
+ * **It lowercases, and must.** A repair has to land on a value the rule
  * accepts, or the world migration writes back something the create/update guard
  * still refuses — repairing nothing, every load, forever. Folding case is safe
  * in the way dropping characters is not, because the address and the document
@@ -96,7 +96,7 @@ export function isValidShortcode(value) {
  * (`Æ` → `AE`). Deleting instead would change *which entity the key names*:
  * `(type, shortcode)` is a logical identity, so repairing `Tabûri` to `Tabri`
  * stops the document matching the compendium entry it came from, silently and
- * irreversibly (issue #1748). Folding is a no-op on an ASCII key, so the
+ * irreversibly. Folding is a no-op on an ASCII key, so the
  * punctuation repairs above are unchanged.
  *
  * What the fold cannot carry into a letter or digit is still dropped: a vulgar

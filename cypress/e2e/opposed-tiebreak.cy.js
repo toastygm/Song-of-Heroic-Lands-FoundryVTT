@@ -9,16 +9,16 @@
  */
 
 /**
- * Opposed test outcomes end-to-end (#1081, #1160), driven through the real
+ * Opposed test outcomes end-to-end, driven through the real
  * resolution phase in the live client: two settled success tests are contested,
  * `opposedTestResume` evaluates the contest, and the result card is read out of
  * the chat log.
  *
  * Both sides are forced to the same success level, so every case here is a tie:
  *
- * - left alone, the contest reports a tie — never "Both Fail!" (#1081);
+ * - left alone, the contest reports a tie — never "Both Fail!";
  * - asked to **Break Ties**, it is settled on the higher d100 and reports the
- *   winner, one Victory Star, and which rule decided it (#1160).
+ *   winner, one Victory Star, and which rule decided it.
  *
  * **Why this starts at phase 2.** Phase 1 (`opposedTestStart` on the source
  * token) is token-addressed, and a token-addressed `SohlSpeaker` refuses to

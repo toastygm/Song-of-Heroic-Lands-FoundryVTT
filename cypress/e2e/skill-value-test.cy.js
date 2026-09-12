@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill Value Test end-to-end (#848): a graded success test resolving sustained
+ * Skill Value Test end-to-end: a graded success test resolving sustained
  * work in one roll. This drives the real logic in the live client:
  *
  * - the `successValueTest` intrinsic action is registered and runnable on a skill;
