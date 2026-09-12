@@ -20,7 +20,7 @@ Accordingly, every affliction has an **onset duration** (the Incubation Period, 
 
 An affliction and a [[doc-traumaintro|trauma]] are the two kinds of lasting harm a character can carry, and they are easy to confuse. The distinction is **process vs. state**:
 
-- An **affliction** is an ongoing, hostile _agent_ acting on the Being over time. It has a source, a means of transmission, a course it runs (incubation → onset → symptomatic → outcome), a **Healing Rate** that its [[#course-test|Course Test]] drives up or down, and a terminal [[#outcome|outcome]] of death or cure. Diseases, poisons, and maladictions are afflictions: _something is attacking the Being_, and it will get better or worse.
+- An **affliction** is an ongoing, hostile _agent_ acting on the Being over time. It has a source, a means of transmission, a course it runs (incubation > onset > symptomatic > outcome), a **Healing Rate** that its [[#course-test|Course Test]] drives up or down, and a terminal [[#outcome|outcome]] of death or cure. Diseases, poisons, and maladictions are afflictions: _something is attacking the Being_, and it will get better or worse.
 - A **[[doc-traumaintro|trauma]]** is a _condition the Being is in_ — usually the result of harm or stress that it then carries and recovers from. Injuries, fatigue, fear, morale, shock, infection, aural shock, and the Pall are traumas.
 
 The same event can produce both: a snakebite inflicts a **poison/toxin affliction** (the venom running its course) and, where it breaks the skin, an **[[doc-injrylvl|injury]] trauma** (the wound). When in doubt, ask _"is this an agent running a course, or a condition being carried?"_ — the former is an affliction, the latter a trauma.

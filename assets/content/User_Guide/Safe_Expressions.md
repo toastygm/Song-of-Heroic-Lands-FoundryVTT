@@ -179,8 +179,8 @@ These build or reshape text — most useful in **computed string fields** (like 
 
 | Helper                                | Returns | Description                                                                                           |
 | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------- |
-| `str(value)`                          | string  | The text form of any value (`str(42)` → `"42"`). The companion to the numeric helpers.                |
-| `concat(a, b, …)`                     | string  | Joins the text forms of every argument, in order (`concat("n=", 3)` → `"n=3"`). No arguments → `""`.  |
+| `str(value)`                          | string  | The text form of any value (`str(42)` > `"42"`). The companion to the numeric helpers.                |
+| `concat(a, b, …)`                     | string  | Joins the text forms of every argument, in order (`concat("n=", 3)` > `"n=3"`). No arguments > `""`.  |
 | `slice(value, start, end?)`           | string  | Substring from `start` up to (not including) `end`; negative indices count from the end.              |
 | `substr(value, start, length?)`       | string  | Substring of `length` characters starting at `start` (to the end when `length` is omitted).           |
 | `split(value, separator, limit?)`     | array   | Splits text into a list on `separator` (an empty separator splits into characters); optional `limit`. |

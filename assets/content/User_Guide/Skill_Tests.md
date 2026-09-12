@@ -92,7 +92,7 @@ How the edit is applied:
 
 - **The die is never re-rolled.** The original d100 is kept; only the target and the outcome are recomputed.
 - **Changing the Situational Modifier** changes the effective target, so the success level is re-derived from the same roll (a larger penalty can turn a success into a failure, and vice versa).
-- **Changing the Success Level Modifier** shifts the outcome up or down a fixed number of steps (for example, Marginal Success → Critical Success) without touching the target.
+- **Changing the Success Level Modifier** shifts the outcome up or down a fixed number of steps (for example, Marginal Success > Critical Success) without touching the target.
 
 Unlike Fate, a GM edit costs nothing and can move a result in either direction. Use it to apply a ruling, fix a mistaken modifier, or reflect a circumstance that came to light after the roll.
 

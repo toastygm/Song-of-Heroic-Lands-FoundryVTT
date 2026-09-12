@@ -115,7 +115,7 @@ At no point does the system take a step for you. Every one of those transitions 
 
 The recurring checks — healing, blood loss, course, and the three recoveries — all follow one pattern:
 
-> **offer → check → test → offer the next**
+> **offer > check > test > offer the next**
 
 When a check would begin, SoHL opens the **offer-schedule dialog**, described once on [[doc-baseitemug|Base Item]], asking whether to set a reminder with the rolled cadence already filled in (_"Set a reminder to perform the Healing Check in 5 days?"_). **Schedule It** arms it; **Not Now** declines, and nothing is tracked. When the time comes, a **check card** appears in chat with a button offering its test. Nothing has happened to the character yet: the test runs when you press it, and then offers the next one.
 

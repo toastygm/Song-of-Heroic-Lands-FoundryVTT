@@ -37,7 +37,7 @@ In practice, that means the system **offers**; you decide. When a choice comes u
 
 You can always ignore an offer, do the thing by hand instead, or have the GM step in — nothing gets stuck, and nothing happens behind your back.
 
-**An example.** Your character takes a wound. Rather than silently starting a healing clock, SoHL asks you: _"Set a reminder to check this wound's healing in 5 days?"_ You say yes (or change the timing, or decline). Five days of game-time later, a **Perform** button appears in the chat log — the wound has **not** healed or worsened on its own; it's just reminding you. You click it when you're ready, the healing check is rolled, and it offers to set the next reminder. Treatment, bleeding, shock, and disease all follow the same shape: _offer → remind → perform → offer the next._
+**An example.** Your character takes a wound. Rather than silently starting a healing clock, SoHL asks you: _"Set a reminder to check this wound's healing in 5 days?"_ You say yes (or change the timing, or decline). Five days of game-time later, a **Perform** button appears in the chat log — the wound has **not** healed or worsened on its own; it's just reminding you. You click it when you're ready, the healing check is rolled, and it offers to set the next reminder. Treatment, bleeding, shock, and disease all follow the same shape: _offer > remind > perform > offer the next._
 
 That's the pattern to expect throughout: helpful nudges and one-click rolls at the right moments, with you (and the GM) always in the driver's seat.
 
