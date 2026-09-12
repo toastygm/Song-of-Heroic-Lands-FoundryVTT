@@ -242,6 +242,70 @@ function collectActionIcons(lang) {
  * is what carries both the "whose stars are these" distinction and the earned /
  * unearned split on the diamond scale; a Game-Icons glyph has no hollow twin.
  */
+/**
+ * The affordance icons the sheets draw — a disabled marker, a drag handle, the
+ * control that adds a row — and the second set of hand-maintained rows here.
+ *
+ * **These cannot be generated, and the reason is worth stating plainly.** The
+ * three sources this file reads are `ITEM_METADATA`/`ACTOR_METADATA`, the Being
+ * sheet's `TABS`, and `iconFAClass` in `defineIntrinsicActions()` — all of them
+ * places where an icon is declared *with a name beside it*. These glyphs are
+ * written in Handlebars templates instead, which this generator does not scan.
+ *
+ * Scanning the templates would not be enough either. A template holds
+ * `<i class="fa-solid fa-grip-vertical">` and nothing that says it means
+ * **Drag Handle**, or that a hollow star on the Skills tab means an improvement
+ * flag that is *not* set. That meaning is a design decision, and it exists in
+ * the designer's head and in this table. Nowhere else.
+ *
+ * So this is not duplication to be tidied away later. Deleting it does not move
+ * the knowledge somewhere better; it loses it. The rows arrived by hand-editing
+ * the generated page (#1891), which the `--check` mode then correctly refused —
+ * moving them here is what makes both the page and the check right.
+ */
+const INDICATOR_ROWS = [
+    {
+        cls: "fa-solid fa-xmark fa-lg",
+        name: "Disabled",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-star",
+        name: "Improve Flag Set",
+        note: "Skill Item on Actor Sheet",
+    },
+    {
+        cls: "fa-regular fa-star",
+        name: "Improve Flag Unset",
+        note: "Skill Item on Actor Sheet",
+    },
+    {
+        cls: "fa-solid fa-ellipsis-vertical fa-fw",
+        name: "Context Menu",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-plus",
+        name: "Add",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-grip-vertical",
+        name: "Drag Handle",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-heart-circle-plus",
+        name: "Injury Healed",
+        note: "Trauma Tab on Actor Sheet",
+    },
+    {
+        cls: "fa-solid fa-file-circle-plus",
+        name: "Create Item",
+        note: "Sheets",
+    },
+];
+
 const MARK_ROWS = [
     {
         cls: "fa-solid fa-star",
@@ -310,6 +374,7 @@ async function renderPage() {
         ["Being sheet tabs", collectTabIcons(sheet, lang)],
         ["Actions", collectActionIcons(lang)],
         ["Stars & Diamonds", MARK_ROWS],
+        ["Indicators", INDICATOR_ROWS],
     ];
 
     // A silently empty section would publish a legend that looks complete but
