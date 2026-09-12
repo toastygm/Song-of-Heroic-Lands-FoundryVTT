@@ -58,7 +58,7 @@ Cypress.Commands.add("runAction", (doc, name, ctx) =>
 
 /**
  * Grip an embedded item on the first free hold-capable body part of its actor
- * (a full-array `parts` write, #247). Replaces the retired `holdItem` gear action
+ * (a full-array `parts` write). Replaces the retired `holdItem` gear action
  * — holding is a Combat-tab concern, not a gear action.
  */
 Cypress.Commands.add("holdItem", (item) =>

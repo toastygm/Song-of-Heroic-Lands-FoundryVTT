@@ -431,7 +431,7 @@ export class SohlSystem {
      *   (the default); any other value (`"turnEnd"`, `"combatStart"`, …) ⇒ an
      *   event-driven schedule (`interval` is then unused).
      * @param predicate - Optional {@link sohl.entity.expr.SafeExpression} source
-     *   gating an event-driven schedule (issue #569; `subscriberUuid` is bound to
+     *   gating an event-driven schedule (`subscriberUuid` is bound to
      *   `doc`). Ignored for a time schedule.
      * @param anchor - World time the recurrence is measured from, defaulting to
      *   now. A recurring `*Test` passes **the due time of the occurrence it just
@@ -527,7 +527,7 @@ export class SohlSystem {
      * Attach a Foundry Macro to `doc` as a SCRIPT action —
      * `sohl.addScriptAction`. The clean programmatic sibling of the sheet's
      * "create action" control and of `sohl.schedule` / `sohl.worldHost`
-     * (issue #588, deliverable §7): a module or macro hands a minimal spec
+     * (deliverable §7): a module or macro hands a minimal spec
      * (`{ name, executor }` plus optional overrides) and gets a persisted,
      * runnable action back — without knowing the full `actionDefs` shape.
      *

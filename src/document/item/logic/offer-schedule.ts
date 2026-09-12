@@ -112,7 +112,7 @@ function describeCadence(interval: number, triggerName?: string): string {
  * Time-based schedules only — an event-driven schedule fires on
  *   its trigger and has no cadence to anchor.
  * @param predicate - Optional {@link sohl.entity.expr.SafeExpression} source
- *   gating an event-driven schedule (issue #569; e.g. scoping a `turnEnd`
+ *   gating an event-driven schedule (e.g. scoping a `turnEnd`
  *   schedule to the subscriber's own turn). Ignored for a time schedule.
  * @returns A promise that resolves once the schedule is armed or cleared.
  */

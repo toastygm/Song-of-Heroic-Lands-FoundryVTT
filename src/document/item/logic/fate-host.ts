@@ -323,7 +323,7 @@ export async function performFateTest(
         // amended card should not re-offer the same spend. The card re-derives
         // its outcome text/stars from the bumped level. (The revived original
         // carries the identity `targetValueFunc` a plain success test needs; a
-        // bespoke non-identity test would have to re-supply it here — #854.)
+        // bespoke non-identity test would have to re-supply it here.)
         await original.toChat({ canFate: false });
     }
 

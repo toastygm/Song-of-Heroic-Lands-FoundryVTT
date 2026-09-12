@@ -92,7 +92,7 @@ function thoraxEdgedProtection(win, actorId) {
 /**
  * Set an armor's `isWorn` flag to a specific value directly — a deterministic
  * input for the aggregation-gate test (the `toggleWorn` action only flips it).
- * Worn state is armor-scoped (`system.isWorn`, #662).
+ * Worn state is armor-scoped (`system.isWorn`).
  */
 function setWorn(win, actorId, itemId, value) {
     return win.game.actors

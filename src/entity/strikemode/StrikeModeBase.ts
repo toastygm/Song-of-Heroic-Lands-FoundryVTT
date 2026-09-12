@@ -138,7 +138,7 @@ export abstract class StrikeModeBase extends SohlEntity {
         // The flat impact bonus lives in the ValueModifier base — the single
         // home read by `effective`, the rendered label, and the rolled impact
         // (via `diceFormula`). The roll seed defines only the dice; putting the
-        // modifier there too would leave it unread and hidden (see #774). The
+        // modifier there too would leave it unread and hidden. The
         // field is nullable, so a `null` seeds base 0.
         this.impact = new entity.ImpactModifier(
             {

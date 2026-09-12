@@ -498,7 +498,7 @@ describe("standard-test-card follow-up buttons", () => {
         expect(html).toContain('data-skip-dialog="true"');
         expect(html).toContain("Accept Treatment");
         expect(html).toContain("fa-kit-medical");
-        // The existing edit-pencil (GM result-edit, #856) and Fate Test buttons
+        // The existing edit-pencil (GM result-edit) and Fate Test buttons
         // still render.
         expect(html).toContain('data-action="resultEdit"');
         expect(html).toContain('data-action="fateTest"');
@@ -537,7 +537,7 @@ describe("standard-test-card follow-up buttons", () => {
             canFate: false,
         });
         expect(html).not.toContain("action-card-button");
-        // The edit pencil (GM result-edit, #856) is always present regardless.
+        // The edit pencil (GM result-edit) is always present regardless.
         expect(html).toContain('data-action="resultEdit"');
     });
 });

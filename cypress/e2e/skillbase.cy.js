@@ -13,7 +13,7 @@
 
 /**
  * Skillbase calculation contract — the Skill-Base `SafeExpression` pipeline
- * (`SkillLogic.computeSkillBase`, #972).
+ * (`SkillLogic.computeSkillBase`).
  *
  * Tests the full surface: `sb(attr.a, attr.b)` two-attribute averaging with the
  * round-up/down tiebreak rule, 3+-attribute nearest rounding, flat numeric

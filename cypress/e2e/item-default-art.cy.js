@@ -1,6 +1,6 @@
 // Runtime default-artwork: a freshly-created item with no explicit `img` gets
 // its per-type themed default (SohlItem.getDefaultArtwork), not Foundry's white
-// `icons/svg/item-bag.svg`. Regression for #932.
+// `icons/svg/item-bag.svg`. Regression for.
 
 const BAG = "icons/svg/item-bag.svg";
 

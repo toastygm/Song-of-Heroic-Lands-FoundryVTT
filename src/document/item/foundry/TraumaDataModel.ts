@@ -210,7 +210,7 @@ export class TraumaDataModel<
             healingCheckDurationBase: healInterval,
         };
         // A bleeder arrives with a non-null bloodLossAdvanceDurationBase
-        // (a placeholder set at injury resolution, #482); seed its real interval.
+        // (a placeholder set at injury resolution); seed its real interval.
         if (this.bloodLossAdvanceDurationBase != null) {
             seed.bloodLossAdvanceDurationFormula = bloodFormula;
             seed.bloodLossAdvanceDurationBase = Number(bloodFormula) || 0;

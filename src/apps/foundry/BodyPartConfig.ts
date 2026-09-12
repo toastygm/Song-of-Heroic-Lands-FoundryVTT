@@ -168,7 +168,7 @@ export class BodyPartConfig extends (BodyPartConfig_Base as typeof foundry.appli
      * parts; a rejected shortcode keeps the current one (warning the user). An
      * accepted rename also re-points the part's hit locations, which link to it
      * by shortcode ({@link BodyStructure.repointLocationsUpdate}). A changed
-     * `bodyZoneCode` (the zone dropdown, #982) re-parents the part to another
+     * `bodyZoneCode` (the zone dropdown) re-parents the part to another
      * zone, accepted only when it names an existing zone.
      *
      * @param this - The bound {@link BodyPartConfig} instance.

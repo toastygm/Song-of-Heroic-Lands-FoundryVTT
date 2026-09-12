@@ -67,7 +67,7 @@ const PERMANENT_IMPAIRMENT_FLOOR = -25;
  * −5 per completed 20-day band (`20–39 → −5`, `40–59 → −10`, … `80–99 → −20`),
  * floored at `−25` for `100+` days. Only wounds flagged
  * {@link sohl.document.item.logic.TraumaData.permanentImpairmentEligible} (set by
- * the Treatment Test, #553) accrue it.
+ * the Treatment Test) accrue it.
  *
  * @param daysToHeal - Days from wounding to the injury reaching level 0.
  * @returns The permanent impairment as a non-positive number (`0` when none).
@@ -219,7 +219,7 @@ export interface BodyPartImpairment {
      * unusable.
      */
     usable: boolean;
-    /** Impairment tier by magnitude (drives the health ceiling, #470). */
+    /** Impairment tier by magnitude (drives the health ceiling). */
     tier: BodyPartTier;
     /** Display status bucket for the header grid. */
     status: BodyPartStatus;

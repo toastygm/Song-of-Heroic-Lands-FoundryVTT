@@ -24,7 +24,7 @@
  * `FormDataExtended` parse feeding the pure result callback. Driving it from a
  * live *attack* instead is not reachable headless — `startAutomatedAttack`'s
  * turn gate reads `game.combat`, which needs a canvas (see the RED case in
- * `combat-turn-gate.cy.js`, #177).
+ * `combat-turn-gate.cy.js`).
  */
 
 /** The open dialog carrying the strike-mode select, or `undefined`. */

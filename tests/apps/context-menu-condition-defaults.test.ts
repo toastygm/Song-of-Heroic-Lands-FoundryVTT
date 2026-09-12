@@ -4,7 +4,7 @@ import { TEST_TYPE } from "@src/utils/constants";
 
 // The default context-menu `condition` strings in constants.ts are compiled by
 // SohlContextMenu and evaluated against the context makeConditionContext builds
-// — which binds the **logic layer** as `itemLogic` / `actorLogic` (see #459),
+// — which binds the **logic layer** as `itemLogic` / `actorLogic`,
 // not the raw documents. These tests pin each affected default to the
 // migrated bindings: they must read live logic state, and the pre-#459
 // `item.system.*` / `item.system.data.*` document paths (which are always

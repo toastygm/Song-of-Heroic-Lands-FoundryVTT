@@ -16,7 +16,7 @@
  * with Name / Category / Level / HR / Next Heal Test columns (#943 — the former
  * Source column is now the explicit Category column, and a calendar-formatted
  * Next Heal Test replaces Notes), a custom-create control (data-type=affliction),
- * and a per-row context menu. (The Trauma tab has no search filter — #312.)
+ * and a per-row context menu. (The Trauma tab has no search filter.)
  */
 describe("Being Trauma tab: Afflictions section", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));

@@ -202,7 +202,7 @@ describe("Map notes → Scenes", () => {
      *
      * The state under test is a client viewing nothing, and this harness is
      * not that client: `package-build e2e seed` writes an **active** default
-     * scene (#451, so the canvas is ready and the new-user tour never overlays a
+     * scene (so the canvas is ready and the new-user tour never overlays a
      * sheet), which the client views at load — so `canvas.scene` here is a live
      * Scene. Importing the adventure does not change that: an Adventure carries
      * `active: false` on its scenes, and core only auto-activates a created

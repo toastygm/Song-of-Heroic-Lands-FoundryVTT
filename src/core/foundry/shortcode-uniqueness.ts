@@ -16,7 +16,7 @@ import { fvttRandomId } from "@src/core/FoundryHelpers";
 
 /**
  * Shared runtime enforcement of the `(type, shortcode)` key invariants (issues
- * #766, #1397). `shortcode` is the system's lookup key; it must be a non-null,
+ * #766). `shortcode` is the system's lookup key; it must be a non-null,
  * non-blank, strictly alphanumeric string that is unique within its scope —
  * anything else is refused here. The pure decision logic lives
  * in {@link resolveShortcodeKey}; this module supplies the Foundry-layer scope

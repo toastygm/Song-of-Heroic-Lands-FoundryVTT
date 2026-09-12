@@ -67,7 +67,7 @@ afterEach(() => {
 describe("affliction phase scheduling on the generic store", () => {
     afterEach(() => vi.restoreAllMocks());
 
-    /** A `system.scheduledActions` seed (generic store, issue #588). */
+    /** A `system.scheduledActions` seed (generic store). */
     function sched(actionName: string, anchor: number, interval: number) {
         return {
             scheduledActions: [{ actionName, anchor, interval, sceneUuid: "", payload: {} }],
@@ -692,7 +692,7 @@ describe("resolution outcome effect", () => {
 describe("view-only computed dates", () => {
     afterEach(() => vi.restoreAllMocks());
 
-    /** A `system.scheduledActions` seed (generic store, issue #588). */
+    /** A `system.scheduledActions` seed (generic store). */
     function sched(actionName: string, anchor: number, interval: number) {
         return { actionName, anchor, interval, sceneUuid: "", payload: {} };
     }

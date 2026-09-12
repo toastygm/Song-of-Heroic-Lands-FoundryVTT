@@ -199,7 +199,7 @@ export class BodyLocationConfig extends (BodyLocationConfig_Base as typeof found
      * array back. A changed shortcode is validated for uniqueness among the
      * being's *other* locations — location codes are unique body-wide, not just
      * within their part; a rejected shortcode keeps the current one
-     * (warning the user). A changed `bodyPartCode` (the part dropdown, #982)
+     * (warning the user). A changed `bodyPartCode` (the part dropdown)
      * re-parents the location to another part, accepted only when it names an
      * existing part.
      *

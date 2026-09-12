@@ -177,7 +177,7 @@ export const FENCE_EXPERIMENTAL_LABEL_KEY = "SOHL.Fence.experimental";
 /**
  * Experimental ("fenced") document types for the scoped beta — schemas that are
  * still moving and therefore **not** under the beta migration promise. This is
- * the single source of truth every fence surface reads (issue #959, Blocker IV of
+ * the single source of truth every fence surface reads (Blocker IV of
  * the scoped-beta plan): the create-dialog "(Experimental)" label
  * ({@link labelWithFenceSuffix}), the dismissible sheet banner, and the
  * Ready-for-play vs Experimental table in the README / release notes. Keyed by

@@ -239,8 +239,8 @@ describe("SuccessTestResult", () => {
 
     // Derived outcome data (resultText / resultDesc / valueDiamonds) is never
     // stored — it is computed on read from the description table (which rides
-    // the wire as data, #206) plus the evaluated successLevel / targetValue /
-    // lastDigit. See #205.
+    // the wire as data) plus the evaluated successLevel / targetValue /
+    // lastDigit. See.
     describe("derived outcome data", () => {
         /** One-row table: literal label/description, star count = successLevel + 1. */
         function starTable() {

@@ -272,7 +272,7 @@ describe("being-sheet-view", () => {
             ...over,
         });
 
-        /** Wrap parts in a single zone — the tree's root tier since #780. */
+        /** Wrap parts in a single zone — the tree's root tier since. */
         const inZone = (parts: any[], over: Record<string, unknown> = {}) => [
             {
                 shortcode: "headzone",

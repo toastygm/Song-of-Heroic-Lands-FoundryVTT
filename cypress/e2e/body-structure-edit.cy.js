@@ -514,7 +514,7 @@ describe("Body Structure editing — add / sort / delete", () => {
                 expect(r.addedLocs).to.equal(r.locsBefore + 1);
                 expect(r.finalHas, "part removed").to.be.false;
                 expect(r.finalLen).to.equal(r.countBefore);
-                // The part's location went with it (cascade delete, #780).
+                // The part's location went with it (cascade delete).
                 expect(r.finalLocs, "location cascaded").to.equal(r.locsBefore);
             });
         });

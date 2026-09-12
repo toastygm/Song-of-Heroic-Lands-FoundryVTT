@@ -668,7 +668,7 @@ export class SohlItem extends Item {
 
     /**
      * Update-path gates: enforce the unique `(type, shortcode)` key when
-     * `system.shortcode` changes (issue #766, via {@link enforceShortcodeOnUpdate}),
+     * `system.shortcode` changes (via {@link enforceShortcodeOnUpdate}),
      * and block non-GM users from adding, removing, or modifying SCRIPT entries in
      * `system.actionDefs` (SCRIPT actions run unsandboxed JavaScript, so authorship
      * is restricted to the GM). INTRINSIC actions and non-gated updates are

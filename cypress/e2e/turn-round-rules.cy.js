@@ -17,7 +17,8 @@
  * Combat turns and rounds advance (covered by `combat-setup.cy.js`), but the
  * per-turn/round *rules* are not consumed: `didAction` and the movement budget
  * are never reset or enforced when turns/rounds change — the `updateWorldTime` /
- * combat-turn events fire, but no rule reacts to them. RED against #185.
+ * combat-turn events fire, but no rule reacts to them. RED until a rule
+ * does.
  */
 
 describe("turn / round rules", () => {

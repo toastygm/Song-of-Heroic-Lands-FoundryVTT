@@ -860,7 +860,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
      * `data-action="addMovementProfile"`: prompt for a movement medium (limited
      * to media the being does not yet have a profile for) and a tactical move
      * (feet/round), then append the new profile to `system.movementProfiles`.
-     * The whole array is written back (never an element-by-index update — #247).
+     * The whole array is written back (never an element-by-index update).
      * The option list is built from the trusted, localized `MovementMediumChoices`
      * enum labels, never from persisted user data.
      *

@@ -252,7 +252,7 @@ describe("strike modes tab — weapongear (multi)", () => {
                 cy.get(".shortcode").contains("aaa");
                 cy.get(".impact").contains("2d6+1e");
             });
-            // A single die drops its redundant count (d6, never 1d6) — #775.
+            // A single die drops its redundant count (d6, never 1d6).
             cy.get(
                 'section.tab[data-tab="strikemodes"] .strikemodes__row[data-strikemode-key="bbb"] .impact',
             ).should("have.text", "d6+2p");

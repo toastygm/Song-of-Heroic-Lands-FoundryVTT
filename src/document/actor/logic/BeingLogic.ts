@@ -835,7 +835,7 @@ export class BeingLogic<TData extends BeingData = BeingData> extends SohlActorBa
      * ({@link shockStateFromIndex}). A base SSI below 5 is No Shock and above 10
      * is immediate Dead, with no roll ({@link shockRollNeeded}). The being is then
      * **offered** the resulting state (worsen-only — a fresh shock never improves
-     * an already-worse state; recovery is the {@link shockReTest}, #556), and, if
+     * an already-worse state; recovery is the {@link shockReTest}), and, if
      * it enters ordinary shock, offered the Re-Test reminder.
      *
      * @param context - The action context; `scope.shockIndex`/`baseShockIndex`

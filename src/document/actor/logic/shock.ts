@@ -195,7 +195,7 @@ export const SHOCK_RETEST_MODIFIER = -20;
  * The delay before an **Unconscious** victim's Shock Re-Test comes due (Shock
  * rules — Shock Re-Test): ten minutes, in seconds. An Incapacitated victim
  * instead re-tests at the end of each combat turn (an event-driven cadence, not a
- * fixed delay), so it has no analogous constant. See issue #569.
+ * fixed delay), so it has no analogous constant.
  */
 export const SHOCK_RETEST_UNCONSCIOUS_DELAY = 600;
 

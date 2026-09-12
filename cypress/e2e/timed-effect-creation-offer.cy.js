@@ -41,7 +41,7 @@ describe("Timed-effect creation offer", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         // Clear any leftover forced dice (the course test seeds one) so a stray
-        // value can't leak into the next spec — see #598.
+        // value can't leak into the next spec.
         cy.foundry((win) => {
             win.sohl.entity.roll.SimpleRoll.clearForced();
             return null;
@@ -176,7 +176,7 @@ describe("Timed-effect creation offer", () => {
             });
             // Two offers fire in order: the new infection's course check, then the
             // wound's next healing check. Answer each by content (per-effect
-            // titles, #595): schedule the course (the subject), decline the
+            // titles): schedule the course (the subject), decline the
             // healing reschedule (incidental).
             cy.submitDialogMatching("Course Check", "yes");
             cy.submitDialogMatching("Healing Check", "no");
