@@ -60,7 +60,7 @@ function render(): string {
     });
 }
 
-describe("mystical ability properties sheet template (#815)", () => {
+describe("mystical ability properties sheet template", () => {
     it("no longer references the phantom system.domainCode field", () => {
         const html = render();
         expect(html).not.toContain("system.domainCode");
@@ -73,7 +73,7 @@ describe("mystical ability properties sheet template (#815)", () => {
         expect(html).not.toContain('data-field="system.isImprovable"');
     });
 
-    it("no longer references the dead system.skillBaseFormula field (#973)", () => {
+    it("no longer references the dead system.skillBaseFormula field", () => {
         const html = render();
         expect(html).not.toContain("system.skillBaseFormula");
         expect(html).not.toContain('data-field="system.skillBaseFormula"');
@@ -90,7 +90,7 @@ describe("mystical ability properties sheet template (#815)", () => {
         expect(html).toContain('data-value="dodge"');
     });
 
-    it("renders the associated-affiliation control bound to system.assocAffiliationCode (#1012)", () => {
+    it("renders the associated-affiliation control bound to system.assocAffiliationCode", () => {
         // Off-actor render (no `embedded`): the shortcodeRefField partial falls
         // back to a free-text control, so the binding placeholder surfaces.
         const html = render();
@@ -104,7 +104,7 @@ describe("mystical ability properties sheet template (#815)", () => {
         expect(html).toContain('data-field="system.charges.max"');
     });
 
-    it("no longer renders the inert system.charges.usesCharges checkbox (#1129)", () => {
+    it("no longer renders the inert system.charges.usesCharges checkbox", () => {
         const html = render();
         expect(html).not.toContain("system.charges.usesCharges");
     });

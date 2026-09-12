@@ -77,7 +77,7 @@ function prepareAll(attrs: AttributeLogic[]): void {
     for (const a of attrs) a.finalize();
 }
 
-describe("AttributeLogic — Fate (#1106)", () => {
+describe("AttributeLogic — Fate", () => {
     let actor: any;
 
     beforeEach(() => {

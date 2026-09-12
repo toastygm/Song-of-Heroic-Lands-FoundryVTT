@@ -22,7 +22,7 @@
  * next roll, so `clearForced()` runs in `afterEach`.
  */
 
-describe("Deterministic dice via SimpleRoll.forceValues (#598)", () => {
+describe("Deterministic dice via SimpleRoll.forceValues", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.foundry((win) => {
@@ -96,7 +96,7 @@ describe("Deterministic dice via SimpleRoll.forceValues (#598)", () => {
     // MasteryLevelModifier default crit-digit lists are [0, 5]. This is a
     // regression guard — the TS port had dropped that default to empty, so
     // every standard test resolved as a plain (marginal) success/failure.
-    it("a forced multiple-of-5 roll produces a critical outcome on a standard skill test (#908)", () => {
+    it("a forced multiple-of-5 roll produces a critical outcome on a standard skill test", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Sword",

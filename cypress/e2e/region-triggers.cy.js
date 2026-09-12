@@ -30,7 +30,7 @@
  * causes it — by moving a token — rather than by calling `_handleRegionEvent`.
  */
 
-describe("Scene-region & environment triggers (#593)", () => {
+describe("Scene-region & environment triggers", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

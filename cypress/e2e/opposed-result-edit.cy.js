@@ -129,7 +129,7 @@ function postContest(actor, srcSkill, tgtSkill) {
     });
 }
 
-describe("GM opposed-result edit — the result card's pencil (#1082)", () => {
+describe("GM opposed-result edit — the result card's pencil", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {

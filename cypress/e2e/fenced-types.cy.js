@@ -37,7 +37,7 @@ function openCreateDialogElement(win) {
     return dlg;
 }
 
-describe("fence enforcement: experimental type marking (#959)", () => {
+describe("fence enforcement: experimental type marking", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     // testIsolation is off, so a `.fence-banner` query is document-wide — close
     // every sheet between tests (and scope each lookup to its own sheet) so a

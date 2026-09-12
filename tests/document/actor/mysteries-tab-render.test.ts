@@ -68,7 +68,7 @@ function render(subType: string, abilities: ReturnType<typeof abilityLike>[]) {
     });
 }
 
-describe("Being Mysteries tab — per-sub-type Mystical Ability columns (#990)", () => {
+describe("Being Mysteries tab — per-sub-type Mystical Ability columns", () => {
     it("shows Skill + Lvl + EML + Chgs/Max for a spirit power", () => {
         const html = render(MYSTICALABILITY_SUBTYPE.SPIRITPOWER, [
             abilityLike({ name: "Totem Bond" }),
@@ -92,7 +92,7 @@ describe("Being Mysteries tab — per-sub-type Mystical Ability columns (#990)",
         expect(html).toContain(">EML<");
     });
 
-    it("shows an Affiliation column with the affiliation name after Skill (arcane incantation) (#1012)", () => {
+    it("shows an Affiliation column with the affiliation name after Skill (arcane incantation)", () => {
         const html = render(MYSTICALABILITY_SUBTYPE.ARCANEINCANTATION, [
             abilityLike({
                 name: "Fire Bolt",
@@ -106,7 +106,7 @@ describe("Being Mysteries tab — per-sub-type Mystical Ability columns (#990)",
         expect(html).toContain("Lyahvi Convocation");
     });
 
-    it("renders an fa-xmark in the Affiliation cell when none is associated (#1012)", () => {
+    it("renders an fa-xmark in the Affiliation cell when none is associated", () => {
         const html = render(MYSTICALABILITY_SUBTYPE.ALCHEMY, [
             abilityLike({
                 name: "Distill",
@@ -192,7 +192,7 @@ describe("Being Mysteries tab — per-sub-type Mystical Ability columns (#990)",
     });
 });
 
-describe("Being Mysteries tab — the improve control (#1130)", () => {
+describe("Being Mysteries tab — the improve control", () => {
     it("shows the improve control on an ability that governs its own mastery level", () => {
         const html = render(MYSTICALABILITY_SUBTYPE.ARCANETALENT, [
             abilityLike({

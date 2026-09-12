@@ -46,7 +46,7 @@
  * itself needs no such hedge: it reports `false` for a deleted scene and its
  * level on both builds, which the first test pins down.
  */
-describe("scene: a nonpersisted Scene is inert (#1550)", () => {
+describe("scene: a nonpersisted Scene is inert", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

@@ -92,7 +92,7 @@ const missileStrikeModes = [
     },
 ];
 
-describe("combat.hbs strike-mode value tooltips (#769)", () => {
+describe("combat.hbs strike-mode value tooltips", () => {
     it("binds each melee value cell's tooltip to the modifier deltaLabel", () => {
         const html = renderTemplateReal(COMBAT, { meleeStrikeModes });
         expect(html).toContain('data-tooltip="IMP STR +2"');
@@ -134,7 +134,7 @@ describe("combat.hbs strike-mode value tooltips (#769)", () => {
     });
 });
 
-describe("skills.hbs EML/Fate value tooltips (#769)", () => {
+describe("skills.hbs EML/Fate value tooltips", () => {
     const skillGroups = [
         {
             subType: "social",
@@ -185,7 +185,7 @@ const vm = (deltaLabel: string, effective = 1) => ({
     deltaLabel,
 });
 
-describe("mysteries.hbs value tooltips (#769)", () => {
+describe("mysteries.hbs value tooltips", () => {
     const charges = { value: vm("", 3), max: vm("", 0) };
     const context = {
         mysterySections: [
@@ -243,7 +243,7 @@ describe("mysteries.hbs value tooltips (#769)", () => {
     });
 });
 
-describe("profile.hbs attribute tooltips (#769)", () => {
+describe("profile.hbs attribute tooltips", () => {
     const context = {
         attributes: [
             {
@@ -267,7 +267,7 @@ describe("profile.hbs attribute tooltips (#769)", () => {
     });
 });
 
-describe("trauma.hbs value tooltips (#769)", () => {
+describe("trauma.hbs value tooltips", () => {
     const context = {
         injurySections: [
             {
@@ -330,7 +330,7 @@ describe("trauma.hbs value tooltips (#769)", () => {
     });
 });
 
-describe("gear.hbs value tooltips (#769)", () => {
+describe("gear.hbs value tooltips", () => {
     const context = {
         onBody: {
             capacity: { used: 3, max: 100 },

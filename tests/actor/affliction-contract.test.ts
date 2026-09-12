@@ -34,7 +34,7 @@ const AFFLICTIONS: AfflictionChoice[] = [
     },
 ];
 
-describe("readContagionTestForm (#1183)", () => {
+describe("readContagionTestForm", () => {
     it("selects the affliction by shortcode, not by index", () => {
         const choice = readContagionTestForm({ affliction: "marshfever" }, AFFLICTIONS);
         expect(choice?.affliction.name).toBe("Marsh Fever");
@@ -76,7 +76,7 @@ describe("readContagionTestForm (#1183)", () => {
     });
 });
 
-describe("buildContractedAfflictionData (#1183)", () => {
+describe("buildContractedAfflictionData", () => {
     it("copies the source affliction without its _id", () => {
         const data = buildContractedAfflictionData(AFFLICTIONS[0], 1000, 0);
         expect(data._id).toBeUndefined();

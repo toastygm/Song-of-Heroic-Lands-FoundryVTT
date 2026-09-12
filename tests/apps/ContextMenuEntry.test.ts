@@ -219,7 +219,7 @@ describe("resolveContextItem / resolveContextActor", () => {
         expect(resolveContextItem(mockTarget({ item: { itemId: "abc123" } }))).toBeUndefined();
     });
 
-    describe("data-uuid fallback (#1132)", () => {
+    describe("data-uuid fallback", () => {
         it("resolves the item from the row's data-uuid when no actor marker is present", () => {
             const item = { documentName: "Item", id: "abc123" } as any;
             const resolve = vi.spyOn(FoundryHelpersMock, "fvttResolveUuid").mockReturnValue(item);
@@ -308,7 +308,7 @@ describe("resolveContextItem / resolveContextActor", () => {
  * and the click was skipped with a warn. It now shares the one resolution path
  * every other context-menu consumer uses.
  */
-describe("makeLogicMethodCallback (#1188)", () => {
+describe("makeLogicMethodCallback", () => {
     afterEach(() => {
         vi.restoreAllMocks();
     });

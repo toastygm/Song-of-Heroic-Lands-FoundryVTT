@@ -46,7 +46,7 @@ const sharedSchemaSource = fs.readFileSync(
     "utf8",
 );
 
-describe("system.templatePriority is declared once, on the shared base (#1780, #1836)", () => {
+describe("system.templatePriority is declared once, on the shared base", () => {
     it("declares a nullable integer NumberField initialized to null", () => {
         // The default must be the not-an-archetype state, and it must be `null`
         // rather than `0`: `0` is a real priority (SoHL's own archetypes ship at
@@ -68,7 +68,7 @@ describe("system.templatePriority is declared once, on the shared base (#1780, #
     });
 });
 
-describe("system.templatePriority is published on every Item and Actor subtype (#1780, #1836)", () => {
+describe("system.templatePriority is published on every Item and Actor subtype", () => {
     /** Every field path a subtype declares, own and inherited. */
     function fieldsOf(documentType: string, subtype: string): string[] {
         const entry = artifact.documents?.[documentType]?.[subtype];

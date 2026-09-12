@@ -157,7 +157,7 @@ async function pendingContest(): Promise<{
     return { opposed, sourceML };
 }
 
-describe("MasteryLevelModifier.opposedTestResume — the responder rolls its own modifier (#1164)", () => {
+describe("MasteryLevelModifier.opposedTestResume — the responder rolls its own modifier", () => {
     it("rolls the target against the RESPONDER's mastery level, not an empty one", async () => {
         const { opposed } = await pendingContest();
         const responderML = makeML("Awareness", 75);

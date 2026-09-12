@@ -59,7 +59,7 @@ function stubControl(shortcode: string): any {
     };
 }
 
-describe("buildActionRows (#1135, #1136)", () => {
+describe("buildActionRows", () => {
     it("splits custom (script) from intrinsic actions", () => {
         const rows = buildActionRows(
             stubDoc([
@@ -114,7 +114,7 @@ describe("buildActionRows (#1135, #1136)", () => {
     });
 });
 
-describe("runAction reports a refused action (#1135)", () => {
+describe("runAction reports a refused action", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("warns with the action's reason instead of failing silently", async () => {

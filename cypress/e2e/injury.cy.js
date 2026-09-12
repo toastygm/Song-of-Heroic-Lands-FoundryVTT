@@ -210,5 +210,5 @@ describe("impact → injury → trauma", () => {
     // should emit a resolveInjury button, but buildCombatCardData hard-codes
     // `hasAttackInjury: false` (SohlCombatantLogic.ts:1501,1563) — only the
     // defend-side injury fields are live.
-    it.skip("attacker's landing blow emits an injury button (#186)", () => {});
+    it.skip("attacker's landing blow emits an injury button", () => {});
 });

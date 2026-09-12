@@ -213,7 +213,7 @@ describe("SohlLogic", () => {
         });
     });
 
-    describe("delete confirmation dialog (#1353)", () => {
+    describe("delete confirmation dialog", () => {
         /** Drive `deleteDocument` to a declined dialog and return the spec it built. */
         async function captureDeleteSpec(): Promise<any> {
             const spy = vi.spyOn(FoundryHelpersMock, "dialog").mockResolvedValue(false);

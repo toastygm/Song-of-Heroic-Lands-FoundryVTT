@@ -45,7 +45,7 @@ function offersShockReTest(actorId) {
     });
 }
 
-describe("expression scopes — action visibility (#1142, #1090)", () => {
+describe("expression scopes — action visibility", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -104,7 +104,7 @@ describe("expression scopes — action visibility (#1142, #1090)", () => {
     });
 });
 
-describe("expression scopes — the editor is driven by the schema (#1142)", () => {
+describe("expression scopes — the editor is driven by the schema", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         // testIsolation is off: an open modal editor would cover the next test.

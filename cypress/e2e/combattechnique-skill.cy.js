@@ -120,7 +120,7 @@ describe("combattechnique skill", () => {
     // footer (the subtype picker). The corresponding empty-section e2e assertion
     // was removed with that decision.
 
-    it("shows the Strike Modes tab + editor only for the technique subtype (#324, #663)", () => {
+    it("shows the Strike Modes tab + editor only for the technique subtype", () => {
         cy.createActor("being", { name: "Sheet Being" }).then((actor) => {
             const tabSel = '[data-tab="strikemodes"]';
             // combattechnique → Strike Modes tab present with the seeded mode as a

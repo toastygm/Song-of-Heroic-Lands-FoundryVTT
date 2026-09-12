@@ -64,7 +64,7 @@ beforeEach(() => {
 });
 afterEach(() => vi.restoreAllMocks());
 
-describe("AfflictionLogic course/healing targets (#1183)", () => {
+describe("AfflictionLogic course/healing targets", () => {
     it("course is a ValueModifier based on Healing Rate × Healing Base", () => {
         const logic = makeAffliction({ healingRateBase: 4 }, 12);
         expect(logic.course).toBeInstanceOf(ValueModifier);
@@ -156,7 +156,7 @@ describe("AfflictionLogic intrinsic action set (#1183, supersedes #1126)", () =>
         }
     });
 
-    it("pairs every *Check with the action it offers (#1183)", () => {
+    it("pairs every *Check with the action it offers", () => {
         const codes = shortcodes();
         for (const [check, action] of [
             ["onsetCheck", "setOnset"],
@@ -182,7 +182,7 @@ describe("AfflictionLogic intrinsic action set (#1183, supersedes #1126)", () =>
     });
 });
 
-describe("an untreated affliction resolves its healing test as a CF (#1181)", () => {
+describe("an untreated affliction resolves its healing test as a CF", () => {
     it("disables the healing target rather than seeding a real 0", () => {
         // Untreated is a state, not a target of zero — the same rule a wound
         // follows (#1146/#1148).

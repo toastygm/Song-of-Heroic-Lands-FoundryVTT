@@ -26,7 +26,7 @@ const XSS_HTML = "<img src=x onerror=alert(1)>";
 // SSTI payload — a Handlebars expression that would execute if compiled as template source
 const SSTI_HBS = "{{constructor.constructor 'return 1'}}";
 
-describe("Handlebars data-context escaping (#159/#164)", () => {
+describe("Handlebars data-context escaping", () => {
     describe("double-stash {{}} auto-escapes HTML in data values", () => {
         it("escapes XSS payload in itemName", () => {
             const template = Handlebars.compile(

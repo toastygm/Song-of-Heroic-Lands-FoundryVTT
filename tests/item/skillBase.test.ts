@@ -64,7 +64,7 @@ function skillFor(formula: string, attrs: Record<string, number> = {}): SkillLog
     return logic;
 }
 
-describe("SkillLogic Skill-Base pipeline (#972)", () => {
+describe("SkillLogic Skill-Base pipeline", () => {
     describe("guards", () => {
         it("blank formula → SB 0, valid, no error", () => {
             const logic = skillFor("", { str: 60 });

@@ -34,7 +34,7 @@ const MELEE_DATA: MeleeStrikeMode.Data = {
     },
 };
 
-describe("prone melee penalty (#562)", () => {
+describe("prone melee penalty", () => {
     it("is −20", () => {
         expect(PRONE_MELEE_PENALTY).toBe(-20);
     });

@@ -52,7 +52,7 @@ function addValueViaDialog(id, value) {
     });
 }
 
-describe("skill sheet impaired by roles (#713)", () => {
+describe("skill sheet impaired by roles", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

@@ -84,7 +84,7 @@ function makeOriginal(skill: SkillLogic, successLevel: number): SuccessTestResul
     return new SuccessTestResult({ successLevel, canFate: true }, { parent: skill });
 }
 
-describe("SkillLogic.fateTest — post-roll bump wiring (#854)", () => {
+describe("SkillLogic.fateTest — post-roll bump wiring", () => {
     let actor: any;
     let skill: SkillLogic;
 
@@ -313,7 +313,7 @@ describe("SkillLogic.fateTest — post-roll bump wiring (#854)", () => {
     });
 });
 
-describe("SkillLogic.availableFate — eligibility (#854)", () => {
+describe("SkillLogic.availableFate — eligibility", () => {
     it("returns general and matching skill-specific fate mysteries with charges", () => {
         const actor = makeMockActor();
         makeFateMystery(actor, { id: "general", assocSkillCode: null });
@@ -341,7 +341,7 @@ describe("SkillLogic.availableFate — eligibility (#854)", () => {
     });
 });
 
-describe("SuccessTestResult.canFate — gated on availableFate + opt-in (#854)", () => {
+describe("SuccessTestResult.canFate — gated on availableFate + opt-in", () => {
     it("is true for a Fate-eligible skill's opt-in result", () => {
         const actor = makeMockActor();
         makeFateMystery(actor, { id: "fate1", value: 2 });

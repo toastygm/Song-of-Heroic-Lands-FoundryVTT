@@ -140,7 +140,7 @@ describe("assisted combat (sheet strike-mode cells)", () => {
         });
     });
 
-    it("derives the attack/block/counterstrike values from the associated skill (#755)", () => {
+    it("derives the attack/block/counterstrike values from the associated skill", () => {
         // Regression for #755: a weapon's strike-mode Atk/Blk/CX cells rendered
         // 0 because the weapon never folded its associated skill's mastery level
         // into the mode's attack/defense modifiers. Basic Folk's `melee` ML is

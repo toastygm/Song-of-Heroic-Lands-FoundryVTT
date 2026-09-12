@@ -22,7 +22,7 @@
  *
  * Trauma tab intentionally has no search filters (injuries and afflictions).
  */
-describe("Being sheet per-tab search filters (#312)", () => {
+describe("Being sheet per-tab search filters", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

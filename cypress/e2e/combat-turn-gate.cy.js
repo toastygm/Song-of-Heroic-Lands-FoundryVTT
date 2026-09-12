@@ -74,7 +74,7 @@ async function driveStart(win, combatant) {
     };
 }
 
-describe("automated combat turn gate (#384)", () => {
+describe("automated combat turn gate", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

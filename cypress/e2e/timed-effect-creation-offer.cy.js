@@ -37,7 +37,7 @@
  *    `isScheduled` is read only after the driving action's promise has resolved.
  */
 
-describe("Timed-effect creation offer (#595)", () => {
+describe("Timed-effect creation offer", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         // Clear any leftover forced dice (the course test seeds one) so a stray

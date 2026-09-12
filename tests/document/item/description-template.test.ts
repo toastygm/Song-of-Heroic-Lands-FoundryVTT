@@ -27,7 +27,7 @@ function render(context: Record<string, unknown>): string {
     });
 }
 
-describe("item description tab template (#1357)", () => {
+describe("item description tab template", () => {
     it("shows the resolved target read-only when the description is a pointer", () => {
         const html = render({
             descriptionIsPointer: true,

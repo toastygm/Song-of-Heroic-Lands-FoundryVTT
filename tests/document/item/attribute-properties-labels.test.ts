@@ -50,7 +50,7 @@ function resolveFieldKey(path: string, suffix: string): string | undefined {
     );
 }
 
-describe("Attribute Properties tab field labels (#1105)", () => {
+describe("Attribute Properties tab field labels", () => {
     it("binds the score and init-dice fields", () => {
         // Guards the discovery above: if the template stops using formGroup the
         // per-field assertions below would vacuously pass.

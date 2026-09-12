@@ -411,7 +411,7 @@ describe("SohlCalendarData", () => {
         // the Foundry-core "TIME.Since" past wrapper), so it must be present in
         // lang/en.json or "… from now" durations render the raw key. The unit
         // tests above stub the key, so only a real-file assertion catches the gap.
-        it("ships the SOHL.TIME.Until key in lang/en.json (#477)", () => {
+        it("ships the SOHL.TIME.Until key in lang/en.json", () => {
             const en = JSON.parse(
                 readFileSync(new URL("../../lang/en.json", import.meta.url), "utf8"),
             ) as Record<string, string>;

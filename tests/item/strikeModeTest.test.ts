@@ -163,7 +163,7 @@ describe("runStrikeModeTest", () => {
         expect(sm.attack.successTest).toHaveBeenCalledWith(ctx);
     });
 
-    it("returns false for a block on a missile mode, telling the user why (#1137)", async () => {
+    it("returns false for a block on a missile mode, telling the user why", async () => {
         const uiWarn = vi.spyOn(sohl.log, "uiWarn").mockImplementation(() => {});
         const sm = missileMode("m1", "Throw");
         const result = await runStrikeModeTest(combatant("Javelin", [sm]), "block", ctxWith("m1"));
@@ -177,7 +177,7 @@ describe("runStrikeModeTest", () => {
         );
     });
 
-    it("returns false for a counterstrike on a missile mode, telling the user why (#1137)", async () => {
+    it("returns false for a counterstrike on a missile mode, telling the user why", async () => {
         const uiWarn = vi.spyOn(sohl.log, "uiWarn").mockImplementation(() => {});
         const sm = missileMode("m1", "Throw");
         const result = await runStrikeModeTest(
@@ -202,7 +202,7 @@ describe("runStrikeModeTest", () => {
  * actions must not be offered on it. A mixed weapon (thrust + throw) keeps
  * them — the picker resolves which mode.
  */
-describe("anyMeleeStrikeMode (#1137)", () => {
+describe("anyMeleeStrikeMode", () => {
     it("is false for a missile-only item", () => {
         expect(anyMeleeStrikeMode(combatant("Bow", [missileMode("m1", "Shoot")]))).toBe(false);
     });

@@ -48,7 +48,7 @@ const bodyZones = [
     },
 ];
 
-describe("profile.hbs Body Structure add / drag controls (#720/#780/#782)", () => {
+describe("profile.hbs Body Structure add / drag controls", () => {
     it("renders the + Add controls and draggable rows for an editor", () => {
         const html = renderTemplateReal(PROFILE, {
             structure: true,

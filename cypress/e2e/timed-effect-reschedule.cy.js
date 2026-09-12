@@ -39,7 +39,7 @@
  *    **Schedule** on the test's offer is what arms the next check.
  */
 
-describe("Timed-effect reschedule (#579)", () => {
+describe("Timed-effect reschedule", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

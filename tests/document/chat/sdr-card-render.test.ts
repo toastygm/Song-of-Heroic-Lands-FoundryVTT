@@ -33,7 +33,7 @@ import { SkillLogic } from "@src/document/item/logic/SkillLogic";
 
 const CHAT = "systems/sohl/templates/chat";
 
-describe("sdr-card renders the development roll (#1103)", () => {
+describe("sdr-card renders the development roll", () => {
     it("shows the roll total and the mastery level it was tested against", () => {
         const html = renderTemplateReal(`${CHAT}/sdr-card.hbs`, {
             actorUuid: "Actor.a",
@@ -80,7 +80,7 @@ describe("sdr-card renders the development roll (#1103)", () => {
     });
 });
 
-describe("improveWithSDR posts a card whose numbers are populated (#1103)", () => {
+describe("improveWithSDR posts a card whose numbers are populated", () => {
     afterEach(() => {
         vi.restoreAllMocks();
     });

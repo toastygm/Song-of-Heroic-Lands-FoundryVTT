@@ -19,7 +19,7 @@
  */
 import { toRealm } from "../support/resolve";
 
-describe("Being Profile tab (#373)", () => {
+describe("Being Profile tab", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

@@ -35,7 +35,7 @@ function assertFastMatch(input: string, limitMs: number = 100): RegExpMatchArray
     return result;
 }
 
-describe("FILE_PATH_REGEX — ReDoS hardening (#165)", () => {
+describe("FILE_PATH_REGEX — ReDoS hardening", () => {
     describe("valid paths still accepted", () => {
         it("accepts a simple relative path", () => {
             expect(isFilePath("foo/bar.png")).toBe(true);

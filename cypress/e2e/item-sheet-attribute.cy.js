@@ -27,7 +27,7 @@ itemSheetSuite("attribute");
  * `localizeSchema` actually resolved them onto the rendered control, since the
  * Node template harness stubs `formGroup`.
  */
-describe("attribute sheet field labels (#1105)", () => {
+describe("attribute sheet field labels", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);

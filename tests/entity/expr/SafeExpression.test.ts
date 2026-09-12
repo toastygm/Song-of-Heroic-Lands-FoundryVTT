@@ -195,7 +195,7 @@ describe("SafeExpression", () => {
             expect(run("contains('hello', 'xyz')")).toBe(false);
         });
 
-        it("string-building helpers (#448)", () => {
+        it("string-building helpers", () => {
             expect(run("str(42)")).toBe("42");
             expect(run("concat('a', 'b', 'c')")).toBe("abc");
             expect(run("slice('hello', 1, 3)")).toBe("el");
@@ -247,7 +247,7 @@ describe("SafeExpression", () => {
         });
     });
 
-    describe("temporal helpers: curWorldTime / curCombatTime (#579)", () => {
+    describe("temporal helpers: curWorldTime / curCombatTime", () => {
         afterEach(() => vi.restoreAllMocks());
 
         it("a predicate can gate on world time — curWorldTime() > X", () => {
@@ -270,7 +270,7 @@ describe("SafeExpression", () => {
         });
     });
 
-    describe("stochastic helpers: rand and roll (#540)", () => {
+    describe("stochastic helpers: rand and roll", () => {
         afterEach(() => {
             vi.restoreAllMocks();
             SimpleRoll.clearForced();
@@ -409,7 +409,7 @@ describe("SafeExpression", () => {
         });
     });
 
-    describe("attrRefs / memberRefs (#972)", () => {
+    describe("attrRefs / memberRefs", () => {
         const attrRefs = (source: string): string[] =>
             new SafeExpression({ source }, { parent: mockParent }).attrRefs();
 
@@ -445,7 +445,7 @@ describe("SafeExpression", () => {
         });
     });
 
-    describe("callArgMemberRefs (#1175)", () => {
+    describe("callArgMemberRefs", () => {
         const sbRefs = (source: string): string[] =>
             new SafeExpression({ source }, { parent: mockParent }).callArgMemberRefs("sb");
 
@@ -736,7 +736,7 @@ describe("SafeExpression", () => {
             expect(message).toMatch(/binds no identifiers/);
         });
 
-        it("accepts the Shock Re-Test visibility expression (#1090)", () => {
+        it("accepts the Shock Re-Test visibility expression", () => {
             // The action-visible scope binds `actorLogic`, so the expression
             // BeingLogic registers for `shockReTest` compiles. It used to throw
             // `Unknown identifier: actorLogic` on every menu render, which

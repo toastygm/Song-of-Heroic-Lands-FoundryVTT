@@ -25,7 +25,7 @@
  * denylist-bypass vectors from #161, and (c) it preserves the benign chat-card
  * markup our dispatch relies on — most importantly the `data-*` attributes.
  */
-describe("HTML sanitization (#161)", () => {
+describe("HTML sanitization", () => {
     before(() => cy.login());
 
     // Each vector is neutralized by Foundry's allowlist: a disallowed tag is

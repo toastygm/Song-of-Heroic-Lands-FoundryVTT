@@ -25,7 +25,7 @@
  * the runtime wiring: the action sets the actual shock status on a real actor.
  */
 
-describe("Shock Test action (#850)", () => {
+describe("Shock Test action", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

@@ -19,7 +19,7 @@
  * so the actual `_onDropItem` / `_onDropGearOnActor` / `_planGearSort` path runs —
  * not a direct handler call.
  */
-describe("Being Gear tab: drag-and-drop (#491)", () => {
+describe("Being Gear tab: drag-and-drop", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

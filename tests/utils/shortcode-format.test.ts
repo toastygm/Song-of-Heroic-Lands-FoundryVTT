@@ -132,7 +132,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         });
     });
 
-    describe("the repair reaches the same answer wherever it runs (#1748)", () => {
+    describe("the repair reaches the same answer wherever it runs", () => {
         it("the create guard folds an accented key it was asked to repair", () => {
             expect(
                 resolveShortcodeKey("Tabûri", "Tabûri", new Set(), {
@@ -187,7 +187,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         });
     });
 
-    describe("the system's own reserved keys (#1536)", () => {
+    describe("the system's own reserved keys", () => {
         it("the world-host shortcode obeys the rule", () => {
             // It is not authored content, but it is written to
             // `system.shortcode` like any other key, so the create guard

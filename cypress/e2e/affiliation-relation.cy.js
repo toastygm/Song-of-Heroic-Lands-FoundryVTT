@@ -22,7 +22,7 @@ import { toRealm } from "../support/resolve.js";
  * editor — a keyed map with its own add prompt and per-row control, which is not
  * a plain schema field the suite discovers.
  */
-describe("affiliation — standing toward other affiliations (#1404)", () => {
+describe("affiliation — standing toward other affiliations", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

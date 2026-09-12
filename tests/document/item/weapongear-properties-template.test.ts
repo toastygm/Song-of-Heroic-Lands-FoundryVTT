@@ -48,7 +48,7 @@ function render(overrides: Record<string, unknown> = {}): string {
     });
 }
 
-describe("weapon gear properties sheet template (#1179)", () => {
+describe("weapon gear properties sheet template", () => {
     it("binds the encumbrance input to the stored system.encumbranceBase", () => {
         const html = render({ encumbranceBase: 3 });
         // The placeholder surfaces field + value together only when the binding

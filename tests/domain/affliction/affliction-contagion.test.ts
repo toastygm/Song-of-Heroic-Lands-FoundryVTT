@@ -12,7 +12,7 @@ import {
     MARGINAL_SUCCESS,
 } from "@src/utils/constants";
 
-describe("contagionTarget (#1183)", () => {
+describe("contagionTarget", () => {
     it("is Contagion Index × Endurance", () => {
         expect(contagionTarget(3, 12)).toBe(36);
         expect(contagionTarget(1, 15)).toBe(15);
@@ -26,7 +26,7 @@ describe("contagionTarget (#1183)", () => {
     });
 });
 
-describe("isContracted (#1183)", () => {
+describe("isContracted", () => {
     it("a failed contagion test contracts the affliction", () => {
         expect(isContracted(CRITICAL_FAILURE)).toBe(true);
         expect(isContracted(MARGINAL_FAILURE)).toBe(true);
@@ -37,7 +37,7 @@ describe("isContracted (#1183)", () => {
     });
 });
 
-describe("onsetDaysFor (#1183)", () => {
+describe("onsetDaysFor", () => {
     it("CF halves the rolled onset, rounded down", () => {
         expect(onsetDaysFor(CRITICAL_FAILURE, 7)).toBe(3);
         expect(onsetDaysFor(CRITICAL_FAILURE, 8)).toBe(4);

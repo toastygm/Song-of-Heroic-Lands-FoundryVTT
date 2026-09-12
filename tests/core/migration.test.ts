@@ -3,7 +3,7 @@ import { legacyTraitError, runWorldMigrations } from "@src/core/foundry/migratio
 import * as FH from "@src/core/FoundryHelpers";
 import type { MigrationStep } from "@src/entity/migration/MigrationRegistry";
 
-describe("legacyTraitError — retired trait item type is unrecognized (#651)", () => {
+describe("legacyTraitError — retired trait item type is unrecognized", () => {
     it("returns null for a non-trait document", () => {
         expect(legacyTraitError({ type: "trauma", name: "x" })).toBeNull();
         expect(legacyTraitError({ type: "skill" })).toBeNull();
@@ -73,7 +73,7 @@ function mkGame(actors: any[] = [], items: any[] = [], scenes: any[] = []): any 
     return { actors: coll(actors), items: coll(items), scenes: coll(scenes) };
 }
 
-describe("runWorldMigrations — version-keyed runner (#957)", () => {
+describe("runWorldMigrations — version-keyed runner", () => {
     let getSpy: any;
     let setSpy: any;
     let verSpy: any;

@@ -43,7 +43,7 @@ const FENCED_SHEETS = [
 /** The intrinsic actions every actor carries, whatever its type. */
 const SHARED_ACTIONS = ["editDocument", "makeDefaultMedium", "deleteDocument"];
 
-describe("fenced actor sheets render every tab (#1088)", () => {
+describe("fenced actor sheets render every tab", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => {

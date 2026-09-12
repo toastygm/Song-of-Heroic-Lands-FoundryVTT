@@ -59,7 +59,7 @@ describe("treatment cards (TraumaLogic.requestTreatment / performTreatmentTest)"
         expect(html).toContain("Healed");
     });
 
-    it("treatment-result-card shows the infection / impairment / bleeder warnings when the builder flags them (#846)", () => {
+    it("treatment-result-card shows the infection / impairment / bleeder warnings when the builder flags them", () => {
         const html = renderTemplateReal(`${CHAT}/treatment-result-card.hbs`, {
             physicianName: "Brother Cede",
             aspect: "edged",
@@ -75,7 +75,7 @@ describe("treatment cards (TraumaLogic.requestTreatment / performTreatmentTest)"
         expect(html).toContain("Treatment results in a bleeder");
     });
 
-    it("treatment-result-card shows the amputation branch when newInj/newSev are provided (#846)", () => {
+    it("treatment-result-card shows the amputation branch when newInj/newSev are provided", () => {
         const html = renderTemplateReal(`${CHAT}/treatment-result-card.hbs`, {
             physicianName: "Brother Cede",
             aspect: "edged",
@@ -130,7 +130,7 @@ describe("other action cards render with their logic helpers", () => {
 });
 
 describe("dialogs render through the same shim as cards", () => {
-    it("resolve-injury-dialog builds Target ZN / Zone Die inputs, a derive-default location list, and localized aspect labels (#828)", () => {
+    it("resolve-injury-dialog builds Target ZN / Zone Die inputs, a derive-default location list, and localized aspect labels", () => {
         const html = renderTemplateReal(`${DIALOG}/resolve-injury-dialog.hbs`, {
             hitLocations: [
                 { code: "th", name: "Thorax" },
@@ -168,7 +168,7 @@ describe("dialogs render through the same shim as cards", () => {
         expect(html).toContain('name="autoAddInjury"');
     });
 
-    it("resolve-injury-dialog disables the aim fields when a specific location is chosen (#828)", () => {
+    it("resolve-injury-dialog disables the aim fields when a specific location is chosen", () => {
         const html = renderTemplateReal(`${DIALOG}/resolve-injury-dialog.hbs`, {
             hitLocations: [{ code: "th", name: "Thorax" }],
             bodyLocationCode: "th", // a manual override
@@ -207,7 +207,7 @@ describe("dialogs render through the same shim as cards", () => {
         expect(html).toContain('value="3"');
     });
 
-    it("treat-injury-dialog renders an undetermined (null) Healing Rate blank (#1087)", () => {
+    it("treat-injury-dialog renders an undetermined (null) Healing Rate blank", () => {
         const html = renderTemplateReal(`${DIALOG}/treat-injury-dialog.hbs`, {
             healingRate: null,
         });
@@ -237,7 +237,7 @@ describe("dialogs render through the same shim as cards", () => {
         expect(html).toMatch(/<option[^>]*value="terrestrial"[^>]*selected/);
     });
 
-    it("treat-injury-dialog hint never promises that 0 heals the wound (#1087)", () => {
+    it("treat-injury-dialog hint never promises that 0 heals the wound", () => {
         const html = renderTemplateReal(`${DIALOG}/treat-injury-dialog.hbs`, {
             healingRate: 3,
         });
@@ -253,7 +253,7 @@ describe("dialogs render through the same shim as cards", () => {
     });
 });
 
-describe("injury-card zone-die states (#828)", () => {
+describe("injury-card zone-die states", () => {
     const base = {
         actorId: "a1",
         handlerActorUuid: "Actor.a1",
@@ -440,7 +440,7 @@ describe("face-pall-card (TraumaLogic.pallRecovery, #561)", () => {
     });
 });
 
-describe("blood-stoppage cards (#547)", () => {
+describe("blood-stoppage cards", () => {
     it("request card announces the bleeder and wound", () => {
         const html = renderTemplateReal(`${CHAT}/blood-stoppage-request-card.hbs`, {
             patientName: "Aldric",
@@ -464,7 +464,7 @@ describe("blood-stoppage cards (#547)", () => {
     });
 });
 
-describe("standard-test-card follow-up buttons (#853)", () => {
+describe("standard-test-card follow-up buttons", () => {
     const base = {
         title: "Rally Test",
         item: { uuid: "Item.rally1" },
@@ -575,7 +575,7 @@ describe("harness fidelity notes", () => {
 
 const ITEM = "systems/sohl/templates/item";
 
-describe("displayed enum values + labels are localized (#951)", () => {
+describe("displayed enum values + labels are localized", () => {
     it("attack-card localizes the aspect value, the Aim/AML labels, and the subtitle", () => {
         const html = renderTemplateReal(`${CHAT}/attack-card.hbs`, {
             actorId: "a1",
@@ -658,7 +658,7 @@ describe("displayed enum values + labels are localized (#951)", () => {
         expect(html).toContain('data-tooltip="Run Custom Strike"');
     });
 
-    it("action ledger renders each action's own iconFAClass glyph (#1136)", () => {
+    it("action ledger renders each action's own iconFAClass glyph", () => {
         const html = renderTemplateReal(`${ITEM}/parts/actions.hbs`, {
             tab: { active: true, group: "primary" },
             customActions: [
@@ -694,7 +694,7 @@ describe("displayed enum values + labels are localized (#951)", () => {
         expect(html).not.toContain("action.data.img");
     });
 
-    it("action ledger falls back to a placeholder glyph when none is declared (#1136)", () => {
+    it("action ledger falls back to a placeholder glyph when none is declared", () => {
         const html = renderTemplateReal(`${ITEM}/parts/actions.hbs`, {
             tab: { active: true, group: "primary" },
             customActions: [],
@@ -714,7 +714,7 @@ describe("displayed enum values + labels are localized (#951)", () => {
         expect(html).toContain('<i class="fa-solid fa-circle-question"></i>');
     });
 
-    it("action ledger disables a gated action's run control and says why (#1135)", () => {
+    it("action ledger disables a gated action's run control and says why", () => {
         const html = renderTemplateReal(`${ITEM}/parts/actions.hbs`, {
             tab: { active: true, group: "primary" },
             customActions: [],
@@ -741,7 +741,7 @@ describe("displayed enum values + labels are localized (#951)", () => {
         expect(html).not.toContain("SOHL.Gear.actionRequiresCarried");
     });
 
-    it("action ledger leaves an available action's run control live (#1135)", () => {
+    it("action ledger leaves an available action's run control live", () => {
         const html = renderTemplateReal(`${ITEM}/parts/actions.hbs`, {
             tab: { active: true, group: "primary" },
             customActions: [],

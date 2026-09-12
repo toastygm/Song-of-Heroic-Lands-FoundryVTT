@@ -12,7 +12,7 @@ import {
 } from "@src/utils/constants";
 import { SHOCK_STATE } from "@src/document/actor/logic/shock";
 
-describe("courseHrDelta (#1183)", () => {
+describe("courseHrDelta", () => {
     it("CF worsens the Healing Rate by 2", () => {
         expect(courseHrDelta(CRITICAL_FAILURE)).toBe(-2);
     });
@@ -27,7 +27,7 @@ describe("courseHrDelta (#1183)", () => {
     });
 });
 
-describe("courseOutcomeFor (#1183)", () => {
+describe("courseOutcomeFor", () => {
     it("HR 6+ defeats the ailment — no fatigue, no shock", () => {
         for (const hr of [6, 7, 12]) {
             const out = courseOutcomeFor(hr);

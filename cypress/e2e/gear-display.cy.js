@@ -22,7 +22,7 @@
  * 10 lb carried reads "Carried: 10 lb · Enc 2". Containers show their own
  * used/max capacity.
  */
-describe("Being Gear tab: display (#302)", () => {
+describe("Being Gear tab: display", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);

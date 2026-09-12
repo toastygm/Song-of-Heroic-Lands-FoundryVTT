@@ -219,7 +219,7 @@ describe("ValueDelta", () => {
         });
     });
 
-    describe("label (#1127)", () => {
+    describe("label", () => {
         afterEach(() => vi.restoreAllMocks());
 
         it("localizes the stored name for display", () => {

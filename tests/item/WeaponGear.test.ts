@@ -113,7 +113,7 @@ describe("WeaponGearLogic", () => {
             });
         });
 
-        describe("carried gate (#1097)", () => {
+        describe("carried gate", () => {
             const COMBAT_ACTIONS = ["attackTest", "blockTest", "counterstrikeTest"];
 
             it.each(COMBAT_ACTIONS)(
@@ -196,7 +196,7 @@ describe("WeaponGearLogic", () => {
             );
         });
 
-        describe("prone wielder (#562)", () => {
+        describe("prone wielder", () => {
             afterEach(() => vi.restoreAllMocks());
 
             it("subtracts 20 from a melee mode's attack and defenses when prone", () => {
@@ -281,7 +281,7 @@ describe("WeaponGearLogic", () => {
             });
         });
 
-        describe("associated-skill derivation (#755)", () => {
+        describe("associated-skill derivation", () => {
             /**
              * Put a fully-initialized combat skill on `actor` under `shortcode`
              * so a strike mode's `assocSkillCode` resolves to it via
@@ -554,7 +554,7 @@ describe("WeaponGearLogic", () => {
  * strike mode (a bow, a sling) can never run them, so the actions must not be
  * offered on it; a mixed weapon (thrust + throw) keeps them.
  */
-describe("WeaponGearLogic — melee-defense gating (#1137)", () => {
+describe("WeaponGearLogic — melee-defense gating", () => {
     afterEach(() => vi.restoreAllMocks());
 
     /** Evaluate an intrinsic action's `visible` source against a stub scope. */

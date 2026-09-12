@@ -19,7 +19,7 @@
  * active affliction of that subtype (matching the prototype). The health bar and
  * body-part grid are split out to #463 / #464 and not exercised here.
  */
-describe("Being sheet header: status toggles + affliction indicators (#306)", () => {
+describe("Being sheet header: status toggles + affliction indicators", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

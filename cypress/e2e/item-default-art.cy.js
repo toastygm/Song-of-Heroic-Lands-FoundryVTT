@@ -4,7 +4,7 @@
 
 const BAG = "icons/svg/item-bag.svg";
 
-describe("item default artwork (#932)", () => {
+describe("item default artwork", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

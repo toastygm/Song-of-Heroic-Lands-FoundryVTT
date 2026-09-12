@@ -18,7 +18,7 @@
  * Next Heal Test replaces Notes), a custom-create control (data-type=affliction),
  * and a per-row context menu. (The Trauma tab has no search filter — #312.)
  */
-describe("Being Trauma tab: Afflictions section (#309)", () => {
+describe("Being Trauma tab: Afflictions section", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.closeAllSheets().then(() => cy.cleanupWorld()));
     Cypress.on("uncaught:exception", () => false);
@@ -47,7 +47,7 @@ describe("Being Trauma tab: Afflictions section (#309)", () => {
         });
     });
 
-    it("renders the Category, Level, HR and Next Heal Test columns (#943)", () => {
+    it("renders the Category, Level, HR and Next Heal Test columns", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "affliction", {
                 name: "Marsh Ague",
@@ -103,7 +103,7 @@ describe("Being Trauma tab: Afflictions section (#309)", () => {
         });
     });
 
-    it("renders a maladiction (supernatural) affliction with its subtype label (#1003)", () => {
+    it("renders a maladiction (supernatural) affliction with its subtype label", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "affliction", {
                 name: "Withering Curse",

@@ -67,7 +67,7 @@ function bindAction(actorId, macroUuid, title) {
     );
 }
 
-describe("Being Actions tab (#313)", () => {
+describe("Being Actions tab", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => {

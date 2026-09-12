@@ -84,7 +84,7 @@ describe("resolveChatCardHandlerUuid", () => {
     });
 });
 
-describe("resolveAuthorizedChatCardHandler (#167)", () => {
+describe("resolveAuthorizedChatCardHandler", () => {
     it("returns the handler document when the current client owns it", () => {
         const owned = { isOwner: true, name: "Defender" };
         const resolve = vi.fn(() => owned);
@@ -128,7 +128,7 @@ describe("resolveAuthorizedChatCardHandler (#167)", () => {
         ).toBe(null);
     });
 
-    it("resolves the @self sentinel to the user's own character (#576)", () => {
+    it("resolves the @self sentinel to the user's own character", () => {
         const character = { isOwner: true, name: "My Character" };
         const resolveDoc = vi.fn(() => ({ isOwner: false }));
         const resolveSelf = vi.fn(() => character);
@@ -155,7 +155,7 @@ describe("resolveAuthorizedChatCardHandler (#167)", () => {
     });
 });
 
-describe("dispatchChatCardAction (#66)", () => {
+describe("dispatchChatCardAction", () => {
     function btn(action?: string, extra: Record<string, string> = {}): HTMLElement {
         return {
             dataset: {

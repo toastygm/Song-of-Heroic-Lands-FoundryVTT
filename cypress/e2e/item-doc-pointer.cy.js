@@ -30,7 +30,7 @@
 /** A shipped item whose description is a paragraph of ordinary prose. */
 const ITEM = { type: "armorgear", shortcode: "mhbk" };
 
-describe("Item docs — a shipped description is a pointer (#1348)", () => {
+describe("Item docs — a shipped description is a pointer", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -116,7 +116,7 @@ describe("Item docs — a shipped description is a pointer (#1348)", () => {
  * pointer must read as its target on the tab, not as the link that addresses it,
  * with an edit control that hands the author the editor when they ask for it.
  */
-describe("Item docs — the Description tab follows a pointer (#1357)", () => {
+describe("Item docs — the Description tab follows a pointer", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.closeAllSheets().then(() => cy.cleanupWorld()));
 

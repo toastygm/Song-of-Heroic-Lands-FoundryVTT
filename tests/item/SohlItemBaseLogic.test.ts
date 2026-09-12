@@ -220,7 +220,7 @@ describe("buildItemDescCardData → item-desc-card", () => {
     });
 });
 
-describe("resolveDescriptionHtml — following a pointer (#1356, #1357)", () => {
+describe("resolveDescriptionHtml — following a pointer", () => {
     afterEach(() => {
         delete (globalThis as any).fromUuid;
         vi.restoreAllMocks();

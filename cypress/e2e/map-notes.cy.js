@@ -44,7 +44,7 @@ async function importAdventure(win) {
     return { adventure, data, result };
 }
 
-describe("Map notes → Scenes (#1525)", () => {
+describe("Map notes → Scenes", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     after(() => {
@@ -231,7 +231,7 @@ describe("Map notes → Scenes (#1525)", () => {
         }
     }
 
-    it("a restricted region's shape-constraint pass is inert with no scene viewed (#1535)", () => {
+    it("a restricted region's shape-constraint pass is inert with no scene viewed", () => {
         cy.foundry(async (win) => {
             await importAdventure(win);
             const ground = win.game.scenes.find((s) => s.name === GROUND);

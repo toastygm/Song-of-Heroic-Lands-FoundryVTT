@@ -16,7 +16,7 @@ import { SohlMap } from "@src/utils/collection/SohlMap";
  * `@src/utils/constants`), mirroring how the entity-registry suite tests the
  * surface object directly rather than wiring a runtime global.
  */
-describe("sohl.utils / sohl.constants surface (#408)", () => {
+describe("sohl.utils / sohl.constants surface", () => {
     describe("sohl.utils is the utils-namespace superset", () => {
         it("re-exports the helpers at its top level (sohl.utils.romanize)", () => {
             expect(utils.romanize).toBe(romanize);

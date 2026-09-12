@@ -52,7 +52,7 @@ describe("BodyPart", () => {
             expect(part.index).toBe(0);
         });
 
-        it("defaults permanentImpairment to 0 (#464)", () => {
+        it("defaults permanentImpairment to 0", () => {
             expect(arm().permanentImpairment).toBe(0);
         });
 
@@ -61,7 +61,7 @@ describe("BodyPart", () => {
             expect(part.name).toBe("larm");
         });
 
-        it("defaults permanentlyUnusable to false; isCritical follows VITAL/CORE (#470)", () => {
+        it("defaults permanentlyUnusable to false; isCritical follows VITAL/CORE", () => {
             expect(arm().permanentlyUnusable).toBe(false);
             expect(arm().isCritical).toBe(false); // roles: []
             expect(arm({ roles: ["core"] }).isCritical).toBe(true);
@@ -69,7 +69,7 @@ describe("BodyPart", () => {
             expect(arm({ permanentlyUnusable: true }).permanentlyUnusable).toBe(true);
         });
 
-        it("reads a negative permanent impairment and clamps a positive one to 0 (#464)", () => {
+        it("reads a negative permanent impairment and clamps a positive one to 0", () => {
             const maimed = arm({ name: "Left Arm", permanentImpairment: -10 });
             expect(maimed.name).toBe("Left Arm");
             expect(maimed.permanentImpairment).toBe(-10);
@@ -148,7 +148,7 @@ describe("BodyPart", () => {
      * canHoldItem = canHoldItemBase && !isUnusable
      * ```
      */
-    describe("immobilization and usability (#1269)", () => {
+    describe("immobilization and usability", () => {
         it("a sound limb is neither immobilized nor unusable, and holds normally", () => {
             const part = arm();
             expect(part.isUnusable).toBe(false);

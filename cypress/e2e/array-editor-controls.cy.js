@@ -64,7 +64,7 @@ function addValueViaDialog(attr, value) {
     });
 }
 
-describe("item-sheet array editors persist on click (#734)", () => {
+describe("item-sheet array editors persist on click", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

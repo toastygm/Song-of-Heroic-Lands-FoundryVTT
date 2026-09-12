@@ -71,7 +71,7 @@ describe("sohl.entity registry", () => {
         expect(MyResult.prototype).toBeInstanceOf(SuccessTestResult);
     });
 
-    describe("two-mechanism construction (#83)", () => {
+    describe("two-mechanism construction", () => {
         // The inside-SoHL mechanism resolves the registry through the import
         // graph (classes self-register), so construction must work with NO
         // `sohl.entity` runtime global — the whole point of not forcing tests to

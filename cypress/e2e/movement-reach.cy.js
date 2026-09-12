@@ -159,7 +159,7 @@ describe("movement + reach read paths", () => {
 
     // #252: computedMove scales the being's feetPerRound by the combatant's
     // situational moveFactor (run, terrain, haste, …; defaults to 1).
-    it("computedMove scales base move by moveFactor (#252)", () => {
+    it("computedMove scales base move by moveFactor", () => {
         cy.createScene().then((scene) => {
             cy.importActor().then((actor) => {
                 cy.prepare(actor);

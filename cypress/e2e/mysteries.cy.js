@@ -33,7 +33,7 @@ describe("mysteries", () => {
     // GREEN: a mystery offers no `useMystery` action — there is no
     // universal meaning to "using" a Mystery; anything actively invoked is a
     // Mystical Ability. It still carries the shared base actions.
-    it("a mystery item offers no useMystery action (#1089)", () => {
+    it("a mystery item offers no useMystery action", () => {
         cy.createActor("being", { name: "mystic" }).then((actor) => {
             cy.createItemOn(actor, "mystery", { name: "Second Sight" }).then((item) => {
                 cy.foundry((win) => {
@@ -55,7 +55,7 @@ describe("mysteries", () => {
     // GREEN: a mystical ability registers a visible `successTest` action —
     // the same shortcode a skill uses — and no longer carries the retired
     // `perform` stub.
-    it("a mystical ability registers successTest, not the retired perform stub (#74)", () => {
+    it("a mystical ability registers successTest, not the retired perform stub", () => {
         cy.createActor("being", { name: "mystic" }).then((actor) => {
             cy.createItemOn(actor, "mysticalability", {
                 name: "Fox Totem",
@@ -91,7 +91,7 @@ describe("mysteries", () => {
 
     // GREEN: invoking the ability runs a real success test against its
     // mastery level, exactly like a skill's EML roll.
-    it("a mystical ability rolls a success test against its EML (#74)", () => {
+    it("a mystical ability rolls a success test against its EML", () => {
         cy.createActor("being", { name: "mystic" }).then((actor) => {
             cy.createItemOn(actor, "mysticalability", {
                 name: "Fox Totem",
@@ -124,7 +124,7 @@ describe("mysteries", () => {
 
     // GREEN: the Mysteries-tab EML cell is rollable — it carries the
     // successTest action and the rollable affordance, mirroring the Skills tab.
-    it("renders the Mystical Abilities EML cell as a rollable successTest (#74)", () => {
+    it("renders the Mystical Abilities EML cell as a rollable successTest", () => {
         cy.createActor("being", { name: "mystic" }).then((actor) => {
             cy.createItemOn(actor, "mysticalability", {
                 name: "Fox Totem",
@@ -148,7 +148,7 @@ describe("mysteries", () => {
     // GREEN: a Mystical Ability can name a faction/Affiliation it draws
     // its standing from; the logic resolves it on the same actor and the
     // Mysteries-tab shows its name in the Affiliation column (after Skill).
-    it("resolves and shows the associated Affiliation's name in the Mysteries tab (#1012)", () => {
+    it("resolves and shows the associated Affiliation's name in the Mysteries tab", () => {
         cy.createActor("being", { name: "mystic" }).then((actor) => {
             cy.createItemOn(actor, "affiliation", {
                 name: "Church of Larani",
@@ -183,7 +183,7 @@ describe("mysteries", () => {
     // GREEN: a Mystery can likewise name the faction/Affiliation whose
     // standing confers it; the logic resolves it on the same actor and the
     // Mysteries-tab mystery ledger shows its name in the Affiliation column.
-    it("resolves and shows a Mystery's associated Affiliation in the Mysteries tab (#1076)", () => {
+    it("resolves and shows a Mystery's associated Affiliation in the Mysteries tab", () => {
         cy.createActor("being", { name: "mystic" }).then((actor) => {
             cy.createItemOn(actor, "affiliation", {
                 name: "Church of Larani",

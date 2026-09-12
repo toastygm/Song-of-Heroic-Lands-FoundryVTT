@@ -98,7 +98,7 @@ describe("item-sheet-view", () => {
         });
     });
 
-    describe("buildRelationRows (#1404)", () => {
+    describe("buildRelationRows", () => {
         const candidates = [
             { shortcode: "peoni", name: "Church of Peoni" },
             { shortcode: "larani", name: "Church of Larani" },

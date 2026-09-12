@@ -29,7 +29,7 @@ import {
     STATUS_EFFECT,
 } from "@src/utils/constants";
 
-describe("shock (#550)", () => {
+describe("shock", () => {
     describe("shockStateFromStatuses", () => {
         it("is NONE when no shock status is active", () => {
             expect(shockStateFromStatuses(new Set())).toBe(SHOCK_STATE.NONE);
@@ -80,7 +80,7 @@ describe("shock (#550)", () => {
         });
     });
 
-    describe("shockStateFromIndex (#555)", () => {
+    describe("shockStateFromIndex", () => {
         it("maps the Shock State Index to a shock state", () => {
             // SSI table: <=6 None, 7 Stunned, 8 Incap, 9 Unconscious, >=10 Dead.
             expect(shockStateFromIndex(0)).toBe(SHOCK_STATE.NONE);
@@ -93,7 +93,7 @@ describe("shock (#550)", () => {
         });
     });
 
-    describe("shockIndexAdjustment (#555)", () => {
+    describe("shockIndexAdjustment", () => {
         it("adjusts the SSI by the Shock test result", () => {
             // CF +2, MF +1, MS 0, CS -1.
             expect(shockIndexAdjustment(CRITICAL_FAILURE)).toBe(2);
@@ -103,7 +103,7 @@ describe("shock (#550)", () => {
         });
     });
 
-    describe("shockRollNeeded (#850)", () => {
+    describe("shockRollNeeded", () => {
         it("is false below 5 (always No Shock even on a Critical Failure)", () => {
             expect(shockRollNeeded(0)).toBe(false);
             expect(shockRollNeeded(4)).toBe(false);
@@ -121,7 +121,7 @@ describe("shock (#550)", () => {
         });
     });
 
-    describe("shockStateLabelKey (#850)", () => {
+    describe("shockStateLabelKey", () => {
         it("maps each level to its label key", () => {
             expect(shockStateLabelKey(SHOCK_STATE.NONE)).toBe("SOHL.Being.ShockState.none");
             expect(shockStateLabelKey(SHOCK_STATE.STUNNED)).toBe("SOHL.Being.ShockState.stunned");
@@ -140,7 +140,7 @@ describe("shock (#550)", () => {
         });
     });
 
-    describe("shockReTestOutcome (#556)", () => {
+    describe("shockReTestOutcome", () => {
         it("critical success recovers from all shock", () => {
             expect(shockReTestOutcome(SHOCK_STATE.INCAPACITATED, CRITICAL_SUCCESS)).toEqual({
                 kind: "recover",
@@ -179,7 +179,7 @@ describe("shock (#550)", () => {
         });
     });
 
-    describe("shockCourseHrDelta (#556)", () => {
+    describe("shockCourseHrDelta", () => {
         it("adjusts the Healing Rate by the course-test result", () => {
             expect(shockCourseHrDelta(CRITICAL_FAILURE)).toBe(-2);
             expect(shockCourseHrDelta(MARGINAL_FAILURE)).toBe(-1);
@@ -188,7 +188,7 @@ describe("shock (#550)", () => {
         });
     });
 
-    describe("comaHealingRate (#556)", () => {
+    describe("comaHealingRate", () => {
         it("is 12 − location Shock Value − Injury Level", () => {
             expect(comaHealingRate(4, 5)).toBe(3);
             expect(comaHealingRate(0, 0)).toBe(12);

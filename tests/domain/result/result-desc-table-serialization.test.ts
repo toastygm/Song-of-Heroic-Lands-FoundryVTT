@@ -40,7 +40,7 @@ function exprTable() {
     ];
 }
 
-describe("result-description table serialization (#206)", () => {
+describe("result-description table serialization", () => {
     it("carries a SafeExpression result as data on the wire (not a dropped function)", () => {
         const result = new SuccessTestResult({ resultDescTable: exprTable() } as any, { parent });
         // JSON.stringify runs each SafeExpression's toJSON — the row's computed

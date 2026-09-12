@@ -26,7 +26,7 @@
  * - the Aura attribute itself can never be fated.
  */
 
-describe("Fate on attribute tests (#1106)", () => {
+describe("Fate on attribute tests", () => {
     before(() =>
         cy.login().then(() => {
             cy.cleanupWorld();

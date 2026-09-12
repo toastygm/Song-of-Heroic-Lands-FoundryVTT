@@ -22,7 +22,7 @@ import {
     MARGINAL_SUCCESS,
 } from "@src/utils/constants";
 
-describe("psyche (#560)", () => {
+describe("psyche", () => {
     describe("weaknessFatigueForLevel", () => {
         it("is 5 Fatigue Levels per PSY/AS level (0 for non-positive)", () => {
             expect(WEAKNESS_FATIGUE_PER_LEVEL).toBe(5);

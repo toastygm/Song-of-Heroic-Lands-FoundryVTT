@@ -19,7 +19,7 @@
  * control must appear (bound to `system.combatCategory`) only when the skill's
  * `subType` is `combat`, and edits must persist.
  */
-describe("skill sheet combat category (#709)", () => {
+describe("skill sheet combat category", () => {
     const SEL = '[name="system.combatCategory"]';
 
     before(() => cy.login().then(() => cy.cleanupWorld()));
@@ -51,7 +51,7 @@ describe("skill sheet combat category (#709)", () => {
         });
     });
 
-    it("localizes the Combat Category option labels (#751)", () => {
+    it("localizes the Combat Category option labels", () => {
         cy.createActor("being", { name: "I18n Being" }).then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Melee",

@@ -21,7 +21,7 @@
  * date themselves.
  */
 
-describe("Healing Rate stamps the treatment date (#1148)", () => {
+describe("Healing Rate stamps the treatment date", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

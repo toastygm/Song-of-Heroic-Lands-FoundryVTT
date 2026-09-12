@@ -74,7 +74,7 @@ describe("defineType", () => {
         expect(labels.SCORE).toBe("My.Prefix.SCORE");
     });
 
-    describe("labelKeys overrides (#1352)", () => {
+    describe("labelKeys overrides", () => {
         it("borrows an existing key for the listed members only", () => {
             // A member that restates a label another namespace owns points at
             // that owner, so the word is translated once; the rest still mint

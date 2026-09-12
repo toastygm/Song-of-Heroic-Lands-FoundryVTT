@@ -54,7 +54,7 @@ function render(
     });
 }
 
-describe("mystery properties sheet template (#808)", () => {
+describe("mystery properties sheet template", () => {
     it("no longer references the phantom system.skills array field", () => {
         const html = render();
         // The Affected-Skills array editor was bound to a field the schema
@@ -64,7 +64,7 @@ describe("mystery properties sheet template (#808)", () => {
         expect(html).not.toContain("Affected Skills");
     });
 
-    it("no longer references the phantom system.domainCode field (#815)", () => {
+    it("no longer references the phantom system.domainCode field", () => {
         const html = render();
         // MysteryDataModel defines no domainCode field; the Domain-registry
         // integration is incomplete, so this control could never bind.
@@ -78,7 +78,7 @@ describe("mystery properties sheet template (#808)", () => {
         expect(html).toContain('data-value="dodge"');
     });
 
-    it("renders the associated-affiliation control bound to system.assocAffiliationCode (#1076)", () => {
+    it("renders the associated-affiliation control bound to system.assocAffiliationCode", () => {
         // A mystery can name the faction whose standing confers it (a religion,
         // school, or ancestor/totem/spirit), the same way a Mystical Ability does.
         const html = render(null, "larani");
@@ -92,7 +92,7 @@ describe("mystery properties sheet template (#808)", () => {
         expect(html).toContain('data-field="system.charges.max"');
     });
 
-    it("no longer renders the inert system.charges.usesCharges checkbox (#1129)", () => {
+    it("no longer renders the inert system.charges.usesCharges checkbox", () => {
         const html = render();
         expect(html).not.toContain("system.charges.usesCharges");
     });

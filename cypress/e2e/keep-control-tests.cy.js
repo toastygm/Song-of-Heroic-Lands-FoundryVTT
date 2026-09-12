@@ -28,7 +28,7 @@
  * pre-answers the pre-roll dialog so the headless run never hangs.
  */
 
-describe("Keep-control tests — Stumble & Fumble (#851, #852)", () => {
+describe("Keep-control tests — Stumble & Fumble", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.foundry((win) => {

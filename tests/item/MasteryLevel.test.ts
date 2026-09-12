@@ -57,7 +57,7 @@ describe("MasteryLevelModifier", () => {
             expect(ml.successLevelMod).toBe(0);
         });
 
-        it("defaults the critical digit lists to the multiple-of-5 set [0, 5] (#908)", () => {
+        it("defaults the critical digit lists to the multiple-of-5 set [0, 5]", () => {
             const ml = makeMLMod();
             expect(ml.critFailureDigits).toEqual([0, 5]);
             expect(ml.critSuccessDigits).toEqual([0, 5]);
@@ -322,7 +322,7 @@ describe("MasteryLevelModifier", () => {
         });
     });
 
-    describe("successValueTest grades via svTable (#848)", () => {
+    describe("successValueTest grades via svTable", () => {
         /** An owned speaker so evaluate() may resolve the forced roll. */
         function ownedSpeaker(): SohlSpeaker {
             const speaker = new SohlSpeaker({ alias: "GM" });

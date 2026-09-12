@@ -14,7 +14,7 @@ function subTypeLiterals(expression: string): string[] {
     return [...expression.matchAll(/subType\s*===\s*['"]([^'"]+)['"]/g)].map((m) => m[1]);
 }
 
-describe("intrinsic-action visibility gates name real subtypes (#1182)", () => {
+describe("intrinsic-action visibility gates name real subtypes", () => {
     it("every Trauma `visible` subtype literal is a real TRAUMA_SUBTYPE", () => {
         const valid = new Set<string>(TraumaSubTypes as readonly string[]);
         for (const action of TraumaLogic.defineIntrinsicActions()) {

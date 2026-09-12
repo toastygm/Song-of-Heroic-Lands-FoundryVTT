@@ -67,7 +67,7 @@ function seedWorldArchetype(priority = 0) {
     );
 }
 
-describe("Create dialog: archetype seeding (#604, #1780)", () => {
+describe("Create dialog: archetype seeding", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -90,7 +90,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("Create → Being with the default archetype yields a populated being; blank Shortcode defaults to the archetype's (#643)", () => {
+    it("Create → Being with the default archetype yields a populated being; blank Shortcode defaults to the archetype's", () => {
         seedWorldArchetype(0).then((arch) => {
             cy.foundry((win) => {
                 // A typed Name overrides the archetype's; Shortcode is left at
@@ -135,7 +135,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("archetype-first: the default archetype pre-fills Name and Shortcode (#643)", () => {
+    it("archetype-first: the default archetype pre-fills Name and Shortcode", () => {
         seedWorldArchetype(0).then((arch) => {
             cy.foundry((win) => {
                 win.__prefill = win.CONFIG.Actor.documentClass.createDialog({}, {}, {});
@@ -321,7 +321,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("the sheet control sets and clears system.templatePriority without editing JSON (#1780)", () => {
+    it("the sheet control sets and clears system.templatePriority without editing JSON", () => {
         // The point of moving the marker into the schema: a GM marks a document
         // from its sheet, instead of export → hand-edit JSON → re-import.
         cy.createWorldItem("skill", { name: tagName("Sheet Marked Skill") }).then((skill) => {
@@ -352,7 +352,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
     // actually routes a `system` block through `SohlDataModel.migrateData` on
     // the way in, for every SoHL subtype. A world that pre-dates #1836 is
     // exactly this: stored data carrying the old key.
-    it("migrates a pre-#1836 system.archetype to system.templatePriority (#1836)", () => {
+    it("migrates a pre-#1836 system.archetype to system.templatePriority", () => {
         cy.foundry(async (win) => {
             // Priority 0 on purpose: it is what SoHL's own archetypes ship at,
             // and the value any truthiness bug in the migration would swallow.

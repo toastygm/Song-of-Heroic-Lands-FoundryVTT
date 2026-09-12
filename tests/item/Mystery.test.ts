@@ -82,7 +82,7 @@ describe("MysteryLogic", () => {
         // is a Mystical Ability, which carries its own action and roll. There
         // is no universal meaning to "use" a Mystery, so the item offers no
         // such action.
-        it("offers no useMystery action (#1089)", () => {
+        it("offers no useMystery action", () => {
             const logic = makeMystery();
             expect(logic.actions.has("useMystery")).toBe(false);
             expect(
@@ -151,7 +151,7 @@ describe("MysteryLogic", () => {
             expect(logic.charges.max.disabled).toBe("SOHL.Mystery.DoesNotUseCharges");
         });
 
-        it("gates charges on max !== null — the maximum is the only control (#1129)", () => {
+        it("gates charges on max !== null — the maximum is the only control", () => {
             // Charge usage has one source of truth: a null max disables charge
             // tracking, a non-null max enables it. There is no separate flag.
             const logic = makeMystery({
@@ -337,7 +337,7 @@ describe("MysteryLogic", () => {
             return skill;
         }
 
-        it("Boost on an unlearned (ML-0) skill opens it at Skill Base and compounds (#981)", () => {
+        it("Boost on an unlearned (ML-0) skill opens it at Skill Base and compounds", () => {
             // SB 40, N=3 → open 40, then 40(+9)49(+8)57 ⇒ conferred EML 57.
             // (Contrast the present-skill path, which would boost off seed 0.)
             const actor = makeMysteryActor();
@@ -356,7 +356,7 @@ describe("MysteryLogic", () => {
             expect(skill.masteryLevel.effective).toBe(57);
         });
 
-        it("Boost N=1 on an unlearned skill confers it at exactly Skill Base (#981)", () => {
+        it("Boost N=1 on an unlearned skill confers it at exactly Skill Base", () => {
             // N=1 spends its only boost opening the skill: EML = SB, no compounding.
             const actor = makeMysteryActor();
             const skill = makeUnlearnedSkillOnActor(actor, 40);

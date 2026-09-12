@@ -153,7 +153,7 @@ describe("script-action-attach — attachScriptAction", () => {
         expect(written[0].executor).toBe("Macro.2");
     });
 
-    it("names the missing document instead of dereferencing it (#1536)", async () => {
+    it("names the missing document instead of dereferencing it", async () => {
         // `sohl.worldHost()` returns `undefined` for a user who cannot see the
         // host, and callers hand its result straight in. Dereferencing it
         // surfaced as `Cannot read properties of undefined (reading 'system')`,

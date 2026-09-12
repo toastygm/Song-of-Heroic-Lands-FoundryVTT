@@ -44,7 +44,7 @@ describe("ExpressionHelperRegistry", () => {
         });
     });
 
-    describe("string helpers (#448)", () => {
+    describe("string helpers", () => {
         const h = (name: string) => STANDARD_HELPERS[name] as (...a: any[]) => any;
 
         it("str: coerces any value to its string form", () => {
@@ -137,7 +137,7 @@ describe("ExpressionHelperRegistry", () => {
         });
     });
 
-    describe("stochastic helpers: rand and roll (#540)", () => {
+    describe("stochastic helpers: rand and roll", () => {
         afterEach(() => vi.restoreAllMocks());
         const h = (name: string) => STANDARD_HELPERS[name] as (...a: any[]) => any;
         // `roll` builds a parent-owned SimpleRoll; the parent is only stored.
@@ -185,7 +185,7 @@ describe("ExpressionHelperRegistry", () => {
         });
     });
 
-    describe("temporal helpers — event-queue predicate support (#579)", () => {
+    describe("temporal helpers — event-queue predicate support", () => {
         afterEach(() => vi.restoreAllMocks());
 
         it("curWorldTime: returns the live world time via the shim", () => {
@@ -214,7 +214,7 @@ describe("ExpressionHelperRegistry", () => {
         });
     });
 
-    describe("hasUsableSkill (#64)", () => {
+    describe("hasUsableSkill", () => {
         const fn = () => STANDARD_HELPERS.hasUsableSkill;
 
         it("returns true when the actor logic has a skill with the given shortcode", () => {
@@ -240,7 +240,7 @@ describe("ExpressionHelperRegistry", () => {
         });
     });
 
-    describe("sb — Skill Base reduction (#972)", () => {
+    describe("sb — Skill Base reduction", () => {
         const sb = () => STANDARD_HELPERS.sb as (...v: unknown[]) => number;
 
         it("returns the value itself for a single argument", () => {
@@ -275,7 +275,7 @@ describe("ExpressionHelperRegistry", () => {
         });
     });
 
-    describe("sum (#1024)", () => {
+    describe("sum", () => {
         const sum = () => STANDARD_HELPERS.sum as (...v: unknown[]) => number;
         it("adds its arguments", () => {
             expect(sum()(1, 2, 3)).toBe(6);
@@ -286,7 +286,7 @@ describe("ExpressionHelperRegistry", () => {
         });
     });
 
-    describe("settings dict builder (#1024)", () => {
+    describe("settings dict builder", () => {
         const settings = () => STANDARD_HELPERS.settings as (...v: unknown[]) => PlainObject;
         it("builds a dict from alternating key/value pairs", () => {
             expect(settings()("peleahn", 15, "subtype:combat", 5)).toEqual({
@@ -302,7 +302,7 @@ describe("ExpressionHelperRegistry", () => {
         });
     });
 
-    describe("merge per-key fold (#1024)", () => {
+    describe("merge per-key fold", () => {
         const merge = () =>
             STANDARD_HELPERS.merge as (
                 iters: unknown,

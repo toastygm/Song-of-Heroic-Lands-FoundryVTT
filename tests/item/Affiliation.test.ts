@@ -72,7 +72,7 @@ describe("AffiliationLogic", () => {
     });
 
     describe("level", () => {
-        it("seeds the level ValueModifier from data.level (#1000)", () => {
+        it("seeds the level ValueModifier from data.level", () => {
             const logic = makeAffiliation({ level: 4 });
             logic.initialize();
             expect(logic.level).toBeInstanceOf(ValueModifier);
@@ -91,7 +91,7 @@ describe("AffiliationLogic", () => {
         });
     });
 
-    describe("subType (#1405)", () => {
+    describe("subType", () => {
         it("exposes the recorded kind of organization through data", () => {
             const logic = makeAffiliation({
                 subType: AFFILIATION_SUBTYPE.FAITHTRADITION,
@@ -107,7 +107,7 @@ describe("AffiliationLogic", () => {
         });
     });
 
-    describe("standingWith (#1404)", () => {
+    describe("standingWith", () => {
         it("returns the recorded standing for a listed shortcode", () => {
             const logic = makeAffiliation({
                 relations: { peoni: AFFILIATION_STANDING.NEMESIS },
@@ -170,7 +170,7 @@ describe("AffiliationLogic", () => {
     });
 });
 
-describe("AFFILIATION_SUBTYPE (#1405, #1788)", () => {
+describe("AFFILIATION_SUBTYPE", () => {
     it("declares the eleven kinds the content format declares", () => {
         // The format maps a note's `subType` straight onto `system.subType`, so
         // the two vocabularies are one vocabulary and this list is the contract.
@@ -212,7 +212,7 @@ describe("AFFILIATION_SUBTYPE (#1405, #1788)", () => {
     });
 });
 
-describe("AFFILIATION_STANDING (#1404)", () => {
+describe("AFFILIATION_STANDING", () => {
     it("declares the four standings, with unaligned as the neutral one", () => {
         expect([...AffiliationStandings].sort()).toEqual([
             "aligned",
@@ -251,7 +251,7 @@ describe("AffiliationDataModel", () => {
     it.todo("has correct LOCALIZATION_PREFIXES");
 });
 
-describe("affiliation references (#1781)", () => {
+describe("affiliation references", () => {
     it("answers to nobody by default, and that is a value rather than an absence", () => {
         const logic = makeAffiliation();
         expect(logic.data.parents).toEqual([]);

@@ -29,7 +29,7 @@
  * Exposure itself is never rescheduled: nothing offers another contagion test.
  */
 
-describe("Affliction onset creation offer (#602)", () => {
+describe("Affliction onset creation offer", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.foundry((win) => {

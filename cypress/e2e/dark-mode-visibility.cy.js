@@ -40,7 +40,7 @@ function emulateDark() {
     );
 }
 
-describe("dark-mode visibility (#893)", () => {
+describe("dark-mode visibility", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     after(() => {
         cy.cleanupWorld();

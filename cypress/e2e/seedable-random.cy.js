@@ -24,7 +24,7 @@
  * construction, so seeding here always precedes any roll under test.
  */
 
-describe("Seedable sohl.random (#599 / #601)", () => {
+describe("Seedable sohl.random", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

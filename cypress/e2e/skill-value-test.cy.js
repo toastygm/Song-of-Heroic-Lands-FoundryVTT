@@ -27,7 +27,7 @@
  * reading it synchronously.
  */
 
-describe("Skill Value Test — graded success value (#848)", () => {
+describe("Skill Value Test — graded success value", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {

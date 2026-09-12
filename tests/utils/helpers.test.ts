@@ -984,7 +984,7 @@ describe("resolveShortcodeKey (shortcodeDedupe matrix)", () => {
         });
     });
 
-    describe("shape rule — shortcodes are lowercase alphanumeric (#1397, #1882)", () => {
+    describe("shape rule — shortcodes are lowercase alphanumeric", () => {
         // A capital is refused on the same footing as punctuation: the guard
         // does not silently rewrite what an author typed, it tells them. The
         // repair path below is the one that folds.

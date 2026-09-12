@@ -19,7 +19,7 @@
  * locations. The derivation math is unit-tested; here we prove it flows through a
  * real body + trauma items to the rendered grid cell's `data-status`.
  */
-describe("Being sheet header: body-part impairment grid (#464)", () => {
+describe("Being sheet header: body-part impairment grid", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

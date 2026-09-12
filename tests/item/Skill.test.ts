@@ -78,7 +78,7 @@ describe("SkillLogic", () => {
             expect((toggle as any).data.group).toBe(SOHL_CONTEXT_MENU_SORT_GROUP.GENERAL);
         });
 
-        it("canImprove does not throw before initialize() — masteryLevel unset (#511)", () => {
+        it("canImprove does not throw before initialize() — masteryLevel unset", () => {
             // The Skills tab reads `skillLogic.canImprove` while rendering; a skill
             // whose logic hasn't been initialized yet (masteryLevel not seeded)
             // must not throw and brick the whole sheet.
@@ -88,7 +88,7 @@ describe("SkillLogic", () => {
         });
     });
 
-    describe("strike mode update payloads (#663)", () => {
+    describe("strike mode update payloads", () => {
         it("setStrikeModeUpdate writes the whole single strikeMode value", () => {
             const logic = makeSkill({ subType: "combattechnique" });
             const sm = { type: "melee", name: "Punch" } as any;
@@ -121,7 +121,7 @@ describe("SkillLogic", () => {
             expect(logic.boosts).toBe(0);
         });
 
-        it("opens ML from skillBase × initSkillMult when masteryLevelBase is null and on an actor (#715)", () => {
+        it("opens ML from skillBase × initSkillMult when masteryLevelBase is null and on an actor", () => {
             const actor = makeMockActor();
             actor.items.set("str1", makeAttributeStub("str", 12));
             actor.items.set("int1", makeAttributeStub("int", 14));
@@ -139,7 +139,7 @@ describe("SkillLogic", () => {
             expect(logic.masteryLevel.base).toBe(26);
         });
 
-        it("prefers a stored masteryLevelBase over the multiplier (#715)", () => {
+        it("prefers a stored masteryLevelBase over the multiplier", () => {
             const actor = makeMockActor();
             actor.items.set("str1", makeAttributeStub("str", 12));
             actor.items.set("int1", makeAttributeStub("int", 14));
@@ -155,7 +155,7 @@ describe("SkillLogic", () => {
             expect(logic.masteryLevel.base).toBe(40);
         });
 
-        it("does not open ML off an actor even with a multiplier (#715)", () => {
+        it("does not open ML off an actor even with a multiplier", () => {
             // A skill in a compendium / not embedded on an actor has no skill
             // base to open from; masteryLevelBase null → base 0.
             const logic = makeSkill({
@@ -167,7 +167,7 @@ describe("SkillLogic", () => {
             expect(logic.masteryLevel.base).toBe(0);
         });
 
-        it("treats a zero multiplier as an unopened skill (base 0) (#715)", () => {
+        it("treats a zero multiplier as an unopened skill (base 0)", () => {
             const actor = makeMockActor();
             actor.items.set("str1", makeAttributeStub("str", 12));
             actor.items.set("int1", makeAttributeStub("int", 14));
@@ -195,7 +195,7 @@ describe("SkillLogic", () => {
             expect(logic.skillBase).toBe(13);
         });
 
-        it("flags an invalid Skill-Base expression (SB 0, not valid) (#972)", () => {
+        it("flags an invalid Skill-Base expression (SB 0, not valid)", () => {
             const actor = makeMockActor();
             actor.items.set("str1", makeAttributeStub("str", 12));
             const logic = makeSkill(
@@ -209,7 +209,7 @@ describe("SkillLogic", () => {
             expect(logic.skillBaseError).toBeTruthy();
         });
 
-        it("flags an unknown helper as invalid (#972)", () => {
+        it("flags an unknown helper as invalid", () => {
             const actor = makeMockActor();
             actor.items.set("str1", makeAttributeStub("str", 12));
             const logic = makeSkill({ skillBaseFormula: "bogus(attr.str)" }, { actor });
@@ -218,7 +218,7 @@ describe("SkillLogic", () => {
             expect(logic.skillBase).toBe(0);
         });
 
-        it("treats a blank formula as valid with skillBase 0 (#972)", () => {
+        it("treats a blank formula as valid with skillBase 0", () => {
             const actor = makeMockActor();
             const logic = makeSkill({ skillBaseFormula: "" }, { actor });
             logic.initialize();
@@ -280,7 +280,7 @@ describe("SkillLogic", () => {
             expect(logic.parentSkill).toBe(parentLogic);
         });
 
-        it("adopts the parent skill's masteryLevelBase when adoptParentMasteryLevel is true (#719)", () => {
+        it("adopts the parent skill's masteryLevelBase when adoptParentMasteryLevel is true", () => {
             const actor = makeMockActor();
             makeSkill(
                 { masteryLevelBase: 50 },
@@ -300,7 +300,7 @@ describe("SkillLogic", () => {
             expect(logic.masteryLevel.base).toBe(50); // adopted parent's base
         });
 
-        it("leaves mastery level unchanged when adoptParentMasteryLevel is false (default) even with a parent (#719)", () => {
+        it("leaves mastery level unchanged when adoptParentMasteryLevel is false (default) even with a parent", () => {
             const actor = makeMockActor();
             makeSkill(
                 { masteryLevelBase: 50 },
@@ -313,7 +313,7 @@ describe("SkillLogic", () => {
             expect(logic.masteryLevel.base).toBe(30); // own base kept
         });
 
-        it("applies this skill's boosts on top of the adopted parent base (#719)", () => {
+        it("applies this skill's boosts on top of the adopted parent base", () => {
             const actor = makeMockActor();
             makeSkill(
                 { masteryLevelBase: 30 },
@@ -334,7 +334,7 @@ describe("SkillLogic", () => {
             expect(logic.masteryLevel.base).toBe(49);
         });
 
-        it("does not adopt when adoptParentMasteryLevel is true but no parent resolves (#719)", () => {
+        it("does not adopt when adoptParentMasteryLevel is true but no parent resolves", () => {
             const logic = makeSkill({
                 masteryLevelBase: 30,
                 parentSkillCode: null,
@@ -378,7 +378,7 @@ describe("SkillLogic", () => {
             expect(logic.fateMasteryLevel.disabled).toBe("SOHL.MasteryLevel.AuraBasedNoFate");
         });
 
-        it("keeps fate when Aura only adjusts the result, outside sb() (#1175)", () => {
+        it("keeps fate when Aura only adjusts the result, outside sb()", () => {
             vi.spyOn(FoundryHelpersMock, "fvttGetSetting").mockReturnValue("everyone");
             const actor = makeMockActor();
             actor.items.set("aur1", makeAttributeStub("aur", 14));
@@ -399,7 +399,7 @@ describe("SkillLogic", () => {
         });
     });
 
-    describe("skillBaseAttrs (#1175)", () => {
+    describe("skillBaseAttrs", () => {
         it("reports the sb() arguments, primary first", () => {
             const logic = makeSkill({
                 skillBaseFormula: "sb(attr.rea, attr.per)",
@@ -540,7 +540,7 @@ describe("SkillLogic", () => {
             expect(chatData.sdrIncr).toBe(1);
         });
 
-        it("posts its own SDR card, not the standard success-test card (#1103)", async () => {
+        it("posts its own SDR card, not the standard success-test card", async () => {
             vi.spyOn(SimpleRoll, "fromFormula").mockReturnValue(mockRoll(95));
             const logic = makeSkill({ masteryLevelBase: 40 });
             logic.initialize();
@@ -553,7 +553,7 @@ describe("SkillLogic", () => {
             expect(chatData.rollTotal).toBe(95);
         });
 
-        it("carries no `type` key — it would become an invalid ChatMessage subtype (#1103)", async () => {
+        it("carries no `type` key — it would become an invalid ChatMessage subtype", async () => {
             // SohlSpeaker._prepareChat spreads this object into the ChatMessage
             // payload, so a `type` here is the message's *document subtype*.
             // The old "<kind>-<name>-improve-sdr" label is not a registered
@@ -577,7 +577,7 @@ describe("SkillLogic", () => {
             expect(chatData.isSuccess).toBe(false);
         });
 
-        it("uses the derived opening base (not a NaN from a null masteryLevelBase) on an auto-opened skill (#715)", async () => {
+        it("uses the derived opening base (not a NaN from a null masteryLevelBase) on an auto-opened skill", async () => {
             vi.spyOn(SimpleRoll, "fromFormula").mockReturnValue(mockRoll(100));
             const actor = makeMockActor();
             actor.items.set("str1", makeAttributeStub("str", 12));
@@ -602,7 +602,7 @@ describe("SkillLogic", () => {
             expect(chatData.target).toBe(26);
         });
 
-        it("persists the raised mastery level and clears the improve flag on success (#716)", async () => {
+        it("persists the raised mastery level and clears the improve flag on success", async () => {
             vi.spyOn(SimpleRoll, "fromFormula").mockReturnValue(mockRoll(95));
             const logic = makeSkill({
                 masteryLevelBase: 40,
@@ -617,7 +617,7 @@ describe("SkillLogic", () => {
             });
         });
 
-        it("clears the improve flag without raising mastery on failure (#716)", async () => {
+        it("clears the improve flag without raising mastery on failure", async () => {
             vi.spyOn(SimpleRoll, "fromFormula").mockReturnValue(mockRoll(10));
             const logic = makeSkill({
                 masteryLevelBase: 40,
@@ -660,7 +660,7 @@ describe("SkillLogic", () => {
             ).evaluate(context);
         }
 
-        it("shows when the skill can improve and is flagged for improvement (#1102)", () => {
+        it("shows when the skill can improve and is flagged for improvement", () => {
             const itemLogic = {
                 canImprove: true,
                 data: { improveFlag: true },
@@ -676,7 +676,7 @@ describe("SkillLogic", () => {
             expect(evalVisible({ itemLogic })).toBe(false);
         });
 
-        it("hides when the skill is not flagged for improvement (#1102)", () => {
+        it("hides when the skill is not flagged for improvement", () => {
             const itemLogic = {
                 canImprove: true,
                 data: { improveFlag: false },
@@ -737,7 +737,7 @@ describe("SkillLogic", () => {
             expect(logic.availableFate).toEqual([]);
         });
 
-        it("valid is true for a single-attribute formula now that sb() accepts one value (#972)", () => {
+        it("valid is true for a single-attribute formula now that sb() accepts one value", () => {
             // The legacy ≥2-attribute rule is dropped: validity is now purely
             // whether the expression compiled and returned a number.
             const actor = makeMockActor();
@@ -820,7 +820,7 @@ describe("SkillLogic", () => {
          * A missile technique carries no block or counterstrike modifier, so
          * those actions must not be offered on it.
          */
-        describe("melee-defense gating (#1137)", () => {
+        describe("melee-defense gating", () => {
             it("reports hasMeleeStrikeMode for a melee technique", () => {
                 const logic = makeSkill({
                     subType: "combattechnique",
@@ -890,7 +890,7 @@ describe("SkillLogic", () => {
             expect(sm.defense.counterstrike.effective).toBe(38); // 40 - 2
         });
 
-        describe("prone wielder (#562)", () => {
+        describe("prone wielder", () => {
             afterEach(() => vi.restoreAllMocks());
 
             it("subtracts 20 from the technique's attack and defenses when prone", () => {
@@ -1066,7 +1066,7 @@ describe("SkillLogic", () => {
         });
     });
 
-    describe("label (#710)", () => {
+    describe("label", () => {
         it("appends the parent skill's name in parentheses when a parent resolves", () => {
             const actor = makeMockActor();
             makeSkill(
@@ -1136,7 +1136,7 @@ describe("SkillDataModel", () => {
     it.todo("has correct LOCALIZATION_PREFIXES including Skill, MasteryLevel, and Item");
 });
 
-describe("getFateDescTable (#70)", () => {
+describe("getFateDescTable", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("calls sohl.i18n.localize with SOHL.Skill.FateDesc.* keys", () => {

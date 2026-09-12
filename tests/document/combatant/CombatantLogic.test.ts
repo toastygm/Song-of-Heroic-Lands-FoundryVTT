@@ -290,7 +290,7 @@ describe("CombatantLogic", () => {
             expect(warn).toHaveBeenCalled();
         });
 
-        it("falls back to the user's targeted token when the context carries none (#1079)", async () => {
+        it("falls back to the user's targeted token when the context carries none", async () => {
             // The combat tracker's context-menu entry builds the context with a
             // speaker only, so a targetless context must resolve the target
             // from what the user has targeted rather than aborting.
@@ -308,14 +308,14 @@ describe("CombatantLogic", () => {
             );
         });
 
-        it("still refuses when neither the context nor the user supplies a target (#1079)", async () => {
+        it("still refuses when neither the context nor the user supplies a target", async () => {
             const logic = makeCombatantLogic();
             vi.spyOn(FoundryHelpers, "fvttGetTargetedTokens").mockReturnValue(undefined);
             await expect(logic.startAutomatedAttack({ scope: {} } as any)).resolves.toBeUndefined();
             expect(warn).toHaveBeenCalledWith(expect.stringMatching(/requires a target combatant/));
         });
 
-        it("hands the resolved target combatant to the attack dialog as the defender (#1079)", async () => {
+        it("hands the resolved target combatant to the attack dialog as the defender", async () => {
             // On the start path there is no attack result in scope — the
             // defender is the *target*. Reaching the strike-mode step proves
             // the defender resolved; before the fix it aborted one step

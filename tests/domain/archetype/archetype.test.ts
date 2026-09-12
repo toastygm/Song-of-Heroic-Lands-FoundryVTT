@@ -224,7 +224,7 @@ describe("buildArchetypeOptions", () => {
     });
 });
 
-describe("resolveCreateIdentity — archetype-first defaults (#643)", () => {
+describe("resolveCreateIdentity — archetype-first defaults", () => {
     const BROADSWORD = { name: "Broadsword", shortcode: "brdswd" };
 
     it("defaults Name and Shortcode from the chosen archetype when both blank", () => {
@@ -287,7 +287,7 @@ describe("resolveCreateIdentity — archetype-first defaults (#643)", () => {
     });
 });
 
-describe("readTemplatePriority — the tri-state on `system.templatePriority` (#1780, #1836)", () => {
+describe("readTemplatePriority — the tri-state on `system.templatePriority`", () => {
     it("reads a number as the archetype priority", () => {
         expect(readTemplatePriority({ templatePriority: 3 })).toBe(3);
     });
@@ -463,7 +463,7 @@ describe("clearArchetypeMarker", () => {
     });
 });
 
-describe("canMarkArchetype — who may offer the sheet control (#1780)", () => {
+describe("canMarkArchetype — who may offer the sheet control", () => {
     it("offers it to a GM on a top-level document", () => {
         expect(canMarkArchetype(true, false)).toBe(true);
     });

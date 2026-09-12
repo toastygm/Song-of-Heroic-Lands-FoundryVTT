@@ -183,7 +183,7 @@ describe("non-being actors: cohort / structure / vehicle", () => {
             });
         });
 
-        it("exposes a shared-gear tab listing the item and its carrier (#76)", () => {
+        it("exposes a shared-gear tab listing the item and its carrier", () => {
             seedSharedGear().then(({ cohort, member }) => {
                 cy.openSheet(cohort);
                 cy.switchTab("sharedgear", "primary");
@@ -225,5 +225,5 @@ describe("non-being actors: cohort / structure / vehicle", () => {
     // are no-op `super` today (no capacity/HP/move/invariant computation). Assert
     // a derived property (structure capacity, cohort aggregate, vehicle load)
     // once implemented.
-    it.skip("non-being logic derives capacity/HP/move/invariants (#184)", () => {});
+    it.skip("non-being logic derives capacity/HP/move/invariants", () => {});
 });

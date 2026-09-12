@@ -57,7 +57,7 @@ const TABLE = [
     },
 ];
 
-describe("fate-roll-card renders the resolved path (#854)", () => {
+describe("fate-roll-card renders the resolved path", () => {
     it("shows the spent-path text and the source", () => {
         const html = renderTemplateReal(`${CHAT}/fate-roll-card.hbs`, {
             title: "Melee — Fate Test",
@@ -90,7 +90,7 @@ describe("fate-roll-card renders the resolved path (#854)", () => {
     });
 });
 
-describe("standard-test-card re-posts the bumped outcome (#854)", () => {
+describe("standard-test-card re-posts the bumped outcome", () => {
     /** Capture the chat-card data `toChat` builds, without posting. */
     async function chatDataFor(result: SuccessTestResult): Promise<any> {
         let captured: any;

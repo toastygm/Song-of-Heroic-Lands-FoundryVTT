@@ -50,7 +50,7 @@ function makeContestant(name, shortcode, masteryLevelBase) {
     );
 }
 
-describe("Opposed test — the responder rolls its own mastery level (#1164)", () => {
+describe("Opposed test — the responder rolls its own mastery level", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {

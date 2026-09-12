@@ -34,7 +34,7 @@ function openDialogText(win) {
     return dlg ? `${dlg.element.textContent ?? ""}` : "";
 }
 
-describe("localized labels reach the user (#1353)", () => {
+describe("localized labels reach the user", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.closeAllSheets().then(() => cy.cleanupWorld()));
 

@@ -47,7 +47,7 @@ describe("afflictions", () => {
     // additionally gated on the affliction being active, Treatment on it being
     // untreated, and Healing on a non-disabled healing rate. Afflictions have no
     // `isBleeding` field (that lives on Trauma), so no bleeding gate applies.
-    describe("action gating (#65)", () => {
+    describe("action gating", () => {
         it("active, untreated, self-healing affliction on a being with Endurance offers Course/Treat/Heal", () => {
             cy.importActor().then((actor) => {
                 cy.createItemOn(actor, "affliction", {
@@ -125,8 +125,8 @@ describe("afflictions", () => {
     // is a stub returning null. #68 is the affliction test-suite epic; #67 covers
     // the remaining condition predicates (canTransmit / canContract). Un-skip and
     // assert the resolved effects once implemented.
-    it.skip("contract test resolves an affliction (#67, #68)", () => {});
-    it.skip("transmit propagates an affliction (#67, #68)", () => {});
-    it.skip("course advances an affliction (#67, #68)", () => {});
-    it.skip("treat / heal resolves an affliction (#67, #68)", () => {});
+    it.skip("contract test resolves an affliction", () => {});
+    it.skip("transmit propagates an affliction", () => {});
+    it.skip("course advances an affliction", () => {});
+    it.skip("treat / heal resolves an affliction", () => {});
 });

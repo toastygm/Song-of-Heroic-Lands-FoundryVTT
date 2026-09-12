@@ -37,7 +37,7 @@ function fieldsOf(documentType: string, subtype: string): string[] {
     return [...entry.own, ...entry.inherited];
 }
 
-describe("affliction and trauma temporal fields are published (#481)", () => {
+describe("affliction and trauma temporal fields are published", () => {
     const affliction = fieldsOf("Item", "affliction");
     const trauma = fieldsOf("Item", "trauma");
 

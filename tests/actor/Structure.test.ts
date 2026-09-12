@@ -135,7 +135,7 @@ describe("StructureLogic", () => {
      * supplies. Invoked any other way it returned immediately: no dialog, no
      * notice, no change. Per the prefer-dialog rule it now offers the choice.
      */
-    describe("makeDefaultMedium without a medium in scope (#1098)", () => {
+    describe("makeDefaultMedium without a medium in scope", () => {
         it("prompts with the actor's media and persists the chosen one", async () => {
             const dlg = vi
                 .spyOn(FoundryHelpersMock, "dialog")

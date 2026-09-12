@@ -20,7 +20,7 @@
  * percentage. The derivation math is unit-tested; here we prove a real being
  * renders a non-zero bar and that adding an injury reduces the reported health.
  */
-describe("Being sheet header: health bar (#463)", () => {
+describe("Being sheet header: health bar", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

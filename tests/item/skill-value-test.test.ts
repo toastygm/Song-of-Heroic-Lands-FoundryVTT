@@ -43,7 +43,7 @@ function makeSkill(): SkillLogic {
     return skill;
 }
 
-describe("SkillLogic Skill Value Test action (#848)", () => {
+describe("SkillLogic Skill Value Test action", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("registers a human-triggered successValueTest intrinsic action", () => {

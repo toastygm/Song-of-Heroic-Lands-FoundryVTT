@@ -20,7 +20,7 @@
  * `masteryLevel` — so the effect applies only while the Mystery is present and
  * reverts automatically when it lapses. Driven through the live `.logic`.
  */
-describe("mystery boon/boost skill contribution (#975)", () => {
+describe("mystery boon/boost skill contribution", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -126,7 +126,7 @@ describe("mystery boon/boost skill contribution (#975)", () => {
      * added, the Boost opens it at Skill Base and boosts it. The offer fires from
      * the mystery's `_onCreate`, so creating the Boost surfaces the dialog.
      */
-    it("a Boost naming an absent skill offers to add it at ML 0, then confers it at Skill Base (#981)", () => {
+    it("a Boost naming an absent skill offers to add it at ML 0, then confers it at Skill Base", () => {
         cy.createActor("being", { name: "Stealth Learner" }).then((actor) => {
             // A Strength attribute so the conferred skill's sb(attr.str) formula
             // computes a positive Skill Base.
@@ -180,7 +180,7 @@ describe("mystery boon/boost skill contribution (#975)", () => {
         });
     });
 
-    it("declining the offer adds no skill (#981)", () => {
+    it("declining the offer adds no skill", () => {
         cy.createActor("being", { name: "Climb Decliner" }).then((actor) => {
             cy.createItemOn(actor, "attribute", {
                 name: "Strength",

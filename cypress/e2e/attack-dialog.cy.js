@@ -34,7 +34,7 @@ function attackDialog(win) {
         .find((app) => app.rendered && app.element?.querySelector('select[name="modeIdx"]'));
 }
 
-describe("automated attack dialog (#1080)", () => {
+describe("automated attack dialog", () => {
     before(() => cy.login());
 
     it("offers the strike modes and resolves to the one the attacker picks", () => {

@@ -38,12 +38,12 @@ function rowElement(win, itemId, actorId) {
     };
 }
 
-describe("default action visibility predicates (#458)", () => {
+describe("default action visibility predicates", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);
 
-    it("shows the improveWithSDR action only when the skill can improve and is flagged (#1102)", () => {
+    it("shows the improveWithSDR action only when the skill can improve and is flagged", () => {
         cy.importActor().then((actor) => {
             // Pick any real skill on the imported Basic Folk.
             cy.foundry((win) => {

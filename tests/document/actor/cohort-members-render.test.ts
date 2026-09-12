@@ -76,7 +76,7 @@ describe("cohort Members tab", () => {
         expect(html).not.toContain("<img");
     });
 
-    it("flags an unresolved member with a NOT FOUND warning (#199)", () => {
+    it("flags an unresolved member with a NOT FOUND warning", () => {
         const html = renderTemplateReal(MEMBERS, {
             members: [
                 row({

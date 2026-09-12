@@ -147,7 +147,7 @@ describe("derived strike mode sections", () => {
         });
     });
 
-    it("renders the weapon's flat impact modifier on the Combat tab (#774)", () => {
+    it("renders the weapon's flat impact modifier on the Combat tab", () => {
         // A strike mode carrying a nonzero flat impact bonus must show it on the
         // Combat tab (and feed the rolled impact), matching the item sheet.
         // Regression: the modifier was routed only into the inner dice roll, so

@@ -20,7 +20,7 @@ import { SohlLogger } from "@src/core/foundry/SohlLogger";
  * back into `uiWarn`/`log`, blowing the stack), and a formatting failure must not
  * crash `log()`.
  */
-describe("SohlLogger UI notifications (#267)", () => {
+describe("SohlLogger UI notifications", () => {
     const notifications = (globalThis as any).ui.notifications;
     const i18n = (globalThis as any).sohl.i18n;
     const logger = SohlLogger.getInstance();

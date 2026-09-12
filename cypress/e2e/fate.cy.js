@@ -63,5 +63,5 @@ describe("fate", () => {
     // [] so `fateMasteryLevel.disabled` holds in finalize() and no fate item can
     // be spent. Un-skip and assert a charged fate item is offered and a fate
     // reroll resolves once implemented.
-    it.skip("a charged fate item enables a fate reroll (#71)", () => {});
+    it.skip("a charged fate item enables a fate reroll", () => {});
 });

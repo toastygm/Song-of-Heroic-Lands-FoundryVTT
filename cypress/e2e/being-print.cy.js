@@ -20,7 +20,7 @@
  * `window.open` and `print()` are stubbed in the click test so the run neither
  * spawns a real popup nor blocks on a native print dialog.
  */
-describe("being print / export (#795)", () => {
+describe("being print / export", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => {

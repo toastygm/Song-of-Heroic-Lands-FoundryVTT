@@ -23,7 +23,7 @@
  * item's name, description, and owning-actor id.
  */
 
-describe("Output Description to Chat action (#849)", () => {
+describe("Output Description to Chat action", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

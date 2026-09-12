@@ -65,7 +65,7 @@ function rowElement(itemId, actorId) {
     };
 }
 
-describe("missile-only weapons don't offer block/counterstrike (#1137)", () => {
+describe("missile-only weapons don't offer block/counterstrike", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

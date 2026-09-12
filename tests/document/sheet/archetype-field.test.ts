@@ -28,7 +28,7 @@ import { renderTemplateReal } from "@tests/mocks/hbs-helpers";
 const ITEM_HEADER = "systems/sohl/templates/item/parts/header.hbs";
 const ACTOR_HEADER = "systems/sohl/templates/actor/vehicle/header.hbs";
 
-describe("the archetype control binds system.templatePriority (#1780, #1836)", () => {
+describe("the archetype control binds system.templatePriority", () => {
     it("renders a number input bound to system.templatePriority on the item header", () => {
         const html = renderTemplateReal(ITEM_HEADER, {
             itemName: "Broadsword",

@@ -158,7 +158,7 @@ describe("driven-tour: seeded RNG (SohlTour #624)", () => {
         });
     });
 
-    it("exiting while start() is mid-flight leaves no ghost step card (#679)", () => {
+    it("exiting while start() is mid-flight leaves no ghost step card", () => {
         // Regression: a tour launched but not awaited (e.g. a button-launch) whose
         // owner exits before the async `_preStep()` settles must not strand an
         // orphan `.tour-center-step`. Base `exit()` clears `Tour.activeTour` but
@@ -186,7 +186,7 @@ describe("driven-tour: seeded RNG (SohlTour #624)", () => {
         );
     });
 
-    it("exit interleaved with the render await leaves no ghost, and a residual ghost is swept by the next start (#737)", () => {
+    it("exit interleaved with the render await leaves no ghost, and a residual ghost is swept by the next start", () => {
         // The #679 guard only covers an `exit()` landing BEFORE the render begins.
         // #737 is the residual race: `_renderStep` yields at `super._renderStep()`,
         // and an `exit()` interleaving THAT await tears down before the card is
@@ -289,7 +289,7 @@ describe("driven-tour: drive steps (SohlTour #624)", () => {
     // adventure + scene + token fixtures they need. Headless runs suppress the
     // placeable-Token canvas draw (see kb/dev-docs/how-to/testing.md), so combat/target
     // primitives can't be proven on pixels here.
-    it.skip("imports an adventure, starts combat, and sets a target (#620)", () => {
+    it.skip("imports an adventure, starts combat, and sets a target", () => {
         // RED — blocked by #620: needs the Automated Combat tour's fixtures and a
         // drawn canvas (headless suppresses placeable-Token rendering).
     });

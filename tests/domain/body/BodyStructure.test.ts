@@ -174,14 +174,14 @@ describe("BodyStructure", () => {
             ]);
         });
 
-        it("getAllZones returns every zone in persisted order (#982)", () => {
+        it("getAllZones returns every zone in persisted order", () => {
             const body = makeBody();
             expect(body.getAllZones().map((z) => z.shortcode)).toEqual(["headzone", "bodyzone"]);
             // Carries the display name for {value: shortcode, label: name} mapping.
             expect(body.getAllZones().map((z) => z.name)).toEqual(["headzone", "bodyzone"]);
         });
 
-        it("getAllParts returns every part in persisted order (#982)", () => {
+        it("getAllParts returns every part in persisted order", () => {
             const body = makeBody();
             expect(body.getAllParts().map((p) => p.shortcode)).toEqual(["head", "thorax"]);
         });
@@ -438,7 +438,7 @@ describe("BodyStructure", () => {
         });
     });
 
-    describe("seeded determinism (#601)", () => {
+    describe("seeded determinism", () => {
         it("getRandomPart(target) is reproducible under the same seed", () => {
             const body = makeBody();
             const target = {

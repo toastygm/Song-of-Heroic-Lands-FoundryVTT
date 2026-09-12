@@ -23,7 +23,7 @@
  * The four cases below are the rule; a passing "reorder within a group" alone
  * would not catch a regression that re-parents on a cross-group drop.
  */
-describe("Being Skills tab: drag to reorder (#1528)", () => {
+describe("Being Skills tab: drag to reorder", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

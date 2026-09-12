@@ -19,7 +19,7 @@
  * editable dropdown — the subject of #754, now removed). The sub-type stays
  * visible, read-only, in the sheet header via the localized `typeLabel`.
  */
-describe("trauma sheet sub-type is read-only (#926)", () => {
+describe("trauma sheet sub-type is read-only", () => {
     const SUBTYPE_SEL = '[name="system.subType"]';
 
     before(() => cy.login().then(() => cy.cleanupWorld()));

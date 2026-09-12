@@ -21,7 +21,7 @@
  * base must equal the parent skill's `masteryLevelBase` (adopted before its own
  * boosts/clamp) — driven through the live `.logic`.
  */
-describe("skill sheet adopt parent mastery level (#719)", () => {
+describe("skill sheet adopt parent mastery level", () => {
     const SEL = '[name="system.adoptParentMasteryLevel"]';
 
     before(() => cy.login().then(() => cy.cleanupWorld()));

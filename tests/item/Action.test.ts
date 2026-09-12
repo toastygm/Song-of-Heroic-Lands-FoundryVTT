@@ -297,7 +297,7 @@ describe("SohlAction.visible composes with trigger and permission", () => {
     });
 });
 
-describe("SohlAction.isAvailable / unavailableReason (#1135)", () => {
+describe("SohlAction.isAvailable / unavailableReason", () => {
     it("is true when the trigger passes against the action's own context", () => {
         expect(makeAction({ trigger: "true" }).isAvailable).toBe(true);
     });

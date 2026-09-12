@@ -28,7 +28,7 @@
  * no dialogs.
  */
 
-describe("Fate spend — post-roll success-level bump (#854)", () => {
+describe("Fate spend — post-roll success-level bump", () => {
     before(() =>
         cy.login().then(() => {
             cy.cleanupWorld();

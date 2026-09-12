@@ -56,7 +56,7 @@ function render(traumas: ReturnType<typeof traumaLike>[]) {
     });
 }
 
-describe("Being Trauma tab — per-sub-type columns (#939)", () => {
+describe("Being Trauma tab — per-sub-type columns", () => {
     it("renders an Injury with Sev / HR / Area / Next Heal Test, not Aspect / Bld", () => {
         const html = render([
             traumaLike({

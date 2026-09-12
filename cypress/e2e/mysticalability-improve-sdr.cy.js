@@ -24,7 +24,7 @@
  * forced dice, then asserts the persisted `system` fields — what the unit suite
  * can only mock.
  */
-describe("mystical ability improvement (#1130)", () => {
+describe("mystical ability improvement", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.foundry((win) => {

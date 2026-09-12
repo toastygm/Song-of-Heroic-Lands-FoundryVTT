@@ -65,7 +65,7 @@ function render(subType: string): string {
     });
 }
 
-describe("trauma properties sheet template (#926)", () => {
+describe("trauma properties sheet template", () => {
     it("does NOT render an editable sub-type control", () => {
         // Sub-type is immutable after creation, so the Properties tab must not
         // bind an editable control to system.subType (the header shows it
@@ -98,7 +98,7 @@ describe("trauma properties sheet template (#926)", () => {
     });
 });
 
-describe("trauma properties sheet — per-sub-type fields (#939)", () => {
+describe("trauma properties sheet — per-sub-type fields", () => {
     it("injury: infection flags, heal duration, treatment date, next heal test", () => {
         const html = render("injury");
         expect(html).toContain('data-field="system.infectable"');

@@ -72,7 +72,7 @@ function meleeWeapon(name = "Arming Sword") {
     };
 }
 
-describe("gear-row context menu bindings (#1132)", () => {
+describe("gear-row context menu bindings", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     // The known logger recursion turns a stray uiWarn into a stack

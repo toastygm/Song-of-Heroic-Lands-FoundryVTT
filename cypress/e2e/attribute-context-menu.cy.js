@@ -27,11 +27,11 @@
  *    and must be rollable as a Success Test against it, exactly like a skill.
  *    The `successTest` intrinsic action was missing from `AttributeLogic`.
  */
-describe("attribute context menu (#924, #925)", () => {
+describe("attribute context menu", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
-    it("exposes a visible successTest action on every attribute (#925)", () => {
+    it("exposes a visible successTest action on every attribute", () => {
         cy.importActor().then((actor) => {
             cy.foundry((win) => {
                 const a = win.game.actors.get(actor.id);
@@ -60,7 +60,7 @@ describe("attribute context menu (#924, #925)", () => {
         });
     });
 
-    it("runs a success test against the attribute's mastery level (#925)", () => {
+    it("runs a success test against the attribute's mastery level", () => {
         cy.importActor().then((actor) => {
             // prepare() resolves the actor's speaker (owner) so the success test
             // is allowed to roll — see the ownership guard in
@@ -91,7 +91,7 @@ describe("attribute context menu (#924, #925)", () => {
         });
     });
 
-    it("leaves the corner ⋮ trigger and card layout untouched when the menu opens (#924)", () => {
+    it("leaves the corner ⋮ trigger and card layout untouched when the menu opens", () => {
         cy.importActor().then((actor) => {
             cy.openSheet(actor);
             cy.switchTab("profile", "primary");

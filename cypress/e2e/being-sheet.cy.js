@@ -54,7 +54,7 @@ describe("being sheet", () => {
     // #833 — affordance clarity. The edit-identity pencil must be discoverable
     // at rest (present-but-muted), not hidden at opacity:0 until the identity row
     // is hovered. Assert a resting (un-hovered) opacity greater than 0.
-    it("shows the edit-identity pencil at rest, not hidden until hover (#833)", () => {
+    it("shows the edit-identity pencil at rest, not hidden until hover", () => {
         cy.importActor().then((actor) => {
             cy.openSheet(actor);
             cy.get(".sohl.being [data-action='editIdentity']").should(($el) => {
@@ -71,7 +71,7 @@ describe("being sheet", () => {
     // disabled control was visually identical to a live one and silently
     // swallowed clicks. Render the compendium sheet read-only and assert the
     // cursor on a disabled icon-button.
-    it("marks disabled icon-buttons on a read-only compendium sheet as not-allowed (#833)", () => {
+    it("marks disabled icon-buttons on a read-only compendium sheet as not-allowed", () => {
         cy.foundry(async (win) => {
             const pack = win.game.packs.get("sohl.actors");
             const index = await pack.getIndex({
@@ -114,7 +114,7 @@ describe("being sheet", () => {
     // #922 — the Profile → Attributes score cards render six across (a pinned
     // six-column grid, not the old auto-fill track) and center their contents.
     // Assert the computed column count and that a card's score value is centered.
-    it("renders attribute cards six across, contents centered (#922)", () => {
+    it("renders attribute cards six across, contents centered", () => {
         cy.importActor().then((actor) => {
             cy.openSheet(actor);
             cy.switchTab("profile", "primary");
@@ -194,7 +194,7 @@ describe("being sheet", () => {
     // row (data-tooltip-direction="UP"). The attributes' presence (the tooltip
     // text is empty when a value has no deltas) proves the binding; before the
     // fix the cells carried no data-tooltip.
-    it("binds an above-row deltaLabel tooltip on the skills EML/Fate cells (#769)", () => {
+    it("binds an above-row deltaLabel tooltip on the skills EML/Fate cells", () => {
         cy.importActor().then((actor) => {
             cy.openSheet(actor);
             cy.switchTab("skills", "primary");
@@ -217,7 +217,7 @@ describe("being sheet", () => {
     // the combat tab has a row to assert against. Only the enabled value cells
     // carry the `rollable` class (a disabled column renders a plain ✕ cell), and
     // each such cell must carry both data-tooltip and the UP direction.
-    it("binds an above-row deltaLabel tooltip on the combat strike-mode cells (#769)", () => {
+    it("binds an above-row deltaLabel tooltip on the combat strike-mode cells", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Unarmed",

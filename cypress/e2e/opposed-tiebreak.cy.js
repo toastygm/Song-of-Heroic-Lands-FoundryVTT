@@ -52,7 +52,7 @@ function opposedCard(win) {
     );
 }
 
-describe("Opposed test — ties and tie-breaks (#1081, #1160)", () => {
+describe("Opposed test — ties and tie-breaks", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {
@@ -165,7 +165,7 @@ describe("Opposed test — ties and tie-breaks (#1081, #1160)", () => {
         });
     }
 
-    it("reports a tie as a tie, never as a mutual failure (#1081)", () => {
+    it("reports a tie as a tie, never as a mutual failure", () => {
         runContest({ breakTies: false, sourceRoll: 44, targetRoll: 12 }).then((r) => {
             expect(r.rolled, "both sides rolled").to.be.true;
             expect(r.settled, "contest settled").to.be.true;
@@ -188,7 +188,7 @@ describe("Opposed test — ties and tie-breaks (#1081, #1160)", () => {
         });
     });
 
-    it("settles a tie on the higher roll when asked, and says so (#1160)", () => {
+    it("settles a tie on the higher roll when asked, and says so", () => {
         runContest({ breakTies: true, sourceRoll: 44, targetRoll: 12 }).then((r) => {
             expect(r.isTied, "still a tie on success level").to.be.true;
             expect(r.isTieBroken, "but settled").to.be.true;

@@ -76,7 +76,7 @@ describe("SohlHookBridge", () => {
         expect(captured.hooks.has("updateScene")).toBe(true);
     });
 
-    describe("scene-bound schedule flush (#590)", () => {
+    describe("scene-bound schedule flush", () => {
         it("`updateScene` with active→true re-scans the queue at the current world time", async () => {
             vi.spyOn(FoundryHelpers, "fvttWorldTime").mockReturnValue(4242);
             await captured.hooks.get("updateScene")![0](
@@ -102,7 +102,7 @@ describe("SohlHookBridge", () => {
         });
     });
 
-    describe("environment darkness trigger (#593)", () => {
+    describe("environment darkness trigger", () => {
         let priorEvents: any;
         beforeEach(() => {
             // fireSohlTrigger routes to globalThis.sohl.events — point it at the
@@ -144,7 +144,7 @@ describe("SohlHookBridge", () => {
         });
     });
 
-    describe("scheduled-action re-arm (#588)", () => {
+    describe("scheduled-action re-arm", () => {
         const doc = (uuid: string, scheduledActions: any[], items: any[] = []) => ({
             uuid,
             system: { scheduledActions },

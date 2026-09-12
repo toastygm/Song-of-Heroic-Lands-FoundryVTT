@@ -82,7 +82,7 @@ function combatResult(overrides: Record<string, any> = {}): any {
     };
 }
 
-describe("buildCombatCardData supplies the attack-result card variables (#844)", () => {
+describe("buildCombatCardData supplies the attack-result card variables", () => {
     it("provides the attacker and defender adjustment rows", () => {
         const { atkCardData } = buildCombatCardData(combatResult());
         expect(atkCardData.attackMods).toEqual([{ name: "Situational", value: 2 }]);
@@ -119,7 +119,7 @@ describe("buildCombatCardData supplies the attack-result card variables (#844)",
     });
 });
 
-describe("attack-result-card renders the supplied variables (#844)", () => {
+describe("attack-result-card renders the supplied variables", () => {
     async function render(overrides: Record<string, any> = {}) {
         const { atkCardData } = buildCombatCardData(combatResult(overrides));
         return renderTemplateReal(CARD, {

@@ -564,7 +564,7 @@ describe("buildTraumaData", () => {
         expect(data.bloodLossAdvanceDurationBase).toBe(0); // overridden to bleed
     });
 
-    it("marks a non-bleeder with a null blood-loss timer (#482)", () => {
+    it("marks a non-bleeder with a null blood-loss timer", () => {
         const body = makeBody();
         const injury = resolveInjury({
             impact: 3,

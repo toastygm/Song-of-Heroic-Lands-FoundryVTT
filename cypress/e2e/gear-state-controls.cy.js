@@ -84,7 +84,7 @@ describe("gear state controls", () => {
         });
     });
 
-    describe("carried gate (#1097)", () => {
+    describe("carried gate", () => {
         /** Read the gate-relevant state of an armor item. */
         function armorState(win, actorId, itemId) {
             const item = win.game.actors.get(actorId).items.get(itemId);

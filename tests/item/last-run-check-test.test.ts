@@ -100,7 +100,7 @@ function actionFor(
     return logic.defineIntrinsicActions().find((a) => a.shortcode === shortcode);
 }
 
-describe("the run record follows the act, not the offer (#1192)", () => {
+describe("the run record follows the act, not the offer", () => {
     it.each(PAIRS)("$label $test records its run", ({ logic, test }) => {
         const action = actionFor(logic, test);
         expect(action, test).toBeDefined();

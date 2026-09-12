@@ -328,7 +328,7 @@ describe("BeingLogic", () => {
             expect(being.body.reach.empty).toBe(true);
         });
 
-        describe("bodyScale and injury table (#468)", () => {
+        describe("bodyScale and injury table", () => {
             const scaled = (f: number) => [1, 5, 10, 15, 20].map((t) => t * f);
 
             it("a human being (bodyScale 1.0) keeps the master thresholds", () => {
@@ -357,7 +357,7 @@ describe("BeingLogic", () => {
                 expect(being.body.bodyScale.effective).toBe(0.01);
             });
 
-            it("caps bodyScale at 3 (#1242)", () => {
+            it("caps bodyScale at 3", () => {
                 // An Old Dragon seeds 5.45 from its Strength. Uncapped, its top
                 // threshold would be 109 — beyond any impact the system can
                 // produce, so nothing could wound it at all.
@@ -458,7 +458,7 @@ describe("BeingLogic", () => {
          * of the weight-derived base while the item is in use. These builders and
          * setup wire real armor/weapon logics onto a being with a movement profile.
          */
-        describe("per-item encumbrance value (#1010)", () => {
+        describe("per-item encumbrance value", () => {
             function makeEncBeing() {
                 const being = makeBeing({ body: bodyData() });
                 (being.data as any).currentMoveMedium = MOVEMENT_MEDIUM.TERRESTRIAL;
@@ -686,7 +686,7 @@ describe("BeingLogic", () => {
             });
         }
 
-        it("excludes worn armor weight from carried weight (#1009)", () => {
+        it("excludes worn armor weight from carried weight", () => {
             const being = makeBeing();
             being.initialize();
             const armor = makeItemLogic(
@@ -700,7 +700,7 @@ describe("BeingLogic", () => {
             expect(being.carriedWeight.effective).toBe(0);
         });
 
-        it("counts carried-but-not-worn armor weight normally (#1009)", () => {
+        it("counts carried-but-not-worn armor weight normally", () => {
             const being = makeBeing();
             being.initialize();
             const armor = makeItemLogic(
@@ -910,7 +910,7 @@ describe("BeingLogic", () => {
         it.todo("calcImpact - calculates location and damage from CombatResult");
     });
 
-    describe("shockTest (#850)", () => {
+    describe("shockTest", () => {
         afterEach(() => vi.restoreAllMocks());
 
         /** A being with `setShockState` / `offerShockReTest` stubbed for isolation. */
@@ -1101,7 +1101,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("contagionTest (#1183)", () => {
+    describe("contagionTest", () => {
         afterEach(() => vi.restoreAllMocks());
 
         /** A being with an Endurance attribute of the given score. */
@@ -1211,7 +1211,7 @@ describe("BeingLogic", () => {
             expect((create2.mock.calls[0][1] as any[])[0].system.onsetDurationBase).toBe(3 * 86400);
         });
 
-        it("OFFERS the new affliction's onset check after contracting (#1183)", async () => {
+        it("OFFERS the new affliction's onset check after contracting", async () => {
             const logic = beingWithEndurance();
             stubPrompt();
             stubTest(MARGINAL_FAILURE);
@@ -1227,7 +1227,7 @@ describe("BeingLogic", () => {
             expect(schedule).toHaveBeenCalledWith(created, "onsetCheck", 6 * 86400);
         });
 
-        it("declining the onset offer arms nothing (#1183)", async () => {
+        it("declining the onset offer arms nothing", async () => {
             const logic = beingWithEndurance();
             stubPrompt();
             stubTest(MARGINAL_FAILURE);
@@ -1252,7 +1252,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("Stumble & Fumble keep-control tests (#851, #852)", () => {
+    describe("Stumble & Fumble keep-control tests", () => {
         afterEach(() => vi.restoreAllMocks());
 
         // The unit i18n stub echoes keys; resolve against the real lang/en.json
@@ -1421,7 +1421,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("Fear Test (#558)", () => {
+    describe("Fear Test", () => {
         afterEach(() => vi.restoreAllMocks());
 
         /** A being with a Will attribute of the given score. */
@@ -1578,7 +1578,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("Morale, Rally & Reaction (#559)", () => {
+    describe("Morale, Rally & Reaction", () => {
         afterEach(() => vi.restoreAllMocks());
 
         function forceRoll(normSuccessLevel: number, lastDigit: number, isSuccess: boolean) {
@@ -1706,7 +1706,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("The Pall (#561)", () => {
+    describe("The Pall", () => {
         afterEach(() => vi.restoreAllMocks());
 
         function forceRoll(normSuccessLevel: number, lastDigit: number, isSuccess: boolean) {
@@ -1777,7 +1777,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("unusable body part (#568)", () => {
+    describe("unusable body part", () => {
         afterEach(() => vi.restoreAllMocks());
 
         function beingWithHands() {
@@ -1858,7 +1858,7 @@ describe("BeingLogic", () => {
             expect(makeBeing().impairedRolePenalties().size).toBe(0);
         });
 
-        describe("bodyPartImpairments — per-part view (#628)", () => {
+        describe("bodyPartImpairments — per-part view", () => {
             it("derives each given part's impairment, in order", () => {
                 const being = beingWithHands();
                 injure(being, "rhand", 2); // serious → impaired but usable (−10)
@@ -1883,7 +1883,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("limb immobilization and usability (#1269)", () => {
+    describe("limb immobilization and usability", () => {
         let immobSeq = 0;
 
         /** A being with two gripping arms, its body already built. */
@@ -2168,7 +2168,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("getUsableStrikeModes (#177)", () => {
+    describe("getUsableStrikeModes", () => {
         function makeMeleeWithReach(
             parentLogic: any,
             reachEffective: number,
@@ -2284,7 +2284,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("shockState (#550)", () => {
+    describe("shockState", () => {
         afterEach(() => vi.restoreAllMocks());
 
         it("is NONE (0) when no shock status is active", () => {
@@ -2353,7 +2353,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("shockReTest (#556)", () => {
+    describe("shockReTest", () => {
         afterEach(() => vi.restoreAllMocks());
 
         function setup(
@@ -2435,7 +2435,7 @@ describe("BeingLogic", () => {
             ]);
         });
 
-        it("OFFERS the Extended Shock recovery course rather than auto-arming it (#579)", async () => {
+        it("OFFERS the Extended Shock recovery course rather than auto-arming it", async () => {
             const { being, create } = setup({
                 current: new Set(["incapacitated"]),
                 sl: MARGINAL_FAILURE,
@@ -2469,7 +2469,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("shockReTest scheduling (#569)", () => {
+    describe("shockReTest scheduling", () => {
         afterEach(() => vi.restoreAllMocks());
 
         /** A being reporting `statuses`, with sohl.schedule/unschedule spied. */
@@ -2569,7 +2569,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("applyPermanentImpairment (#554)", () => {
+    describe("applyPermanentImpairment", () => {
         afterEach(() => vi.restoreAllMocks());
 
         /** Body data whose head/skull part carries `headPi` permanent impairment. */
@@ -2606,7 +2606,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("performBloodStoppage — the physician's Blood Stoppage step (#547)", () => {
+    describe("performBloodStoppage — the physician's Blood Stoppage step", () => {
         afterEach(() => vi.restoreAllMocks());
 
         function physician(pysnMl: number | null) {
@@ -2747,7 +2747,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("injuryShock (#555)", () => {
+    describe("injuryShock", () => {
         afterEach(() => vi.restoreAllMocks());
 
         function setup(
@@ -2822,7 +2822,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("fatiguePenalty (#552)", () => {
+    describe("fatiguePenalty", () => {
         let traumaSeq = 0;
         /** Embed an initialized trauma with a unique id so instances coexist. */
         function addTrauma(being: any, fields: Record<string, unknown>) {
@@ -2909,7 +2909,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("healingBase (#549)", () => {
+    describe("healingBase", () => {
         /** A being carrying END and WIL attributes of the given scores. */
         function beingWithAttrs(end: number, wil: number) {
             const being = makeBeing();
@@ -2974,7 +2974,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("aggregateArmorProtection (#180)", () => {
+    describe("aggregateArmorProtection", () => {
         function makeArmorStub(
             isWorn: boolean,
             blunt = 3,
@@ -3045,7 +3045,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("calcImpact damage card (#847)", () => {
+    describe("calcImpact damage card", () => {
         afterEach(() => vi.restoreAllMocks());
 
         /** A real, evaluated ImpactResult usable as `scope.priorTestResult`. */
@@ -3085,7 +3085,7 @@ describe("BeingLogic", () => {
     });
 });
 
-describe("BeingLogic health (#470)", () => {
+describe("BeingLogic health", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("populates health as 100/Excellent for a healthy, uninjured being (max always 100)", () => {
@@ -3110,7 +3110,7 @@ describe("BeingLogic health (#470)", () => {
     });
 });
 
-describe("dominantSide (#1253)", () => {
+describe("dominantSide", () => {
     /** A being carrying the named dominance characteristics. */
     function beingWithDominance(...codes: string[]) {
         const logic = makeBeing();

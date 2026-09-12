@@ -22,7 +22,7 @@ import { tagName } from "../support/factories/ids.js";
  * `null` for those fields — in particular the novel `aspect` StringField that is
  * both `nullable` and `choices`-constrained.
  */
-describe("descriptive conditions as trauma items (#648)", () => {
+describe("descriptive conditions as trauma items", () => {
     before(() => cy.login());
     afterEach(() => cy.cleanupWorld());
 

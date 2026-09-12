@@ -72,7 +72,7 @@ function render(
     });
 }
 
-describe("armor gear properties sheet template (#1133)", () => {
+describe("armor gear properties sheet template", () => {
     it.each(ASPECTS)("renders a %s protection input bound to system.protectionBase", (aspect) => {
         const html = render();
         expect(html).toContain(`data-field="system.protectionBase.${aspect}"`);

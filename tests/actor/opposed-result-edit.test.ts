@@ -88,7 +88,7 @@ function editCtx(
     } as any);
 }
 
-describe("SohlActorBaseLogic.opposedResultEdit — GM re-edit of a settled contest (#1082)", () => {
+describe("SohlActorBaseLogic.opposedResultEdit — GM re-edit of a settled contest", () => {
     let being: BeingLogic;
     let opposed: OpposedTestResult;
     let toChat: any;

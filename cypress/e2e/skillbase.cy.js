@@ -215,7 +215,7 @@ describe("skillbase calculation contract", () => {
         });
     });
 
-    it("invalid formula — Being sheet SB cell shows ✕ (#972)", () => {
+    it("invalid formula — Being sheet SB cell shows ✕", () => {
         cy.createActor("being", { name: "Invalid SB Being" }).then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Broken Skill",
@@ -236,7 +236,7 @@ describe("skillbase calculation contract", () => {
         });
     });
 
-    it("invalid formula — Skill item sheet shows the 'Invalid expression' hint (#972)", () => {
+    it("invalid formula — Skill item sheet shows the 'Invalid expression' hint", () => {
         cy.createActor("being", { name: "Invalid SB Sheet Being" }).then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Broken Skill",

@@ -265,7 +265,7 @@ export const SOHL_MIGRATIONS: readonly MigrationStep[] = Object.freeze([
         version: "0.9.0",
         description:
             "Strip the retired system.docUrl field, which baked an external " +
-            "documentation URL into world data (#1394).",
+            "documentation URL into world data.",
         migrators: { Actor: stripDocUrl, Item: stripDocUrl },
     },
     {
@@ -275,20 +275,19 @@ export const SOHL_MIGRATIONS: readonly MigrationStep[] = Object.freeze([
             "content format declares: arcane, divine and spirit become their " +
             "tradition values, while social was a bucket of eight secular kinds " +
             "and cannot be resolved from the stored value — those land on " +
-            "fellowship and want a human's eye (#1788).",
+            "fellowship and want a human's eye.",
         migrators: { Item: remapAffiliationSubType },
     },
     {
         version: "0.9.0",
-        description: "Stamp the new required subType on existing affiliation items (#1405)",
+        description: "Stamp the new required subType on existing affiliation items",
         migrators: { Item: stampAffiliationSubType },
     },
     {
         version: "0.9.0",
         description:
             "Rewrite any shortcode the create/update guard now refuses: one " +
-            "that is not strictly alphanumeric (#1397), or that carries a " +
-            "capital (#1882).",
+            "that is not strictly alphanumeric, or that carries a capital.",
         migrators: {
             Actor: alphanumericShortcode,
             Item: alphanumericShortcode,

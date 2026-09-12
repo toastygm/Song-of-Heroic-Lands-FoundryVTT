@@ -24,7 +24,7 @@
  * always-present edit pencil. Nothing auto-fires — the button is offered.
  */
 
-describe("Standard test card — follow-up buttons (#853)", () => {
+describe("Standard test card — follow-up buttons", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

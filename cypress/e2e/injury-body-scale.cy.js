@@ -20,7 +20,7 @@
  * any creature. The scaling math is unit-tested; here we prove the datamodel
  * field drives the derived table end to end.
  */
-describe("injury body-scale (#468)", () => {
+describe("injury body-scale", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);

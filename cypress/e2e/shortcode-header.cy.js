@@ -23,7 +23,7 @@
  *   change through the `(type, shortcode)` uniqueness guard rather than a raw
  *   inline input.
  */
-describe("shortcode header input (#351)", () => {
+describe("shortcode header input", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

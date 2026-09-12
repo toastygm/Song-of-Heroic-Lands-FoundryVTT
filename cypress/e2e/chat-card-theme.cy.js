@@ -55,7 +55,7 @@ function cardStyle(win) {
     return { color: cs.color, image: cs.backgroundImage };
 }
 
-describe("chat cards blend into the light chat log (#903)", () => {
+describe("chat cards blend into the light chat log", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.cleanupWorld();

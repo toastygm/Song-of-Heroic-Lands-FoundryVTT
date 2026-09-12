@@ -26,7 +26,7 @@
  * `cy.window().should(...)` rather than reading it once, letting the async
  * migration settle instead of racing it.
  */
-describe("migration runner — systemMigrationVersion (#957)", () => {
+describe("migration runner — systemMigrationVersion", () => {
     before(() => cy.login());
 
     it("stamps the stored migration version to the system version on boot", () => {
@@ -77,7 +77,7 @@ describe("migration runner — systemMigrationVersion (#957)", () => {
  * asserting that nothing happened; both the reported version and the stored one
  * are restored afterwards so the specs above keep their footing.
  */
-describe("0.9.0 — system.docUrl is retired (#1394)", () => {
+describe("0.9.0 — system.docUrl is retired", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     after(() => cy.cleanupWorld());
 

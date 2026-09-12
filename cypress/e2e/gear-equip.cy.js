@@ -138,7 +138,7 @@ describe("gear equip / hold → combat-tab display", () => {
 
     // ------------------------------------------------------------------ worn state
 
-    it("toggleWorn flips isWorn on armor (#662)", () => {
+    it("toggleWorn flips isWorn on armor", () => {
         cy.createActor("being", { name: "Worn Being" }).then((actor) => {
             cy.importItem("sohl.items", MAIL_SHIRT_REF, { actor }).then((armor) => {
                 // Armor defaults to not worn.

@@ -29,7 +29,7 @@
  * dialog is bypassed and the new modifiers come from scope.
  */
 
-describe("GM result-edit — re-evaluate on the frozen roll (#856)", () => {
+describe("GM result-edit — re-evaluate on the frozen roll", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {

@@ -22,7 +22,7 @@
 // silently while a live edit still persists. This mirrors the #817 being-sheet
 // test for both a world item and an actor-embedded item (whose deletion
 // cascades from its owning actor).
-describe("item sheet — stale submit after delete (#822)", () => {
+describe("item sheet — stale submit after delete", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

@@ -20,7 +20,7 @@
  * `system.parentSkillCode`), edits must persist, and clearing it must store
  * `null` (Foundry cleans a blank string on a nullable/non-blank field to null).
  */
-describe("skill sheet parent skill code (#710)", () => {
+describe("skill sheet parent skill code", () => {
     const SEL = '[name="system.parentSkillCode"]';
 
     before(() => cy.login().then(() => cy.cleanupWorld()));

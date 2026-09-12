@@ -127,7 +127,7 @@ describe("standard-test-card renders the evaluated success test", () => {
         expect(html).toContain('data-action-handler-uuid="Item.itm1"');
     });
 
-    it("the edit pencil dispatches the GM result-edit, carrying this result as scope (#856)", async () => {
+    it("the edit pencil dispatches the GM result-edit, carrying this result as scope", async () => {
         const { html } = await renderCard(50, 32);
         // The pencil re-evaluates on the frozen roll, not a fresh test — it must
         // dispatch `resultEdit`, never `successTest`.
@@ -139,7 +139,7 @@ describe("standard-test-card renders the evaluated success test", () => {
     });
 });
 
-describe("standard-test-card renders a Skill Value Test (#848)", () => {
+describe("standard-test-card renders a Skill Value Test", () => {
     /**
      * Render a Skill Value Test result. It is an ordinary success test carrying
      * `isSuccessValue`, a graded `resultDescTable`, and a `targetValueFunc` that
@@ -276,7 +276,7 @@ function useRealLang(): void {
 }
 
 describe("standard-test-card localizes its display strings", () => {
-    it("renders the test name in the header, not a raw SOHL key (#1107)", async () => {
+    it("renders the test name in the header, not a raw SOHL key", async () => {
         useRealLang();
         const { html } = await renderCard(50, 32, { useModifierTitle: true });
         const title = /<h3 class="title">([\s\S]*?)</.exec(html)?.[1]?.trim();
@@ -284,7 +284,7 @@ describe("standard-test-card localizes its display strings", () => {
         expect(title).not.toMatch(/^SOHL\./);
     });
 
-    it("renders each modifier-breakdown row localized (#1127)", async () => {
+    it("renders each modifier-breakdown row localized", async () => {
         useRealLang();
         const { html } = await renderCard(55, 32, {
             deltas: [

@@ -231,7 +231,7 @@ describe("SohlEventQueue", () => {
             expect(calls).toEqual(["match"]);
         });
 
-        it("binds subscriberUuid so a predicate can gate to its own document (#569)", async () => {
+        it("binds subscriberUuid so a predicate can gate to its own document", async () => {
             const calls: string[] = [];
             installActionDoc((actionName) => {
                 calls.push(actionName);
@@ -542,7 +542,7 @@ describe("SohlEventQueue", () => {
             expect(data.scopeData.payload).toEqual({ hr: 4 });
         });
 
-        it("posts as a GM whisper when the payload asks for `visibility: gm` (#588)", async () => {
+        it("posts as a GM whisper when the payload asks for `visibility: gm`", async () => {
             const opts: any[] = [];
             (globalThis as any).fromUuid = async () => {
                 const speaker: any = new SohlSpeaker({});

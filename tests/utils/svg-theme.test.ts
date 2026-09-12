@@ -61,7 +61,7 @@ describe("injectAdaptiveFill (dark-mode adaptive icon SVGs, #893)", () => {
         expect(injectAdaptiveFill(inline)).toBe(inline);
     });
 
-    it("keys the guard on the `fill` property, not the substring (#1677)", () => {
+    it("keys the guard on the `fill` property, not the substring", () => {
         // `fill-rule`, `fill-opacity` and `paint-order: fill` are not fills.
         // A shape whose colour comes from a `fill` **attribute** is themeable,
         // and must not be skipped just because its style names one of those.

@@ -154,7 +154,7 @@ describe("Body Structure editors (Profile tab)", () => {
         });
     });
 
-    it("re-parents a body part to another zone via the zone dropdown (#982)", () => {
+    it("re-parents a body part to another zone via the zone dropdown", () => {
         cy.importActor().then((actor) => {
             cy.prepare(actor);
             cy.foundry((win) => {
@@ -204,7 +204,7 @@ describe("Body Structure editors (Profile tab)", () => {
         });
     });
 
-    it("re-parents a hit location to another part via the part dropdown (#982)", () => {
+    it("re-parents a hit location to another part via the part dropdown", () => {
         cy.importActor().then((actor) => {
             cy.prepare(actor);
             cy.foundry((win) => {
@@ -301,7 +301,7 @@ describe("Body Structure editors (Profile tab)", () => {
  * shortcode validators, and the delete-guard are covered by the unit suite and
  * the Node template-render tests.
  */
-describe("Body Structure editing — add / sort / delete (#720)", () => {
+describe("Body Structure editing — add / sort / delete", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);

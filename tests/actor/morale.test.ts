@@ -31,7 +31,7 @@ import {
     type MoraleCategory,
 } from "@src/utils/constants";
 
-describe("morale (#559)", () => {
+describe("morale", () => {
     describe("moraleStateFromTest", () => {
         it("maps CS/MS/MF and splits the critical failure by last digit", () => {
             expect(moraleStateFromTest(CRITICAL_SUCCESS, 0)).toBe(MORALE_CATEGORY.BRAVE);

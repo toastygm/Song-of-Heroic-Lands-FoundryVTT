@@ -21,7 +21,7 @@
  */
 import { toRealm } from "../support/resolve";
 
-describe("Being Facade tab (#307)", () => {
+describe("Being Facade tab", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -45,7 +45,7 @@ describe("Being Facade tab (#307)", () => {
         });
     });
 
-    it("is hidden when another tab is active (#812)", () => {
+    it("is hidden when another tab is active", () => {
         // Regression: the Facade tab declared `display` on its own `.tab`
         // element, overriding Foundry's inactive-tab hiding, so its portrait
         // and appearance editor leaked onto every tab. Switching away must now
@@ -105,7 +105,7 @@ describe("Being Facade tab (#307)", () => {
         });
     });
 
-    it("gives the active editor a non-zero content height (#897)", () => {
+    it("gives the active editor a non-zero content height", () => {
         // Regression: `.facade__editor` forced `prose-mirror { display: block }`,
         // dropping Foundry's `menu-container` / `editor-container` out of flex
         // flow so both collapsed to zero height — the WYSIWYG content was

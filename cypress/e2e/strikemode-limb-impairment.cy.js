@@ -95,7 +95,7 @@ function heldWeaponInjuredLimb(level, cb) {
     });
 }
 
-describe("strike-mode required-limb impairment (#628)", () => {
+describe("strike-mode required-limb impairment", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

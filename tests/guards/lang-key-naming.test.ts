@@ -97,7 +97,7 @@ describe("lang/en.json key naming", () => {
     });
 
     describe("declared namespaces resolve", () => {
-        it("every SOHL.* LOCALIZATION_PREFIXES entry has at least one key (#1353)", () => {
+        it("every SOHL.* LOCALIZATION_PREFIXES entry has at least one key", () => {
             // Foundry reads `<prefix>.FIELDS.<field>.label` / `.hint` off each
             // prefix a DataModel declares. A prefix with no keys at all cannot
             // label anything — it is stale configuration that reads as coverage.
@@ -122,7 +122,7 @@ describe("lang/en.json key naming", () => {
         });
     });
 
-    describe("one owner per label (#1352)", () => {
+    describe("one owner per label", () => {
         it("has retired the SOHL.Key.* grab bag", () => {
             // A v12-era catch-all that restated labels owned by their proper
             // namespaces. Its one live member, `None`, moved to SOHL.Common.
@@ -181,7 +181,7 @@ describe("lang/en.json key naming", () => {
     });
 
     describe("placeholders", () => {
-        it("never uses Handlebars double braces (#1353)", () => {
+        it("never uses Handlebars double braces", () => {
             // Foundry interpolates with `format()` and single braces. A `{{…}}`
             // value only renders because some call sites hand their content to a
             // Handlebars pass — which is the rule-#10 pattern (prose spliced into

@@ -28,7 +28,7 @@ const part = (
 
 const { NONE, MINOR, SERIOUS, GRIEVOUS } = BODY_PART_TIER;
 
-describe("physicalHealthCeiling (#470)", () => {
+describe("physicalHealthCeiling", () => {
     it("is 100 when nothing is impaired", () => {
         expect(physicalHealthCeiling([])).toBe(100);
         expect(physicalHealthCeiling([part(NONE), part(NONE)])).toBe(100);
@@ -64,7 +64,7 @@ describe("physicalHealthCeiling (#470)", () => {
     });
 });
 
-describe("healthBand (#470)", () => {
+describe("healthBand", () => {
     it.each([
         [100, HEALTH_BAND.EXCELLENT],
         [96, HEALTH_BAND.EXCELLENT],
@@ -82,7 +82,7 @@ describe("healthBand (#470)", () => {
     });
 });
 
-describe("healingBaseFor (#549)", () => {
+describe("healingBaseFor", () => {
     it("is the plain average when END equals WIL", () => {
         expect(healingBaseFor(12, 12)).toBe(12);
         expect(healingBaseFor(16, 16)).toBe(16);
@@ -106,7 +106,7 @@ describe("healingBaseFor (#549)", () => {
     });
 });
 
-describe("deriveHealth (#470)", () => {
+describe("deriveHealth", () => {
     it("is 100/Excellent for an uninjured being (max always 100)", () => {
         expect(deriveHealth({ parts: [], dead: false })).toEqual({
             max: 100,

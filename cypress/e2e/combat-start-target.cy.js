@@ -68,7 +68,7 @@ async function driveTargetlessStart(win, combatant) {
     return { result: result ?? null, warnings: warnings.join(" ") };
 }
 
-describe("automated combat start: target resolution (#1079)", () => {
+describe("automated combat start: target resolution", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -136,12 +136,12 @@ describe("automated combat start: target resolution (#1079)", () => {
                 cy.foundry((win) =>
                     driveTargetlessStart(win, combatantOf(win, combat.id, attackerId)),
                 ).should((r) => {
-                    expect(r.warnings, "the targetless-context abort is gone (#1079)").to.not.match(
+                    expect(r.warnings, "the targetless-context abort is gone").to.not.match(
                         /requires a target combatant/i,
                     );
                     expect(
                         r.warnings,
-                        "the resolved target is used as the defender (#1079)",
+                        "the resolved target is used as the defender",
                     ).to.not.match(/valid defender combatant/i);
                     expect(
                         r.warnings,

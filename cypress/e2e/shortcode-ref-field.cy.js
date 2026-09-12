@@ -27,7 +27,7 @@
 
 const PROPS = 'section.tab[data-tab="properties"] ';
 
-describe("shortcode-reference field (#974)", () => {
+describe("shortcode-reference field", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();
@@ -117,7 +117,7 @@ describe("shortcode-reference field (#974)", () => {
     // A Mystical Ability's associated-Affiliation reference drives the
     // same widget against the actor's Affiliations (Mystical Ability →
     // Affiliation), independent of its assocSkillCode.
-    it("lists the actor's Affiliations for a Mystical Ability's assocAffiliationCode and persists the pick (#1012)", () => {
+    it("lists the actor's Affiliations for a Mystical Ability's assocAffiliationCode and persists the pick", () => {
         cy.createActor("being").as("actor");
         cy.then(function () {
             cy.createItemOn(this.actor, "affiliation", {
@@ -153,7 +153,7 @@ describe("shortcode-reference field (#974)", () => {
         });
     });
 
-    it("falls back to a free-text assocAffiliationCode input on a world (unowned) Mystical Ability (#1012)", () => {
+    it("falls back to a free-text assocAffiliationCode input on a world (unowned) Mystical Ability", () => {
         cy.createWorldItem("mysticalability", {
             name: "Loose Spell",
             system: { subType: "arcaneincantation", masteryLevelBase: 40 },

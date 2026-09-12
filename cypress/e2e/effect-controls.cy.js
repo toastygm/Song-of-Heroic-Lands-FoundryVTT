@@ -37,7 +37,7 @@ function seedActorEffect(actorId, name) {
         .then((id) => id);
 }
 
-describe("active-effect controls (#501)", () => {
+describe("active-effect controls", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => {

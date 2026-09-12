@@ -22,7 +22,7 @@ itemSheetSuite("weapongear");
  * still redrew blank. Assert the rendered input, which is the only thing that
  * catches a wrong `value=` binding.
  */
-describe("item sheet — weapongear encumbrance display (#1179)", () => {
+describe("item sheet — weapongear encumbrance display", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();
