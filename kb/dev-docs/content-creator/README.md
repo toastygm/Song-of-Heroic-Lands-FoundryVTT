@@ -21,9 +21,8 @@ runtime; if you are changing how a document _behaves_, you want
   compendium document. **Read this first.**
 
 > **You do not declare a note's package.** It is the repository's configured
-> `contentPackage`, and every note in this tree belongs to it. The field a note
-> used to carry was a _selector_, and a value matching nothing skipped the note
-> in silence; it is retired, and declaring it is now a build error. See
+> `contentPackage`, and every note in this tree belongs to it. Declaring
+> `package:` on a note is a build error. See
 > [The package is the repository's, not the note's](authoring-workflow.md#the-package-is-the-repositorys-not-the-notes).
 
 ## Per-type references

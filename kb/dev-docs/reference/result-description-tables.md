@@ -45,7 +45,7 @@ The display outcome — `resultText`, `resultDesc`, and the numeric `valueDiamon
 is **not** stored on a `SuccessTestResult`. Those are getters that resolve the table
 against the result's evaluated `successLevel` / `targetValue` / `lastDigit` each time
 they are read, so `toJSON` carries only the raw `successLevel` and the table, never
-the three derived values (issue #205). The one place the derived strings are
+the three derived values. The one place the derived strings are
 materialized is `toChat`, which folds them into the chat-card data — rendered once by
 the sender (whose `targetValueFunc` is live) and posted as HTML.
 

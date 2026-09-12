@@ -53,8 +53,8 @@ name:
 description: "The common room of a roadside shelter."
 shortcode: wayrestground
 type: battlemap
+packFolder: battlemaps # the address of a `type: folder` note
 sohl:
-  folder: Pw3nJvVsGuMdRb1K # a folder id from scene-folders.yaml
   place: wayfarersrest # optional; groups scenes into one Adventure
   placeName: Wayfarer's Rest # optional; the Adventure's name
   image: systems/sohl/assets/ui/parchment.jpg
@@ -153,12 +153,11 @@ ships with no map at all.
 server-side `migrateLevels` shim runs on any Scene record stamped older than
 **14.353** and **replaces `levels` outright** with a single default level
 synthesised from the pre-v14 flat fields — it never checks whether the record
-already has one. Packs used to stamp `coreVersion: "14"`, which sorts _below_
-every v14 build, so a compiled scene loaded from its pack with the authored Level
-gone, replaced by an empty one named after the scene, and no image. Nothing in
-the build could see it (#1533).
+already has one. A stamp that sorts below the shim's threshold therefore loses
+the authored Level to an empty one named after the scene, with no image, and
+nothing in the build can see it.
 
-Every compiled document now stamps the manifest's own `compatibility.minimum`
+Every compiled document stamps the manifest's own `compatibility.minimum`
 — `supportedCoreVersion` in
 `@heroiclands/package-build/engine/helpers` — which the
 manifest itself enforces, so no supported client can legitimately need those

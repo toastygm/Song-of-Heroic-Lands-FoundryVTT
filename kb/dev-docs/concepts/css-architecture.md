@@ -17,21 +17,14 @@ folder: null
 
 See also: [Architecture Overview](./architecture.md), [Effects Integration](../reference/effects-integration.md).
 
-This page is the **decision record and conventions** for the system's stylesheets,
-ratified by [epic #95](https://github.com/toastygm/Song-of-Heroic-Lands-FoundryVTT/issues/95)
-and carried out in its child issues (#90–#94). Much of it has landed — the
-`scss/` folder structure (§2: `abstracts/`, `base/`, `layout/`, `components/`,
-`utilities/`), the `@layer` ordering (§5), and the design tokens (§4) are in
-place. Some residual migration remains (notably BEM renaming, #94, and the
-`apps/` split); where the code still lags a rule below, **this document is the
-target** and the code is what needs migrating.
+This page is the **decision record and conventions** for the system's
+stylesheets. Where the code lags a rule below, **this document is the target**
+and the code is what needs changing.
 
-> **Why this exists.** [#87](https://github.com/toastygm/Song-of-Heroic-Lands-FoundryVTT/pull/87)
-> uncovered a whole block of sheet-layout CSS that was silently dead: `.sohl .sheet`
-> (descendant) can never match an ApplicationV2 frame, because Foundry puts `sohl`
-> and `sheet` on the _same_ element. That symptom sat on top of years of accreted
-> structure — dead selectors, near-duplicate widget blocks, mixed-concern files, and
-> ad-hoc naming. The rules here exist so that class of bug cannot recur and so the
+> **Why this exists.** A descendant selector like `.sohl .sheet` is silently
+> dead: it expects `sheet` _inside_ `sohl`, and Foundry puts both classes on the
+> _same_ ApplicationV2 frame element. Dead selectors match nothing and report
+> nothing. The rules here exist so that class of bug cannot recur and so the
 > stylesheets stay extensible.
 
 ## 0. What enforces this page
@@ -95,15 +88,6 @@ cascade reads top-to-bottom. Target folders:
 
 **`abstracts/` must emit no CSS** — importing it has zero output, so it can be
 `@use`-d freely from any partial without duplicating rules.
-
-Migration map from the current layout:
-
-- `scss/utils/` → `abstracts/` (tokens, maps, mixins, functions) — except the parts
-  that emit rules, which move to where their output belongs.
-- `scss/global/` → split across `base/` (resets, Foundry overrides, `chat`, `editor`,
-  `tooltip`, `hotbar`), `layout/` (`window`, `nav`, `grid`), and `utilities/` (`flex`).
-- `scss/components/` → `components/` (reusable widgets) and `apps/` (sheet-type-specific
-  blocks such as the being sheet and the various item sheets).
 
 ## 3. Naming — BEM under the `.sohl` namespace
 
@@ -241,7 +225,7 @@ outranks a `sohl` layer is an _unlayered_ rule — so avoid emitting unlayered s
 (beyond the deliberate `@font-face`/icon exceptions), or they will silently win over the
 whole layer stack.
 
-## 6. Scoping rule — the #87 lesson, written down
+## 6. Scoping rule
 
 ApplicationV2 puts **all** of an application's option classes on the **same frame
 element**. So for a sheet whose classes are `sohl sheet`:
@@ -294,16 +278,3 @@ sheet components via `@include meta.load-css(...)` nested inside `.sohl { }` and
 Authoring convention going forward: a new partial defines selectors that are already
 fully scoped (BEM block under the namespace) and is pulled in with `@use`; reach for
 `meta.load-css` only when wrapping is unavoidable.
-
-## 8. Migration
-
-This page is decisions only. The implementation is sequenced across epic #95:
-
-- **#90** — remove dead SCSS, verified against templates.
-- **#91** — design-token + cascade-layer + scoping foundation (§4, §5, §6).
-- **#92** — reorganize files/folders to §2.
-- **#93** — extract reusable component partials (list/header/field).
-- **#94** — apply BEM naming (§3) and sync templates/`src/` selectors.
-
-Where any of these still lag, **this document is the target** and the code is what
-needs migrating.

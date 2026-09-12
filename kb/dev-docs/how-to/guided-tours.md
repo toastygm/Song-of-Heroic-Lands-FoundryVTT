@@ -231,7 +231,7 @@ all — are a different animal: they are opinionated and _railroaded_, so they m
 rolls come out the same every run.
 
 These are heavier, reusable capabilities kept deliberately separate from the
-coach-and-wait core (#613 vs. #624). Reach for them **only** for a tour whose
+coach-and-wait core. Reach for them **only** for a tour whose
 explicit job is to demonstrate an automated workflow end to end — never to nudge a
 coaching tour past a choice the human should make. The PRIME DIRECTIVE still holds:
 a driven tour is sanctioned because _demonstrating the automation_ is its whole

@@ -33,7 +33,7 @@ It is not a dialect maintained by this project, and there is no supported subset
 learn: anything DuckDB's `SELECT` accepts works here, including joins, `CASE`,
 aggregates and window functions. This replaced a hand-written parser for
 [Dataview](https://blacksmithgu.github.io/obsidian-dataview/)'s query language
-(HeroicLands/package-build#246), whose boundary was invisible — it accepted some
+, whose boundary was invisible — it accepted some
 queries and silently misread others.
 
 ## What you are querying
@@ -153,7 +153,7 @@ builds but is not alphabetical.
 header and a rule, and a stale query — a renamed type, a retired category, a typo'd
 path — is then indistinguishable from a category that is legitimately empty. Eight
 tables in `Rules/Bestiary.md` published that way for months after the
-`creature` → `being` rename, and no build said a word (#1814).
+`creature` → `being` rename, and no build said a word.
 
 Where a table is _meant_ to be empty — a category whose content is not written yet —
 say so on the fence with `:allow-empty`.

@@ -7,10 +7,10 @@ description: "The common room of a roadside shelter: one hearth, one stair, one 
 img: systems/sohl/assets/ui/parchment.jpg
 shortcode: wayrestground
 type: map
+packFolder: battlemaps
 subType: battlemap
 sohl:
   kbcat: map
-  packFolder: battlemaps
   # Both floors belong to one place, so they ship in one Adventure and the
   # stair regions can address each other.
   place: wayfarersrest

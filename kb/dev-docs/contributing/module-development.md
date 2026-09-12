@@ -86,8 +86,6 @@ development, install the generated types package
 the public class/interface types for annotations (see
 [API Access Map](../how-to/api-access-map.md#type-declarations-for-a-typescript-module)).
 
-> The reachable public API is still being formalized (epic
-> [#80](https://github.com/HeroicLands/Song-of-Heroic-Lands-FoundryVTT/issues/80)).
 > Treat the canonical how-to references below as the source of truth for exact
 > registration calls, and prefer hooks for behavior you want to be stable.
 
@@ -127,7 +125,7 @@ three-layer model and the Foundry-free logic boundary your additions must respec
 
 A module can schedule an **action** to come due at a future world time — a
 recurring "check for bandits" roll, a wound's next healing test, a seasonal
-upkeep prompt. This is the generic scheduler (issue #588). It never _performs_
+upkeep prompt. This is the generic scheduler. It never _performs_
 the action on its own: when the schedule comes due, SoHL posts a `[Perform]`
 reminder card addressed to the document's owner, and only their click runs it.
 That is the [Prime Directive](https://www.heroiclands.org/sohl/kb/dev-docs/) in mechanism form —
@@ -177,7 +175,7 @@ make a schedule **recurring**, call `sohl.schedule` again from inside the action
 after it performs — each occurrence schedules the next. `sohl.unschedule(doc,
 actionName)` removes both halves.
 
-> **Consent (issue #579): offer, don't auto-re-arm.** A recurring action must not
+> **Consent: offer, don't auto-re-arm.** A recurring action must not
 > silently reschedule itself — that would make the system act without a human. When
 > due, the queue posts an owner-gated `[Perform]` reminder (it never runs the
 > action); on the click the action performs, then **offers** the next occurrence
@@ -222,7 +220,7 @@ session, so on the `ready` hook SoHL re-arms every world actor and its embedded
 items from their persisted `system.scheduledActions` (scene binding included). You
 schedule once; it survives reloads without any further wiring on your part.
 
-### Triggering on a scene region (issue #593)
+### Triggering on a scene region
 
 Beyond time, an action can fire on **where** a character is. SoHL bridges Foundry
 v14 scene-region events into the same queue, so the consent path is identical — a
@@ -275,9 +273,8 @@ pack with two things:
 `0` is a real priority, not a blank — SoHL's own archetypes ship at it — so
 never test the value for truthiness.
 
-The field was named `system.archetype` before issue #1836, and a pack that still
-emits that name keeps being discovered — but emit the new one, because the old
-spelling is read only as a compatibility fallback.
+Emit `system.templatePriority`. A pack emitting `system.archetype` is still
+discovered, but that spelling is read only as a compatibility fallback.
 
 It then appears automatically in the Create picker for its `type` (and `subType`),
 alongside the shipped archetypes. A brand-new archetype with a **fresh shortcode**

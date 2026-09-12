@@ -95,12 +95,11 @@ repository and that package** — the facts neither side can check alone:
   only form a consumer ever sees, so a module that is clean in its own
   repository but ships broken is still caught.
 - `manifest-package-id.test.ts` checks this repository's shipped manifest
-  declares the package id the build addresses every document by (#1503).
+  declares the package id the build addresses every document by.
 
-Both used to live in the package's own suite, reaching this repository through a
-hardcoded `../../..`. That resolved only because the package was vendored under
-`packages/`, and it made the package's suite claim a self-containment it did not
-have — see HeroicLands/content-build#1.
+Both live in this repository's suite. They assert facts about this
+repository's manifest and content, so the package's own suite stays
+self-contained and reaches across no repository boundary.
 
 ## TDD workflow
 
@@ -293,9 +292,9 @@ src/document/item/logic/SkillLogic.ts  →  tests/item/Skill.test.ts
 Unit tests can render real **chat-card and dialog** templates in Node and assert
 the emitted **HTML** — so the output of a card- or dialog-building action is
 verified for correctness, not just the data handed to a stubbed renderer. This
-means much of what used to require the Cypress suite (does the card show the right
-buttons? does the dialog build the right `<option>` list?) is now a fast unit
-test.
+means much of what would otherwise need the Cypress suite (does the card show
+the right buttons? does the dialog build the right `<option>` list?) is a fast
+unit test.
 
 **Why it works without Foundry.** Foundry's `renderTemplate` is a file-loading
 wrapper around Handlebars, and SoHL's cards **and** dialogs both render through the
@@ -386,7 +385,7 @@ isolated from your dev/qa worlds:
 **The harness is not this repository's.** Standing a licensed Foundry up,
 seeding a disposable world, waiting for it to become _active_ and tearing it
 down again are `@heroiclands/package-build`'s — every HeroicLands package needs
-them, and until HeroicLands/package-build#18 only this one had them. What stays
+them. What stays
 here is what is
 genuinely local: the Cypress suite itself (named in `packageBuild.e2e.suite`),
 and the `packageBuild.e2e.build` table saying which npm script produces what.
@@ -698,7 +697,7 @@ There are two ways to answer, and the choice should model intent:
    cy.foundry((win) => {
      // Perform without skipDialog → the offer dialog opens; stash the promise.
      // Note it is the `*Test` that offers the next occurrence — the `*Check`
-     // only posts the card inviting it (see the Check/Test split, #1181).
+     // only posts the card inviting it (see the Check/Test split).
      win.__perf = wound.logic.executeAction("healingtest", {});
      return null;
    });
@@ -792,11 +791,11 @@ These cost real debugging time; they are not apparent from the code.
   `uncaught:exception` allowlist for it. Extend that list only for _known_
   environment-specific core errors — never to mask a real failure.
 - **Placeable-`Token` rendering is suppressed headless — don't assert on token
-  pixels.** Placing a Token used to fire core's canvas render chain
+  pixels.** Placing a Token fires core's canvas render chain
   (`Token.draw` → `TokenRuler.draw`, and the per-tick `_refreshState` refresh)
-  against a viewport that never finishes initializing, throwing unhandled
-  rejections (`reading 'addChild'`, `reading 'OBJECTS'`) that failed token-placing
-  specs nondeterministically (#611). `cy.login()` therefore no-ops the placeable
+  against a viewport that never finishes initializing headless, throwing
+  unhandled rejections (`reading 'addChild'`, `reading 'OBJECTS'`) that fail
+  token-placing specs nondeterministically. `cy.login()` therefore no-ops the placeable
   `Token`'s `draw` / `applyRenderFlags` after login (`guardHeadlessTokenDraw`) — the
   `TokenDocument` and its `.object` still exist, only the PIXI rendering is skipped.
   Assert on the token **document** and each combatant's `.logic`, never on a
@@ -808,7 +807,7 @@ These cost real debugging time; they are not apparent from the code.
   constraints, and the deferred pass picks a designated User with a predicate
   reading `canvas.scene.id` — so wherever nothing is viewed and `canvas.scene` is
   `null`, it throws `reading 'id'` out of a PIXI ticker and fails whichever spec
-  is running (#1535). Core defect, not a SoHL one, fixed upstream in 14.367
+  is running. Core defect, not a SoHL one, fixed upstream in 14.367
   (`this.id`); the guard stays while the committed default pins the 14.359 floor.
   `cy.login()` therefore makes both entry points inert when `canvas.scene` is
   nullish (`guardHeadlessRegionShapeConstraints`). Shape constraints are
@@ -817,14 +816,14 @@ These cost real debugging time; they are not apparent from the code.
   source-level guard, not an allowlist entry: `reading 'id'` is too generic a
   message to allowlist safely, even qualified by a stack frame.
 - **Headless does not mean scene-less — the seeded world views one.**
-  `package-build e2e seed` writes an **active** default scene (#451, so the
+  `package-build e2e seed` writes an **active** default scene (so the
   canvas is ready and the new-user tour never overlays a sheet), and the client
   views it at load, so `canvas.scene` is normally a live Scene. Nor does
   importing content change that: core auto-activates a created scene only when
   the world has no active one, and an Adventure's scenes carry `active: false`
   anyway. So a spec must never assert `canvas.scene` is `null` as a standing
-  fact — a #1535 spec did, immediately after importing an adventure, and failed
-  on every build (#1661). A spec that needs the no-scene-viewed state has to
+  fact — a spec that did so immediately after importing an adventure failed
+  on every build. A spec that needs the no-scene-viewed state has to
   present it, by shadowing `canvas.scene` with an own property for the duration
   (`withNoSceneViewed` in `map-notes.cy.js`, `withViewedScene` in
   `scene-nonpersisted.cy.js`) rather than by relying on the environment.
@@ -835,8 +834,8 @@ These cost real debugging time; they are not apparent from the code.
   `cy.cleanupWorld()` deletes the scenes a spec creates, a draw begun on a tagged
   scene routinely finishes after that scene has left `game.scenes` — the throw
   then escapes as an unhandled rejection and fails whichever spec is running,
-  with no SoHL frame on the stack (#1550). A second, independent defect in the
-  same method: that scene is live and truthy, merely no longer in its collection,
+  with no SoHL frame on the stack. A second, independent defect in the
+  same method: that scene is live and truthy, merely absent from its collection,
   so the `canvas.scene` clause above does not catch it. The guard adds
   `persisted === false` to the public entry point, and patches `Level` too — it
   has its own copy of the method (new in 14.367) and throws before delegating to
@@ -844,7 +843,7 @@ These cost real debugging time; they are not apparent from the code.
   untouched and the pinned floor is unaffected.
 - **Don't expect that one to reproduce from the specs a sweep blames.** The
   throw escapes asynchronously and lands on whichever spec runs next, so the
-  failing spec names are an artifact of ordering and load: all three the #1550
+  failing spec names are an artifact of ordering and load: all three the
   sweep named pass when run alone on 14.367 with the guard removed.
   `scene-nonpersisted.cy.js` therefore asserts the condition directly — delete a
   scene, invoke the entry points the draw path uses, require each one the build

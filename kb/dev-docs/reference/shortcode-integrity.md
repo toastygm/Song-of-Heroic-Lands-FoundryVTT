@@ -48,8 +48,7 @@ would be ambiguous and every match above would be unsound.
 A `shortcode` is **lowercase alphanumeric** — `^[a-z0-9]+$`. No hyphens, no
 underscores, no spaces, no punctuation, no accented letters, and no capitals.
 
-Case was unconstrained until #1882, when it was tightened alongside
-`@heroiclands/package-build` 20.0.0 (package-build#340). It had to be, because
+Case is constrained. It has to be, because
 case was never carrying a distinction: the **address** built from a shortcode is
 lowercased, so `Clb` and `clb` published one address, one document `_id` and one
 URL while the shortcode check saw two distinct keys. Two notes differing only in
@@ -84,7 +83,7 @@ Keeping the identity recognizable is why a letter is **folded rather than delete
 base (`û` → `u`) and a letter with no mark to separate is written out (`Æ` → `AE`,
 `þ` → `th`). Deleting instead changes **which entity the key names**: a document
 repaired from `Tabûri` to `Tabri` no longer matches the compendium entry it came from,
-which the identity semantics above make a silent, irreversible break (issue #1748).
+which the identity semantics above make a silent, irreversible break.
 Folding is a no-op on an ASCII key, so the two punctuation repairs are unaffected; what
 the fold cannot carry into a letter or digit is still dropped, so `Kûrbúl ¾-Helm`
 repairs to `kurbulhelm`.
@@ -94,15 +93,15 @@ not.** The address and the document `_id` derived from a shortcode were already 
 from the lowercased form, so `Clb` and `clb` always denoted one entity: folding case is
 a canonical respelling, not a change of key. It is also what makes the repair
 **converge** — with the rule requiring lowercase, a case-preserving repair would return
-the very value the guard had just refused (#1882).
+the very value the guard had just refused.
 
 ### The rule binds the system's own keys too
 
 Nothing exempts a key the _system_ writes. The singleton world host
-(`sohl.worldHost()`, issue #588) is created through the same create guard as any
+(`sohl.worldHost()`) is created through the same create guard as any
 document, so its reserved code is subject to the same pattern — and its original
 `_sohlworld` was refused as malformed, which vetoed the host's own creation and
-left `sohl.worldHost()` returning `undefined` (issue #1536). The code is now
+left `sohl.worldHost()` returning `undefined`. The code is now
 `sohlworld`, which is also what the 0.9.0 repair migration produces from a host a
 v0.8 world already created, so an upgraded world keeps the host it has.
 
@@ -165,7 +164,7 @@ duplicate `(type, shortcode)`.
 **The rule lives in the toolchain, not here.** Three repositories author notes
 against it, so a copy in this repository's `utils/` was a rule the other two did
 not have — which is why they were never checked at all
-(HeroicLands/content-build#20). The runtime keeps its own plain-ESM copy of the
+. The runtime keeps its own plain-ESM copy of the
 _shape_ rule in `src/utils/shortcode-format.mjs`, because shipped code cannot
 import a build dependency; `tests/build/shortcode-format-agreement.test.ts` is
 what keeps the two equal.
@@ -175,7 +174,7 @@ deliberately so.** The guard once claimed per-pack uniqueness, on the reasoning
 that a type routed to exactly one pack — which `pack:` frontmatter made false.
 What the pipeline actually enforces is that a document is addressed by
 `(type, shortcode)` across **every** pack of its document type, so routing two
-same-address notes to different packs does not separate them (#1678). Authored
+same-address notes to different packs does not separate them. Authored
 content therefore has to satisfy the stricter rule, even though the runtime
 uniqueness table above scopes a compendium to itself.
 
@@ -188,7 +187,7 @@ since `shortcode` is identity referenced from saved world data.
 The 0.9.0 migration `alphanumericShortcode` (`MigrationRegistry.ts`) rewrites any
 stored shortcode that fails the shape rule, applying the same strip-and-fold repair,
 so a world that imported a legacy key keeps pointing at the same entity as its renamed
-compendium origin. Since #1882 it also folds a mixed-case key that broke no earlier
+compendium origin. It also folds a mixed-case key that broke no earlier
 rule (`Clb` → `clb`) — a canonical respelling rather than a change of identity, since
 the address and `_id` derived from a shortcode were already lowercased. Folding is
 also what makes the repair **converge**: a case-preserving repair would hand the guard
@@ -228,8 +227,8 @@ reuses {@link sohl.utils.uniqueShortcode}; name derivation reuses
 {@link sohl.utils.slugifyShortcode}.
 
 > **Behavior note.** `_preCreate` is **strict by default**: a name-derived _or_ explicit
-> collision without `shortcodeDedupe` now fails (previously the name-derived case always
-> auto-uniquified). Callers that legitimately create colliding siblings must opt in.
+> collision without `shortcodeDedupe` fails. Callers that legitimately create
+> colliding siblings must opt in.
 
 ## The `shortcodeDedupe` option
 
@@ -250,7 +249,7 @@ operation field, so typed call sites cast the options object.
 
 **A page's URL is its address**: a content note publishes at
 `/<package>/<type>-<shortcode>/` — `/sohl/skill-wpnc/` for Weaponcraft. Notes carry
-no authored `slug` (#1278) and no display string reaches the URL;
+no authored `slug` and no display string reaches the URL;
 `contentAddress` in `@heroiclands/package-build/engine/content-address` derives it
 from the frontmatter's `type` and `shortcode` alone.
 
@@ -269,7 +268,7 @@ a data migration rather than a cosmetic edit, and it moves a public URL as well.
 Pick it once, and pick it to last.
 
 **A rename also moves the document's Foundry `_id`**, because that too derives
-from the address (#1841): `makeId("document", "<package>-<system>-<type>-<shortcode>")`.
+from the address: `makeId("document", "<package>-<system>-<type>-<shortcode>")`.
 This is the one place the derivation costs something an authored id did not —
 which is exactly what the `id:` escape hatch is for. Where a document must keep
 its identity across a rename, pin the id it already had, with a comment saying

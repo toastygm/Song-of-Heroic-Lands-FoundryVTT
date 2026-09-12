@@ -97,7 +97,7 @@ strictly a test/e2e affordance.**
 
 Two seams, by environment:
 
-- **Targeted, single roll (`SimpleRoll.forceValues`)** — the #598 forced-value
+- **Targeted, single roll (`SimpleRoll.forceValues`)** — the forced-value
   queue seeds exact die values (`forceValues(5, 100)`) that
   {@link sohl.entity.roll.SimpleRoll} consumes before touching any `Rng`. Best
   when a specific value must flip a specific outcome. It **takes precedence** over
