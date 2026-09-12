@@ -131,6 +131,19 @@ Icons come from two families: [Font Awesome](https://fontawesome.com) (its free 
 
 **Victory Stars** are the margin of a contest — how far the winner's success level exceeded the loser's — drawn filled for the tester and hollow for the target, and worth one star when a tiebreak settles a tie. The margin has no ceiling, so only the earned stars are drawn. **Value Diamonds** are an unrelated measure: the quality of a single Success Value test (see [[doc-sklltestug|Skill Tests]]). That scale does have a ceiling — five — so the whole scale is drawn and the earned diamonds are filled. The same filled/hollow star pair marks a skill flagged for improvement on the Skills tab.
 
+## Indicators
+
+|                                            Glyph                                             | Name               | Where you see it          |
+| :------------------------------------------------------------------------------------------: | ------------------ | ------------------------- |
+|       <i class="fa-solid fa-xmark fa-lg" style="font-size:2em" aria-hidden="true"></i>       | Disabled           | Sheets                    |
+|          <i class="fa-solid fa-star" style="font-size:2em" aria-hidden="true"></i>           | Improve Flag Set   | Skill Item on Actor Sheet |
+|         <i class="fa-regular fa-star" style="font-size:2em" aria-hidden="true"></i>          | Improve Flag Unset | Skill Item on Actor Sheet |
+| <i class="fa-solid fa-ellipsis-vertical fa-fw" style="font-size:2em" aria-hidden="true"></i> | Context Menu       | Sheets                    |
+|          <i class="fa-solid fa-plus" style="font-size:2em" aria-hidden="true"></i>           | Add                | Sheets                    |
+|      <i class="fa-solid fa-grip-vertical" style="font-size:2em" aria-hidden="true"></i>      | Drag Handle        | Sheets                    |
+|    <i class="fa-solid fa-heart-circle-plus" style="font-size:2em" aria-hidden="true"></i>    | Injury Healed      | Trauma Tab on Actor Sheet |
+|    <i class="fa-solid fa-file-circle-plus" style="font-size:2em" aria-hidden="true"></i>     | Create Item        | Sheets                    |
+
 ## See also
 
 - [[doc-undrstndsheetug|Understanding Sheets]] — the tabs and rows these glyphs label.
