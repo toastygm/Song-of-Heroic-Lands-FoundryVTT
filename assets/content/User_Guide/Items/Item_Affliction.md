@@ -134,7 +134,7 @@ At no point does the system take a step for you. Every transition waits on a hum
 
 All three checks follow one pattern:
 
-> **offer → check → test → offer the next**
+> **offer > check > test > offer the next**
 
 When a check would begin, SoHL opens the **offer-schedule dialog**, described once on [[doc-baseitemug|Base Item]], asking whether to set a reminder with the rolled cadence already filled in (_"Set a reminder to perform the Course Test in 5 days?"_). **Schedule It** arms it; **Not Now** declines, and nothing is tracked. When the time comes, a reminder card appears in chat with a **Perform** button. Nothing has happened to the character yet: the check runs when someone presses it.
 

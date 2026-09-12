@@ -157,7 +157,7 @@ See [[doc-injrylvl|Injury]] for what the resulting wound then does over time.
 
 ## Shock {#shock}
 
-A wound's immediate effect on consciousness is resolved through **shock**. The chain runs **Shock Value → Shock Index → Shock State**.
+A wound's immediate effect on consciousness is resolved through **shock**. The chain runs **Shock Value > Shock Index > Shock State**.
 
 ### How the Shock Index is determined
 
@@ -242,7 +242,7 @@ A second, narrower rule applies to weapons: a strike mode that requires particul
 
 ### Permanent impairment
 
-A wound that was slow to mend can leave a mark that never heals — a withered arm, a stiffened knee. Permanent impairment is scaled by how long the wound took to close, from −5 at twenty days to a floor of −25 at a hundred, and it applies from then on as the part's minimum impairment. Permanent impairment never renders a part _unusable_ on its own; only a grievous wound or an outright severed limb does that. See [[doc-imprmnt|Injury → Permanent Impairment]].
+A wound that was slow to mend can leave a mark that never heals — a withered arm, a stiffened knee. Permanent impairment is scaled by how long the wound took to close, from −5 at twenty days to a floor of −25 at a hundred, and it applies from then on as the part's minimum impairment. Permanent impairment never renders a part _unusable_ on its own; only a grievous wound or an outright severed limb does that. See [[doc-imprmnt|Injury > Permanent Impairment]].
 
 ### Immobilized, unusable, and holding on {#immobilized-unusable-and-holding-on}
 

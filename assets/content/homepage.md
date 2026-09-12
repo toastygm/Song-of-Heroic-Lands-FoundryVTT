@@ -41,7 +41,7 @@ landing:
   install:
     heading: Install it in Foundry
     intro: >-
-      In Foundry's setup screen, choose **Game Systems → Install System** and
+      In Foundry's setup screen, choose **Game Systems > Install System** and
       paste this manifest URL:
     url: https://github.com/HeroicLands/Song-of-Heroic-Lands-FoundryVTT/releases/latest/download/system.json
     note: >-

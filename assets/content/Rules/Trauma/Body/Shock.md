@@ -49,7 +49,7 @@ The adjusted index maps to a shock state on the table above. That state is then 
 
 **Sources of a base SSI.** Shock is not specific to injury — the base index can come from any cause:
 
-- **Injury** — the struck body **location's Shock Value + the Injury Level**, plus **1** more if the blow was a [[doc-character#from-blow-to-injury|glancing one]]. Every body location carries its own Shock Value: on a human the skull, eyes, nose, and neck are the worst at 5, the forearm and calf the mildest at 1. Other body structures carry their own values. See [[doc-character#shock|Body Structure → Shock]].
+- **Injury** — the struck body **location's Shock Value + the Injury Level**, plus **1** more if the blow was a [[doc-character#from-blow-to-injury|glancing one]]. Every body location carries its own Shock Value: on a human the skull, eyes, nose, and neck are the worst at 5, the forearm and calf the mildest at 1. Other body structures carry their own values. See [[doc-character#shock|Body Structure > Shock]].
 - **Fear and other systemic or psychological forces** — each by its own measure.
 
 **Modifiers to the roll.** Two circumstances adjust the Shock Test itself rather than the index: a **glancing blow** grants **+10**, and an amputation check that ended in a **marginal success** imposes **−20**.
@@ -70,7 +70,7 @@ A victim who is **Incapacitated** or **Unconscious** makes a **Shock Re-Test** t
 
 | Success Level | Result                                                                                         |
 | ------------- | ---------------------------------------------------------------------------------------------- |
-| CF (−1)       | Incapacitated → [[#extended-shock\|Extended Shock]] at HR 4. Unconscious → [[doc-coma\|Coma]]. |
+| CF (−1)       | Incapacitated > [[#extended-shock\|Extended Shock]] at HR 4. Unconscious > [[doc-coma\|Coma]]. |
 | MF (0)        | The victim slips into [[#extended-shock\|Extended Shock]] at HR 5.                             |
 | MS (1)        | The shock state improves to **Stunned**.                                                       |
 | CS (2)        | The victim recovers from all shock states.                                                     |

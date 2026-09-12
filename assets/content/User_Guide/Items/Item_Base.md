@@ -253,7 +253,7 @@ There are no fields to fill in — the cadence is already worked out and shown t
 
 Accepting does not hand anything over either. When the time comes, a **reminder card** appears in chat saying _"A scheduled effect has come due. Perform it when ready."_ with a **Perform** button. Nothing has happened to the character yet: the check runs when its owner presses that button, and afterwards the next one is offered the same way.
 
-> **offer → remind → perform → offer the next.** Every recurring effect in SoHL follows this loop, and a human answers at each step.
+> **offer > remind > perform > offer the next.** Every recurring effect in SoHL follows this loop, and a human answers at each step.
 
 # Editing a Posted Test Result (GM) {#editing-a-posted-test-result-gm}
 

@@ -83,7 +83,7 @@ Theatre of the Mind (TotM) mode is a per-scene toggle that changes how the scene
 
 ## Enabling Theatre of the Mind
 
-1. Open the scene's configuration (right-click the scene tab → Configure).
+1. Open the scene's configuration (right-click the scene tab > Configure).
 2. Open the **Sohl** tab and find the **Theatre of the Mind** checkbox.
 3. Check it and save.
 
