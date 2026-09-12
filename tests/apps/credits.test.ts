@@ -6,7 +6,7 @@
  */
 
 /**
- * The Credits & Attributions entry points (issue #1517).
+ * The Credits & Attributions entry points.
  *
  * The pure pieces — the menu-registration payload and the package-flag read —
  * are asserted here. Opening the journal sheet and the live `registerMenu` call

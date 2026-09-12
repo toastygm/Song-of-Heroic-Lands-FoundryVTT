@@ -12,7 +12,7 @@
  */
 
 /**
- * The Fate mechanic end-to-end (#854): a player spends a Fate Point *after* a
+ * The Fate mechanic end-to-end: a player spends a Fate Point *after* a
  * test to raise its success level — the die is never re-rolled. This drives the
  * real logic in the live client:
  *
@@ -28,7 +28,7 @@
  * no dialogs.
  */
 
-describe("Fate spend — post-roll success-level bump (#854)", () => {
+describe("Fate spend — post-roll success-level bump", () => {
     before(() =>
         cy.login().then(() => {
             cy.cleanupWorld();

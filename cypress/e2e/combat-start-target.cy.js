@@ -12,7 +12,7 @@
  */
 
 /**
- * Automated-combat start: target resolution (#1079).
+ * Automated-combat start: target resolution.
  *
  * The combat tracker's **Automated Combat** entry builds its action context
  * with a speaker only (`SohlLogic.getContextOptions` supplies no `target`), so
@@ -36,7 +36,7 @@
  * Where it stops instead: these bare Beings carry no weapon, so strike-mode
  * selection finds nothing usable — "no usable strike mode". That is the step
  * *after* target and defender resolution, which is the point. Producing an
- * actual attack card needs a canvas and remains RED under #177 (see
+ * actual attack card needs a canvas and remains RED (see
  * `combat-automated.cy.js`).
  */
 
@@ -50,7 +50,7 @@ function combatantOf(win, combatId, actorId) {
 /**
  * Drive `startAutomatedAttack` with a **targetless** context — exactly what the
  * combat tracker's context-menu entry builds. Stubbing `sohl.log.uiWarn`
- * collects the warnings (and dodges the #267 logger recursion).
+ * collects the warnings (and dodges the logger recursion).
  *
  * @returns `{ result, warnings }` — `result` is `null` when the call aborted.
  */
@@ -68,11 +68,11 @@ async function driveTargetlessStart(win, combatant) {
     return { result: result ?? null, warnings: warnings.join(" ") };
 }
 
-describe("automated combat start: target resolution (#1079)", () => {
+describe("automated combat start: target resolution", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
-    // The known logger recursion (#267) turns a stray `uiWarn` into a stack
+    // The known logger recursion turns a stray `uiWarn` into a stack
     // overflow; don't let an unrelated background warning fail the assertions.
     Cypress.on("uncaught:exception", () => false);
 
@@ -94,8 +94,8 @@ describe("automated combat start: target resolution (#1079)", () => {
                 // It must be the attacker's turn — the turn gate runs first and
                 // would otherwise short-circuit before target resolution. Both
                 // halves below share this one combat: `getActiveCombat()` reads
-                // the *viewed* combat, which resolves inconsistently headless
-                // (#638/#644), so a second combat would be order-dependent.
+                // the *viewed* combat, which resolves inconsistently headless,
+                // so a second combat would be order-dependent.
                 cy.foundry(async (win) => {
                     const c = win.game.combats.get(combat.id);
                     const idx = c.turns.findIndex((t) => t.actorId === attackerId);
@@ -112,7 +112,7 @@ describe("automated combat start: target resolution (#1079)", () => {
                 // new combat, and `isActive` is `scene.isView && active` for a
                 // scene-bound combat, so it also needs this spec's own scene to
                 // hold the canvas view — which headless it does not once any
-                // other spec has created a scene (#638/#644). Creating the
+                // other spec has created a scene. Creating the
                 // combat `sceneless` reduces `isActive` to plain `active`, and
                 // assigning `viewed` covers the rendered-tracker branch; both
                 // then resolve to this combat whatever ran before.
@@ -136,13 +136,12 @@ describe("automated combat start: target resolution (#1079)", () => {
                 cy.foundry((win) =>
                     driveTargetlessStart(win, combatantOf(win, combat.id, attackerId)),
                 ).should((r) => {
-                    expect(r.warnings, "the targetless-context abort is gone (#1079)").to.not.match(
+                    expect(r.warnings, "the targetless-context abort is gone").to.not.match(
                         /requires a target combatant/i,
                     );
-                    expect(
-                        r.warnings,
-                        "the resolved target is used as the defender (#1079)",
-                    ).to.not.match(/valid defender combatant/i);
+                    expect(r.warnings, "the resolved target is used as the defender").to.not.match(
+                        /valid defender combatant/i,
+                    );
                     expect(
                         r.warnings,
                         "reaches strike-mode selection (the post-target step)",

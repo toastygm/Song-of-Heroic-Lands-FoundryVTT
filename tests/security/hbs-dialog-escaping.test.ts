@@ -12,7 +12,7 @@
  */
 
 /**
- * Security regression tests for issues #159 and #164:
+ * Security regression tests:
  * Handlebars SSTI/XSS in dialog builders.
  *
  * Verifies that the data-context approach ({{name}} double-stash) auto-escapes
@@ -26,7 +26,7 @@ const XSS_HTML = "<img src=x onerror=alert(1)>";
 // SSTI payload — a Handlebars expression that would execute if compiled as template source
 const SSTI_HBS = "{{constructor.constructor 'return 1'}}";
 
-describe("Handlebars data-context escaping (#159/#164)", () => {
+describe("Handlebars data-context escaping", () => {
     describe("double-stash {{}} auto-escapes HTML in data values", () => {
         it("escapes XSS payload in itemName", () => {
             const template = Handlebars.compile(

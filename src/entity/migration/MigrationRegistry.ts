@@ -100,8 +100,7 @@ export interface MigrationStep {
 }
 
 /**
- * Rewrite a document's `system` object with the retired `docUrl` key removed
- * (#1394).
+ * Rewrite a document's `system` object with the retired `docUrl` key removed.
  *
  * `docUrl` persisted an absolute documentation URL into every compiled item and,
  * on import, into every world; nothing ever read it. Removing it from the schema
@@ -134,7 +133,7 @@ const stripDocUrl: DocMigrator = (source) => {
 
 /**
  * The four values the affiliation subtype vocabulary replaced, and what each
- * becomes (#1788).
+ * becomes.
  *
  * Three are renames: they named a tradition and the new vocabulary names the
  * same tradition more precisely. `social` is not — it was a bucket covering
@@ -149,7 +148,7 @@ const LEGACY_AFFILIATION_SUBTYPE: Readonly<Record<string, string>> = Object.free
 });
 
 /**
- * Move an affiliation off the four-value vocabulary onto the eleven (#1788).
+ * Move an affiliation off the four-value vocabulary onto the eleven.
  *
  * `arcane`, `divine` and `spirit` map onto the tradition each already named.
  * **`social` cannot be resolved from the stored value alone**: it covered guild,
@@ -178,7 +177,7 @@ const remapAffiliationSubType: DocMigrator = (source) => {
 };
 
 /**
- * Stamp the default subtype on an affiliation that predates the field (#1405).
+ * Stamp the default subtype on an affiliation that predates the field.
  *
  * `subType` is `required` with no `initial`, so an affiliation authored before it
  * existed carries no value at all — and an unrecognized value (hand-edited, or
@@ -186,7 +185,7 @@ const remapAffiliationSubType: DocMigrator = (source) => {
  * dropped, which lands in the same place. Both are stamped `fellowship`, the
  * secular default, which is what an unclassified body most often is.
  *
- * **A legacy value is skipped, not stamped.** The four values #1788 replaced are
+ * **A legacy value is skipped, not stamped.** The four replaced values are
  * unrecognized under the new vocabulary, so without this guard a `divine`
  * affiliation would be defaulted here instead of remapped by
  * {@link remapAffiliationSubType} — and which of the two ran first would decide
@@ -210,7 +209,7 @@ const stampAffiliationSubType: DocMigrator = (source) => {
 };
 
 /**
- * Repair a `shortcode` that is not strictly alphanumeric (#1397).
+ * Repair a `shortcode` that is not strictly alphanumeric.
  *
  * `shortcode` is the system's identity key, and the create/update guard now
  * refuses any character outside `[A-Za-z0-9]` — so a world holding a legacy key
@@ -227,7 +226,7 @@ const stampAffiliationSubType: DocMigrator = (source) => {
  * is left alone — there is nothing to derive from, and a random id would sever
  * the identity rather than preserve it.
  *
- * **It also folds case (#1882).** The rule now requires lowercase, so this step
+ * **It also folds case.** The rule now requires lowercase, so this step
  * additionally rewrites every mixed-case key a pre-0.9 world holds — `Clb` →
  * `clb`. That is a canonical respelling rather than a change of identity: the
  * address and the document `_id` derived from a shortcode were already
@@ -265,7 +264,7 @@ export const SOHL_MIGRATIONS: readonly MigrationStep[] = Object.freeze([
         version: "0.9.0",
         description:
             "Strip the retired system.docUrl field, which baked an external " +
-            "documentation URL into world data (#1394).",
+            "documentation URL into world data.",
         migrators: { Actor: stripDocUrl, Item: stripDocUrl },
     },
     {
@@ -275,20 +274,19 @@ export const SOHL_MIGRATIONS: readonly MigrationStep[] = Object.freeze([
             "content format declares: arcane, divine and spirit become their " +
             "tradition values, while social was a bucket of eight secular kinds " +
             "and cannot be resolved from the stored value — those land on " +
-            "fellowship and want a human's eye (#1788).",
+            "fellowship and want a human's eye.",
         migrators: { Item: remapAffiliationSubType },
     },
     {
         version: "0.9.0",
-        description: "Stamp the new required subType on existing affiliation items (#1405)",
+        description: "Stamp the new required subType on existing affiliation items",
         migrators: { Item: stampAffiliationSubType },
     },
     {
         version: "0.9.0",
         description:
             "Rewrite any shortcode the create/update guard now refuses: one " +
-            "that is not strictly alphanumeric (#1397), or that carries a " +
-            "capital (#1882).",
+            "that is not strictly alphanumeric, or that carries a capital.",
         migrators: {
             Actor: alphanumericShortcode,
             Item: alphanumericShortcode,

@@ -14,15 +14,15 @@
 import { toRealm } from "../support/resolve.js";
 
 /**
- * The Affiliation sheet's standing-toward-others table (#1404) and the subtype
- * it now declares (#1405).
+ * The Affiliation sheet's standing-toward-others table and the subtype
+ * it now declares.
  *
  * The generic `itemSheetSuite` already proves the subtype `<select>` round-trips
  * like any other choice field; what only a live client can prove is the relation
  * editor — a keyed map with its own add prompt and per-row control, which is not
  * a plain schema field the suite discovers.
  */
-describe("affiliation — standing toward other affiliations (#1404)", () => {
+describe("affiliation — standing toward other affiliations", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

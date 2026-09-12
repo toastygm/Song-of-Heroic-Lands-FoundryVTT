@@ -304,8 +304,8 @@ export class SohlActorBaseLogic<
      * The Profile-tab star names the medium in scope and applies it directly.
      * Invoked any other way — from the Actions menu, a macro, a script — there
      * is no medium to apply, so the action **offers the choice** (the
-     * prefer-dialog rule) rather than returning silently as it once did
-     * (#1098). The prompt lists the no-movement medium plus every medium this
+     * prefer-dialog rule) rather than returning silently as it once did.
+     * The prompt lists the no-movement medium plus every medium this
      * actor authors a profile for, preselected at the current one. A caller
      * that suppressed the dialog cannot be prompted, so it gets a notice
      * instead of an unexplained no-op.
@@ -372,10 +372,10 @@ export class SohlActorBaseLogic<
     }
 
     /**
-     * **GM re-edit of a settled opposed contest** (#1082) — the edit pencil in
+     * **GM re-edit of a settled opposed contest** — the edit pencil in
      * the Opposed Action Result card's header, and the two-sided counterpart to
      * the standard card's
-     * {@link sohl.document.item.logic.SohlItemBaseLogic.resultEdit} (#856).
+     * {@link sohl.document.item.logic.SohlItemBaseLogic.resultEdit}.
      *
      * Re-opens the standard test dialog for **each** side in turn, pre-filled
      * with that side's current situational and success-level modifiers, applies
@@ -453,7 +453,7 @@ export class SohlActorBaseLogic<
         if (!changed) return opposed;
 
         // A contest posts ONE card, so the source side's roll visibility
-        // governs the repost (#1099) — the field the shared dialog offers on
+        // governs the repost — the field the shared dialog offers on
         // each side would otherwise be inert here.
         opposed.rollMode = opposed.sourceTestResult.rollMode;
 

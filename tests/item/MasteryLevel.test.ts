@@ -10,7 +10,7 @@ import { makeItemLogic } from "@tests/mocks/logicHarness";
 import * as FoundryHelpers from "@src/core/FoundryHelpers";
 
 /*
- * The former MasteryLevelLogic class no longer exists; mastery-level test
+ * There is no MasteryLevelLogic class; mastery-level test
  * mechanics now live in the pure domain class MasteryLevelModifier
  * (src/domain/modifier/MasteryLevelModifier.ts), parented by any item Logic.
  * A SkillLogic built with the harness serves as a cheap parent.
@@ -57,7 +57,7 @@ describe("MasteryLevelModifier", () => {
             expect(ml.successLevelMod).toBe(0);
         });
 
-        it("defaults the critical digit lists to the multiple-of-5 set [0, 5] (#908)", () => {
+        it("defaults the critical digit lists to the multiple-of-5 set [0, 5]", () => {
             const ml = makeMLMod();
             expect(ml.critFailureDigits).toEqual([0, 5]);
             expect(ml.critSuccessDigits).toEqual([0, 5]);
@@ -87,7 +87,7 @@ describe("MasteryLevelModifier", () => {
             // substituted; this key's `{label}` is not in the key text, so it
             // comes back verbatim. The key must be the `.title` string, not the
             // `…successTest` namespace prefix, which has no value in
-            // `lang/en.json` and reached the card raw (#1107) — asserted for
+            // `lang/en.json` and reached the card raw — asserted for
             // real against `lang/en.json` in
             // tests/domain/modifier/MasteryLevelModifier.test.ts.
             expect(ml.title).toBe("SOHL.MasteryLevelModifier.successTest.title");
@@ -322,7 +322,7 @@ describe("MasteryLevelModifier", () => {
         });
     });
 
-    describe("successValueTest grades via svTable (#848)", () => {
+    describe("successValueTest grades via svTable", () => {
         /** An owned speaker so evaluate() may resolve the forced roll. */
         function ownedSpeaker(): SohlSpeaker {
             const speaker = new SohlSpeaker({ alias: "GM" });

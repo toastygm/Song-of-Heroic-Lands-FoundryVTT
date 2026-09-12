@@ -68,7 +68,7 @@ const STYLE =
 const STYLE_ATTR = /style\s*=\s*(?:"([^"]*)"|'([^']*)')/gi;
 // A `fill` *declaration* — the property itself, at the start of the attribute
 // or after a `;`. Deliberately not `\bfill\b`, which also matches `fill-rule`,
-// `fill-opacity` and `paint-order: fill`, none of which set a colour (#1677).
+// `fill-opacity` and `paint-order: fill`, none of which set a colour.
 const FILL_DECL = /(?:^|;)\s*fill\s*:/i;
 
 /**

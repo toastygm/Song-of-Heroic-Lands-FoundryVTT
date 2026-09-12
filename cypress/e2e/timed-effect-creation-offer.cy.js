@@ -12,7 +12,7 @@
  */
 
 /**
- * Creation-time offers for the recurring timed effects (#579 / #595): a lasting
+ * Creation-time offers for the recurring timed effects: a lasting
  * condition's recurring check is OFFERED when it is created, not auto-armed. Two
  * are covered here — a bleeder's **blood-loss advance** (offered as the wound is
  * inflicted) and an infection's **recovery course** (offered when a
@@ -23,7 +23,7 @@
  * pre-answering through a scripted `scope`. Three non-obvious facts shape how:
  *
  * 0. **RNG-gated creations are forced deterministic.** The infection only appears
- *    on a critical-failure healing test, so `SimpleRoll.forceValues(100)` (#598)
+ *    on a critical-failure healing test, so `SimpleRoll.forceValues(100)`
  *    drives that d100 to a critical failure — no flakiness.
  *
  * 1. **Two offers fire back-to-back.** Inflicting a bleeder wound
@@ -37,11 +37,11 @@
  *    `isScheduled` is read only after the driving action's promise has resolved.
  */
 
-describe("Timed-effect creation offer (#595)", () => {
+describe("Timed-effect creation offer", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         // Clear any leftover forced dice (the course test seeds one) so a stray
-        // value can't leak into the next spec — see #598.
+        // value can't leak into the next spec.
         cy.foundry((win) => {
             win.sohl.entity.roll.SimpleRoll.clearForced();
             return null;
@@ -129,10 +129,10 @@ describe("Timed-effect creation offer (#595)", () => {
         });
     });
 
-    // The recovery-course offer (#595) fires when a lasting condition is created —
+    // The recovery-course offer fires when a lasting condition is created —
     // here an INFECTION from a critical-failure healing test. That outcome is
     // RNG-gated, so this drives it deterministically with the forced-dice seam
-    // (#598): forcing the healing test's d100 to 100 (a critical failure, digits
+    //: forcing the healing test's d100 to 100 (a critical failure, digits
     // [0,5]) on an infectable wound contracts the infection, which then offers its
     // course check. Then we model the player pressing Schedule on that offer.
     it("a critical-failure healing test contracts an infection and offers its course check — pressing Schedule arms it (models the player)", () => {
@@ -170,13 +170,13 @@ describe("Timed-effect creation offer (#595)", () => {
                 // Force that healing test's d100 to 100 — a critical failure that,
                 // on an infectable wound, contracts an infection.
                 win.sohl.entity.roll.SimpleRoll.forceValues(100);
-                // The check only OFFERS now; the test is what rolls (#1181).
+                // The check only OFFERS now; the test is what rolls.
                 win.__perf = wound.logic.executeAction("healingtest", {});
                 return null;
             });
             // Two offers fire in order: the new infection's course check, then the
             // wound's next healing check. Answer each by content (per-effect
-            // titles, #595): schedule the course (the subject), decline the
+            // titles): schedule the course (the subject), decline the
             // healing reschedule (incidental).
             cy.submitDialogMatching("Course Check", "yes");
             cy.submitDialogMatching("Healing Check", "no");

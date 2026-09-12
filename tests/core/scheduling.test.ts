@@ -10,7 +10,7 @@ import { deriveNext, elapsedCheckpoints } from "@src/entity/event/scheduling";
 
 const DAY = 86400;
 
-describe("deriveNext (#481)", () => {
+describe("deriveNext", () => {
     it("returns the anchor plus the interval", () => {
         expect(deriveNext(1000, 5 * DAY)).toBe(1000 + 5 * DAY);
     });
@@ -20,7 +20,7 @@ describe("deriveNext (#481)", () => {
     });
 });
 
-describe("elapsedCheckpoints (#481)", () => {
+describe("elapsedCheckpoints", () => {
     it("lists every occurrence in (lastAnchor, worldTime] in order", () => {
         // last check at 5d, jump to 60d, every 5d -> 10d..60d (11 checkpoints)
         const cps = elapsedCheckpoints(5 * DAY, 60 * DAY, 5 * DAY);

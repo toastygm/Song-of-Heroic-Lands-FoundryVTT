@@ -12,9 +12,9 @@
  */
 
 /**
- * The **Output Description to Chat** intrinsic item action (#849), end to end in
+ * The **Output Description to Chat** intrinsic item action, end to end in
  * a real Foundry. Every item kind carries it; running it posts the item's
- * description — via the previously orphaned `item-desc-card.hbs` — to the chat
+ * description — via `item-desc-card.hbs` — to the chat
  * log. It is informational (no follow-up buttons), so nothing to pre-answer.
  *
  * The card assembly and enrichment are unit covered
@@ -23,7 +23,7 @@
  * item's name, description, and owning-actor id.
  */
 
-describe("Output Description to Chat action (#849)", () => {
+describe("Output Description to Chat action", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

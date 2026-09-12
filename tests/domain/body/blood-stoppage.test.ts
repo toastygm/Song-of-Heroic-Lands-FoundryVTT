@@ -14,7 +14,7 @@ import {
     MARGINAL_SUCCESS,
 } from "@src/utils/constants";
 
-describe("blood stoppage (#547)", () => {
+describe("blood stoppage", () => {
     it("CS stops the bleeding immediately", () => {
         expect(bloodStoppageOutcome(CRITICAL_SUCCESS)).toEqual({
             kind: "stopImmediately",

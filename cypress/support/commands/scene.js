@@ -42,7 +42,7 @@ Cypress.Commands.add("createScene", (overrides = {}) => {
  * actor. An unlinked token's synthetic actor is only prepared as a side-effect of
  * the canvas token draw, which is racy/broken headless (suppressed by
  * `guardHeadlessTokenDraw` in `cy.login`); reading actor-derived combatant state
- * (`computedMove`, `reach`) off it then yields `null` (#611). Linking makes those
+ * (`computedMove`, `reach`) off it then yields `null`. Linking makes those
  * reads deterministic and canvas-independent. No spec relies on unlinked
  * token-actor semantics.
  */

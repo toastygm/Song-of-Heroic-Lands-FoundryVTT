@@ -41,7 +41,7 @@ function proj(
     };
 }
 
-describe("resolveFateOutcome — rung-driven, not isSuccess (#854)", () => {
+describe("resolveFateOutcome — rung-driven, not isSuccess", () => {
     it("critical failure consumes a point for no effect", () => {
         expect(resolveFateOutcome(CRITICAL_FAILURE)).toEqual({
             path: "loseFateNoEffect",

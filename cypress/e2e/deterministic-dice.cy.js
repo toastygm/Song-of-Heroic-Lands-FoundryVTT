@@ -12,7 +12,7 @@
  */
 
 /**
- * Deterministic dice (#598): `SimpleRoll.forceValues(...)` seeds a process-wide
+ * Deterministic dice: `SimpleRoll.forceValues(...)` seeds a process-wide
  * FIFO queue of die values that `SimpleRoll.roll()` consumes instead of
  * `Math.random`. This lets an e2e drive an RNG-gated outcome that lives deep in
  * the logic layer — here a real skill success test — without reaching the roll
@@ -22,7 +22,7 @@
  * next roll, so `clearForced()` runs in `afterEach`.
  */
 
-describe("Deterministic dice via SimpleRoll.forceValues (#598)", () => {
+describe("Deterministic dice via SimpleRoll.forceValues", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.foundry((win) => {
@@ -92,11 +92,11 @@ describe("Deterministic dice via SimpleRoll.forceValues (#598)", () => {
         });
     });
 
-    // A standard skill test crits on any roll ending in 0 or 5 (#908): the
+    // A standard skill test crits on any roll ending in 0 or 5: the
     // MasteryLevelModifier default crit-digit lists are [0, 5]. This is a
     // regression guard — the TS port had dropped that default to empty, so
     // every standard test resolved as a plain (marginal) success/failure.
-    it("a forced multiple-of-5 roll produces a critical outcome on a standard skill test (#908)", () => {
+    it("a forced multiple-of-5 roll produces a critical outcome on a standard skill test", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Sword",

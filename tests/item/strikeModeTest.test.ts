@@ -113,7 +113,7 @@ describe("resolveStrikeMode", () => {
         expect(sm).toBeUndefined();
     });
 
-    it("passes the mode names via `data`, never interpolated into the content (Rule #10)", async () => {
+    it("passes the mode names via `data`, never interpolated into the content", async () => {
         const evil = meleeMode("m1", "<img src=x onerror=alert(1)>");
         const spy = vi.spyOn(FoundryHelpers, "dialog").mockResolvedValue(undefined);
         await resolveStrikeMode(combatant("Sword", [evil, meleeMode("m2", "Thrust")]), ctxWith());
@@ -163,21 +163,21 @@ describe("runStrikeModeTest", () => {
         expect(sm.attack.successTest).toHaveBeenCalledWith(ctx);
     });
 
-    it("returns false for a block on a missile mode, telling the user why (#1137)", async () => {
+    it("returns false for a block on a missile mode, telling the user why", async () => {
         const uiWarn = vi.spyOn(sohl.log, "uiWarn").mockImplementation(() => {});
         const sm = missileMode("m1", "Throw");
         const result = await runStrikeModeTest(combatant("Javelin", [sm]), "block", ctxWith("m1"));
         expect(result).toBe(false);
         expect(sm.attack.successTest).not.toHaveBeenCalled();
         // On screen, not console-only: an invoked action that can do nothing
-        // must say so (#1137).
+        // must say so.
         expect(uiWarn).toHaveBeenCalledWith(
             "SOHL.StrikeMode.unsupportedTest",
             expect.objectContaining({ item: "Javelin", mode: "Throw" }),
         );
     });
 
-    it("returns false for a counterstrike on a missile mode, telling the user why (#1137)", async () => {
+    it("returns false for a counterstrike on a missile mode, telling the user why", async () => {
         const uiWarn = vi.spyOn(sohl.log, "uiWarn").mockImplementation(() => {});
         const sm = missileMode("m1", "Throw");
         const result = await runStrikeModeTest(
@@ -197,12 +197,12 @@ describe("runStrikeModeTest", () => {
 });
 
 /*
- * The gate the block/counterstrike actions hang their visibility on (#1137):
+ * The gate the block/counterstrike actions hang their visibility on:
  * an item with no melee strike mode can never block or counterstrike, so those
  * actions must not be offered on it. A mixed weapon (thrust + throw) keeps
  * them — the picker resolves which mode.
  */
-describe("anyMeleeStrikeMode (#1137)", () => {
+describe("anyMeleeStrikeMode", () => {
     it("is false for a missile-only item", () => {
         expect(anyMeleeStrikeMode(combatant("Bow", [missileMode("m1", "Shoot")]))).toBe(false);
     });

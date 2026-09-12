@@ -16,11 +16,10 @@ import fs from "node:fs";
 import path from "node:path";
 
 /**
- * `system.templatePriority` (issues #1780, #1836) — the Create-dialog archetype
+ * `system.templatePriority` — the Create-dialog archetype
  * marker, moved off `flags.sohl.docArchetype` and into the schema so it can be
  * authored on a sheet instead of by export / hand-edit / re-import, then
- * renamed off `archetype` so that word is free for the character-sort taxonomy
- * (HeroicLands/package-build#266).
+ * renamed off `archetype` so that word is free for the character-sort taxonomy.
  *
  * Two different claims are asserted here.
  *
@@ -37,7 +36,7 @@ import path from "node:path";
  *   `initial: null` triple is asserted against the source of
  *   `defineSohlDataSchema()`. It is read as text rather than imported for the
  *   same reason `temporal-fields.test.ts` reads the artifact: importing the
- *   DataModel classes pulls in a circular Foundry-coupled chain (#481, #588).
+ *   DataModel classes pulls in a circular Foundry-coupled chain.
  */
 const ROOT = path.join(import.meta.dirname, "../..");
 const artifact = JSON.parse(fs.readFileSync(path.join(ROOT, "schema.json"), "utf8"));
@@ -46,7 +45,7 @@ const sharedSchemaSource = fs.readFileSync(
     "utf8",
 );
 
-describe("system.templatePriority is declared once, on the shared base (#1780, #1836)", () => {
+describe("system.templatePriority is declared once, on the shared base", () => {
     it("declares a nullable integer NumberField initialized to null", () => {
         // The default must be the not-an-archetype state, and it must be `null`
         // rather than `0`: `0` is a real priority (SoHL's own archetypes ship at
@@ -68,7 +67,7 @@ describe("system.templatePriority is declared once, on the shared base (#1780, #
     });
 });
 
-describe("system.templatePriority is published on every Item and Actor subtype (#1780, #1836)", () => {
+describe("system.templatePriority is published on every Item and Actor subtype", () => {
     /** Every field path a subtype declares, own and inherited. */
     function fieldsOf(documentType: string, subtype: string): string[] {
         const entry = artifact.documents?.[documentType]?.[subtype];

@@ -12,7 +12,7 @@
  */
 
 /**
- * **Body laterality and side dominance** (#1253) — which side of a body a part
+ * **Body laterality and side dominance** — which side of a body a part
  * is on, which side a being favors, and whether a given grip is the off hand.
  *
  * This is the single home for the dominance question. It comes up wherever a

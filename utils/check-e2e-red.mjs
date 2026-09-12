@@ -14,7 +14,7 @@
 /**
  * CI guard: the frozen-subset Cypress e2e suite must stay green with no
  * **in-scope** spec left RED-skipped. This enforces Blocker III of the
- * Being-centric beta freeze (issue #958).
+ * Being-centric beta freeze.
  *
  * The whole `cypress/e2e` suite is **in scope** by default: every spec is
  * expected to pass on the frozen path. The only `it.skip` / `describe.skip`
@@ -51,7 +51,7 @@ const ROOT = "cypress/e2e";
  * frozen schema stands, only the deferred *behavior* is RED. When a fenced
  * feature lands, un-skip its spec(s) and delete its entry here.
  *
- * See the beta-scope plan (Blocker III / issue #958) for the in/out-of-scope
+ * See the beta-scope plan (Blocker III) for the in/out-of-scope
  * boundary these numbers draw.
  *
  * @type {Record<number, string>}
@@ -157,7 +157,7 @@ if (violations.length) {
     console.error(`\ncheck-e2e-red: ${violations.length} frozen-subset e2e violation(s):\n`);
     for (const v of violations) {
         // `loc` is already `file:line`; splitting it keeps the one format the
-        // whole lint chain now speaks (#1668).
+        // whole lint chain now speaks.
         const at = v.loc.lastIndexOf(":");
         emitDiagnostic({
             file: v.loc.slice(0, at),

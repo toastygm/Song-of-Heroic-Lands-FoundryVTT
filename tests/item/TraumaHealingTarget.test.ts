@@ -49,7 +49,7 @@ beforeEach(() => {
 });
 afterEach(() => vi.restoreAllMocks());
 
-describe("TraumaLogic.healing — the Healing Test target (#1181)", () => {
+describe("TraumaLogic.healing — the Healing Test target", () => {
     it("is a ValueModifier of Healing Rate × Healing Base", () => {
         const logic = makeWound({ healingRateBase: 4 }, 12);
         expect(logic.healing).toBeInstanceOf(ValueModifier);
@@ -66,7 +66,7 @@ describe("TraumaLogic.healing — the Healing Test target (#1181)", () => {
     });
 
     it("is DISABLED — not zero — for an untreated wound", () => {
-        // "Untreated" is a real state, distinct from a target of 0 (#1146/#1148),
+        // "Untreated" is a real state, distinct from a target of 0,
         // and being disabled is what makes the test auto-Critically-Fail.
         expect(makeWound({ healingRateBase: null }, 12).healing.disabled).toBeTruthy();
         // A rate on record but no treatment date is still untreated.
@@ -83,7 +83,7 @@ describe("TraumaLogic.healing — the Healing Test target (#1181)", () => {
     });
 });
 
-describe("a disabled healing target auto-Critically-Fails, whatever disabled it (#1181)", () => {
+describe("a disabled healing target auto-Critically-Fails, whatever disabled it", () => {
     it("forces the 00 face when healing is disabled for ANY reason", async () => {
         // Keyed on `disabled`, not on `isTreated` — so any future disabler (a
         // rule, a condition, an effect channel) inherits the auto-CF for free.

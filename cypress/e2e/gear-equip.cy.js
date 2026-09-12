@@ -21,25 +21,25 @@
  * - hold state (assigned via a body-part write — `cy.holdItem` / `cy.releaseItem`,
  *   a Combat-tab concern, not a gear action) and the combat-tab strike-mode gate
  *
- * The display + aggregation gating landed in #180; the hold roundtrip depends on
- * the parts-array fix in #247. (The `set*`/`holdItem`/`releaseItem` gear actions
+ * The hold roundtrip depends on the whole-array `parts` write. (The
+ * `set*`/`holdItem`/`releaseItem` gear actions
  * were retired: carry became a single toggle, worn moved to the armor-scoped
- * `toggleWorn` action / `isWorn` field (#662), and hold is a Combat-tab operation.)
+ * `toggleWorn` action / `isWorn` field, and hold is a Combat-tab operation.)
  *
  * Compendium weapongear cannot be embedded here: every weapon in `sohl.items`
  * still stores `strikeModes.defense` in the old flat schema, which throws in
- * `MeleeStrikeMode` during `prepareData()` (#246). Hold / combat-tab tests
+ * `MeleeStrikeMode` during `prepareData()`. Hold / combat-tab tests
  * therefore use an inline weapon with the correct nested defense schema. The
  * armor-gating test uses inline armor keyed to a body-location shortcode for a
  * controlled input; the compendium-armor path is now exercised too (the covered
- * locations were migrated from names to shortcodes in #358, closing #249).
+ * locations are addressed by shortcode, not by name).
  */
 
 // Stable, id-independent descriptor for the Mail Shirt armorgear (carry & equip
 // toggles) — resolved by `system.shortcode`, so it survives pack-id regeneration.
 const MAIL_SHIRT_REF = { shortcode: "mshirt", type: "armorgear" };
 
-/** Minimal weapongear with the correct nested defense schema (avoids #246). */
+/** Minimal weapongear with the correct nested defense schema. */
 const INLINE_WEAPON = {
     name: "Test Sword",
     system: {
@@ -92,7 +92,7 @@ function thoraxEdgedProtection(win, actorId) {
 /**
  * Set an armor's `isWorn` flag to a specific value directly — a deterministic
  * input for the aggregation-gate test (the `toggleWorn` action only flips it).
- * Worn state is armor-scoped (`system.isWorn`, #662).
+ * Worn state is armor-scoped (`system.isWorn`).
  */
 function setWorn(win, actorId, itemId, value) {
     return win.game.actors
@@ -138,7 +138,7 @@ describe("gear equip / hold → combat-tab display", () => {
 
     // ------------------------------------------------------------------ worn state
 
-    it("toggleWorn flips isWorn on armor (#662)", () => {
+    it("toggleWorn flips isWorn on armor", () => {
         cy.createActor("being", { name: "Worn Being" }).then((actor) => {
             cy.importItem("sohl.items", MAIL_SHIRT_REF, { actor }).then((armor) => {
                 // Armor defaults to not worn.
@@ -162,7 +162,7 @@ describe("gear equip / hold → combat-tab display", () => {
         });
     });
 
-    it("armor protection aggregates only while worn (#180 gate)", () => {
+    it("armor protection aggregates only while worn", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "armorgear", INLINE_ARMOR).then((armor) => {
                 // Not equipped by default → no protection on the thorax.
@@ -218,8 +218,8 @@ describe("gear equip / hold → combat-tab display", () => {
                 // Scope to THIS weapon's rows. Basic Folk owns unarmed
                 // combat techniques (punch, kick, bite, …) whose natural
                 // strike modes are intrinsic — they render with nothing
-                // held, so an unscoped `[data-sm-id]` never reaches zero
-                // (#1271). Each row carries its source item's id.
+                // held, so an unscoped `[data-sm-id]` never reaches zero.
+                // Each row carries its source item's id.
                 const rows = `section.tab[data-tab="combat"] [data-sm-id][data-item-id="${weapon.id}"]`;
 
                 // Not held: filterHeldWeapons excludes it, so no rows render.

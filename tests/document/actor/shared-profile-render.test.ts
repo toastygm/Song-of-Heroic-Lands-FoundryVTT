@@ -6,8 +6,8 @@
  */
 
 /**
- * Render the shared **Profile** part for real in Node and assert its HTML
- * (issue #1204). This is the tab the Cohort, Vehicle, and Structure sheets all
+ * Render the shared **Profile** part for real in Node and assert its HTML.
+ * This is the tab the Cohort, Vehicle, and Structure sheets all
  * use — the Being has its own, richer Profile — so these specs pin what the
  * shared part shows: the attribute grid (kept for every actor kind, empty or
  * not), the movement ledger with its star control, and the dossier editor.
@@ -143,7 +143,7 @@ describe("shared Profile part", () => {
 
         // The current row is marked and offers no action; the other offers it.
         // A shape change rather than a filled/hollow pair, so the marker cannot
-        // be confused with the Victory Stars on a result card (#1894).
+        // be confused with the Victory Stars on a result card.
         expect(html).toContain("fa-solid fa-circle-check");
         expect(html).toContain("fa-regular fa-circle");
         expect(html).toContain('data-action="makeDefaultMedium"');

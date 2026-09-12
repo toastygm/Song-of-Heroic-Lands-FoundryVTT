@@ -127,7 +127,7 @@ describe("actorItemRefOptions", () => {
         expect(actorItemRefOptions(null, ITEM_KIND.SKILL)).toEqual([]);
     });
 
-    describe("filter predicate (#1405)", () => {
+    describe("filter predicate", () => {
         it("narrows the options to the candidates the predicate accepts", () => {
             const actor = makeMockActor();
             addSkill(actor, "swd", "Sword");

@@ -37,7 +37,7 @@ function makeContent(rows: ReturnType<typeof makeRow>[]): any {
     };
 }
 
-describe("applySearchFilter (#104)", () => {
+describe("applySearchFilter", () => {
     it("shows all rows when query is empty", () => {
         const rows = [makeRow("Sword"), makeRow("Shield")];
         // Pre-mark one as hidden.

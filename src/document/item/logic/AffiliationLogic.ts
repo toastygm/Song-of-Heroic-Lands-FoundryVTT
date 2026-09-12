@@ -65,7 +65,7 @@ export class AffiliationLogic<
     level!: ValueModifier;
 
     /**
-     * This organization's standing toward another affiliation (#1404).
+     * This organization's standing toward another affiliation.
      *
      * Reads the persisted {@link AffiliationData.relations} table directly — it is
      * authored data, not derived state, so no lifecycle work builds it. Only
@@ -125,7 +125,7 @@ export class AffiliationLogic<
 export interface AffiliationData<
     TLogic extends SohlItemLogic<AffiliationData> = SohlItemLogic<any>,
 > extends SohlItemData<TLogic> {
-    /** The kind of body this is — one of the content format's eleven (#1788) */
+    /** The kind of body this is — one of the content format's eleven */
     subType: AffiliationSubType;
     /** Subdivision of the organization or faction */
     society: string | null;

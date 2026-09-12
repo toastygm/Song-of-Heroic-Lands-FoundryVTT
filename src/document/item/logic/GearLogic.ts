@@ -72,7 +72,7 @@ export abstract class GearLogic<
      * keyed by the cohort's shortcode, the stable key an author writes.
      * References that do not resolve are dropped. This is the inverse of
      * {@link sohl.document.actor.logic.CohortLogic.sharedGear}, which the
-     * Cohort sheet's Shared Gear tab renders (issue #76).
+     * Cohort sheet's Shared Gear tab renders.
      */
     sharedWithCohorts!: SohlActor[];
 
@@ -92,7 +92,7 @@ export abstract class GearLogic<
 
     /**
      * The derived impairment of the body part(s) currently holding this item —
-     * the per-part input to a held-weapon strike mode's impairment gating (#628).
+     * the per-part input to a held-weapon strike mode's impairment gating.
      * A weapon strike mode names its required limbs by count (`minParts`), not by
      * role, so this resolves the *specific* holding limbs (via {@link heldBy}) and
      * scores each through the being's body-part impairment. When any holding limb
@@ -166,7 +166,7 @@ export abstract class GearLogic<
 
     /**
      * The {@link sohl.entity.expr.SafeExpression} source that gates a gear
-     * action on the item being carried (issue #1097). Composed into each gated
+     * action on the item being carried. Composed into each gated
      * action's `trigger` by {@link gateOnCarried} — `trigger` rather than
      * `visible` because an uncarried item's actions must be genuinely
      * *unavailable* (refused by {@link sohl.entity.action.SohlAction.execute},
@@ -196,7 +196,7 @@ export abstract class GearLogic<
      * i18n key stamped onto each carried-gated action as its
      * {@link sohl.entity.action.SohlAction.Data.disabledReason}, so a UI
      * offering the action can say *why* it is refused instead of presenting a
-     * control that silently does nothing (issue #1135).
+     * control that silently does nothing.
      */
     static readonly CARRIED_DISABLED_REASON = "SOHL.Gear.actionRequiresCarried";
 
@@ -211,7 +211,7 @@ export abstract class GearLogic<
      *
      * Each gated definition also carries {@link CARRIED_DISABLED_REASON} as its
      * `disabledReason` (unless the author declared one), so a surface that
-     * offers the action can explain the refusal (issue #1135).
+     * offers the action can explain the refusal.
      *
      * The transform is **idempotent** — a subclass gates the list it already
      * received from its parent's `defineIntrinsicActions()`, so definitions pass
@@ -247,7 +247,7 @@ export abstract class GearLogic<
 
     /**
      * Additional `update()` payload applied alongside `system.isCarried: false`
-     * when this gear is set down (issue #1097). The base gear has no such
+     * when this gear is set down. The base gear has no such
      * state; a gear type carrying an "in use" flag of its own overrides this to
      * clear it, so that state can never outlive the carrying that made it
      * possible — see {@link sohl.document.item.logic.ArmorGearLogic}, which
@@ -351,7 +351,7 @@ export abstract class GearLogic<
      * {@link sohl.document.item.logic.ArmorGearLogic} overrides this so that
      * **worn** armor is excluded — a fitted harness rides the body rather than
      * hanging off it as load, while the same armor carried but not worn counts
-     * its full weight like any other cargo (#1009).
+     * its full weight like any other cargo.
      *
      * @returns `true` when this item's weight should be tallied as carried load.
      */

@@ -37,7 +37,7 @@ const BodyZoneConfig_Base: any = foundry.applications.api.HandlebarsApplicationM
  * It edits only the zone's own fields (name, shortcode, weight); the zone's
  * child **parts** are managed from the Combat-tab tree and edited by
  * {@link sohl.apps.foundry.BodyPartConfig}, and are preserved untouched here —
- * including across a shortcode rename, which re-points them (#780).
+ * including across a shortcode rename, which re-points them.
  *
  * @internal Foundry UI binding; not part of the public API.
  */
@@ -67,7 +67,7 @@ export class BodyZoneConfig extends (BodyZoneConfig_Base as typeof foundry.appli
             // Annotated so declaration emit does not have to name the
             // private static `#onSubmit`, which it can only spell with a
             // synthetic `__#N@#onSubmit` that no downstream `.d.ts`
-            // consumer can parse (issue #1613).
+            // consumer can parse.
             handler: BodyZoneConfig
                 .#onSubmit as foundry.applications.api.ApplicationV2.FormSubmission,
             closeOnSubmit: false,

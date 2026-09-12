@@ -12,14 +12,14 @@
  */
 
 /**
- * Being sheet header — status-effect toggles + affliction indicators (#306).
+ * Being sheet header — status-effect toggles + affliction indicators.
  *
  * Six pills are toggleable ActiveEffect statuses (Sleep/Prone/Stun/Incapacitated/
  * Unconscious/Dead); Aural-Shock and Fatigue are read-only indicators lit from an
  * active affliction of that subtype (matching the prototype). The health bar and
- * body-part grid are split out to #463 / #464 and not exercised here.
+ * body-part grid are covered elsewhere and not exercised here.
  */
-describe("Being sheet header: status toggles + affliction indicators (#306)", () => {
+describe("Being sheet header: status toggles + affliction indicators", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();
@@ -43,7 +43,7 @@ describe("Being sheet header: status toggles + affliction indicators (#306)", ()
 
     it("lights the Fatigue indicator from an active trauma, read-only (no toggle action)", () => {
         cy.importActor().then((actor) => {
-            // Fatigue (and Aural-Shock) are modeled as TRAUMA subtypes (#565/#306);
+            // Fatigue (and Aural-Shock) are modeled as TRAUMA subtypes;
             // the header indicator lights from an active trauma of that subtype.
             cy.createItemOn(actor, "trauma", {
                 name: "Weariness",

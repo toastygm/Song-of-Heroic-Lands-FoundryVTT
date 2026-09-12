@@ -297,7 +297,7 @@ describe("SohlAction.visible composes with trigger and permission", () => {
     });
 });
 
-describe("SohlAction.isAvailable / unavailableReason (#1135)", () => {
+describe("SohlAction.isAvailable / unavailableReason", () => {
     it("is true when the trigger passes against the action's own context", () => {
         expect(makeAction({ trigger: "true" }).isAvailable).toBe(true);
     });
@@ -390,7 +390,7 @@ describe("SohlAction.execute gates on permission then trigger", () => {
     });
 });
 
-describe("SohlAction.execute records lastRun (generic run record, #579)", () => {
+describe("SohlAction.execute records lastRun (generic run record)", () => {
     afterEach(() => vi.restoreAllMocks());
 
     /** An owning-document stub carrying `system.lastRun` + a spyable `update`. */

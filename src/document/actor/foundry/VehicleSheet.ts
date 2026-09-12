@@ -113,7 +113,7 @@ export class VehicleSheet extends SohlActorSheetBase {
 
     /**
      * Build the `occupants` part's render context: who is aboard, each row
-     * naming the actor its handle resolves to (#201).
+     * naming the actor its handle resolves to.
      *
      * @param context - The in-progress render context.
      * @param _options - Sheet render options (unused).

@@ -213,7 +213,7 @@ describe("SohlLogic", () => {
         });
     });
 
-    describe("delete confirmation dialog (#1353)", () => {
+    describe("delete confirmation dialog", () => {
         /** Drive `deleteDocument` to a declined dialog and return the spec it built. */
         async function captureDeleteSpec(): Promise<any> {
             const spy = vi.spyOn(FoundryHelpersMock, "dialog").mockResolvedValue(false);
@@ -224,7 +224,7 @@ describe("SohlLogic", () => {
 
         it("names the document type from the TYPES.* root Foundry reads", async () => {
             // `TYPE.<DOCUMENT>.<type>` was the pre-v10 spelling; those keys are
-            // gone (#1351), so building one yields a raw key in the dialog.
+            // gone, so building one yields a raw key in the dialog.
             const localize = vi.spyOn(sohl.i18n, "localize");
             await captureDeleteSpec();
             const asked = localize.mock.calls.map((c) => c[0]);
@@ -233,7 +233,7 @@ describe("SohlLogic", () => {
         });
 
         it("builds its caution from an author-static template, prose riding in data", async () => {
-            // Rule #10: `dialog()` Handlebars-compiles `content`, so localized
+            // `dialog()` Handlebars-compiles `content`, so localized
             // prose must arrive through `data` (escaped) rather than be spliced
             // into the template source. Mirrors ContainerGearLogic.
             const spec = await captureDeleteSpec();

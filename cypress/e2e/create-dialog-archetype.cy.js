@@ -12,8 +12,8 @@
  */
 
 /**
- * Create-dialog archetype picker (issue #604), on `system.templatePriority`
- * (#1780, renamed off `system.archetype` by #1836). The dialog seeds a new Being
+ * Create-dialog archetype picker, on `system.templatePriority`
+ * (`system.archetype` is the legacy spelling). The dialog seeds a new Being
  * from a populated archetype, or a blank one for **(none)**. The marker is
  * cleared to `null` when an archetype is _instantiated_ (dialog seed,
  * drop-to-embed) and preserved when copied verbatim (Import, Duplicate).
@@ -22,7 +22,7 @@
  * shipped compendium being marked. That is deliberate, and it is not merely
  * hygiene: which documents the built packs carry a marker on — and under which
  * key — depends on `@heroiclands/package-build`'s builders, which follow this
- * rename on their own schedule (HeroicLands/package-build#266). A spec that
+ * rename on their own schedule. A spec that
  * presents its own archetype is evidence about SoHL's discovery rules either
  * side of that, instead of evidence about which build produced the packs.
  *
@@ -67,7 +67,7 @@ function seedWorldArchetype(priority = 0) {
     );
 }
 
-describe("Create dialog: archetype seeding (#604, #1780)", () => {
+describe("Create dialog: archetype seeding", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -90,7 +90,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("Create → Being with the default archetype yields a populated being; blank Shortcode defaults to the archetype's (#643)", () => {
+    it("Create → Being with the default archetype yields a populated being; blank Shortcode defaults to the archetype's", () => {
         seedWorldArchetype(0).then((arch) => {
             cy.foundry((win) => {
                 // A typed Name overrides the archetype's; Shortcode is left at
@@ -126,7 +126,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
                 expect(r.archetype, "archetype cleared on instantiation").to.be.null;
                 // The typed Name wins…
                 expect(r.name, "typed name overrides").to.eq(tagName("Archetype Being"));
-                // …but a blank Shortcode now defaults to the archetype's own (#643),
+                // …but a blank Shortcode now defaults to the archetype's own,
                 // subject only to uniqueness bumping.
                 expect(r.shortcode, "archetype shortcode default").to.match(
                     new RegExp(`^${arch.shortcode}\\d*$`),
@@ -135,7 +135,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("archetype-first: the default archetype pre-fills Name and Shortcode (#643)", () => {
+    it("archetype-first: the default archetype pre-fills Name and Shortcode", () => {
         seedWorldArchetype(0).then((arch) => {
             cy.foundry((win) => {
                 win.__prefill = win.CONFIG.Actor.documentClass.createDialog({}, {}, {});
@@ -237,7 +237,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
             // what the packs happen to carry.
             const data = src.toObject();
             data.name = tagName("Imported Folk");
-            // Alphanumeric only — the create guard rejects anything else (#1397).
+            // Alphanumeric only — the create guard rejects anything else.
             data.system.shortcode = `imp${Date.now()}`;
             data.system.templatePriority = 3;
             const created = await win.Actor.create(data);
@@ -321,7 +321,7 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
         });
     });
 
-    it("the sheet control sets and clears system.templatePriority without editing JSON (#1780)", () => {
+    it("the sheet control sets and clears system.templatePriority without editing JSON", () => {
         // The point of moving the marker into the schema: a GM marks a document
         // from its sheet, instead of export → hand-edit JSON → re-import.
         cy.createWorldItem("skill", { name: tagName("Sheet Marked Skill") }).then((skill) => {
@@ -350,9 +350,9 @@ describe("Create dialog: archetype seeding (#604, #1780)", () => {
     // The migration rule itself is unit-tested (`migrateTemplatePriority`).
     // What only a live client can prove is that it is *wired* — that Foundry
     // actually routes a `system` block through `SohlDataModel.migrateData` on
-    // the way in, for every SoHL subtype. A world that pre-dates #1836 is
+    // the way in, for every SoHL subtype. A world carrying the legacy name is
     // exactly this: stored data carrying the old key.
-    it("migrates a pre-#1836 system.archetype to system.templatePriority (#1836)", () => {
+    it("migrates a legacy system.archetype to system.templatePriority", () => {
         cy.foundry(async (win) => {
             // Priority 0 on purpose: it is what SoHL's own archetypes ship at,
             // and the value any truthiness bug in the migration would swallow.

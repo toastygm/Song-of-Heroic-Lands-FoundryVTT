@@ -22,7 +22,7 @@ import * as FoundryHelpersMock from "@src/core/FoundryHelpers";
 import { BRAND, VALUE_DELTA_INFO } from "@src/utils/constants";
 
 /**
- * The **responder's** half of an opposed test (#1164) — phase 2, the Respond
+ * The **responder's** half of an opposed test — phase 2, the Respond
  * button's handler.
  *
  * `MasteryLevelModifier.opposedTestResume` is called on the mastery level of the
@@ -157,7 +157,7 @@ async function pendingContest(): Promise<{
     return { opposed, sourceML };
 }
 
-describe("MasteryLevelModifier.opposedTestResume — the responder rolls its own modifier (#1164)", () => {
+describe("MasteryLevelModifier.opposedTestResume — the responder rolls its own modifier", () => {
     it("rolls the target against the RESPONDER's mastery level, not an empty one", async () => {
         const { opposed } = await pendingContest();
         const responderML = makeML("Awareness", 75);

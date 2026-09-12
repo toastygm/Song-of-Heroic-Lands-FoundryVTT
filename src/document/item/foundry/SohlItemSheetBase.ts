@@ -162,7 +162,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
 
     /**
      * Whether the Description tab is showing the editor for a **pointer**
-     * description rather than the text it points at (#1357). Per open sheet and
+     * description rather than the text it points at. Per open sheet and
      * deliberately not persisted: a pointer reads as its target every time the
      * sheet is opened, and an author asks for the editor when they want it.
      */
@@ -304,7 +304,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
         const current = foundry.utils.getProperty(this.document, path) as string | null | undefined;
         // `data-expr-scope` carries the id the SafeExpressionField declared, so
         // the editor's autocomplete and live validation come from the same
-        // declaration the runtime validates against (#1142).
+        // declaration the runtime validates against.
         const scope = expressionScopes.get(target.dataset.exprScope);
         const result = await openExpressionEditorDialog(current, { scope });
         if (result === undefined) return;
@@ -371,8 +371,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
      * not bound here: ApplicationV2 delegates `data-action` clicks from a single
      * listener on the frame that survives every part re-render, whereas
      * per-node `addEventListener` calls made here bound to controls that a
-     * subsequent part swap detached, so the clicks never reached the handler
-     * (#734).
+     * subsequent part swap detached, so the clicks never reached the handler.
      *
      * @param context - The render context.
      * @param options - The render options.
@@ -389,7 +388,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
         // Mark an owned item's sheet root with its owning actor, the same
         // marker the actor sheets emit, so context-menu predicates opened from
         // within this sheet can resolve their `actorLogic` binding by the
-        // documented `[data-actor-id]` walk rather than by luck (#1132).
+        // documented `[data-actor-id]` walk rather than by luck.
         const ownerId = (this.document as any).actor?.id;
         if (el && ownerId) el.dataset.actorId = ownerId;
 
@@ -397,13 +396,13 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
 
         // Bind the effect/action context menus (right-click on an effect row
         // and click on a `⋮` control). `_contextMenu` is provided by the
-        // SohlDataModel sheet mixin (#501).
+        // SohlDataModel sheet mixin.
         if (el) (this as any)._contextMenu?.(el);
     }
 
     /**
-     * On close, forget that the Description tab was showing a pointer's editor
-     * (#1357), so reopening the sheet reads as the target's text again — the
+     * On close, forget that the Description tab was showing a pointer's editor,
+     * so reopening the sheet reads as the target's text again — the
      * state is a momentary "let me edit this", not a preference.
      *
      * @param options - The close options, forwarded to the base implementation.
@@ -518,7 +517,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
     /**
      * Prepare context for the sheet header.
      * Provides the item name, image, type label, and the archetype-marker
-     * control's binding (issue #1780).
+     * control's binding.
      * @param context - The render context to augment.
      * @param _options - Sheet render options (unused).
      * @returns The context extended with header fields.
@@ -542,7 +541,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
      *
      * The base implementation provides the common item properties
      * (notes, textReference) plus, for **gear**, the world's cohorts as the
-     * choices behind the `sharedWithCohortsField` control (issue #76).
+     * choices behind the `sharedWithCohortsField` control.
      * Subclasses override this to add type-specific properties.
      * @param context - The render context to augment.
      * @param _options - Sheet render options (unused).
@@ -562,7 +561,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
 
     /**
      * The world's Cohort actors as `{value,label}` choices for the gear
-     * sharing control (issue #76), keyed by each cohort's `system.shortcode` —
+     * sharing control, keyed by each cohort's `system.shortcode` —
      * the stable, human-written reference a sharing list records.
      *
      * Empty for a non-gear item, or when the world has no cohort (or none the
@@ -591,9 +590,9 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
      * `system.docHtml` (see `description.hbs`), which takes the raw value and
      * enriches for display itself — no pre-enriched HTML needed.
      *
-     * A description that is *only* a link is a **pointer** (#1356): the item's
+     * A description that is *only* a link is a **pointer**: the item's
      * description lives at the target, so showing the link would hand a reader
-     * machinery instead of content (#1357). The target's text is resolved and
+     * machinery instead of content. The target's text is resolved and
      * shown read-only instead, and {@link _onToggleDescriptionEdit} swaps in the
      * editor — holding the link — for an author who wants to re-aim it.
      *
@@ -616,7 +615,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
             // Enriched (content links and inline rolls stay live) and passed
             // through Foundry's allowlist sanitizer, since the tab injects it
             // as markup rather than handing it to an element that enriches for
-            // itself (issue #161).
+            // itself.
             descriptionHtml: editing ? "" : fvttCleanHTML(await resolveDescriptionHtml(docHtml)),
         });
     }

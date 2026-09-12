@@ -15,11 +15,11 @@
  * Afflictions — contract / transmit / course / treat / heal.
  *
  * The affliction item persists and carries logic (GREEN), and the being can now
- * contract a disease via `BeingLogic.contractDisease` (#391 — search world/pack
+ * contract a disease via `BeingLogic.contractDisease` (search world/pack
  * diseases or describe a custom one, roll CI×Endurance, create on failure). The
  * per-affliction `AfflictionLogic` lifecycle is still unimplemented: transmit
  * warns "Not Implemented" and the course / diagnosis / treatment tests
- * `throw "… Not Implemented"`. RED against #67/#68.
+ * `throw "… Not Implemented"`. RED until the affliction lifecycle lands.
  */
 
 describe("afflictions", () => {
@@ -41,13 +41,13 @@ describe("afflictions", () => {
         });
     });
 
-    // GREEN (#65): the Course / Treatment / Healing action-visibility predicates
+    // GREEN: the Course / Treatment / Healing action-visibility predicates
     // are restored against the live actor. Course and Healing require the bearer
     // to have a usable Endurance attribute (as the pre-port gate did); Course is
     // additionally gated on the affliction being active, Treatment on it being
     // untreated, and Healing on a non-disabled healing rate. Afflictions have no
     // `isBleeding` field (that lives on Trauma), so no bleeding gate applies.
-    describe("action gating (#65)", () => {
+    describe("action gating", () => {
         it("active, untreated, self-healing affliction on a being with Endurance offers Course/Treat/Heal", () => {
             cy.importActor().then((actor) => {
                 cy.createItemOn(actor, "affliction", {
@@ -79,7 +79,7 @@ describe("afflictions", () => {
                         levelBase: 2,
                         healingRateBase: null,
                         isDormant: true,
-                        // `isTreated` is derived from `treatmentDate` (#484), so a
+                        // `isTreated` is derived from `treatmentDate`, so a
                         // treated affliction is modelled by setting the date, not
                         // the (now read-only) flag — otherwise canTreat stays true.
                         treatmentDate: 1,
@@ -119,14 +119,14 @@ describe("afflictions", () => {
         });
     });
 
-    // RED — blocked by #67/#68: the affliction lifecycle is unimplemented —
+    // RED — blocked on the affliction lifecycle, which is unimplemented —
     // contract / transmit / course / diagnosis / treatment throw or warn
     // "Not Implemented" (AfflictionLogic), and BeingLogic.contractAfflictionTest
-    // is a stub returning null. #68 is the affliction test-suite epic; #67 covers
-    // the remaining condition predicates (canTransmit / canContract). Un-skip and
-    // assert the resolved effects once implemented.
-    it.skip("contract test resolves an affliction (#67, #68)", () => {});
-    it.skip("transmit propagates an affliction (#67, #68)", () => {});
-    it.skip("course advances an affliction (#67, #68)", () => {});
-    it.skip("treat / heal resolves an affliction (#67, #68)", () => {});
+    // is a stub returning null. The condition predicates (canTransmit /
+    // canContract) are missing too. Un-skip and assert the resolved effects
+    // once implemented.
+    it.skip("contract test resolves an affliction (#67/#68)", () => {});
+    it.skip("transmit propagates an affliction (#67/#68)", () => {});
+    it.skip("course advances an affliction (#67/#68)", () => {});
+    it.skip("treat / heal resolves an affliction (#67/#68)", () => {});
 });

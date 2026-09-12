@@ -12,7 +12,7 @@
  */
 
 /**
- * Actor→actor drag semantics (#296): dropping an item that lives on another
+ * Actor→actor drag semantics: dropping an item that lives on another
  * actor MOVES it (created here, removed there). Non-gear moves the instance;
  * physical gear moves with quantity — a "How Many?" dialog for stacks > 1,
  * skipped for single items and shift-drag (move all).

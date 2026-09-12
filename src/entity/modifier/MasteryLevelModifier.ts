@@ -174,7 +174,7 @@ function getStandardSuccessDescriptionTable(
 }
 
 /*
- * ── Construction indirection: base class (#83) ───────────────────────────────
+ * ── Construction indirection: base class ───────────────────────────────
  * Registered entity classes are constructed through the registry so a variant
  * module can override them. Inside SoHL that means `import { entity }` then
  * `new entity.X(...)`; outside SoHL it is `new sohl.entity.X(...)`.
@@ -300,7 +300,7 @@ export class MasteryLevelModifier extends ValueModifier {
         this.successLevelMod = data.successLevelMod ?? 0;
         // The canonical HârnMaster success test crits on any roll ending in a
         // multiple of 5, so both lists default to [0, 5]; a test that wants no
-        // criticals passes an explicit [] (which `??` preserves) (#908).
+        // criticals passes an explicit [] (which `??` preserves).
         this.critFailureDigits = data.critFailureDigits ?? [0, 5];
         this.critSuccessDigits = data.critSuccessDigits ?? [0, 5];
         // Tables ride the wire as data; revive any serialized SafeExpression rows
@@ -318,12 +318,12 @@ export class MasteryLevelModifier extends ValueModifier {
             data.title ??
             // `…successTest` is a namespace holding `.title` / `.dialogTitle` /
             // `.dialogLabel`, not a string — formatting the bare prefix put the
-            // raw key in every standard test card's header (#1107).
+            // raw key in every standard test card's header.
             sohl.i18n.format("SOHL.MasteryLevelModifier.successTest.title", {
                 label: this.parent.label,
             });
         // Apply now that this subclass's fields are set (see ValueModifier's
-        // constructor for why the base defers the most-derived apply) (#769).
+        // constructor for why the base defers the most-derived apply).
         if (new.target === MasteryLevelModifier) this._apply();
     }
 
@@ -415,7 +415,7 @@ export class MasteryLevelModifier extends ValueModifier {
         context.scope.resultDescTable ??= this.testDescTable;
 
         // A test whose governing skill/attribute depends on a body part the actor
-        // cannot use auto-Critically-Fails (#568). Derived from the owning logic's
+        // cannot use auto-Critically-Fails. Derived from the owning logic's
         // `impairedByRoles` and the being's unusable-part roles; a no-op for tests
         // with neither (e.g. a weapon strike mode, whose parent has no roles).
         const impairedByRoles = (this.parent?.data as { impairedByRoles?: string[] } | undefined)
@@ -428,7 +428,7 @@ export class MasteryLevelModifier extends ValueModifier {
         );
 
         // A weapon strike mode names no roles; it depends on the *specific* limb(s)
-        // holding it (#628). If any required limb is unusable the test likewise
+        // holding it. If any required limb is unusable the test likewise
         // auto-Critically-Fails; the impairment of each holding limb is exposed by
         // the parent gear logic. A no-op for a parent that holds nothing (a skill,
         // attribute, or unheld item → empty array).
@@ -440,8 +440,8 @@ export class MasteryLevelModifier extends ValueModifier {
 
         // If the test does not auto-fail, an impaired-but-usable part it depends on
         // still penalizes it by −5 (minor) / −10 (serious) — the numeric counterpart
-        // to the auto-CF above, from either the role-gated parts (#568) or the held
-        // limbs (#628). The worst (most negative) of the two applies, never their
+        // to the auto-CF above, from either the role-gated parts or the held
+        // limbs. The worst (most negative) of the two applies, never their
         // sum. A no-op for tests with no roles/limbs or no impaired parts.
         const impairmentPenalty =
             autoCriticalFail ? 0 : (
@@ -471,7 +471,7 @@ export class MasteryLevelModifier extends ValueModifier {
                     masteryLevelModifier: this.clone(this.parent) as MasteryLevelModifier,
                     targetValueFunc: context.scope.targetValueFunc,
                     resultDescTable: context.scope.resultDescTable,
-                    // A Success Value test (#848) marks the result so its card
+                    // A Success Value test marks the result so its card
                     // shows the Success Value / Value Diamonds; a plain test does
                     // not. Passed as data via scope, no bespoke test method.
                     isSuccessValue: context.scope.isSuccessValue ?? false,
@@ -479,12 +479,12 @@ export class MasteryLevelModifier extends ValueModifier {
                     // and the owning item does not. A chat card reads the
                     // combatant's name off the result's token, so the responding
                     // side of an opposed test passes the contest's target token
-                    // here (#1164); an ordinary item-menu test omits it.
+                    // here; an ordinary item-menu test omits it.
                     tokenUuid: context.scope.tokenUuid,
                     // A caller-supplied die (`scope.roll`) is resolved untouched
                     // by `evaluate()` instead of a fresh d100 being cast — used
                     // where the outcome is fixed by rule and there is nothing to
-                    // test (an untreated wound, #1148). Omitted for an ordinary
+                    // test (an untreated wound). Omitted for an ordinary
                     // test, which rolls normally.
                     roll: context.scope.roll,
                     autoCriticalFail,
@@ -492,7 +492,7 @@ export class MasteryLevelModifier extends ValueModifier {
                     // a Fate spend when the owning item has an available Fate
                     // Point (gated by `availableFate`). A caller opts out with
                     // `scope.canFate: false` — notably the Fate test itself, so a
-                    // Fate roll can't in turn be fated (#854).
+                    // Fate roll can't in turn be fated.
                     canFate: context.scope.canFate ?? true,
                 },
                 {
@@ -508,7 +508,7 @@ export class MasteryLevelModifier extends ValueModifier {
             throw new Error("Failed to create SuccessTestResult.");
         }
 
-        // Fold in the impaired-but-usable body-part penalty (#568). Only on a
+        // Fold in the impaired-but-usable body-part penalty. Only on a
         // freshly-created test — a resumed `priorTestResult` already carries it,
         // so re-adding would double-apply.
         if (!context.scope.priorTestResult && impairmentPenalty < 0) {
@@ -550,8 +550,7 @@ export class MasteryLevelModifier extends ValueModifier {
                 rollModes: speakerRollModeOptions(),
                 // Only an opposed test can end in a tie, so only it offers the
                 // Break Ties choice — and only the initiator makes it, unchecked
-                // by default: a tie stands unless a rule or ruling says otherwise
-                // (#1160).
+                // by default: a tie stands unless a rule or ruling says otherwise.
                 askBreakTies: context.scope.askBreakTies ?? false,
                 breakTies: context.scope.breakTies ?? false,
             };
@@ -619,7 +618,7 @@ export class MasteryLevelModifier extends ValueModifier {
             // Post the graded card (unless the caller suppresses chat). The SV
             // test is a normal success test whose result is graded into a Success
             // Value and Value Diamonds — the "special results" are the svTable data
-            // in scope, not a bespoke test method (#848).
+            // in scope, not a bespoke test method.
             noChat: context.noChat,
             skipDialog: context.skipDialog,
             scope: {
@@ -671,7 +670,7 @@ export class MasteryLevelModifier extends ValueModifier {
             });
             // Offer the Break Ties choice on the initiator's pre-roll dialog —
             // only when starting a fresh contest, since a resumed one already
-            // carries the answer given when it began (#1160).
+            // carries the answer given when it began.
             scope.askBreakTies = true;
 
             if (!scope.targetToken.isOwner) {
@@ -762,8 +761,8 @@ export class MasteryLevelModifier extends ValueModifier {
         // nothing: the `OpposedTestResult` constructor always materializes a
         // placeholder target from the target token, so a `!targetTestResult`
         // guard is never true and every Respond took the "already rolled" path —
-        // rolling the defender against that placeholder's **empty** modifier
-        // (#1164). Ask the die instead.
+        // rolling the defender against that placeholder's **empty** modifier.
+        // Ask the die instead.
         successTestContext.scope =
             priorTarget?.roll.isRolled ?
                 // Already rolled: reuse it untouched (`successTest` never

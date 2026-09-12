@@ -12,7 +12,7 @@
  */
 
 /**
- * Being Skills tab drag-and-drop (#1528).
+ * Being Skills tab drag-and-drop.
  *
  * A skill's group is its subType, so **a drag never re-parents**: dropping onto
  * another group clamps the skill to the near edge of its own — bottom when
@@ -23,7 +23,7 @@
  * The four cases below are the rule; a passing "reorder within a group" alone
  * would not catch a regression that re-parents on a cross-group drop.
  */
-describe("Being Skills tab: drag to reorder (#1528)", () => {
+describe("Being Skills tab: drag to reorder", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

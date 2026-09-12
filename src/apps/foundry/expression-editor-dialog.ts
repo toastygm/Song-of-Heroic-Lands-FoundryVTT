@@ -19,7 +19,7 @@ import type { ExpressionScope } from "@src/entity/expr/ExpressionScopeRegistry";
 import { mountExpressionEditor, type MountedExpressionEditor } from "./expression-codemirror";
 
 /**
- * The editor body. **Author-static** Handlebars source (Rule #10): only the
+ * The editor body. **Author-static** Handlebars source: only the
  * helper palette rides in `data.helpers` (each name escaped). The editable
  * expression is **not** interpolated into the template — it is passed to the
  * CodeMirror editor programmatically in {@link wireEditor}, which mounts into the

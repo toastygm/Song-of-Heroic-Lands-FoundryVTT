@@ -12,13 +12,13 @@
  */
 
 /**
- * Being Trauma tab — Afflictions section (#309): afflictions grouped by subtype
- * with Name / Category / Level / HR / Next Heal Test columns (#943 — the former
+ * Being Trauma tab — Afflictions section: afflictions grouped by subtype
+ * with Name / Category / Level / HR / Next Heal Test columns (the former
  * Source column is now the explicit Category column, and a calendar-formatted
  * Next Heal Test replaces Notes), a custom-create control (data-type=affliction),
- * and a per-row context menu. (The Trauma tab has no search filter — #312.)
+ * and a per-row context menu. (The Trauma tab has no search filter.)
  */
-describe("Being Trauma tab: Afflictions section (#309)", () => {
+describe("Being Trauma tab: Afflictions section", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.closeAllSheets().then(() => cy.cleanupWorld()));
     Cypress.on("uncaught:exception", () => false);
@@ -28,8 +28,8 @@ describe("Being Trauma tab: Afflictions section (#309)", () => {
             cy.createItemOn(actor, "affliction", {
                 name: "Wasting Fever",
                 system: {
-                    // fatigue moved to TRAUMA_SUBTYPE (#565); afflictions are
-                    // other / disease / poisontoxin / maladiction (#1003).
+                    // fatigue moved to TRAUMA_SUBTYPE; afflictions are
+                    // other / disease / poisontoxin / maladiction.
                     subType: "disease",
                     levelBase: 2,
                     healingRateBase: 4,
@@ -47,7 +47,7 @@ describe("Being Trauma tab: Afflictions section (#309)", () => {
         });
     });
 
-    it("renders the Category, Level, HR and Next Heal Test columns (#943)", () => {
+    it("renders the Category, Level, HR and Next Heal Test columns", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "affliction", {
                 name: "Marsh Ague",
@@ -80,7 +80,7 @@ describe("Being Trauma tab: Afflictions section (#309)", () => {
             cy.createItemOn(actor, "affliction", {
                 name: "Numbing Cold",
                 system: {
-                    // privation was removed in the #565 subtype reorg; "other" is
+                    // privation is not a subtype; "other" is
                     // the catch-all affliction subtype.
                     subType: "other",
                     levelBase: 1,
@@ -96,20 +96,20 @@ describe("Being Trauma tab: Afflictions section (#309)", () => {
             cy.get(
                 'section.tab[data-tab="trauma"] .afflictions-list .item .item-contextmenu',
             ).should("exist");
-            // The Trauma tab is not searchable (#312).
+            // The Trauma tab is not searchable.
             cy.get('section.tab[data-tab="trauma"] input[name="search-afflictions"]').should(
                 "not.exist",
             );
         });
     });
 
-    it("renders a maladiction (supernatural) affliction with its subtype label (#1003)", () => {
+    it("renders a maladiction (supernatural) affliction with its subtype label", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "affliction", {
                 name: "Withering Curse",
                 system: {
                     // maladiction: the supernatural affliction subtype added in
-                    // #1003 (curse/hex/divine blight).
+                    // curse/hex/divine blight.
                     subType: "maladiction",
                     levelBase: 2,
                     healingRateBase: 3,

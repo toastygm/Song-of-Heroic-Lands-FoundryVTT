@@ -35,7 +35,7 @@ function schemaFieldFor(item, name) {
  * `perceptionPenaltyBase` is `max: 0`, because a perception penalty is zero or
  * negative — and Foundry cleans an out-of-range value back to the field's
  * initial. Probing such a field with `3` therefore fails the round-trip
- * assertion against a system that is behaving correctly (#1359).
+ * assertion against a system that is behaving correctly.
  *
  * Bounds come from the schema when the path resolves, else from the input's own
  * `min`/`max` attributes. Candidates are tried in order and the first in-range
@@ -89,7 +89,7 @@ function pickNumericValue(item, el) {
  *     (`describe.skip`) — for kinds whose sheet is not yet functional.
  *
  * Beyond text/number persistence, the suite also sweeps `<select>` (choice) and
- * checkbox (boolean) fields (#500), and guards that every rendered `system.*`
+ * checkbox (boolean) fields, and guards that every rendered `system.*`
  * input maps to a real schema field — so a template referencing a field the
  * schema doesn't define is caught rather than silently accepted.
  */
@@ -217,7 +217,7 @@ export function itemSheetSuite(kind, opts = {}) {
                         // and conditionally hide another (e.g. trauma shows
                         // `aspect` only when `subType` is "injury") — or
                         // disable it (armor's `isWorn` is gated on
-                        // `isCarried`, #1097). Skip a planned field a prior
+                        // `isCarried`). Skip a planned field a prior
                         // edit removed or locked: a field not shown, or
                         // shown disabled, can't be set in the current state.
                         cy.then(function () {

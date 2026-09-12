@@ -14,7 +14,7 @@
 import "../support/commands";
 
 /**
- * #1269 — a limb being **immobilized** and a limb being unable to **hold** are
+ * A limb being **immobilized** and a limb being unable to **hold** are
  * two different states.
  *
  * `BodyPart` carries one settable switch (`isUnusable`) and two derivations
@@ -26,12 +26,12 @@ import "../support/commands";
  * the right limb, its deletion freeing that limb, and a grievous wound persisting
  * the drop of the weapon the limb was holding.
  */
-describe("limb immobilization vs. the ability to hold (#1269)", () => {
+describe("limb immobilization vs. the ability to hold", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => cy.cleanupWorld());
 
-    /** Minimal weapongear with the correct nested defense schema (cf. #246). */
+    /** Minimal weapongear with the correct nested defense schema. */
     const INLINE_WEAPON = {
         name: "Test Sword",
         system: {

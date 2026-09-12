@@ -12,7 +12,7 @@
  */
 
 /**
- * Scene-region & environment event triggers (#593). Proven end to end in a real
+ * Scene-region & environment event triggers. Proven end to end in a real
  * Foundry:
  *
  * - A **"SoHL Event Trigger"** RegionBehavior (`trigger`) can be created on a
@@ -30,7 +30,7 @@
  * causes it — by moving a token — rather than by calling `_handleRegionEvent`.
  */
 
-describe("Scene-region & environment triggers (#593)", () => {
+describe("Scene-region & environment triggers", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

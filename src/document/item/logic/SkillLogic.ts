@@ -181,7 +181,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
 
     /**
      * Whether this skill exposes a melee strike mode — the gate the block and
-     * counterstrike actions hang their visibility on (#1137). A missile combat
+     * counterstrike actions hang their visibility on. A missile combat
      * technique (a flung quill, spat venom) can never block or counterstrike,
      * so it must not offer those actions.
      */
@@ -237,7 +237,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
     /**
      * Spend Fate on this skill's test — the shared post-roll bump flow
      * ({@link sohl.document.item.logic.performFateTest}); the die is never
-     * re-rolled (#854).
+     * re-rolled.
      *
      * Triggered at the player's behest by the test card's Fate button or the
      * Being sheet's fate cell.
@@ -320,7 +320,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
      *
      * This is the eligibility set the Fate action is gated on (available iff ≥1)
      * and the source list a spend is drawn from. Fate Points are not a scalar —
-     * they live as charges distributed across these Mystery items (#854).
+     * they live as charges distributed across these Mystery items.
      *
      * @returns The eligible-and-charged Fate {@link MysteryLogic} instances
      *   (empty off an actor).
@@ -338,7 +338,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
             (fvttIsCurrentUserGM() || this.data.isOwner) &&
             // `masteryLevel` is seeded in initialize(); guard against reading it
             // on a not-yet-initialized skill (e.g. the sheet rendering before the
-            // actor's prepare completes) so this getter can't throw (#511 class).
+            // actor's prepare completes) so this getter can't throw.
             !this.masteryLevel?.disabled
         );
     }
@@ -356,7 +356,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
     /**
      * The attribute shortcodes this skill's Skill Base is **based on**, ordered
      * **primary first** — the answer to "which attributes does this skill use?"
-     * without a caller having to parse the formula itself (#1175).
+     * without a caller having to parse the formula itself.
      *
      * Read off the parsed formula, so it can never drift from the formula the way
      * a separately-stored list would:
@@ -424,7 +424,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
      * Performs a **Success Value test** against this skill's mastery level — a
      * success test graded into a Success Value (Index + Modifier) and Success
      * Stars via the skill's `svTable`, for resolving sustained work (crafting,
-     * sailing, research) in a single roll instead of many (#848).
+     * sailing, research) in a single roll instead of many.
      *
      * Intrinsic-action executor for the `successValueTest` action; delegates to
      * {@link sohl.entity.modifier.MasteryLevelModifier.successValueTest}, which
@@ -610,7 +610,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
             // attack/block/counterstrike actions as a weapon (shared executor via
             // runStrikeModeTest); gated to the combattechnique subtype. Block
             // and counterstrike additionally require a melee strike mode — a
-            // missile technique cannot defend, so they are not offered (#1137).
+            // missile technique cannot defend, so they are not offered.
             {
                 shortcode: "attackTest",
                 subType: ACTION_SUBTYPE.INTRINSIC,
@@ -655,7 +655,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
      * value-returning {@link sohl.entity.expr.SafeExpression} against a
      * Foundry-free context of attribute **values** (`attr.<shortcode>`).
      * The raw string is compiled here at evaluation time, never at
-     * author time (rule #10) — a world-item skill (no actor) simply evaluates
+     * author time — a world-item skill (no actor) simply evaluates
      * against an empty context where every `attr.*` is `0`.
      *
      * - A blank/absent source yields `{ value: 0, expr: null }` — blank is not
@@ -875,7 +875,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
         // it derives from the actor's Aura attribute, whose mastery level is not
         // settled during initialize(). A skill whose Skill Base is *based on*
         // Aura cannot be fated at all — read off the parsed basis, so a formula
-        // that merely adjusts its result by Aura keeps fate (#1175).
+        // that merely adjusts its result by Aura keeps fate.
         this.fateMasteryLevel = buildFateMasteryLevel(
             this as unknown as FateHost,
             this.skillBaseAttrs.includes(AURA_SHORTCODE),
@@ -911,7 +911,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
 
             applyGoverningMasteryLevel(this.strikeMode, governing);
             // A prone wielder suffers −20 to all melee attacks and defenses
-            // (#562) — a combat technique carries its own strike mode, so apply
+            // — a combat technique carries its own strike mode, so apply
             // it here as WeaponGearLogic does for weapon strike modes.
             if (
                 this.strikeMode instanceof MeleeStrikeMode &&
@@ -920,7 +920,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
             ) {
                 applyProneMeleePenalty(this.strikeMode);
             }
-            // Fold the wielder's Strength into the technique's impact (#1253),
+            // Fold the wielder's Strength into the technique's impact,
             // as WeaponGearLogic does for weapon strike modes. A technique is
             // gripped by no limb, so it is never off-hand.
             applyWielderStrengthImpact(this);

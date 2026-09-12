@@ -12,14 +12,14 @@
  */
 
 /**
- * Item-sheet array editors persist on a **real DOM click** (#734).
+ * Item-sheet array editors persist on a **real DOM click**.
  *
- * The shared `.add-array-item` / `.delete-array-item` controls used to be bound
- * with per-node `addEventListener` in `_onRender`; those nodes were detached by
- * a later part swap, so a genuine click never reached the handler even though
- * invoking it directly worked. They are now wired via ApplicationV2's delegated
- * `data-action`, so these specs click the live control in the sheet (never call
- * the handler) and assert the array field persisted.
+ * The shared `.add-array-item` / `.delete-array-item` controls are wired via
+ * ApplicationV2's delegated `data-action`. Binding them per-node with
+ * `addEventListener` in `_onRender` instead leaves the nodes detached by a
+ * later part swap, so a genuine click never reaches the handler even though
+ * invoking it directly works. These specs therefore click the live control in
+ * the sheet (never call the handler) and assert the array field persisted.
  *
  * Uses the Attribute sheet, which carries both a primitive list (Impaired By
  * Roles, delete-by-value) and an object list (Value Descriptors, delete-by-index).
@@ -64,7 +64,7 @@ function addValueViaDialog(attr, value) {
     });
 }
 
-describe("item-sheet array editors persist on click (#734)", () => {
+describe("item-sheet array editors persist on click", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

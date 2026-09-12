@@ -48,7 +48,7 @@ const TIE_BREAK_LABEL: Record<OpposedTestResult.TieBreakReason, string> = {
 };
 
 /*
- * ── Construction indirection: base class (#83) ───────────────────────────────
+ * ── Construction indirection: base class ───────────────────────────────
  * Registered entity classes are constructed through the registry so a variant
  * module can override them. Inside SoHL that means `import { entity }` then
  * `new entity.X(...)`; outside SoHL it is `new sohl.entity.X(...)`.
@@ -368,7 +368,7 @@ export class OpposedTestResult extends TestResult {
      * than the live results, because the delegated
      * {@link sohl.entity.result.SuccessTestResult.toChat} folds this through
      * `fvttMergeObject`, which deep-copies and would strip a live instance's
-     * getters. That delegation also honors the caller's `template` now (#845), so
+     * getters. That delegation also honors the caller's `template` now, so
      * the opposed card is no longer overridden by the standard test card.
      *
      * @param data - Extra template data; `template` / `title` select and label
@@ -401,14 +401,14 @@ export class OpposedTestResult extends TestResult {
             // The contest's own visibility, applied by the delegate below. The
             // default (`"roll"`) means "the client's configured mode", so this
             // changes nothing until someone sets a mode — as the GM edit pencil
-            // does from its Roll Visibility field (#1099).
+            // does from its Roll Visibility field.
             rollMode: this.rollMode,
             template:
                 (data.template as string | undefined) ??
                 "systems/sohl/templates/chat/opposed-request-card.hbs",
             // Localized here, not handed to the card as a bare key: the template
             // prints `{{title}}` verbatim, so the raw key would show up in the
-            // header of every request card (#1161).
+            // header of every request card.
             title:
                 (data.title as string | undefined) ??
                 sohl.i18n.localize("SOHL.OpposedTestResult.toChat.title"),
@@ -417,12 +417,11 @@ export class OpposedTestResult extends TestResult {
             sourceWins: this.sourceWins,
             targetWins: this.targetWins,
             // A contest with no winner is either a tie or a mutual failure; the
-            // card must tell them apart rather than calling both "Both Fail!"
-            // (#1081).
+            // card must tell them apart rather than calling both "Both Fail!".
             isTied: this.isTied,
             bothFail: this.bothFail,
             // A tie the tie-break rule settled reports the winner plus which rule
-            // decided it, so the players can see why (#1160).
+            // decided it, so the players can see why.
             isTieBroken: this.isTieBroken,
             tieBreakKey: TIE_BREAK_LABEL[this.tieBreakReason],
             vsStars: this.victoryStarMarks,

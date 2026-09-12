@@ -12,7 +12,7 @@
  */
 
 /**
- * The general **Shock Test** action (#850), end to end in a real Foundry. Shock
+ * The general **Shock Test** action, end to end in a real Foundry. Shock
  * is a general primitive: a caller supplies a base Shock State Index (SSI) and
  * the action rolls the Shock skill, maps the result to a shock state, and OFFERS
  * to set it (worsen-only). Applying it toggles the real Stunned / Incapacitated /
@@ -25,7 +25,7 @@
  * the runtime wiring: the action sets the actual shock status on a real actor.
  */
 
-describe("Shock Test action (#850)", () => {
+describe("Shock Test action", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

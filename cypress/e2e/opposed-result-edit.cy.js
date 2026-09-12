@@ -12,8 +12,8 @@
  */
 
 /**
- * GM re-edit of a settled opposed contest, end-to-end (#1082). The pencil in the
- * Opposed Action Result card's header used to emit an **empty** `data-action`
+ * GM re-edit of a settled opposed contest, end-to-end. The pencil in the
+ * Opposed Action Result card's header must not emit an **empty** `data-action`
  * (`testType.action` off a plain string) and no `data-scope`, so clicking it
  * reached no handler at all.
  *
@@ -129,7 +129,7 @@ function postContest(actor, srcSkill, tgtSkill) {
     });
 }
 
-describe("GM opposed-result edit — the result card's pencil (#1082)", () => {
+describe("GM opposed-result edit — the result card's pencil", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {

@@ -12,7 +12,7 @@
  */
 
 /**
- * HTML sanitization (#161).
+ * HTML sanitization.
  *
  * SoHL's `FoundryHelpers.toSanitizedHTML` — the single sanitizer for all
  * chat-card and dialog content — delegates to Foundry's built-in allowlist
@@ -22,10 +22,10 @@
  *
  * This spec exercises `foundry.utils.cleanHTML` in the live browser to prove
  * (a) it is present in the runtime our shim assumes, (b) it neutralizes the
- * denylist-bypass vectors from #161, and (c) it preserves the benign chat-card
+ * known denylist-bypass vectors, and (c) it preserves the benign chat-card
  * markup our dispatch relies on — most importantly the `data-*` attributes.
  */
-describe("HTML sanitization (#161)", () => {
+describe("HTML sanitization", () => {
     before(() => cy.login());
 
     // Each vector is neutralized by Foundry's allowlist: a disallowed tag is

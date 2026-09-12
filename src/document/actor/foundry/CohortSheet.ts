@@ -32,7 +32,7 @@ export class CohortSheet extends SohlActorSheetBase {
         // The Members-tab controls. Each dispatches the matching intrinsic
         // action on the cohort's logic rather than writing `system.members`
         // here, so the tab and the Actions tab share one implementation
-        // (issue #1151) — the seam gear's `toggleCarried` control uses.
+        // — the seam gear's `toggleCarried` control uses.
         actions: {
             addCohortMember: CohortSheet._onAddCohortMember,
             removeCohortMember: CohortSheet._onRemoveCohortMember,
@@ -143,7 +143,7 @@ export class CohortSheet extends SohlActorSheetBase {
      *
      * Without this the tab had no context of its own at all, which — together
      * with a template binding fields the schema never carried — is why it
-     * listed nothing (issue #1151).
+     * listed nothing.
      *
      * @param context - The in-progress render context.
      * @param _options - Sheet render options (unused).
@@ -164,7 +164,7 @@ export class CohortSheet extends SohlActorSheetBase {
     /**
      * Build the `sharedgear` part's render context: the gear this cohort's
      * members have marked as shared with it, each row naming the member that
-     * carries it (issue #76).
+     * carries it.
      *
      * The view is **read-only**. Gear stays on its custodian and is edited
      * there, so the ledger carries no create/delete controls, no carried or worn
@@ -190,7 +190,7 @@ export class CohortSheet extends SohlActorSheetBase {
     }
 
     /* -------------------------------------------- */
-    /*  Members tab controls (#1151)                */
+    /*  Members tab controls                */
     /* -------------------------------------------- */
 
     /**

@@ -34,7 +34,7 @@ const FENCED_BANNER_PART_ID = "fencedBanner";
  * from the declared part ids means a sheet gets its tab bodies simply by
  * declaring them, rather than by also restating them in an override; forgetting
  * that second step is what left the Vehicle, Structure, and Cohort sheets
- * showing an empty panel for every tab but Facade (issue #1088).
+ * showing an empty panel for every tab but Facade.
  *
  * Declaration order is preserved, so a sheet controls part order through its
  * `PARTS` record.
@@ -53,7 +53,7 @@ export function resolveActorSheetParts(
 ): string[] {
     return partIds.filter((id) => {
         // The banner is declared by every fenced sheet but only shown when the
-        // type really is fenced (issue #959).
+        // type really is fenced.
         if (id === FENCED_BANNER_PART_ID) return opts.isFenced;
         return !opts.isLimited || ALWAYS_PARTS.includes(id);
     });

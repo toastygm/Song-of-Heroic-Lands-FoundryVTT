@@ -136,7 +136,7 @@ export abstract class SohlLogic<TData extends SohlLogicData<any> = SohlLogicData
             }),
             // `dialog()` Handlebars-compiles `content`, so the template source
             // stays author-static and the localized prose rides in `data`, where
-            // Handlebars escapes it (rule #10).
+            // Handlebars escapes it.
             content: toHTMLString(`<p>{{caution}}</p>`),
             data: {
                 name: this.name,
@@ -623,7 +623,7 @@ export interface SohlLogicData<
     /** Serialized action definitions used to build the logic's `actions` map. */
     actionDefs: SohlAction.Data[];
     /**
-     * Persisted recurring/deferred schedules for this document (issue #588) —
+     * Persisted recurring/deferred schedules for this document —
      * each entry defers `actionName` to `anchor + interval`. The generic store
      * that replaces the retired bespoke `last*Date` anchors; a recurring effect's
      * `finalize()` re-arms these into the event queue on every preparation. Only
@@ -633,7 +633,7 @@ export interface SohlLogicData<
      */
     scheduledActions?: ScheduledAction[];
     /**
-     * Generic **run record** (issue #579) — a map of `actionName` → the world
+     * Generic **run record** — a map of `actionName` → the world
      * time (seconds) that action last performed on this document, stamped at the
      * action chokepoint for actions flagged `recordsLastRun`. The past-tense
      * mirror of {@link scheduledActions}: "when did X last happen here?" for any

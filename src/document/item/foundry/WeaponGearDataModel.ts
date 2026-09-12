@@ -35,7 +35,7 @@ function defineWeaponGearSchema(): foundry.data.fields.DataSchema {
         // means every strike mode's sub-fields — including `defense.block` /
         // `defense.counterstrike` — are validated and default to complete
         // values, so partial strike-mode data can no longer be stored (the root
-        // cause of #512).
+        // cause).
         strikeModes: new ArrayField(
             new TypedSchemaField({
                 [STRIKE_MODE_TYPE.MELEE]: new SchemaField(MeleeStrikeMode.schemaFields()),

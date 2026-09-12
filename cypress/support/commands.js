@@ -38,7 +38,7 @@ Cypress.Commands.add("login", (opts = {}) => {
         // 14.359 (the pinned floor) through the newest release the sweep runs.
         // Sending only `userid` makes 14.367 read `undefined`, look up no user,
         // and answer 401 `JOIN.ErrorUserDoesNotExist` with the misleading log
-        // line `no user with ID of undefined` — which blocked every spec (#1537).
+        // line `no user with ID of undefined` — which blocked every spec.
         body: { action: "join", userid: userId, userId, password },
     }).then((res) => {
         // A successful join returns JSON `{status:"success", …}`. When the world
@@ -67,8 +67,8 @@ Cypress.Commands.add("login", (opts = {}) => {
  * `_draw`, `_refreshState` → `RenderFlags.set` (`reading 'OBJECTS'`) from the
  * ticker refresh, and `_onAnimationUpdate` → `RenderFlags.set` (the same
  * `'OBJECTS'`) from any token **movement**. These land on whatever spec is
- * running, failing token-placing and token-moving specs nondeterministically
- * (#611). Gating on `canvas.ready` is not enough — it can read `true` while the
+ * running, failing token-placing and token-moving specs nondeterministically.
+ * Gating on `canvas.ready` is not enough — it can read `true` while the
  * token layer is still incomplete, so the refresh throws anyway.
  *
  * This suite never asserts on rendered token pixels — specs read the TokenDocument
@@ -144,7 +144,7 @@ function guardHeadlessTokenDraw(win) {
  * Two separate core defects land in the same method, one build apart, and this
  * guard covers both. Neither predicate subsumes the other.
  *
- * **No scene is viewed (#1535).** A **restricted** Region
+ * **No scene is viewed.** A **restricted** Region
  * (`restriction.enabled`) makes core flag its scene's shape constraints for
  * recomputation, which it throttles and then defers to a PIXI ticker callback.
  * That callback picks the User designated to do the work with a predicate
@@ -156,13 +156,13 @@ function guardHeadlessTokenDraw(win) {
  * floor (14.359), which still carries the bug.
  *
  * Note that "headless" alone does **not** mean no scene is viewed: the seeded
- * world ships an **active** default scene (`package-build e2e seed`, #451),
+ * world ships an **active** default scene (`package-build e2e seed`),
  * which the client views at load, so `canvas.scene` is normally a live Scene.
  * It is `null` before that first draw completes, and in any run whose active
  * scene is absent or unviewed — which is the window this clause covers, and the
- * state `map-notes.cy.js` presents deliberately to test it (#1661).
+ * state `map-notes.cy.js` presents deliberately to test it.
  *
- * **The scene has been deleted (#1550).** 14.367 opened the public entry point
+ * **The scene has been deleted.** 14.367 opened the public entry point
  * with `if ( !this.persisted ) throw new Error("A nonpersisted Document cannot
  * be updated.")`, and left callers that cannot honour it. The canvas's private
  * `#draw` calls it as the very last thing it does, after a long run of awaits
@@ -191,7 +191,7 @@ function guardHeadlessTokenDraw(win) {
  * `persisted` clause: that is where core throws, and the private one has no such
  * check on any supported build.
  *
- * `Level` is patched separately, for #1550 only. It carries its own copy of the
+ * `Level` is patched separately. It carries its own copy of the
  * public method — new in 14.367; the 14.359 floor has no such member at all —
  * and throws from it *before* delegating, so the callers that address a level
  * directly (the levels a moved token affects, and the equivalent light and wall
@@ -238,7 +238,7 @@ function guardHeadlessRegionShapeConstraints(win) {
 
 /**
  * Wrap one prototype's public `updateRegionShapeConstraints` so it returns early
- * for a nonpersisted document instead of throwing (#1550). See
+ * for a nonpersisted document instead of throwing. See
  * {@link guardHeadlessRegionShapeConstraints} for why.
  *
  * @param {object|undefined} proto - the document prototype to patch, if present.

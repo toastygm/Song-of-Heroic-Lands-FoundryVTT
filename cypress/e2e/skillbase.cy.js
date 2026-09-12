@@ -13,7 +13,7 @@
 
 /**
  * Skillbase calculation contract — the Skill-Base `SafeExpression` pipeline
- * (`SkillLogic.computeSkillBase`, #972).
+ * (`SkillLogic.computeSkillBase`).
  *
  * Tests the full surface: `sb(attr.a, attr.b)` two-attribute averaging with the
  * round-up/down tiebreak rule, 3+-attribute nearest rounding, flat numeric
@@ -82,7 +82,7 @@ describe("skillbase calculation contract", () => {
                 };
             }).should(({ scores, rows }) => {
                 // Both the attribute score and the skill roster move with
-                // content (#1271), so derive the expectation from the actor
+                // content, so derive the expectation from the actor
                 // rather than pinning either. Every Basic Folk attribute shares
                 // one score, and averaging equal attributes — two of them or
                 // three — yields exactly that score.
@@ -215,7 +215,7 @@ describe("skillbase calculation contract", () => {
         });
     });
 
-    it("invalid formula — Being sheet SB cell shows ✕ (#972)", () => {
+    it("invalid formula — Being sheet SB cell shows ✕", () => {
         cy.createActor("being", { name: "Invalid SB Being" }).then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Broken Skill",
@@ -236,7 +236,7 @@ describe("skillbase calculation contract", () => {
         });
     });
 
-    it("invalid formula — Skill item sheet shows the 'Invalid expression' hint (#972)", () => {
+    it("invalid formula — Skill item sheet shows the 'Invalid expression' hint", () => {
         cy.createActor("being", { name: "Invalid SB Sheet Being" }).then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Broken Skill",

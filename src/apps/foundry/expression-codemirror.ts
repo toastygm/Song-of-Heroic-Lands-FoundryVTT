@@ -71,7 +71,7 @@ export interface ExpressionEditorOptions {
 /**
  * Identifiers that read as a bound namespace rather than a plain variable —
  * every identifier any declared scope binds. Derived from the scope registry so
- * the highlighter cannot fall behind the bindings themselves (issue #1142).
+ * the highlighter cannot fall behind the bindings themselves.
  */
 const NAMESPACE_WORDS: ReadonlySet<string> = new Set(
     expressionScopes.all().flatMap((scope) => scope.names),

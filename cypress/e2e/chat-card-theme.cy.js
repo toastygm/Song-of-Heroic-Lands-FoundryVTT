@@ -12,11 +12,11 @@
  */
 
 /**
- * Chat cards blend into Foundry's always-light chat log (#903).
+ * Chat cards blend into Foundry's always-light chat log.
  *
  * Foundry pins the chat log to light in both modes — every message is painted on
  * a fixed-light `/ui/parchment.jpg` and the message frame is not ours to theme.
- * Earlier fixes (#896/#899) themed only the card interior, so in dark mode a dark
+ * Earlier fixes themed only the card interior, so in dark mode a dark
  * vellum card floated inside Foundry's light-grey frame. The blend-in fix
  * light-locks the `.chat-card` tokens and drops its own ground, so the card is a
  * good neighbor in the grey log: stable in both modes.
@@ -55,7 +55,7 @@ function cardStyle(win) {
     return { color: cs.color, image: cs.backgroundImage };
 }
 
-describe("chat cards blend into the light chat log (#903)", () => {
+describe("chat cards blend into the light chat log", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.cleanupWorld();

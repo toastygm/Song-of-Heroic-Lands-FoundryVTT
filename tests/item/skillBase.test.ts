@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill-Base pipeline contract (#972) — `SkillLogic.initialize()` computing
+ * Skill-Base pipeline contract — `SkillLogic.initialize()` computing
  * `skillBase` / `skillBaseValid` / `skillBaseError` by evaluating the
  * `skillBaseFormula` as a value-returning `SafeExpression` against a Foundry-free
  * context of attribute **values** (`attr.<shortcode>`).
@@ -64,7 +64,7 @@ function skillFor(formula: string, attrs: Record<string, number> = {}): SkillLog
     return logic;
 }
 
-describe("SkillLogic Skill-Base pipeline (#972)", () => {
+describe("SkillLogic Skill-Base pipeline", () => {
     describe("guards", () => {
         it("blank formula → SB 0, valid, no error", () => {
             const logic = skillFor("", { str: 60 });

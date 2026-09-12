@@ -12,7 +12,7 @@
  */
 
 /**
- * Automated-combat turn gate (#384).
+ * Automated-combat turn gate.
  *
  * Only the current combatant may **start** an automated attack:
  * `SohlCombatantLogic.startAutomatedAttack` aborts up front via the pure
@@ -33,11 +33,11 @@
  * through to target validation. Earlier this test relied on `game.combat` being
  * `undefined` headless, which held only in isolation: once a preceding combat spec
  * rendered the tracker, `game.combat` resolved this spec's active combat with the
- * attacker current, the gate passed, and it warned about the target instead
- * (#638/#644). Pinning the turn removes that order dependence.
+ * attacker current, the gate passed, and it warned about the target instead.
+ * Pinning the turn removes that order dependence.
  *
  * The in-turn *pass* is still not e2e-reachable — the attack-start flow past the
- * gate is stubbed (#177). See the skipped RED case at the end.
+ * gate is stubbed. See the skipped RED case at the end.
  */
 
 import { toRealm } from "../support/resolve";
@@ -49,7 +49,7 @@ function combatantOf(win, combatId, actorId) {
 
 /**
  * Drive `startAutomatedAttack` on `combatant` and capture the outcome. Stubbing
- * `sohl.log.uiWarn` collects the warnings and also dodges the #267 logger
+ * `sohl.log.uiWarn` collects the warnings and also dodges the logger
  * recursion. Returns `{ result, warnings, posted }` where `posted` is the number
  * of chat messages created by the call (0 when the gate short-circuits).
  */
@@ -74,11 +74,11 @@ async function driveStart(win, combatant) {
     };
 }
 
-describe("automated combat turn gate (#384)", () => {
+describe("automated combat turn gate", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
-    // The known logger recursion (#267) turns a stray `uiWarn` into a stack
+    // The known logger recursion turns a stray `uiWarn` into a stack
     // overflow; don't let an unrelated background warning fail the assertions.
     Cypress.on("uncaught:exception", () => false);
 
@@ -95,7 +95,7 @@ describe("automated combat turn gate (#384)", () => {
             cy.createCombatWith(this.tokens).then((combat) => {
                 // Deterministically make it *not* the attacker's turn: point the
                 // combat's current turn at the defender. This removes the order
-                // dependence on the viewport-resolved `game.combat` (#638/#644) —
+                // dependence on the viewport-resolved `game.combat` —
                 // the current combatant is never the attacker, so the gate always
                 // short-circuits with a turn reason instead of falling through to
                 // target validation.
@@ -124,8 +124,8 @@ describe("automated combat turn gate (#384)", () => {
     // RED — the in-turn *pass* is not e2e-reachable headless: `game.combat` needs
     // a canvas (so `getActiveCombat()` is undefined here and the gate always
     // reports "no active combat turn"), and the attack-start flow past the gate
-    // is itself stubbed (#177 — `getUsableStrikeModes()` returns []). The
+    // is itself stubbed (`getUsableStrikeModes()` returns []). The
     // current-vs-other distinction is unit-tested via `outOfTurnAttackReason`.
-    // Un-skip once #177 lands and a viewport is available.
+    // Un-skip once automated attack start lands and a viewport is available.
     it.skip("the current combatant may start an automated attack (#177, needs canvas)", () => {});
 });

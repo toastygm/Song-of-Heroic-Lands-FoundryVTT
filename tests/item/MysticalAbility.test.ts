@@ -260,7 +260,7 @@ describe("MysticalAbilityLogic", () => {
     // A Mystical Ability can also draw its standing from a faction/Affiliation
     // (e.g. an Arcane Incantation's arcane school), stored independently of the
     // activating skill as assocAffiliationCode and resolved to an
-    // AffiliationLogic on the same actor (#1012).
+    // AffiliationLogic on the same actor.
     describe("affiliation", () => {
         it("resolves affiliation from the actor's affiliations by shortcode", () => {
             const actor = makeAbilityActor();
@@ -454,7 +454,7 @@ describe("MysticalAbilityLogic", () => {
         });
     });
 
-    describe("isExhausted (#990)", () => {
+    describe("isExhausted", () => {
         it("is true when the ability uses finite charges and none remain", () => {
             const logic = makeAbility({
                 charges: { value: 0, max: 5 },
@@ -488,7 +488,7 @@ describe("MysticalAbilityLogic", () => {
         });
     });
 
-    describe("successTest — charge consumption (#990)", () => {
+    describe("successTest — charge consumption", () => {
         const realResult = { isSuccess: true } as any;
 
         // resultValue is passed explicitly (never via a defaulted parameter —
@@ -549,7 +549,7 @@ describe("MysticalAbilityLogic", () => {
         });
     });
 
-    describe("spirit-power association (#990)", () => {
+    describe("spirit-power association", () => {
         it("usesSpiritPower is true only for spiritrite/spiritaction", () => {
             expect(makeAbility({ subType: "spiritrite" }).usesSpiritPower).toBe(true);
             expect(makeAbility({ subType: "spiritaction" }).usesSpiritPower).toBe(true);
@@ -639,7 +639,7 @@ describe("MysticalAbilityLogic", () => {
         });
     });
 
-    describe("ritual action skill merge (#990)", () => {
+    describe("ritual action skill merge", () => {
         it("merges its ritual skill's mastery level when the skill has one", () => {
             const actor = makeAbilityActor();
             const skill = makeSkillOnActor(actor, "ritefire", 40);
@@ -679,7 +679,7 @@ describe("MysticalAbilityLogic", () => {
     });
 });
 
-describe("MysticalAbilityLogic — improvement flag and SDR (#1130)", () => {
+describe("MysticalAbilityLogic — improvement flag and SDR", () => {
     function mockRoll(total: number) {
         return { roll: vi.fn(), total, result: String(total) } as any;
     }
@@ -714,7 +714,7 @@ describe("MysticalAbilityLogic — improvement flag and SDR (#1130)", () => {
             const sdr = logic.actions.get("improveWithSDR") as any;
             expect(sdr.data.group).toBe(SOHL_CONTEXT_MENU_SORT_GROUP.GENERAL);
             // Gated on canImprove *and* on the improve flag being set — the
-            // SDR is the roll a flagged item is waiting for (#1102).
+            // SDR is the roll a flagged item is waiting for.
             expect(sdr.data.visible).toBe("itemLogic.canImprove && itemLogic.data.improveFlag");
         });
 
@@ -759,7 +759,7 @@ describe("MysticalAbilityLogic — improvement flag and SDR (#1130)", () => {
             expect(logic.canImprove).toBe(false);
         });
 
-        it("does not throw before initialize() — masteryLevel unset (#511 class)", () => {
+        it("does not throw before initialize() — masteryLevel unset", () => {
             const logic = makeAbility({ assocSkillCode: null });
             // deliberately NOT calling logic.initialize()
             expect(() => logic.canImprove).not.toThrow();

@@ -28,7 +28,7 @@ const inj = (locationShortcode: string, level: number, healingRate = 4) => ({
     healingRate,
 });
 
-describe("permanentImpairmentFor — time-to-heal table (#554)", () => {
+describe("permanentImpairmentFor — time-to-heal table", () => {
     it.each([
         [0, 0],
         [19, 0],
@@ -51,7 +51,7 @@ describe("permanentImpairmentFor — time-to-heal table (#554)", () => {
     });
 });
 
-describe("bodyPartImpairment (#464/#470)", () => {
+describe("bodyPartImpairment", () => {
     it("is none/usable when the part has no injuries", () => {
         expect(bodyPartImpairment(HEAD, [])).toEqual({
             impairment: 0,
@@ -128,7 +128,7 @@ describe("bodyPartImpairment (#464/#470)", () => {
     });
 });
 
-describe("testAutoCriticallyFails (#568)", () => {
+describe("testAutoCriticallyFails", () => {
     it("auto-fails when an impaired-by role is currently unusable", () => {
         expect(testAutoCriticallyFails(["manipulator"], new Set(["manipulator"]))).toBe(true);
         expect(
@@ -147,7 +147,7 @@ describe("testAutoCriticallyFails (#568)", () => {
     });
 });
 
-describe("testImpairmentPenalty (#568)", () => {
+describe("testImpairmentPenalty", () => {
     it("returns the penalty of an impaired-but-usable role the test depends on", () => {
         expect(testImpairmentPenalty(["manipulator"], new Map([["manipulator", -10]]))).toBe(-10);
     });
@@ -179,7 +179,7 @@ describe("testImpairmentPenalty (#568)", () => {
 const part = (usable: boolean, impairment = 0): BodyPartImpairment =>
     ({ usable, impairment }) as BodyPartImpairment;
 
-describe("requiredPartsAutoCriticallyFail (#628)", () => {
+describe("requiredPartsAutoCriticallyFail", () => {
     it("auto-fails when any required part is unusable", () => {
         expect(requiredPartsAutoCriticallyFail([part(false)])).toBe(true);
         // The gripping limb is fine, but the two-handed weapon's other limb is not.
@@ -195,7 +195,7 @@ describe("requiredPartsAutoCriticallyFail (#628)", () => {
     });
 });
 
-describe("requiredPartsImpairmentPenalty (#628)", () => {
+describe("requiredPartsImpairmentPenalty", () => {
     it("returns the penalty of an impaired-but-usable required part", () => {
         expect(requiredPartsImpairmentPenalty([part(true, -5)])).toBe(-5);
     });

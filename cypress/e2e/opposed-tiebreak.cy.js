@@ -9,16 +9,16 @@
  */
 
 /**
- * Opposed test outcomes end-to-end (#1081, #1160), driven through the real
+ * Opposed test outcomes end-to-end, driven through the real
  * resolution phase in the live client: two settled success tests are contested,
  * `opposedTestResume` evaluates the contest, and the result card is read out of
  * the chat log.
  *
  * Both sides are forced to the same success level, so every case here is a tie:
  *
- * - left alone, the contest reports a tie — never "Both Fail!" (#1081);
+ * - left alone, the contest reports a tie — never "Both Fail!";
  * - asked to **Break Ties**, it is settled on the higher d100 and reports the
- *   winner, one Victory Star, and which rule decided it (#1160).
+ *   winner, one Victory Star, and which rule decided it.
  *
  * **Why this starts at phase 2.** Phase 1 (`opposedTestStart` on the source
  * token) is token-addressed, and a token-addressed `SohlSpeaker` refuses to
@@ -52,7 +52,7 @@ function opposedCard(win) {
     );
 }
 
-describe("Opposed test — ties and tie-breaks (#1081, #1160)", () => {
+describe("Opposed test — ties and tie-breaks", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {
@@ -165,7 +165,7 @@ describe("Opposed test — ties and tie-breaks (#1081, #1160)", () => {
         });
     }
 
-    it("reports a tie as a tie, never as a mutual failure (#1081)", () => {
+    it("reports a tie as a tie, never as a mutual failure", () => {
         runContest({ breakTies: false, sourceRoll: 44, targetRoll: 12 }).then((r) => {
             expect(r.rolled, "both sides rolled").to.be.true;
             expect(r.settled, "contest settled").to.be.true;
@@ -188,7 +188,7 @@ describe("Opposed test — ties and tie-breaks (#1081, #1160)", () => {
         });
     });
 
-    it("settles a tie on the higher roll when asked, and says so (#1160)", () => {
+    it("settles a tie on the higher roll when asked, and says so", () => {
         runContest({ breakTies: true, sourceRoll: 44, targetRoll: 12 }).then((r) => {
             expect(r.isTied, "still a tie on success level").to.be.true;
             expect(r.isTieBroken, "but settled").to.be.true;

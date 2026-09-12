@@ -35,7 +35,7 @@ describe("BodyLocation", () => {
     });
 
     describe("updatePath", () => {
-        it("addresses the flat locations array by index (#780)", () => {
+        it("addresses the flat locations array by index", () => {
             const loc = new BodyLocation(SAMPLE_DATA, {
                 parent: MOCK_CORPUS,
                 bodyPart: MOCK_PART,

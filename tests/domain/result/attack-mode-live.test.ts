@@ -6,7 +6,7 @@
  */
 
 /**
- * Tests for issue #204: AttackResult.mode rehydrates to a live StrikeMode.
+ * AttackResult.mode rehydrates to a live StrikeMode.
  *
  * Before the fix, AttackResult.mode held StrikeModeBase.PointerData in memory
  * (the wire form). After the fix it holds a live StrikeModeBase | undefined,
@@ -65,7 +65,7 @@ function makeAttackResult(): AttackResult {
     );
 }
 
-describe("AttackResult.mode — live object in memory (#204)", () => {
+describe("AttackResult.mode — live object in memory", () => {
     it("mode is undefined when the weapon cannot be resolved (test environment)", () => {
         const ar = makeAttackResult();
         // In the test environment fvttLogicFromUuidSync returns undefined for weapon
@@ -101,7 +101,7 @@ describe("AttackResult.mode — live object in memory (#204)", () => {
     });
 });
 
-describe("AttackResult.fateSkillCode — Fate resolves to the strike mode's skill (#854)", () => {
+describe("AttackResult.fateSkillCode — Fate resolves to the strike mode's skill", () => {
     it("is null when the mode is unresolved (no governing skill)", () => {
         const ar = makeAttackResult(); // mode stays undefined in the test env
         expect(ar.fateSkillCode).toBeNull();

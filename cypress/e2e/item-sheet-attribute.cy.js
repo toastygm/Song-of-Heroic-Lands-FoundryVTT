@@ -16,18 +16,18 @@ import { itemSheetSuite } from "../support/itemSheetSuite.js";
 itemSheetSuite("attribute");
 
 /**
- * #1105 — the Properties tab's two scalar fields rendered with **empty**
- * `<label>`s, so a reader saw `10` and `3d6` side by side with nothing saying
- * which was which. `formGroup` labels a field from `field.label`, which
- * Foundry's `Localization.localizeSchema` only assigns when a
- * `<PREFIX>.FIELDS.<path>.label` key exists — and `lang/en.json` had no
- * `SOHL.Attribute.FIELDS.*` entries at all.
+ * The Properties tab's two scalar fields must not render with **empty**
+ * `<label>`s, which leaves a reader looking at `10` and `3d6` side by side with
+ * nothing saying which is which. `formGroup` labels a field from `field.label`,
+ * which Foundry's `Localization.localizeSchema` only assigns when a
+ * `<PREFIX>.FIELDS.<path>.label` key exists, so `lang/en.json` must carry
+ * `SOHL.Attribute.FIELDS.*` entries.
  *
  * The unit suite guards the keys' presence; only a live client proves
  * `localizeSchema` actually resolved them onto the rendered control, since the
  * Node template harness stubs `formGroup`.
  */
-describe("attribute sheet field labels (#1105)", () => {
+describe("attribute sheet field labels", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);

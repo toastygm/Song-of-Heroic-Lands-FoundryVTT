@@ -12,16 +12,16 @@
  */
 
 /**
- * Being Facade tab (#303 / #307): the initial/summary tab shows an editable bio
+ * Being Facade tab: the initial/summary tab shows an editable bio
  * image bound to `system.portrait` and a rich-text description editor bound to
  * `system.appearance` (the "physical appearance" field). Both must bind to real
- * datamodel fields — the tab previously pointed at `system.bioImage` /
+ * datamodel fields — not at `system.bioImage` /
  * `system.description`, which do not exist, so the image was blank and the
  * editor always empty.
  */
 import { toRealm } from "../support/resolve";
 
-describe("Being Facade tab (#307)", () => {
+describe("Being Facade tab", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -45,7 +45,7 @@ describe("Being Facade tab (#307)", () => {
         });
     });
 
-    it("is hidden when another tab is active (#812)", () => {
+    it("is hidden when another tab is active", () => {
         // Regression: the Facade tab declared `display` on its own `.tab`
         // element, overriding Foundry's inactive-tab hiding, so its portrait
         // and appearance editor leaked onto every tab. Switching away must now
@@ -105,7 +105,7 @@ describe("Being Facade tab (#307)", () => {
         });
     });
 
-    it("gives the active editor a non-zero content height (#897)", () => {
+    it("gives the active editor a non-zero content height", () => {
         // Regression: `.facade__editor` forced `prose-mirror { display: block }`,
         // dropping Foundry's `menu-container` / `editor-container` out of flex
         // flow so both collapsed to zero height — the WYSIWYG content was

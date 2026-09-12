@@ -12,7 +12,7 @@
  */
 
 /**
- * Item Actions tab (#501): the item sheet now offers the same custom-action
+ * Item Actions tab: the item sheet now offers the same custom-action
  * authoring the being sheet has — create (bind a Macro), run, edit (open the
  * Macro sheet), and delete — split into a Custom section and a run-only
  * Intrinsic section. Both sheets share the `core/foundry/sheet-actions` helper,
@@ -57,7 +57,7 @@ function bindAction(itemId, macroUuid, title) {
     );
 }
 
-describe("Item Actions tab (#501)", () => {
+describe("Item Actions tab", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => {
@@ -170,7 +170,7 @@ describe("Item Actions tab (#501)", () => {
         });
     });
 
-    describe("intrinsic ledger rendering + gating (#1135, #1136)", () => {
+    describe("intrinsic ledger rendering + gating", () => {
         /** Embed an armor on a being and set its carried state. */
         function armorOn(actor, isCarried) {
             return cy.createItemOn(actor, "armorgear", { name: "E2E Cuirass" }).then((armor) => {
@@ -193,7 +193,7 @@ describe("Item Actions tab (#501)", () => {
                 .find('[data-action="runAction"]');
         }
 
-        it("renders each intrinsic row's own icon glyph, not an empty image (#1136)", () => {
+        it("renders each intrinsic row's own icon glyph, not an empty image", () => {
             cy.importActor().then((actor) => {
                 armorOn(actor, true).then((armor) => {
                     cy.openSheet(armor);
@@ -214,7 +214,7 @@ describe("Item Actions tab (#501)", () => {
             });
         });
 
-        it("disables a carried-gated action's run control and says why (#1135)", () => {
+        it("disables a carried-gated action's run control and says why", () => {
             cy.importActor().then((actor) => {
                 armorOn(actor, false).then((armor) => {
                     cy.openSheet(armor);
@@ -231,7 +231,7 @@ describe("Item Actions tab (#501)", () => {
             });
         });
 
-        it("leaves the run control live once the gate passes (#1135)", () => {
+        it("leaves the run control live once the gate passes", () => {
             cy.importActor().then((actor) => {
                 armorOn(actor, true).then((armor) => {
                     cy.openSheet(armor);
@@ -244,7 +244,7 @@ describe("Item Actions tab (#501)", () => {
             });
         });
 
-        it("clicking a gated action warns instead of failing silently (#1135)", () => {
+        it("clicking a gated action warns instead of failing silently", () => {
             cy.importActor().then((actor) => {
                 armorOn(actor, false).then((armor) => {
                     // Capture UI warnings — the click must report the refusal.

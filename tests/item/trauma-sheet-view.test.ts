@@ -15,7 +15,7 @@ import { describe, it, expect } from "vitest";
 import { traumaSheetFields } from "@src/document/item/logic/trauma-sheet-view";
 import { TRAUMA_SUBTYPE } from "@src/utils/constants";
 
-describe("traumaSheetFields (#939)", () => {
+describe("traumaSheetFields", () => {
     it("fatigue: level + category + notes only", () => {
         const f = traumaSheetFields(TRAUMA_SUBTYPE.FATIGUE);
         expect(f).toMatchObject({
@@ -34,7 +34,7 @@ describe("traumaSheetFields (#939)", () => {
         expect(f.nextTestLabelKey).toBeUndefined();
     });
 
-    it("fear / morale: category + notes, no level (#961)", () => {
+    it("fear / morale: category + notes, no level", () => {
         // Fear/Morale state lives in the `category` field (a per-subtype
         // dropdown), not a numeric level.
         for (const st of [TRAUMA_SUBTYPE.FEAR, TRAUMA_SUBTYPE.MORALE]) {

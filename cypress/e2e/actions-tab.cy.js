@@ -12,13 +12,13 @@
  */
 
 /**
- * Being Actions tab (#313): actions from `logic.actions` are split into a
+ * Being Actions tab: actions from `logic.actions` are split into a
  * Custom (script) section and an Intrinsic (code-defined) section, with
  * hidden-group lifecycle actions omitted. Custom actions bind a Macro; this
  * spec drives the real UI — create (bind an existing Macro), run, edit (open
  * the Macro sheet), and remove (disassociate) — plus the grouped display.
  *
- * The Manuscript redesign (#782/#798) rebuilt the tab as `.section-legend`
+ * The Manuscript redesign rebuilt the tab as `.section-legend`
  * headers ("Custom Actions" / "Intrinsic Actions") each followed by a sibling
  * `.ledger` of `.ledger__row` rows (no longer `ol.actions-list` / `li.item`);
  * the per-row `data-action` control names are unchanged.
@@ -67,7 +67,7 @@ function bindAction(actorId, macroUuid, title) {
     );
 }
 
-describe("Being Actions tab (#313)", () => {
+describe("Being Actions tab", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => {

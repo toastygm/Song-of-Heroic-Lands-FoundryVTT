@@ -15,7 +15,7 @@ import type { SohlActorLogic } from "@src/document/actor/logic/SohlActorBaseLogi
 import type { ItemKind } from "@src/utils/constants";
 
 /**
- * A single `<option>` for the shortcode-reference field widget (#974): the
+ * A single `<option>` for the shortcode-reference field widget: the
  * stored `value` is the referenced document's shortcode, `label` is its display
  * name. A dangling reference (a stored shortcode with no matching candidate) is
  * surfaced as a flagged option rather than being dropped.
@@ -82,7 +82,7 @@ export interface RefFilterCandidate {
 
 /**
  * A predicate narrowing which candidates {@link actorItemRefOptions} offers —
- * e.g. "only affiliations of an arcane tradition" (#1405). It narrows what a
+ * e.g. "only affiliations of an arcane tradition". It narrows what a
  * user is *offered*; it never chooses for them, and it never removes a value
  * already stored (a filtered-out selection is still surfaced, flagged
  * unresolved).

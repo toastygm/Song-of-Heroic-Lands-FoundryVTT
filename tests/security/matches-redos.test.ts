@@ -12,7 +12,7 @@
  */
 
 /**
- * Security regression tests for issue #166:
+ * Security regression tests:
  * ReDoS in the `matches()` expression helper.
  *
  * `MAX_PATTERN_LENGTH` guards on length, not backtracking complexity. A
@@ -26,7 +26,7 @@ import { SafeExpressionError } from "@src/entity/expr/SafeExpressionError";
 
 const helpers = STANDARD_HELPERS;
 
-describe("matches() — ReDoS hardening (#166)", () => {
+describe("matches() — ReDoS hardening", () => {
     describe("legitimate patterns continue to work", () => {
         it("matches a simple literal pattern", () => {
             expect(helpers.matches("hello world", "hello")).toBe(true);

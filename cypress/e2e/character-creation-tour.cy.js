@@ -12,7 +12,7 @@
  */
 
 /**
- * The flagship Character Creation tour (#614): the SohlTour registers and is
+ * The flagship Character Creation tour: the SohlTour registers and is
  * listed in Tour Management, is recommended by the general welcome card (a
  * non-blocking, once-per-user whisper), and its gated steps hold **Next**
  * disabled until the user has done the
@@ -67,7 +67,7 @@ function expectGated(shouldBeGated, msg) {
     cy.window().should((win) => expect(isGated(win), msg).to.eq(shouldBeGated));
 }
 
-describe("Character Creation tour (SohlTour, #614)", () => {
+describe("Character Creation tour (SohlTour)", () => {
     // Headless sheet/canvas re-renders throw benign async errors during the
     // document mutations these steps drive; a genuinely failed mutation instead
     // surfaces as its gate staying closed (an `expectGated(false)` failure), so

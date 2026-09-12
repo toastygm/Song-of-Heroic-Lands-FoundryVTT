@@ -15,11 +15,11 @@ import { tagName } from "../support/factories/ids.js";
 import { toRealm } from "../support/resolve";
 
 /**
- * `(type, shortcode)` uniqueness (#766): the runtime enforces the key on create
+ * `(type, shortcode)` uniqueness: the runtime enforces the key on create
  * and update. A colliding explicit shortcode is rejected by default and
  * auto-suffixed when the caller passes `shortcodeDedupe: true`.
  */
-describe("shortcode uniqueness (#766)", () => {
+describe("shortcode uniqueness", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -45,7 +45,7 @@ describe("shortcode uniqueness (#766)", () => {
                     toRealm(win, {
                         name: tagName("Beta"),
                         type: "skill",
-                        // subType is required with no initial (#956); without it
+                        // subType is required with no initial; without it
                         // the create is vetoed and the dedupe never runs.
                         system: { subType: "social", shortcode: "dupsc" },
                     }),
@@ -71,13 +71,13 @@ describe("shortcode uniqueness (#766)", () => {
         });
     });
 
-    it("rejects a non-alphanumeric shortcode on create (#1397)", () => {
+    it("rejects a non-alphanumeric shortcode on create", () => {
         cy.createWorldItem("skill", {
             system: { shortcode: "bad-code" },
         }).should("not.exist");
     });
 
-    it("rejects renaming a shortcode into a non-alphanumeric one (#1397)", () => {
+    it("rejects renaming a shortcode into a non-alphanumeric one", () => {
         cy.createWorldItem("skill", { system: { shortcode: "okcode" } }).then((item) => {
             const id = item.id;
             cy.foundry(async (win) => {
@@ -87,10 +87,10 @@ describe("shortcode uniqueness (#766)", () => {
         });
     });
 
-    it("repairs a non-alphanumeric shortcode with shortcodeDedupe (#1397)", () => {
+    it("repairs a non-alphanumeric shortcode with shortcodeDedupe", () => {
         // `shortcodeDedupe` is the "manage the key for me" opt-in, so it strips
         // the offending characters rather than failing the create — and folds
-        // the result to lowercase, since #1882 made that part of the rule.
+        // the result to lowercase, which is part of the rule.
         cy.foundry((win) =>
             win.Item.create(
                 toRealm(win, {
@@ -103,7 +103,7 @@ describe("shortcode uniqueness (#766)", () => {
         ).should("eq", "bcfl");
     });
 
-    it("rejects a shortcode carrying a capital (#1882)", () => {
+    it("rejects a shortcode carrying a capital", () => {
         // A capital is refused on the same footing as punctuation: the guard
         // reports it rather than silently rewriting what was typed.
         cy.createWorldItem("skill", {
@@ -111,7 +111,7 @@ describe("shortcode uniqueness (#766)", () => {
         }).should("not.exist");
     });
 
-    it("folds a capital with shortcodeDedupe (#1882)", () => {
+    it("folds a capital with shortcodeDedupe", () => {
         cy.foundry((win) =>
             win.Item.create(
                 toRealm(win, {

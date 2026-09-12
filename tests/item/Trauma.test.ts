@@ -20,7 +20,7 @@ import * as FoundryHelpersMock from "@src/core/FoundryHelpers";
 import * as ActionCard from "@src/document/chat/action-card";
 
 /**
- * A `system.scheduledActions` seed — the generic store (issue #588) that replaces
+ * A `system.scheduledActions` seed — the generic store that replaces
  * the retired bespoke `last*Date` anchors. The executor reads its catch-up anchor
  * and interval from this entry.
  */
@@ -30,11 +30,11 @@ function sched(actionName: string, anchor: number, interval: number) {
     };
 }
 
-/** Action contexts pre-answering the schedule offer (issue #579). */
+/** Action contexts pre-answering the schedule offer. */
 const RESCHEDULE_YES = { skipDialog: true, scope: { schedule: true } } as any;
 const RESCHEDULE_NO = { skipDialog: true, scope: { schedule: false } } as any;
 
-describe("time-based healing / blood-loss on the generic store (#482, #579, #588)", () => {
+describe("time-based healing / blood-loss on the generic store", () => {
     afterEach(() => vi.restoreAllMocks());
 
     function withSchedule() {
@@ -61,7 +61,7 @@ describe("time-based healing / blood-loss on the generic store (#482, #579, #588
             .mockResolvedValue({ normSuccessLevel: level } as any);
     }
 
-    /** A treated injury — the only shape the healing cycle runs on (#1181). */
+    /** A treated injury — the only shape the healing cycle runs on. */
     function injury(overrides: Record<string, unknown> = {}) {
         return trauma({
             subType: "injury",
@@ -147,7 +147,7 @@ describe("time-based healing / blood-loss on the generic store (#482, #579, #588
         expect(unschedule).not.toHaveBeenCalled();
     });
 
-    it("bloodLossAdvanceTest offers the next advance, anchored on this occurrence (#1181)", async () => {
+    it("bloodLossAdvanceTest offers the next advance, anchored on this occurrence", async () => {
         const { schedule } = withSchedule();
         vi.spyOn(FoundryHelpersMock, "fvttWorldTime").mockReturnValue(2000);
         const logic = trauma({
@@ -168,7 +168,7 @@ describe("time-based healing / blood-loss on the generic store (#482, #579, #588
         );
     });
 
-    it("healingTest anchors the next occurrence on THIS one's due time, not on now (#1181)", async () => {
+    it("healingTest anchors the next occurrence on THIS one's due time, not on now", async () => {
         const { schedule } = withSchedule();
         // Due at 1000 + 500 = 1500, but not performed until 3200. The next
         // occurrence must anchor at 1500 (so it falls at 2000), NOT at 3200.
@@ -198,7 +198,7 @@ describe("time-based healing / blood-loss on the generic store (#482, #579, #588
         );
     });
 
-    it("healingCheck only posts a card — it rolls nothing and changes nothing (#1181)", async () => {
+    it("healingCheck only posts a card — it rolls nothing and changes nothing", async () => {
         const { schedule } = withSchedule();
         const post = vi.spyOn(ActionCard, "postActionCard").mockResolvedValue(undefined as never);
         const logic = trauma({
@@ -219,7 +219,7 @@ describe("time-based healing / blood-loss on the generic store (#482, #579, #588
     });
 });
 
-describe("isTreated — a null Healing Rate is the source of truth (#1148)", () => {
+describe("isTreated — a null Healing Rate is the source of truth", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("is false when the Healing Rate is null, whatever the treatment date says", () => {
@@ -247,7 +247,7 @@ describe("isTreated — a null Healing Rate is the source of truth (#1148)", () 
     });
 });
 
-describe("healingRate modifier — disabled while undetermined (#1148)", () => {
+describe("healingRate modifier — disabled while undetermined", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("is disabled, not zero, when no Healing Rate has been determined", () => {
@@ -266,7 +266,7 @@ describe("healingRate modifier — disabled while undetermined (#1148)", () => {
     });
 });
 
-describe("isBleeding — derived from the blood-loss timer (#482)", () => {
+describe("isBleeding — derived from the blood-loss timer", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("is false when bloodLossAdvanceDurationBase is null", () => {
@@ -333,7 +333,7 @@ describe("TraumaLogic", () => {
         });
 
         // treatmentTest behavior is covered by the "Injury Treatment Test
-        // effect (#553)" suite below.
+        // effect" suite below.
 
         it("healingTest — warns and resolves null (not yet implemented)", async () => {
             const logic = makeTrauma();
@@ -444,7 +444,7 @@ describe("TraumaLogic", () => {
 
         it("UNTREATED supplies the untreated-wound baseline", () => {
             expect(UNTREATED).toEqual({
-                // No rate determined (#1148) — not the real rate 0.
+                // No rate determined — not the real rate 0.
                 hr: null,
                 // The 00 face: always a Critical Failure, whatever the target.
                 roll: 100,
@@ -474,7 +474,7 @@ describe("TraumaDataModel", () => {
     it.todo("has kind set to ITEM_KIND.TRAUMA");
 });
 
-describe("Blood Loss Advance Test effect (#487)", () => {
+describe("Blood Loss Advance Test effect", () => {
     afterEach(() => vi.restoreAllMocks());
 
     function withEvents() {
@@ -563,7 +563,7 @@ describe("Blood Loss Advance Test effect (#487)", () => {
         expect((spy.mock.instances[0] as any).base).toBe(72);
     });
 
-    it("applies exactly ONE advance per invocation, however much time elapsed (#1181)", async () => {
+    it("applies exactly ONE advance per invocation, however much time elapsed", async () => {
         withEvents();
         // Two intervals have gone by; the old executor advanced twice in one
         // pass. One check yields one test — a bleeding wound left unattended
@@ -578,7 +578,7 @@ describe("Blood Loss Advance Test effect (#487)", () => {
     });
 });
 
-describe("Injury Healing Test effect (#486)", () => {
+describe("Injury Healing Test effect", () => {
     afterEach(() => vi.restoreAllMocks());
 
     function withEvents() {
@@ -701,7 +701,7 @@ describe("Injury Healing Test effect (#486)", () => {
         );
     });
 
-    it("rolls exactly ONE test per invocation, however much time elapsed (#1181)", async () => {
+    it("rolls exactly ONE test per invocation, however much time elapsed", async () => {
         withEvents();
         // Four intervals have gone by; the old executor would have rolled four
         // times in one pass. One check yields one test.
@@ -727,7 +727,7 @@ describe("Injury Healing Test effect (#486)", () => {
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it("casts no dice for an untreated injury — it supplies the 00 face instead (#1148)", async () => {
+    it("casts no dice for an untreated injury — it supplies the 00 face instead", async () => {
         withEvents();
         oneCheckpoint();
         const cast = vi.spyOn(SimpleRoll.prototype, "roll");
@@ -748,7 +748,7 @@ describe("Injury Healing Test effect (#486)", () => {
         expect(cast).not.toHaveBeenCalled();
     });
 
-    it("an untreated injury never improves — its forced Critical Failure does no healing (#1148)", async () => {
+    it("an untreated injury never improves — its forced Critical Failure does no healing", async () => {
         withEvents();
         oneCheckpoint();
         mockRoll(CRITICAL_FAILURE);
@@ -763,7 +763,7 @@ describe("Injury Healing Test effect (#486)", () => {
         );
     });
 
-    it("casts no dice when the Healing Rate is undetermined, even with a treatment date on record (#1148)", async () => {
+    it("casts no dice when the Healing Rate is undetermined, even with a treatment date on record", async () => {
         withEvents();
         oneCheckpoint();
         const cast = vi.spyOn(SimpleRoll.prototype, "roll");
@@ -778,7 +778,7 @@ describe("Injury Healing Test effect (#486)", () => {
         );
     });
 
-    it("casts a real die once a Healing Rate is recorded (#1148)", async () => {
+    it("casts a real die once a Healing Rate is recorded", async () => {
         withEvents();
         oneCheckpoint();
         const spy = mockRoll(MARGINAL_SUCCESS);
@@ -791,7 +791,7 @@ describe("Injury Healing Test effect (#486)", () => {
         );
     });
 
-    it("an untreated wound is infection-prone — its forced Critical Failure contracts an infection (#1146)", async () => {
+    it("an untreated wound is infection-prone — its forced Critical Failure contracts an infection", async () => {
         withEvents();
         oneCheckpoint();
         mockRoll(CRITICAL_FAILURE);
@@ -817,7 +817,7 @@ describe("Injury Healing Test effect (#486)", () => {
         );
     });
 
-    it("an active infection still halts everything — an untreated wound auto-fails nothing while healing is halted (#1146)", async () => {
+    it("an active infection still halts everything — an untreated wound auto-fails nothing while healing is halted", async () => {
         withEvents();
         oneCheckpoint();
         const create = vi
@@ -842,7 +842,7 @@ describe("Injury Healing Test effect (#486)", () => {
         (logic.item.update as any).mockClear();
         const result = await logic.healingTest({} as any);
         // No roll, no progress, and no write — but the recurrence survives, so
-        // healing resumes once the infection is beaten (#1181).
+        // healing resumes once the infection is beaten.
         expect(spy).not.toHaveBeenCalled();
         expect(result).toEqual({ level: 5 });
         expect(logic.item.update).not.toHaveBeenCalled();
@@ -861,7 +861,7 @@ describe("Injury Healing Test effect (#486)", () => {
     });
 });
 
-describe("Infection lifecycle (#557)", () => {
+describe("Infection lifecycle", () => {
     afterEach(() => vi.restoreAllMocks());
 
     const HOUR = 3600;
@@ -933,7 +933,7 @@ describe("Infection lifecycle (#557)", () => {
             expect(create).not.toHaveBeenCalled();
         });
 
-        it("OFFERS the new infection's recovery course rather than auto-arming it (#579)", async () => {
+        it("OFFERS the new infection's recovery course rather than auto-arming it", async () => {
             withEvents();
             const infectionItem = {
                 uuid: "Item.infect00000",
@@ -1037,7 +1037,7 @@ describe("Infection lifecycle (#557)", () => {
     });
 });
 
-describe("Extended Shock / Coma course test (#556)", () => {
+describe("Extended Shock / Coma course test", () => {
     afterEach(() => vi.restoreAllMocks());
 
     const HOUR = 3600;
@@ -1187,7 +1187,7 @@ describe("Extended Shock / Coma course test (#556)", () => {
     });
 });
 
-describe("Permanent impairment on heal (#554)", () => {
+describe("Permanent impairment on heal", () => {
     afterEach(() => vi.restoreAllMocks());
 
     const DAY = 86400;
@@ -1378,7 +1378,7 @@ describe("Treatment action cards — requestTreatment / treatInjury", () => {
             );
         });
 
-        it("run by hand on an untreated wound, opens the dialog blank — an undetermined rate is not 0 (#1087)", async () => {
+        it("run by hand on an untreated wound, opens the dialog blank — an undetermined rate is not 0", async () => {
             const dlg = vi.spyOn(FoundryHelpersMock, "dialog").mockResolvedValue(null);
             const logic = injury({ healingRateBase: null });
             await logic.treatInjury({ scope: {} } as any);
@@ -1389,7 +1389,7 @@ describe("Treatment action cards — requestTreatment / treatInjury", () => {
             );
         });
 
-        it("run by hand, a blank Healing Rate records nothing (#1087)", async () => {
+        it("run by hand, a blank Healing Rate records nothing", async () => {
             vi.spyOn(FoundryHelpersMock, "dialog").mockResolvedValue({
                 healingRate: "",
             });
@@ -1399,7 +1399,7 @@ describe("Treatment action cards — requestTreatment / treatInjury", () => {
             expect(logic.item.update).not.toHaveBeenCalled();
         });
 
-        it("run by hand, a rate of 0 is recorded as a rate — it never heals the wound (#1087)", async () => {
+        it("run by hand, a rate of 0 is recorded as a rate — it never heals the wound", async () => {
             vi.spyOn(FoundryHelpersMock, "fvttWorldTime").mockReturnValue(500);
             vi.spyOn(FoundryHelpersMock, "dialog").mockResolvedValue({
                 healingRate: 0,
@@ -1436,7 +1436,7 @@ describe("Treatment action cards — requestTreatment / treatInjury", () => {
     });
 });
 
-describe("Injury Treatment Test effect (#553)", () => {
+describe("Injury Treatment Test effect", () => {
     afterEach(() => vi.restoreAllMocks());
 
     /** An untreated injury on an actor with a Physician skill ML `pysnMl`. */
@@ -1513,14 +1513,14 @@ describe("Injury Treatment Test effect (#553)", () => {
         );
     });
 
-    it("offers the blood-loss timer when a surgical mishap causes a bleeder — accept schedules it (#579)", async () => {
+    it("offers the blood-loss timer when a surgical mishap causes a bleeder — accept schedules it", async () => {
         vi.spyOn(FoundryHelpersMock, "fvttWorldTime").mockReturnValue(1000);
         vi.spyOn(FoundryHelpersMock, "fvttGetSetting").mockReturnValue("300");
         const schedule = vi.spyOn((globalThis as any).sohl, "schedule");
         mockRoll(MARGINAL_FAILURE); // grievous MF, SUR → bleeder
         const { logic } = injury({ levelBase: 4, aspect: "edged" });
         // The physician is present; a pre-answered scheduling context accepts the
-        // offer (the interactive path would prompt) — nothing auto-arms (#579).
+        // offer (the interactive path would prompt) — nothing auto-arms.
         await logic.treatmentTest({
             skipDialog: true,
             scope: { schedule: true },
@@ -1535,7 +1535,7 @@ describe("Injury Treatment Test effect (#553)", () => {
         expect(schedule).toHaveBeenCalledWith(logic.item, "bloodLossAdvanceCheck", 300);
     });
 
-    it("marks a poorly-treated wound infectable, a well-treated one not (#557)", async () => {
+    it("marks a poorly-treated wound infectable, a well-treated one not", async () => {
         vi.spyOn(FoundryHelpersMock, "fvttWorldTime").mockReturnValue(0);
         mockRoll(MARGINAL_FAILURE); // a failed treatment → infectable
         const poor = injury({ levelBase: 2, aspect: "edged" });
@@ -1609,8 +1609,8 @@ describe("TraumaLogic.levelLabel", () => {
         expect(logic.levelLabel).toBe("0");
     });
 
-    it("returns the numeric level as a string (#961 — every level subtype)", () => {
-        // Fear/Morale no longer carry a numeric level (their state is in the
+    it("returns the numeric level as a string, for every level subtype", () => {
+        // Fear/Morale carry no numeric level (their state is in the
         // `category` field), so levelLabel is always the numeric string now.
         const logic = makeTrauma({
             subType: TRAUMA_SUBTYPE.INJURY,
@@ -1620,7 +1620,7 @@ describe("TraumaLogic.levelLabel", () => {
         expect(logic.levelLabel).toBe("3");
     });
 
-    it("does not throw before initialize() — level not yet seeded (#511)", () => {
+    it("does not throw before initialize() — level not yet seeded", () => {
         // A freshly-dropped trauma can be read by the sheet before its
         // logic.initialize() has run, so `level` (a ValueModifier assigned in
         // initialize) is still undefined. The getter must degrade to "0".
@@ -1640,7 +1640,7 @@ describe("TraumaLogic.categoryLabel", () => {
         expect(logic.categoryLabel).toBe("");
     });
 
-    it("maps FEAR categories to their localized labels (#961)", () => {
+    it("maps FEAR categories to their localized labels", () => {
         const logic = makeTrauma({
             subType: TRAUMA_SUBTYPE.FEAR,
             category: FEAR_CATEGORY.AFRAID,
@@ -1648,7 +1648,7 @@ describe("TraumaLogic.categoryLabel", () => {
         expect(logic.categoryLabel).toBe("SOHL.Trauma.FEAR_CATEGORY.afraid");
     });
 
-    it("maps MORALE categories to their localized labels (#961)", () => {
+    it("maps MORALE categories to their localized labels", () => {
         const logic = makeTrauma({
             subType: TRAUMA_SUBTYPE.MORALE,
             category: MORALE_CATEGORY.ROUTED,
@@ -1705,7 +1705,7 @@ describe("TraumaLogic.categoryLabel", () => {
     });
 });
 
-describe("TraumaLogic.nextRecoveryTestAt (#939 — view-only next-test date)", () => {
+describe("TraumaLogic.nextRecoveryTestAt (view-only next-test date)", () => {
     /** Seed a single scheduledActions entry. */
     function withSched(
         subType: string,
@@ -1771,7 +1771,7 @@ describe("TraumaLogic.nextRecoveryTestAt (#939 — view-only next-test date)", (
     });
 });
 
-describe("Psyche Stress & Aural Shock recovery (#560)", () => {
+describe("Psyche Stress & Aural Shock recovery", () => {
     afterEach(() => vi.restoreAllMocks());
 
     /** A trauma of `subType` on an actor whose Will lookup yields no attribute
@@ -1900,7 +1900,7 @@ describe("Psyche Stress & Aural Shock recovery (#560)", () => {
     });
 });
 
-describe("interactive Blood Stoppage flow (#547)", () => {
+describe("interactive Blood Stoppage flow", () => {
     afterEach(() => vi.restoreAllMocks());
 
     function bleedingWound(opts: Record<string, unknown> = {}) {
@@ -2030,7 +2030,7 @@ describe("interactive Blood Stoppage flow (#547)", () => {
     });
 });
 
-describe("descriptive conditions as trauma subtypes (#648)", () => {
+describe("descriptive conditions as trauma subtypes", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("exposes the psychological- and physical-condition subtypes and their categories", () => {

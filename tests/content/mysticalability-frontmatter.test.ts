@@ -18,11 +18,11 @@
  * receives is discarded by Foundry when the compendium item is constructed —
  * silently, with nothing at compile or load time to tell the author their
  * value had no effect. `assocMysteryCode` was exactly that for nine notes
- * (#1746): the DataModel dropped it in #973, and the notes went on setting it.
+ * The DataModel does not declare it, so a note must not set it.
  *
  * This is the copy-side guard. It cannot see the pack builder's emitted block
  * (that lives in `@heroiclands/package-build`, and is
- * HeroicLands/package-build#60), but it does keep the notes in this repository
+ * the toolchain), but it does keep the notes in this repository
  * honest about the schema they are authored against.
  */
 
@@ -55,7 +55,7 @@ const SCHEMA_FIELDS = [
 const BUILD_DIRECTIVES = ["kbcat", "archetype"] as const;
 
 /**
- * The schema fields are authored under `sohl.system` since #1851, at the paths
+ * The schema fields are authored under `sohl.system`, at the paths
  * the compiled document stores, so the block itself carries only that container
  * and the build directives.
  */

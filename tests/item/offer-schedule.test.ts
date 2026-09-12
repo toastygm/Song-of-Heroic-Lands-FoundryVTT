@@ -12,7 +12,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { globSync } from "glob";
 
-describe("offerSchedule — the consent step for scheduling timed effects (#579)", () => {
+describe("offerSchedule — the consent step for scheduling timed effects", () => {
     afterEach(() => vi.restoreAllMocks());
 
     const DOC = { uuid: "Item.effect0000" } as any;
@@ -85,7 +85,7 @@ describe("offerSchedule — the consent step for scheduling timed effects (#579)
         expect(schedule).not.toHaveBeenCalled();
     });
 
-    // ---- event-driven schedules (issue #622) ----
+    // ---- event-driven schedules ----
 
     it("event-driven: an accepted offer schedules bound to the lifecycle trigger", async () => {
         const { schedule, unschedule } = spies();
@@ -103,7 +103,7 @@ describe("offerSchedule — the consent step for scheduling timed effects (#579)
         expect(unschedule).not.toHaveBeenCalled();
     });
 
-    it("event-driven: a predicate source is threaded through to sohl.schedule (#569)", async () => {
+    it("event-driven: a predicate source is threaded through to sohl.schedule", async () => {
         const { schedule } = spies();
         await offerSchedule(
             { skipDialog: true, scope: { schedule: true } },
@@ -165,7 +165,7 @@ describe("offerSchedule — the consent step for scheduling timed effects (#579)
     });
 });
 
-describe("offerSchedule anchoring (#1181)", () => {
+describe("offerSchedule anchoring", () => {
     const DOC = { uuid: "Item.effect0000" } as any;
 
     function spies() {
@@ -230,7 +230,7 @@ describe("offerSchedule anchoring (#1181)", () => {
 });
 
 /**
- * #1086 — the offer dialog names the effect from
+ * The offer dialog names the effect from
  * `SOHL.Reminder.effect.<actionName>`, a key built at runtime from the action
  * name. `npm run lint:lang-coverage` reads only concrete key literals, so three
  * Trauma recovery checks shipped with no key and the dialog showed the raw key
@@ -240,7 +240,7 @@ describe("offerSchedule anchoring (#1181)", () => {
  * and requires the matching label to exist, so a newly offered action cannot
  * reach a player as a raw key.
  */
-describe("reminder labels for every offered action (#1086)", () => {
+describe("reminder labels for every offered action", () => {
     const REPO_ROOT = resolve(__dirname, "../..");
 
     const LANG: Record<string, string> = JSON.parse(

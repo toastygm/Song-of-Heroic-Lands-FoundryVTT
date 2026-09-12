@@ -19,7 +19,7 @@
  * `tsc -p packages/sohl-types/test/tsconfig.json` type-checks the bundle from
  * inside this repository, where every third-party module it imports resolves
  * from the root `node_modules` whether or not the package declares it. That is
- * the blind spot #1613 was made of: a broken types package looked fine from the
+ * the blind spot this closes: a broken types package looks fine from the
  * only place anyone looked. These checks are the ones that only make sense from
  * the outside.
  *

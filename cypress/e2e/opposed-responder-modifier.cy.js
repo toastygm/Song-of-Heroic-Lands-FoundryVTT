@@ -12,7 +12,7 @@
  */
 
 /**
- * The responder's half of an opposed test, end-to-end (#1164).
+ * The responder's half of an opposed test, end-to-end.
  *
  * `opposed-tiebreak.cy.js` hands `opposedTestResume` a contest whose target side
  * has **already rolled**, so it only ever exercises the reuse path. This spec
@@ -50,7 +50,7 @@ function makeContestant(name, shortcode, masteryLevelBase) {
     );
 }
 
-describe("Opposed test — the responder rolls its own mastery level (#1164)", () => {
+describe("Opposed test — the responder rolls its own mastery level", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {

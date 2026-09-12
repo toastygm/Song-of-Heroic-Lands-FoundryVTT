@@ -25,7 +25,7 @@ import {
     MARGINAL_SUCCESS,
 } from "@src/utils/constants";
 
-describe("the Pall (#561)", () => {
+describe("the Pall", () => {
     describe("pallDepthPenalty", () => {
         it("is 5 x total PAL and never negative", () => {
             expect(PALL_DEPTH_PER_PAL).toBe(5);

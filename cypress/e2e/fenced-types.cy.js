@@ -12,7 +12,7 @@
  */
 
 /**
- * Fence enforcement (issue #959): the experimental actor types (cohort /
+ * Fence enforcement: the experimental actor types (cohort /
  * structure / vehicle) are visibly marked so testers don't build campaigns on
  * schemas that may still change. Two surfaces, both driven from the single
  * `FENCED_TYPES` source of truth:
@@ -37,7 +37,7 @@ function openCreateDialogElement(win) {
     return dlg;
 }
 
-describe("fence enforcement: experimental type marking (#959)", () => {
+describe("fence enforcement: experimental type marking", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     // testIsolation is off, so a `.fence-banner` query is document-wide — close
     // every sheet between tests (and scope each lookup to its own sheet) so a

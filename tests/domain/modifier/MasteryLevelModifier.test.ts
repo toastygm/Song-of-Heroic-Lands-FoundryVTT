@@ -67,7 +67,7 @@ describe("MasteryLevelModifier", () => {
             expect(ml.critFailureDigits).toEqual([0]);
             expect(ml.critSuccessDigits).toEqual([5]);
         });
-        it("defaults the crit-digit lists to [0, 5] (multiple-of-5 crits) when omitted (#908)", () => {
+        it("defaults the crit-digit lists to [0, 5] (multiple-of-5 crits) when omitted", () => {
             // The canonical HârnMaster success test crits on any roll ending in
             // 0 or 5; a standard test constructs the modifier with no crit data,
             // so the default must carry those digits or criticals never fire.
@@ -75,7 +75,7 @@ describe("MasteryLevelModifier", () => {
             expect(ml.critFailureDigits).toEqual([0, 5]);
             expect(ml.critSuccessDigits).toEqual([0, 5]);
         });
-        it("honors an explicit empty crit-digit list to disable criticals (#908)", () => {
+        it("honors an explicit empty crit-digit list to disable criticals", () => {
             const ml = new MasteryLevelModifier(
                 { critFailureDigits: [], critSuccessDigits: [] } as any,
                 { parent },
@@ -85,13 +85,13 @@ describe("MasteryLevelModifier", () => {
         });
         it.todo("initializes testDescTable and svTable from data or defaults");
         it.todo("constructs type from parent.data.kind and parent.name");
-        // The default title is covered for real below, in "default title (#1107)".
+        // The default title is covered for real below, in "default title".
     });
 
     // The default title is what a standard test-result card shows in its
     // header, so it must resolve to prose — not the bare namespace prefix the
-    // constructor used to format (#1107).
-    describe("default title (#1107)", () => {
+    // constructor used to format.
+    describe("default title", () => {
         afterEach(() => vi.restoreAllMocks());
 
         /** Resolve `sohl.i18n.format` against the real `lang/en.json`. */
@@ -181,7 +181,7 @@ describe("MasteryLevelModifier", () => {
         it.todo("effective value calculation includes base and deltas");
     });
 
-    describe("successValueTest (#78)", () => {
+    describe("successValueTest", () => {
         afterEach(() => vi.restoreAllMocks());
 
         function makeContext(): SohlActionContext {
@@ -230,7 +230,7 @@ describe("MasteryLevelModifier", () => {
     });
 });
 
-describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", () => {
+describe("MasteryLevelModifier.successTest — headless / skipDialog", () => {
     let toChatSpy: MockInstance<(data?: PlainObject) => Promise<void>>;
 
     beforeEach(() => {
@@ -277,7 +277,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
     }
 
     /**
-     * Override the (getter-only) `actorLogic` on a parent logic so the #568
+     * Override the (getter-only) `actorLogic` on a parent logic so the
      * impairment seam can read `unusableRoles()` / `impairedRolePenalties()`.
      */
     function stubActorLogic(parent: any, actorLogic: any): void {
@@ -338,7 +338,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
         expect((result as SuccessTestResult).masteryLevelModifier.effective).toBe(40);
     });
 
-    it("applies the −5/−10 impaired-but-usable body-part penalty to the ML (#568)", async () => {
+    it("applies the −5/−10 impaired-but-usable body-part penalty to the ML", async () => {
         const parent = makeParent();
         (parent.data as any).impairedByRoles = ["manipulator"];
         stubActorLogic(parent, {
@@ -351,7 +351,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
         expect((result as SuccessTestResult).masteryLevelModifier.effective).toBe(40);
     });
 
-    it("does not apply an impairment penalty when the test names no impaired role (#568)", async () => {
+    it("does not apply an impairment penalty when the test names no impaired role", async () => {
         const parent = makeParent();
         (parent.data as any).impairedByRoles = ["locomotor"];
         stubActorLogic(parent, {
@@ -362,7 +362,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
         expect((result as SuccessTestResult).masteryLevelModifier.effective).toBe(50);
     });
 
-    it("forces a Critical Failure (no separate penalty) when the role is unusable (#568)", async () => {
+    it("forces a Critical Failure (no separate penalty) when the role is unusable", async () => {
         const parent = makeParent();
         (parent.data as any).impairedByRoles = ["manipulator"];
         stubActorLogic(parent, {
@@ -377,7 +377,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
         expect(result.masteryLevelModifier.effective).toBe(50);
     });
 
-    it("penalizes the ML by an impaired-but-usable held limb (#628)", async () => {
+    it("penalizes the ML by an impaired-but-usable held limb", async () => {
         // A weapon names no impairedByRoles; instead its parent exposes the
         // impairment of the limb(s) holding it. A −10 (serious) usable limb.
         const parent = makeParent();
@@ -388,7 +388,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
         expect((result as SuccessTestResult).masteryLevelModifier.effective).toBe(40);
     });
 
-    it("forces a Critical Failure when a required held limb is unusable (#628)", async () => {
+    it("forces a Critical Failure when a required held limb is unusable", async () => {
         const parent = makeParent();
         (parent as any).heldLimbImpairments = [{ usable: false, impairment: 0 }];
         const result = (await makeML(parent, 50).successTest(ctx())) as SuccessTestResult;
@@ -398,7 +398,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
         expect(result.masteryLevelModifier.effective).toBe(50);
     });
 
-    it("takes the worst of the role penalty and the held-limb penalty (#628)", async () => {
+    it("takes the worst of the role penalty and the held-limb penalty", async () => {
         // A combat technique could carry both a role dependency and a held limb;
         // the worst (most negative) of the two applies, never their sum.
         const parent = makeParent();
@@ -413,7 +413,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
         expect((result as SuccessTestResult).masteryLevelModifier.effective).toBe(40);
     });
 
-    it("is a no-op when the parent exposes no held limbs (#628)", async () => {
+    it("is a no-op when the parent exposes no held limbs", async () => {
         const parent = makeParent();
         (parent as any).heldLimbImpairments = [];
         const result = await makeML(parent, 50).successTest(ctx());
@@ -442,7 +442,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog (#551)", ()
     });
 });
 
-describe("getStandardSuccessValueTable (#70)", () => {
+describe("getStandardSuccessValueTable", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("calls sohl.i18n.localize with SOHL.MasteryLevel.SvTable.* keys", () => {
@@ -472,7 +472,7 @@ describe("getStandardSuccessValueTable (#70)", () => {
     });
 });
 
-describe("opposed-test chat text is localized, not literal English (#1161)", () => {
+describe("opposed-test chat text is localized, not literal English", () => {
     afterEach(() => vi.restoreAllMocks());
 
     /** A real SkillLogic to own the modifier. */

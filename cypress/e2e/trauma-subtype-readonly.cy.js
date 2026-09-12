@@ -12,14 +12,14 @@
  */
 
 /**
- * Trauma sheet sub-type is read-only after creation (#926).
+ * Trauma sheet sub-type is read-only after creation.
  *
  * A document's sub-type is fixed at creation, so the Trauma sheet must not
- * expose an editable `system.subType` control (it previously rendered an
- * editable dropdown — the subject of #754, now removed). The sub-type stays
+ * expose an editable `system.subType` control (never an
+ * editable dropdown, now removed). The sub-type stays
  * visible, read-only, in the sheet header via the localized `typeLabel`.
  */
-describe("trauma sheet sub-type is read-only (#926)", () => {
+describe("trauma sheet sub-type is read-only", () => {
     const SUBTYPE_SEL = '[name="system.subType"]';
 
     before(() => cy.login().then(() => cy.cleanupWorld()));

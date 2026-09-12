@@ -77,7 +77,7 @@ describe("injuryLevelFromImpact", () => {
         expect(injuryLevelFromImpact(impact)).toBe(level);
     });
 
-    // Per-creature scaling (#468): the same absolute impact reads differently
+    // Per-creature scaling: the same absolute impact reads differently
     // against a scaled threshold table.
     const scale = (factor: number) => [1, 5, 10, 15, 20].map((t) => t * factor);
 
@@ -533,12 +533,12 @@ describe("buildTraumaData", () => {
         expect(data).toMatchObject({
             subType: TRAUMA_SUBTYPE.INJURY,
             levelBase: 5,
-            // A new wound carries NO Healing Rate (#1148) — `null`, not the
+            // A new wound carries NO Healing Rate — `null`, not the
             // catastrophic real rate `0`.
             healingRateBase: null,
             treatmentModifierBase: 0,
             aspect: IMPACT_ASPECT.EDGED,
-            // Bleeding is derived (#482): a bleeder is marked by a non-null
+            // Bleeding is derived: a bleeder is marked by a non-null
             // blood-loss timer placeholder (seeded to its real interval in
             // TraumaDataModel._preCreate).
             bloodLossAdvanceDurationBase: 0,
@@ -564,7 +564,7 @@ describe("buildTraumaData", () => {
         expect(data.bloodLossAdvanceDurationBase).toBe(0); // overridden to bleed
     });
 
-    it("marks a non-bleeder with a null blood-loss timer (#482)", () => {
+    it("marks a non-bleeder with a null blood-loss timer", () => {
         const body = makeBody();
         const injury = resolveInjury({
             impact: 3,

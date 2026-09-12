@@ -12,7 +12,7 @@
  */
 
 /**
- * Map notes compiled to Scenes (#1525), against the shipped packs.
+ * Map notes compiled to Scenes, against the shipped packs.
  *
  * The unit suite proves the markdown → document translation; this proves the
  * result is a real Foundry Scene in a real client: the synthesised Level
@@ -44,7 +44,7 @@ async function importAdventure(win) {
     return { adventure, data, result };
 }
 
-describe("Map notes → Scenes (#1525)", () => {
+describe("Map notes → Scenes", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     after(() => {
@@ -200,9 +200,9 @@ describe("Map notes → Scenes (#1525)", () => {
     /**
      * Run `fn()` with no scene viewed, then hand `canvas.scene` back to core.
      *
-     * The state #1535 is about is a client viewing nothing, and this harness is
+     * The state under test is a client viewing nothing, and this harness is
      * not that client: `package-build e2e seed` writes an **active** default
-     * scene (#451, so the canvas is ready and the new-user tour never overlays a
+     * scene (so the canvas is ready and the new-user tour never overlays a
      * sheet), which the client views at load — so `canvas.scene` here is a live
      * Scene. Importing the adventure does not change that: an Adventure carries
      * `active: false` on its scenes, and core only auto-activates a created
@@ -215,7 +215,7 @@ describe("Map notes → Scenes (#1525)", () => {
      * is the same handle `scene-nonpersisted.cy.js` uses to pin the sibling
      * defect's precondition, and it keeps the assertion off a real
      * `canvas.draw(null)` teardown/redraw — headless canvas churn being the very
-     * thing this suite keeps getting bitten by (#611, #1550).
+     * thing this suite keeps getting bitten by.
      */
     async function withNoSceneViewed(win, fn) {
         const prior = Object.getOwnPropertyDescriptor(win.canvas, "scene");
@@ -231,7 +231,7 @@ describe("Map notes → Scenes (#1525)", () => {
         }
     }
 
-    it("a restricted region's shape-constraint pass is inert with no scene viewed (#1535)", () => {
+    it("a restricted region's shape-constraint pass is inert with no scene viewed", () => {
         cy.foundry(async (win) => {
             await importAdventure(win);
             const ground = win.game.scenes.find((s) => s.name === GROUND);
@@ -259,7 +259,7 @@ describe("Map notes → Scenes (#1525)", () => {
             const viewedScene = win.canvas?.scene?.id ?? null;
             const writesWhileViewed = await flagAndSettle();
             // With none viewed it is inert. Unguarded on the 14.359 floor this
-            // is the #1535 crash itself: the deferred callback reads
+            // is the crash itself: the deferred callback reads
             // `canvas.scene.id` and throws `reading 'id'` out of the ticker.
             const writesWhileUnviewed = await withNoSceneViewed(win, () => flagAndSettle());
 

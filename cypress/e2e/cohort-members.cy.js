@@ -12,11 +12,11 @@
  */
 
 /**
- * The Cohort sheet's **Members** tab (#1151), in a live client.
+ * The Cohort sheet's **Members** tab, in a live client.
  *
- * The tab used to render its section and list nothing at all: the template bound
- * fields the schema never carried, and the sheet built no context for the part.
- * These specs drive the real roster — rows resolved from each member's
+ * A template binding fields the schema does not carry, with no context built
+ * for the part, renders the section and lists nothing at all. These specs drive
+ * the real roster — rows resolved from each member's
  * `shortcodeOrUuid` handle, the chess-king leader toggle, the row trashcan, and
  * the add control — through the three intrinsic actions that back them.
  *
@@ -164,7 +164,7 @@ describe("cohort Members tab", () => {
         });
     });
 
-    it("shows each resolved member's health as a percentage and a localized band (#199)", () => {
+    it("shows each resolved member's health as a percentage and a localized band", () => {
         openRoster().then(({ cohort }) => {
             shouldSettle(cohort.id, (_persisted, r) => {
                 // A freshly created being is unwounded — 100/100 — so both rows
@@ -178,7 +178,7 @@ describe("cohort Members tab", () => {
         });
     });
 
-    it("leaves the health cell empty for a member whose actor does not resolve (#199)", () => {
+    it("leaves the health cell empty for a member whose actor does not resolve", () => {
         openRoster([{ shortcodeOrUuid: "departed" }]).then(({ cohort }) => {
             shouldSettle(cohort.id, (_persisted, r) => {
                 expect(r[2].ref).to.eq("departed");
@@ -198,7 +198,7 @@ describe("cohort Members tab", () => {
         });
     });
 
-    it("flags an unresolved member with a NOT FOUND warning (#199)", () => {
+    it("flags an unresolved member with a NOT FOUND warning", () => {
         openRoster([{ shortcodeOrUuid: "departed" }]).then(({ cohort }) => {
             shouldSettle(cohort.id, (_persisted, r) => {
                 expect(r[2].ref).to.eq("departed");

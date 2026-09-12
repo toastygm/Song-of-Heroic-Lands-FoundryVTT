@@ -4,9 +4,9 @@ import { TEST_TYPE } from "@src/utils/constants";
 
 // The default context-menu `condition` strings in constants.ts are compiled by
 // SohlContextMenu and evaluated against the context makeConditionContext builds
-// — which binds the **logic layer** as `itemLogic` / `actorLogic` (see #459),
-// not the raw documents. These tests pin each affected default (#458) to the
-// migrated bindings: they must read live logic state, and the pre-#459
+// — which binds the **logic layer** as `itemLogic` / `actorLogic`,
+// not the raw documents. These tests pin each affected default to the
+// migrated bindings: they must read live logic state, and the raw
 // `item.system.*` / `item.system.data.*` document paths (which are always
 // falsy — the bug) must not creep back in.
 //
@@ -53,8 +53,9 @@ describe("default context-menu conditions (constants.ts TEST_TYPE)", () => {
         });
 
         it("reads logic state, not the stale document paths", () => {
-            // The pre-#459 string referenced `item.system.*`; a bound `item`
-            // with that shape must have no effect on the (logic-driven) result.
+            // A condition referencing `item.system.*` binds a document; an
+            // `item` of that shape must have no effect on the (logic-driven)
+            // result.
             const item = { system: { canImprove: true, data: {} } };
             expect(evalCondition(source, { item, itemLogic: undefined })).toBe(false);
         });
@@ -62,7 +63,7 @@ describe("default context-menu conditions (constants.ts TEST_TYPE)", () => {
 
     // The SDR is the *opposite* gate: it is the roll a flagged item is waiting
     // for, and it spends the flag as part of its outcome, so it is offered only
-    // while the flag is set (#1102).
+    // while the flag is set.
     describe("IMPROVEWITHSDR", () => {
         const source = TEST_TYPE.IMPROVEWITHSDR.condition as string;
 
@@ -92,8 +93,9 @@ describe("default context-menu conditions (constants.ts TEST_TYPE)", () => {
         });
 
         it("reads logic state, not the stale document paths", () => {
-            // The pre-#459 string referenced `item.system.*`; a bound `item`
-            // with that shape must have no effect on the (logic-driven) result.
+            // A condition referencing `item.system.*` binds a document; an
+            // `item` of that shape must have no effect on the (logic-driven)
+            // result.
             const item = { system: { canImprove: true, data: {} } };
             expect(evalCondition(source, { item, itemLogic: undefined })).toBe(false);
         });

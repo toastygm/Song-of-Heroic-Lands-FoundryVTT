@@ -80,7 +80,7 @@ export class StrikeModeConfig extends (StrikeModeConfig_Base as typeof foundry.a
             // Annotated so declaration emit does not have to name the
             // private static `#onSubmit`, which it can only spell with a
             // synthetic `__#N@#onSubmit` that no downstream `.d.ts`
-            // consumer can parse (issue #1613).
+            // consumer can parse.
             handler: StrikeModeConfig
                 .#onSubmit as foundry.applications.api.ApplicationV2.FormSubmission,
             closeOnSubmit: false,
@@ -166,7 +166,7 @@ export class StrikeModeConfig extends (StrikeModeConfig_Base as typeof foundry.a
             // The melee attack scatter is always presented as a Zone Die.
             spreadLabel: "Zone Die",
             aspectOptions,
-            // Associated-skill dropdown (#974): the owning actor's skills when the
+            // Associated-skill dropdown: the owning actor's skills when the
             // weapon/technique is embedded; empty for a world item, so the field
             // falls back to free-text entry.
             embedded: this.#item.actor != null,

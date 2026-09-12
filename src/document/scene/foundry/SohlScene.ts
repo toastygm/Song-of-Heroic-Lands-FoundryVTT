@@ -40,7 +40,7 @@ export class SohlScene extends Scene {
      * @remarks
      * A Scene is **not** one of Foundry's typed documents — `BaseScene` declares
      * no `hasTypeData`, so a scene has no `system` and no system DataModel can be
-     * attached to it however it is registered in `CONFIG` (issue #1155). Like
+     * attached to it however it is registered in `CONFIG`. Like
      * `SohlTokenDocument`, the logic is therefore not created by `SohlDataModel`;
      * it wraps an adapter that reads the scene's SoHL flags live, so the toggle a
      * GM sets in the Scene config is observable immediately.

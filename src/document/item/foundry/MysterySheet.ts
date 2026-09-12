@@ -48,7 +48,7 @@ export class MysterySheet extends SohlItemSheetBase {
             assocAffiliationCode: system.assocAffiliationCode,
             levelBase: system.levelBase,
             charges: system.charges,
-            // Associated-skill dropdown (#974): the actor's skills when embedded;
+            // Associated-skill dropdown: the actor's skills when embedded;
             // empty off-actor, so the template falls back to free-text entry.
             embedded: this.document.actor != null,
             assocSkillCodeOptions: actorItemRefOptions(
@@ -56,7 +56,7 @@ export class MysterySheet extends SohlItemSheetBase {
                 ITEM_KIND.SKILL,
                 system.assocSkillCode,
             ),
-            // Associated-affiliation dropdown (#1076): the actor's affiliations
+            // Associated-affiliation dropdown: the actor's affiliations
             // when embedded; empty off-actor → free-text shortcode entry.
             assocAffiliationCodeOptions: actorItemRefOptions(
                 this.document.actor?.logic,

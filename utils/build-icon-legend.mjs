@@ -43,7 +43,7 @@ const OUT_PATH = "assets/content/User_Guide/Icon_Legend.md";
 
 /**
  * The pack folder this page routes into, by path rather than by folder id
- * (#1835): folders are notes, and a note names the folder it belongs to the
+ *: folders are notes, and a note names the folder it belongs to the
  * same way every other note does.
  */
 const PAGE_PACK_FOLDER = "userguide";
@@ -51,13 +51,10 @@ const PAGE_PACK_FOLDER = "userguide";
 /**
  * The note's logical identity — `(type, shortcode)`.
  *
- * **No top-level `aliases` block.** The generator used to emit one, naming the
- * page and a couple of synonyms, because the bare `[[Alias]]` wikilink form
- * resolved through it. That form and its index are retired
- * (HeroicLands/package-build#180): a link now names an address,
+ * **No top-level `aliases` block.** A link names an address,
  * `[[type-shortcode|Text]]`, which both resolvers reach through
  * `readQualifier` → `type/shortcode` without consulting any alias. The field is
- * refused outright, so a generator that kept emitting one would fail the build
+ * refused outright, so a generator emitting one would fail the build
  * on the next run.
  *
  * See kb/dev-docs/reference/content-links.md.
@@ -253,7 +250,7 @@ function collectActionIcons(lang) {
  *
  * So this is not duplication to be tidied away later. Deleting it does not move
  * the knowledge somewhere better; it loses it. The rows arrived by hand-editing
- * the generated page (#1891), which the `--check` mode then correctly refused —
+ * the generated page, which the `--check` mode then correctly refused —
  * moving them here is what makes both the page and the check right.
  */
 const INDICATOR_ROWS = [
@@ -377,8 +374,8 @@ const INDICATOR_ROWS = [
     // row here would print the same glyph and the same name twice.
     // The chosen-one-of-a-set pair, drawn the way the improve flag is: a shape
     // change rather than a weight change, because it is a toggle and not a
-    // scale. It was a filled/hollow `fa-star` until #1894, which made it a
-    // second star pair beside the Victory Stars with an unrelated meaning.
+    // scale. A filled/hollow `fa-star` here would be a second star pair beside
+    // the Victory Stars with an unrelated meaning.
     {
         cls: "fa-solid fa-circle-check",
         name: "Default Movement Medium",
@@ -410,7 +407,7 @@ const INDICATOR_ROWS = [
  * eye do that. Toggles get two different glyphs instead, for the opposite
  * reason — see INDICATOR_ROWS.
  *
- * The gems were `fa-diamond` until #1893. That glyph is Font Awesome's
+ * The gems are not `fa-diamond`. That glyph is Font Awesome's
  * playing-card suit and ships in **solid only**, so the hollow half of the
  * scale was asking the shipped font for something it does not contain. `fa-gem`
  * has both weights and is a gemstone, which is what a quality scale means; the
@@ -541,7 +538,7 @@ ${body}
  * what this generator would write.
  *
  * The check exists because the generator's output and the file it owns had
- * silently diverged (#1620): the page's own header says "do not edit by hand",
+ * silently diverged: the page's own header says "do not edit by hand",
  * and nothing said so when someone did. Drift here is not cosmetic — the copy on
  * disk had gained the `doc-iconlgndug` address alias the generator never emitted,
  * so the *next* run of `npm run build:icon-legend` would have deleted it and

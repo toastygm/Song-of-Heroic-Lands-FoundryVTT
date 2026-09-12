@@ -401,7 +401,7 @@ describe("evaluate — snapshot attacker, evaluate only the defender", () => {
     });
 });
 
-describe("CombatResult deduplication (#203)", () => {
+describe("CombatResult deduplication", () => {
     it("attackResult getter aliases sourceTestResult", () => {
         const atk = makeSide({ level: 1 });
         const def = makeSide({ level: 0 });

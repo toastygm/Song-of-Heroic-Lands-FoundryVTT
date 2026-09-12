@@ -12,7 +12,7 @@
  */
 
 /**
- * Expression scopes (#1142) — every SafeExpression call site declares the
+ * Expression scopes — every SafeExpression call site declares the
  * identifiers legal there, and that one declaration drives validation, the
  * editor, and the docs.
  *
@@ -21,7 +21,7 @@
  * expression is evaluated against a context matching its scope. The unit suite
  * covers the grammar and the registry.
  *
- * Also covers #1090, the defect that motivated the scope work: `shockReTest`
+ * Also covers the defect that motivates the scope work: `shockReTest`
  * binds `actorLogic`, which the action-visible scope did not supply, so the
  * action was hidden in every state.
  */
@@ -36,7 +36,7 @@ function offersShockReTest(actorId) {
         // `getContextOptions` runs each action's real `visible` predicate. The
         // sheet element is the natural target; the actor's own sheet may not be
         // rendered, so a bare element stands in for the menu's DOM anchor —
-        // which is exactly the case #1090 broke (no `data-actor-id` ancestor).
+        // which is exactly the case that breaks (no `data-actor-id` ancestor).
         const target = win.document.createElement("div");
         return actor.logic
             .getContextOptions()
@@ -45,7 +45,7 @@ function offersShockReTest(actorId) {
     });
 }
 
-describe("expression scopes — action visibility (#1142, #1090)", () => {
+describe("expression scopes — action visibility", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -104,7 +104,7 @@ describe("expression scopes — action visibility (#1142, #1090)", () => {
     });
 });
 
-describe("expression scopes — the editor is driven by the schema (#1142)", () => {
+describe("expression scopes — the editor is driven by the schema", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         // testIsolation is off: an open modal editor would cover the next test.

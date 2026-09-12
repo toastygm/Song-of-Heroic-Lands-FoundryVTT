@@ -18,8 +18,8 @@
  *
  * The catalog is the same module the runtime validates against and the editor
  * autocompletes from, so a generated table cannot drift from the code the way
- * the hand-maintained one did (issue #1142: it documented 8 of 12 call sites and
- * nothing failed).
+ * a hand-maintained one does — that drifts to documenting only some call
+ * sites, and nothing fails.
  *
  * Run via `npm run docs:expr-scopes`; `npm run lint` runs this with `--check`
  * and fails when the committed section is stale.

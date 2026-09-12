@@ -12,10 +12,10 @@
  */
 
 /**
- * Zone Die presentation on the Combat tab (#828).
+ * Zone Die presentation on the Combat tab.
  *
  * A melee strike mode's `spread.effective` is always presented as a Zone Die
- * (`d{n}`, column "ZD"). The former "Use Zone Die" toggle was removed — zone-die
+ * (`d{n}`, column "ZD"). There is no "Use Zone Die" toggle — zone-die
  * presentation is now unconditional.
  */
 describe("Zone Die presentation", () => {

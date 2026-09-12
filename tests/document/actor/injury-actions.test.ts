@@ -235,7 +235,7 @@ describe("buildInjuryCardData", () => {
         expect(data.partName).toBeUndefined();
     });
 
-    it("carries the Shock Roll button's scope (#555)", () => {
+    it("carries the Shock Roll button's scope", () => {
         const body = makeBody();
         const neck = body.getAllLocations().find((l) => l.shortcode === "neck")!;
         const injury = resolveInjury({
@@ -289,7 +289,7 @@ describe("buildInjuryCardData", () => {
         });
     });
 
-    it("carries the zone-die aim trace when the location was derived (#828)", () => {
+    it("carries the zone-die aim trace when the location was derived", () => {
         const body = makeBody();
         const neck = body.getAllLocations().find((l) => l.shortcode === "neck")!;
         const injury = resolveInjury({
@@ -324,7 +324,7 @@ describe("buildInjuryCardData", () => {
         });
     });
 
-    it("flags a player-overridden location when set manually (#828)", () => {
+    it("flags a player-overridden location when set manually", () => {
         const body = makeBody();
         const neck = body.getAllLocations().find((l) => l.shortcode === "neck")!;
         const injury = resolveInjury({
@@ -348,7 +348,7 @@ describe("buildInjuryCardData", () => {
     });
 });
 
-describe("buildMissCardData (#828)", () => {
+describe("buildMissCardData", () => {
     it("builds a no-impact card carrying the aim trace and a miss flag", () => {
         const data = buildMissCardData(
             {
@@ -379,7 +379,7 @@ describe("buildMissCardData (#828)", () => {
     });
 });
 
-describe("getActorBodyStructure (#268)", () => {
+describe("getActorBodyStructure", () => {
     it("resolves the body structure from the being's body sub-object", () => {
         // The callers pass the BeingLogic (`this`), which exposes its `body`
         // sub-object; the helper reads `body.structure` (via getActorBody).
@@ -394,7 +394,7 @@ describe("getActorBodyStructure (#268)", () => {
     });
 });
 
-describe("createTraumaFromInjury (#286)", () => {
+describe("createTraumaFromInjury", () => {
     afterEach(() => vi.restoreAllMocks());
 
     it("creates the trauma via the actor logic through the boundary (not on the logic directly)", async () => {
@@ -440,7 +440,7 @@ describe("createTraumaFromInjury (#286)", () => {
         return { injury, trauma };
     }
 
-    it("OFFERS the first healing check after creating the wound — accept schedules it (#579)", async () => {
+    it("OFFERS the first healing check after creating the wound — accept schedules it", async () => {
         const { injury, trauma } = woundAndTrauma();
         const schedule = vi.spyOn((globalThis as any).sohl, "schedule");
         // A pre-answered context (e.g. scripted) — schedule: true accepts.
@@ -451,7 +451,7 @@ describe("createTraumaFromInjury (#286)", () => {
         expect(schedule).toHaveBeenCalledWith(trauma, "healingCheck", 432000);
     });
 
-    it("does NOT auto-arm — declining the offer leaves it unscheduled (#579)", async () => {
+    it("does NOT auto-arm — declining the offer leaves it unscheduled", async () => {
         const { injury, trauma } = woundAndTrauma();
         const schedule = vi.spyOn((globalThis as any).sohl, "schedule");
         const unschedule = vi.spyOn((globalThis as any).sohl, "unschedule");
@@ -463,7 +463,7 @@ describe("createTraumaFromInjury (#286)", () => {
         expect(unschedule).toHaveBeenCalledWith(trauma, "healingCheck");
     });
 
-    it("also OFFERS the blood-loss advance when the wound bleeds on infliction (#579)", async () => {
+    it("also OFFERS the blood-loss advance when the wound bleeds on infliction", async () => {
         const body = makeBody();
         const neck = body.getAllLocations().find((l) => l.shortcode === "neck")!;
         const injury = resolveInjury({
@@ -490,11 +490,11 @@ describe("createTraumaFromInjury (#286)", () => {
     });
 
     /**
-     * The drop is a **one-time write at the injury event** (#1269), not a
+     * The drop is a **one-time write at the injury event**, not a
      * lifecycle side effect — so re-preparation never re-drops, and an item the
      * player picks back up stays put.
      */
-    describe("dropping what the disabled limb held (#1269)", () => {
+    describe("dropping what the disabled limb held", () => {
         /** A resolved wound at `neck` of the requested severity. */
         function woundOfImpact(impact: number) {
             const body = makeBody();

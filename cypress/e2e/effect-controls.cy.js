@@ -12,7 +12,7 @@
  */
 
 /**
- * Active-effect authoring controls (#501): create / toggle / delete an embedded
+ * Active-effect authoring controls: create / toggle / delete an embedded
  * effect from a sheet's Effects tab, wired via the shared sheet mixin's
  * `actions` map (`effectCreate` / `effectToggle` / `effectDelete`) and backed by
  * `SohlActor#createEffect` / `SohlItem#createEffect` and
@@ -37,7 +37,7 @@ function seedActorEffect(actorId, name) {
         .then((id) => id);
 }
 
-describe("active-effect controls (#501)", () => {
+describe("active-effect controls", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => {
@@ -68,7 +68,7 @@ describe("active-effect controls (#501)", () => {
                 // Assert the row exists before dispatching, then trigger the
                 // toggle inside the live sheet element — a plain `cy.get(...)
                 // .click()` here flakes under full-suite load when the sheet
-                // re-renders and the click lands on a detached node (#748).
+                // re-renders and the click lands on a detached node.
                 const toggle = `${EFFECTS} .effects__row[data-effect-id="${effectId}"] [data-action="effectToggle"]`;
                 cy.get(toggle).should("exist");
                 cy.clickSheetAction(actor, toggle);

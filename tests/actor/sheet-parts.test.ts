@@ -43,10 +43,10 @@ describe("resolveActorSheetParts", () => {
         ).toEqual(BEING_PARTS);
     });
 
-    // The #1088 regression: a fenced sheet declared gear/actions/effects but the
+    // The regression this guards: a fenced sheet declares gear/actions/effects but the
     // base sheet hard-coded the render list to header/tabs/facade, so those tabs
     // had no section in the DOM at all.
-    it("renders a fenced sheet's content parts, not just the facade (#1088)", () => {
+    it("renders a fenced sheet's content parts, not just the facade", () => {
         expect(
             resolveActorSheetParts(VEHICLE_PARTS, {
                 isFenced: true,
@@ -96,7 +96,7 @@ describe("resolveActorSheetParts", () => {
     });
 });
 
-describe("buildMovementRows (#1204)", () => {
+describe("buildMovementRows", () => {
     /** A minimal authored movement profile. */
     function profile(medium: string, feetPerRound: number) {
         return {

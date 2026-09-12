@@ -12,7 +12,7 @@
  */
 
 /**
- * Logic-class registration (#82).
+ * Logic-class registration.
  *
  * A variant module subclasses a base Logic class (exposed at
  * `sohl.itemLogicClasses` / `sohl.actorLogicClasses`) and registers the override
@@ -67,7 +67,7 @@ describe("logic-class registration", () => {
                             JSON.stringify({
                                 name: "Reg Skill",
                                 type: "skill",
-                                // subType is required with no initial (#956), so a
+                                // subType is required with no initial, so a
                                 // bare skill create is vetoed at validation.
                                 system: { subType: "social" },
                             }),
@@ -104,7 +104,7 @@ describe("logic-class registration", () => {
                         JSON.stringify({
                             name: "Base Skill",
                             type: "skill",
-                            // subType is required with no initial (#956).
+                            // subType is required with no initial.
                             system: { subType: "social" },
                         }),
                     ),

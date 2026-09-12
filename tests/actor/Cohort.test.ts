@@ -235,7 +235,7 @@ describe("CohortLogic", () => {
         });
     });
 
-    describe("memberRows health (#199)", () => {
+    describe("memberRows health", () => {
         /** A resolvable actor stub carrying a health value on its logic data. */
         function withHealth(name: string, value: number, max = 100) {
             return {

@@ -166,7 +166,7 @@ describe("applyStrengthImpact", () => {
         expect(sm.impact.effective).toBe(before + 3);
     });
 
-    it("makes a stronger attacker hit harder with the same weapon (#1253)", () => {
+    it("makes a stronger attacker hit harder with the same weapon", () => {
         const weak = new MeleeStrikeMode(melee(), MOCK_LOGIC, "sm");
         const strong = new MeleeStrikeMode(melee(), MOCK_LOGIC, "sm");
         applyStrengthImpact(weak, { strength: 9 });

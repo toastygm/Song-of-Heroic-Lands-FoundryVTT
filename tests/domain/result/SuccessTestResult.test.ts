@@ -117,11 +117,11 @@ describe("SuccessTestResult", () => {
         it.todo("sets MARGINAL_FAILURE when roll > constrainedEffective (no crits)");
         // CRITICAL_SUCCESS / CRITICAL_FAILURE from the last digit, and the
         // matching descriptions, are covered by the
-        // "critical outcomes on a standard test (#908)" block below.
+        // "critical outcomes on a standard test" block below.
         it.todo("applies successLevelMod to the success level");
         it.todo("clamps success level to MS/MF range when crits not allowed");
         // valueDiamonds is no longer computed in evaluate() — it derives on read
-        // from the description table (see the "derived outcome data (#205)" block).
+        // from the description table (see the "derived outcome data" block).
     });
 
     describe("testDialog()", () => {
@@ -129,7 +129,7 @@ describe("SuccessTestResult", () => {
         it.todo("applies situational modifier from form data");
         it.todo("sets rollMode from form data");
 
-        describe("targetMovement (#75)", () => {
+        describe("targetMovement", () => {
             it("records 'moving' from form data onto movement", async () => {
                 const result = makeResult();
                 mockDialogSubmit({
@@ -173,7 +173,7 @@ describe("SuccessTestResult", () => {
         it.todo("sends chat message with test result data");
         it.todo("includes roll in chat options");
 
-        it("folds caller-supplied `buttons` through toRenderableButtons into the card data (#853)", async () => {
+        it("folds caller-supplied `buttons` through toRenderableButtons into the card data", async () => {
             const result = makeResult();
             const spy = vi
                 .spyOn(SohlSpeaker.prototype, "toChat")
@@ -203,7 +203,7 @@ describe("SuccessTestResult", () => {
             ]);
         });
 
-        it("normalizes an array of buttons and defaults skipDialog per-button (#853)", async () => {
+        it("normalizes an array of buttons and defaults skipDialog per-button", async () => {
             const result = makeResult();
             const spy = vi
                 .spyOn(SohlSpeaker.prototype, "toChat")
@@ -226,7 +226,7 @@ describe("SuccessTestResult", () => {
             expect(chatData.buttons[0].scopeJSON).toBe("{}");
         });
 
-        it("omits `buttons` from the card data when none are supplied (#853)", async () => {
+        it("omits `buttons` from the card data when none are supplied", async () => {
             const result = makeResult();
             const spy = vi
                 .spyOn(SohlSpeaker.prototype, "toChat")
@@ -239,9 +239,9 @@ describe("SuccessTestResult", () => {
 
     // Derived outcome data (resultText / resultDesc / valueDiamonds) is never
     // stored — it is computed on read from the description table (which rides
-    // the wire as data, #206) plus the evaluated successLevel / targetValue /
-    // lastDigit. See #205.
-    describe("derived outcome data (#205)", () => {
+    // the wire as data) plus the evaluated successLevel / targetValue /
+    // lastDigit. See.
+    describe("derived outcome data", () => {
         /** One-row table: literal label/description, star count = successLevel + 1. */
         function starTable() {
             return [
@@ -349,7 +349,7 @@ describe("SuccessTestResult", () => {
         it.todo("defines standard roll data for CF, MF, CS, MS outcomes");
     });
 
-    describe("evaluate() — rolls unless a die was supplied (#551)", () => {
+    describe("evaluate() — rolls unless a die was supplied", () => {
         const owned = { isOwner: true, name: "GM" } as any;
 
         /** A result owned by `owned`, optionally seeded with a supplied die. */
@@ -409,7 +409,7 @@ describe("SuccessTestResult", () => {
         });
     });
 
-    describe("critical outcomes on a standard test (#908)", () => {
+    describe("critical outcomes on a standard test", () => {
         const owned = { isOwner: true, name: "GM" } as any;
 
         /**
@@ -486,7 +486,7 @@ describe("SuccessTestResult", () => {
         });
     });
 
-    describe("a supplied 00 face forces a Critical Failure (#1148)", () => {
+    describe("a supplied 00 face forces a Critical Failure", () => {
         const owned = { isOwner: true, name: "GM" } as any;
 
         /**
@@ -554,7 +554,7 @@ describe("SuccessTestResult", () => {
         });
     });
 
-    describe("auto-Critical-Failure (#568)", () => {
+    describe("auto-Critical-Failure", () => {
         const owned = { isOwner: true, name: "GM" } as any;
 
         it("forces a Critical Failure regardless of the roll when autoCriticalFail is set", async () => {

@@ -37,7 +37,7 @@ export function weightedRandom<
         throw new Error("Cannot select from empty array or zero total weight");
     }
     // Continuous draw preserves fractional weights exactly (no behaviour change
-    // vs. the former Math.random path); float() is uniform in [0, 1).
+    // vs. a bare Math.random path); float() is uniform in [0, 1).
     let roll = rng.float() * totalWeight;
     for (const item of items) {
         roll -= item.probWeight.effective;

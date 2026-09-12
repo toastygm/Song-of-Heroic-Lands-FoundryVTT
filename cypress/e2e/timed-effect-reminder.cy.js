@@ -12,7 +12,7 @@
  */
 
 /**
- * Timed-effect consent (#579): when a scheduled effect comes due, the event
+ * Timed-effect consent: when a scheduled effect comes due, the event
  * queue posts a [Perform] reminder card — it does NOT perform the effect. Proven
  * end to end: a treated wound with a scheduled healing check, world time advanced
  * well past the check → a reminder card appears with a [Perform] button addressed
@@ -31,7 +31,7 @@ describe("Timed-effect reminder", () => {
 
                 // A treated injury with a scheduled healing check on the generic
                 // store (anchor day 0, 100s interval) — creation no longer
-                // auto-arms it (issue #579 offers it), so the spec supplies the
+                // auto-arms it (it is offered, not armed), so the spec supplies the
                 // schedule directly; finalize arms it on prep.
                 const created = await a.createEmbeddedDocuments(
                     "Item",

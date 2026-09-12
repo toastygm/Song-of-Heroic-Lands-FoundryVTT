@@ -12,7 +12,7 @@
  */
 
 /**
- * Body-part impairment derivation (#464).
+ * Body-part impairment derivation.
  *
  * A body part's impairment is the penalty applied to any use of it, caused by
  * wounds and easing as they heal. A part takes the **most serious** injury among
@@ -28,12 +28,12 @@
  * minimum the result can never be milder than.
  *
  * Pure and Foundry-free; consumed by the Being-sheet header grid (and, later, the
- * health derivation #463).
+ * health derivation).
  */
 
 /**
  * Shortcode of the **Immobilized** `physcond` Trauma — the one condition that
- * pins a limb without disabling it (#1269). A trauma carrying this shortcode
+ * pins a limb without disabling it. A trauma carrying this shortcode
  * sets {@link sohl.entity.body.BodyPart.immobilized} on the part owning its
  * `bodyLocationCode`, for as long as the trauma exists; deleting it releases the
  * limb. A grappling *hold* and a binding spell impart the same condition.
@@ -67,7 +67,7 @@ const PERMANENT_IMPAIRMENT_FLOOR = -25;
  * −5 per completed 20-day band (`20–39 → −5`, `40–59 → −10`, … `80–99 → −20`),
  * floored at `−25` for `100+` days. Only wounds flagged
  * {@link sohl.document.item.logic.TraumaData.permanentImpairmentEligible} (set by
- * the Treatment Test, #553) accrue it.
+ * the Treatment Test) accrue it.
  *
  * @param daysToHeal - Days from wounding to the injury reaching level 0.
  * @returns The permanent impairment as a non-positive number (`0` when none).
@@ -80,7 +80,7 @@ export function permanentImpairmentFor(daysToHeal: number): number {
 
 /**
  * Whether a test **auto-Critically-Fails** because it requires a body part the
- * actor cannot use (#568): the governing skill/attribute lists (in its
+ * actor cannot use: the governing skill/attribute lists (in its
  * `impairedByRoles`) at least one body-part role that is currently
  * {@link BodyPartImpairment.usable | unusable}.
  *
@@ -101,7 +101,7 @@ export function testAutoCriticallyFails(
 
 /**
  * The **indefinite-impairment penalty** a test suffers because it depends on a
- * body part that is impaired but still usable (#568): the worst (most negative)
+ * body part that is impaired but still usable: the worst (most negative)
  * −5 (minor) / −10 (serious) penalty across the roles the governing
  * skill/attribute lists in its `impairedByRoles`.
  *
@@ -131,7 +131,7 @@ export function testImpairmentPenalty(
 
 /**
  * Whether a test **auto-Critically-Fails** because a body part it *specifically*
- * requires — the limb(s) holding the weapon in a strike mode (#628) — is
+ * requires — the limb(s) holding the weapon in a strike mode — is
  * currently {@link BodyPartImpairment.usable | unusable}.
  *
  * The per-part counterpart to {@link testAutoCriticallyFails}: a weapon strike
@@ -152,7 +152,7 @@ export function requiredPartsAutoCriticallyFail(
 
 /**
  * The **indefinite-impairment penalty** a test suffers because a body part it
- * *specifically* requires is impaired but still usable (#628): the worst (most
+ * *specifically* requires is impaired but still usable: the worst (most
  * negative) −5 (minor) / −10 (serious) penalty across the required parts.
  *
  * The per-part counterpart to {@link testImpairmentPenalty}. A required part that
@@ -175,7 +175,7 @@ export function requiredPartsImpairmentPenalty(
 }
 
 /**
- * A body part's impairment **tier**, by magnitude (#470): `none` (0), `minor`
+ * A body part's impairment **tier**, by magnitude: `none` (0), `minor`
  * (−1…−5), `serious` (−6…−10), `grievous` (≤ −11). Injuries reach at most
  * `serious` (a grievous injury makes the part *unusable* rather than adding a
  * number); the `grievous` tier is only reached via permanent impairment.
@@ -219,9 +219,9 @@ export interface BodyPartImpairment {
      * unusable.
      */
     usable: boolean;
-    /** Impairment tier by magnitude (drives the health ceiling, #470). */
+    /** Impairment tier by magnitude (drives the health ceiling). */
     tier: BodyPartTier;
-    /** Display status bucket for the header grid (#464). */
+    /** Display status bucket for the header grid. */
     status: BodyPartStatus;
 }
 

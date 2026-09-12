@@ -214,7 +214,7 @@ export interface CombatantStartLocation {
  * token position as `system.startLocation` — the field
  * {@link SohlCombatantLogic.spacesMovedThisTurn} reads — plus a reset of
  * `system.didAction`. Pure; the `updateCombat` hook supplies the token center
- * and elevation. Guards against writing the wrong field name (#386).
+ * and elevation. Guards against writing the wrong field name.
  *
  * @param center - The token's canvas center at turn start.
  * @param center.x - Pixel x-coordinate of the token center.
@@ -351,7 +351,7 @@ export class SohlCombatantLogic<
      * @remarks
      * The token hangs off the combatant **document** ({@link combatant}), not
      * off its data model — {@link sohl.core.logic.SohlLogic.parent} is the data
-     * model, so reading `parent.token` yielded `undefined` and threw (#1079).
+     * model, so reading `parent.token` yielded `undefined` and threw.
      * @returns the token document's logic, or `undefined` when there is no token.
      */
     get tokenLogic(): SohlTokenDocumentLogic | undefined {
@@ -527,7 +527,7 @@ export class SohlCombatantLogic<
         // The combat tracker's context-menu entry builds its context with a
         // speaker only (`SohlLogic.getContextOptions` supplies no target), so
         // fall back to what the user has targeted — the same seam
-        // `MasteryLevelModifier.opposedTestStart` uses (#1079). The player's
+        // `MasteryLevelModifier.opposedTestStart` uses. The player's
         // targeting *is* the human trigger; nothing is picked on their behalf.
         const target = context.target ?? fvttGetTargetedTokens(true)?.[0]?.logic;
         if (!target) {
@@ -1461,7 +1461,7 @@ export function collectAttackableStrikeModes(
  * differently: an **Attack** aims at the acting player's target, while a
  * **Counterstrike** aims back at the combatant that attacked. Deriving it here
  * from `context.scope.attackResult` only ever worked for the counterstrike —
- * the start path carries no attack result, so every attack aborted (#1079).
+ * the start path carries no attack result, so every attack aborted.
  * @param context - The action context carrying the attack snapshot in its scope.
  * @param attackerLogic - The attacking combatant's logic.
  * @param defenderLogic - The defending combatant's logic (the attack's target).
@@ -1592,7 +1592,7 @@ export function buildCombatCardData(combatResult: CombatResult): CombatCardData 
 
     let atkWeapon = atkResult?.mode?.parent;
 
-    // The attack-result card's adjustment tables (#844): each side's mastery-level
+    // The attack-result card's adjustment tables: each side's mastery-level
     // modifier deltas as `{ name, value }` rows. The card renders the sign itself
     // (`+` for positive), so the numeric `numValue` is passed through.
     const deltaRows = (
@@ -1604,7 +1604,7 @@ export function buildCombatCardData(combatResult: CombatResult): CombatCardData 
     // Victory Star: `true` where the star is the attacker's — who initiated the
     // exchange, so their stars are drawn filled — and `false` where it is the
     // defender's, drawn hollow, so the line says who won as well as by how much.
-    // Empty on a tie, so the card falls to its "None" branch (#844).
+    // Empty on a tie, so the card falls to its "None" branch.
     const victoryStarMarks = (margin: number): boolean[] =>
         Array.from({ length: Math.abs(margin) }, () => margin >= 0);
 
@@ -1691,7 +1691,7 @@ export function buildCombatCardData(combatResult: CombatResult): CombatCardData 
             attackWeapon: atkWeapon?.name ?? "",
             // The counterstrike side is shown as an unopposed attack (no contested
             // defense), so the defender adjustment table and weapon are empty; the
-            // attacker table and victory stars mirror the attack side (#844).
+            // attacker table and victory stars mirror the attack side.
             defendWeapon: "",
             attackMods: deltaRows(atkResult.masteryLevelModifier),
             defendMods: [],
@@ -1849,7 +1849,7 @@ export function buildAttackResult(input: BuildAttackInput): AttackResult {
     // strike mode. `clone()` round-trips through the kind registry, faithfully
     // reviving nested ValueDeltas and rebuilding the concrete subclass.
     const masteryLevelModifier = input.attackML.clone({}, { parent: input.parent });
-    // Embed aim/spread in the impact modifier — the single source of truth (#207).
+    // Embed aim/spread in the impact modifier — the single source of truth.
     const impact = input.impact.clone(
         {
             aimBodyPartCode: input.aimBodyPartCode ?? "",

@@ -12,14 +12,14 @@
  */
 
 /**
- * Being sheet header — body-part impairment grid (#464).
+ * Being sheet header — body-part impairment grid.
  *
  * Each body part in the header grid is colored by its derived impairment status
  * (none/minor/major/unusable), taken from the worst injury across its hit
  * locations. The derivation math is unit-tested; here we prove it flows through a
  * real body + trauma items to the rendered grid cell's `data-status`.
  */
-describe("Being sheet header: body-part impairment grid (#464)", () => {
+describe("Being sheet header: body-part impairment grid", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

@@ -75,7 +75,7 @@ export function formatDefault(
         const sc = components as SohlCalendarComponents;
         // The month name and era abbreviation are i18n keys (or already-plain
         // text); localize both — exactly as the generic branch below does for
-        // the month — so a SoHL date never renders raw keys (#941, #944).
+        // the month — so a SoHL date never renders raw keys.
         // `localize` is idempotent on non-key text, so plain values pass through.
         const localizedMonth = sohl.i18n.localize((calendar as any).getMonthName(sc.month));
         const localizedEra = sohl.i18n.localize(sc.eraAbbrev);

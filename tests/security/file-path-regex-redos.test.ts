@@ -12,7 +12,7 @@
  */
 
 /**
- * Security regression tests for issue #165:
+ * Security regression tests:
  * Catastrophic ReDoS in FILE_PATH_REGEX.
  *
  * The original inner character class `[^<>:"|?*\n\r]` also matched `/` and `\`,
@@ -35,7 +35,7 @@ function assertFastMatch(input: string, limitMs: number = 100): RegExpMatchArray
     return result;
 }
 
-describe("FILE_PATH_REGEX — ReDoS hardening (#165)", () => {
+describe("FILE_PATH_REGEX — ReDoS hardening", () => {
     describe("valid paths still accepted", () => {
         it("accepts a simple relative path", () => {
             expect(isFilePath("foo/bar.png")).toBe(true);

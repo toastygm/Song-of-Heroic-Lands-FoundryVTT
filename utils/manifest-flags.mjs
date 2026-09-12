@@ -84,7 +84,7 @@ function creditsUuid(config) {
 
     const [note] = matches;
     // The id the credits journal compiles under: its pin if it has one, and
-    // otherwise the id derived from its canonical address (#1841). Asked of the
+    // otherwise the id derived from its canonical address. Asked of the
     // engine rather than read off the frontmatter, because a note no longer
     // authors an `id` — reading `fm.id` here would address the journal by a
     // value that is usually absent, and the manifest would carry a dead

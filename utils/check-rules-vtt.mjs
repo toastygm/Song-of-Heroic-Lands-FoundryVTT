@@ -92,7 +92,7 @@ for (const file of walk(ROOT)) {
         for (const [pattern, why] of FORBIDDEN) {
             if (pattern.test(line)) {
                 // The column is where the offending phrase starts, so an
-                // editor lands on it rather than on the line (#1668).
+                // editor lands on it rather than on the line.
                 const at = line.search(pattern);
                 violations.push({
                     file,

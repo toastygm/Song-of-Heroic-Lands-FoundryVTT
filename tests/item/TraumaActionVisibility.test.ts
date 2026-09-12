@@ -5,7 +5,7 @@ import { TraumaSubTypes, AfflictionSubTypes } from "@src/utils/constants";
 
 /**
  * Guard against a `visible` expression naming a subtype value that does not
- * exist (#1182). Five Trauma actions were gated on `'physical'` — a **Skill**
+ * exist. Five Trauma actions were gated on `'physical'` — a **Skill**
  * subtype — so they never appeared in the Actions context menu for any trauma
  * that has ever existed, and nothing noticed.
  */
@@ -14,7 +14,7 @@ function subTypeLiterals(expression: string): string[] {
     return [...expression.matchAll(/subType\s*===\s*['"]([^'"]+)['"]/g)].map((m) => m[1]);
 }
 
-describe("intrinsic-action visibility gates name real subtypes (#1182)", () => {
+describe("intrinsic-action visibility gates name real subtypes", () => {
     it("every Trauma `visible` subtype literal is a real TRAUMA_SUBTYPE", () => {
         const valid = new Set<string>(TraumaSubTypes as readonly string[]);
         for (const action of TraumaLogic.defineIntrinsicActions()) {

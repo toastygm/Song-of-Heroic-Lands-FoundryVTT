@@ -107,7 +107,7 @@ export interface RelationCandidate {
     name: string;
 }
 
-/** One row of the Affiliation sheet's relation table (#1404). */
+/** One row of the Affiliation sheet's relation table. */
 export interface RelationRow {
     /** The other affiliation's shortcode (the stored key). */
     code: string;

@@ -18,7 +18,7 @@
  * so it fails at resolution with no redirect to follow. Nothing in the build
  * notices — an absolute URL is opaque to the wikilink checks, compiles cleanly
  * into the Foundry journals, and publishes to the knowledgebase looking exactly
- * like a working link. That is how 71 of them shipped (#1485).
+ * like a working link. That is how 71 of them shipped.
  *
  * This module is the single list, so a guard and its test share one definition
  * of "retired" rather than two copies that can disagree.
@@ -28,7 +28,7 @@
  * Retired hostname → the address that replaced it.
  *
  * Both were withdrawn when the site consolidated everything under one `/sohl/`
- * deploy (#1455, #1456): the API documentation is published once, unversioned,
+ * deploy: the API documentation is published once, unversioned,
  * at `/sohl/api/`, and the knowledgebase at `/sohl/kb/`.
  *
  * @type {Map<string, string>}
@@ -103,7 +103,7 @@ export function rewriteHint(url) {
  *
  * The retired host served it at `/dev/<path>/`, and the API documentation's own
  * landing page linked it at a bare `/<path>/` — a route that was already wrong
- * before the move (#1480). Both become the one section that exists today.
+ * before the move. Both become the one section that exists today.
  */
 const KB_DEV_SECTION = "dev-docs/";
 
@@ -167,7 +167,7 @@ export function findRetiredHrefs(html) {
  * Repoint every retired-host link in `html` at an address that exists.
  *
  * Used on the API documentation, which is generated from the newest **release
- * tag** (#1452) and so can carry addresses that were correct when that tag was
+ * tag** and so can carry addresses that were correct when that tag was
  * cut. Its source cannot be corrected retroactively, so the deployment corrects
  * the output — but only where it can prove the replacement resolves, which is
  * what `resolves` is for. A link no candidate rescues is reported and left

@@ -282,7 +282,7 @@ export class SohlAction extends SohlEntity {
      * This is the seam a UI surface asks before *offering* the action: the
      * Actions tab disables a refused action's run control and shows
      * {@link unavailableReason}, rather than presenting a live control that
-     * silently does nothing (issue #1135). Note it does **not** include the
+     * silently does nothing. Note it does **not** include the
      * Script-action permission gate that {@link execute} applies first — that
      * gate is already folded into {@link visible}, the DOM-driven predicate.
      *
@@ -347,7 +347,7 @@ export class SohlAction extends SohlEntity {
         // method is bound to, so `this === ctx.thisLogic` inside that method.
         actionContext.thisLogic = this.executorTarget;
         const result = await Promise.resolve(this.executor(actionContext));
-        // Generic run record (issue #579): stamp `system.lastRun[shortcode]` on
+        // Generic run record: stamp `system.lastRun[shortcode]` on
         // the owning document for flagged actions, so "when did X last happen
         // here?" is answerable without a bespoke field. This is the one
         // chokepoint every invocation funnels through (context menu, actions tab,
@@ -439,8 +439,8 @@ export namespace SohlAction {
         /**
          * i18n **key** explaining why the action is refused while its
          * {@link SohlAction.Data.trigger} is false, surfaced as
-         * {@link sohl.entity.action.SohlAction.unavailableReason} (issue
-         * #1135) — e.g. a gear action gated on the item being carried says so
+         * {@link sohl.entity.action.SohlAction.unavailableReason} — e.g. a
+         * gear action gated on the item being carried says so
          * rather than leaving the user with a control that does nothing.
          * Optional; a generic reason
          * ({@link sohl.entity.action.SohlAction.DEFAULT_DISABLED_REASON}) is
@@ -470,14 +470,14 @@ export namespace SohlAction {
         /**
          * When `true`, {@link SohlAction.execute} stamps this document's
          * `system.lastRun[shortcode]` with the current world time each time the
-         * action performs (issue #579) — a generic run record, no bespoke field.
+         * action performs — a generic run record, no bespoke field.
          * Set it on actions where "when did this last happen here?" is worth
          * answering; omit for trivial/UI actions so they don't force a write.
          *
-         * It belongs on the action that **acts**. In a Check/Test pair (#1181)
+         * It belongs on the action that **acts**. In a Check/Test pair
          * that is the `*Test`: a `*Check` only posts a card offering the test,
          * so recording it there would claim the effect happened on the strength
-         * of an offer nobody answered (#1192). Optional; defaults to off.
+         * of an offer nobody answered. Optional; defaults to off.
          */
         recordsLastRun?: boolean;
     }
@@ -542,9 +542,9 @@ function compileVisibility(
         try {
             const item = resolveContextItem(element);
             // Resolved before evaluation, not after: the permission gate below
-            // needs it either way, and `visible` expressions bind it too (#1090
-            // — `actorLogic` used to be an unknown identifier here, which hid
-            // the action unconditionally). The owning logic's own actor is the
+            // needs it either way, and `visible` expressions bind it too —
+            // unresolved, `actorLogic` is an unknown identifier here and hides
+            // the action unconditionally. The owning logic's own actor is the
             // last fallback, exactly as `getContextOptions`' callback resolves
             // the acting actor, so a menu on a document without a
             // `data-actor-id` marker still sees the actor it will act on.

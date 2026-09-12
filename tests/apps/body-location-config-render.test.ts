@@ -7,7 +7,7 @@
 
 /**
  * Render the real BodyLocationConfig editor template in Node and assert the
- * emitted HTML — the identity header, the owning-part dropdown (#982) pre-selected
+ * emitted HTML — the identity header, the owning-part dropdown pre-selected
  * to the location's `bodyPartCode`, the tier selects pre-selected to the
  * location's current values, the four protectionBase inputs, the mishap
  * checkboxes, and no Save button. Mirrors what
@@ -69,7 +69,7 @@ describe("body-location-config template", () => {
         expect(html).toMatch(/name="shortcode"[^>]*value="skull"/);
     });
 
-    it("renders the owning-part dropdown pre-selected to bodyPartCode (#982)", () => {
+    it("renders the owning-part dropdown pre-selected to bodyPartCode", () => {
         const html = renderTemplateReal(TEMPLATE, context());
         expect(html).toMatch(/<select[^>]*name="bodyPartCode"/);
         // Both parts are offered; the location's current part is selected.
@@ -77,7 +77,7 @@ describe("body-location-config template", () => {
         expect(html).toMatch(/<option value="thorax"(?![^>]*selected)[^>]*>\s*Thorax\s*<\/option>/);
     });
 
-    it("flags a dangling bodyPartCode as an unresolved option, never blanked (#982)", () => {
+    it("flags a dangling bodyPartCode as an unresolved option, never blanked", () => {
         const ctx = context();
         ctx.loc.bodyPartCode = "gone";
         ctx.bodyPartCodeOptions = buildRefOptions(PARTS, "gone");

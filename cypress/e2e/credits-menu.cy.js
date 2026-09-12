@@ -12,7 +12,7 @@
  */
 
 /**
- * The "Credits" settings menu (issue #1517) — the second of the two entry
+ * The "Credits" settings menu — the second of the two entry
  * points, and the one every SoHL module reuses on its own settings tab.
  *
  * Proves what only a live client can: that the menu registers under the

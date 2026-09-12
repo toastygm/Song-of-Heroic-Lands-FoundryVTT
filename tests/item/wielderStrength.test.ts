@@ -13,7 +13,7 @@
 
 /**
  * The Strength Impact Modifier reaching a real weapon on a real wielder
- * (#1253) — the wiring, as opposed to the rule, which
+ * — the wiring, as opposed to the rule, which
  * `tests/domain/strikemode/strengthImpact.test.ts` pins down.
  */
 
@@ -66,7 +66,7 @@ function armedWielder(strength: number, strikeMode: object = MELEE) {
     return weapon;
 }
 
-describe("Strength reaches a wielded weapon (#1253)", () => {
+describe("Strength reaches a wielded weapon", () => {
     it("a stronger wielder hits harder with the same weapon", () => {
         // The regression that prompted the issue: two wielders differing only
         // in Strength dealt identical impact.
@@ -127,7 +127,7 @@ describe("Strength reaches a wielded weapon (#1253)", () => {
     });
 });
 
-describe("Strength reaches a combat technique (#1253)", () => {
+describe("Strength reaches a combat technique", () => {
     /** A combat-technique skill on an actor of the given Strength. */
     function puncher(strength: number) {
         const actor = makeMockActor();

@@ -69,7 +69,7 @@ export type DialogResultCallback = (
 
 /**
  * Configuration for the single generic `dialog` boundary function — the one
- * logic-level dialog primitive (supersedes the former per-shape helpers).
+ * logic-level dialog primitive.
  */
 export interface DialogSpec {
     /** Dialog window title. */

@@ -88,7 +88,7 @@ function makeDefender(
     };
 }
 
-describe("gateEditActionPencil (#856)", () => {
+describe("gateEditActionPencil", () => {
     /** A stub root whose `querySelectorAll("a.edit-action")` yields `pencils`. */
     function makeElement(pencils: any[]): HTMLElement {
         return {
@@ -115,7 +115,7 @@ describe("gateEditActionPencil (#856)", () => {
     });
 });
 
-describe("hasUsableDodgeSkill (#64)", () => {
+describe("hasUsableDodgeSkill", () => {
     it("returns true when the actor has a Dodge skill", () => {
         const actorLogic: any = {
             logicTypes: {
@@ -208,7 +208,7 @@ describe("gateAutomatedDefenseButtons", () => {
         }
     });
 
-    it("removes Dodge (only) when an owned, healthy defender has no Dodge skill (#64)", () => {
+    it("removes Dodge (only) when an owned, healthy defender has no Dodge skill", () => {
         const buttons = allButtons();
         gateAutomatedDefenseButtons(makeElement(buttons), () =>
             makeDefender(true, { hasDodge: false }),
@@ -219,7 +219,7 @@ describe("gateAutomatedDefenseButtons", () => {
         expect(buttons[ACTIONS.ignore].remove).not.toHaveBeenCalled();
     });
 
-    it("keeps Dodge for an owned, healthy defender that has a Dodge skill (#64)", () => {
+    it("keeps Dodge for an owned, healthy defender that has a Dodge skill", () => {
         const buttons = allButtons();
         gateAutomatedDefenseButtons(makeElement(buttons), () =>
             makeDefender(true, { hasDodge: true }),

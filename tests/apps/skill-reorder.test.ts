@@ -6,7 +6,7 @@
  */
 
 /**
- * Drag-reordering skills on the Being sheet (issue #1528).
+ * Drag-reordering skills on the Being sheet.
  *
  * A skill's group comes from its subType, never from where it was dropped, so a
  * cross-group drag clamps to the near edge of the skill's own group instead of

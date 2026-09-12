@@ -7,14 +7,14 @@
 
 /**
  * Render the real Mystical Ability properties sheet template in Node and assert
- * the emitted binding placeholders. Covers #815: the phantom
+ * the emitted binding placeholders. The phantom
  * `system.domainCode` control (no such schema field — the Domain-registry
  * integration is incomplete) and the phantom `system.isImprovable` control (a
  * mis-named duplicate of the existing `improveFlag`) must both be gone, while
- * the real `system.improveFlag` control still renders. Also covers #973: the
+ * the real `system.improveFlag` control still renders. Also: the
  * dead `system.skillBaseFormula` control (a Mystical Ability has no Skill Base —
  * its rolled value derives from `masteryLevelBase`) must be gone too, and
- * #1129: the unlabelled, inert `system.charges.usesCharges` checkbox is gone —
+ * The unlabelled, inert `system.charges.usesCharges` checkbox must be gone —
  * whether an ability uses charges is carried by `system.charges.max` alone.
  */
 
@@ -60,7 +60,7 @@ function render(): string {
     });
 }
 
-describe("mystical ability properties sheet template (#815)", () => {
+describe("mystical ability properties sheet template", () => {
     it("no longer references the phantom system.domainCode field", () => {
         const html = render();
         expect(html).not.toContain("system.domainCode");
@@ -73,7 +73,7 @@ describe("mystical ability properties sheet template (#815)", () => {
         expect(html).not.toContain('data-field="system.isImprovable"');
     });
 
-    it("no longer references the dead system.skillBaseFormula field (#973)", () => {
+    it("no longer references the dead system.skillBaseFormula field", () => {
         const html = render();
         expect(html).not.toContain("system.skillBaseFormula");
         expect(html).not.toContain('data-field="system.skillBaseFormula"');
@@ -90,7 +90,7 @@ describe("mystical ability properties sheet template (#815)", () => {
         expect(html).toContain('data-value="dodge"');
     });
 
-    it("renders the associated-affiliation control bound to system.assocAffiliationCode (#1012)", () => {
+    it("renders the associated-affiliation control bound to system.assocAffiliationCode", () => {
         // Off-actor render (no `embedded`): the shortcodeRefField partial falls
         // back to a free-text control, so the binding placeholder surfaces.
         const html = render();
@@ -104,7 +104,7 @@ describe("mystical ability properties sheet template (#815)", () => {
         expect(html).toContain('data-field="system.charges.max"');
     });
 
-    it("no longer renders the inert system.charges.usesCharges checkbox (#1129)", () => {
+    it("no longer renders the inert system.charges.usesCharges checkbox", () => {
         const html = render();
         expect(html).not.toContain("system.charges.usesCharges");
     });

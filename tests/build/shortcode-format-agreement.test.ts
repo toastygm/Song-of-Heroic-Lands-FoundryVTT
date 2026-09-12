@@ -18,8 +18,8 @@
  * Two copies of one rule is exactly the arrangement that drifts silently, and a
  * drift here is not cosmetic: the build would accept a key the runtime refuses
  * to save, or the runtime would accept one that breaks the `type-shortcode`
- * address whose parse needs the separating hyphen to be the only hyphen
- * (#1397). Nothing else compares them, so this test is the seam — the same job
+ * address whose parse needs the separating hyphen to be the only hyphen.
+ * Nothing else compares them, so this test is the seam — the same job
  * `manifest-package-id.test.ts` does for the package id, and
  * `src-import-severance.test.ts` for the installed package's imports.
  *
@@ -51,7 +51,7 @@ describe("the shortcode shape rule agrees across the boundary", () => {
         ["aconite", true],
         ["weapon2", true],
         ["a", true],
-        // Lowercase since #1882 / package-build#340: the address built from a
+        // Lowercase: the address built from a
         // shortcode is lowercased, so a capital was a second spelling of one
         // key rather than a key of its own.
         ["BCFl", false],

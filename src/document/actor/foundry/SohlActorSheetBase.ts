@@ -95,7 +95,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
      * general `clearField` action used by the `clearableNumberInput` helper, plus
      * the controls carried by the shared Gear / Actions / Effects tab templates —
      * those tabs render on every actor type, so their handlers belong here rather
-     * than on any one concrete sheet (issue #1088).
+     * than on any one concrete sheet.
      */
     static override DEFAULT_OPTIONS: PlainObject = {
         actions: {
@@ -220,7 +220,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
         // ride onto the owner and pollute discovery (or be re-instantiated as
         // if it were a template). Import and Duplicate deliberately keep the
         // marker; the clear lives here and in the Create dialog, never in the
-        // universal `_preCreate` (issues #604 / #1780).
+        // universal `_preCreate`.
         clearArchetypeMarker(data as any);
 
         if (isMove && GearKinds.includes(droppedItem.type as any)) {
@@ -308,29 +308,29 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
         // provided one, so `itemLogic` was always undefined and *every*
         // action whose `visible`/`trigger` names it stayed hidden from the
         // row ⋮ menus — armour's Toggle Worn, a weapon's Attack/Block/
-        // Counterstrike, a combat technique's Improve with SDR (#1132).
+        // Counterstrike, a combat technique's Improve with SDR.
         if (el && this.document.id) el.dataset.actorId = this.document.id;
 
         // Bind the item/effect context menus (right-click on a `.item` row and
         // click on its `.item-contextmenu` ⋮ control). Without this a sheet has
-        // no way to edit or delete any created item (#517). `_contextMenu` is
+        // no way to edit or delete any created item. `_contextMenu` is
         // provided by the SohlDataModel sheet mixin. Bound here rather than on a
         // concrete sheet because the ledgers that carry those controls are the
-        // shared Gear / Effects tab templates (#1088).
+        // shared Gear / Effects tab templates.
         (this as any)._contextMenu?.(el);
     }
 
     /**
      * Register the sheet's render parts, derived from its declared `PARTS` in
-     * declaration order: the experimental-schema banner (fenced types only,
-     * issue #959), the header, the tab navigation, the Facade tab, and every
+     * declaration order: the experimental-schema banner (fenced types only),
+     * the header, the tab navigation, the Facade tab, and every
      * content tab the concrete sheet declares — the last of which are withheld
      * when the viewer has only limited permission.
      *
      * Deriving the list means a sheet gets its tab bodies by declaring them,
      * rather than by also restating them here. Hard-coding it was what left the
      * Vehicle, Structure, and Cohort sheets rendering an empty panel for every
-     * tab but Facade (issue #1088).
+     * tab but Facade.
      *
      * @param options - The render options to populate with the sheet parts.
      * @param options.parts - Populated in place with the registered part ids.
@@ -367,7 +367,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
         // options.parts contains array of partIds being rendered
         // e.g., ["header", "tabs", "facade"]
 
-        // Gate the experimental-schema banner (issue #959). The fenced-banner
+        // Gate the experimental-schema banner. The fenced-banner
         // part reads this flag; setting it on the shared context makes it
         // available to every part.
         (context as any).isFenced = isFencedType("Actor", this.document.type);
@@ -433,8 +433,8 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
 
     /**
      * Build the `header` part's render context: the actor's name, portrait,
-     * localized type label, and the archetype-marker control's binding (issue
-     * #1780), which every actor header template binds. Subclasses override to
+     * localized type label, and the archetype-marker control's binding, which
+     * every actor header template binds. Subclasses override to
      * add their own header content (a being's health bar, status pills, and
      * body-part lozenges, for instance).
      * @param context - The in-progress render context.
@@ -554,7 +554,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
     /**
      * Map a gear item to the compact row the gear ledgers bind — the shared
      * shape behind the Gear tab's sections and the Cohort sheet's Shared Gear
-     * tab (issue #76), so the two ledgers never drift apart column by column.
+     * tab, so the two ledgers never drift apart column by column.
      *
      * @param item - The gear item to describe.
      * @returns The display row for one ledger line.
@@ -575,7 +575,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
             quality: `${q >= 0 ? "+" : ""}${q}`,
             durability: sys.durabilityBase ?? 0,
             // Derivation summaries for the weight/quality/durability
-            // hover tooltips (#769).
+            // hover tooltips.
             weightDeltaLabel: gl?.weight?.deltaLabel ?? "",
             qualityDeltaLabel: gl?.quality?.deltaLabel ?? "",
             durabilityDeltaLabel: gl?.durability?.deltaLabel ?? "",
@@ -608,7 +608,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
      *
      * The base reports **none**. A vehicle's cargo and a structure's stores have
      * no maximum to be measured against — capacity is deliberately not modeled
-     * for either (#200, #201) — and a bare total is not a fact anyone acts on:
+     * for either — and a bare total is not a fact anyone acts on:
      * nothing is encumbered by it and nothing refuses to accept more. So the
      * section legend simply carries no readout. {@link BeingSheet} overrides
      * this to report the being's carried weight and resulting encumbrance, which
@@ -738,8 +738,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
      *
      * Dispatches the item's `toggleCarried` intrinsic action rather than writing
      * the field, so the ledger control and the Actions context menu share one
-     * implementation — including the stow-time clearing of any "in use" state
-     * (issue #1097).
+     * implementation — including the stow-time clearing of any "in use" state.
      *
      * @param _event - The triggering pointer event (unused).
      * @param target - The clicked control, within a `data-item-id` row.
@@ -760,7 +759,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
      *
      * Dispatches the item's `toggleWorn` intrinsic action rather than writing the
      * field, so the ledger control honors the same carried gate as the Actions
-     * context menu: armor that is not carried cannot be worn (#1097).
+     * context menu: armor that is not carried cannot be worn.
      *
      * @param _event - The triggering pointer event (unused).
      * @param target - The clicked control, within a `data-item-id` row.
@@ -861,7 +860,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
      * `data-action="addMovementProfile"`: prompt for a movement medium (limited
      * to media the being does not yet have a profile for) and a tactical move
      * (feet/round), then append the new profile to `system.movementProfiles`.
-     * The whole array is written back (never an element-by-index update — #247).
+     * The whole array is written back (never an element-by-index update).
      * The option list is built from the trusted, localized `MovementMediumChoices`
      * enum labels, never from persisted user data.
      *

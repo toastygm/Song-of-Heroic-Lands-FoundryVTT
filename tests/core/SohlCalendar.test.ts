@@ -311,7 +311,7 @@ describe("SohlCalendarData", () => {
             expect(() => formatDefault(cal, c)).not.toThrow();
         });
 
-        // #941 / #944: the SoHL branch previously emitted the month name and era
+        // The SoHL branch must not emit the month name and era
         // abbreviation verbatim, so an i18n-key-valued month/era rendered as the
         // raw key (e.g. `SOHL.Calendar.Default.Month.0.label`,
         // `SOHL.CALENDAR.DEFAULT.EraAbbr`). Both must be localized, exactly as the
@@ -407,11 +407,11 @@ describe("SohlCalendarData", () => {
             expect(out).toMatch(/^FUT\[/);
         });
 
-        // Regression (#477): the future-tense wrapper key is SoHL-owned (unlike
+        // Regression: the future-tense wrapper key is SoHL-owned (unlike
         // the Foundry-core "TIME.Since" past wrapper), so it must be present in
         // lang/en.json or "… from now" durations render the raw key. The unit
         // tests above stub the key, so only a real-file assertion catches the gap.
-        it("ships the SOHL.TIME.Until key in lang/en.json (#477)", () => {
+        it("ships the SOHL.TIME.Until key in lang/en.json", () => {
             const en = JSON.parse(
                 readFileSync(new URL("../../lang/en.json", import.meta.url), "utf8"),
             ) as Record<string, string>;

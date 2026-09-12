@@ -14,10 +14,10 @@
 /**
  * Gear → encumbrance interaction, verified end-to-end on a live being:
  *
- * - **#1009** Worn armor weight is *excluded* from the being's carried weight
+ * - Worn armor weight is *excluded* from the being's carried weight
  *   (and therefore encumbrance) — a fitted harness rides the body. The same
  *   armor carried but **not** worn counts its full weight like any other cargo.
- * - **#1010** An armor's or weapon's optional per-item *encumbrance value* is
+ * - An armor's or weapon's optional per-item *encumbrance value* is
  *   added to the being's encumbrance while the item is in use (armor worn, a
  *   weapon carried), on top of the weight-derived base.
  *
@@ -45,12 +45,12 @@ function setField(win, actorId, itemId, patch) {
         .then(() => true);
 }
 
-describe("gear → encumbrance (#1009, #1010)", () => {
+describe("gear → encumbrance", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);
 
-    it("worn armor weight is excluded from carried weight; carried-not-worn counts (#1009)", () => {
+    it("worn armor weight is excluded from carried weight; carried-not-worn counts", () => {
         cy.importActor().then((actor) => {
             // Armor carried but not worn to start; 12 lb of raw weight.
             cy.createItemOn(actor, "armorgear", {
@@ -74,7 +74,7 @@ describe("gear → encumbrance (#1009, #1010)", () => {
         });
     });
 
-    it("a worn armor's encumbrance value is added to encumbrance (#1010)", () => {
+    it("a worn armor's encumbrance value is added to encumbrance", () => {
         cy.importActor().then((actor) => {
             // Weightless so wearing does not change the weight-derived base;
             // only the encumbrance value (5) should move the total.
@@ -103,9 +103,9 @@ describe("gear → encumbrance (#1009, #1010)", () => {
         });
     });
 
-    it("a carried weapon's encumbrance value is added to encumbrance (#1010)", () => {
+    it("a carried weapon's encumbrance value is added to encumbrance", () => {
         cy.importActor().then((actor) => {
-            // Weightless weapon with no strike modes (avoids #246) so only its
+            // Weightless weapon with no strike modes so only its
             // encumbrance value (3) contributes; toggle isCarried to see it move.
             cy.createItemOn(actor, "weapongear", {
                 name: "Unwieldy Pike",

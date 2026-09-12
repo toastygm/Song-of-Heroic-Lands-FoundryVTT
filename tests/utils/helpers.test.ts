@@ -942,7 +942,7 @@ describe("resolveShortcodeKey (shortcodeDedupe matrix)", () => {
 
         // Foundry's `randomID` is mixed-case base62, so the generated key has
         // to be folded like any other — otherwise the create that needed a
-        // fallback would write a key its own update guard then refuses (#1882).
+        // fallback would write a key its own update guard then refuses.
         it("folds a mixed-case generated id to satisfy the rule", () => {
             const result = resolveShortcodeKey("", "—", new Set(), {
                 dedupe: true,
@@ -984,7 +984,7 @@ describe("resolveShortcodeKey (shortcodeDedupe matrix)", () => {
         });
     });
 
-    describe("shape rule — shortcodes are lowercase alphanumeric (#1397, #1882)", () => {
+    describe("shape rule — shortcodes are lowercase alphanumeric", () => {
         // A capital is refused on the same footing as punctuation: the guard
         // does not silently rewrite what an author typed, it tells them. The
         // repair path below is the one that folds.

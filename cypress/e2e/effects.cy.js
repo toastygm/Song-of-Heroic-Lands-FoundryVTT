@@ -14,7 +14,7 @@
 /**
  * Active effects: a SoHL custom effect must be creatable with its data model
  * applied. The `sohleffectdata` subtype (used by the add-effect action) is now
- * declared in `system.json` `documentTypes` (fix for #145) — before that the
+ * declared in `system.json` `documentTypes` — without that the
  * type was rejected as invalid and effects had no `system.*` (scope/changes).
  */
 
@@ -42,7 +42,7 @@ describe("active effects", () => {
                     // Data-model fields present ⇒ SohlActiveEffectDataModel applied.
                     hasScope: eff?.system?.scope !== undefined,
                     hasChanges: Array.isArray(eff?.system?.changes),
-                    // #796: the Effects-tab Target column binds this getter.
+                    // The Effects-tab Target column binds this getter.
                     targetLabel: eff?.system?.targetLabel,
                 };
             }).then((r) => {
@@ -78,7 +78,7 @@ describe("active effects", () => {
                 "have.length.greaterThan",
                 0,
             );
-            // #796: the Target column renders the effect's targetLabel (a
+            // The Target column renders the effect's targetLabel (a
             // default 'this'-scoped effect on a miscgear item ⇒ "This Misc
             // Gear"), not an empty cell.
             cy.get('section.tab[data-tab="effects"] .effects__row')

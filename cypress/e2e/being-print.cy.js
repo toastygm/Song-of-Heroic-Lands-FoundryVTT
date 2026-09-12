@@ -12,7 +12,7 @@
  */
 
 /**
- * Being print / export (#795). The window-header print control renders a
+ * Being print / export. The window-header print control renders a
  * dedicated, static, all-sections character record from the same view-models
  * the interactive sheet uses, into a new browser window, and opens that
  * window's print dialog. Setup imports Basic Folk so every section has content.
@@ -20,7 +20,7 @@
  * `window.open` and `print()` are stubbed in the click test so the run neither
  * spawns a real popup nor blocks on a native print dialog.
  */
-describe("being print / export (#795)", () => {
+describe("being print / export", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => {

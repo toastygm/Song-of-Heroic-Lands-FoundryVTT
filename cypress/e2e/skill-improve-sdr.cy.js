@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill Development Roll persistence (#716).
+ * Skill Development Roll persistence.
  *
  * `SkillLogic.improveWithSDR` rolls `1d100 + skillBase` against the current base
  * mastery level and, on a success, raises `system.masteryLevelBase` by `sdrIncr`
@@ -21,7 +21,7 @@
  * suite can only mock — driving the live `.logic` with forced dice so the
  * outcome is deterministic, then asserting the persisted `system` fields.
  */
-describe("skill improveWithSDR persistence (#716)", () => {
+describe("skill improveWithSDR persistence", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.foundry((win) => {
@@ -85,10 +85,10 @@ describe("skill improveWithSDR persistence (#716)", () => {
         });
     });
 
-    // #1103: the card used to render through standard-test-card.hbs under keys
-    // that template does not read, so Target and Roll came out blank and a GM
-    // result-edit pencil was drawn with an empty scope.
-    it("posts a card carrying the roll total and the target mastery level (#1103)", () => {
+    // The card renders through standard-test-card.hbs. Posting it under keys
+    // that template does not read leaves Target and Roll blank and draws the GM
+    // result-edit pencil with an empty scope.
+    it("posts a card carrying the roll total and the target mastery level", () => {
         cy.importActor().then((actor) => {
             makeFlaggedSkill(actor).then((skill) => {
                 cy.prepare(actor);

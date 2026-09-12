@@ -12,7 +12,7 @@
  */
 
 /**
- * Per-creature injury scaling via the body's `bodyScale` factor (#468).
+ * Per-creature injury scaling via the body's `bodyScale` factor.
  *
  * The `bodyScaleBase` datamodel field (on the actor's inline body,
  * `system.body`) flows through `BodyLogic` into a scaled `injuryTable`, exposed
@@ -20,7 +20,7 @@
  * any creature. The scaling math is unit-tested; here we prove the datamodel
  * field drives the derived table end to end.
  */
-describe("injury body-scale (#468)", () => {
+describe("injury body-scale", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);

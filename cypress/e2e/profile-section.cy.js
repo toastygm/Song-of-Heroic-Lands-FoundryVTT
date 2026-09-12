@@ -12,14 +12,14 @@
  */
 
 /**
- * Being Profile tab (#373): the biography editor must bind to a real datamodel
- * field. It previously targeted `system.biography`, which is not in the actor
+ * Being Profile tab: the biography editor must bind to a real datamodel
+ * field. It must not target `system.biography`, which is not in the actor
  * schema, so it always rendered empty and edits were silently dropped. It now
  * binds to `system.dossier` ("rich-text dossier / background notes").
  */
 import { toRealm } from "../support/resolve";
 
-describe("Being Profile tab (#373)", () => {
+describe("Being Profile tab", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

@@ -69,14 +69,14 @@ export class AttributeLogic<
      * {@link sohl.entity.modifier.MasteryLevelModifier}. Seeded in
      * {@link AttributeLogic.finalize | finalize} from the actor's Aura attribute,
      * exactly as a skill's is; disabled outright for the Aura attribute itself,
-     * which can never be fated (#1106).
+     * which can never be fated.
      */
     fateMasteryLevel!: MasteryLevelModifier;
 
     /**
      * The Fate Mysteries on the actor that may be spent on this attribute's
      * tests — a **general** Fate Point, or one associated with this attribute's
-     * shortcode, that still has a charge (#1106).
+     * shortcode, that still has a charge.
      *
      * The rules allow Fate on _any_ skill or attribute test, so this is the same
      * eligibility set a skill exposes, evaluated against this attribute's

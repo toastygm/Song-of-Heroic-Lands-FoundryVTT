@@ -12,7 +12,7 @@
  */
 
 /**
- * Follow-up action buttons on the standard test result card (#853), end to end.
+ * Follow-up action buttons on the standard test result card, end to end.
  *
  * `SuccessTestResult.toChat` can now carry arbitrary follow-up consent buttons —
  * the same shape the action-card framework posts — folded through the shared
@@ -24,7 +24,7 @@
  * always-present edit pencil. Nothing auto-fires — the button is offered.
  */
 
-describe("Standard test card — follow-up buttons (#853)", () => {
+describe("Standard test card — follow-up buttons", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -89,7 +89,7 @@ describe("Standard test card — follow-up buttons (#853)", () => {
                         skipDialog: btn.dataset.skipDialog ?? null,
                         label: btn.textContent.trim(),
                         // The always-present edit pencil still renders on the
-                        // same card. #856 gave it its own action
+                        // same card. It has its own action
                         // (`resultEdit`); it is a GM-only control, and the e2e
                         // user is a GM, so it renders here.
                         hasEditPencil: !!div.querySelector('[data-action="resultEdit"]'),

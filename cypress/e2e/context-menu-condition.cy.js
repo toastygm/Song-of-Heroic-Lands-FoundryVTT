@@ -12,18 +12,18 @@
  */
 
 /**
- * Default context-menu / action visibility predicates (#458). The improve-flag,
- * transmit, and diagnosis predicates previously referenced stale document paths
- * (`item.system.canImprove`, `item.system.data.improveFlag`, …) that always
- * resolved falsy, so the entries never appeared. They now bind the logic layer
- * (`itemLogic.canImprove`, `itemLogic.data.improveFlag`, …).
+ * Default context-menu / action visibility predicates. The improve-flag,
+ * transmit, and diagnosis predicates bind the logic layer
+ * (`itemLogic.canImprove`, `itemLogic.data.improveFlag`, …). A document path
+ * (`item.system.canImprove`, `item.system.data.improveFlag`, …) always resolves
+ * falsy, and the entry never appears.
  *
  * This spec drives the real runtime path in a live world: the Skill's
  * `improveWithSDR` action `visible(element)` predicate resolves `itemLogic` from
  * the clicked row's `data-item-id` (via `resolveContextItem`) and reads live
  * logic state. It must show for a skill that can improve and **is** flagged for
  * improvement, and hide for one that is not — the SDR is the roll a flagged
- * skill is waiting for, and it spends the flag as part of its outcome (#1102).
+ * skill is waiting for, and it spends the flag as part of its outcome.
  */
 import { toRealm } from "../support/resolve";
 
@@ -38,12 +38,12 @@ function rowElement(win, itemId, actorId) {
     };
 }
 
-describe("default action visibility predicates (#458)", () => {
+describe("default action visibility predicates", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);
 
-    it("shows the improveWithSDR action only when the skill can improve and is flagged (#1102)", () => {
+    it("shows the improveWithSDR action only when the skill can improve and is flagged", () => {
         cy.importActor().then((actor) => {
             // Pick any real skill on the imported Basic Folk.
             cy.foundry((win) => {

@@ -13,7 +13,7 @@
 
 /**
  * The Healing Rate is the single source of truth for whether a wound has been
- * treated (#1148), and `TraumaDataModel._preUpdate` is what keeps it so: the
+ * treated, and `TraumaDataModel._preUpdate` is what keeps it so: the
  * moment a rate first appears — the stored value going from `null` to a number —
  * the treatment date is stamped in the same update. That hook is Foundry-layer,
  * so only a live client proves it; in particular it must fire for a rate typed
@@ -21,7 +21,7 @@
  * date themselves.
  */
 
-describe("Healing Rate stamps the treatment date (#1148)", () => {
+describe("Healing Rate stamps the treatment date", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 

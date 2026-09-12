@@ -12,7 +12,7 @@
  */
 
 /**
- * The **Strength Impact Modifier** (#1253) — the pure, Foundry-free rule that a
+ * The **Strength Impact Modifier** — the pure, Foundry-free rule that a
  * strong combatant drives a weapon harder than a weak one.
  *
  * The rule is published as a lookup table (STR 1 → −10, rising to STR 24–25 →

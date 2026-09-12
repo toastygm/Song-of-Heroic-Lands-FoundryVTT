@@ -7,7 +7,7 @@
 
 /**
  * Render the Cohort **Shared Gear** tab and the gear sheets' cohort-sharing
- * control for real in Node, and assert the emitted HTML (issue #76) — the two
+ * control for real in Node, and assert the emitted HTML — the two
  * ends of the sharing link. The tab is read-only by contract, so what it must
  * *not* emit (create/delete controls, carry/wear toggles, a weight total) is
  * asserted as carefully as what it must.

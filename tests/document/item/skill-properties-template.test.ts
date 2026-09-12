@@ -7,10 +7,10 @@
 
 /**
  * Render the real Skill properties sheet template in Node and assert the
- * emitted binding placeholders. Covers #709: the Combat Category control
+ * emitted binding placeholders. The Combat Category control
  * (`system.combatCategory`) must render only when `subType === "combat"`, and
  * the removed phantom fields (`weaponGroup` / `baseSkill` / `domain`) must no
- * longer be referenced. Also covers #713: the Impaired By Roles array
+ * longer be referenced. Also: the Impaired By Roles array
  * (`system.impairedByRoles`) must render with add/delete controls, at parity
  * with the Attribute sheet.
  */
@@ -40,14 +40,14 @@ function render(subType: string, impairedByRoles: string[] = []): string {
     });
 }
 
-describe("skill properties sheet template (#709)", () => {
+describe("skill properties sheet template", () => {
     it("renders the Combat Category control bound to system.combatCategory when subType is combat", () => {
         const html = render("combat");
         expect(html).toContain('data-field="system.combatCategory"');
         expect(html).toContain('data-value="melee"');
     });
 
-    it("localizes the Combat Category choice labels (#751)", () => {
+    it("localizes the Combat Category choice labels", () => {
         // The choices map uses i18n keys as labels; without localize=true the
         // select renders "SOHL.Skill.Combat.melee" instead of "Melee".
         const html = render("combat");
@@ -69,11 +69,11 @@ describe("skill properties sheet template (#709)", () => {
     });
 });
 
-describe("skill properties sheet — Impaired By Roles (#713)", () => {
+describe("skill properties sheet — Impaired By Roles", () => {
     it("renders the Impaired By Roles list with an Add control wired to the array editor", () => {
         const html = render("social");
         expect(html).toContain("Impaired By Roles");
-        // Wired via ApplicationV2's delegated data-action dispatch (#734).
+        // Wired via ApplicationV2's delegated data-action dispatch.
         expect(html).toContain('data-action="addArrayItem"');
         expect(html).toContain('data-array="system.impairedByRoles"');
     });

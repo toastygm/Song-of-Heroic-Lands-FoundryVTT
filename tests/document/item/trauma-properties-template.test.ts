@@ -7,11 +7,11 @@
 
 /**
  * Render the real Trauma properties sheet template in Node and assert the
- * emitted binding placeholders. Covers #926: a document's sub-type is fixed at
+ * emitted binding placeholders. A document's sub-type is fixed at
  * creation, so the Trauma Properties tab must NOT render an editable
  * `system.subType` control. The sub-type is presented read-only in the sheet
  * header (via the localized `typeLabel`); this template only edits the mutable
- * trauma fields. (Supersedes #754, which localized the now-removed dropdown's
+ * trauma fields. (The dropdown this once localized is removed, along with its
  * choice labels.)
  */
 
@@ -26,7 +26,7 @@ const fieldStub = (name: string) => ({ fieldPath: `system.${name}` });
 function render(subType: string): string {
     return renderTemplateReal(TRAUMA_PROPS, {
         tab: { active: true, group: "sheet" },
-        // The per-sub-type field-visibility flags the sheet computes (#939).
+        // The per-sub-type field-visibility flags the sheet computes.
         ...traumaSheetFields(subType),
         categoryChoices: {},
         nextTestDisplay: "—",
@@ -65,7 +65,7 @@ function render(subType: string): string {
     });
 }
 
-describe("trauma properties sheet template (#926)", () => {
+describe("trauma properties sheet template", () => {
     it("does NOT render an editable sub-type control", () => {
         // Sub-type is immutable after creation, so the Properties tab must not
         // bind an editable control to system.subType (the header shows it
@@ -81,7 +81,7 @@ describe("trauma properties sheet template (#926)", () => {
         expect(html).toContain('data-field="system.healingRateBase"');
     });
 
-    // #927: the Physical fieldset (aspect / body location / blood-loss) is gated
+    // The Physical fieldset (aspect / body location / blood-loss) is gated
     // on the sub-type. The physical-harm sub-type is `injury` (there is no
     // `physical` value in TRAUMA_SUBTYPE), so the gate must render for `injury`.
     it("renders the Physical fieldset for the injury sub-type", () => {
@@ -98,7 +98,7 @@ describe("trauma properties sheet template (#926)", () => {
     });
 });
 
-describe("trauma properties sheet — per-sub-type fields (#939)", () => {
+describe("trauma properties sheet — per-sub-type fields", () => {
     it("injury: infection flags, heal duration, treatment date, next heal test", () => {
         const html = render("injury");
         expect(html).toContain('data-field="system.infectable"');

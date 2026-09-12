@@ -280,10 +280,10 @@ describe("SOHL_MIGRATIONS", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 0.9.0 — strip the retired system.docUrl field (#1394)
+// 0.9.0 — strip the retired system.docUrl field
 // ---------------------------------------------------------------------------
 
-describe("0.9.0 — strip system.docUrl (#1394)", () => {
+describe("0.9.0 — strip system.docUrl", () => {
     const step = SOHL_MIGRATIONS.find((s) => s.version === "0.9.0");
 
     it("is registered at the version that removes the field", () => {
@@ -384,11 +384,13 @@ describe("0.9.0 — strip system.docUrl (#1394)", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 0.9.0 — stamp the new required affiliation subType (#1405)
+// 0.9.0 — stamp the new required affiliation subType
 // ---------------------------------------------------------------------------
 
-describe("0.9.0 — affiliation subType (#1405)", () => {
-    const step = SOHL_MIGRATIONS.find((s) => s.description.includes("#1405"));
+describe("0.9.0 — affiliation subType", () => {
+    const step = SOHL_MIGRATIONS.find((s) =>
+        s.description.includes("Stamp the new required subType"),
+    );
     const migrate = (source: MigrationSource) => step!.migrators!.Item!(source);
 
     it("is registered at the version that adds the field, with an Item migrator", () => {
@@ -472,11 +474,13 @@ describe("0.9.0 — affiliation subType (#1405)", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 0.9.0 — remap the four legacy affiliation subtypes onto the eleven (#1788)
+// 0.9.0 — remap the four legacy affiliation subtypes onto the eleven
 // ---------------------------------------------------------------------------
 
-describe("0.9.0 — affiliation subType vocabulary (#1788)", () => {
-    const step = SOHL_MIGRATIONS.find((s) => s.description.includes("#1788"));
+describe("0.9.0 — affiliation subType vocabulary", () => {
+    const step = SOHL_MIGRATIONS.find((s) =>
+        s.description.includes("Remap the four legacy affiliation subtypes"),
+    );
     const migrate = (source: MigrationSource) => step!.migrators!.Item!(source);
 
     it("is registered at 0.9.0 with an Item migrator", () => {
@@ -549,7 +553,7 @@ describe("0.9.0 — affiliation subType vocabulary (#1788)", () => {
     });
 });
 
-describe("0.9.0 — alphanumeric shortcodes (#1397)", () => {
+describe("0.9.0 — alphanumeric shortcodes", () => {
     const step = SOHL_MIGRATIONS.find((s) => s.description.toLowerCase().includes("shortcode"));
     const migrateItem = (source: MigrationSource) => step!.migrators!.Item!(source);
     const migrateActor = (source: MigrationSource) => step!.migrators!.Actor!(source);
@@ -593,7 +597,7 @@ describe("0.9.0 — alphanumeric shortcodes (#1397)", () => {
         });
     });
 
-    // #1882: the rule requires lowercase, so a mixed-case key a pre-0.9 world
+    // The rule requires lowercase, so a mixed-case key a pre-0.9 world
     // holds is repaired too, even though it broke no earlier rule.
     it("folds a mixed-case key that was valid before the rule tightened", () => {
         expect(migrateItem({ type: "weapongear", system: { shortcode: "Clb" } })).toEqual({

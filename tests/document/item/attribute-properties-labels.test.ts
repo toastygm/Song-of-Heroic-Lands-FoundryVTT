@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 /**
- * #1105 — the Attribute sheet's Properties tab rendered its two scalar fields
+ * The Attribute sheet's Properties tab must not render its two scalar fields
  * (`system.scoreBase`, `system.initDiceFormula`) with **empty** `<label>`s.
  *
  * The cause is not in the template: `formGroup` labels a field from
@@ -50,7 +50,7 @@ function resolveFieldKey(path: string, suffix: string): string | undefined {
     );
 }
 
-describe("Attribute Properties tab field labels (#1105)", () => {
+describe("Attribute Properties tab field labels", () => {
     it("binds the score and init-dice fields", () => {
         // Guards the discovery above: if the template stops using formGroup the
         // per-field assertions below would vacuously pass.

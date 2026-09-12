@@ -21,7 +21,7 @@ import path from "node:path";
  * So the assertion moved to the thing that regressed: the **published schema**.
  * That is a stronger claim than the generator's key naming ever was — it is
  * what other repositories actually read — and it needs no Foundry stubs, where
- * importing the DataModel classes pulls in a chain that does (#481, #588).
+ * importing the DataModel classes pulls in a chain that does.
  *
  * `npm run lint:schema` separately guarantees this file still matches the
  * source, so asserting on it is not asserting on a stale copy.
@@ -37,7 +37,7 @@ function fieldsOf(documentType: string, subtype: string): string[] {
     return [...entry.own, ...entry.inherited];
 }
 
-describe("affliction and trauma temporal fields are published (#481)", () => {
+describe("affliction and trauma temporal fields are published", () => {
     const affliction = fieldsOf("Item", "affliction");
     const trauma = fieldsOf("Item", "trauma");
 
@@ -52,7 +52,7 @@ describe("affliction and trauma temporal fields are published (#481)", () => {
     it("declares a recurring interval as the {Formula, Base} pair and no anchor", () => {
         // The recurrence anchor is not a bespoke field: it lives in the generic
         // `system.scheduledActions` store, whose entry's `anchor + interval` is
-        // the next fire time (#588).
+        // the next fire time.
         const cases: [string[], string][] = [
             [affliction, "healingCheck"],
             [trauma, "healingCheck"],

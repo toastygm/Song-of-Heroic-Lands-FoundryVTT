@@ -64,7 +64,7 @@ describe("MeleeStrikeMode", () => {
         expect(sm.defense.counterstrike).toBeDefined();
     });
 
-    it("does not throw when defense data is partial or missing (#512)", () => {
+    it("does not throw when defense data is partial or missing", () => {
         // Weapon strike modes persist in an untyped ObjectField, so `defense`
         // (or its block / counterstrike sub-objects) can be absent for a
         // partially-created weapon. Construction must not throw — an unguarded
@@ -136,7 +136,7 @@ describe("MeleeStrikeMode", () => {
         expect(sm.reach.effective).toBe(7);
     });
 
-    it("seeds the impact modifier base from impactBase.modifier (#774)", () => {
+    it("seeds the impact modifier base from impactBase.modifier", () => {
         // The weapon's flat impact bonus must live in the impact ValueModifier
         // base so it survives into `effective`, the rendered label, and the
         // rolled impact — not only in the inner dice roll (which the label and
@@ -152,7 +152,7 @@ describe("MeleeStrikeMode", () => {
         expect(sm.impact.label).toBe("d10+7e");
     });
 
-    it("defaults the impact base to 0 when impactBase.modifier is null (#774)", () => {
+    it("defaults the impact base to 0 when impactBase.modifier is null", () => {
         // impactBase.modifier is nullable; a null must seed base 0, not throw.
         const data = {
             ...MELEE_DATA,

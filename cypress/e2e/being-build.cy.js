@@ -159,7 +159,7 @@ describe("being build — manual character-build chain", () => {
         });
     });
 
-    it("initSkillMult — an unopened skill (masteryLevelBase null) opens at skillBase × initSkillMult on an actor (#715)", () => {
+    it("initSkillMult — an unopened skill (masteryLevelBase null) opens at skillBase × initSkillMult on an actor", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Auto Skill",

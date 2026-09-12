@@ -111,7 +111,7 @@ export interface PrintChargesInput {
 
 /**
  * Format a mystery / mystical-ability charge pool as static text, mirroring the
- * interactive sheet's rules (#310/#311) with print-safe glyphs, first match
+ * interactive sheet's rules with print-safe glyphs, first match
  * wins:
  *
  * - max disabled → em dash (no charge pool);

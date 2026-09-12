@@ -6,8 +6,8 @@
  */
 
 /**
- * Render the Vehicle **Occupants** tab for real in Node and assert its HTML
- * (issue #201). The tab mirrors the cohort's roster — resolved rows, a health
+ * Render the Vehicle **Occupants** tab for real in Node and assert its HTML.
+ * The tab mirrors the cohort's roster — resolved rows, a health
  * readout, a NOT FOUND flag for an unresolvable handle — with two differences
  * it exists to prove: occupants carry a **title**, and there is **no leader
  * control**, because a vehicle's complement has roles but no single head.

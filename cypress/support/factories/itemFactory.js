@@ -68,7 +68,7 @@ const KIND_DEFAULTS = {
     // A self-sufficient default: divination is skill-governed but works with no
     // association (its EML falls back to masteryLevelBase). The spirit-power
     // subtypes (spiritrite/spiritaction) are intentionally disabled until a
-    // Spirit Power is associated (#990), so they make a poor bare default.
+    // Spirit Power is associated, so they make a poor bare default.
     mysticalability: { subType: "divination" },
     mystery: { subType: "other" },
 };

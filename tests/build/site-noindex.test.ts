@@ -18,7 +18,7 @@ import { HEADERS, ORIGIN_SUFFIX, SITE_OUT } from "../../utils/build-site.mjs";
 /**
  * The hosting project answers at a host-assigned address as well as at its path
  * on `www.heroiclands.org`, and a second address serving the same pages can be
- * indexed and compete with the canonical URL (#1469). The deployment carries a
+ * indexed and compete with the canonical URL. The deployment carries a
  * `_headers` file that marks those addresses `noindex`.
  *
  * What this suite can pin is the file the build writes and where it is
@@ -71,7 +71,7 @@ function hostMatcher(match: string): RegExp {
 const rulesMatching = (host: string) =>
     rules(HEADERS).filter(([match]) => hostMatcher(match).test(host));
 
-describe("the /sohl/ deployment's host-assigned addresses (#1469)", () => {
+describe("the /sohl/ deployment's host-assigned addresses", () => {
     it("marks the project's own address noindex", () => {
         expect(rules(HEADERS)).toContainEqual([
             "https://:project.pages.dev/*",
@@ -88,7 +88,7 @@ describe("the /sohl/ deployment's host-assigned addresses (#1469)", () => {
         ]);
     });
 
-    it("marks the pkg custom domain noindex too (#1765)", () => {
+    it("marks the pkg custom domain noindex too", () => {
         // The newest of the three host-assigned addresses, and the only one a
         // reader is plausibly handed: `<package>.pkg.heroiclands.org` is the
         // custom domain the hosting project carries so the router has an origin
@@ -103,7 +103,7 @@ describe("the /sohl/ deployment's host-assigned addresses (#1469)", () => {
     it("scopes every rule to a host-assigned address", () => {
         // An unscoped `/*` would noindex the canonical path as well — and, for
         // anyone who takes this repository elsewhere, their own domain with it.
-        // That portability is the point of the epic this belongs to (#1444).
+        // That portability is the point of the epic this belongs to.
         const hosted = new RegExp(`\\.(pages\\.dev|${ORIGIN_SUFFIX.replace(/\./g, "\\.")})$`);
         for (const [match] of rules(HEADERS)) {
             expect(match).toMatch(/^https:\/\/[^/]+\/\*$/);

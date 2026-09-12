@@ -12,7 +12,7 @@
  */
 
 /**
- * Gear state controls (#294).
+ * Gear state controls.
  *
  * - **Gear tab** per-row toggles: **carried** (`isCarried`) and **worn**
  *   (`isWorn`, armor-only).
@@ -29,7 +29,7 @@ describe("gear state controls", () => {
     describe("Gear tab: carried / worn toggles", () => {
         /** Click a row control (by `data-action`) on the open sheet. */
         function click(win, actorId, itemId, action) {
-            // The Manuscript redesign (#782/#798) rebuilt gear rows as
+            // The Manuscript redesign rebuilt gear rows as
             // `div.ledger__row` (was `li.item`), so match by `data-item-id`
             // tag-agnostically rather than qualifying on `li`.
             const el = win.game.actors
@@ -84,7 +84,7 @@ describe("gear state controls", () => {
         });
     });
 
-    describe("carried gate (#1097)", () => {
+    describe("carried gate", () => {
         /** Read the gate-relevant state of an armor item. */
         function armorState(win, actorId, itemId) {
             const item = win.game.actors.get(actorId).items.get(itemId);

@@ -12,7 +12,7 @@
  */
 
 /**
- * Combat-tab Body Locations table (#295). After the Manuscript redesign the
+ * Combat-tab Body Locations table. After the Manuscript redesign the
  * editable Zone → Part → Location tree lives on the Profile tab; the Combat tab
  * shows a FLAT, read-only armor-reference ledger — one row per hit location with
  * Material / B / E / P / F / Shock / Impair. Each location's protection is the

@@ -195,7 +195,7 @@ describe("SafeExpression", () => {
             expect(run("contains('hello', 'xyz')")).toBe(false);
         });
 
-        it("string-building helpers (#448)", () => {
+        it("string-building helpers", () => {
             expect(run("str(42)")).toBe("42");
             expect(run("concat('a', 'b', 'c')")).toBe("abc");
             expect(run("slice('hello', 1, 3)")).toBe("el");
@@ -247,7 +247,7 @@ describe("SafeExpression", () => {
         });
     });
 
-    describe("temporal helpers: curWorldTime / curCombatTime (#579)", () => {
+    describe("temporal helpers: curWorldTime / curCombatTime", () => {
         afterEach(() => vi.restoreAllMocks());
 
         it("a predicate can gate on world time — curWorldTime() > X", () => {
@@ -270,7 +270,7 @@ describe("SafeExpression", () => {
         });
     });
 
-    describe("stochastic helpers: rand and roll (#540)", () => {
+    describe("stochastic helpers: rand and roll", () => {
         afterEach(() => {
             vi.restoreAllMocks();
             SimpleRoll.clearForced();
@@ -409,7 +409,7 @@ describe("SafeExpression", () => {
         });
     });
 
-    describe("attrRefs / memberRefs (#972)", () => {
+    describe("attrRefs / memberRefs", () => {
         const attrRefs = (source: string): string[] =>
             new SafeExpression({ source }, { parent: mockParent }).attrRefs();
 
@@ -445,7 +445,7 @@ describe("SafeExpression", () => {
         });
     });
 
-    describe("callArgMemberRefs (#1175)", () => {
+    describe("callArgMemberRefs", () => {
         const sbRefs = (source: string): string[] =>
             new SafeExpression({ source }, { parent: mockParent }).callArgMemberRefs("sb");
 
@@ -453,7 +453,7 @@ describe("SafeExpression", () => {
             expect(sbRefs("sb(attr.str, attr.dex)")).toEqual(["str", "dex"]);
         });
 
-        it("excludes refs outside the call — the #1175 false positive", () => {
+        it("excludes refs outside the call", () => {
             // Aura merely adjusts the result; it is not part of the basis.
             expect(sbRefs("sb(attr.str, attr.dex) + attr.aur / 10")).toEqual(["str", "dex"]);
         });
@@ -641,7 +641,7 @@ describe("SafeExpression", () => {
         });
 
         it("rejects an identifier the scope does not declare, at construction", () => {
-            // Issue #1090 in miniature: this compiled fine and then failed
+            // The defect in miniature: this compiles fine and then fails
             // silently at every evaluation.
             expect(compileScoped("nonesuch.shockState === 2")).toThrow(SafeExpressionError);
         });
@@ -736,9 +736,9 @@ describe("SafeExpression", () => {
             expect(message).toMatch(/binds no identifiers/);
         });
 
-        it("accepts the Shock Re-Test visibility expression (#1090)", () => {
+        it("accepts the Shock Re-Test visibility expression", () => {
             // The action-visible scope binds `actorLogic`, so the expression
-            // BeingLogic registers for `shockReTest` compiles. It used to throw
+            // BeingLogic registers for `shockReTest` compiles. Unscoped it throws
             // `Unknown identifier: actorLogic` on every menu render, which
             // `compileVisibility` caught — hiding the action in every state.
             expect(

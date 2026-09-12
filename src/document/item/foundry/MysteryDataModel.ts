@@ -123,7 +123,7 @@ export class MysteryDataModel<
      * onto the actor — an embedded mystery picks its `assocSkillCode` from the
      * actor's own skills), offer to add that skill at mastery level 0 so the
      * Boost can confer it. The offer runs only on the initiating client and is
-     * fire-and-forget; see {@link MysteryLogic.maybeOfferConferredSkill}. #981.
+     * fire-and-forget; see {@link MysteryLogic.maybeOfferConferredSkill}.
      *
      * @param data - The create source data.
      * @param options - The creation options.

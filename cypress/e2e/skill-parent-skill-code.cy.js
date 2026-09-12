@@ -12,7 +12,7 @@
  */
 
 /**
- * Skill sheet Parent Skill control (#710).
+ * Skill sheet Parent Skill control.
  *
  * `system.parentSkillCode` is a real schema field (nullable, initial null,
  * blank false) that marks a skill as a specialization of another skill, but no
@@ -20,7 +20,7 @@
  * `system.parentSkillCode`), edits must persist, and clearing it must store
  * `null` (Foundry cleans a blank string on a nullable/non-blank field to null).
  */
-describe("skill sheet parent skill code (#710)", () => {
+describe("skill sheet parent skill code", () => {
     const SEL = '[name="system.parentSkillCode"]';
 
     before(() => cy.login().then(() => cy.cleanupWorld()));
@@ -69,7 +69,7 @@ describe("skill sheet parent skill code (#710)", () => {
     it("persists an edit to the Parent Skill field", () => {
         cy.createActor("being", { name: "Edit Being" }).then((actor) => {
             // When embedded on an actor the control is a dropdown of the actor's
-            // other skills (#974/#980), so a value is selectable only if a
+            // other skills, so a value is selectable only if a
             // sibling skill carries that shortcode. Seed one, then pick it — the
             // parent skill must exist on the actor by construction.
             cy.createItemOn(actor, "skill", {

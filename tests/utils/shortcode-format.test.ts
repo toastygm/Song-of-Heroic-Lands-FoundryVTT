@@ -8,7 +8,7 @@ import { WORLD_HOST_SHORTCODE } from "@src/utils/constants";
 import { resolveShortcodeKey } from "@src/utils/helpers";
 import { SOHL_MIGRATIONS } from "@src/entity/migration/MigrationRegistry";
 
-describe("shortcode-format (the shape rule, #1397)", () => {
+describe("shortcode-format (the shape rule)", () => {
     describe("isValidShortcode", () => {
         it("accepts lowercase ASCII letters and digits", () => {
             expect(isValidShortcode("bsw")).toBe(true);
@@ -18,7 +18,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
             expect(isValidShortcode("2h")).toBe(true);
         });
 
-        // A capital was accepted until #1882. It had to stop being accepted
+        // A capital is refused. It has to be
         // because the *address* built from a shortcode is lowercased, so `Clb`
         // and `clb` published one address, one `_id` and one URL while the
         // shortcode check saw two distinct keys — an identity collapse nothing
@@ -92,7 +92,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         // and `(type, shortcode)` is that identity — so a letter that has an
         // ASCII sense must be spelled, not deleted. Dropping the `û` turned
         // `Tabûri` into `Tabri`, which denotes a different entity and stops
-        // matching the compendium document it came from (#1748).
+        // matching the compendium document it came from.
         it("folds an accented letter rather than deleting it", () => {
             expect(sanitizeShortcode("Tabûri")).toBe("taburi");
             expect(sanitizeShortcode("Kûrbúl")).toBe("kurbul");
@@ -108,7 +108,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         });
 
         it("lowercases, but does not abbreviate or shorten", () => {
-            // Case folding is what #1882 added; the rest is what still keeps
+            // Case folding is part of the rule; the rest is what keeps
             // the repair distinct from `slugifyShortcode`, which derives a
             // *new* key and abbreviates and reduces it as well.
             expect(sanitizeShortcode("KÛRBÚL")).toBe("kurbul");
@@ -132,7 +132,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         });
     });
 
-    describe("the repair reaches the same answer wherever it runs (#1748)", () => {
+    describe("the repair reaches the same answer wherever it runs", () => {
         it("the create guard folds an accented key it was asked to repair", () => {
             expect(
                 resolveShortcodeKey("Tabûri", "Tabûri", new Set(), {
@@ -157,7 +157,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         // The repair has to reach a value the rule accepts, or the migration
         // writes back something the guard still refuses and never converges —
         // which is exactly what a case-preserving repair did once the rule
-        // required lowercase (#1882).
+        // required lowercase.
         it("the migration's repair converges: its output is always valid", () => {
             const step = SOHL_MIGRATIONS.find((s) =>
                 s.description.toLowerCase().includes("shortcode"),
@@ -187,7 +187,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         });
     });
 
-    describe("the system's own reserved keys (#1536)", () => {
+    describe("the system's own reserved keys", () => {
         it("the world-host shortcode obeys the rule", () => {
             // It is not authored content, but it is written to
             // `system.shortcode` like any other key, so the create guard
@@ -208,7 +208,7 @@ describe("shortcode-format (the shape rule, #1397)", () => {
         });
 
         it("a v0.8 host's legacy `_sohlworld` key migrates onto it", () => {
-            // The 0.9.0 repair (#1397) rewrites the key a v0.8 world's host
+            // The 0.9.0 repair rewrites the key a v0.8 world's host
             // carries; it must land on the code `worldHost()` now looks the
             // singleton up by, or the upgraded world grows a second host.
             const step = SOHL_MIGRATIONS.find((s) =>

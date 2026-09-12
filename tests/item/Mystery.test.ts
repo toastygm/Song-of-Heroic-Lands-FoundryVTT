@@ -77,12 +77,12 @@ afterEach(() => {
 
 describe("MysteryLogic", () => {
     describe("construction", () => {
-        // #1089: a Mystery models what a character *is* — a standing
+        // A Mystery models what a character *is* — a standing
         // condition, pool, or blessing. Anything a character actively invokes
         // is a Mystical Ability, which carries its own action and roll. There
         // is no universal meaning to "use" a Mystery, so the item offers no
         // such action.
-        it("offers no useMystery action (#1089)", () => {
+        it("offers no useMystery action", () => {
             const logic = makeMystery();
             expect(logic.actions.has("useMystery")).toBe(false);
             expect(
@@ -151,7 +151,7 @@ describe("MysteryLogic", () => {
             expect(logic.charges.max.disabled).toBe("SOHL.Mystery.DoesNotUseCharges");
         });
 
-        it("gates charges on max !== null — the maximum is the only control (#1129)", () => {
+        it("gates charges on max !== null — the maximum is the only control", () => {
             // Charge usage has one source of truth: a null max disables charge
             // tracking, a non-null max enables it. There is no separate flag.
             const logic = makeMystery({
@@ -226,7 +226,7 @@ describe("MysteryLogic", () => {
     // A Mystery can also name the faction/Affiliation whose standing it draws on
     // (a Piety or Grace pool conferred by a religion, an ancestor/totem/spirit),
     // stored independently of the associated skill as assocAffiliationCode and
-    // resolved to an AffiliationLogic on the same actor (#1076).
+    // resolved to an AffiliationLogic on the same actor.
     describe("affiliation", () => {
         it("resolves affiliation from the actor's affiliations by shortcode", () => {
             const actor = makeMysteryActor();
@@ -313,7 +313,7 @@ describe("MysteryLogic", () => {
         /**
          * Embed an unlearned skill (masteryLevelBase 0) whose SB derives from a
          * `str` attribute, so a Boost must open it at Skill Base rather than
-         * boost off a zero seed. #981.
+         * boost off a zero seed.
          */
         function makeUnlearnedSkillOnActor(actor: any, sb: number) {
             actor.items.set("str1", makeAttributeStub("str", sb));
@@ -337,7 +337,7 @@ describe("MysteryLogic", () => {
             return skill;
         }
 
-        it("Boost on an unlearned (ML-0) skill opens it at Skill Base and compounds (#981)", () => {
+        it("Boost on an unlearned (ML-0) skill opens it at Skill Base and compounds", () => {
             // SB 40, N=3 → open 40, then 40(+9)49(+8)57 ⇒ conferred EML 57.
             // (Contrast the present-skill path, which would boost off seed 0.)
             const actor = makeMysteryActor();
@@ -356,7 +356,7 @@ describe("MysteryLogic", () => {
             expect(skill.masteryLevel.effective).toBe(57);
         });
 
-        it("Boost N=1 on an unlearned skill confers it at exactly Skill Base (#981)", () => {
+        it("Boost N=1 on an unlearned skill confers it at exactly Skill Base", () => {
             // N=1 spends its only boost opening the skill: EML = SB, no compounding.
             const actor = makeMysteryActor();
             const skill = makeUnlearnedSkillOnActor(actor, 40);
@@ -438,7 +438,7 @@ describe("MysteryLogic", () => {
 
     /*
      * The behaviors below are not present in the current MysteryLogic —
-     * MysteryData no longer carries skills machinery, and no
+     * MysteryData carries no skills machinery, and no
      * fieldData/getApplicableFate/fateBonusItems helpers exist on the class.
      * The todos are retained until that functionality is (re)implemented.
      */

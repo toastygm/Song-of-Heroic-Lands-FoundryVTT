@@ -27,7 +27,7 @@ function readJsonc(rel: string): any {
 /**
  * The agreements that make `npm run build:sohl-types` produce a *usable*
  * `@heroiclands/sohl-types`. Both were broken silently for a full release cycle
- * (#1613): the build is not part of `build:noci`, and the release workflow's
+ *: the build is not part of `build:noci`, and the release workflow's
  * publish step is `continue-on-error`, so neither direction surfaced it.
  *
  * These are static-configuration assertions — cheap, and they run in the normal
@@ -80,8 +80,8 @@ describe("the @heroiclands/sohl-types build contract", () => {
     });
 
     it("is gated by the build, not only by the release workflow", () => {
-        // The root cause of #1613 was reach, not the error itself: nothing ever
-        // ran this path. `release.yml` publishes the package with
+        // What makes this worth gating is reach, not the error itself: without
+        // it nothing runs this path. `release.yml` publishes the package with
         // `continue-on-error: true` (deliberately — Foundry installs from the
         // Release's `system.zip`), so a failing `prepack` just stops publishing.
         const pkg = readJson("package.json");

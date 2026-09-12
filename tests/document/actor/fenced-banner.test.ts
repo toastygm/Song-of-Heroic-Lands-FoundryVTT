@@ -8,7 +8,7 @@
 /**
  * Render the real fenced-banner partial in Node (no Foundry) and assert its
  * emitted HTML — the dismissible "Experimental — schema not final" notice shown
- * on fenced actor sheets (issue #959). Uses the shared render harness
+ * on fenced actor sheets. Uses the shared render harness
  * ({@link renderTemplateReal}), which registers the same helpers production does.
  */
 

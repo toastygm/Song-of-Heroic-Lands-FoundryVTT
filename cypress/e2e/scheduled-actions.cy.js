@@ -12,7 +12,7 @@
  */
 
 /**
- * Generic scheduled actions (#588), end to end in a real Foundry:
+ * Generic scheduled actions, end to end in a real Foundry:
  * `sohl.schedule` persists to the document's `system.scheduledActions` **and**
  * arms the queue; the `ready` re-arm hook reconstructs the schedule from that
  * persisted state (the reload path); and when due the queue offers a `[Perform]`
@@ -75,7 +75,7 @@ describe("Generic scheduled actions", () => {
         });
     });
 
-    it("an event-driven schedule (#622) persists its trigger, arms as a subscription, and offers on turnEnd", () => {
+    it("an event-driven schedule persists its trigger, arms as a subscription, and offers on turnEnd", () => {
         cy.createActor("being", { name: "shocked" }).then((actor) => {
             cy.foundry(async (win) => {
                 const a = win.game.actors.get(actor.id);
@@ -147,7 +147,7 @@ describe("Generic scheduled actions", () => {
         });
     });
 
-    it("a scene-bound schedule (#590) fires only while its scene is active", () => {
+    it("a scene-bound schedule fires only while its scene is active", () => {
         cy.createScene({ name: "vale" }).then((vale) => {
             cy.createScene({ name: "hideout" }).then((hideout) => {
                 cy.createActor("being", { name: "host" }).then((host) => {
@@ -224,7 +224,7 @@ describe("Generic scheduled actions", () => {
         });
     });
 
-    it("sohl.addScriptAction binds a Macro as a runnable, schedulable SCRIPT action (#588 §7)", () => {
+    it("sohl.addScriptAction binds a Macro as a runnable, schedulable SCRIPT action", () => {
         cy.foundry(async (win) => {
             const clone = (o) => win.JSON.parse(JSON.stringify(o));
 

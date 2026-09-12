@@ -26,7 +26,7 @@ import { VALUE_DELTA_INFO } from "@src/utils/constants";
 const speaker = new SohlSpeaker({ alias: "GM" });
 
 /**
- * GM result-edit (#856): the test-card edit pencil re-evaluates a settled test
+ * GM result-edit: the test-card edit pencil re-evaluates a settled test
  * on its **frozen roll** — adjusting the situational and/or success-level
  * modifier — without a re-roll or a Fate cost. These tests drive the shared
  * `resultEdit` executor through the `skipDialog` path (situational/success-level
@@ -84,7 +84,7 @@ function editCtx(
     } as any);
 }
 
-describe("SohlItemBaseLogic.resultEdit — GM result-edit on the frozen roll (#856)", () => {
+describe("SohlItemBaseLogic.resultEdit — GM result-edit on the frozen roll", () => {
     let skill: SkillLogic;
 
     beforeEach(() => {
@@ -208,14 +208,14 @@ describe("SohlItemBaseLogic.resultEdit — GM result-edit on the frozen roll (#8
 });
 
 /**
- * #1099 — the edit dialog re-uses `standard-test-dialog.hbs` and passes
+ * The edit dialog re-uses `standard-test-dialog.hbs` and passes
  * `rollModes`, so it renders a **Roll Visibility** dropdown pre-set to the
  * result's current mode. The callback read only the two modifiers, so the
  * choice was silently discarded and the reposted card kept the original
  * visibility. A GM correcting a result is exactly when they may want to take it
  * private, so the field is honored.
  */
-describe("SohlItemBaseLogic.resultEdit — roll visibility (#1099)", () => {
+describe("SohlItemBaseLogic.resultEdit — roll visibility", () => {
     let skill: SkillLogic;
 
     beforeEach(() => {
@@ -328,7 +328,7 @@ describe("SohlItemBaseLogic.resultEdit — roll visibility (#1099)", () => {
         expect(toChat).toHaveBeenCalledOnce();
     });
 
-    it("posts the card with the result's visibility only when asked (#1099)", async () => {
+    it("posts the card with the result's visibility only when asked", async () => {
         // The pre-roll path is unchanged: `toChat` applies a visibility only for
         // a caller that passes one, so an ordinary post still resolves the mode
         // through the speaker exactly as before.

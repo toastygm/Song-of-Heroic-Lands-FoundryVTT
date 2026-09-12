@@ -24,7 +24,7 @@ import {
     TRAUMA_SUBTYPE,
 } from "@src/utils/constants";
 
-/** Category `choices` map for each sub-type that shows a sub-category select (#939). */
+/** Category `choices` map for each sub-type that shows a sub-category select. */
 const CATEGORY_CHOICES_BY_SUBTYPE: Record<string, Record<string, string>> = {
     [TRAUMA_SUBTYPE.FATIGUE]: FatigueCategoryChoices,
     [TRAUMA_SUBTYPE.FEAR]: FearCategoryChoices,
@@ -61,7 +61,7 @@ export class TraumaSheet extends SohlItemSheetBase {
         const system = this.document.system as any;
         const logic = this.document.logic as any;
         const fieldsView = traumaSheetFields(system.subType);
-        // Body-location dropdown (#974): the hit locations of the owning being's
+        // Body-location dropdown: the hit locations of the owning being's
         // body when embedded; empty off-actor, so the template falls back to
         // free-text entry. Sourced from the body hierarchy, not from actor items.
         const bodyLocations: Array<{ shortcode: string; name: string }> =
@@ -78,19 +78,19 @@ export class TraumaSheet extends SohlItemSheetBase {
             bodyLocationCode: system.bodyLocationCode,
             embedded: this.document.actor != null,
             bodyLocationCodeOptions: buildRefOptions(bodyLocations, system.bodyLocationCode),
-            // Per-sub-type field visibility (#939).
+            // Per-sub-type field visibility.
             ...fieldsView,
             categoryChoices:
                 fieldsView.showCategory ? CATEGORY_CHOICES_BY_SUBTYPE[system.subType] : undefined,
             // View-only next recovery/heal/course test date (nothing is
-            // auto-armed — consent model #579); em-dash when unscheduled.
+            // auto-armed — consent model); em-dash when unscheduled.
             nextTestDisplay: this.formatNextTest(logic?.nextRecoveryTestAt),
         });
     }
 
     /**
      * Format a trauma's next scheduled test world time as an absolute SoHL date
-     * for the item sheet (#939), or an em-dash when no test is scheduled.
+     * for the item sheet, or an em-dash when no test is scheduled.
      *
      * @param at - The next-test world time (seconds), or `undefined`.
      * @returns A formatted date, or `"—"`.

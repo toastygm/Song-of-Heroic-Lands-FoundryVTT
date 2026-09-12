@@ -70,7 +70,7 @@ describe("ArmorGearLogic", () => {
         });
     });
 
-    describe("carried gate (#1097)", () => {
+    describe("carried gate", () => {
         it("makes toggleWorn unavailable while the armor is not carried", () => {
             const logic = makeArmor({ isCarried: false });
             const action = logic.actions.get("toggleWorn")!;
@@ -89,7 +89,7 @@ describe("ArmorGearLogic", () => {
             expect(action.trigger(logic.item, undefined)).toBe(true);
         });
 
-        it("reports toggleWorn as unavailable, with a reason, while not carried (#1135)", () => {
+        it("reports toggleWorn as unavailable, with a reason, while not carried", () => {
             const logic = makeArmor({ isCarried: false });
             const action = logic.actions.get("toggleWorn")!;
             expect(action.isAvailable).toBe(false);

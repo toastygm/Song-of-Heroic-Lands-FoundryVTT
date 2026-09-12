@@ -421,7 +421,7 @@ export interface ResolveShortcodeOptions {
 export type ShortcodeRejectReason =
     /** The code is already taken by a same-type sibling in scope. */
     | "collision"
-    /** The code carries a character outside `[A-Za-z0-9]` (#1397). */
+    /** The code carries a character outside `[A-Za-z0-9]`. */
     | "invalid"
     /** Neither a code nor a name to derive one from. */
     | "missing";
@@ -496,7 +496,7 @@ export function resolveShortcodeKey(
                 );
             }
             // Foundry's `randomID` is mixed-case base62, so the raw id is not a
-            // valid shortcode under the lowercase rule (#1882). Fold it here
+            // valid shortcode under the lowercase rule. Fold it here
             // rather than trusting the injected generator, and test the *folded*
             // value against the taken set — two ids differing only in case are
             // one key, so comparing the raw one could hand back a collision.
@@ -718,7 +718,7 @@ export function escapeHTML(s: string): string {
 
 // HTML sanitization lives in the Foundry-coupled shim
 // (`FoundryHelpers.toSanitizedHTML`), since it delegates to Foundry's
-// allowlist sanitizer `foundry.utils.cleanHTML` (issue #161).
+// allowlist sanitizer `foundry.utils.cleanHTML`.
 
 const DISALLOWED_KEYWORDS = [
     "window",

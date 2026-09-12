@@ -143,7 +143,7 @@ describe("ImpactModifier", () => {
         it.todo("creates a SimpleRoll from formula and rolls when no prior roll");
     });
 
-    // Regression (#769): the base constructor applied before ImpactModifier set
+    // Regression: the base constructor applied before ImpactModifier set
     // its dice `roll`, caching a "Dsbl" delta summary for an impact that is
     // actually enabled. The most-derived _apply() must run after the roll is set.
     describe("deltaLabel staleness", () => {

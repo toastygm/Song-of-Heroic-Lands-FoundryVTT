@@ -28,11 +28,11 @@
  * `_onRollStrikeModeTest` selects the modifier via
  * `selectStrikeModeModifier(sm, testKind)` — attack→`sm.attack`,
  * block→`sm.defense.block`, counterstrike→`sm.defense.counterstrike` — so the
- * #178 "hard-codes sm.attack" defect is no longer present in the source.
+ * "hard-codes sm.attack" defect is not present in the source.
  *
  * Assisted combat is per-strike-mode only (these cells): there are no weapon-level
- * attack/block/counterstrike actions (#69), and dodge is a skill rather than a
- * Combat-tab action (#187).
+ * attack/block/counterstrike actions, and dodge is a skill rather than a
+ * Combat-tab action.
  */
 
 /** A melee weapongear whose single mode allows attack, block, and counterstrike. */
@@ -97,7 +97,7 @@ describe("assisted combat (sheet strike-mode cells)", () => {
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => cy.cleanupWorld());
 
-    // The known logger recursion (#267) turns any stray `uiWarn` into a stack
+    // The known logger recursion turns any stray `uiWarn` into a stack
     // overflow; don't let an unrelated background warning fail these assertions.
     Cypress.on("uncaught:exception", () => false);
 
@@ -140,8 +140,8 @@ describe("assisted combat (sheet strike-mode cells)", () => {
         });
     });
 
-    it("derives the attack/block/counterstrike values from the associated skill (#755)", () => {
-        // Regression for #755: a weapon's strike-mode Atk/Blk/CX cells rendered
+    it("derives the attack/block/counterstrike values from the associated skill", () => {
+        // Regression guard: a weapon's strike-mode Atk/Blk/CX cells must not render
         // 0 because the weapon never folded its associated skill's mastery level
         // into the mode's attack/defense modifiers. Basic Folk's `melee` ML is
         // raised to 50 above and the mode's own modifiers are all 0, so each
@@ -173,7 +173,7 @@ describe("assisted combat (sheet strike-mode cells)", () => {
             // which (without a shift-click) opens the modifier DialogV2 — proof
             // the cell is wired to the assisted-roll flow. Driving that dialog to
             // completion (and its per-kind modifier) is beyond the headless
-            // harness; the modifier selection is source-verified below (#178).
+            // harness; the modifier selection is source-verified below.
             cy.foundry(async (win) => {
                 const before = openDialogCount(win);
                 cell(win, actor.id, "rollStrikeModeTest", "attack").dispatchEvent(

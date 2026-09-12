@@ -12,7 +12,7 @@
  */
 
 /**
- * Affliction onset creation offer (#602, closing out #579): catching an
+ * Affliction onset creation offer: catching an
  * affliction no longer auto-arms its onset check — `BeingLogic.contagionTest`
  * OFFERS it. This spec is **about the offer**, so it presses the real dialog
  * button.
@@ -21,7 +21,7 @@
  *   1. the Contagion Test dialog (affliction dropdown keyed by shortcode, plus
  *      the modifiers and the record-on-sheet checkbox);
  *   2. the success-test pre-roll dialog — the contagion d100 is forced to 100 via
- *      `SimpleRoll.forceValues` (#598) so the roll FAILS and the affliction is
+ *      `SimpleRoll.forceValues` so the roll FAILS and the affliction is
  *      contracted deterministically;
  *   3. the onset offer ("Set an Affliction Onset Reminder?") — pressed by content
  *      via `cy.submitDialogMatching`.
@@ -29,7 +29,7 @@
  * Exposure itself is never rescheduled: nothing offers another contagion test.
  */
 
-describe("Affliction onset creation offer (#602)", () => {
+describe("Affliction onset creation offer", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.foundry((win) => {

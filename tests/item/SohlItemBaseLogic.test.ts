@@ -74,7 +74,7 @@ describe("SohlItemBaseLogic intrinsic actions", () => {
         logic.initialize();
         await logic.deleteDocument({} as any);
         const spec = spy.mock.calls[0]![0] as any;
-        // Rule #10 / #163: author-static template; the name rides in `data`,
+        // Author-static template; the name rides in `data`,
         // where Handlebars escapes it — it must never reach the source string.
         expect(spec.content).not.toContain("<img");
         expect(spec.data.name).toBe("<img src=x onerror=alert(1)>");
@@ -220,7 +220,7 @@ describe("buildItemDescCardData → item-desc-card", () => {
     });
 });
 
-describe("resolveDescriptionHtml — following a pointer (#1356, #1357)", () => {
+describe("resolveDescriptionHtml — following a pointer", () => {
     afterEach(() => {
         delete (globalThis as any).fromUuid;
         vi.restoreAllMocks();

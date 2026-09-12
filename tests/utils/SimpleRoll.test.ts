@@ -154,7 +154,7 @@ describe("SimpleRoll", () => {
             expect(roll.rolls).toHaveLength(0);
         });
 
-        // Issue #599 — roll() draws from an injectable, seedable Rng.
+        // roll() draws from an injectable, seedable Rng.
         it("is reproducible under an injected seeded Rng", () => {
             const a = sr({ numDice: 5, dieFaces: 100 });
             const b = sr({ numDice: 5, dieFaces: 100 });
@@ -411,7 +411,7 @@ describe("SimpleRoll", () => {
     });
 });
 
-describe("SimpleRoll forced values (deterministic testing, #598)", () => {
+describe("SimpleRoll forced values (deterministic testing)", () => {
     // Hygiene: a leftover forced value would leak into the next roll — always
     // clear between tests (mirrors the e2e afterEach discipline).
     afterEach(() => SimpleRoll.clearForced());

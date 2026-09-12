@@ -13,7 +13,7 @@ import { entitySurface } from "@src/entity/surface";
 // resolution is exercised by the bundle build, not this unit test. The entity
 // tree is Foundry-free, so it validates the merge and the `export * as` barrel
 // mechanism here.
-describe("sohl namespace surface (#403)", () => {
+describe("sohl namespace surface", () => {
     describe("entity: class registry merged with sub-namespaces", () => {
         it("keeps the flat, override-aware class getters + register/base", () => {
             expect(typeof entitySurface.ValueModifier).toBe("function");

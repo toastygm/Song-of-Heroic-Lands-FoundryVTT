@@ -29,7 +29,7 @@ const RESULT = "systems/sohl/templates/chat/opposed-result-card.hbs";
  * The rendered tie label. Asserted in full rather than as a bare `"Tie"`: the
  * card's GM edit pencil embeds the serialized contest in `data-scope`, and its
  * `breakTies` key contains that substring — so the short form would match the
- * markup of *any* opposed card (#1082).
+ * markup of *any* opposed card.
  */
 const TIE_LABEL = "Tie — No Winner!";
 const TEST_DIALOG = "systems/sohl/templates/dialog/standard-test-dialog.hbs";
@@ -138,7 +138,7 @@ async function makeBothFail() {
     });
 }
 
-describe("OpposedTestResult.toChat builds shaped opposed-card data (#845)", () => {
+describe("OpposedTestResult.toChat builds shaped opposed-card data", () => {
     it("delegates the opposed-request template (not overridden to standard-test)", async () => {
         const spy = vi.spyOn(SuccessTestResult.prototype, "toChat").mockResolvedValue(undefined);
         await (await makeOpposed()).toChat();
@@ -181,12 +181,12 @@ describe("OpposedTestResult.toChat builds shaped opposed-card data (#845)", () =
         // `SohlSpeaker._prepareChat` spreads this data into the ChatMessage
         // payload, so a `rolls` array of SoHL `SimpleRoll`s (not Foundry `Roll`s)
         // makes Foundry silently drop the message — and the card never posts.
-        // Guards the fix that made the opposed cards post at all (#1081).
+        // Guards the fix that made the opposed cards post at all.
         expect(msg.rolls).toBeUndefined();
     });
 });
 
-describe("the pre-roll dialog offers Break Ties only for an opposed test (#1160)", () => {
+describe("the pre-roll dialog offers Break Ties only for an opposed test", () => {
     const base = {
         mlMod: { effective: 55, successLevelMod: 0, chatHtml: "" },
         situationalModifier: 0,
@@ -221,7 +221,7 @@ describe("the pre-roll dialog offers Break Ties only for an opposed test (#1160)
     });
 });
 
-describe("SuccessTestResult.toChat honors a caller-supplied template (#845)", () => {
+describe("SuccessTestResult.toChat honors a caller-supplied template", () => {
     it("renders the caller's template instead of the standard test card", async () => {
         let usedTemplate = "";
         const spk = {
@@ -258,7 +258,7 @@ describe("SuccessTestResult.toChat honors a caller-supplied template (#845)", ()
     });
 });
 
-describe("OpposedTestResult.toChat distinguishes a tie from a mutual failure (#1081)", () => {
+describe("OpposedTestResult.toChat distinguishes a tie from a mutual failure", () => {
     /** Capture the card data for a given opposed result. */
     async function dataFor(opposed: OpposedTestResult) {
         const spy = vi.spyOn(SuccessTestResult.prototype, "toChat").mockResolvedValue(undefined);
@@ -295,7 +295,7 @@ describe("OpposedTestResult.toChat distinguishes a tie from a mutual failure (#1
     });
 });
 
-describe("opposed cards render the shaped data (#845)", () => {
+describe("opposed cards render the shaped data", () => {
     /** Build the card data OpposedTestResult.toChat produces, via a spy capture. */
     async function cardData(opposed?: OpposedTestResult) {
         let captured: any;
@@ -332,7 +332,7 @@ describe("opposed cards render the shaped data (#845)", () => {
         expect(html.match(/fa-solid fa-star/g) ?? []).toHaveLength(3);
     });
 
-    it("result card reports a tie as a tie, not as Both Fail (#1081)", async () => {
+    it("result card reports a tie as a tie, not as Both Fail", async () => {
         const data = await cardData(await makeTied());
         const html = renderTemplateReal(RESULT, {
             ...data,
@@ -343,7 +343,7 @@ describe("opposed cards render the shaped data (#845)", () => {
         expect(html).toContain(TIE_LABEL);
     });
 
-    it("result card reports two Critical Successes as a tie (#1081)", async () => {
+    it("result card reports two Critical Successes as a tie", async () => {
         const data = await cardData(await makeTied({ critical: true }));
         const html = renderTemplateReal(RESULT, {
             ...data,
@@ -353,7 +353,7 @@ describe("opposed cards render the shaped data (#845)", () => {
         expect(html).toContain(TIE_LABEL);
     });
 
-    it("result card still reports a mutual failure as Both Fail (#1081)", async () => {
+    it("result card still reports a mutual failure as Both Fail", async () => {
         const data = await cardData(await makeBothFail());
         const html = renderTemplateReal(RESULT, {
             ...data,
@@ -363,7 +363,7 @@ describe("opposed cards render the shaped data (#845)", () => {
         expect(html).not.toContain(TIE_LABEL);
     });
 
-    it("result card labels the margin Victory Stars (#1160)", async () => {
+    it("result card labels the margin Victory Stars", async () => {
         const data = await cardData();
         const html = renderTemplateReal(RESULT, {
             ...data,
@@ -373,7 +373,7 @@ describe("opposed cards render the shaped data (#845)", () => {
         expect(html).not.toContain("Value Diamonds");
     });
 
-    it("result card reports a broken tie with the winner and the deciding rule (#1160)", async () => {
+    it("result card reports a broken tie with the winner and the deciding rule", async () => {
         // Differing rolls under the same mastery level tie at Marginal Success,
         // so the higher d100 settles it — no roll-off, no RNG.
         const opposed = await makeTied({ sourceRoll: 44, targetRoll: 12 });
@@ -393,7 +393,7 @@ describe("opposed cards render the shaped data (#845)", () => {
         expect(html).not.toContain("Tie — No Winner!");
     });
 
-    it("result card's GM pencil dispatches opposedResultEdit against the source actor (#1082)", async () => {
+    it("result card's GM pencil dispatches opposedResultEdit against the source actor", async () => {
         const data = await cardData();
         const html = renderTemplateReal(RESULT, {
             ...data,
@@ -409,7 +409,7 @@ describe("opposed cards render the shaped data (#845)", () => {
         expect(html).toContain('data-action-handler-uuid="Actor.Aldric"');
     });
 
-    it("result card's pencil carries the whole contest in data-scope (#1082)", async () => {
+    it("result card's pencil carries the whole contest in data-scope", async () => {
         const data = await cardData();
         const html = renderTemplateReal(RESULT, {
             ...data,
@@ -440,7 +440,7 @@ describe("opposed cards render the shaped data (#845)", () => {
     });
 });
 
-describe("opposed cards carry no hardcoded English (#1161)", () => {
+describe("opposed cards carry no hardcoded English", () => {
     const LANG: Record<string, string> = JSON.parse(
         readFileSync(resolve(process.cwd(), "lang/en.json"), "utf8"),
     );
@@ -481,7 +481,7 @@ describe("opposed cards carry no hardcoded English (#1161)", () => {
     });
 });
 
-describe("opposed cards still read correctly in English (#1161)", () => {
+describe("opposed cards still read correctly in English", () => {
     /**
      * The card data OpposedTestResult.toChat produces, with both tokens named.
      * The harness's results carry no token, so the names the cards interpolate
@@ -546,7 +546,7 @@ describe("opposed cards still read correctly in English (#1161)", () => {
     });
 });
 
-describe("opposed card titles are localized, not literal English (#1161)", () => {
+describe("opposed card titles are localized, not literal English", () => {
     it("the request card's default title comes from a lang key", async () => {
         const loc = vi.spyOn(sohl.i18n, "localize").mockImplementation((k: string) => `LOC:${k}`);
         const spy = vi.spyOn(SuccessTestResult.prototype, "toChat").mockResolvedValue(undefined);

@@ -78,7 +78,7 @@ describe("linksIn", () => {
 
     it("skips a site-root link, which is an address and not a path", () => {
         // The knowledgebase publishes under /sohl/kb/, so a page linking to a
-        // sibling surface writes the address it will have on the site (#1470).
+        // sibling surface writes the address it will have on the site.
         // Resolving that against the source tree would look for
         // kb/dev-docs/concepts/sohl/api/ and report a dead link.
         expect(linksIn("the [API docs](/sohl/api/) are generated")).toEqual([]);

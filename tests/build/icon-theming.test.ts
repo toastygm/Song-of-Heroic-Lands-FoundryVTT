@@ -17,7 +17,7 @@ import { injectAdaptiveFill } from "../../utils/svg-theme.mjs";
 import { ItemMetadatas, ActorMetadatas } from "@src/utils/constants";
 
 /**
- * Every bundled icon must survive the dark-mode fill injection (#893).
+ * Every bundled icon must survive the dark-mode fill injection.
  *
  * `injectAdaptiveFill` declines any SVG whose shapes carry an inline
  * `style="…fill:…"`, because an inline style beats the `<style>` rule it
@@ -28,7 +28,7 @@ import { ItemMetadatas, ActorMetadatas } from "@src/utils/constants";
  * `<img>` thumbnails SoHL's `.sohl`-scoped CSS cannot reach.
  *
  * Forty-five bundled icons were authored the second way, five of them default
- * item or actor art (#1677). This suite is the standing gate that keeps the set
+ * item or actor art. This suite is the standing gate that keeps the set
  * at zero: a newly added icon carrying inline fills fails here rather than
  * shipping un-themed.
  */
@@ -45,7 +45,7 @@ const CANNOT_THEME: Record<string, string> = {
     // Stroke-drawn outline: its shapes are `fill: none` and their colour lives
     // in an inline `stroke:`, which no injected rule can override. Rewriting the
     // fills alone would half-recolour it — the exact outcome the guard prevents.
-    "assets/icons/other/mantle.svg": "#1687 — strokes are not themed",
+    "assets/icons/other/mantle.svg": "strokes are not themed",
 };
 
 /** Every `.svg` under `assets/icons`, as repo-relative paths. */
@@ -68,7 +68,7 @@ function skipped(rel: string): boolean {
 /** `systems/sohl/assets/…` (a Foundry path) → repo-relative. */
 const toRepoPath = (image: string) => image.replace(/^systems\/sohl\//, "");
 
-describe("bundled icon dark-mode theming (#1677)", () => {
+describe("bundled icon dark-mode theming", () => {
     it("finds the bundled icon set", () => {
         // Guards the walk itself — an empty list would pass every case below.
         expect(bundledIcons().length).toBeGreaterThan(4000);

@@ -9,9 +9,9 @@ import { SohlAction } from "@src/entity/action/SohlAction";
 import { BodyStructure } from "@src/entity/body/BodyStructure";
 
 /**
- * The `sohl.entity` registry (#81): a getter-backed surface of constructable
+ * The `sohl.entity` registry: a getter-backed surface of constructable
  * entity classes. The getter-over-a-record shape is what keeps `sohl.entity.X`
- * stable when `register()` (#83) later swaps a backing entry.
+ * stable when `register()` later swaps a backing entry.
  */
 const EXPECTED_NAMES: SohlEntityName[] = [
     "ValueModifier",
@@ -56,7 +56,7 @@ describe("sohl.entity registry", () => {
         expect(entity.BodyStructure).toBe(BodyStructure);
     });
 
-    it("is a frozen, getter-backed surface (stable for register() in #83)", () => {
+    it("is a frozen, getter-backed surface, stable for register()", () => {
         expect(Object.isFrozen(entity)).toBe(true);
         for (const name of EXPECTED_NAMES) {
             const desc = Object.getOwnPropertyDescriptor(entity, name);
@@ -71,7 +71,7 @@ describe("sohl.entity registry", () => {
         expect(MyResult.prototype).toBeInstanceOf(SuccessTestResult);
     });
 
-    describe("two-mechanism construction (#83)", () => {
+    describe("two-mechanism construction", () => {
         // The inside-SoHL mechanism resolves the registry through the import
         // graph (classes self-register), so construction must work with NO
         // `sohl.entity` runtime global — the whole point of not forcing tests to

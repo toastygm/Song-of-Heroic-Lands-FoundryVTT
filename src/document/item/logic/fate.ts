@@ -14,7 +14,7 @@
 import { CRITICAL_FAILURE, CRITICAL_SUCCESS, MARGINAL_SUCCESS } from "@src/utils/constants";
 
 /**
- * Foundry-free helpers backing the **Fate** mechanic (issue #854).
+ * Foundry-free helpers backing the **Fate** mechanic.
  *
  * A player may spend a Fate Point *after* a test is rolled to raise that test's
  * success level — the die is never re-rolled. These pure functions encode the
@@ -27,9 +27,8 @@ import { CRITICAL_FAILURE, CRITICAL_SUCCESS, MARGINAL_SUCCESS } from "@src/utils
  *    levels it adds and whether it consumes a point ({@link resolveFateOutcome}).
  *
  * Both are data-driven and side-effect-free so they unit-test without Foundry
- * and never re-implement the "is it a success?" heuristic the bug in #854 came
- * from — consumption and the level bump are keyed on the **matched rung**, not
- * `isSuccess`.
+ * and never re-implement the "is it a success?" heuristic — consumption and the
+ * level bump are keyed on the **matched rung**, not `isSuccess`.
  */
 
 /**
@@ -61,9 +60,9 @@ export interface FateOutcome {
 
 /**
  * Resolve what a rolled Fate test does, keyed on the **matched rung** (the Fate
- * test's own success level), never on a pass/fail flag. This fixes the #854
- * "hiccup": a critical failure consumes a point (no effect), and the
- * critical-success "keep" branch does not.
+ * test's own success level), never on a pass/fail flag: a critical failure
+ * consumes a point (no effect), and the critical-success "keep" branch does
+ * not.
  *
  * | Fate test result | consumesPoint | levelDelta |
  * | ---------------- | ------------- | ---------- |

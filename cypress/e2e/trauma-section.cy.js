@@ -12,17 +12,17 @@
  */
 
 /**
- * Being Trauma tab — Traumas (injuries) section (#308, #939): an Injury sub-type
+ * Being Trauma tab — Traumas (injuries) section: an Injury sub-type
  * lists Sev / HR / Area / Next Heal Test (Aspect and Bleeding moved to the item
- * sheet in #939), with a custom-create control (data-type=trauma) and a per-row
+ * sheet), with a custom-create control (data-type=trauma) and a per-row
  * context menu.
  */
-describe("Being Trauma tab: Traumas section (#308)", () => {
+describe("Being Trauma tab: Traumas section", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);
 
-    it("lists an injury with severity, healing rate, and area (#939)", () => {
+    it("lists an injury with severity, healing rate, and area", () => {
         cy.importActor().then((actor) => {
             // A real body-location code from the body, so Area resolves.
             cy.foundry((win) => {
@@ -51,7 +51,7 @@ describe("Being Trauma tab: Traumas section (#308)", () => {
                         cy.contains(".ledger__cell", "NT6"); // not-treated + HR
                         cy.contains(".ledger__cell", loc.name); // area
                     });
-                // The Injury column header no longer carries Aspect or Bleeding.
+                // The Injury column header carries no Aspect or Bleeding.
                 cy.get('section.tab[data-tab="trauma"] .ledger__head').within(() => {
                     cy.contains("Sev");
                     cy.contains("Area");
@@ -62,7 +62,7 @@ describe("Being Trauma tab: Traumas section (#308)", () => {
         });
     });
 
-    it("renders a Fatigue sub-type with its own columns (Category / FL / Notes) (#939)", () => {
+    it("renders a Fatigue sub-type with its own columns (Category / FL / Notes)", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "trauma", {
                 name: "Winded",
@@ -96,7 +96,7 @@ describe("Being Trauma tab: Traumas section (#308)", () => {
         });
     });
 
-    it("renders a Fear sub-type with its named state in the Category column (#961)", () => {
+    it("renders a Fear sub-type with its named state in the Category column", () => {
         // Fear/Morale state lives in the `category` field (not a numeric level),
         // so the ledger shows the named state (Afraid, Routed, …) under Category
         // and carries no FL / Sev column.
@@ -127,7 +127,7 @@ describe("Being Trauma tab: Traumas section (#308)", () => {
         });
     });
 
-    it("shows a Morale trauma's state in the per-subtype Category dropdown, not a level field (#961)", () => {
+    it("shows a Morale trauma's state in the per-subtype Category dropdown, not a level field", () => {
         cy.createWorldItem("trauma", {
             name: "Broken Line",
             system: { subType: "morale", category: "withdrawing" },

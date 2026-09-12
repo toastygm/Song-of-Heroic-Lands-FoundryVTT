@@ -12,7 +12,7 @@
  */
 
 /**
- * The guided-tour framework (#613): the SohlTour demo tour registers, its
+ * The guided-tour framework: the SohlTour demo tour registers, its
  * `canStart` gates on an owned Being, and its value- and action-gated steps hold
  * **Next** disabled until the user acts — driven against the live client.
  *

@@ -12,7 +12,7 @@
  */
 
 /**
- * Security regression tests for issue #163:
+ * Security regression tests:
  * XSS in CalendarSettingsMenu delete-confirm dialog via imported calendar name.
  *
  * `cal.label` comes verbatim from an imported JSON file; `game.i18n.format`
@@ -37,7 +37,7 @@ function escapedLabel(calLabel: string): string {
     return foundry.utils.escapeHTML(sohl.i18n.localize(calLabel));
 }
 
-describe("CalendarSettingsMenu _onDeleteCalendar escaping (#163)", () => {
+describe("CalendarSettingsMenu _onDeleteCalendar escaping", () => {
     it("escapes XSS tag in calendar label before it reaches i18n.format", () => {
         const safe = escapedLabel(XSS_NAME);
         expect(safe).not.toContain("<img");

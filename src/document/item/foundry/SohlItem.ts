@@ -20,9 +20,9 @@ import {
 import { labelWithFenceSuffix } from "@src/utils/constants";
 import { toFilePath } from "@src/utils/helpers";
 // The one default-art map, shared with the pack builder so build-time and
-// runtime defaults cannot drift (#932). It lives in the build package —
-// which is where the pack pipeline itself is headed (#1501) — and is reached
-// through that package's own leaf entry point, never a path into it (#1510).
+// runtime defaults cannot drift. It lives in the build package —
+// which is where the pack pipeline itself is headed — and is reached
+// through that package's own leaf entry point, never a path into it.
 import { DEFAULT_ITEM_ART } from "@heroiclands/package-build/sohl/default-item-art";
 import { isValidShortcode } from "@src/utils/shortcode-format.mjs";
 import {
@@ -142,8 +142,8 @@ export async function sohlCreateDialog(
         .map((value) => ({
             value,
             // Fenced (experimental) types carry an "(Experimental)" suffix so
-            // testers can still pick them but are warned the schema isn't final
-            // (issue #959). Sorting on the suffixed label keeps them grouped.
+            // testers can still pick them but are warned the schema isn't final.
+            // Sorting on the suffixed label keeps them grouped.
             label: labelWithFenceSuffix(
                 documentName,
                 value,
@@ -234,7 +234,7 @@ export async function sohlCreateDialog(
             const archetypeSelect = element.querySelector<HTMLSelectElement>("#archetype-select");
             const subtypeSelect = element.querySelector<HTMLSelectElement>("#subtype-select");
 
-            // Archetype-first defaulting (#643): the Name / Shortcode fields are
+            // Archetype-first defaulting: the Name / Shortcode fields are
             // optional and pre-fill from the chosen archetype's own name /
             // shortcode, staying live until the user edits them by hand. A
             // pre-seeded `data.name` counts as an edit so it is never clobbered.
@@ -279,7 +279,7 @@ export async function sohlCreateDialog(
                 validateShortcode();
             };
 
-            // Live shortcode guard (#766, #1397): disable Create while the
+            // Live shortcode guard: disable Create while the
             // entered shortcode collides with an existing (type, shortcode) in
             // scope, or carries a character outside `[A-Za-z0-9]`, so the human
             // resolves it before the create is attempted — the `_preCreate`
@@ -384,7 +384,7 @@ export async function sohlCreateDialog(
     subType = result.subType;
 
     // Resolve the final Name and Shortcode base under the archetype-first rules
-    // (#643): a blank Name/Shortcode defaults to the chosen archetype's own
+    //: a blank Name/Shortcode defaults to the chosen archetype's own
     // name/shortcode; **(none)** falls back to the class default and a
     // name-derived shortcode. The archetype's identity comes from the discovered
     // candidate list (still in scope) so a field cleared back to blank still
@@ -486,7 +486,7 @@ async function seedFromArchetype(
     if (subType) system.subType = subType;
     seed.system = system;
     // An instance is not itself an archetype: clear the marker the source
-    // carries (issue #1780). Done after the system block is normalized so the
+    // carries. Done after the system block is normalized so the
     // write lands on the object that is actually persisted.
     clearArchetypeMarker(seed);
     return seed;
@@ -620,7 +620,7 @@ export class SohlItem extends Item {
      * known SoHL item type the same themed default the compendium builder
      * applies to pack content, from the shared {@link DEFAULT_ITEM_ART} map, so
      * an item created without an explicit `img` (e.g. via **Add Trauma**) is no
-     * longer stuck with the white bag (issue #932).
+     * longer stuck with the white bag.
      *
      * The base `img` schema field seeds its `initial` from this method, so the
      * mapped art lands on the created document, not just the create dialog.
@@ -668,7 +668,7 @@ export class SohlItem extends Item {
 
     /**
      * Update-path gates: enforce the unique `(type, shortcode)` key when
-     * `system.shortcode` changes (issue #766, via {@link enforceShortcodeOnUpdate}),
+     * `system.shortcode` changes (via {@link enforceShortcodeOnUpdate}),
      * and block non-GM users from adding, removing, or modifying SCRIPT entries in
      * `system.actionDefs` (SCRIPT actions run unsandboxed JavaScript, so authorship
      * is restricted to the GM). INTRINSIC actions and non-gated updates are
@@ -805,7 +805,7 @@ export class SohlItem extends Item {
     async onChatCardButton(btn: HTMLElement): Promise<void> {
         // Only an owner of this item (a GM owns all) may run a chat-card action
         // against it; the render-time gate is UX only and a direct or
-        // synthesized call bypasses it (issue #167). Mirrors onChatCardEditAction.
+        // synthesized call bypasses it. Mirrors onChatCardEditAction.
         if (!this.isOwner) return;
         await dispatchChatCardAction(this.logic, btn);
     }

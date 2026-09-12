@@ -12,7 +12,7 @@
  */
 
 /**
- * Mystical Ability improvement flag and Skill Development Roll (#1130).
+ * Mystical Ability improvement flag and Skill Development Roll.
  *
  * A Mystical Ability with no Associated Skill carries a mastery level of its
  * own, so it develops exactly the way a Skill does — the same
@@ -24,7 +24,7 @@
  * forced dice, then asserts the persisted `system` fields — what the unit suite
  * can only mock.
  */
-describe("mystical ability improvement (#1130)", () => {
+describe("mystical ability improvement", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.foundry((win) => {

@@ -112,7 +112,7 @@ function tiedPair(
     };
 }
 
-describe("Opposed tie-breaks (#1160)", () => {
+describe("Opposed tie-breaks", () => {
     describe("without breakTies", () => {
         it("leaves a tie unbroken — no victor, no stars", async () => {
             const { source, target } = tiedPair({

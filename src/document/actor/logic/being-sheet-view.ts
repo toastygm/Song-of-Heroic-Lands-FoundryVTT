@@ -396,13 +396,13 @@ export interface SkillRow {
     uuid: string;
     /** The skill's display name. */
     name: string;
-    /** The skill's icon image path, shown before the name (#508). */
+    /** The skill's icon image path, shown before the name. */
     img: string;
     /** Skill Base — the derived attribute-driven base score. */
     sb: number;
     /**
      * Whether the Skill-Base formula is valid. `false` → the SB cell renders an
-     * ✕ (a malformed / non-numeric expression) instead of {@link sb} (#972).
+     * ✕ (a malformed / non-numeric expression) instead of {@link sb}.
      */
     sbValid: boolean;
     /** Mastery Level — the base mastery level. */
@@ -416,13 +416,13 @@ export interface SkillRow {
     /**
      * The EML modifier delta summary — the mastery-level `ValueModifier`'s
      * `deltaLabel` (e.g. `STR +2, ARM ×2`), shown as the EML cell's hover
-     * tooltip (#769). Empty when the mastery level has no deltas to explain
+     * tooltip. Empty when the mastery level has no deltas to explain
      * (its effective value is just the base).
      */
     emlDeltaLabel: string;
     /**
      * The Fate modifier delta summary — the fate `ValueModifier`'s `deltaLabel`,
-     * shown as the Fate cell's hover tooltip (#769). Empty when there is nothing
+     * shown as the Fate cell's hover tooltip. Empty when there is nothing
      * to explain.
      */
     fateDeltaLabel: string;
@@ -477,8 +477,8 @@ export interface SkillLike {
  * `combattechnique`-subtype skill) keeps a defined position here so its section
  * sorts stably when a being has combat techniques; a being with none creates its
  * first via the tab's global "Add Skill" footer, which opens the subtype picker
- * (issue #797 retired the always-visible empty Combat Technique section that
- * #714 added). The `mystical` subtype is intentionally absent — those skills
+ * (there is no always-visible empty Combat Technique section). The `mystical`
+ * subtype is intentionally absent — those skills
  * surface on the Mysteries tab.
  */
 export const SKILL_DISPLAY_SUBTYPE_ORDER: readonly string[] = [
@@ -704,7 +704,7 @@ export interface StatusPill {
      * `true` → clicking the pill toggles the corresponding ActiveEffect status;
      * `false` → a read-only indicator lit from an active trauma subtype
      * (Aural-Shock / Fatigue), which are modeled as traumas rather than
-     * toggleable statuses (#306).
+     * toggleable statuses.
      */
     toggleable: boolean;
 }
@@ -791,7 +791,7 @@ export function buildStatusPills(
     }));
 }
 
-/** A read-only body-part lozenge, with its derived impairment status (#464). */
+/** A read-only body-part lozenge, with its derived impairment status. */
 export interface BodyPartLozenge {
     /** The body-part shortcode (stable identity). */
     shortcode: string;
@@ -803,7 +803,7 @@ export interface BodyPartLozenge {
 
 /**
  * Build the body-part lozenges from a being's body structure, deriving each
- * part's impairment status from the actor's active injuries (#464). A part takes
+ * part's impairment status from the actor's active injuries. A part takes
  * the most serious injury across its hit locations (see {@link bodyPartImpairment}).
  *
  * @param structure - The being's body structure, or `undefined`.
@@ -929,7 +929,7 @@ export function filterHeldWeapons<W>(
  *
  * Mirrors the availability rule in
  * {@link sohl.document.actor.logic.BeingLogic.availableStrikeModes} so the combat-tab
- * listing and the roll-time usable-mode set agree (#836).
+ * listing and the roll-time usable-mode set agree.
  *
  * @param modes - The source's strike modes.
  * @param heldLimbs - Number of limbs gripping the source, or `null` for an
@@ -988,13 +988,13 @@ export interface TraumaLike {
     subType: string | undefined;
     /** Effective severity level (0 or below ⇒ healed). */
     level: number;
-    /** Severity (level) modifier derivation summary for the hover tooltip (#769). */
+    /** Severity (level) modifier derivation summary for the hover tooltip. */
     severityDeltaLabel: string;
     /** Effective healing rate. */
     healingRate: number;
     /** Whether the healing rate is disabled (no natural recovery). */
     healingRateDisabled: boolean;
-    /** Healing-rate modifier derivation summary for the hover tooltip (#769). */
+    /** Healing-rate modifier derivation summary for the hover tooltip. */
     healingRateDeltaLabel: string;
     isTreated: boolean;
     isBleeding: boolean;
@@ -1003,13 +1003,13 @@ export interface TraumaLike {
     /** Resolved body-location name, or `undefined` for a whole-body trauma. */
     area: string | undefined;
     /**
-     * Localized sub-category display (#939): the FATIGUE / PSYCOND / PHYSCOND
+     * Localized sub-category display: the FATIGUE / PSYCOND / PHYSCOND
      * category label, or — for FEAR / MORALE — the named severity level. The
      * sheet resolves the sub-type-specific choice; blank when not applicable.
      */
     categoryDisplay: string;
     /**
-     * Pre-formatted next recovery/heal/course test date (#939), or an em-dash
+     * Pre-formatted next recovery/heal/course test date, or an em-dash
      * when none is scheduled. Derived from
      * {@link sohl.document.item.logic.TraumaLogic.nextRecoveryTestAt} and
      * formatted by the sheet.
@@ -1027,15 +1027,15 @@ export interface TraumaRow {
     img: string;
     /** True when the trauma has healed (level ≤ 0); the list shows an icon. */
     healed: boolean;
-    /** Effective severity level, as a number — rendered by the `level` column (#939). */
+    /** Effective severity level, as a number — rendered by the `level` column. */
     level: number;
     /** Severity band label (`M1`, `S2`, `S3`, `G4`, `G5`); empty when healed. */
     severity: string;
-    /** Severity (level) modifier derivation summary for the hover tooltip (#769). */
+    /** Severity (level) modifier derivation summary for the hover tooltip. */
     severityDeltaLabel: string;
     healingRate: number;
     healingRateDisabled: boolean;
-    /** Healing-rate modifier derivation summary for the hover tooltip (#769). */
+    /** Healing-rate modifier derivation summary for the hover tooltip. */
     healingRateDeltaLabel: string;
     isTreated: boolean;
     isBleeding: boolean;
@@ -1043,9 +1043,9 @@ export interface TraumaRow {
     aspect: string;
     /** Body-location name, or `"—"` when whole-body. */
     area: string;
-    /** Localized sub-category (or named level) display (#939). */
+    /** Localized sub-category (or named level) display. */
     categoryDisplay: string;
-    /** Pre-formatted next-test date, or an em-dash when unscheduled (#939). */
+    /** Pre-formatted next-test date, or an em-dash when unscheduled. */
     nextTest: string;
     /** Plain-text notes (HTML stripped). */
     notes: string;
@@ -1068,7 +1068,7 @@ export function traumaSeverityLabel(level: number): string {
 }
 
 /**
- * What a Trauma ledger cell renders (#939) — selects the row field and the
+ * What a Trauma ledger cell renders — selects the row field and the
  * cell markup: `category` / `area` / `notes` / `nextTest` are text, `level`
  * (FL / PSL / PSY / ASL) is the numeric level modifier, `severity` is the
  * banded injury level (with a healed icon), and `hr` is the healing rate (with
@@ -1077,7 +1077,7 @@ export function traumaSeverityLabel(level: number): string {
 export type TraumaColumnKind =
     "category" | "level" | "severity" | "hr" | "area" | "notes" | "nextTest";
 
-/** One column in a Trauma sub-type's Being-sheet ledger (#939). */
+/** One column in a Trauma sub-type's Being-sheet ledger. */
 export interface TraumaColumn {
     /** Which row field this column renders and how. */
     kind: TraumaColumnKind;
@@ -1121,7 +1121,7 @@ const nextCol = (labelKey: string): TraumaColumn =>
     col("nextTest", labelKey, "minmax(104px,1.2fr)");
 
 /**
- * The ordered column set each Trauma sub-type shows on the Being sheet (#939),
+ * The ordered column set each Trauma sub-type shows on the Being sheet,
  * keyed by `TRAUMA_SUBTYPE` value. The name/grip/icon lead and the controls
  * trail are fixed (see {@link traumaLedgerCols}); these are the variable middle
  * columns. Every `level` column renders the level
@@ -1168,7 +1168,7 @@ const TRAUMA_LEDGER_TRAIL = "1.6rem";
 
 /**
  * The CSS `--ledger-cols` grid-template value for a Trauma sub-type's ledger
- * (#939): the fixed grip / icon / name lead, then each column's width, then the
+ *: the fixed grip / icon / name lead, then each column's width, then the
  * controls trail. Widths are single tokens, so the returned string has
  * `3 + columns.length + 1` space-separated tracks.
  *
@@ -1179,11 +1179,11 @@ export function traumaLedgerCols(columns: readonly TraumaColumn[]): string {
     return [...TRAUMA_LEDGER_LEAD, ...columns.map((c) => c.width), TRAUMA_LEDGER_TRAIL].join(" ");
 }
 
-/** Which row field a Mystical Ability ledger column renders (#990). */
+/** Which row field a Mystical Ability ledger column renders. */
 export type MysticalAbilityColumnKind =
     "skill" | "affiliation" | "level" | "eml" | "charges" | "notes";
 
-/** One column in a Mystical Ability sub-type's Being-sheet ledger (#990). */
+/** One column in a Mystical Ability sub-type's Being-sheet ledger. */
 export interface MysticalAbilityColumn {
     /** Which row field this column renders and how. */
     kind: MysticalAbilityColumnKind;
@@ -1211,7 +1211,7 @@ const MA_SKILL = maCol("skill", "SOHL.MysticalAbility.COLUMN.skill", "5.4rem");
 // Spirit-power subtypes (spiritrite / spiritaction) label the same assoc
 // column "Spirit Power" — the reference is a SPIRITPOWER ability, not a skill.
 const MA_SPIRITPOWER = maCol("skill", "SOHL.MysticalAbility.COLUMN.spiritpower", "5.4rem");
-// The faction/Affiliation whose standing gates this ability (#1012) — a
+// The faction/Affiliation whose standing gates this ability — a
 // religion, arcane/alchemical school, or ancestor/totem/spirit. Shown right
 // after the assoc (Skill) column for the affiliation-bearing subtypes.
 const MA_AFFILIATION = maCol("affiliation", "SOHL.MysticalAbility.COLUMN.affiliation", "5.4rem");
@@ -1228,8 +1228,8 @@ const MA_EML = maCol("eml", "SOHL.Skill.Heading.EffectiveMasteryLevel.label", "3
 // track width, halved by the centered `ledger__head-num` alignment.
 //
 // Measured in the e2e client: the uppercased "CHGS/MAX" glyph box is 63px, so
-// the former 4rem (64px) track left a 0.5px gutter and the header butted
-// against the left-aligned Notes heading, reading as `CHGS/MAXNOTES` (#1131).
+// a 4rem (64px) track leaves a 0.5px gutter and the header butts
+// against the left-aligned Notes heading, reading as `CHGS/MAXNOTES`.
 // 5rem (80px) leaves ~8px — a legible word gap. Notes is `minmax(90px,1.4fr)`
 // and absorbs the difference, so the ledger's overall width is unchanged. The
 // data cells below are narrower, which is why only the header collided.
@@ -1241,7 +1241,7 @@ const MA_NOTES = maCol("notes", "SOHL.MysticalAbility.COLUMN.notes", "minmax(90p
 
 /**
  * The ordered column set each Mystical Ability sub-type shows on the Being
- * sheet (#990), keyed by `MYSTICALABILITY_SUBTYPE` value. `Ability` (name) is
+ * sheet, keyed by `MYSTICALABILITY_SUBTYPE` value. `Ability` (name) is
  * the fixed lead and the controls are the fixed trail (see
  * {@link mysticalAbilityLedgerCols}); these are the variable middle columns.
  * `eml` / `charges` / `notes` appear for every sub-type; `skill` is dropped for
@@ -1312,7 +1312,7 @@ const MA_LEDGER_TRAIL = "2.8rem";
 
 /**
  * The CSS `--ledger-cols` grid-template value for a Mystical Ability sub-type's
- * ledger (#990): the fixed icon / name lead, then each column's width, then the
+ * ledger: the fixed icon / name lead, then each column's width, then the
  * controls trail. Widths are single tokens, so the returned string has
  * `2 + columns.length + 1` space-separated tracks.
  *
@@ -1366,9 +1366,9 @@ export interface InjurySection {
     label: string;
     /** The injuries in this section, in the order supplied. */
     injuries: TraumaRow[];
-    /** The columns this sub-type renders (#939) — headers + per-row cells. */
+    /** The columns this sub-type renders — headers + per-row cells. */
     columns: TraumaColumn[];
-    /** The `--ledger-cols` grid-template value for this sub-type's ledger (#939). */
+    /** The `--ledger-cols` grid-template value for this sub-type's ledger. */
     ledgerCols: string;
 }
 
@@ -1436,19 +1436,19 @@ export interface AfflictionLike {
     subType: string | undefined;
     /** Localized qualitative level label. */
     levelLabel: string;
-    /** Level modifier derivation summary for the hover tooltip (#769). */
+    /** Level modifier derivation summary for the hover tooltip. */
     levelDeltaLabel: string;
     /** Effective healing rate. */
     healingRate: number;
     /** Whether the healing rate is disabled (no natural recovery). */
     healingRateDisabled: boolean;
-    /** Healing-rate modifier derivation summary for the hover tooltip (#769). */
+    /** Healing-rate modifier derivation summary for the hover tooltip. */
     healingRateDeltaLabel: string;
     /** Localized source/category label. */
     source: string;
     /**
      * World time (seconds) of the next course/recovery check, or `null` when
-     * none is projectable — rendered calendar-formatted (#943).
+     * none is projectable — rendered calendar-formatted.
      */
     nextHealTest: number | null;
     /** Raw notes HTML. */
@@ -1463,16 +1463,16 @@ export interface AfflictionRow {
     img: string;
     /** Localized level label. */
     level: string;
-    /** Level modifier derivation summary for the hover tooltip (#769). */
+    /** Level modifier derivation summary for the hover tooltip. */
     levelDeltaLabel: string;
     healingRate: number;
     healingRateDisabled: boolean;
-    /** Healing-rate modifier derivation summary for the hover tooltip (#769). */
+    /** Healing-rate modifier derivation summary for the hover tooltip. */
     healingRateDeltaLabel: string;
     source: string;
     /**
      * World time (seconds) of the next course/recovery check, or `null` when
-     * none is projectable — rendered calendar-formatted (#943).
+     * none is projectable — rendered calendar-formatted.
      */
     nextHealTest: number | null;
     /** Plain-text notes (HTML stripped). */

@@ -15,14 +15,14 @@ import "../support/commands";
 import { tagName } from "../support/factories/ids.js";
 
 /**
- * #648 — descriptive personality/physique traits are modelled as Trauma
+ * Descriptive personality/physique traits are modelled as Trauma
  * conditions (`psycond` / `physcond`). Their injury-only fields (`levelBase`,
  * `aspect`, `bodyLocationCode`) are nullable so a condition can omit them. This
  * proves a real Foundry client accepts the create and the DataModel validates
  * `null` for those fields — in particular the novel `aspect` StringField that is
  * both `nullable` and `choices`-constrained.
  */
-describe("descriptive conditions as trauma items (#648)", () => {
+describe("descriptive conditions as trauma items", () => {
     before(() => cy.login());
     afterEach(() => cy.cleanupWorld());
 

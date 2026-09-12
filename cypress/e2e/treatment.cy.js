@@ -112,7 +112,7 @@ describe("Action cards — treatment flow", () => {
         });
     });
 
-    it("the Treatment Result card shows the infection / impairment / bleeder warnings a botched treatment causes (#846)", () => {
+    it("the Treatment Result card shows the infection / impairment / bleeder warnings a botched treatment causes", () => {
         cy.importActor().then((actor) => {
             cy.prepare(actor);
             cy.foundry(async (win) => {

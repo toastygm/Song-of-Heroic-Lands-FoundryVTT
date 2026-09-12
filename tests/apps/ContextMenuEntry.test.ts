@@ -219,7 +219,7 @@ describe("resolveContextItem / resolveContextActor", () => {
         expect(resolveContextItem(mockTarget({ item: { itemId: "abc123" } }))).toBeUndefined();
     });
 
-    describe("data-uuid fallback (#1132)", () => {
+    describe("data-uuid fallback", () => {
         it("resolves the item from the row's data-uuid when no actor marker is present", () => {
             const item = { documentName: "Item", id: "abc123" } as any;
             const resolve = vi.spyOn(FoundryHelpersMock, "fvttResolveUuid").mockReturnValue(item);
@@ -301,14 +301,14 @@ describe("resolveContextItem / resolveContextActor", () => {
 });
 
 /**
- * #1188 — `makeLogicMethodCallback` is the fallback callback for an entry that
+ * `makeLogicMethodCallback` is the fallback callback for an entry that
  * names a `functionName` but supplies no `callback`. Its resolver guarded on
  * `data-effect-id` (an *effect* marker) before an *item* lookup and then passed
  * the row's bare `data-item-id` to a UUID resolver, so the item never resolved
  * and the click was skipped with a warn. It now shares the one resolution path
  * every other context-menu consumer uses.
  */
-describe("makeLogicMethodCallback (#1188)", () => {
+describe("makeLogicMethodCallback", () => {
     afterEach(() => {
         vi.restoreAllMocks();
     });

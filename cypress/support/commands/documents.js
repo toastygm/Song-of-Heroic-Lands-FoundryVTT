@@ -222,7 +222,7 @@ Cypress.Commands.add("cleanupWorld", () =>
         // DOM and accumulates across tests, where a later un-scoped global
         // selector (e.g. `switchTab`'s `section.tab[data-tab=…]`) matches the
         // stale sheet instead of the current one — breaking the third+
-        // sheet-opening test in a spec (#979). `animate: false` skips the exit
+        // sheet-opening test in a spec. `animate: false` skips the exit
         // animation so removal is immediate and deterministic headless.
         const doomed = new Set([...actors, ...items, ...scenes]);
         await Promise.all(

@@ -12,12 +12,12 @@
  */
 
 /**
- * Body Part (#721) and Body Location (#722) editors, opened from the Profile-tab
+ * Body Part and Body Location editors, opened from the Profile-tab
  * Body Structure tree's per-row ⋮ menu (the editable tree moved to Profile in
  * the Manuscript redesign; Combat keeps a read-only armor table). Each editor is
  * a small ApplicationV2 that auto-saves (submitOnChange, no Save button) and
  * writes back to the being's flat `system.body.structure.{zones,parts,locations}`
- * arrays via a whole-array update (#780).
+ * arrays via a whole-array update.
  */
 
 /** Find the open Body Part / Location editor by its id prefix (minifier-safe). */
@@ -154,7 +154,7 @@ describe("Body Structure editors (Profile tab)", () => {
         });
     });
 
-    it("re-parents a body part to another zone via the zone dropdown (#982)", () => {
+    it("re-parents a body part to another zone via the zone dropdown", () => {
         cy.importActor().then((actor) => {
             cy.prepare(actor);
             cy.foundry((win) => {
@@ -204,7 +204,7 @@ describe("Body Structure editors (Profile tab)", () => {
         });
     });
 
-    it("re-parents a hit location to another part via the part dropdown (#982)", () => {
+    it("re-parents a hit location to another part via the part dropdown", () => {
         cy.importActor().then((actor) => {
             cy.prepare(actor);
             cy.foundry((win) => {
@@ -294,14 +294,14 @@ describe("Body Structure editors (Profile tab)", () => {
 });
 
 /**
- * Body Structure add / drag-sort / delete (#720) — layered on the #721/#722
+ * Body Structure add / drag-sort / delete — layered on the
  * editors. Proves the Combat tab renders the add / drag / ⋮ controls for an
- * owner, and that the #247-safe whole-array update builders (reorder / move /
+ * owner, and that the whole-array update builders (reorder / move /
  * add / remove) persist correctly against a live actor. The add dialog, the
  * shortcode validators, and the delete-guard are covered by the unit suite and
  * the Node template-render tests.
  */
-describe("Body Structure editing — add / sort / delete (#720)", () => {
+describe("Body Structure editing — add / sort / delete", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
     Cypress.on("uncaught:exception", () => false);
@@ -392,7 +392,7 @@ describe("Body Structure editing — add / sort / delete (#720)", () => {
                 // ...and lands at the end of the flat array (its zone's end).
                 expect(r.after[r.after.length - 1]).to.equal(r.movedCode);
                 expect(r.after).to.have.length(r.before.length);
-                // No location was lost to the array-rewrite (#247 guard).
+                // No location was lost to the array-rewrite.
                 expect(r.totAfter).to.equal(r.totBefore);
             });
         });
@@ -514,7 +514,7 @@ describe("Body Structure editing — add / sort / delete (#720)", () => {
                 expect(r.addedLocs).to.equal(r.locsBefore + 1);
                 expect(r.finalHas, "part removed").to.be.false;
                 expect(r.finalLen).to.equal(r.countBefore);
-                // The part's location went with it (cascade delete, #780).
+                // The part's location went with it (cascade delete).
                 expect(r.finalLocs, "location cascaded").to.equal(r.locsBefore);
             });
         });

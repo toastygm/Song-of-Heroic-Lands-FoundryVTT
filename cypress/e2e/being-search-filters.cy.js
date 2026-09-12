@@ -12,7 +12,7 @@
  */
 
 /**
- * Being sheet per-tab search filters (#312).
+ * Being sheet per-tab search filters.
  *
  * Each of the searchable tabs exposes a `search-criteria` input that live-filters
  * its list(s) via Foundry's `SearchFilter` → `applySearchFilter` (data-search-name
@@ -22,7 +22,7 @@
  *
  * Trauma tab intentionally has no search filters (injuries and afflictions).
  */
-describe("Being sheet per-tab search filters (#312)", () => {
+describe("Being sheet per-tab search filters", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

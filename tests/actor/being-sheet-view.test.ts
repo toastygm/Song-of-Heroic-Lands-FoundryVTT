@@ -132,7 +132,7 @@ describe("being-sheet-view", () => {
     });
 
     describe("SKILL_DISPLAY_SUBTYPE_ORDER", () => {
-        it("includes combattechnique so its section sorts stably when a being has combat techniques (#797)", () => {
+        it("includes combattechnique so its section sorts stably when a being has combat techniques", () => {
             expect(SKILL_DISPLAY_SUBTYPE_ORDER).toContain("combattechnique");
         });
 
@@ -230,7 +230,7 @@ describe("being-sheet-view", () => {
             });
         });
 
-        it("passes through the EML/Fate abbrev tooltips (#769)", () => {
+        it("passes through the EML/Fate abbrev tooltips", () => {
             const a = skill({
                 emlDeltaLabel: "STR +2, ARM ×2",
                 fateDeltaLabel: "",
@@ -272,7 +272,7 @@ describe("being-sheet-view", () => {
             ...over,
         });
 
-        /** Wrap parts in a single zone — the tree's root tier since #780. */
+        /** Wrap parts in a single zone — the tree's root tier since. */
         const inZone = (parts: any[], over: Record<string, unknown> = {}) => [
             {
                 shortcode: "headzone",
@@ -609,7 +609,7 @@ describe("being-sheet-view", () => {
     });
 
     describe("buildStatusPills", () => {
-        it("returns the eight pills in display order, with aural-shock and fatigue as trauma indicators (#306)", () => {
+        it("returns the eight pills in display order, with aural-shock and fatigue as trauma indicators", () => {
             const pills = buildStatusPills(new Set());
             expect(pills.map((p) => p.id)).toEqual([
                 TRAUMA_SUBTYPE.AURALSHOCK,
@@ -697,7 +697,7 @@ describe("being-sheet-view", () => {
             ]);
         });
 
-        it("colors each part by the worst injury on its locations (#464)", () => {
+        it("colors each part by the worst injury on its locations", () => {
             const injuries = [
                 { locationShortcode: "pate", level: 4, healingRate: 4 }, // grievous
                 { locationShortcode: "chest", level: 1, healingRate: 5 }, // minor
@@ -708,7 +708,7 @@ describe("being-sheet-view", () => {
             ]);
         });
 
-        it("applies a part's permanent impairment as a floor (#464)", () => {
+        it("applies a part's permanent impairment as a floor", () => {
             const s = {
                 parts: [
                     {
@@ -783,7 +783,7 @@ describe("being-sheet-view", () => {
         });
     });
 
-    describe("usableHeldStrikeModes (#836)", () => {
+    describe("usableHeldStrikeModes", () => {
         const oneHand = { name: "swing", minParts: 1 };
         const twoHand = { name: "draw", minParts: 2 };
 
@@ -806,7 +806,7 @@ describe("being-sheet-view", () => {
         });
     });
 
-    describe("selectStrikeModeModifier (#178)", () => {
+    describe("selectStrikeModeModifier", () => {
         function makeMeleeMode(blockMod = 0, cxMod = 0): MeleeStrikeMode {
             const logic = makeItemLogic(WeaponGearLogic, ITEM_KIND.WEAPONGEAR, {
                 quantity: 1,
@@ -872,7 +872,7 @@ describe("being-sheet-view", () => {
         });
     });
 
-    describe("filterHeldWeapons (#180)", () => {
+    describe("filterHeldWeapons", () => {
         function weapon(heldBy: unknown[]) {
             return { logic: { heldBy } };
         }
@@ -910,7 +910,7 @@ describe("being-sheet-view", () => {
         });
     });
 
-    describe("TRAUMA_SUBTYPE_COLUMNS (#939)", () => {
+    describe("TRAUMA_SUBTYPE_COLUMNS", () => {
         // The column set each Trauma sub-type shows on the Being sheet, keyed by
         // TRAUMA_SUBTYPE value. Every "level" column renders the level modifier.
         const EXPECTED: Record<string, string[]> = {
@@ -956,7 +956,7 @@ describe("being-sheet-view", () => {
         });
     });
 
-    describe("MYSTICALABILITY_SUBTYPE_COLUMNS (#990)", () => {
+    describe("MYSTICALABILITY_SUBTYPE_COLUMNS", () => {
         // The column set each Mystical Ability sub-type shows on the Being
         // sheet. eml / charges / notes are always present; skill and level vary.
         const EXPECTED: Record<string, string[]> = {
@@ -1012,7 +1012,7 @@ describe("being-sheet-view", () => {
             );
         });
 
-        // #1131 — the Chgs/Max header filled its 4rem track exactly and butted
+        // The Chgs/Max header must not fill its 4rem track exactly and butt
         // against the adjoining Notes header, reading as one word
         // (`CHGS/MAXNOTES`). The ledger grid has no column-gap (head and rows
         // must share one track template to stay aligned), so a fixed-width
@@ -1081,7 +1081,7 @@ describe("being-sheet-view", () => {
             }
         });
 
-        it("places an Affiliation column immediately after Skill for the affiliation-bearing subtypes (#1012)", () => {
+        it("places an Affiliation column immediately after Skill for the affiliation-bearing subtypes", () => {
             // The invocation/ritual/standing kinds whose capability draws on an
             // Affiliation credential; other subtypes carry no Affiliation column.
             const AFFILIATED: string[] = [
@@ -1181,7 +1181,7 @@ describe("being-sheet-view", () => {
             expect(row.isBleeding).toBe(true);
         });
 
-        it("passes through the severity/healing-rate deltaLabel tooltips (#769)", () => {
+        it("passes through the severity/healing-rate deltaLabel tooltips", () => {
             const [row] = buildTraumaRows([base], label);
             expect(row.severityDeltaLabel).toBe("Base +2");
             expect(row.healingRateDeltaLabel).toBe("Base +6");
@@ -1308,13 +1308,13 @@ describe("being-sheet-view", () => {
             expect(row.notes).toBe("shivering");
         });
 
-        it("passes through the next-heal-test world time (#943)", () => {
+        it("passes through the next-heal-test world time", () => {
             const [group] = buildAfflictionGroups([aff()], ["fatigue"], label);
             const [row] = group.afflictions;
             expect(row.nextHealTest).toBe(5700);
         });
 
-        it("carries a null next-heal-test through unchanged (#943)", () => {
+        it("carries a null next-heal-test through unchanged", () => {
             const [group] = buildAfflictionGroups(
                 [aff({ nextHealTest: null })],
                 ["fatigue"],
@@ -1324,7 +1324,7 @@ describe("being-sheet-view", () => {
             expect(row.nextHealTest).toBeNull();
         });
 
-        it("passes through the level/healing-rate deltaLabel tooltips (#769)", () => {
+        it("passes through the level/healing-rate deltaLabel tooltips", () => {
             const [group] = buildAfflictionGroups([aff()], ["fatigue"], label);
             const [row] = group.afflictions;
             expect(row.levelDeltaLabel).toBe("Base +3");

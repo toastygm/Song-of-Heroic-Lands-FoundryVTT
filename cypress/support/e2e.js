@@ -32,14 +32,14 @@ import "./commands/dialogs.js";
  *   no active viewport in headless runs. Unrelated to combat data/logic.
  * - RegionShapeControls.refresh: "Cannot read properties of undefined (reading
  *   'INTERFACE')" — creating a scene Region makes the canvas RegionLayer draw
- *   shape controls, which reads a canvas group that is absent headless (#593
+ *   shape controls, which reads a canvas group that is absent headless (the
  *   region-trigger spec). Canvas rendering, not region-trigger logic.
  *
- * A restricted Region's shape-constraint pass (#1535) used to be a third entry
- * here — `Scene#updateRegionShapeConstraints` throws `reading 'id'` out of a
- * PIXI ticker callback headless. It is now neutralized at the source instead,
- * by `guardHeadlessRegionShapeConstraints` in `commands.js`: `reading 'id'` is
- * far too generic a message to leave allowlisted, even qualified by a stack.
+ * A restricted Region's shape-constraint pass is deliberately **not** a third
+ * entry here — `Scene#updateRegionShapeConstraints` throws `reading 'id'` out
+ * of a PIXI ticker callback headless, and it is neutralized at the source by
+ * `guardHeadlessRegionShapeConstraints` in `commands.js`: `reading 'id'` is far
+ * too generic a message to allowlist, even qualified by a stack.
  *
  * An entry is `{message}` alone, or `{message, stack}` when the message is not
  * distinctive enough to be safe on its own — both must match.
@@ -63,7 +63,7 @@ Cypress.on("uncaught:exception", (err) => {
  * `testIsolation` is off, so UI notifications persist across specs. A permanent
  * error notification raised by one spec (e.g. Foundry's `Hooks.onError` on a
  * caught data-preparation failure) stays on screen and can overlay another
- * spec's controls, failing an unrelated interaction (#503 — the header status
+ * spec's controls, failing an unrelated interaction (the header status
  * pill was covered by a bled permanent error notification). Start every test
  * with a clean notification UI. This only clears notifications that already
  * exist before the test runs, so it never masks an error a spec raises itself.

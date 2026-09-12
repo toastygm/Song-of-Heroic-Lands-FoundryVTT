@@ -27,7 +27,7 @@
  * This is a deterministic DOM/CSS contract — independent of the host OS
  * appearance — so it holds in a headless run whatever the runner's preference is.
  */
-describe("icon color-scheme (#917)", () => {
+describe("icon color-scheme", () => {
     let originalScheme;
 
     before(() =>
@@ -86,7 +86,7 @@ describe("icon color-scheme (#917)", () => {
         });
     });
 
-    it("serves default item art carrying the dark-mode fill swap (#1677)", () => {
+    it("serves default item art carrying the dark-mode fill swap", () => {
         // The unit suite proves the injection and the source files agree; only
         // a running system proves the *deployed* icon carries the result. An
         // icon whose colour sat in an inline `style` was declined by the build

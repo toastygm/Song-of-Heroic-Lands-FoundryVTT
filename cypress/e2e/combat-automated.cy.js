@@ -21,9 +21,9 @@
  * renders. We exercise that gate directly by posting a card carrying the four
  * action-card buttons addressed (via `data-handler-uuid`) to a real defender
  * combatant, then asserting which buttons survive — this bypasses the stubbed
- * attacker-start (RED #177).
+ * attacker-start (RED).
  *
- * The attacker-start flow itself aborts (RED #177): `commonAttack` →
+ * The attacker-start flow itself aborts (RED): `commonAttack` →
  * `BeingLogic.getUsableStrikeModes()` returns `[]`, so no attack card is produced
  * and Counterstrike-resume (same path) aborts too.
  */
@@ -106,7 +106,7 @@ describe("automated combat", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
-    // The known logger recursion (#267) turns any stray `uiWarn` into a stack
+    // The known logger recursion turns any stray `uiWarn` into a stack
     // overflow; don't let an unrelated background warning fail these gating
     // assertions.
     Cypress.on("uncaught:exception", () => false);
@@ -257,20 +257,20 @@ describe("automated combat", () => {
 
     // ------------------------------------------------------------------------ RED
 
-    // RED — blocked by #177: automated attack start aborts. `commonAttack` →
+    // RED — blocked on automated attack start, which aborts. `commonAttack` →
     // BeingLogic.getUsableStrikeModes() returns [] (stub, BeingLogic.ts:234), so
     // it emits "no usable strike mode" and returns undefined. Two implemented
     // collectors (availableStrikeModes / collectAttackableStrikeModes) are
     // unwired. Un-skip and assert an attack card is produced once wired.
     it.skip("automated attack start produces an attack card (#177)", () => {});
 
-    // RED — blocked by #177: Counterstrike resume routes through the same
+    // RED — blocked on the same: Counterstrike resume routes through the same
     // getUsableStrikeModes stub → aborts.
     it.skip("counterstrike resume resolves an attack (#177)", () => {});
 
-    // RED — blocked by #64: Dodge should no longer be skill-gated (FIXME) — today
+    // RED — blocked on ungating Dodge from the Dodge skill (FIXME) — today
     // the Dodge button requires a `dge` skill (see the capability-gate test
-    // above). Un-skip and assert Dodge survives without a Dodge skill once #64
+    // above). Un-skip and assert Dodge survives without a Dodge skill once that
     // removes the gate.
     it.skip("Dodge is available without a Dodge skill (#64)", () => {});
 

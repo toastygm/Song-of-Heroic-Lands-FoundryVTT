@@ -12,7 +12,7 @@
  */
 
 /**
- * Script actions run a referenced Foundry Macro (#156), never compiled code.
+ * Script actions run a referenced Foundry Macro, never compiled code.
  * This exercises the path unit tests can't: a real `Macro#execute` in a running
  * Foundry, driven through a Script action's `executor` (the Macro UUID). The
  * macro's return value flows back through `SohlAction.execute`.

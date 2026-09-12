@@ -12,7 +12,7 @@
  */
 
 /**
- * Strike Modes tab + editor on the Weapongear and CombatTechnique sheets (#663).
+ * Strike Modes tab + editor on the Weapongear and CombatTechnique sheets.
  *
  * Drives the real UI: the tab renders one row per strike mode, "Add Strike Mode"
  * appends a blank mode and opens the StrikeModeConfig editor on it, the editor
@@ -252,7 +252,7 @@ describe("strike modes tab — weapongear (multi)", () => {
                 cy.get(".shortcode").contains("aaa");
                 cy.get(".impact").contains("2d6+1e");
             });
-            // A single die drops its redundant count (d6, never 1d6) — #775.
+            // A single die drops its redundant count (d6, never 1d6).
             cy.get(
                 'section.tab[data-tab="strikemodes"] .strikemodes__row[data-strikemode-key="bbb"] .impact',
             ).should("have.text", "d6+2p");

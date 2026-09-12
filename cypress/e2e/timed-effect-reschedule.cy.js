@@ -12,7 +12,7 @@
  */
 
 /**
- * Offer-to-reschedule (#579) under the **Check/Test** split (#1181): a recurring
+ * Offer-to-reschedule under the **Check/Test** split: a recurring
  * timed effect never auto-re-arms. The cycle has two halves, and only the second
  * one schedules anything:
  *
@@ -30,16 +30,16 @@
  *    - **accept** → the next healing check is armed on the generic
  *      `scheduledActions` store;
  *    - **decline** → the schedule is cleared, but the run record survives, so
- *      "when did this last happen?" is still answerable (#356).
+ *      "when did this last happen?" is still answerable.
  *
  * The record follows the **act**: `system.lastRun` is stamped by the test that
- * performed, never by the check that merely offered (#1192).
+ * performed, never by the check that merely offered.
  * 2. **By pressing the real dialog button** (`cy.submitDialog`) — modelling the
  *    player, for when the offer itself is the subject under test: clicking
  *    **Schedule** on the test's offer is what arms the next check.
  */
 
-describe("Timed-effect reschedule (#579)", () => {
+describe("Timed-effect reschedule", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
@@ -89,7 +89,7 @@ describe("Timed-effect reschedule (#579)", () => {
                         // The generic run record (system.lastRun), stamped at
                         // the action chokepoint — not a bespoke field. It
                         // follows the ACT, so the test's shortcode carries it
-                        // and the check's never appears (#1192).
+                        // and the check's never appears.
                         record: sys.lastRun?.healingtest,
                         checkRecord: sys.lastRun?.healingCheck,
                         entries: (sys.scheduledActions || []).filter(
@@ -132,7 +132,7 @@ describe("Timed-effect reschedule (#579)", () => {
 
                 return { before, afterCheck, afterAccept, afterDecline };
             }).should((r) => {
-                // The check offers and does nothing else (#1181).
+                // The check offers and does nothing else.
                 expect(r.afterCheck.entries, "the check leaves the schedule alone").to.eq(
                     r.before.entries,
                 );
@@ -160,7 +160,7 @@ describe("Timed-effect reschedule (#579)", () => {
     // way a player does, to prove the button choice (not a scripted scope) is what
     // drives the outcome. It is the pattern the testing doc recommends when the
     // offer itself is the thing under test: model the user, don't pre-answer.
-    it("pressing Schedule on the test's offer arms the next check (models the player, #579)", () => {
+    it("pressing Schedule on the test's offer arms the next check (models the player)", () => {
         cy.importActor().then((actor) => {
             cy.prepare(actor);
             cy.foundry(async (win) => {

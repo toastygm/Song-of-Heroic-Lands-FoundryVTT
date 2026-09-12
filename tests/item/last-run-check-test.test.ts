@@ -12,10 +12,10 @@
  */
 
 /**
- * The run record follows the **act**, not the offer (#1192).
+ * The run record follows the **act**, not the offer.
  *
  * `system.lastRun[shortcode]` records "the world time that action last
- * *performed* on this document". Under the Check/Test split (#1181) a `*Check`
+ * *performed* on this document". Under the Check/Test split a `*Check`
  * only posts a card inviting one test — it rolls nothing and changes nothing —
  * so stamping the record there answered "when was the offer posted?", and said
  * the check had happened even when the player never touched the card. The
@@ -100,7 +100,7 @@ function actionFor(
     return logic.defineIntrinsicActions().find((a) => a.shortcode === shortcode);
 }
 
-describe("the run record follows the act, not the offer (#1192)", () => {
+describe("the run record follows the act, not the offer", () => {
     it.each(PAIRS)("$label $test records its run", ({ logic, test }) => {
         const action = actionFor(logic, test);
         expect(action, test).toBeDefined();

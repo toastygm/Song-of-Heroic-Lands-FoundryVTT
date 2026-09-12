@@ -6,7 +6,7 @@
  */
 
 /**
- * Tests for issue #207: aim/spread deduplication.
+ * Tests for aim/spread deduplication.
  *
  * Before the fix, `aimBodyPartCode` and `spread` were stored as direct fields
  * on both `AttackResult` and `ImpactResult`, creating a second copy of each
@@ -73,7 +73,7 @@ function makeImpactResult(impact: ImpactModifier): ImpactResult {
     );
 }
 
-describe("ImpactModifier aim/spread ownership (#207)", () => {
+describe("ImpactModifier aim/spread ownership", () => {
     it("stores aimBodyPartCode and spread", () => {
         const im = makeImpact("torso", 5);
         expect(im.aimBodyPartCode).toBe("torso");
@@ -100,7 +100,7 @@ describe("ImpactModifier aim/spread ownership (#207)", () => {
     });
 });
 
-describe("AttackResult aim/spread read-through (#207)", () => {
+describe("AttackResult aim/spread read-through", () => {
     it("aimBodyPartCode delegates to this.impact", () => {
         const im = makeImpact("shoulder", 6);
         const ar = makeAttackResult(im);
@@ -138,7 +138,7 @@ describe("AttackResult aim/spread read-through (#207)", () => {
     });
 });
 
-describe("ImpactResult aim/spread read-through (#207)", () => {
+describe("ImpactResult aim/spread read-through", () => {
     it("aimBodyPartCode delegates to this.impactModifier", () => {
         const im = makeImpact("neck", 6);
         const ir = makeImpactResult(im);

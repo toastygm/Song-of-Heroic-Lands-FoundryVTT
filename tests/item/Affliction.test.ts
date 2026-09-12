@@ -64,10 +64,10 @@ afterEach(() => {
     vi.restoreAllMocks();
 });
 
-describe("affliction phase scheduling on the generic store (#483, #579, #588)", () => {
+describe("affliction phase scheduling on the generic store", () => {
     afterEach(() => vi.restoreAllMocks());
 
-    /** A `system.scheduledActions` seed (generic store, issue #588). */
+    /** A `system.scheduledActions` seed (generic store). */
     function sched(actionName: string, anchor: number, interval: number) {
         return {
             scheduledActions: [{ actionName, anchor, interval, sceneUuid: "", payload: {} }],
@@ -110,7 +110,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         );
     });
 
-    it("setOnset crystallizes onsetDate, rolls the intervals, and OFFERS the two follow-ons (#1183)", async () => {
+    it("setOnset crystallizes onsetDate, rolls the intervals, and OFFERS the two follow-ons", async () => {
         const { schedule, unschedule } = withStore();
         vi.spyOn(FoundryHelpersMock, "fvttWorldTime").mockReturnValue(2000);
         const logic = affliction({
@@ -136,7 +136,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         expect(schedule).toHaveBeenCalledWith(logic.item, "resolutionCheck", 700);
     });
 
-    it("setOnset's follow-on offers are declinable — saying no arms neither (#1183)", async () => {
+    it("setOnset's follow-on offers are declinable — saying no arms neither", async () => {
         const { schedule, unschedule } = withStore();
         const logic = affliction({
             resolutionDurationFormula: "700",
@@ -154,7 +154,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         expect(unschedule).toHaveBeenCalledWith(logic.item, "resolutionCheck");
     });
 
-    it("setOnset does nothing when the confirmation is declined (#1183)", async () => {
+    it("setOnset does nothing when the confirmation is declined", async () => {
         const { schedule, unschedule } = withStore();
         vi.spyOn(FoundryHelpersMock, "dialog").mockResolvedValue(false);
         const logic = affliction({});
@@ -165,7 +165,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         expect(unschedule).not.toHaveBeenCalled();
     });
 
-    it("onsetCheck only posts a card — it sets no onset (#1183)", async () => {
+    it("onsetCheck only posts a card — it sets no onset", async () => {
         const { schedule, unschedule } = withStore();
         const post = vi.spyOn(ActionCard, "postActionCard").mockResolvedValue(undefined as never);
         const logic = affliction({});
@@ -182,7 +182,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         expect(unschedule).not.toHaveBeenCalled();
     });
 
-    it("onsetCheck runs the optional onset Macro after crystallizing onset (#488)", async () => {
+    it("onsetCheck runs the optional onset Macro after crystallizing onset", async () => {
         withStore();
         vi.spyOn(FoundryHelpersMock, "fvttWorldTime").mockReturnValue(2000);
         const exec = vi.spyOn(FoundryHelpersMock, "fvttExecuteMacro").mockResolvedValue(undefined);
@@ -201,7 +201,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         expect(logic.item.update).toHaveBeenCalled();
     });
 
-    it("onsetCheck does not run a macro when none is authored (#488)", async () => {
+    it("onsetCheck does not run a macro when none is authored", async () => {
         withStore();
         vi.spyOn(FoundryHelpersMock, "fvttWorldTime").mockReturnValue(2000);
         const exec = vi.spyOn(FoundryHelpersMock, "fvttExecuteMacro").mockResolvedValue(undefined);
@@ -251,7 +251,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         );
     });
 
-    it("setResolution records the chosen outcome + date and clears the schedules (#1183)", async () => {
+    it("setResolution records the chosen outcome + date and clears the schedules", async () => {
         const { unschedule } = withStore();
         vi.spyOn(FoundryHelpersMock, "fvttWorldTime").mockReturnValue(9000);
         const logic = affliction({ onsetDate: 2000, resolutionDate: null });
@@ -282,7 +282,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         );
     });
 
-    it("setResolution does nothing when the dialog is dismissed (#1183)", async () => {
+    it("setResolution does nothing when the dialog is dismissed", async () => {
         const { unschedule } = withStore();
         vi.spyOn(FoundryHelpersMock, "dialog").mockResolvedValue(null);
         const logic = affliction({ resolutionDate: null });
@@ -292,7 +292,7 @@ describe("affliction phase scheduling on the generic store (#483, #579, #588)", 
         expect(unschedule).not.toHaveBeenCalled();
     });
 
-    it("resolutionCheck only posts a card — it settles nothing (#1183)", async () => {
+    it("resolutionCheck only posts a card — it settles nothing", async () => {
         const { unschedule } = withStore();
         const post = vi.spyOn(ActionCard, "postActionCard").mockResolvedValue(undefined as never);
         const logic = affliction({ resolutionDate: null });
@@ -362,7 +362,7 @@ describe("AfflictionLogic", () => {
 
         // hasCourse gates the Course Test on the affliction being active
         // (not dormant) AND the actor having a usable Endurance attribute —
-        // matching the pre-port v0.5.6 courseTest contextCondition (#65).
+        // matching the pre-port v0.5.6 courseTest contextCondition.
         describe("hasCourse", () => {
             it("true when active and the actor has a usable Endurance attribute", () => {
                 expect(makeAfflictionOnActor({ isDormant: false }).hasCourse).toBe(true);
@@ -394,7 +394,7 @@ describe("AfflictionLogic", () => {
 
         // canTreat gates the Treatment Test on the affliction not yet having
         // been treated — matching the pre-port v0.5.6 treatmentTest
-        // contextCondition (#65). Afflictions have no `isBleeding` field (that
+        // contextCondition. Afflictions have no `isBleeding` field (that
         // lives on Trauma), so the old FIXME's pysn/isBleeding gate never applied.
         describe("canTreat", () => {
             it("true when the affliction is untreated", () => {
@@ -402,14 +402,14 @@ describe("AfflictionLogic", () => {
             });
 
             it("false when the affliction is already treated", () => {
-                // isTreated is derived from treatmentDate (#484).
+                // isTreated is derived from treatmentDate.
                 expect(makeAffliction({ treatmentDate: 123456 }).canTreat).toBe(false);
             });
         });
 
         // canHeal gates the Healing Test on the affliction having a usable
         // (non-disabled) healing rate AND the actor having a usable Endurance
-        // attribute — matching the pre-port v0.5.6 healingTest contextCondition (#65).
+        // attribute — matching the pre-port v0.5.6 healingTest contextCondition.
         describe("canHeal", () => {
             it("true when healing rate is enabled and the actor has usable Endurance", () => {
                 expect(makeAfflictionOnActor({ healingRateBase: 4 }).canHeal).toBe(true);
@@ -455,7 +455,7 @@ describe("AfflictionLogic", () => {
             expect(logic.levelLabel).toBe("0");
         });
 
-        it("does not throw before initialize() — level not yet seeded (#511)", () => {
+        it("does not throw before initialize() — level not yet seeded", () => {
             // A freshly-dropped affliction can be read by the sheet before its
             // logic.initialize() has run, so `level` (a ValueModifier assigned
             // in initialize) is still undefined. The getter must degrade to "0"
@@ -497,7 +497,7 @@ describe("AfflictionLogic", () => {
             expect(logic.isDormant).toBe(false);
         });
 
-        it("derives isTreated from treatmentDate (#484)", () => {
+        it("derives isTreated from treatmentDate", () => {
             expect(makeAffliction({ treatmentDate: null }).isTreated).toBe(false);
             expect(makeAffliction({ treatmentDate: 123456 }).isTreated).toBe(true);
         });
@@ -580,7 +580,7 @@ describe("AfflictionDataModel", () => {
     it.todo("has kind set to ITEM_KIND.AFFLICTION");
 });
 
-describe("resolution outcome effect (#490)", () => {
+describe("resolution outcome effect", () => {
     afterEach(() => vi.restoreAllMocks());
 
     function resolvingAffliction(overrides: Record<string, unknown> = {}) {
@@ -689,10 +689,10 @@ describe("resolution outcome effect (#490)", () => {
     });
 });
 
-describe("view-only computed dates (#943)", () => {
+describe("view-only computed dates", () => {
     afterEach(() => vi.restoreAllMocks());
 
-    /** A `system.scheduledActions` seed (generic store, issue #588). */
+    /** A `system.scheduledActions` seed (generic store). */
     function sched(actionName: string, anchor: number, interval: number) {
         return { actionName, anchor, interval, sceneUuid: "", payload: {} };
     }

@@ -21,9 +21,9 @@ import {
 /**
  * The assembled `/sohl/` deployment is the last place a dead hostname can be
  * caught before a reader meets it, and the only place the API documentation can
- * be caught at all: it is generated from the newest release tag (#1452), so a
+ * be caught at all: it is generated from the newest release tag, so a
  * tag cut before the hostnames were withdrawn rebuilds the dead links on every
- * deploy no matter what `main` says (#1487).
+ * deploy no matter what `main` says.
  */
 describe("sitePathFor", () => {
     /** A pretend deployment: only these files were published. */

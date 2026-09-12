@@ -130,7 +130,7 @@ function injuryCount(): number {
 
 /**
  * Build the **Assisted Combat** tour — the second content story on the
- * {@link SohlTour} framework (#620), after Character Creation (#614). It coaches
+ * {@link SohlTour} framework, after Character Creation. It coaches
  * one Being, single-actor and "pretend" throughout, from a weapon on the sheet to
  * a swing, to an impact, to a recorded injury — while making three things explicit
  * that new players routinely miss:

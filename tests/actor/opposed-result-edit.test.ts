@@ -24,9 +24,9 @@ import { makeActorLogic } from "@tests/mocks/logicHarness";
 import { ACTOR_KIND, VALUE_DELTA_INFO } from "@src/utils/constants";
 
 /**
- * GM re-edit of a **settled opposed contest** (#1082) — the edit pencil in the
+ * GM re-edit of a **settled opposed contest** — the edit pencil in the
  * Opposed Action Result card's header. It is the two-sided counterpart to the
- * standard card's `resultEdit` (#856): each side's situational and
+ * standard card's `resultEdit`: each side's situational and
  * success-level modifiers are re-opened, the contest is re-evaluated on both
  * **frozen** rolls (never a re-roll), and the result card is reposted.
  *
@@ -88,7 +88,7 @@ function editCtx(
     } as any);
 }
 
-describe("SohlActorBaseLogic.opposedResultEdit — GM re-edit of a settled contest (#1082)", () => {
+describe("SohlActorBaseLogic.opposedResultEdit — GM re-edit of a settled contest", () => {
     let being: BeingLogic;
     let opposed: OpposedTestResult;
     let toChat: any;
@@ -226,7 +226,7 @@ describe("SohlActorBaseLogic.opposedResultEdit — GM re-edit of a settled conte
             expect((dlg.mock.calls[1][0] as any).data.situationalModifier).toBe(0);
         });
 
-        // #1099 — the same standard-test dialog is used per side, so it offers
+        // The same standard-test dialog is used per side, so it offers
         // a Roll Visibility field there too. The contest posts ONE card, so the
         // source side's choice governs the repost.
         it("honors the visibility chosen for the source side on the repost", async () => {

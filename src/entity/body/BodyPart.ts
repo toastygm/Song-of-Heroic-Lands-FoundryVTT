@@ -103,7 +103,7 @@ export class BodyPart extends SohlEntity {
 
     /**
      * Whether this part is **out of action** — the single switch for a limb that
-     * can no longer be used (#1269). It is `true` when the part is persistently
+     * can no longer be used. It is `true` when the part is persistently
      * {@link permanentlyUnusable}, and may additionally be set during the
      * preparation lifecycle — the Being sets it for a part carrying a **grievous
      * injury** (see {@link sohl.entity.body.bodyPartImpairment}).
@@ -128,7 +128,7 @@ export class BodyPart extends SohlEntity {
 
     /**
      * Whether this part is **immobilized** — pinned, bound, or paralyzed so it
-     * cannot be moved (#1269). Weaker than {@link isUnusable}: an immobilized
+     * cannot be moved. Weaker than {@link isUnusable}: an immobilized
      * limb is still a working limb, so it **keeps whatever it is holding** and
      * keeps {@link canHoldItem}. That is what makes a grappling *hold* distinct
      * from a disarm.
@@ -155,7 +155,7 @@ export class BodyPart extends SohlEntity {
     /**
      * Whether this part can **currently** grip an item — its persisted
      * {@link canHoldItemBase} capability, revoked while the limb is
-     * {@link isUnusable}. A merely {@link immobilized} limb still grips (#1269).
+     * {@link isUnusable}. A merely {@link immobilized} limb still grips.
      *
      * Note this derivation does not by itself clear {@link heldItemId}: the
      * *drop* is a one-time write made when the injury is applied (see
@@ -180,7 +180,7 @@ export class BodyPart extends SohlEntity {
 
     /**
      * Whether this part is **critical** for overall health — it holds a VITAL or
-     * CORE role. Critical parts drive the harsher health-ceiling column (#470).
+     * CORE role. Critical parts drive the harsher health-ceiling column.
      */
     get isCritical(): boolean {
         return this.roles.some((r) => r === BODY_ROLE.VITAL || r === BODY_ROLE.CORE);

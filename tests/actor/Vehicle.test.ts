@@ -28,7 +28,7 @@ describe("VehicleLogic", () => {
             expect(logic.actions.has("editDocument")).toBe(true);
         });
 
-        it("exposes the occupant entries from its data (#1197)", () => {
+        it("exposes the occupant entries from its data", () => {
             // Each entry is the object the schema stores — a handle, a role, and
             // an optional title — never a bare shortcode string.
             const occupants: VehicleOccupant[] = [
@@ -52,7 +52,7 @@ describe("VehicleLogic", () => {
         });
     });
 
-    describe("occupantRows (#201)", () => {
+    describe("occupantRows", () => {
         /** Stub `fvttActorByRef` so the given handles resolve. */
         function resolveRefs(byRef: Record<string, Record<string, unknown>>) {
             vi.spyOn(FoundryHelpersMock, "fvttActorByRef").mockImplementation(

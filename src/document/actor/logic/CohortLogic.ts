@@ -217,7 +217,7 @@ export class CohortLogic<TData extends CohortData = CohortData> extends SohlActo
     }
 
     /**
-     * The gear this cohort's members have shared with it (issue #76).
+     * The gear this cohort's members have shared with it.
      *
      * A cohort carries nothing of its own: this walks each resolvable member and
      * collects the gear whose sharing list names this cohort, pairing every item
@@ -528,7 +528,7 @@ export class CohortLogic<TData extends CohortData = CohortData> extends SohlActo
      * Ask which member to act on, listing the cohort's membership by name.
      *
      * The member names ride in the template `data`, where Handlebars escapes
-     * them — never interpolated into the template source (rule #10).
+     * them — never interpolated into the template source.
      *
      * @param titleKey - Localization key for the dialog title.
      * @param promptKey - Localization key for the prompt line.

@@ -16,13 +16,13 @@ import { itemSheetSuite } from "../support/itemSheetSuite.js";
 itemSheetSuite("weapongear");
 
 /**
- * #1179 — the shared suite proves an edit *persists* onto the document, but not
+ * The shared suite proves an edit *persists* onto the document, but not
  * that the sheet renders the stored value back. The Encumbrance control bound
  * its `value=` to a nonexistent `system.encumbrance`, so it saved correctly and
  * still redrew blank. Assert the rendered input, which is the only thing that
  * catches a wrong `value=` binding.
  */
-describe("item sheet — weapongear encumbrance display (#1179)", () => {
+describe("item sheet — weapongear encumbrance display", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

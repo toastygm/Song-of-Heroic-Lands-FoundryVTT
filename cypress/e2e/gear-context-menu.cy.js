@@ -12,7 +12,7 @@
  */
 
 /**
- * Gear-row ⋮ context menu bindings (#1132).
+ * Gear-row ⋮ context menu bindings.
  *
  * A context-menu predicate resolves its `itemLogic` / `actorLogic` bindings by
  * walking up from the clicked row to the nearest `[data-item-id]` /
@@ -72,10 +72,10 @@ function meleeWeapon(name = "Arming Sword") {
     };
 }
 
-describe("gear-row context menu bindings (#1132)", () => {
+describe("gear-row context menu bindings", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
-    // The known logger recursion (#267) turns a stray uiWarn into a stack
+    // The known logger recursion turns a stray uiWarn into a stack
     // overflow; don't let an unrelated background warning fail these.
     Cypress.on("uncaught:exception", () => false);
 
@@ -195,7 +195,7 @@ describe("gear-row context menu bindings (#1132)", () => {
             cy.createItemOn(actor, "weapongear", meleeWeapon()).then((weapon) => {
                 // Attack needs the weapon held; Block/Counterstrike also
                 // need a melee strike mode (both `visible` predicates name
-                // itemLogic, which is what #1132 could not resolve).
+                // itemLogic, which is what would otherwise not resolve).
                 cy.holdItem(weapon);
                 cy.foundry((win) => {
                     const w = win.game.actors.get(actor.id).items.get(weapon.id);

@@ -36,8 +36,7 @@ import { toFilePath, toHTMLString } from "@src/utils/helpers";
 import { dialog, fvttGetSetting, fvttToFoundryRoll } from "@src/core/FoundryHelpers";
 
 /**
- * The Fate **spend flow**, shared by every logic type whose tests may be fated
- * (issue #1106).
+ * The Fate **spend flow**, shared by every logic type whose tests may be fated.
  *
  * The pure eligibility and outcome math lives in [`fate.ts`](./fate.ts); this
  * module is the flow built on top of it — seeding the fate mastery level,
@@ -202,7 +201,7 @@ export function buildFateMasteryLevel(host: FateHost, auraBased: boolean): Maste
  *
  * The association field is named for skills historically, but the rule is the
  * same for any fatable test — an attribute matches a point associated with its
- * own shortcode (#1106).
+ * own shortcode.
  *
  * @param host - The logic whose eligible points to select.
  * @returns The eligible-and-charged Fate {@link MysteryLogic} instances (empty
@@ -230,7 +229,7 @@ export function availableFateFor(host: FateHost): MysteryLogic[] {
 
 /**
  * Spend Fate on a test: roll a Fate test and apply its **post-roll success-level
- * bump** to the original test — the die is never re-rolled (#854).
+ * bump** to the original test — the die is never re-rolled.
  *
  * The flow, all at the player's behest (the card's Fate button or the sheet cell
  * is the human trigger):
@@ -324,7 +323,7 @@ export async function performFateTest(
         // amended card should not re-offer the same spend. The card re-derives
         // its outcome text/stars from the bumped level. (The revived original
         // carries the identity `targetValueFunc` a plain success test needs; a
-        // bespoke non-identity test would have to re-supply it here — #854.)
+        // bespoke non-identity test would have to re-supply it here.)
         await original.toChat({ canFate: false });
     }
 

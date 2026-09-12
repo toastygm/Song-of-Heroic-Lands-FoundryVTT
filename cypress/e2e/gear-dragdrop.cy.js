@@ -12,14 +12,14 @@
  */
 
 /**
- * Being Gear tab drag-and-drop (#491 → #492/#493/#494): gear can be dragged into
+ * Being Gear tab drag-and-drop: gear can be dragged into
  * a container (sets `system.containerId`), back to On Body (clears it), and
  * reordered by dropping onto another item (updates the core `sort`). The drop is
  * driven as a real DOM `drop` event on the live sheet element (in the game realm)
  * so the actual `_onDropItem` / `_onDropGearOnActor` / `_planGearSort` path runs —
  * not a direct handler call.
  */
-describe("Being Gear tab: drag-and-drop (#491)", () => {
+describe("Being Gear tab: drag-and-drop", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => {
         cy.closeAllSheets();

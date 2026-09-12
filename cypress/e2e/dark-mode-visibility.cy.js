@@ -12,7 +12,7 @@
  */
 
 /**
- * Dark-mode visibility (#893). In dark mode several surfaces were unreadable:
+ * Dark-mode visibility. In dark mode several surfaces were unreadable:
  * the ProseMirror editor content, right-click/⋮ context menus, and the black
  * bundled SVG art (portrait + compendium thumbnails).
  *
@@ -40,7 +40,7 @@ function emulateDark() {
     );
 }
 
-describe("dark-mode visibility (#893)", () => {
+describe("dark-mode visibility", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     after(() => {
         cy.cleanupWorld();

@@ -120,7 +120,7 @@ export class WeaponGearLogic<
 
     /**
      * Whether this weapon exposes at least one melee strike mode — the gate the
-     * block and counterstrike actions hang their visibility on (#1137). A
+     * block and counterstrike actions hang their visibility on. A
      * missile-only weapon (a bow, a sling) can never block or counterstrike, so
      * it must not offer them; a mixed weapon (thrust + throw) still does.
      */
@@ -241,7 +241,7 @@ export class WeaponGearLogic<
         // wielder's body reach. A non-Being wielder (or an incorporeal one) has
         // no body, so reach stays at length alone.
         const bodyReach = getActorBody(this.actorLogic)?.reach.effective ?? 0;
-        // A prone wielder suffers −20 to all melee attacks and defenses (#562).
+        // A prone wielder suffers −20 to all melee attacks and defenses.
         const prone = !!this.actor && fvttActorStatuses(this.actor).has(STATUS_EFFECT.PRONE);
         for (const sm of this.strikeModes) {
             if (sm instanceof MeleeStrikeMode) {
@@ -255,7 +255,7 @@ export class WeaponGearLogic<
     override finalize(): void {
         super.finalize();
         // Drive each strike mode's Atk/Blk/CX from its associated skill's
-        // mastery level (#755). A weapon has no mastery level of its own, so —
+        // mastery level. A weapon has no mastery level of its own, so —
         // unlike a combat technique (SkillLogic), which falls back to its own ML
         // — there is no self-fallback: a strike mode contributes only its flat
         // Atk/Blk/CX modifiers unless its `assocSkillCode` resolves to a skill on
@@ -265,7 +265,7 @@ export class WeaponGearLogic<
             const governing = resolveAssocSkill(this.actorLogic, sm.assocSkillCode)?.masteryLevel;
             if (governing) applyGoverningMasteryLevel(sm, governing);
         }
-        // Fold the wielder's Strength into each mode's impact (#1253). Also a
+        // Fold the wielder's Strength into each mode's impact. Also a
         // cross-item read — the Strength attribute's score is settled by this
         // phase — and it must follow `heldBy`, which decides the off hand.
         applyWielderStrengthImpact(this);

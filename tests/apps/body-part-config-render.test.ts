@@ -67,7 +67,7 @@ describe("body-part-config template", () => {
         expect(html).not.toContain("<button");
     });
 
-    it("renders the zone dropdown pre-selected to bodyZoneCode (#982)", () => {
+    it("renders the zone dropdown pre-selected to bodyZoneCode", () => {
         const html = renderTemplateReal(TEMPLATE, context());
         expect(html).toMatch(/<select[^>]*name="bodyZoneCode"/);
         expect(html).toMatch(
@@ -78,7 +78,7 @@ describe("body-part-config template", () => {
         );
     });
 
-    it("flags a dangling bodyZoneCode as an unresolved option, never blanked (#982)", () => {
+    it("flags a dangling bodyZoneCode as an unresolved option, never blanked", () => {
         const html = renderTemplateReal(TEMPLATE, context("Left Arm", "larm", [], "gone"));
         expect(html).toMatch(
             /<option value="gone"[^>]*selected[^>]*>\s*gone \(unresolved\)\s*<\/option>/,

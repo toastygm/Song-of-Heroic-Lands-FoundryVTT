@@ -12,7 +12,7 @@
  */
 
 /**
- * Regression guard for #148: DataModel `StringField({ choices })` must be a
+ * Regression guard: DataModel `StringField({ choices })` must be a
  * value-keyed object, not the enum `values` array. Foundry builds `<option>`
  * values from `Object.entries(choices)`, so an array yields index option values
  * (`0,1,2,…`) and breaks any editable select of that field. These fields are not
@@ -30,7 +30,7 @@ const ITEM_CHOICE_FIELDS = {
     projectilegear: ["subType"],
 };
 
-describe("DataModel choices are value-keyed objects (#148)", () => {
+describe("DataModel choices are value-keyed objects", () => {
     before(() => cy.login());
 
     it("every converted item choice field has object (not array) choices", () => {
@@ -52,9 +52,9 @@ describe("DataModel choices are value-keyed objects (#148)", () => {
         });
     });
 
-    // #955: every subType-bearing item type must declare its kind at creation,
+    // Every subType-bearing item type must declare its kind at creation,
     // so `subType` is `required` with no `initial` default (a bare create fails).
-    it("all item subType fields are required with no default (#955)", () => {
+    it("all item subType fields are required with no default", () => {
         const SUBTYPE_KINDS = [
             "skill",
             "trauma",

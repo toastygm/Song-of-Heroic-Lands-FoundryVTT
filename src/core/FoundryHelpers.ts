@@ -391,7 +391,7 @@ export function fvttGetActor(id: string): any {
 
 /**
  * All world (top-level) actors, as an array. Used to re-arm persisted scheduled
- * actions on load (issue #588) — the client's own permission-scoped view.
+ * actions on load — the client's own permission-scoped view.
  * @returns The world actors, or an empty array before `game` is ready.
  */
 export function fvttWorldActors(): any[] {
@@ -413,7 +413,7 @@ export function fvttActorByShortcode(shortcode: string): any {
 /**
  * Resolve an **actor reference** — the dual-key seam SoHL uses wherever one
  * document points at an actor it does not own: a Cohort member's
- * `shortcodeOrUuid`, or the cohort a gear item is shared with (issue #76).
+ * `shortcodeOrUuid`, or the cohort a gear item is shared with.
  *
  * A reference is either a **UUID** (`Actor.xxx`, or a token-actor path — always
  * dotted) or a **shortcode**, the stable, human-written key an author types.
@@ -474,8 +474,8 @@ export function fvttActorStatuses(actor: SohlActor | null | undefined): Set<stri
  * Add or remove a status effect on an actor (a toggleable Active Effect such as
  * Stunned, Prone, or Dead), via Foundry's `Actor#toggleStatusEffect`.
  *
- * Lets Foundry-free logic drive status-based state (e.g. the being's shock state,
- * #550) without touching the document directly. A no-op when the actor or the API
+ * Lets Foundry-free logic drive status-based state (e.g. the being's shock
+ * state) without touching the document directly. A no-op when the actor or the API
  * is unavailable. Read the resulting state back with {@link fvttActorStatuses}.
  *
  * @param actor - The actor to modify.
@@ -526,7 +526,7 @@ export async function fvttFindItemByShortcode(
 /**
  * Discover every archetype candidate for a document type across the world
  * directory and all compendium packs whose `metadata.type` matches — the
- * Foundry-boundary half of the Create-dialog archetype picker (issue #604).
+ * Foundry-boundary half of the Create-dialog archetype picker.
  *
  * A candidate is any document carrying a **numeric** `system.templatePriority`
  * (`null` is not an archetype — see
@@ -538,7 +538,7 @@ export async function fvttFindItemByShortcode(
  * **index** (with the priority / shortcode / subType fields requested) to avoid
  * loading full documents; the winner's `toObject()` is only fetched on confirm.
  *
- * The index is asked for the **pre-#1836 `system.archetype` as well**, and it
+ * The index is asked for the **legacy `system.archetype` as well**, and it
  * has to be: an index entry is raw stored data that never passes through the
  * data model, so a pack built by an older toolchain would otherwise contribute
  * nothing and its archetypes would vanish from the dialog with no error. A
@@ -579,7 +579,7 @@ export async function fvttDiscoverArchetypes(documentName: string): Promise<Arch
         const index = await pack.getIndex({
             fields: [
                 "system.templatePriority",
-                // Pre-#1836 spelling, still carried by packs built by an older
+                // Legacy spelling, still carried by packs built by an older
                 // toolchain; `readTemplatePriority` prefers the new one.
                 "system.archetype",
                 "system.shortcode",
@@ -676,7 +676,7 @@ export async function fvttCreateEmbeddedItems(
     const actor = actorLogic?.actor;
     if (!actor) return [];
     // System-generated items name no key of their own, so auto-manage the
-    // `(type, shortcode)` key (dedup on collision) rather than failing (#766).
+    // `(type, shortcode)` key (dedup on collision) rather than failing.
     return (await actor.createEmbeddedDocuments("Item", itemsData, {
         shortcodeDedupe: true,
     })) as any[];
@@ -686,7 +686,7 @@ export async function fvttCreateEmbeddedItems(
  * Create embedded `ActiveEffect` documents on a document.
  *
  * @remarks The Foundry-free way for the logic layer to attach an Active Effect —
- * e.g. a treatment Course Bonus on an affliction (#1183). The caller passes the
+ * e.g. a treatment Course Bonus on an affliction. The caller passes the
  * owning document and plain effect-creation data; this boundary performs the
  * write. No-op when the document cannot host effects.
  * @param doc - The document to create the effects on (an Item or Actor).
@@ -794,7 +794,7 @@ export async function fvttEnrichHTML(content: string): Promise<string> {
  * `<script>`, `on*` event handlers, whitespace/entity-obfuscated `javascript:`
  * URLs, `<base>`, SVG `xlink:href`, surviving inline `style`, and the
  * sanitize→serialize→reparse mutation-XSS (mXSS) that a tag/attribute denylist
- * misses (issue #161).
+ * misses.
  *
  * `foundry.utils.cleanHTML` is a real client-side v14 API but is currently
  * absent from `fvtt-types`, so it is reached through an explicit cast here — the
@@ -1044,8 +1044,8 @@ export function getActiveScene(): SohlScene | undefined {
 
 /**
  * The uuid of the world's currently **active** scene, or `undefined` when the
- * game is unavailable or no scene is active. Used by the event queue (issue
- * #590) to gate scene-bound scheduled actions in the Foundry-free logic layer
+ * game is unavailable or no scene is active. Used by the event queue to gate
+ * scene-bound scheduled actions in the Foundry-free logic layer
  * without handling a Foundry document.
  *
  * @returns The active scene's uuid, or `undefined` if none is active.
@@ -1310,13 +1310,13 @@ export function fvttRangeToTarget(
     }
 
     // Theatre of the Mind abstracts tactical distance away entirely. The toggle
-    // is a scene flag, read through the scene's logic (issue #1155).
+    // is a scene flag, read through the scene's logic.
     if ((canvas.scene as unknown as SohlScene | null)?.logic.isTotm) return 0;
 
     // Measure from the placeable's center when it is drawn, else from the
     // TokenDocument's own — the same fallback `combatantMeasurePoint` uses. A
     // token that is not rendered (its scene is not the viewed one) still has a
-    // position, so an absent placeable must not crash the measurement (#1079).
+    // position, so an absent placeable must not crash the measurement.
     const from = tokenMeasureCenter(sourceToken);
     const to = tokenMeasureCenter(targetToken);
     const result = from && to ? measurableGrid()?.measurePath([from, to], {}) : undefined;

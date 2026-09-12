@@ -93,7 +93,7 @@ import { expressionScopes, type ExpressionScope } from "@src/entity/expr/Express
  * may use, so the editor's autocomplete and live validation match the call site
  * that actually evaluates it. Before scopes, the sheet template carried a
  * hand-typed `data-context="attr"` string with nothing tying it to the
- * evaluating code (issue #1142).
+ * evaluating code.
  */
 export class SafeExpressionField extends foundry.data.fields.StringField {
     /**

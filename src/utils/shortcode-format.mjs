@@ -13,7 +13,7 @@
 
 /**
  * The shape rule for `shortcode` — the system's identity key must be strictly
- * ASCII-alphanumeric (issue #1397). This is the single source of truth for that
+ * ASCII-alphanumeric. This is the single source of truth for that
  * rule, shared by the runtime create/update guard (`resolveShortcodeKey` in
  * `src/utils/helpers.ts`), the world migration that repairs legacy keys, and
  * the build-time `lint:packs` guard.
@@ -32,16 +32,13 @@
  * likewise has to survive URLs, YAML frontmatter, and expression source
  * unescaped.
  *
- * **Why lowercase (#1882).** This was once left open — "case is not
- * constrained … tightening that would be a separate decision" — and #1882 is
- * that decision, taken alongside `@heroiclands/package-build` 20.0.0, which
- * narrows the build-time rule the same way (package-build#340). The reason is
- * that case was never actually carrying a distinction: the **address** built
- * from a shortcode is lowercased, so `Clb` and `clb` published one address, one
- * document `_id` and one URL while the shortcode check saw two distinct keys.
- * That is an identity collapse nothing reported — a difference you can only see
- * by looking twice and cannot say out loud. Requiring lowercase makes the key
- * equal the thing derived from it.
+ * **Why lowercase.** `@heroiclands/package-build` narrows the build-time rule
+ * the same way, because case carries no distinction here: the **address** built
+ * from a shortcode is lowercased, so `Clb` and `clb` publish one address, one
+ * document `_id` and one URL while the shortcode check would see two distinct
+ * keys. That is an identity collapse nothing reports — a difference you can only
+ * see by looking twice and cannot say out loud. Requiring lowercase makes the
+ * key equal the thing derived from it.
  *
  * @module shortcode-format
  */
@@ -81,7 +78,7 @@ export function isValidShortcode(value) {
  * as well because it derives a *new* key from a display name; here an existing
  * key is being kept as recognizable as possible, so every letter survives.
  *
- * **It lowercases, and must (#1882).** A repair has to land on a value the rule
+ * **It lowercases, and must.** A repair has to land on a value the rule
  * accepts, or the world migration writes back something the create/update guard
  * still refuses — repairing nothing, every load, forever. Folding case is safe
  * in the way dropping characters is not, because the address and the document
@@ -96,7 +93,7 @@ export function isValidShortcode(value) {
  * (`Æ` → `AE`). Deleting instead would change *which entity the key names*:
  * `(type, shortcode)` is a logical identity, so repairing `Tabûri` to `Tabri`
  * stops the document matching the compendium entry it came from, silently and
- * irreversibly (issue #1748). Folding is a no-op on an ASCII key, so the
+ * irreversibly. Folding is a no-op on an ASCII key, so the
  * punctuation repairs above are unchanged.
  *
  * What the fold cannot carry into a letter or digit is still dropped: a vulgar
@@ -165,9 +162,8 @@ const COMBINING = /[\u0300-\u036F]/g;
 /**
  * Carry a name into ASCII, spelling letters out rather than dropping them.
  *
- * Dropping is what the build's slug rules used to do, and it turned `Kûrbúl`
- * into `k-rb-l`; here it would turn `Æthelred` into `thelred`, losing the first
- * letter of the name.
+ * Dropping a letter instead turns `Kûrbúl` into `k-rb-l`, and `Æthelred` into
+ * `thelred` — losing the first letter of the name.
  *
  * @param {unknown} text - Any name.
  * @returns {string} The same name, in ASCII.

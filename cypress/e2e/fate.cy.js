@@ -16,7 +16,8 @@
  *
  * A skill exposes a `fateMasteryLevel` modifier (GREEN), but fate is inert:
  * `SkillLogic.availableFate` returns `[]` (the resolution is commented out,
- * `SkillLogic.ts:242`), which leaves no charged fate to spend. RED against #71.
+ * `SkillLogic.ts:242`), which leaves no charged fate to spend. RED until fate
+ * availability is implemented.
  */
 
 describe("fate", () => {
@@ -43,8 +44,8 @@ describe("fate", () => {
 
     // GREEN guard documenting the current gap: no fate is available today, so
     // fate can never be spent. This asserts the RED state so it flips visibly
-    // when #71 lands.
-    it("exposes no available fate today (#71 gap guard)", () => {
+    // when fate availability lands.
+    it("exposes no available fate today", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Sword",
@@ -59,7 +60,7 @@ describe("fate", () => {
         });
     });
 
-    // RED — blocked by #71: fate mastery / availability — `availableFate` returns
+    // RED — blocked on fate mastery / availability: `availableFate` returns
     // [] so `fateMasteryLevel.disabled` holds in finalize() and no fate item can
     // be spent. Un-skip and assert a charged fate item is offered and a fate
     // reroll resolves once implemented.

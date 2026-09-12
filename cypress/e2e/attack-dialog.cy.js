@@ -12,7 +12,7 @@
  */
 
 /**
- * The automated-combat attack dialog (#1080).
+ * The automated-combat attack dialog.
  *
  * The dialog is where the attacker picks their **strike mode** — but the
  * template rendered only Aim and Additional Modifier while the result callback
@@ -24,7 +24,7 @@
  * `FormDataExtended` parse feeding the pure result callback. Driving it from a
  * live *attack* instead is not reachable headless — `startAutomatedAttack`'s
  * turn gate reads `game.combat`, which needs a canvas (see the RED case in
- * `combat-turn-gate.cy.js`, #177).
+ * `combat-turn-gate.cy.js`).
  */
 
 /** The open dialog carrying the strike-mode select, or `undefined`. */
@@ -34,7 +34,7 @@ function attackDialog(win) {
         .find((app) => app.rendered && app.element?.querySelector('select[name="modeIdx"]'));
 }
 
-describe("automated attack dialog (#1080)", () => {
+describe("automated attack dialog", () => {
     before(() => cy.login());
 
     it("offers the strike modes and resolves to the one the attacker picks", () => {

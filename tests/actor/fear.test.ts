@@ -30,7 +30,7 @@ import {
     type FearCategory,
 } from "@src/utils/constants";
 
-describe("fear (#558)", () => {
+describe("fear", () => {
     describe("fearStateFromTest", () => {
         it("maps a Critical Success to Brave", () => {
             expect(fearStateFromTest(CRITICAL_SUCCESS, 5)).toBe(FEAR_CATEGORY.BRAVE);

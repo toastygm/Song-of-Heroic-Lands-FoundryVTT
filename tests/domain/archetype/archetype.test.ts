@@ -224,7 +224,7 @@ describe("buildArchetypeOptions", () => {
     });
 });
 
-describe("resolveCreateIdentity — archetype-first defaults (#643)", () => {
+describe("resolveCreateIdentity — archetype-first defaults", () => {
     const BROADSWORD = { name: "Broadsword", shortcode: "brdswd" };
 
     it("defaults Name and Shortcode from the chosen archetype when both blank", () => {
@@ -287,7 +287,7 @@ describe("resolveCreateIdentity — archetype-first defaults (#643)", () => {
     });
 });
 
-describe("readTemplatePriority — the tri-state on `system.templatePriority` (#1780, #1836)", () => {
+describe("readTemplatePriority — the tri-state on `system.templatePriority`", () => {
     it("reads a number as the archetype priority", () => {
         expect(readTemplatePriority({ templatePriority: 3 })).toBe(3);
     });
@@ -314,7 +314,7 @@ describe("readTemplatePriority — the tri-state on `system.templatePriority` (#
     });
 });
 
-describe("migrateTemplatePriority — carrying a world across the #1836 rename", () => {
+describe("migrateTemplatePriority — carrying a world off the legacy name", () => {
     // The world tier is why this rename needs a migration at all: a GM's
     // duplicated archetype carries the marker in world data, and losing it
     // would not error — the archetype would just stop being offered.
@@ -386,7 +386,7 @@ describe("migrateTemplatePriority — carrying a world across the #1836 rename",
     });
 });
 
-describe("readTemplatePriority — the pre-#1836 `system.archetype` spelling", () => {
+describe("readTemplatePriority — the legacy `system.archetype` spelling", () => {
     // A compendium index entry is raw stored data: it never passes through the
     // data model, so `migrateData` cannot reach it. Without this fallback every
     // archetype in a pack built by an older toolchain would vanish from the
@@ -431,7 +431,7 @@ describe("clearArchetypeMarker", () => {
         expect(readTemplatePriority(data.system)).toBeUndefined();
     });
 
-    it("drops a pre-#1836 legacy key, which the reader would otherwise honour", () => {
+    it("drops the legacy key, which the reader would otherwise honour", () => {
         const data: PlainObject = { name: "Seed", system: { archetype: 2 } };
         clearArchetypeMarker(data);
         expect(data.system.templatePriority).toBeNull();
@@ -463,7 +463,7 @@ describe("clearArchetypeMarker", () => {
     });
 });
 
-describe("canMarkArchetype — who may offer the sheet control (#1780)", () => {
+describe("canMarkArchetype — who may offer the sheet control", () => {
     it("offers it to a GM on a top-level document", () => {
         expect(canMarkArchetype(true, false)).toBe(true);
     });

@@ -146,14 +146,14 @@ describe("GearLogic (via MiscGearLogic)", () => {
         });
     });
 
-    describe("isCarried (#1097)", () => {
+    describe("isCarried", () => {
         it("exposes the persisted carried flag on the logic layer", () => {
             expect(makeGear({ isCarried: true }).isCarried).toBe(true);
             expect(makeGear({ isCarried: false }).isCarried).toBe(false);
         });
     });
 
-    describe("carried gate (#1097)", () => {
+    describe("carried gate", () => {
         /** A minimal gear-behavior action definition. */
         function def(overrides: Record<string, unknown> = {}) {
             return {
@@ -189,17 +189,17 @@ describe("GearLogic (via MiscGearLogic)", () => {
             expect(twice[0].trigger).toBe(GearLogic.CARRIED_TRIGGER);
         });
 
-        it("labels a gated action with the carried reason (#1135)", () => {
+        it("labels a gated action with the carried reason", () => {
             const [gated] = GearLogic.gateOnCarried([def()]);
             expect(gated.disabledReason).toBe("SOHL.Gear.actionRequiresCarried");
         });
 
-        it("keeps an author's own disabled reason (#1135)", () => {
+        it("keeps an author's own disabled reason", () => {
             const [gated] = GearLogic.gateOnCarried([def({ disabledReason: "SOHL.Gear.custom" })]);
             expect(gated.disabledReason).toBe("SOHL.Gear.custom");
         });
 
-        it("leaves an exempt action unlabelled (#1135)", () => {
+        it("leaves an exempt action unlabelled", () => {
             const [entry] = GearLogic.gateOnCarried([def({ shortcode: "toggleCarried" })]);
             expect(entry.disabledReason).toBeUndefined();
         });
@@ -226,7 +226,7 @@ describe("GearLogic (via MiscGearLogic)", () => {
         );
     });
 
-    describe("heldLimbImpairments (#628)", () => {
+    describe("heldLimbImpairments", () => {
         const GEAR_ID = "item0000000mock";
 
         /**

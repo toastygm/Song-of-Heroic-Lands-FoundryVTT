@@ -12,7 +12,7 @@
  */
 
 /**
- * Assemble the deployable `/sohl/` site (#1470).
+ * Assemble the deployable `/sohl/` site.
  *
  * This repository publishes one standalone site covering everything under
  * `/sohl/`, and two different builds produce it:
@@ -28,7 +28,7 @@
  * hosting project be checked at its own address before any routing points at
  * it — every link the pages emit is `/sohl/…`, and it resolves against the
  * deployment exactly as it will against www — and it leaves the routing layer
- * (#1468) a pure path-preserving pass-through with nothing to rewrite.
+ * a pure path-preserving pass-through with nothing to rewrite.
  *
  * Usage: node utils/build-site.mjs [--api <dir>]
  */
@@ -58,7 +58,7 @@ export const API_SRC = "build/docs-html";
  * page itself. That last one matters most: Cloudflare Pages serves the nearest
  * `404.html` with a genuine 404 status and, with none, falls back to the site
  * root — a soft-404 that answers 200 with the landing page and reads as success
- * to every link checker (#1416).
+ * to every link checker.
  */
 export const REQUIRED = Object.freeze([
     `${PACKAGE_DIR}/index.html`,
@@ -82,7 +82,7 @@ export function missingRequired(root, exists = fs.existsSync) {
  * The deployment root's `_redirects`, sending its own root to the package.
  *
  * Only ever consulted at the hosting project's own address: once routing is in
- * place (#1468) `www.heroiclands.org/` is another project's deploy entirely and
+ * place `www.heroiclands.org/` is another project's deploy entirely and
  * never reaches this one. Without it that address answers with the host's bare
  * default page, which is a poor first impression of a deploy whose whole
  * purpose is to be checked there.
@@ -102,7 +102,7 @@ export const ORIGIN_SUFFIX = "pkg.heroiclands.org";
 
 /**
  * The deployment root's `_headers`, marking the hosting project's own
- * addresses `noindex` (#1469, #1765).
+ * addresses `noindex`.
  *
  * A Cloudflare Pages project answers at **three** families of address besides
  * its canonical path on `www.heroiclands.org`: `<project>.pages.dev`, one
@@ -112,12 +112,10 @@ export const ORIGIN_SUFFIX = "pkg.heroiclands.org";
  * same pages, and left alone they are indexed and compete with the canonical
  * URL in search results.
  *
- * The third rule is the newest, and until #1765 this file did not carry it:
- * measured at the edge on 2026-08-30, `https://sohl-kb.pages.dev/sohl/` answered
- * with `X-Robots-Tag: noindex` while `https://sohl.pkg.heroiclands.org/sohl/` —
- * the *same deployment*, byte-identical body — answered 200 with none. So the
- * two-rule payload left the address a reader is most plausibly handed fully
- * indexable.
+ * The third rule covers the address a reader is most plausibly handed:
+ * `https://sohl.pkg.heroiclands.org/sohl/` and `https://sohl-kb.pages.dev/sohl/`
+ * are the *same deployment* with byte-identical bodies, so without it the
+ * host-assigned name answers 200 with no `X-Robots-Tag` and stays indexable.
  *
  * The rules are **scoped to those hostnames**, which is what keeps this file
  * correct for anyone who takes the repository elsewhere: deployed under its own
@@ -138,12 +136,11 @@ export const ORIGIN_SUFFIX = "pkg.heroiclands.org";
  * it is the same URL at the same address — so this header reaches
  * `www.heroiclands.org` too, and the router (`heroiclands-site`, `worker/`,
  * `canonicalHeaders`) removes it there. That is the only place the two
- * addresses are distinguishable, and it is why the third rule carries a risk the
- * first two did not: until heroiclands-site#26 the router's origin *was*
- * `<project>.pages.dev`, so the first rule already set `noindex` on every
- * response it fetched and `www` never carried it. #26 moved the origin to the
- * custom domain, which in one change opened this hole and left the strip with
- * nothing to strip; this restores an arrangement that ran in production.
+ * addresses are distinguishable, and it is why the third rule carries a risk
+ * the first two do not: the router fetches its origin from the custom domain,
+ * so the header reaches `www` and the strip is what keeps it off the canonical
+ * address. A router pointed back at `<project>.pages.dev` would make the first
+ * rule cover it instead.
  *
  * A page that needs `noindex` at *every* address must say so in the document
  * (`<meta name="robots">`), which is body content and is passed through
@@ -222,10 +219,10 @@ function htmlUnder(dir, rel = "") {
  * actually publishes.
  *
  * Applied to the API documentation only, and only because its source is out of
- * reach: it is generated from the newest **release tag** (#1452), so a tag cut
+ * reach: it is generated from the newest **release tag**, so a tag cut
  * before a hostname was withdrawn rebuilds the dead links on every deploy no
  * matter what `main` says — which is how `/sohl/api/` came to offer two
- * hostnames that no longer resolve (#1487). Everything else under `/sohl/` is
+ * hostnames that no longer resolve. Everything else under `/sohl/` is
  * built from `main`, where the source can simply be corrected, so a hit there
  * is left for {@link retiredHrefsUnder} to fail the build over.
  *
@@ -353,7 +350,7 @@ function main(argv) {
 
     // …and refuse to publish whatever is left. A link to a withdrawn hostname
     // fails at DNS with no redirect to follow, so it is a hard dead end on the
-    // canonical surface, and nothing downstream would notice it (#1487).
+    // canonical surface, and nothing downstream would notice it.
     const dead = retiredHrefsUnder(root);
     if (dead.length) {
         console.error(`\nbuild-site: ${dead.length} link(s) address a retired hostname:\n`);

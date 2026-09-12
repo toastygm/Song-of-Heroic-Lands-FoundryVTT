@@ -134,7 +134,7 @@ describe("armScheduledActions (load-side re-arm)", () => {
         expect(queue.scheduleAt).not.toHaveBeenCalled();
     });
 
-    it("re-arms a scene-bound entry with its sceneUuid (issue #590)", () => {
+    it("re-arms a scene-bound entry with its sceneUuid", () => {
         const queue = mockQueue();
         armScheduledActions(
             "Actor.world",
@@ -163,7 +163,7 @@ describe("armScheduledActions (load-side re-arm)", () => {
         );
     });
 
-    // ---- event-driven triggers (issue #622) ----
+    // ---- event-driven triggers ----
 
     it("arms an event-driven entry via subscribe (not scheduleAt)", () => {
         const queue = mockQueue();
@@ -213,7 +213,7 @@ describe("armScheduledActions (load-side re-arm)", () => {
         });
     });
 
-    it("arms an event entry's predicate as a compiled SafeExpression (#569)", () => {
+    it("arms an event entry's predicate as a compiled SafeExpression", () => {
         const queue = mockQueue();
         armScheduledActions(
             "Actor.b",
@@ -307,7 +307,7 @@ describe("scheduleAction (persist + arm)", () => {
         expect(written[0]).toMatchObject({ anchor: 2000, interval: 500 });
     });
 
-    it("persists and arms a scene-bound schedule (issue #590)", async () => {
+    it("persists and arms a scene-bound schedule", async () => {
         const queue = mockQueue();
         const doc = mockDoc();
         await scheduleAction(
@@ -337,7 +337,7 @@ describe("scheduleAction (persist + arm)", () => {
         );
     });
 
-    it("persists a triggerName and arms an event-driven schedule via subscribe (issue #622)", async () => {
+    it("persists a triggerName and arms an event-driven schedule via subscribe", async () => {
         const queue = mockQueue();
         const doc = mockDoc();
         await scheduleAction(
@@ -370,7 +370,7 @@ describe("scheduleAction (persist + arm)", () => {
         });
     });
 
-    it("persists and arms an event-driven predicate (#569)", async () => {
+    it("persists and arms an event-driven predicate", async () => {
         const queue = mockQueue();
         const doc = mockDoc();
         await scheduleAction(
@@ -405,7 +405,7 @@ describe("unscheduleAction (clear + unsubscribe)", () => {
     });
 });
 
-describe("schedule anchoring (#1181)", () => {
+describe("schedule anchoring", () => {
     /** A minimal schedulable document. */
     function doc() {
         return {

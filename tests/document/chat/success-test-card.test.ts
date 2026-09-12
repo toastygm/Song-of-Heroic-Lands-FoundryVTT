@@ -45,10 +45,10 @@ async function renderCard(
     opts: {
         /**
          * Take the card's title from the modifier's own default rather than a
-         * literal, so the rendered header exercises the real derivation (#1107).
+         * literal, so the rendered header exercises the real derivation.
          */
         useModifierTitle?: boolean;
-        /** Ad-hoc deltas added to the modifier before evaluating (#1127). */
+        /** Ad-hoc deltas added to the modifier before evaluating. */
         deltas?: { name: string; abbrev: string; value: number }[];
     } = {},
 ) {
@@ -110,7 +110,7 @@ describe("standard-test-card renders the evaluated success test", () => {
     it("shows a localized outcome in the footer, not a raw i18n key", async () => {
         const { html } = await renderCard(50, 32);
         // Assert on the footer specifically: the edit pencil's `data-scope`
-        // (#856) legitimately serializes the result — including the
+        // legitimately serializes the result — including the
         // `resultDescTable`, whose entries are i18n keys — so a whole-HTML key
         // check would match that reconstruction payload, not a display string.
         const footer = html.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? "";
@@ -127,7 +127,7 @@ describe("standard-test-card renders the evaluated success test", () => {
         expect(html).toContain('data-action-handler-uuid="Item.itm1"');
     });
 
-    it("the edit pencil dispatches the GM result-edit, carrying this result as scope (#856)", async () => {
+    it("the edit pencil dispatches the GM result-edit, carrying this result as scope", async () => {
         const { html } = await renderCard(50, 32);
         // The pencil re-evaluates on the frozen roll, not a fresh test — it must
         // dispatch `resultEdit`, never `successTest`.
@@ -139,7 +139,7 @@ describe("standard-test-card renders the evaluated success test", () => {
     });
 });
 
-describe("standard-test-card renders a Skill Value Test (#848)", () => {
+describe("standard-test-card renders a Skill Value Test", () => {
     /**
      * Render a Skill Value Test result. It is an ordinary success test carrying
      * `isSuccessValue`, a graded `resultDescTable`, and a `targetValueFunc` that
@@ -235,7 +235,7 @@ describe("standard-test-card renders a Skill Value Test (#848)", () => {
         expect(result.valueDiamonds).toBe(1);
         // `fa-gem`, not `fa-diamond`: the latter is Font Awesome's playing-card
         // suit and ships in solid only, so it could spell no hollow half of the
-        // scale (#1893).
+        // scale.
         expect(html.match(/fa-solid fa-gem/g) ?? []).toHaveLength(1);
         expect(html.match(/fa-regular fa-gem/g) ?? []).toHaveLength(4);
         // The count is still available to screen readers.
@@ -276,7 +276,7 @@ function useRealLang(): void {
 }
 
 describe("standard-test-card localizes its display strings", () => {
-    it("renders the test name in the header, not a raw SOHL key (#1107)", async () => {
+    it("renders the test name in the header, not a raw SOHL key", async () => {
         useRealLang();
         const { html } = await renderCard(50, 32, { useModifierTitle: true });
         const title = /<h3 class="title">([\s\S]*?)</.exec(html)?.[1]?.trim();
@@ -284,7 +284,7 @@ describe("standard-test-card localizes its display strings", () => {
         expect(title).not.toMatch(/^SOHL\./);
     });
 
-    it("renders each modifier-breakdown row localized (#1127)", async () => {
+    it("renders each modifier-breakdown row localized", async () => {
         useRealLang();
         const { html } = await renderCard(55, 32, {
             deltas: [
@@ -296,7 +296,7 @@ describe("standard-test-card localizes its display strings", () => {
             ],
         });
         // Assert on the Adjustment block specifically: the edit pencil's
-        // `data-scope` (#856) serializes the result — deltas included — and
+        // `data-scope` serializes the result — deltas included — and
         // that payload legitimately keeps each delta's stored i18n *key*.
         const adjustment =
             /<div class="adjustment">[\s\S]*?<\/div>\s*<\/div>/.exec(html)?.[0] ?? "";
