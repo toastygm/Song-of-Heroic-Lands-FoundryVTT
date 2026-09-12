@@ -137,12 +137,15 @@ Icons come from two families: [Font Awesome](https://fontawesome.com) (its free 
 | :---------------------------------------------------------------------------------------------: | -------------------------- | ------------------------------------ |
 |            <i class="fa-solid fa-plus" style="font-size:2em" aria-hidden="true"></i>            | **Add**                    | Sheets                               |
 |       <i class="fa-regular fa-square-plus" style="font-size:2em" aria-hidden="true"></i>        | **Add Effect Change**      | Active Effect Sheet                  |
+|           <i class="fa-solid fa-clone" style="font-size:2em" aria-hidden="true"></i>            | **Clone**                  | Sheets                               |
 |  <i class="fa-solid fa-ellipsis-vertical fa-fw" style="font-size:2em" aria-hidden="true"></i>   | **Context Menu**           | Sheets                               |
+|        <i class="fa-solid fa-folder-plus" style="font-size:2em" aria-hidden="true"></i>         | **Create Folder**          | Sheets                               |
 |      <i class="fa-solid fa-file-circle-plus" style="font-size:2em" aria-hidden="true"></i>      | **Create Item**            | Sheets                               |
+|        <i class="fa-solid fa-folder-minus" style="font-size:2em" aria-hidden="true"></i>        | **Delete Folder**          | Sheets                               |
 |        <i class="fa-solid fa-xmark fa-lg" style="font-size:2em" aria-hidden="true"></i>         | **Disabled**               | Sheets                               |
 |       <i class="fa-solid fa-grip-vertical" style="font-size:2em" aria-hidden="true"></i>        | **Drag Handle**            | Sheets                               |
 |          <i class="fa-solid fa-file-pen" style="font-size:2em" aria-hidden="true"></i>          | **Edit Action**            | Actions Tab on Item and Actor Sheets |
-|       <i class="fa-solid fa-pen-to-square" style="font-size:2em" aria-hidden="true"></i>        | **Edit Item**              | Sheets                               |
+|          <i class="fa-solid fa-file-pen" style="font-size:2em" aria-hidden="true"></i>          | **Edit Item**              | Sheets                               |
 |           <i class="fa-solid fa-gears" style="font-size:2em" aria-hidden="true"></i>            | **Execute Macro**          | Sheets                               |
 |      <i class="fa-solid fa-circle-question" style="font-size:2em" aria-hidden="true"></i>       | **Help**                   | Sheets                               |
 |        <i class="fa-solid fa-file-import" style="font-size:2em" aria-hidden="true"></i>         | **Import**                 | Sheets                               |

@@ -304,11 +304,10 @@ const INDICATOR_ROWS = [
         name: "Create Item",
         note: "Sheets",
     },
-    {
-        cls: "fa-solid fa-pen-to-square",
-        name: "Edit Item",
-        note: "Sheets",
-    },
+    // "Edit Item" is drawn with `fa-file-pen`, below, not `fa-pen-to-square`.
+    // The latter is the intrinsic **Edit** action, which the Actions section
+    // already emits from `iconFAClass` — a row here would have been the same
+    // glyph under a second name for the same thing.
     {
         cls: "fa-solid fa-globe",
         name: "Visit HeroicLands Site",
@@ -343,6 +342,26 @@ const INDICATOR_ROWS = [
         cls: "fa-solid fa-file-pen",
         name: "Edit Action",
         note: "Actions Tab on Item and Actor Sheets",
+    },
+    {
+        cls: "fa-solid fa-file-pen",
+        name: "Edit Item",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-folder-plus",
+        name: "Create Folder",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-folder-minus",
+        name: "Delete Folder",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-clone",
+        name: "Clone",
+        note: "Sheets",
     },
     {
         cls: "fa-solid fa-file-import",
