@@ -70,14 +70,14 @@ Assistance is capped at **+10** in total, however many hands are lent. Beyond th
 
 Mastery Level also describes standing in a trade. Where a character's professional competence needs naming rather than rolling, it is read from this scale:
 
-| Rating | ML    | Competence   |
-| ------ | ----- | ------------ |
-| zero   | ≤ 49  | Inept        |
-| ★      | 50–59 | Novice       |
-| ★★     | 60–69 | Aspirant     |
-| ★★★    | 70–79 | Professional |
-| ★★★★   | 80–89 | Expert       |
-| ★★★★★  | 90+   | Paragon      |
+| Rating                                                  | ML    | Competence   |
+| ------------------------------------------------------- | ----- | ------------ |
+| zero                                                    | ≤ 49  | Inept        |
+| :icon-star:                                             | 50–59 | Novice       |
+| :icon-star::icon-star:                                  | 60–69 | Aspirant     |
+| :icon-star::icon-star::icon-star:                       | 70–79 | Professional |
+| :icon-star::icon-star::icon-star::icon-star:            | 80–89 | Expert       |
+| :icon-star::icon-star::icon-star::icon-star::icon-star: | 90+   | Paragon      |
 
 These stars rate a character; they are not the [[doc-oppsdtst#victory-stars|Victory Stars]] that measure the margin of a single contest.
 

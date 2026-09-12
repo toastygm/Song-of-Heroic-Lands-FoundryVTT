@@ -19,24 +19,18 @@ or a `being` accepts belongs to
 
 Every note in this repository sits under `assets/content/`, which is **this
 repository's source** — edited here directly, not exported from anywhere. The
-tree holds 1,457 notes today, dominated by gear and injuries:
+tree is dominated by gear and injuries, with the rest spread across skills,
+beings, documentation and the structural notes that file them.
 
-| `type:`         | Notes | `type:`           | Notes |
-| --------------- | ----: | ----------------- | ----: |
-| `miscgear`      |   387 | `affliction`      |    34 |
-| `armorgear`     |   311 | `projectilegear`  |    18 |
-| `trauma`        |   236 | `attribute`       |    16 |
-| `doc`           |   128 | `mysticalability` |     9 |
-| `being`         |    95 | `battlemap`       |     2 |
-| `weapongear`    |    82 | `regionalmap`     |     1 |
-| `skill`         |    73 | `macro`           |     1 |
-| `containergear` |    64 |                   |       |
+Which `type:` values exist is the
+[Type Catalog](../reference/type-catalog.md); what each one carries is set out
+per kind: [items](item-frontmatter.md), [actors](actor-notes.md),
+[maps](map-notes.md) and [macros](macro-notes.md).
 
 Notes are plain Markdown with YAML frontmatter, edited in whatever editor you
 prefer; nothing about the tree depends on a particular one. A note declares
 [what it wants tabulated](content-tables.md) rather than carrying a hand-written
-table, and the build fills the rows in. The `Templates/` directory holds authoring
-scaffolding and is excluded from every compile pass.
+table, and the build fills the rows in.
 
 ## The shared envelope
 
@@ -51,7 +45,7 @@ description: "Conducting ceremonies, rites, and worship services."
 img: icons/game-icons/delapouite/circle.svg
 shortcode: ritual
 type: skill
-folder: IY7snVGTGcpTxofH
+packFolder: mysticalskills
 sohl:
   archetype: 0
   subType: ritual
@@ -60,28 +54,27 @@ sohl:
 Prose goes here, and becomes this skill's write-up.
 ```
 
-| Field        | Required         | What it decides                                             |
-| ------------ | ---------------- | ----------------------------------------------------------- |
-| `type:`      | yes              | Which compiler claims it                                    |
-| `id:`        | no¹              | Pins the Foundry document `_id`, which is otherwise derived |
-| `shortcode:` | for link targets | The note's logical identity, its address, and its URL       |
-| `name.full`  | in practice      | The document's name                                         |
-| `folder:`    | no               | Which compendium folder the document sits in                |
-| `img:`       | no               | The document's artwork                                      |
-| `pack:`      | no               | Which compendium of its type receives it                    |
-| `sohl:`      | by type          | The type-specific fields                                    |
+| Field         | Required         | What it decides                                             |
+| ------------- | ---------------- | ----------------------------------------------------------- |
+| `type:`       | yes              | Which compiler claims it                                    |
+| `id:`         | no¹              | Pins the Foundry document `_id`, which is otherwise derived |
+| `shortcode:`  | for link targets | The note's logical identity, its address, and its URL       |
+| `name.full`   | in practice      | The document's name                                         |
+| `packFolder:` | no               | Which folder note files the document                        |
+| `img:`        | no               | The document's artwork                                      |
+| `pack:`       | no               | Which compendium of its type receives it                    |
+| `sohl:`       | by type          | The type-specific fields                                    |
 
 ¹ No note in this tree authors one. `id:` is an escape hatch, explained below.
 
 **The order the compiler applies these is load-bearing**, because it decides
 which mistake produces which symptom. Each pass walks the whole content tree once
-and tests, in this order: first the **retired frontmatter fields** — `package:`,
-`draft:`, `aliases:`, `section:`, each refused by name — then whether the `type:`
-itself is retired, then whether this pass claims the type at all, then whether
-the note has an **address** to derive an id from, then `pack:`, then the pass's
-own rejection rules. The retired fields come first
-deliberately, so a note carrying one is answered whichever pass would have
-claimed it; everything after that, a note rejected early never reaches.
+and tests, in this order: first the **refused frontmatter fields** — `package:`,
+`draft:`, `aliases:`, `section:`, each rejected by name — then whether the
+`type:` is one of the refused names, then whether this pass claims the type at
+all, then whether the note has an **address** to derive an id from, then
+`pack:`, then the pass's own rejection rules. A note rejected early never
+reaches the tests after it.
 
 ## The package is the repository's, not the note's
 
@@ -90,23 +83,11 @@ A note does **not** declare which distribution owns it. Its package is the
 `package-build.config.yaml` — and every note in this tree belongs to it. There is
 nothing to author and nothing to keep in sync.
 
-That is a deliberate retirement (HeroicLands/package-build#56). A note used to
-carry `package:`, and the compile loop read it as a **selector**: any note whose
-value did not match the configured one was skipped, silently, at `log.debug`
-below the CLI's `info` floor. The note compiled nothing, said nothing, and the
-build exited 0 — indistinguishable from a note that did not exist. A whole tree
-labelled for a package no configuration answered to compiled **zero** documents
-and still reported success, which is the state `sohl-kethira-basic` was in with
-235 of its 363 notes mislabelled (#1513).
+A note that declares `package:` is a named build error. Deriving the package
+rather than reading it means there is no value for a note to disagree with.
 
-Deriving the package removes the failure mode outright rather than guarding
-against it: there is no value to disagree with. A note that still declares
-`package:` is now a named build error rather than a quiet skip, and this
-repository carries none (#1745).
-
-**A note you just wrote did not appear in the pack?** Check `type:` — since the
-package can no longer be wrong, an unclaimed type is the remaining way to be
-skipped in silence.
+**A note you just wrote did not appear in the pack?** Check `type:` — an
+unclaimed type is the one way left to be skipped in silence.
 
 ## `type:` selects the compiler, never the pack
 
@@ -114,18 +95,13 @@ skipped in silence.
 claims it — items, actors, journals, macros or scenes. It does not choose a
 compendium; that is `pack:`, and the two are orthogonal.
 
-**Retired types throw.** `character` and `creature` were merged into the single
-`being` they had always compiled into (#1580), and the retired names are kept in
-the toolchain rather than deleted so that a note still carrying one fails with a
-message naming the replacement: _"Both compiled to the same document, so the fix
-is mechanical: write `being`."_ Deleting them would have been the quiet failure —
-an unrecognised type falls through to the open item set, so `creature` would have
-been routed to the items pack, silently and wrongly.
+**`character` and `creature` throw.** Both name what is
+`being`, and a note carrying either fails with a message naming the
+replacement: _"Both compiled to the same document, so the fix is mechanical:
+write `being`."_
 
-**An unknown type that is not retired is claimed by no pass and skipped in
-silence.** Now that the package is derived rather than declared, this is the one
-frontmatter typo that still makes a note vanish without a word — check `type:`
-first when a note does not appear.
+**An unknown type is claimed by no pass and skipped in silence.** It is the one frontmatter typo that makes a note vanish without a
+word — check `type:` first when a note does not appear.
 
 The types this system defines are listed in the
 [Type Catalog](../reference/type-catalog.md).
@@ -140,13 +116,10 @@ _id = makeId("document", "<package>-<system>-<type>-<shortcode>")
 ```
 
 So a note's identity is the same thing its address is, spelled once. The
-authored `id:` that every note used to carry was a _second_ identity for a thing
-that already had one: an opaque 16-character string that said nothing the
-address did not, could not be read or reviewed, and was guaranteed by nothing.
-The address is the identity the build already guards — `content-lint` refuses a
+address is the identity the build already guards — `content-lint` refuses a
 duplicate `(type, shortcode)` across every pack of a document type, which is
 exactly the scope a document's id must be unique within — so the derived id
-inherits a guarantee the authored one never had (#1841).
+carries that guarantee.
 
 **A folder is not a primary document.** A `type: folder` note derives under its
 own namespace, over its own address form — `makeId("folder", "<package>-none-folder-<shortcode>")`
@@ -195,12 +168,11 @@ carrying one compiles, resolves and publishes exactly as if it were absent.
 `shortcode:` is the note's identity within its type, and half of the
 `type-shortcode` address a wikilink uses. Two rules govern it:
 
-- **Shape.** `^[A-Za-z0-9]+$` — ASCII letters and digits only (#1397). The
+- **Shape.** `^[A-Za-z0-9]+$` — ASCII letters and digits only. The
   hyphen is excluded because it is the wikilink separator, and the parse depends
-  on the separating hyphen being the only one in the string. Case is deliberately
-  **not** constrained: 418 authored shortcodes are mixed-case and collide with
-  nothing.
-- **Uniqueness.** `(type, shortcode)` is unique within a pack (#766).
+  on the separating hyphen being the only one in the string. Case is **not**
+  constrained; mixed-case shortcodes are fine.
+- **Uniqueness.** `(type, shortcode)` is unique within a pack.
 
 **Both are enforced by `npm run lint:addresses`, not by the pack compile.** The
 compile will happily emit two documents sharing an address; the lint is what
@@ -218,35 +190,41 @@ semantics and the migration path.
 
 ## Folders
 
-`folder:` is optional and defaults to `null` — a document at the pack's root. Its
-value is a **folder id** declared in a `*-folders.yaml` file at the content root,
-one per configured pack:
+**A folder is a note**, written and addressed like any other, which is what
+lets the compiler follow the index for it as it does for everything else.
 
+```yaml
+---
+name:
+  full: "Physical"
+shortcode: traumaphysical
+type: folder
+data:
+  parent: trauma
+  color: "#B22222"
+---
 ```
-assets/content/item-folders.yaml
-assets/content/journal-folders.yaml
-assets/content/actor-folders.yaml
-assets/content/macro-folders.yaml
-assets/content/scene-folders.yaml
+
+A folder note declares its `shortcode`, an optional `data.parent` naming the
+folder above it, and an optional `data.color`. It carries **no prose**: a folder
+is structure rather than content, so it wants no documentation journal.
+
+A note says which folder it belongs to with `packFolder:`, naming a folder note's
+shortcode:
+
+```yaml
+packFolder: traumaphysical
 ```
 
-Each entry declares `name` (required), `id` (required, a stable 16-character id),
-`parentFolderId` (required, `""` for a top-level folder) and an optional `color`.
-Sibling folders must have unique names; cousins under different parents may share
-one, since a note references the specific folder's id.
+Three things follow from a folder being a note:
 
-**An undeclared id is an error** — `Unknown folder id "<id>"`, reported as a
-diagnostic naming the note that carried it. The value is read through `sohlField`,
-so `sohl.folder` wins over a top-level `folder:`, though all 1,352 SoHL
-declarations are top-level.
-
-**One case escapes that validation, and it is worth knowing.** A doc-carrying
-note's derived JournalEntry is filed exactly where the document it describes is,
-so the journals pass copies the item note's folder id **without** validating it —
-deliberately, because that id is declared in `item-folders.yaml`, which is not the
-journals pack's own file. The consequence is that `journal-folders.yaml` must
-independently declare the ids the item tree uses, or those documentation entries
-land under a folder no journals pack declares.
+- **`parent` is an address**, resolved and checked like every other reference. A
+  parent that names nothing is an ordinary dead-address finding.
+- **Where a folder materialises is derived from what points at it.** A
+  documentation journal is filed beside the item it describes, so a pack cannot
+  fail to declare a folder something in it points at.
+- **The Foundry id is derived from the address**, the way a page id is hashed
+  from its anchor. An authored `id:` takes precedence.
 
 ## An unfinished note is tagged, not withheld
 
@@ -264,14 +242,14 @@ any compile error the note carried.
 
 ## `pack:` — which compendium receives the document
 
-`pack:` is optional (#1566) and names which compendium **of the note's own
+`pack:` is optional and names which compendium **of the note's own
 document type** receives it. A type with exactly one configured pack needs no
 declaration, which is why no SoHL note carries one today: this repository
 declares one pack per document type.
 
 **Do not confuse it with the note's _package_.** The package is the
-_distribution_ that owns the note, and it is no longer authored at all — it is
-the repository's configured `contentPackage`. `pack:` says which _compendium_
+_distribution_ that owns the note, and a note never authors it — it is the
+repository's configured `contentPackage`. `pack:` says which _compendium_
 receives the note's document, and it is the only one of the two a note ever
 declares. Every wrong `pack:` is a build error naming the note and the
 candidates.
@@ -299,7 +277,7 @@ level. Two members are near-universal:
   (this _is_ an archetype, at that priority) or `null` (it is not). Absent or
   malformed, it throws — _"set a number (this is an archetype) or null (it is
   not)"_ — because the distinction cannot be defaulted without guessing.
-- **`sohl.folder`**, as above.
+- **`packFolder`**, as above.
 
 Everything else is per-type, and is documented per type:
 [Item Note Frontmatter](item-frontmatter.md),
@@ -312,7 +290,7 @@ page — see [Asset Conventions](asset-conventions.md).
 This is the surprising one. An item note's **body** is documentation, not the
 item's description field, so it compiles into a **JournalEntry** in the journals
 pack — and the item's `system.docHtml` becomes nothing but a `@UUID` link to that
-entry's first page (#1356).
+entry's first page.
 
 **"Nothing else" is the whole convention.** A description that is only a link is
 unmistakably a pointer; anything alongside it would make the field ordinary prose

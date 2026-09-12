@@ -31,10 +31,9 @@ skipped without a word.** It is not an error — the walk simply finds no pass
 that selects it — so it compiles nothing, reports nothing, and looks exactly
 like a note that worked. The same silence covers any misspelled type.
 
-Two spellings _do_ fail loudly. `character` and `creature` were one distinction
-with two spellings that compiled to the same `being` with no branch anywhere
-between them; they were retired in #1580 and now throw, naming the replacement
-and saying the fix is mechanical.
+Two spellings _do_ fail loudly. `character` and `creature` both name what is
+`being`, and either throws, naming the replacement and saying the fix is
+mechanical.
 
 ## The envelope
 
@@ -78,7 +77,6 @@ its documentation journal.
 | `movementProfiles`   | list of profiles          | Speed per medium.                                            |
 | `defaultCombatGroup` | string                    | Which side it joins in a combat. Emitted only when declared. |
 | `archetype`          | number or `null`          | Required, as on every item note.                             |
-| `folder`             | folder id                 | From `actor-folders.yaml`.                                   |
 
 **`sohl.skills` is ignored.** It is read by nothing and compiles to nothing.
 Skills are embedded through `sohl.items`, like every other item; a `skills:`
@@ -164,7 +162,7 @@ alone (an item with no address must supply at least a `name` and a `system`).
 
 ### Uniqueness spans every Item pack
 
-Since #1566 a repository may group its items into several Item packs. Because a
+A repository may group its items into several Item packs. Because a
 being addresses an item by `(type, shortcode)` alone, those packs are read as
 **one address space**, and two packs claiming the same address is ambiguous
 rather than a last-one-wins ordering detail:
@@ -197,7 +195,7 @@ compendium by shortcode, because that package's items were never compiled into
 this build's JSON tree and are simply absent from the map.
 
 This is not hypothetical. It is what blocked the `sohl-kethira-basic` migration
-(#1513): its 17 character notes carry 895 embedded-item references across 113
+: its 17 character notes carry 895 embedded-item references across 113
 distinct addresses belonging to the `sohl` package, which that repository does
 not hold. Every one of them resolves to nothing.
 

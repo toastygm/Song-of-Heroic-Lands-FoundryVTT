@@ -23,9 +23,8 @@ treat every rule below as load-bearing rather than descriptive.
 A consumer declares the dependency in `relationships` (with `itemCatalog: true`)
 and fills a local cache from the dependency's release. **A compile never touches
 the network**, so a build stays reproducible and a cold cache fails loudly rather
-than silently downloading. Manifests were once vendored as committed
-`assets/manifests/<package>.json` files; that is retired, and **this repository
-vendors nothing at all** — as the base package it consumes no manifest (#1839).
+than silently downloading. **This repository vendors nothing at all** — as the
+base package it consumes no manifest.
 
 ## How an entry's `path` is derived
 
@@ -109,7 +108,7 @@ entry states the ones it has.
 
 ## A package need not publish pages
 
-`path` and `uuid` are optional **independently** (#1516). Two publishing
+`path` and `uuid` are optional **independently**. Two publishing
 profiles follow from that, and the format has to carry both:
 
 | Publishes                                      | `path` | `uuid` |
@@ -168,9 +167,9 @@ because the failure mode when they are not is silent. An address that resolves
 to nothing falls through to its own display text, so the page still reads
 correctly and the link is simply gone — a dead-link check never sees it, having
 only ever been shown addresses that resolved somewhere wrong. That is exactly
-what happened when keys became canonical (#1499): this repository read 2,367
+what happened when keys became canonical: this repository read 2,367
 `thalorna` entries through a lookup keyed the way v2 wrote them, and not one
-cross-package link worked for over a release (#1664).
+cross-package link worked for over a release.
 
 So both consumers here — `content-build site` and `content-build links` — call
 `assertForeignManifestsAddressable` (`utils/kb-foreign-manifest.mjs`) right after
@@ -179,7 +178,7 @@ readable canonical key. The diagnostic locates the offending key inside the
 manifest, so it names the file at fault rather than the notes that cite it.
 
 Two cases deliberately do **not** fail. A package contributing no entries is
-normal — a pack-only package publishes no addressable pages (#1516) and one
+normal — a pack-only package publishes no addressable pages and one
 being brought up publishes nothing yet. And _partial_ drift resolves something,
 so whatever it fails to resolve surfaces as an ordinary dead address, reported
 against the citing note where a reader can act on it.
@@ -272,13 +271,13 @@ it is written in.
 
 `version` catches a stale **format**, and nothing else.
 
-| Version | Change                                                                                                                  |
-| ------- | ----------------------------------------------------------------------------------------------------------------------- |
-| 1       | Initial: entries keyed `type/shortcode`, valued `{ url, name }`.                                                        |
-| 2       | Site-absolute `url` became package-relative `path` (#1465).                                                             |
-| 3       | Keys became fully qualified; entries gained Foundry addresses (#1499).                                                  |
-| 4       | Keys took the authored hyphen separator; item docs became entries in their own right; entries gained `anchors` (#1499). |
-| 5       | `path` became optional, so a pack-only package can publish Foundry addresses (#1516).                                   |
+| Version | Change                                                                                                          |
+| ------- | --------------------------------------------------------------------------------------------------------------- |
+| 1       | Initial: entries keyed `type/shortcode`, valued `{ url, name }`.                                                |
+| 2       | Site-absolute `url` became package-relative `path`.                                                             |
+| 3       | Keys became fully qualified; entries gained Foundry addresses.                                                  |
+| 4       | Keys took the authored hyphen separator; item docs became entries in their own right; entries gained `anchors`. |
+| 5       | `path` became optional, so a pack-only package can publish Foundry addresses.                                   |
 
 A version is what stops a file whose values _read differently_ from being
 resolved anyway — a v2 key read as a v4 one addresses a package named after a
@@ -291,7 +290,7 @@ predecessors. **v5 did not:** it only permits an absent `path`, so every v4
 value still means exactly what it meant, and a v4 file is read as-is. Refusing
 it would make a purely relaxing change a flag day — every package re-emitting on
 the same afternoon or every build breaking — which is a large recurring cost for
-no safety, and precisely the cost that made this decision urgent (#1516).
+no safety, and precisely the cost that made this decision urgent.
 
 The unsafe direction is unchanged and still **fails the build**: a consumer
 meeting a version _above_ its set rejects the file, because it cannot know what
@@ -313,7 +312,7 @@ affecting them. If it needs to cite another package it consumes manifests withou
 publishing one; the dependency must never run the other way.
 
 That exclusion is a **licensing** decision, not a format one, and the two should
-not be confused. Since #1516 a pack-only package _can_ publish a manifest, so
+not be confused. A pack-only package _can_ publish a manifest, so
 another module in the same shape — packs only, no site — may publish one and be
 cited in Foundry. `kethira` still does not, because what makes it unciteable is
 that nothing may depend on it, and a manifest edge pointing into it is exactly
@@ -350,7 +349,7 @@ render the marker at roughly 2.5:1 against the page, which is a marker nobody
 can see.
 
 **A resolved address with no `path` is not this case and is not marked.** A
-pack-only package (#1516) publishes Foundry addresses and no pages, so the
+pack-only package publishes Foundry addresses and no pages, so the
 author wrote a real address and there is simply nothing to link to — see
 consumer rule 3 above. Marking it would report correct content as a mistake.
 
@@ -374,7 +373,6 @@ in Foundry, the Hugo theme on the knowledgebase. It is deliberately unlike the
 unresolved marking — normal weight, amber, a dashed underline rather than a bold
 red dotted one — because a reader has to be able to tell the two apart.
 
-This is not the retired `draft:` frontmatter field, which is still refused by
-name. That field moved a note from _published_ to unresolvable without saying
-so, and suppressed the build failures the note carried; the tag changes nothing
-but how a citing link looks.
+This is not the `draft:` frontmatter field, which is refused by name. The tag
+changes nothing but how a citing link looks: the note stays published, and the
+build failures it carries are still reported.

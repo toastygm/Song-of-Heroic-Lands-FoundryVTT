@@ -64,7 +64,6 @@ name:
   full: Automated Attack
 shortcode: autoattack
 img: icons/game-icons/lorc/crossed-swords.svg
-folder: null
 ---
 ```
 
@@ -74,7 +73,7 @@ folder: null
 | `id`              | Optional, and normally absent: the Macro's document id derives from its address, and the JournalEntry's id derives from that. Pin one only to keep a document's identity across a shortcode rename. |
 | `shortcode`       | The note's identity, and half of every address that reaches it.                                                                                                                                     |
 | `img`             | Optional. A content-relative `icons/…` path is rooted under this system's assets; omitted, the macro takes Foundry's own `icons/svg/dice-target.svg`.                                               |
-| `folder`          | A folder id declared in `assets/content/macro-folders.yaml`, or `null`.                                                                                                                             |
+| `packFolder`      | Optional. The address of a `type: folder` note that files this macro; omitted, the macro sits at the pack's root.                                                                                   |
 | `sohl.macroType`  | Optional; defaults to `script`. See below.                                                                                                                                                          |
 | `sohl.macroScope` | Optional; defaults to `global`. One of `global`, `actors`, `actor`.                                                                                                                                 |
 
@@ -108,12 +107,9 @@ The macro's `command` is read from the note's **raw** markdown. The journal's
 copy of the same fence is not: it has been through table expansion and wikilink
 conversion first.
 
-Wikilink conversion is not yet fence-aware, so a script containing something that
-looks like a wikilink — a nested single-element array index, `grid[[0]]` — has
-that text rewritten in the **rendered journal page** while the executable copy
-stays exactly as written. The macro always runs what the author wrote; only the
-documentation can misrender. Tracked as
-[#1505](https://github.com/HeroicLands/Song-of-Heroic-Lands-FoundryVTT/issues/1505).
+Wikilink conversion skips code, so a script containing something that looks like
+a wikilink — a nested single-element array index, `grid[[0]]` — is left exactly
+as written in the executable copy and in the rendered journal page alike.
 
 ## Where the code lives
 
@@ -122,4 +118,4 @@ documentation can misrender. Tracked as
 | `@heroiclands/package-build/engine/macros`    | The macros compiler: fence extraction, frontmatter validation, the Macro document.                                                           |
 | `@heroiclands/package-build/engine/journals`  | Compiles the same note's body into its JournalEntry.                                                                                         |
 | `@heroiclands/package-build/engine/item-docs` | `docEntryTypes()` — the one set naming every type that carries separate documentation, read by the compilers and by the link manifest alike. |
-| `assets/content/macro-folders.yaml`           | The macros pack's folder hierarchy.                                                                                                          |
+| `assets/content/Folders/`                     | The `type: folder` notes every pack's hierarchy is built from, macros included.                                                              |

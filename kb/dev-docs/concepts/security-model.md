@@ -103,9 +103,9 @@ round-trip is a function, so none is serialized at all.
 
 ### Why not a sandbox / denylist?
 
-The system previously screened author-supplied script with a regex denylist
-(`textToFunction`) before compiling it with `new Function`. **A denylist over
-source text is not a security boundary.** During review it was defeated four
+Screening author-supplied script with a regex denylist before compiling it with
+`new Function` is the obvious approach, and it does not hold. **A denylist over
+source text is not a security boundary.** It is defeated at least four
 independent ways, each verified by execution:
 
 - **Unicode identifier escapes** — `fetch` is the identifier `fetch`; the
@@ -127,7 +127,7 @@ compiling at all: `SafeExpression` (`src/entity/expr/SafeExpression.ts`) is the
 only string→logic path on that surface, and it is an allowlist, not a denylist.
 
 **The one sanctioned exception: the GM Expression Library.** `textToFunction`
-(the old denylist screen) still ships, used by the expression-helper registry
+(the denylist screen) ships, used by the expression-helper registry
 (`src/entity/expr/ExpressionHelperRegistry.ts`) to compile helper bodies loaded
 from a **GM-chosen JSON file** (the Expression Library settings menu). This is a
 _different trust tier_: the GM deliberately selects a local file, exactly as

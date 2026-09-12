@@ -30,7 +30,7 @@ target up in, so every link names an address. The build reports a bare link as i
 own kind of finding — separate from an address that resolves nowhere, because the
 corrections differ — and the fix is always `[[type-shortcode|Text]]`.
 
-**The canonical separator is a hyphen** (#1398), and it qualifies **only when what
+**The canonical separator is a hyphen**, and it qualifies **only when what
 precedes it is a known type**: note names contain hyphens too (`Grukar-ahk`), and a
 target that is one is reported as not being an address rather than split at an
 arbitrary place. The split is at the _first_ hyphen, so a shortcode may itself
@@ -41,7 +41,7 @@ slash is _unconditionally_ a qualifier, and the split is at the last one.
 A leading **package** segment is optional and outermost — `sohl-skill-lang` is
 `skill-lang` in the `sohl` package — and is read only where the resolver is given
 the packages it may name, so a note called `Grukar-ahk` is never mistaken for one
-(#1499).
+.
 
 **The `|Text` label is required, in every form** — an anchor-only link included.
 The target is an address, not prose, so without a label there is nothing to
@@ -109,8 +109,8 @@ tilde fences, of any length, with or without an info string), inside a
 four-space indented block, or inside an inline `` `code span` `` is shown to the
 reader exactly as written. That is how a note can document the link syntax itself, and it is how a
 macro's script survives compilation — `const first = grid[[0]];` is a nested
-array literal, not an address, and it used to be rewritten in the macro's
-_documentation_ copy while its executable copy stayed correct.
+array literal, not an address, and is left alone in the macro's _documentation_
+copy as well as its executable one.
 
 ````markdown
 ```js
@@ -130,7 +130,7 @@ Both builds walk a note's **body**. Frontmatter is data: the pack compilers and
 the knowledgebase build copy it through untouched, so a wikilink written in one
 is never resolved and reaches the reader as literal `[[…]]` — in whatever the
 theme renders that field as, an infobox row or a card subtitle. Nothing further
-down notices, because the value is a perfectly good string (#1428).
+down notices, because the value is a perfectly good string.
 
 ```yaml
 government:
@@ -190,14 +190,11 @@ compilers cannot:
   The knowledgebase build refuses it as well, so it cannot publish that way even
   if the lint is bypassed.
 
-A retired hostname is **no longer checked here**. The checks above read
-wikilinks, so an absolute URL passes through all of them untouched, which is how
-71 links to the withdrawn `api.heroiclands.org` once shipped (#1485). That scan
-has reported nothing since, and an author only reintroduces a dead hostname by
-typing one they never use — so the guard now sits where the risk actually is:
-`utils/build-site.mjs` repairs retired hrefs in the _generated_ site and refuses
-to publish one it cannot repair. The list still lives in
-`utils/retired-hosts.mjs`, and adding a host there is what retires it.
+**A withdrawn hostname is not checked here.** The checks above read wikilinks,
+so an absolute URL passes through all of them untouched. The guard sits where
+the risk is instead: `utils/build-site.mjs` repairs withdrawn hrefs in the
+_generated_ site and refuses to publish one it cannot repair. The list lives in
+`utils/retired-hosts.mjs`, and adding a host there is what withdraws it.
 
 Fenced `sql` tables are expanded before the walk, so a link generated into a
 table row counts as a real link on all the wikilink counts.
@@ -209,7 +206,7 @@ only qualifies on a known type.
 
 **Addressing another package — not from here.** `assets/content/` holds the `sohl`
 package alone, and **`sohl` is the base: nothing it ships may address another
-package** (#1839). Modules depend on the system; the system depends on nothing, so
+package**. Modules depend on the system; the system depends on nothing, so
 the package graph is a tree rather than a cycle. Every address you write in this
 repository resolves within this repository.
 
@@ -230,7 +227,7 @@ what enforces it. Because this repository declares no dependency, that check is
 also what keeps the base package free of outbound references: a link into a module
 resolves nowhere and stops the build.
 
-**What a manifest entry records is package-relative** (#1465). An entry is
+**What a manifest entry records is package-relative**. An entry is
 `{ path, name }`, and `path` says where the page sits _inside its own package_
 (`creature/grukar-ahk/`) — never where that package is served. The mount point is
 the consuming build's knowledge, held one line per package in `PACKAGE_BASE`
@@ -246,7 +243,7 @@ reader finds the 404. Because the two shapes are indistinguishable to a reader t
 just prefixes, the format carries a version and a manifest written to an older one
 is rejected rather than read.
 
-This replaced a hand-maintained allowlist of six reviewed addresses (#1414), which
+This replaced a hand-maintained allowlist of six reviewed addresses, which
 existed only because no manifest could answer the question.
 
 ## Developer docs are the exception: they link by path

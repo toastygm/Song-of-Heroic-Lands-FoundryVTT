@@ -220,7 +220,7 @@ Foundry runs `foundry.utils.expandObject` over the whole file as it loads it, an
 **throws** when one key is a strict dotted prefix of another —
 `"SOHL.Trauma.Pall"` as a string alongside `"SOHL.Trauma.Pall.Note"`. Foundry catches
 the throw and discards the **entire file**, so one colliding pair drops every SoHL
-string and the UI renders raw keys (#636).
+string and the UI renders raw keys.
 
 `npm run lint:lang` (`package-build lang check`) fails the build on any such pair. If you
 need both a label for a thing and keys beneath it, give the label its own leaf:

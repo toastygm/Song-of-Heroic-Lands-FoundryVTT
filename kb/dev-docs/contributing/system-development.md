@@ -230,10 +230,10 @@ record any code-site context in that issue, and leave the code clean.
 Every pull request is checked by
 [`HeroicLands/.github/actions/todos`](https://github.com/HeroicLands/.github),
 which fails on **any** `TODO`/`FIXME` marker in a comment under `src/`. The rule
-is not this repository's — every HeroicLands repository wants it, and only the
-paths and extensions ever differed — so the check lives where every one of them
-can reach it, and the build no longer carries a `lint:todos` of its own. String
-contents are blanked before matching, so a literal `"TODO"` is not a finding.
+is not this repository's — every HeroicLands repository wants it, differing
+only in paths and extensions — so the check lives where every one of them can
+reach it rather than in each repository's own build. String contents are
+blanked before matching, so a literal `"TODO"` is not a finding.
 
 ### Update the documentation
 
@@ -281,7 +281,7 @@ drift into your commit. Once only your files are flagged, run `npm run format`,
 then `git add` only your files. Both commands take paths, so
 `npm run format -- <path>` formats exactly what you name.
 
-Since #1621 that should be rare: the same check runs as `lint:format`, first in
+That should be rare: the same check runs as `lint:format`, first in
 the `lint` chain, so `main` cannot carry drift for long. Two things still produce
 it, and they call for opposite responses. A **Prettier version bump** invalidates
 the tree wholesale — a minor that changes a layout rule reformats files nobody

@@ -65,7 +65,7 @@ The names in the expression (`level`, `injured`) are **context variables** — t
 | ---------- | ------------------------------------------------------------------------------ |
 | Compare    | `a === b` (equal), `a !== b` (not equal), `a < b`, `a > b`, `a <= b`, `a >= b` |
 | Arithmetic | `+`, `-`, `*`, `/`, `%` (remainder)                                            |
-| Logic      | `&&` (and), <code>&#124;&#124;</code> (or), `!` (not)                          |
+| Logic      | `&&` (and), `\|\|` (or), `!` (not)                                             |
 | Choice     | `condition ? valueIfTrue : valueIfFalse`                                       |
 
 Notes:

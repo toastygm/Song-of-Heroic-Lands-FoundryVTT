@@ -54,7 +54,7 @@ thin walk-and-write loop is what a real world exercises.
 
 `migrateWorld()` fires from the `ready` hook (`src/sohl.ts`). It is gated twice:
 
-1. **Any GM** gets the report-only scan for retired `trait` items (#651) — those
+1. **Any GM** gets the report-only scan for retired `trait` items — those
    are flagged, never converted.
 2. **The active GM only** runs the versioned migration and writes the version
    forward, so several connected GM clients never race to migrate the same world.
@@ -135,7 +135,7 @@ and editing the copy, as above.
 document's current data back (see below), and a diffed update computes an empty
 change from that and never writes at all. The two paths must agree — when the
 embedded path was left on Foundry's defaults, embedded documents were silently
-skipped while the run still counted them as applied (#1402).
+skipped while the run still counted them as applied.
 
 ### Steps chain
 
@@ -156,15 +156,14 @@ prunes any key its schema does not declare — out of a document's source when t
 document is constructed, and out of an update's change set when it is cleaned. A
 `{ "system.-=docUrl": null }` payload is therefore converted to a forced deletion
 and then pruned away before it can delete anything, and the migrator cannot even
-see the stale value: `toObject()` no longer reports it.
+see the stale value: `toObject()` does not report it.
 
 What still holds the value is the stored record, which is rewritten from the
 (pruned) source the next time the document is written at all. So the migration for
 a removed field writes the document's own `system` object back with the key
 omitted; the write persists the pruned source and the value is gone. Because a
 migrator cannot tell which documents still carry the key, the payload is
-unconditional and every document of that kind is rewritten once. `0.9.0`
-(`system.docUrl`, #1394) is the worked example.
+unconditional and every document of that kind is rewritten once. `0.9.0` (`system.docUrl`) is the worked example.
 
 ### Adding a required field
 
@@ -185,8 +184,8 @@ const stampAffiliationSubType: DocMigrator = (source) => {
 ```
 
 Unlike a removal, this payload is conditional — a document already carrying a
-valid value is left alone and never written. `0.9.0` (affiliation `subType`,
-#1405) is the worked example.
+valid value is left alone and never written. `0.9.0` (affiliation `subType`)
+is the worked example.
 
 ## Resilience
 

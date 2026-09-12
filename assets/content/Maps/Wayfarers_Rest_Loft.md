@@ -7,10 +7,10 @@ description: "The sleeping loft above the common room, reached by one stair."
 img: systems/sohl/assets/ui/parchment.jpg
 shortcode: wayrestloft
 type: map
+packFolder: battlemaps
 subType: battlemap
 sohl:
   kbcat: map
-  packFolder: battlemaps
   place: wayfarersrest
   placeName: Wayfarer's Rest
   dimensions: [512, 512]

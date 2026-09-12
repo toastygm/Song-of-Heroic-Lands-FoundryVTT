@@ -105,8 +105,8 @@ only symptom is a blank battlemap. That is measured behaviour on both 14.359 and
 permanent.
 
 The check therefore runs against the compiled bytes rather than the JSON they
-came from, because the gap it closes is the _write_ path: the emitter is already
-unit-tested, whereas the compendium CLI has previously mishandled Scene Levels.
+came from, because the gap it closes is the _write_ path: the emitter is
+unit-tested, the compendium CLI's handling of Scene Levels is not.
 An `Adventure` carries its scenes inline, levels and all, so that second shape is
 checked too. The rule itself is a pure function (`@heroiclands/package-build/engine/scene-levels`)
 and is unit-tested directly.
@@ -128,11 +128,11 @@ and is unit-tested directly.
 | `lint:doc-links`          | Fail on a relative link in `kb/dev-docs/` whose target does not exist, or an `#anchor` no heading declares. The developer tree links by path, so moving a page breaks every link into it; this is what says so.                                |
 | `lint:styles`             | stylelint over `scss/`. Enforces the BEM class convention and the `--sohl-*` token namespace, plus invalid declarations, unknown properties, and dead selectors. See [What the two linters check](#what-the-two-linters-check).                |
 | `lint:markdown`           | markdownlint over every git-tracked `.md` file. A deliberately narrow structural set — heading hierarchy, duplicate sibling anchors, broken table rows, links that do not link. See [What the two linters check](#what-the-two-linters-check). |
-| `lint:icon-legend`        | Fail if `assets/content/User_Guide/Icon_Legend.md` differs from what `build:icon-legend` would write — the page is generated, so a hand-edit to it is lost on the next run (#1620).                                                            |
+| `lint:icon-legend`        | Fail if `assets/content/User_Guide/Icon_Legend.md` differs from what `build:icon-legend` would write — the page is generated, so a hand-edit to it is lost on the next run.                                                                    |
 | `lint:expr-scopes`        | Fail if the generated expression-scope table in [Expressions and Scripts](../concepts/expressions.md) is out of date with `src/entity/expr/expression-scopes.mjs`. Regenerate with `npm run docs:expr-scopes`.                                 |
 | `lint:dts`                | Validate the generated public type surface.                                                                                                                                                                                                    |
 | `lint:bundle-globals`     | Fail if `system.json` loads `sohl.js` as a classic script while the bundle declares names at global scope. Needs a built stage — runs after `build:code`, not inside `lint`.                                                                   |
-| `lint:format`             | Prettier `--check` over the repo — the same check as `format:check`, wired into the `lint` chain so drift fails the build (#1621).                                                                                                             |
+| `lint:format`             | Prettier `--check` over the repo — the same check as `format:check`, wired into the `lint` chain so drift fails the build.                                                                                                                     |
 | `format` / `format:check` | Prettier write / check the whole repo.                                                                                                                                                                                                         |
 
 #### How a linter reports a finding
@@ -140,7 +140,7 @@ and is unit-tested directly.
 Every finding a `utils/check-*.mjs` linter emits is a single line in the form
 every C-family compiler, `tsc` and ESLint already use, so an editor's error
 matcher, a CI annotator or a `grep` resolves it without being told anything
-about this repository (#1668):
+about this repository:
 
 ```text
 assets/content/Rules/Attributes.md:28:13: error: dead address [[doc-nosuchthing]] — no document has that identity
@@ -185,13 +185,13 @@ findings are **not** findings, and keep their prose form.
 #### What the two linters check
 
 Prettier formats ~96% of the hand-written text in this repository, and formatting
-is all it does. `lint:styles` and `lint:markdown` (#1622) exist for the checks it
+is all it does. `lint:styles` and `lint:markdown` exist for the checks it
 structurally cannot make — and each is scoped to **exactly** that, because both
 tools ship defaults that would otherwise re-format the tree to a second opinion.
 `stylelint.config.mjs` carries the per-rule rationale for the first; the
 markdown rules are **shared**, and their rationale lives with them in
 `@heroiclands/package-build` (`engine/prose-config.mjs`), because every content
-repository in the project is authored against the same set (#20). The rule of
+repository in the project is authored against the same set. The rule of
 thumb for adding a rule to either is whether it can report that something is
 **wrong**, not that it is spelled differently.
 
@@ -251,9 +251,9 @@ itself in its own repository is knowledge about _this_ repository's layout and
 nothing shared can know it. The same split applies to Prettier:
 `.prettierignore` stays here, the rules do not.
 
-Note what is **not** here: `MD018` (`#Heading` with no space) reads a line starting
-`#1405) …` as a malformed heading, and this repository writes bare issue numbers
-constantly. `MD051` (link fragments resolve) is already covered, and covered
+Note what is **not** here: `MD018` (`#Heading` with no space) reads any line
+opening with `#` followed by a digit as a malformed heading. `MD051` (link
+fragments resolve) is already covered, and covered
 better — across files rather than within one — by `lint:doc-links` and
 `lint:content-links`.
 
@@ -377,10 +377,8 @@ block is emitted unchanged; `id`, `version`, the four release addresses,
 the `sohl` flag namespace — the credits journal's `@UUID` only exists once the
 content tree has been walked.
 
-There is no template. `assets/templates/system.template.json` was retired
-(package-build#9): it was the last build input still hand-authored as JSON, and
-it declared the pack list, the package id and the Foundry range a second time,
-with nothing checking that the two agreed.
+There is no template. The manifest is generated in full; the pack list, the
+package id and the Foundry range are declared once, in configuration.
 
 ## 5. Compendium packs from in-repo Markdown
 
@@ -396,7 +394,7 @@ The build compiles that tree directly: `build:compiledb` generates each pack's
 per-entry JSON into a disposable `build/packs-json/<pack>/` intermediate and
 compiles the LevelDB packs from it, so the JSON is **never committed**.
 
-`assets/content/` is this repository's source and is edited here directly (#1445).
+`assets/content/` is this repository's source and is edited here directly.
 No export feeds it and nothing regenerates it, so a fix belongs in the note.
 
 **Building needs nothing but this repository**: `npm run build`, or
@@ -414,7 +412,7 @@ everyone.
 
 Cross-package references are resolved through published link manifests rather
 than a shared tree, fetched into a local cache by `content-build deps fetch`. This
-repository is the base package and resolves nothing outside itself (#1839); see
+repository is the base package and resolves nothing outside itself; see
 [The Link Manifest](../reference/link-manifest.md).
 
 ### Authoring content notes
@@ -429,9 +427,9 @@ authored anywhere under `assets/content/`.
 pack because of its `type` (item kinds →
 the items pack **and**, for its prose, the journals pack; `type: doc` → journals;
 `being` → actors), so the
-folder layout is for human organization only and can be reorganized freely. Folder
-hierarchies are declared per pack in `assets/content/<pack>-folders.yaml` and
-referenced from entries via `sohl.folder: <id>`.
+folder layout is for human organization only and can be reorganized freely. A
+compendium folder is a `type: folder` note, and an entry names one with a
+top-level `packFolder:` giving that note's address.
 
 #### Choosing a pack: the optional `pack:` field
 
@@ -444,7 +442,6 @@ in with a top-level `pack:` field:
 name:
   full: Second Sight
 type: skill
-package: sohl
 pack: mysteries # optional; one of the configured Item packs
 ---
 ```
@@ -512,17 +509,17 @@ reconfigured logger.
 `compilePacks` in turn runs `@heroiclands/package-build/engine/generate`, which
 drives one compiler per configured pack (`sohl/items.mjs`, `sohl/actors.mjs`,
 `engine/journals.mjs`, `engine/macros.mjs`, `engine/scenes.mjs`): each walks the
-content tree, selects files by frontmatter, validates folders against the pack's
-`*-folders.yaml`, and writes per-entry JSON — from which the LevelDB is then
+content tree, selects files by frontmatter, resolves each `packFolder:` against
+the folder notes, and writes per-entry JSON — from which the LevelDB is then
 compiled.
 
 #### Adding a pack compiler: `BasePackCompiler`
 
 That walk is written **once**, in `@heroiclands/package-build/engine/base-compiler`. Walking the
-tree, rejecting notes of another content package, skipping drafts, expanding
-generated tables, converting wikilinks, writing the JSON and counting what
-failed are identical in every pass, so `BasePackCompiler` owns them and each
-pass subclasses it (#1509). A pass states only what makes it that pass:
+tree, refusing retired frontmatter, expanding generated tables, converting
+wikilinks, writing the JSON and counting what failed are identical in every
+pass, so `BasePackCompiler` owns them and each pass subclasses it. A pass
+states only what makes it that pass:
 
 | Hook                              | What it decides                                                  |
 | --------------------------------- | ---------------------------------------------------------------- |
@@ -569,13 +566,12 @@ consumer's lives in one file at the repository root,
 path, a package name, or a pack list of its own; each module reads the resolved
 configuration through `@heroiclands/package-build/engine/pack-config`, which
 locates the config file by walking up from itself — so it lands on the consuming
-repository's root from `node_modules/` (#1508). A consuming repository —
+repository's root from `node_modules/`. A consuming repository —
 `sohl-thalorna`, `sohl-kethira-basic`, an adventure module — ships the same
 toolchain with its own copy of that file and nothing else.
 
-**The configuration is data, and it is deliberately not code.** Three values a
-code config used to compute are derived by the loader instead, so no repository
-reproduces them:
+**The configuration is data, and it is deliberately not code.** These values
+are derived by the loader, so no repository reproduces them:
 
 | Field                 | Derived from                                                        |
 | --------------------- | ------------------------------------------------------------------- |
@@ -648,34 +644,26 @@ What it declares:
 | `stats`                                             | The identity stamped into every compiled document's `_stats` — `systemId`, `systemVersion` (read from `package.json`, not transcribed), `lastModifiedBy`.                           |
 | `skipDirectories`                                   | Directory names the content walk ignores (`Templates/`, authoring scaffolding — a convention of this tree, not of the note format).                                                 |
 | `paths`                                             | The content root, the manifest-template directory, the vendored link manifests, and the three build outputs. Each defaults to the conventional layout and is relative to `rootDir`. |
-| `packs`                                             | The one pack list: name, Foundry document type, folder-hierarchy file, `companions`, `mayBeEmpty`.                                                                                  |
+| `packs`                                             | The one pack list: `name`, `label`, Foundry document `type`, `companions`, `mayBeEmpty`.                                                                                            |
 
 Two properties of that shape are load-bearing:
 
 - **One pack list.** The directories compiled to LevelDB are _derived_ from the
   pack list as `packDirectories` (each pack, then its companions), so the
-  compile list and the compiler list cannot drift apart — they used to be two
-  separately-maintained arrays that had to agree. The _order_ of that list is
+  compile list and the compiler list cannot drift apart. The _order_ of that list is
   not load-bearing: each pass declares which document types' compiled output it
   reads, and the build schedules the passes from those declarations.
-- **Configuration is the source, and the manifest is generated from it.** That
-  arrow used to point the other way: `paths.packageManifest` said where
-  `system.template.json` lived, and both the package-id drift guard and the
-  compiled packs' `_stats.coreVersion` read out of it. Correct while the
-  manifest was hand-authored — a copy in config would have stopped following a
-  floor that moves with test evidence, which is the shape defect #1533 had.
-  `package-build manifest` generates the manifest now, so there is nothing left
-  to follow: the Foundry range is declared here as top-level `compatibility`,
-  the guard is deleted (a single source needs no corroboration), and
-  `paths.packageManifest` is gone.
+- **Configuration is the source, and the manifest is generated from it.**
+  `package-build manifest` writes the manifest, and the Foundry range is
+  declared here as top-level `compatibility`. A single source needs no
+  corroborating guard.
   `stats.systemVersion` obeys the same rule from the other side: it is a
   configured value, but the config **reads** it from `package.json` — the file
   Changesets bumps and `build:system` stamps into the manifest — rather than
-  transcribing it. Transcribed, it froze at `0.6.0` for four releases, leaving
-  every shipped document eligible for migrations it did not need (#1548). It
-  stays per-repository rather than moving onto the toolchain because a module
-  repository shipping SoHL content declares the version of the _system_ it is
-  content for, not its own package version.
+  transcribing it, so it cannot freeze behind the shipped version and leave
+  documents eligible for migrations they do not need. It stays per-repository
+  because a module repository shipping SoHL content declares the version of the
+  _system_ it is content for, not its own package version.
 
 The `assets/` root a content note's `img:` resolves to is derived, not written:
 `<packageKind>/<foundryPackage>/assets`, so the same note yields
@@ -698,7 +686,7 @@ type the compiler will accept a note for.
 
 Because both halves are read from configuration, a **consuming repository
 supplies its own table** and its notes compile with its own builders — the
-compiler dispatched through this package's module-level table until #1563, so a
+compiler dispatched through this package's module-level table, so a
 consumer got the types it asked for and the builders it did not.
 
 Adding a type is therefore one entry in `ITEM_BUILDERS`, its subtype declaration
@@ -725,11 +713,9 @@ description that is only a link as a **pointer** and shows what it points at —
 `@heroiclands/package-build/engine/item-docs`. A reader of the chat card sees the prose, not a
 link.
 
-The prose therefore exists **once**. It used to exist once per item and again on
-every actor holding that item — 7.59 MB across the actors pack, of which 133 KB
-was distinct text, so a typo fixed in an item description left 57 stale copies on
-a single character. Nothing about the actors pass changed: it still embeds the
-item wholesale, and what it embeds is now a link.
+The prose therefore exists **once**, so a typo fixed in an item description is
+fixed everywhere it appears. The actors pass still embeds the item wholesale;
+what it embeds is a link.
 
 Two passes have to agree on the link without either seeing the other's output,
 which they do by deriving both ids from the item's own document id — itself
@@ -774,7 +760,7 @@ Actor opens that document's **sheet**, not its documentation. A sheet has no
 sections, so there is nothing for an anchor to address. Reaching a page of an
 item's documentation is exactly what `doc<type>` is for; before it existed, such
 a link compiled to a `JournalEntryPage` id under the _items_ pack and dead-ended
-(#1362).
+.
 
 **The knowledgebase reads the same link differently, by design.** There an item
 note renders as one page which _is_ its documentation, so `doc<type>` and
@@ -998,9 +984,9 @@ That's the entire release. Two notes:
 | ------------------------- | ------------------------------------------------------------------------------ |
 | `@heroiclands/sohl-types` | Type declarations for authoring modules and macros against SoHL in TypeScript. |
 
-`@heroiclands/package-build` used to live here too. It was extracted to its own
-repository (#1589) and publishes from there; this repository now resolves it from
-the registry like every other consumer (#1604).
+`@heroiclands/package-build` lives in its own repository and publishes from
+there; this repository resolves it from the registry like every other
+consumer.
 
 The root `package.json` declares the workspace with
 
@@ -1025,7 +1011,7 @@ regenerates `index.d.ts` at pack time.
 ⚠️ **`continue-on-error` means the publish step cannot be the thing that tells you
 the package is broken.** It swallowed a failing `prepack` for a full release cycle,
 so `@heroiclands/sohl-types` quietly stopped being published and nothing went red
-(#1613). The generation path is therefore gated by the ordinary build instead —
+. The generation path is therefore gated by the ordinary build instead —
 `build:noci` runs `check:sohl-types` — and that is where a regression must surface.
 Keep it there; do not rely on the release job to notice.
 
@@ -1060,7 +1046,7 @@ Foundry instance, and all of it is one site: everything under
 
 `npm run build:site` produces the whole thing locally, and
 `.github/workflows/deploy-sohl.yml` produces and deploys it in CI — one build,
-one deploy, one hosting project (#1470). A few things about it are worth knowing
+one deploy, one hosting project. A few things about it are worth knowing
 before you change any of it.
 
 **It republishes on every push to `main`, and again when a release is
@@ -1072,22 +1058,22 @@ release changes the site without any push doing so — `release.yml` dispatches
 this workflow from the one step that knows it actually cut a release. It is
 deliberately _not_ wired to that workflow's _completion_: `release.yml` runs on
 every push to `main` and succeeds whether or not it released, so watching it
-deployed twice per push (#1484).
+deployed twice per push.
 
 **Nothing is purged after a deploy, by design.** `/sohl/` is served through the
 routing Worker straight from the Pages project, with Pages' own
 `cache-control: public, max-age=0, must-revalidate` and no `cf-cache-status` —
-the zone edge holds nothing under `/sohl/` to invalidate. The `purge_everything`
-that used to follow each publish therefore evicted only the surfaces this deploy
-never touched (`www`'s own pages, `cdn`). Should a Cache Rule ever cover
-`/sohl/`, purge those URLs rather than the zone.
+the zone edge holds nothing under `/sohl/` to invalidate, so a
+`purge_everything` would evict only the surfaces this deploy never touches
+(`www`'s own pages, `cdn`). Should a Cache Rule ever cover `/sohl/`, purge those
+URLs rather than the zone.
 
 **The deployment carries the `/sohl/` prefix physically.** `publishDir` in
 `kb/hugo.toml` renders into `build/site/sohl/`, and the directory that is
 uploaded is `build/site/` — so a page's `/sohl/kb/…` link resolves against the
 deployment exactly as it will against `www`. That is what lets the hosting
 project be checked at its own `*.pages.dev` address before any routing points at
-it, and it leaves the routing layer (#1468) a path-preserving pass-through with
+it, and it leaves the routing layer a path-preserving pass-through with
 nothing to rewrite.
 
 **The hosting project's own address is `noindex`, the canonical path is not.**
@@ -1095,7 +1081,7 @@ A Cloudflare Pages project answers at `<project>.pages.dev` (and at
 `<deployment>.<project>.pages.dev` for every deployment) as well as under
 `www.heroiclands.org/sohl/`. Nothing advertises it, but it serves the same
 pages, so `build/site/_headers` marks those hostnames — and only those —
-`X-Robots-Tag: noindex` (#1469). The rules are host-scoped rather than blanket
+`X-Robots-Tag: noindex`. The rules are host-scoped rather than blanket
 so the tree stays correct anywhere it is deployed: under its own domain it is
 indexable. The hosting cannot tell the routing layer's request apart from a
 reader's, since it is the same URL at the same address, so the header reaches
@@ -1116,7 +1102,7 @@ lockfile — the documentation is a pure function of its tag), and
 the landing page, the knowledgebase, the API documentation and the `404.html`
 are all present — a missing surface would publish a 404 at an address the
 navigation already points at, and a missing `404.html` would make Cloudflare
-Pages answer unmatched paths with a soft-404 (#1416).
+Pages answer unmatched paths with a soft-404.
 
 **And nothing ships pointing at a hostname that no longer resolves.** Before it
 finishes, the assembler reads every rendered page and fails the build on any
@@ -1124,26 +1110,24 @@ finishes, the assembler reads every rendered page and fails the build on any
 (`utils/retired-hosts.mjs`). Such a link fails at DNS with no redirect to
 follow, so it is a hard dead end, and nothing else in the pipeline notices — an
 absolute URL is opaque to the wikilink checks. Prose that merely _names_ a
-withdrawn host is not reported; these docs explain the move, and saying so is
-not a dead end.
+withdrawn host is not reported; only a link is a dead end.
 
 The API documentation gets one step first, because the gate alone could never
 clear it. It is rebuilt from the newest **release tag**, so a tag cut before a
 hostname was withdrawn reproduces the dead links on every deploy however clean
-`main` is — which is exactly what `/sohl/api/` was doing (#1487). The assembler
-therefore repoints those links, taking a replacement **only when the page it
-names is present in the tree it has just assembled**: a repair is verified, never
-guessed, because a wrong one would trade a dead end a reader can see for a quiet 404. Candidates come from `rewriteCandidates`, which knows both that the API
-site dropped its version segment and that the developer docs now live under
-`/dev-docs/`. Anything it cannot rescue falls through to the gate and fails the
-build. Every repair is printed: for a current tag the count should be zero, so a
-non-zero one means new `src/` JSDoc — or the chrome plugin — has reintroduced a
-retired address, and the fix belongs there.
+`main` is. The assembler therefore repoints those links, taking a replacement
+**only when the page it names is present in the tree it has just assembled**: a
+repair is verified, never guessed, because a wrong one would trade a dead end a
+reader can see for a quiet 404. Candidates come from `rewriteCandidates`.
+Anything it cannot rescue falls through to the gate and fails the build. Every
+repair is printed: for a current tag there should be none, so any repair means
+new `src/` JSDoc — or the chrome plugin — has introduced a withdrawn address,
+and the fix belongs there.
 
 **No layout in this repository names an address.** Every asset resolves through
 the theme's `cdn-url.html` against `params.cdnBaseURL`, and every internal link
 is built from the page's own `.RelPermalink`, so moving the package or its
-artwork is a config edit rather than a sweep through the templates (#1464).
+artwork is a config edit rather than a sweep through the templates.
 Worth knowing when you add one: with `cdnBaseURL` unset the partial falls back
 to `relURL`, so a missing param yields `/sohl/images/…` — a 404 against this
 deploy, not a build failure. `kb/hugo.toml` declaring the param is the guard,
@@ -1165,10 +1149,10 @@ a rename, so there is nothing to redirect from.
 ## 9. The build utility scripts
 
 The build/deploy/doc tooling lives in **`utils/`**; the pack pipeline is the
-shared package **`@heroiclands/package-build`** (#1512), developed in
+shared package **`@heroiclands/package-build`**, developed in
 [its own repository](https://github.com/HeroicLands/content-build) and consumed
 here as a `devDependency` from the registry — the same way every other consumer
-resolves it (#1589). Each script carries a header comment describing its purpose
+resolves it. Each script carries a header comment describing its purpose
 and how to invoke it — read the file itself for the authoritative detail. In brief:
 
 | Script                   | Purpose                                                                                                                                    |
