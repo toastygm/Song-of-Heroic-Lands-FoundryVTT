@@ -1664,8 +1664,8 @@ html, body { margin: 0; padding: 0; background: #fff; }
         }
         const bodyParts = buildBodyPartLozenges(structure, injuries);
 
-        // Health bar: the banded impairment value against a fixed max of 100
-        //. `healthBand` is the qualitative label shown to the player.
+        // Health bar: the banded impairment value against a fixed max of 100.
+        // `healthBand` is the qualitative label shown to the player.
         const health = logic?.data?.health;
         const healthMax = health?.max ?? 0;
         const healthPct = healthMax > 0 ? clampHealthPct((health!.value / healthMax) * 100) : 0;

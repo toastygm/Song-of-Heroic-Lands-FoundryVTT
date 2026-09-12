@@ -218,8 +218,8 @@ describe("gear equip / hold → combat-tab display", () => {
                 // Scope to THIS weapon's rows. Basic Folk owns unarmed
                 // combat techniques (punch, kick, bite, …) whose natural
                 // strike modes are intrinsic — they render with nothing
-                // held, so an unscoped `[data-sm-id]` never reaches zero
-                //. Each row carries its source item's id.
+                // held, so an unscoped `[data-sm-id]` never reaches zero.
+                // Each row carries its source item's id.
                 const rows = `section.tab[data-tab="combat"] [data-sm-id][data-item-id="${weapon.id}"]`;
 
                 // Not held: filterHeldWeapons excludes it, so no rows render.

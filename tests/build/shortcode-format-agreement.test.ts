@@ -18,8 +18,8 @@
  * Two copies of one rule is exactly the arrangement that drifts silently, and a
  * drift here is not cosmetic: the build would accept a key the runtime refuses
  * to save, or the runtime would accept one that breaks the `type-shortcode`
- * address whose parse needs the separating hyphen to be the only hyphen
- *. Nothing else compares them, so this test is the seam — the same job
+ * address whose parse needs the separating hyphen to be the only hyphen.
+ * Nothing else compares them, so this test is the seam — the same job
  * `manifest-package-id.test.ts` does for the package id, and
  * `src-import-severance.test.ts` for the installed package's imports.
  *

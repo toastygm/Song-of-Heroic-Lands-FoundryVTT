@@ -296,9 +296,9 @@ export async function deleteBodyLocation(
 /**
  * Bind the per-row `⋮` context menu to the Combat-tab Body Structure tree,
  * offering **Edit** and **Delete** on each body-part header and each
- * body-location row. Edit opens the relevant config editor (#721 / #722);
- * Delete removes the entry after confirmation, with the part-delete guard
- *. The add / drag-sort affordances are wired on the sheet.
+ * body-location row. Edit opens the relevant config editor;
+ * Delete removes the entry after confirmation, with the part-delete guard.
+ * The add / drag-sort affordances are wired on the sheet.
  *
  * Part headers carry `data-part-shortcode`; location rows carry
  * `data-part-shortcode` **and** `data-location-shortcode`, so a single handler

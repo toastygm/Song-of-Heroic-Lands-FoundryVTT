@@ -19,8 +19,7 @@ import path from "node:path";
  * `system.templatePriority` — the Create-dialog archetype
  * marker, moved off `flags.sohl.docArchetype` and into the schema so it can be
  * authored on a sheet instead of by export / hand-edit / re-import, then
- * renamed off `archetype` so that word is free for the character-sort taxonomy
- *.
+ * renamed off `archetype` so that word is free for the character-sort taxonomy.
  *
  * Two different claims are asserted here.
  *

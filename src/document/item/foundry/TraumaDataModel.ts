@@ -176,8 +176,7 @@ export class TraumaDataModel<
      * — so {@link TraumaLogic.finalize} arms them on the following preparation
      * (a `0` interval fires the first check immediately, at which point the
      * executor rolls the real interval). Creation still auto-arms the first
-     * occurrence; the *reschedule* of later occurrences is offered, not automatic
-     *.
+     * occurrence; the *reschedule* of later occurrences is offered, not automatic.
      *
      * @param data - The pending creation data.
      * @param options - The create operation options.
@@ -217,7 +216,7 @@ export class TraumaDataModel<
             seed.bloodLossAdvanceDurationBase = Number(bloodFormula) || 0;
         }
 
-        // Recovery Course Test cadence (#556/#557) — seeded for the lasting-
+        // Recovery Course Test cadence — seeded for the lasting-
         // condition subtypes when the caller has not supplied it. Extended Shock
         // runs every 4 hours, a Coma every d10 days, and an Infection on the
         // standard healing-check period.

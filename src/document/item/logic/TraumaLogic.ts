@@ -431,8 +431,8 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
 
         update["system.healingRateBase"] = outcome.healingRate;
 
-        // A poorly-treated wound (a failed Treatment Test) is exposed to infection
-        //; a marginal/critical success clears the risk.
+        // A poorly-treated wound (a failed Treatment Test) is exposed to infection;
+        // a marginal/critical success clears the risk.
         update["system.infectable"] = outcome.infectable;
 
         // Special injury effects. A surgical mishap (EXT/SUR on a failure) or a
@@ -1708,8 +1708,7 @@ export class TraumaLogic<TData extends TraumaData = TraumaData> extends SohlItem
      * recovery, and anything between leaves the course running and offers the next
      * test anchored on this occurrence's due time.
      *
-     * A still-active infection saps the body by its Healing-Rate band each test
-     *.
+     * A still-active infection saps the body by its Healing-Rate band each test.
      *
      * Exactly one test runs per invocation — a condition that can kill never
      * resolves several rolls from a single click.

@@ -599,8 +599,8 @@ export class SuccessTestResult extends TestResult {
 
     /**
      * Whether this result is a critical (success or failure). Always `false` when
-     * {@link critAllowed} is `false` — except a forced auto-Critical-Failure
-     *, which is always critical.
+     * {@link critAllowed} is `false` — except a forced auto-Critical-Failure,
+     * which is always critical.
      */
     get isCritical() {
         return (
@@ -1167,8 +1167,8 @@ export namespace SuccessTestResult {
          * The token this test is made **as**, when the caller knows it and the
          * owning item does not. Seeds the result's
          * {@link SuccessTestResult.token}, which chat cards read the
-         * combatant's name from. Set by the responding side of an opposed test
-         *; omitted by an ordinary item-menu test.
+         * combatant's name from. Set by the responding side of an opposed test;
+         * omitted by an ordinary item-menu test.
          */
         tokenUuid?: string;
         /** Maps a success level to the test's target value. */

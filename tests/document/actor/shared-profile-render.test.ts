@@ -6,8 +6,8 @@
  */
 
 /**
- * Render the shared **Profile** part for real in Node and assert its HTML
- *. This is the tab the Cohort, Vehicle, and Structure sheets all
+ * Render the shared **Profile** part for real in Node and assert its HTML.
+ * This is the tab the Cohort, Vehicle, and Structure sheets all
  * use — the Being has its own, richer Profile — so these specs pin what the
  * shared part shows: the attribute grid (kept for every actor kind, empty or
  * not), the movement ledger with its star control, and the dossier editor.

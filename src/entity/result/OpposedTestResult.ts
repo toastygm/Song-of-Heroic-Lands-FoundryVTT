@@ -417,8 +417,7 @@ export class OpposedTestResult extends TestResult {
             sourceWins: this.sourceWins,
             targetWins: this.targetWins,
             // A contest with no winner is either a tie or a mutual failure; the
-            // card must tell them apart rather than calling both "Both Fail!"
-            //.
+            // card must tell them apart rather than calling both "Both Fail!".
             isTied: this.isTied,
             bothFail: this.bothFail,
             // A tie the tie-break rule settled reports the winner plus which rule

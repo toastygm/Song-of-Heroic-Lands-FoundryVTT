@@ -265,7 +265,7 @@ export class SohlCombatant<
     }
 
     /**
-     * .
+     * Whether this combatant has acted on its current turn.
      *
      * @returns True if the combatant has performed an action, false otherwise.
      */

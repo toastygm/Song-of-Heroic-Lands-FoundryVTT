@@ -67,8 +67,8 @@ Cypress.Commands.add("login", (opts = {}) => {
  * `_draw`, `_refreshState` → `RenderFlags.set` (`reading 'OBJECTS'`) from the
  * ticker refresh, and `_onAnimationUpdate` → `RenderFlags.set` (the same
  * `'OBJECTS'`) from any token **movement**. These land on whatever spec is
- * running, failing token-placing and token-moving specs nondeterministically
- *. Gating on `canvas.ready` is not enough — it can read `true` while the
+ * running, failing token-placing and token-moving specs nondeterministically.
+ * Gating on `canvas.ready` is not enough — it can read `true` while the
  * token layer is still incomplete, so the refresh throws anyway.
  *
  * This suite never asserts on rendered token pixels — specs read the TokenDocument

@@ -92,8 +92,8 @@ function describeCadence(interval: number, triggerName?: string): string {
 }
 
 /**
- * Offer to schedule (or reschedule) `actionName` on `doc`, per the consent model
- *. Time-based by default (fire `interval` seconds from now); pass
+ * Offer to schedule (or reschedule) `actionName` on `doc`, per the consent model.
+ * Time-based by default (fire `interval` seconds from now); pass
  * `triggerName` for an event-driven schedule bound to a lifecycle moment
  * — a combat `turnEnd`, `combatStart`, a scene-region trigger, …
  *
@@ -108,8 +108,8 @@ function describeCadence(interval: number, triggerName?: string): string {
  *   time-based schedule.
  * @param anchor - World time the recurrence is measured from, defaulting to now.
  *   A `*Test` offering its successor passes the due time of the occurrence it
- *   just performed, so answering a check late does not push the cadence later
- *. Time-based schedules only — an event-driven schedule fires on
+ *   just performed, so answering a check late does not push the cadence later.
+ * Time-based schedules only — an event-driven schedule fires on
  *   its trigger and has no cadence to anchor.
  * @param predicate - Optional {@link sohl.entity.expr.SafeExpression} source
  *   gating an event-driven schedule (issue #569; e.g. scoping a `turnEnd`

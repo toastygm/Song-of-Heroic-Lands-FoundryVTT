@@ -738,8 +738,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
      *
      * Dispatches the item's `toggleCarried` intrinsic action rather than writing
      * the field, so the ledger control and the Actions context menu share one
-     * implementation — including the stow-time clearing of any "in use" state
-     *.
+     * implementation — including the stow-time clearing of any "in use" state.
      *
      * @param _event - The triggering pointer event (unused).
      * @param target - The clicked control, within a `data-item-id` row.

@@ -61,8 +61,8 @@ describe("Item docs — a shipped description is a pointer", () => {
                     itemName: doc.name,
                     content: page?.text?.content ?? "",
                     // The doc is filed with its item: the journals pack
-                    // declares the same folder tree the items pack does
-                    //, so the id resolves to a real Folder on both
+                    // declares the same folder tree the items pack does,
+                    // so the id resolves to a real Folder on both
                     // sides rather than dropping the entry at the root.
                     docFolder: page?.parent?.folder?.id ?? null,
                     itemFolder: doc.folder?.id ?? null,

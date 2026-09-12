@@ -17,7 +17,7 @@
  * - **Item** sheets show an editable `system.shortcode` input directly under the
  *   Name field — no label, a localized placeholder (`SOHL.Common.shortcode`) —
  *   persisting via submitOnChange.
- * - **Being** (actor) sheets, after the Manuscript redesign (#782/#798), show the
+ * - **Being** (actor) sheets, after the Manuscript redesign, show the
  *   shortcode as read-only header text (`span.sheet-header__shortcode`) edited
  *   together with the name through the `editIdentity` DialogV2 pencil — routing the
  *   change through the `(type, shortcode)` uniqueness guard rather than a raw

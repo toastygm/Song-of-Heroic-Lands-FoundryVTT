@@ -94,8 +94,8 @@ describe("automated combat start: target resolution", () => {
                 // It must be the attacker's turn — the turn gate runs first and
                 // would otherwise short-circuit before target resolution. Both
                 // halves below share this one combat: `getActiveCombat()` reads
-                // the *viewed* combat, which resolves inconsistently headless
-                // (#638/#644), so a second combat would be order-dependent.
+                // the *viewed* combat, which resolves inconsistently headless,
+                // so a second combat would be order-dependent.
                 cy.foundry(async (win) => {
                     const c = win.game.combats.get(combat.id);
                     const idx = c.turns.findIndex((t) => t.actorId === attackerId);
@@ -112,7 +112,7 @@ describe("automated combat start: target resolution", () => {
                 // new combat, and `isActive` is `scene.isView && active` for a
                 // scene-bound combat, so it also needs this spec's own scene to
                 // hold the canvas view — which headless it does not once any
-                // other spec has created a scene (#638/#644). Creating the
+                // other spec has created a scene. Creating the
                 // combat `sceneless` reduces `isActive` to plain `active`, and
                 // assigning `viewed` covers the rendered-tracker branch; both
                 // then resolve to this combat whatever ran before.

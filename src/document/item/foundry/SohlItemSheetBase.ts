@@ -371,8 +371,7 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
      * not bound here: ApplicationV2 delegates `data-action` clicks from a single
      * listener on the frame that survives every part re-render, whereas
      * per-node `addEventListener` calls made here bound to controls that a
-     * subsequent part swap detached, so the clicks never reached the handler
-     *.
+     * subsequent part swap detached, so the clicks never reached the handler.
      *
      * @param context - The render context.
      * @param options - The render options.
@@ -402,8 +401,8 @@ export abstract class SohlItemSheetBase extends SohlItemSheetBase_Base {
     }
 
     /**
-     * On close, forget that the Description tab was showing a pointer's editor
-     *, so reopening the sheet reads as the target's text again — the
+     * On close, forget that the Description tab was showing a pointer's editor,
+     * so reopening the sheet reads as the target's text again — the
      * state is a momentary "let me edit this", not a preference.
      *
      * @param options - The close options, forwarded to the base implementation.

@@ -304,8 +304,8 @@ export class SohlActorBaseLogic<
      * The Profile-tab star names the medium in scope and applies it directly.
      * Invoked any other way — from the Actions menu, a macro, a script — there
      * is no medium to apply, so the action **offers the choice** (the
-     * prefer-dialog rule) rather than returning silently as it once did
-     *. The prompt lists the no-movement medium plus every medium this
+     * prefer-dialog rule) rather than returning silently as it once did.
+     * The prompt lists the no-movement medium plus every medium this
      * actor authors a profile for, preselected at the current one. A caller
      * that suppressed the dialog cannot be prompted, so it gets a notice
      * instead of an unexplained no-op.

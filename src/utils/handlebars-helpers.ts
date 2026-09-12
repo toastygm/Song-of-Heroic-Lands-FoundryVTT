@@ -84,8 +84,8 @@ export const SHARED_COHORTS_PARTIAL_NAME = "sharedWithCohortsField";
 
 /**
  * The reusable **cohort-sharing** control, registered as the named partial
- * `sharedWithCohortsField` and rendered on every gear item's Properties tab
- *. It is the one place a gear item is marked as shared with a
+ * `sharedWithCohortsField` and rendered on every gear item's Properties tab.
+ * It is the one place a gear item is marked as shared with a
  * Cohort — a multi-select of the world's cohorts, storing each choice as that
  * cohort's `system.shortcode` in `system.sharedWithCohortIds`. The cohort's
  * **Shared Gear** tab is the read-only other end of the same link.

@@ -12,7 +12,7 @@
  */
 
 /**
- * Creation-time offers for the recurring timed effects (#579 / #595): a lasting
+ * Creation-time offers for the recurring timed effects: a lasting
  * condition's recurring check is OFFERED when it is created, not auto-armed. Two
  * are covered here — a bleeder's **blood-loss advance** (offered as the wound is
  * inflicted) and an infection's **recovery course** (offered when a

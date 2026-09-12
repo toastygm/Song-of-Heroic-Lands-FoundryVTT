@@ -19,8 +19,7 @@ import { buildStats } from "@heroiclands/package-build/engine/helpers";
  * It was a hand-maintained literal, frozen at `0.6.0` while the system shipped
  * releases up to `0.8.2`. A document that under-reports its version is
  * eligible for migrations it does not need — the same defect `_stats.coreVersion`
- * had before it started following the manifest's `compatibility.minimum`
- *.
+ * had before it started following the manifest's `compatibility.minimum`.
  */
 describe("compiled pack documents", () => {
     const repoRoot = path.resolve(__dirname, "../..");

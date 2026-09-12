@@ -224,7 +224,7 @@ describe("Generic scheduled actions", () => {
         });
     });
 
-    it("sohl.addScriptAction binds a Macro as a runnable, schedulable SCRIPT action (#588 §7)", () => {
+    it("sohl.addScriptAction binds a Macro as a runnable, schedulable SCRIPT action", () => {
         cy.foundry(async (win) => {
             const clone = (o) => win.JSON.parse(JSON.stringify(o));
 

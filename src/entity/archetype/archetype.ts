@@ -216,8 +216,8 @@ export function resolveCreateIdentity(
 }
 
 /**
- * Whether the archetype-marker control should be offered on a document's sheet
- *. Two conditions, and both are about what an archetype _is_
+ * Whether the archetype-marker control should be offered on a document's sheet.
+ * Two conditions, and both are about what an archetype _is_
  * rather than about the UI:
  *
  * - **Only a GM.** An archetype is world-configuration — it changes what every

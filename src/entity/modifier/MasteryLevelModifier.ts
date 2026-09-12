@@ -550,8 +550,7 @@ export class MasteryLevelModifier extends ValueModifier {
                 rollModes: speakerRollModeOptions(),
                 // Only an opposed test can end in a tie, so only it offers the
                 // Break Ties choice — and only the initiator makes it, unchecked
-                // by default: a tie stands unless a rule or ruling says otherwise
-                //.
+                // by default: a tie stands unless a rule or ruling says otherwise.
                 askBreakTies: context.scope.askBreakTies ?? false,
                 breakTies: context.scope.breakTies ?? false,
             };
@@ -762,8 +761,8 @@ export class MasteryLevelModifier extends ValueModifier {
         // nothing: the `OpposedTestResult` constructor always materializes a
         // placeholder target from the target token, so a `!targetTestResult`
         // guard is never true and every Respond took the "already rolled" path —
-        // rolling the defender against that placeholder's **empty** modifier
-        //. Ask the die instead.
+        // rolling the defender against that placeholder's **empty** modifier.
+        // Ask the die instead.
         successTestContext.scope =
             priorTarget?.roll.isRolled ?
                 // Already rolled: reuse it untouched (`successTest` never

@@ -18,7 +18,7 @@
  * spec drives the real UI — create (bind an existing Macro), run, edit (open
  * the Macro sheet), and remove (disassociate) — plus the grouped display.
  *
- * The Manuscript redesign (#782/#798) rebuilt the tab as `.section-legend`
+ * The Manuscript redesign rebuilt the tab as `.section-legend`
  * headers ("Custom Actions" / "Intrinsic Actions") each followed by a sibling
  * `.ledger` of `.ledger__row` rows (no longer `ol.actions-list` / `li.item`);
  * the per-row `data-action` control names are unchanged.

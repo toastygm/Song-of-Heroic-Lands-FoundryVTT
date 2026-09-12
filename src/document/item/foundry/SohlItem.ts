@@ -142,8 +142,8 @@ export async function sohlCreateDialog(
         .map((value) => ({
             value,
             // Fenced (experimental) types carry an "(Experimental)" suffix so
-            // testers can still pick them but are warned the schema isn't final
-            //. Sorting on the suffixed label keeps them grouped.
+            // testers can still pick them but are warned the schema isn't final.
+            // Sorting on the suffixed label keeps them grouped.
             label: labelWithFenceSuffix(
                 documentName,
                 value,

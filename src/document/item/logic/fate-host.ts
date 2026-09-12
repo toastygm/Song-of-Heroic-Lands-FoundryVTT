@@ -36,8 +36,7 @@ import { toFilePath, toHTMLString } from "@src/utils/helpers";
 import { dialog, fvttGetSetting, fvttToFoundryRoll } from "@src/core/FoundryHelpers";
 
 /**
- * The Fate **spend flow**, shared by every logic type whose tests may be fated
- *.
+ * The Fate **spend flow**, shared by every logic type whose tests may be fated.
  *
  * The pure eligibility and outcome math lives in [`fate.ts`](./fate.ts); this
  * module is the flow built on top of it — seeding the fate mastery level,

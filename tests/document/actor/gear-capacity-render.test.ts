@@ -6,7 +6,7 @@
  */
 
 /**
- * The Gear tab's capacity readout (#200 / #201). A section shows one only when
+ * The Gear tab's capacity readout. A section shows one only when
  * it has a fact worth acting on: a being's carried weight and encumbrance, or a
  * container's used-against-max. A vehicle's cargo and a structure's stores have
  * neither — capacity is deliberately not modeled for either — so their section

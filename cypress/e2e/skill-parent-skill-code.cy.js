@@ -69,7 +69,7 @@ describe("skill sheet parent skill code", () => {
     it("persists an edit to the Parent Skill field", () => {
         cy.createActor("being", { name: "Edit Being" }).then((actor) => {
             // When embedded on an actor the control is a dropdown of the actor's
-            // other skills (#974/#980), so a value is selectable only if a
+            // other skills, so a value is selectable only if a
             // sibling skill carries that shortcode. Seed one, then pick it — the
             // parent skill must exist on the actor by construction.
             cy.createItemOn(actor, "skill", {

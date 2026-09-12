@@ -33,8 +33,8 @@
  * through to target validation. Earlier this test relied on `game.combat` being
  * `undefined` headless, which held only in isolation: once a preceding combat spec
  * rendered the tracker, `game.combat` resolved this spec's active combat with the
- * attacker current, the gate passed, and it warned about the target instead
- * (#638/#644). Pinning the turn removes that order dependence.
+ * attacker current, the gate passed, and it warned about the target instead.
+ * Pinning the turn removes that order dependence.
  *
  * The in-turn *pass* is still not e2e-reachable — the attack-start flow past the
  * gate is stubbed. See the skipped RED case at the end.
@@ -95,7 +95,7 @@ describe("automated combat turn gate", () => {
             cy.createCombatWith(this.tokens).then((combat) => {
                 // Deterministically make it *not* the attacker's turn: point the
                 // combat's current turn at the defender. This removes the order
-                // dependence on the viewport-resolved `game.combat` (#638/#644) —
+                // dependence on the viewport-resolved `game.combat` —
                 // the current combatant is never the attacker, so the gate always
                 // short-circuits with a turn reason instead of falling through to
                 // target validation.

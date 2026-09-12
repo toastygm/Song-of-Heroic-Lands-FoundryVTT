@@ -64,7 +64,7 @@ export interface ScheduledAction {
     triggerName?: string;
     /**
      * Optional predicate **source** (a {@link sohl.entity.expr.SafeExpression}
-     * string) gating an event-driven schedule (issue #622/#569). When set, the
+     * string) gating an event-driven schedule. When set, the
      * armed subscription fires only when it evaluates truthy against the trigger
      * context, with `subscriberUuid` bound to this document's uuid — e.g.
      * `"combatant.actor.uuid === subscriberUuid"` scopes a `turnEnd` schedule to
@@ -84,7 +84,7 @@ export interface ScheduledAction {
     payload?: Record<string, unknown>;
 }
 
-/** The trigger name of a **time-based** schedule (issue #588 / #622). */
+/** The trigger name of a **time-based** schedule. */
 export const WORLD_TIME_TRIGGER = "updateWorldTime";
 
 /**

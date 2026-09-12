@@ -141,8 +141,8 @@ function limbHolding(state: Record<string, string>, ...patterns: RegExp[]): stri
  *
  * Per the framework's step kinds, each step is **free** (advise an example, advance
  * on Next) or **gated** (refuse to advance until the user has actually done the
- * thing). Gated archetype steps key off the instance's inherited **shortcode**
- *, so the gate confirms the *right archetype* was chosen without forcing a
+ * thing). Gated archetype steps key off the instance's inherited **shortcode**,
+ * so the gate confirms the *right archetype* was chosen without forcing a
  * particular name. Nothing is ever performed on the user's behalf beyond
  * scene-setting navigation (PRIME DIRECTIVE — assist, don't play the game).
  * @returns A ready-to-register {@link SohlTour} instance.

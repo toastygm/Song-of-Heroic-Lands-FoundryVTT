@@ -100,8 +100,7 @@ export interface MigrationStep {
 }
 
 /**
- * Rewrite a document's `system` object with the retired `docUrl` key removed
- *.
+ * Rewrite a document's `system` object with the retired `docUrl` key removed.
  *
  * `docUrl` persisted an absolute documentation URL into every compiled item and,
  * on import, into every world; nothing ever read it. Removing it from the schema

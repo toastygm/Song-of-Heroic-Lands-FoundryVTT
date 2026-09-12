@@ -15,8 +15,8 @@
  * The two things that happen *after* a release is cut, and that only this
  * repository does.
  *
- * Every HeroicLands Foundry package now releases through one shared workflow
- *, which knows how to version, build, package and cut
+ * Every HeroicLands Foundry package now releases through one shared workflow,
+ * which knows how to version, build, package and cut
  * the Release — and deliberately knows nothing about what any one package does
  * afterwards. This script is that seam: the shared workflow runs
  * `npm run release:post` once the Release exists, with `GH_TOKEN` and
