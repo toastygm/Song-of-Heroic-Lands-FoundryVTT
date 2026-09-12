@@ -338,15 +338,20 @@ const INDICATOR_ROWS = [
         name: "Perform Action",
         note: "Actions Tab on Item and Actor Sheets",
     },
+    // Three controls edit something, and the glyphs say which kind of thing:
+    // `fa-pen-to-square` a document or field — the intrinsic Edit action, which
+    // the Actions section emits and so is not repeated here — `fa-code` an
+    // expression, and `fa-file-code` a Macro document. Snippet against
+    // document is the distinction the "file" carries.
     {
-        cls: "fa-solid fa-file-pen",
-        name: "Edit Action",
+        cls: "fa-solid fa-file-code",
+        name: "Edit Macro",
         note: "Actions Tab on Item and Actor Sheets",
     },
     {
-        cls: "fa-solid fa-file-pen",
-        name: "Edit Item",
-        note: "Sheets",
+        cls: "fa-solid fa-code",
+        name: "Edit Expression",
+        note: "Beside any Safe Expression field",
     },
     {
         cls: "fa-solid fa-folder-plus",

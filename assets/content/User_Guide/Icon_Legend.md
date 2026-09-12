@@ -144,8 +144,8 @@ Icons come from two families: [Font Awesome](https://fontawesome.com) (its free 
 |        <i class="fa-solid fa-folder-minus" style="font-size:2em" aria-hidden="true"></i>        | **Delete Folder**          | Sheets                               |
 |        <i class="fa-solid fa-xmark fa-lg" style="font-size:2em" aria-hidden="true"></i>         | **Disabled**               | Sheets                               |
 |       <i class="fa-solid fa-grip-vertical" style="font-size:2em" aria-hidden="true"></i>        | **Drag Handle**            | Sheets                               |
-|          <i class="fa-solid fa-file-pen" style="font-size:2em" aria-hidden="true"></i>          | **Edit Action**            | Actions Tab on Item and Actor Sheets |
-|          <i class="fa-solid fa-file-pen" style="font-size:2em" aria-hidden="true"></i>          | **Edit Item**              | Sheets                               |
+|            <i class="fa-solid fa-code" style="font-size:2em" aria-hidden="true"></i>            | **Edit Expression**        | Beside any Safe Expression field     |
+|         <i class="fa-solid fa-file-code" style="font-size:2em" aria-hidden="true"></i>          | **Edit Macro**             | Actions Tab on Item and Actor Sheets |
 |           <i class="fa-solid fa-gears" style="font-size:2em" aria-hidden="true"></i>            | **Execute Macro**          | Sheets                               |
 |      <i class="fa-solid fa-circle-question" style="font-size:2em" aria-hidden="true"></i>       | **Help**                   | Sheets                               |
 |        <i class="fa-solid fa-file-import" style="font-size:2em" aria-hidden="true"></i>         | **Import**                 | Sheets                               |
