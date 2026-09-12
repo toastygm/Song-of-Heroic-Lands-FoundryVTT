@@ -35,11 +35,13 @@ import { readFileSync, writeFileSync } from "fs";
 import { emitDiagnostic } from "@heroiclands/package-build/engine/diagnostics";
 import { formatGenerated } from "./format-generated.mjs";
 import { globSync } from "glob";
+import YAML from "yaml";
 
 const LANG_PATH = "lang/en.json";
 const CONSTANTS_PATH = "src/utils/constants.ts";
 const BEING_SHEET_PATH = "src/document/actor/foundry/BeingSheet.ts";
 const OUT_PATH = "assets/content/User_Guide/Icon_Legend.md";
+const REGISTRY_PATH = "assets/icon-registry.yaml";
 
 /**
  * The pack folder this page routes into, by path rather than by folder id
@@ -102,27 +104,111 @@ function topLevelEntries(block) {
 }
 
 /**
- * How much larger than body text a legend glyph renders. At inline size an icon
- * is legible in context but too small to *study*, which is what this page is
- * for — a reader is learning the shape so they recognise it later on a sheet.
+ * How much larger than body text a legend glyph renders, in the icon role's own
+ * size vocabulary. At inline size an icon is legible in context but too small
+ * to *study*, which is what this page is for — a reader is learning the shape
+ * so they recognise it later on a sheet.
  *
- * Scaling the element (rather than any per-family rule) keeps the two families
- * matched: `ginf-` glyphs carry their own `font-size` compensation on ::before,
- * so a uniform element scale preserves the Font Awesome parity the icon metrics
- * were tuned for, and the em-based baseline shift scales with it.
+ * The role's size classes scale the element rather than applying a per-family
+ * rule, which keeps the two families matched: `ginf-` glyphs carry their own
+ * `font-size` compensation on ::before, so a uniform element scale preserves
+ * the Font Awesome parity the icon metrics were tuned for.
  */
-const GLYPH_DISPLAY_SIZE = "2em";
+const GLYPH_DISPLAY_SIZE = "2x";
 
 /**
- * The `<i>` markup for an icon class, ready to drop into a markdown table.
+ * The icon fonts this package ships, as `package-build` wants them declared.
  *
- * The size is inlined rather than shipped as a class because this page renders
- * in two places — the Foundry journal and the Hugo knowledgebase — whose
- * stylesheets live in different repositories. An inline style needs neither,
- * and it is confined to this generated page.
+ * Both are ours to promise: Font Awesome because Foundry serves it to a sheet
+ * and this repository's own knowledgebase theme links it, and the Game-Icons
+ * webfont because `utils/build-icon-font.mjs` builds it here from the SVGs.
+ * The toolchain ships neither, which is why it asks.
+ *
+ * `styles` are the weights a font carries. Game-Icons has none, so an entry
+ * drawn from it names no style and gets no weight class.
  */
-function glyph(cls) {
-    return `<i class="${cls}" style="font-size:${GLYPH_DISPLAY_SIZE}"` + ` aria-hidden="true"></i>`;
+const FAMILIES = {
+    fontawesome: {
+        class: "fa",
+        styles: ["solid", "regular", "brands"],
+        describe: "Font Awesome Free",
+    },
+    "game-icons": {
+        class: "ginf",
+        styles: [],
+        describe: "the Game-Icons.net webfont this package builds",
+    },
+};
+
+/**
+ * Presentational Font Awesome classes that are not the glyph.
+ *
+ * `fa-fw` is the one the interface uses, and it is **not** decoration: without
+ * it a vertical ellipsis is too narrow to sit in a column of controls. It
+ * survives as a registry property rather than a class, so this list is what
+ * keeps it from being mistaken for the icon's name — an entry called `fw` would
+ * draw nothing and say nothing about why.
+ */
+const MODIFIERS = new Set(["fa-fw", "fa-xs", "fa-sm", "fa-lg", "fa-xl", "fa-2x", "fa-3x"]);
+
+/** Font Awesome's weight classes, in both the modern and the legacy spelling. */
+const STYLE_CLASS = {
+    "fa-solid": "solid",
+    fas: "solid",
+    "fa-regular": "regular",
+    far: "regular",
+    "fa-brands": "brands",
+    fab: "brands",
+};
+
+/**
+ * A registry entry, read off the class the interface actually draws with.
+ *
+ * The class is the source of truth because it is what the sheet renders; a
+ * table typed out beside it would be a second place to be wrong. A legacy alias
+ * (`fas` beside `fa-solid`) and a size class are both normalised away — the
+ * registry owns the spelling, so the page stops carrying either.
+ */
+function entryFor(cls) {
+    const tokens = cls.split(/\s+/).filter(Boolean);
+    const parts = tokens.filter((t) => !MODIFIERS.has(t));
+
+    const ginf = parts.find((t) => t.startsWith("ginf-"));
+    if (ginf) return { family: "game-icons", icon: ginf.slice("ginf-".length) };
+
+    let style;
+    let icon;
+    for (const t of parts) {
+        if (STYLE_CLASS[t]) style ??= STYLE_CLASS[t];
+        // The **first** glyph token: a second would be a second icon, which one
+        // element cannot draw.
+        else if (t.startsWith("fa-")) icon ??= t.slice("fa-".length);
+    }
+    if (!icon) throw new Error(`build-icon-legend: class "${cls}" names no glyph`);
+
+    const entry = { style: style ?? "solid", icon };
+    if (tokens.includes("fa-fw")) entry.fixedWidth = true;
+    return entry;
+}
+
+/**
+ * The name a note writes between the colons, from the name a reader sees.
+ *
+ * The registry is keyed by **meaning**, not by glyph, which is why several
+ * names share one: `attack`, `combat` and `weapon` are all a broadsword, and a
+ * reader who cannot see it gets the sentence rather than the picture.
+ */
+function iconName(name) {
+    return (
+        name
+            .toLowerCase()
+            .replace(/&/g, " and ")
+            // A possessive is not part of the name: "Victory Star (target's)" is
+            // the target's victory star, and `victory-star-target-s` reads as a typo.
+            .replace(/'s\b/g, "")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-|-$/g, "")
+    );
 }
 
 /** Pull `defineType("<id>", { … })` and return its top-level entries. */
@@ -462,12 +548,66 @@ const SECTION_NOTES = {
         " skill flagged for improvement on the Skills tab.",
 };
 
-/** Render one markdown table per group. */
+/**
+ * Render one markdown table per group.
+ *
+ * The glyph cell **names** its icon rather than drawing one. Raw `<i>` markup
+ * renders on the two HTML surfaces and reaches a book as nothing at all, since
+ * Typst is handed markdown and knows no HTML — and this page, being nothing but
+ * icons, is the whole of that problem in one file.
+ *
+ * The size rides on the token because it is this page's business: at inline
+ * size an icon is legible in context but too small to *study*, which is what a
+ * legend is for.
+ */
 function renderTable(rows) {
     const out = ["| Glyph | Name | Where you see it |", "| :---: | --- | --- |"];
     for (const r of rows.sort((a, b) => a.name.localeCompare(b.name)))
-        out.push(`| ${r.symbol ?? glyph(r.cls)} | **${r.name}** | ${r.note} |`);
+        out.push(
+            `| :icon-${iconName(r.name)}:{size: ${GLYPH_DISPLAY_SIZE}} | **${r.name}** | ${r.note} |`,
+        );
     return out.join("\n");
+}
+
+/**
+ * The registry the configuration points at, as YAML.
+ *
+ * Generated from the same scan that writes the page, so the two cannot
+ * disagree about what the interface draws — which is the whole reason the page
+ * can stop carrying markup.
+ */
+async function renderRegistry(sections) {
+    const icons = {};
+    for (const [, rows] of sections) {
+        for (const r of rows) {
+            const name = iconName(r.name);
+            // The label is what a reader who cannot see the glyph is told, so
+            // it is the row's own name rather than the glyph's — "value diamond
+            // (earned)", not "gem".
+            const entry = { ...entryFor(r.cls), label: r.name.toLowerCase() };
+            const seen = icons[name];
+            if (seen && JSON.stringify(seen) !== JSON.stringify(entry)) {
+                throw new Error(
+                    `build-icon-legend: "${r.name}" is drawn two different ways — ` +
+                        `${JSON.stringify(seen)} and ${JSON.stringify(entry)}`,
+                );
+            }
+            icons[name] = entry;
+        }
+    }
+
+    const ordered = {};
+    for (const name of Object.keys(icons).sort()) ordered[name] = icons[name];
+
+    return formatGenerated(
+        "# Generated by utils/build-icon-legend.mjs — do not edit by hand.\n" +
+        "#\n" +
+        "# The fonts this package ships and the names its notes draw from them,\n" +
+        "# read off the classes the interface actually renders. `package-build.config.yaml`\n" +
+        "# points at this file; regenerate with `npm run build:icon-legend`.\n" +
+            YAML.stringify({ families: FAMILIES, defaultFamily: "fontawesome", icons: ordered }),
+        REGISTRY_PATH,
+    );
 }
 
 /** Render the whole page, exactly as it should appear on disk. */
@@ -555,31 +695,47 @@ ${body}
 async function main() {
     const check = process.argv.includes("--check");
     const { text, total, sections } = await renderPage();
+    const registry = await renderRegistry(sections);
+
+    // Two files, one scan. The page names its icons and the registry says what
+    // each one is, so a name the page writes and a name the registry declares
+    // cannot disagree — which is what lets the page carry no markup.
+    const outputs = [
+        { path: OUT_PATH, text },
+        { path: REGISTRY_PATH, text: registry },
+    ];
 
     if (!check) {
-        writeFileSync(OUT_PATH, text);
+        for (const out of outputs) writeFileSync(out.path, out.text);
         console.log(
             `✅ Icon legend: ${total} icons across ${sections.length} sections → ${OUT_PATH}`,
         );
+        console.log(`✅ Icon registry → ${REGISTRY_PATH}`);
         return;
     }
 
-    const onDisk = readFileSync(OUT_PATH, "utf8");
-    if (onDisk === text) {
-        console.log(`check-icon-legend: ${OUT_PATH} is up to date (${total} icons).`);
+    let stale = false;
+    for (const out of outputs) {
+        const onDisk = readFileSync(out.path, "utf8");
+        if (onDisk === out.text) continue;
+        stale = true;
+        emitDiagnostic({
+            file: out.path,
+            severity: "error",
+            message:
+                "does not match what utils/build-icon-legend.mjs would write — " +
+                "it is generated from src/ and lang/en.json, so edit the " +
+                "generator, not the file; regenerate with `npm run build:icon-legend`",
+        });
+        for (const line of firstDifference(onDisk, out.text)) console.error(`  ${line}`);
+    }
+    if (stale) {
+        process.exitCode = 1;
         return;
     }
-
-    emitDiagnostic({
-        file: OUT_PATH,
-        severity: "error",
-        message:
-            "does not match what utils/build-icon-legend.mjs would write — " +
-            "it is generated from src/ and lang/en.json, so edit the " +
-            "generator, not the page; regenerate with `npm run build:icon-legend`",
-    });
-    for (const line of firstDifference(onDisk, text)) console.error(`  ${line}`);
-    process.exitCode = 1;
+    console.log(
+        `check-icon-legend: ${OUT_PATH} and ${REGISTRY_PATH} are up to date (${total} icons).`,
+    );
 }
 
 /**
