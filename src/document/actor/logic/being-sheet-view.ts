@@ -1228,7 +1228,7 @@ const MA_EML = maCol("eml", "SOHL.Skill.Heading.EffectiveMasteryLevel.label", "3
 // track width, halved by the centered `ledger__head-num` alignment.
 //
 // Measured in the e2e client: the uppercased "CHGS/MAX" glyph box is 63px, so
-// the former 4rem (64px) track left a 0.5px gutter and the header butted
+// a 4rem (64px) track leaves a 0.5px gutter and the header butts
 // against the left-aligned Notes heading, reading as `CHGS/MAXNOTES`.
 // 5rem (80px) leaves ~8px — a legible word gap. Notes is `minmax(90px,1.4fr)`
 // and absorbs the difference, so the ledger's overall width is unchanged. The

@@ -178,7 +178,7 @@ export const EXPRESSION_FIELD_PARTIAL = `<div class="expression-field">
 /**
  * Register SoHL's pure Handlebars helpers on the given Handlebars instance.
  *
- * Behavior-preserving extraction of the pure helpers formerly inlined in system
+ * The pure helpers, kept out of system
  * init — call it once during setup (production) or before rendering (tests).
  *
  * Registers: `selectArray`, `endswith`, `optionalString`, `setHas`, `contains`,

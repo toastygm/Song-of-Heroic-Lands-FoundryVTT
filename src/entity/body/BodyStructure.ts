@@ -495,7 +495,7 @@ export class BodyStructure extends SohlEntity {
             }
 
             // Roll 1..remainingSpread; hit if roll <= probWeight. `ceil(float() *
-            // spread)` reproduces the former Math.random distribution exactly
+            // spread)` reproduces the Math.random distribution exactly
             // (including fractional spread), now from the seedable stream.
             const roll = Math.ceil(rng.float() * remainingSpread);
             if (roll <= currentPart.probWeight.effective) {

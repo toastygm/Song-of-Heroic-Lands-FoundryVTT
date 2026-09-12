@@ -16,8 +16,8 @@
  * {@link SafeExpression}, the exact set of identifiers an author may write
  * there, each with the description shown in the editor's autocomplete.
  *
- * This is the single source of truth behind three surfaces that previously each
- * carried their own copy of the same fact:
+ * This is the single source of truth behind three surfaces that would
+ * otherwise each carry their own copy of the same fact:
  *
  * 1. **Validation** — `SafeExpression` rejects an identifier outside the
  *    declared scope at *construction*, so a typo fails loudly where it is

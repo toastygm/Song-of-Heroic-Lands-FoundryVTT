@@ -13,10 +13,10 @@
 
 /**
  * Default context-menu / action visibility predicates. The improve-flag,
- * transmit, and diagnosis predicates previously referenced stale document paths
- * (`item.system.canImprove`, `item.system.data.improveFlag`, …) that always
- * resolved falsy, so the entries never appeared. They now bind the logic layer
- * (`itemLogic.canImprove`, `itemLogic.data.improveFlag`, …).
+ * transmit, and diagnosis predicates bind the logic layer
+ * (`itemLogic.canImprove`, `itemLogic.data.improveFlag`, …). A document path
+ * (`item.system.canImprove`, `item.system.data.improveFlag`, …) always resolves
+ * falsy, and the entry never appears.
  *
  * This spec drives the real runtime path in a live world: the Skill's
  * `improveWithSDR` action `visible(element)` predicate resolves `itemLogic` from

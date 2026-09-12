@@ -51,7 +51,7 @@ describe("Being Trauma tab: Traumas section", () => {
                         cy.contains(".ledger__cell", "NT6"); // not-treated + HR
                         cy.contains(".ledger__cell", loc.name); // area
                     });
-                // The Injury column header no longer carries Aspect or Bleeding.
+                // The Injury column header carries no Aspect or Bleeding.
                 cy.get('section.tab[data-tab="trauma"] .ledger__head').within(() => {
                     cy.contains("Sev");
                     cy.contains("Area");

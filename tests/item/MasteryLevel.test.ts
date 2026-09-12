@@ -10,7 +10,7 @@ import { makeItemLogic } from "@tests/mocks/logicHarness";
 import * as FoundryHelpers from "@src/core/FoundryHelpers";
 
 /*
- * The former MasteryLevelLogic class no longer exists; mastery-level test
+ * There is no MasteryLevelLogic class; mastery-level test
  * mechanics now live in the pure domain class MasteryLevelModifier
  * (src/domain/modifier/MasteryLevelModifier.ts), parented by any item Logic.
  * A SkillLogic built with the harness serves as a cheap parent.

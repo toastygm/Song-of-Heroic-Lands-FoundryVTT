@@ -162,9 +162,8 @@ const COMBINING = /[\u0300-\u036F]/g;
 /**
  * Carry a name into ASCII, spelling letters out rather than dropping them.
  *
- * Dropping is what the build's slug rules used to do, and it turned `Kûrbúl`
- * into `k-rb-l`; here it would turn `Æthelred` into `thelred`, losing the first
- * letter of the name.
+ * Dropping a letter instead turns `Kûrbúl` into `k-rb-l`, and `Æthelred` into
+ * `thelred` — losing the first letter of the name.
  *
  * @param {unknown} text - Any name.
  * @returns {string} The same name, in ASCII.

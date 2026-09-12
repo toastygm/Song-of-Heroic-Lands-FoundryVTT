@@ -52,7 +52,7 @@ function defineBeingDataSchema(): foundry.data.fields.DataSchema {
         }),
         /**
          * The being's **physical body** — its anatomy, weight, reach, and
-         * body-scale. Dissolved from the former Corpus item into the Being.
+         * body-scale, carried by the Being itself.
          * An **incorporeal** being (a spirit) is modeled as an empty
          * {@link body.structure} (`parts: []`), not an absent item. Movement,
          * once part of the corpus, is now a universal actor capability on

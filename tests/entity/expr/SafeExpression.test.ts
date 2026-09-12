@@ -738,7 +738,7 @@ describe("SafeExpression", () => {
 
         it("accepts the Shock Re-Test visibility expression", () => {
             // The action-visible scope binds `actorLogic`, so the expression
-            // BeingLogic registers for `shockReTest` compiles. It used to throw
+            // BeingLogic registers for `shockReTest` compiles. Unscoped it throws
             // `Unknown identifier: actorLogic` on every menu render, which
             // `compileVisibility` caught — hiding the action in every state.
             expect(

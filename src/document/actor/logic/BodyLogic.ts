@@ -27,9 +27,9 @@ import {
 /**
  * A being's **body** — its physical baseline, derived from `system.body`.
  *
- * Dissolved from the former Corpus item into the Being: rather than a
- * separate embedded document, a Being owns its body directly. `BodyLogic` is a
- * plain, Being-owned domain object (not a `SohlLogic`) that wraps the persisted
+ * A Being owns its body directly rather than through a separate embedded
+ * document. `BodyLogic` is a plain, Being-owned domain object (not a
+ * `SohlLogic`) that wraps the persisted
  * {@link BodyLogic.Data | body data} into live derived state — the
  * {@link sohl.entity.body.BodyStructure | anatomy}, and `weight` / `reach` /
  * `bodyScale` as {@link sohl.entity.modifier.ValueModifier}s so runtime effects
@@ -101,7 +101,7 @@ export class BodyLogic {
 
     /**
      * Whether this being is **incorporeal** — it has no body structure (a
-     * spirit). Replaces the former "no corpus item" check.
+     * spirit).
      */
     get isIncorporeal(): boolean {
         return this.structure.parts.length === 0;

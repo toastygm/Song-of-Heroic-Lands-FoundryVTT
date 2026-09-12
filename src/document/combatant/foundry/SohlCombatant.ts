@@ -323,7 +323,7 @@ export class SohlCombatant<
 
         const userSetMedium = data?.system?.displayedMedium;
         // Movement is a universal actor capability; seed from the actor's own
-        // current move medium (formerly the corpus default).
+        // current move medium.
         const actorDefault = (this.actor?.system as any)?.currentMoveMedium;
         const chosen = chooseInitialDisplayedMedium(userSetMedium, actorDefault);
         if (chosen && chosen !== userSetMedium) {

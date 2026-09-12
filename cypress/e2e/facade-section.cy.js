@@ -15,7 +15,7 @@
  * Being Facade tab: the initial/summary tab shows an editable bio
  * image bound to `system.portrait` and a rich-text description editor bound to
  * `system.appearance` (the "physical appearance" field). Both must bind to real
- * datamodel fields — the tab previously pointed at `system.bioImage` /
+ * datamodel fields — not at `system.bioImage` /
  * `system.description`, which do not exist, so the image was blank and the
  * editor always empty.
  */

@@ -74,7 +74,7 @@ describe("Being Trauma tab — per-sub-type columns", () => {
         expect(html).toContain("S3");
         expect(html).toContain("Left Forearm");
         expect(html).toContain("in 4 days");
-        // Injury no longer carries Aspect or Bleeding columns on the sheet.
+        // Injury carries no Aspect or Bleeding columns on the sheet.
         expect(html).not.toContain(">Aspect<");
         expect(html).not.toContain(">Bld<");
     });

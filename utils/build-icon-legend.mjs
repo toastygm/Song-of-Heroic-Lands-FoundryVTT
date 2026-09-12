@@ -51,13 +51,10 @@ const PAGE_PACK_FOLDER = "userguide";
 /**
  * The note's logical identity — `(type, shortcode)`.
  *
- * **No top-level `aliases` block.** The generator used to emit one, naming the
- * page and a couple of synonyms, because the bare `[[Alias]]` wikilink form
- * resolved through it. That form and its index are retired
- *: a link now names an address,
+ * **No top-level `aliases` block.** A link names an address,
  * `[[type-shortcode|Text]]`, which both resolvers reach through
  * `readQualifier` → `type/shortcode` without consulting any alias. The field is
- * refused outright, so a generator that kept emitting one would fail the build
+ * refused outright, so a generator emitting one would fail the build
  * on the next run.
  *
  * See kb/dev-docs/reference/content-links.md.

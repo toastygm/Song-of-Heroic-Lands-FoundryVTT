@@ -69,20 +69,20 @@ export function durationFormulaField(): foundry.data.fields.DataField.Any {
 }
 
 /*
- * `phaseFields(name)` and `durationFields(name)` used to live here, building
- * `{name}DurationFormula`, `{name}DurationBase` and `{name}Date` from a
- * template literal. They are gone, and deliberately not replaced.
+ * **There is deliberately no `phaseFields(name)` / `durationFields(name)`
+ * helper** building `{name}DurationFormula`, `{name}DurationBase` and
+ * `{name}Date` from a template literal.
  *
  * A schema whose keys are assembled from an argument has field names that exist
  * only after the argument is applied — so they are not in the source, and
  * `package-build schema`, which reads this file as data rather than running it,
- * could not name them. All fourteen fields were missing from the published
- * schema, and content authoring `system.onsetDate` would have been told no
- * DataModel declares it.
+ * cannot name them. Every such field would be missing from the published
+ * schema, and content authoring `system.onsetDate` would be told no DataModel
+ * declares it.
  *
- * The two callers now spell the names out and call the field helpers above
- * directly. The saving was three lines per phase; the cost was a schema that
- * could not describe a third of what `affliction` and `trauma` actually store.
+ * Callers spell the names out and call the field helpers above directly. The
+ * saving would be three lines per phase; the cost would be a schema that cannot
+ * describe a third of what `affliction` and `trauma` actually store.
  *
  * The recurrence *anchor* is not among them: it lives in the generic
  * `system.scheduledActions` store, whose entry's

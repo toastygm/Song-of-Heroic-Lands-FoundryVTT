@@ -15,7 +15,7 @@
  * Trauma sheet sub-type is read-only after creation.
  *
  * A document's sub-type is fixed at creation, so the Trauma sheet must not
- * expose an editable `system.subType` control (it previously rendered an
+ * expose an editable `system.subType` control (never an
  * editable dropdown, now removed). The sub-type stays
  * visible, read-only, in the sheet header via the localized `typeLabel`.
  */

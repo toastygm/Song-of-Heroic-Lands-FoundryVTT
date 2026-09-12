@@ -21,15 +21,14 @@
  * `/dev-docs/` landing on the knowledgebase, and the GitHub-facing index).
  * Exits non-zero on any omission.
  *
- * **The sections are read off disk, not listed here.** They used to be a literal
- * array, which meant a *new* section was invisible to this guard rather than
- * covered by it — every page in it could be orphaned silently, which is the one
- * failure this script exists to prevent. Discovering them makes adding a
- * section safe by default: the guard picks it up the moment the directory exists.
+ * **The sections are read off disk, not listed here.** A literal array would
+ * leave a *new* section invisible to this guard rather than covered by it —
+ * every page in it orphaned silently, which is the one failure this script
+ * exists to prevent. Discovering them makes adding a section safe by default:
+ * the guard picks it up the moment the directory exists.
  *
- * (The API site no longer carries the guide tree — `projectDocuments` was removed
- * — so there is no per-section `children:` stub to cross-check;
- * the README is the single index.)
+ * (The API site carries no guide tree, so there is no per-section `children:`
+ * stub to cross-check; the README is the single index.)
  *
  * Usage:
  *   npm run lint:docs-index

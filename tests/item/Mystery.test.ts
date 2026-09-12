@@ -438,7 +438,7 @@ describe("MysteryLogic", () => {
 
     /*
      * The behaviors below are not present in the current MysteryLogic —
-     * MysteryData no longer carries skills machinery, and no
+     * MysteryData carries no skills machinery, and no
      * fieldData/getApplicableFate/fateBonusItems helpers exist on the class.
      * The todos are retained until that functionality is (re)implemented.
      */

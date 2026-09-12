@@ -1610,7 +1610,7 @@ describe("TraumaLogic.levelLabel", () => {
     });
 
     it("returns the numeric level as a string, for every level subtype", () => {
-        // Fear/Morale no longer carry a numeric level (their state is in the
+        // Fear/Morale carry no numeric level (their state is in the
         // `category` field), so levelLabel is always the numeric string now.
         const logic = makeTrauma({
             subType: TRAUMA_SUBTYPE.INJURY,

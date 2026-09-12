@@ -267,9 +267,9 @@ describe("armour coverage", () => {
     /*
      * Price is deliberately **not** asserted here.
      *
-     * It used to be: an article cost its covered fraction of the body times the
-     * material's base rate, which made price a checksum for coverage. That is
-     * the wrong thing to freeze. **Price is authorial** — an initial value may
+     * Deriving it — an article costing its covered fraction of the body times
+     * the material's base rate — would make price a checksum for coverage, and
+     * that is the wrong thing to freeze. **Price is authorial** — an initial value may
      * be derived that way, but the final figure is a design decision, and it
      * has to be free to be set arbitrarily, including rounding to whole pence
      * or to a shop-friendly band.

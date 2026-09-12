@@ -117,12 +117,12 @@ jsep.removeUnaryOp("~");
  * ## Scopes — declaring what is in play
  *
  * An expression's identifiers only mean something against the bindings its call
- * site supplies, and that contract used to be implicit: each site built an
- * ad-hoc object literal, so writing an identifier the site did not bind parsed
- * cleanly and only threw at evaluation — where the caller caught it, logged a
- * warning, and silently treated the feature as off.
+ * site supplies, so that contract is declared rather than left implicit. An
+ * ad-hoc object literal per site lets an identifier the site does not bind
+ * parse cleanly and throw only at evaluation, where the caller catches it, logs
+ * a warning, and silently treats the feature as off.
  *
- * Pass an {@link ExpressionScope} to close that gap. The scope declares the
+ * Pass an {@link ExpressionScope} instead. The scope declares the
  * legal identifiers, and construction rejects anything outside them:
  *
  * ```ts

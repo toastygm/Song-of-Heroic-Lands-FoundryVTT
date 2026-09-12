@@ -16,7 +16,7 @@ import { SohlLogger } from "@src/core/foundry/SohlLogger";
 
 /**
  * Regression guard: `uiWarn`/`uiInfo`/`uiError` must surface exactly one
- * Foundry UI notification and must NOT recurse (the notify branch used to call
+ * Foundry UI notification and must NOT recurse (a notify branch that calls
  * back into `uiWarn`/`log`, blowing the stack), and a formatting failure must not
  * crash `log()`.
  */

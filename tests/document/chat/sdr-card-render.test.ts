@@ -12,11 +12,12 @@
  */
 
 /**
- * Skill Development Roll chat card. The SDR used to render through
- * `standard-test-card.hbs` under keys that template does not read, so the two
- * numbers that make the card worth reading — the Target and the Roll — came out
- * blank, and the card carried a GM result-edit pencil with an empty scope even
- * though an SDR is not a success test and has nothing to re-evaluate.
+ * Skill Development Roll chat card. Rendering it through
+ * `standard-test-card.hbs` puts it under keys that template does not read, so
+ * the two numbers that make the card worth reading — the Target and the Roll —
+ * come out blank, and the card carries a GM result-edit pencil with an empty
+ * scope even though an SDR is not a success test and has nothing to
+ * re-evaluate.
  *
  * These tests assert the **real rendered HTML**: first the template on its own,
  * then the card the `improveWithSDR` executor actually builds, driven through

@@ -53,7 +53,7 @@ describe("mysteries", () => {
     });
 
     // GREEN: a mystical ability registers a visible `successTest` action —
-    // the same shortcode a skill uses — and no longer carries the retired
+    // the same shortcode a skill uses — and carries no retired
     // `perform` stub.
     it("a mystical ability registers successTest, not the retired perform stub", () => {
         cy.createActor("being", { name: "mystic" }).then((actor) => {

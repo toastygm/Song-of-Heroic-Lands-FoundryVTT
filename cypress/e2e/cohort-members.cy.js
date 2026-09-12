@@ -14,9 +14,9 @@
 /**
  * The Cohort sheet's **Members** tab, in a live client.
  *
- * The tab used to render its section and list nothing at all: the template bound
- * fields the schema never carried, and the sheet built no context for the part.
- * These specs drive the real roster — rows resolved from each member's
+ * A template binding fields the schema does not carry, with no context built
+ * for the part, renders the section and lists nothing at all. These specs drive
+ * the real roster — rows resolved from each member's
  * `shortcodeOrUuid` handle, the chess-king leader toggle, the row trashcan, and
  * the add control — through the three intrinsic actions that back them.
  *

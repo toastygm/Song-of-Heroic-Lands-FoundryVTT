@@ -13,7 +13,7 @@
 
 /**
  * GM re-edit of a settled opposed contest, end-to-end. The pencil in the
- * Opposed Action Result card's header used to emit an **empty** `data-action`
+ * Opposed Action Result card's header must not emit an **empty** `data-action`
  * (`testType.action` off a plain string) and no `data-scope`, so clicking it
  * reached no handler at all.
  *

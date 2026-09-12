@@ -274,7 +274,7 @@ describe("BeingLogic", () => {
     });
 
     // Body derivation (structure/weight/reach/bodyScale/injury table) — re-homed
-    // from the former CorpusLogic tests. The body is now Being-owned
+    // The body is Being-owned
     // (`being.body`), and its entities are parented to the BeingLogic.
     describe("body derivation", () => {
         it("builds the BodyStructure from persisted system.body data", () => {
