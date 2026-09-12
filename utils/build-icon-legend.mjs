@@ -269,15 +269,21 @@ const INDICATOR_ROWS = [
         name: "Disabled",
         note: "Sheets",
     },
+    // The improve flag changes **shape** between its states, where the star and
+    // gem scales change weight. That is the difference between a thing you read
+    // and a thing you count: a scale is filled and hollow copies of one glyph
+    // so the eye can total them, and a toggle is two glyphs so the eye can tell
+    // which one it is looking at. It also stops the flag being a second
+    // filled/hollow star pair beside the Victory Stars, which is what it was.
     {
-        cls: "fa-solid fa-star",
+        cls: "fa-solid fa-circle-up",
         name: "Improve Flag Set",
-        note: "Skill Item on Actor Sheet",
+        note: "Skills and Mysteries tabs on the Being sheet",
     },
     {
-        cls: "fa-regular fa-star",
+        cls: "fa-regular fa-circle",
         name: "Improve Flag Unset",
-        note: "Skill Item on Actor Sheet",
+        note: "Skills and Mysteries tabs on the Being sheet",
     },
     {
         cls: "fa-solid fa-ellipsis-vertical fa-fw",
