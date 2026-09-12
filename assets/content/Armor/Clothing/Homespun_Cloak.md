@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Practical homemade cloak providing basic weather protection."
 img: icons/game-icons/lucasms/cloak.svg
-shortcode: HsClk
+shortcode: hsclk
 type: armorgear
 data:
   templatePriority: 0

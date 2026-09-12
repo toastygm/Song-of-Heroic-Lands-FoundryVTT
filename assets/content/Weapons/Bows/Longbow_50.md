@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Fifty-pound short bow for small-game and practice."
 img: icons/game-icons/lorc/pocket-bow.svg
-shortcode: LBw50
+shortcode: lbw50
 type: weapongear
 data:
   templatePriority: 0

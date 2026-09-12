@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Threshing-floor flail for rapid unpredictable arc; militia's accessible reach."
 img: icons/game-icons/delapouite/flail.svg
-shortcode: GrnFl
+shortcode: grnfl
 type: weapongear
 data:
   templatePriority: 0

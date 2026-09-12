@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool shirt; durable, practical garment for activities."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: WShirt
+shortcode: wshirt
 type: armorgear
 data:
   templatePriority: 0

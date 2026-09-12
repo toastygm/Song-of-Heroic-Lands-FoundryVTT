@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sleeveless padded vest; core warmth without arm-weight."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: QVest
+shortcode: qvest
 type: armorgear
 data:
   templatePriority: 0

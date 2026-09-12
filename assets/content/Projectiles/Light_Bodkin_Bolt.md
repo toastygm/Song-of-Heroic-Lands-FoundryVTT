@@ -8,7 +8,7 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bolt
-shortcode: BltLBod
+shortcode: bltlbod
 img: icons/game-icons/lorc/broadhead-arrow.svg
 easyname: Light Bodkin
 sohl:

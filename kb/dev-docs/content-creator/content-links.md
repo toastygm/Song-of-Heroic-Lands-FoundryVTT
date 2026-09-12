@@ -121,7 +121,7 @@ Write `[[skill-wpnc]]` to link the skill. <!-- shown, not resolved -->
 ````
 
 Only code is exempt. A wikilink inside a table cell, a blockquote or a list is an
-ordinary link, and a `dataview` table is expanded _before_ links resolve — so a
+ordinary link, and a `sql` table is expanded _before_ links resolve — so a
 generated cell may itself carry one.
 
 ## A wikilink belongs in prose, not in frontmatter
@@ -165,7 +165,7 @@ at a document — writes an ordinary markdown link to its URL.
 ## What the build checks
 
 `npm run lint:addresses` (part of `npm run lint`) enforces the identity rules a
-link depends on: a `shortcode` is ASCII-alphanumeric, `(type, shortcode)` names one
+link depends on: a `shortcode` is lowercase alphanumeric, `(type, shortcode)` names one
 note, and exactly one note claims the package's own address. It verifies and fails;
 it never rewrites a note.
 
@@ -199,7 +199,7 @@ typing one they never use — so the guard now sits where the risk actually is:
 to publish one it cannot repair. The list still lives in
 `utils/retired-hosts.mjs`, and adding a host there is what retires it.
 
-Fenced `dataview` tables are expanded before the walk, so a link generated into a
+Fenced `sql` tables are expanded before the walk, so a link generated into a
 table row counts as a real link on all the wikilink counts.
 
 **A bare `[[Name]]` is not an address and is never reported.** Unqualified targets

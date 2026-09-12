@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sharpened point on wood; universal polearm for thrust and formation."
 img: icons/game-icons/lorc/spears.svg
-shortcode: Spr
+shortcode: spr
 type: weapongear
 data:
   templatePriority: 0

@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+4
     cre: 1d4+5
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: snt, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 4 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 45 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 27 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 55 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 36 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 75 } }
+    - { model: attribute-str, system: { scoreBase: 14 } }
+    - { model: attribute-end, system: { scoreBase: 16 } }
+    - { model: attribute-agl, system: { scoreBase: 9 } }
+    - { model: attribute-per, system: { scoreBase: 10 } }
+    - { model: attribute-snt, system: { scoreBase: 4 } }
+    - { model: attribute-aur, system: { scoreBase: 4 } }
+    - { model: attribute-wil, system: { scoreBase: 15 } }
+    - { model: attribute-rea, system: { scoreBase: 6 } }
+    - { model: attribute-cre, system: { scoreBase: 7 } }
+    - { model: skill-awar, system: { masteryLevelBase: 60 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 45 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 27 } }
+    - { model: skill-init, system: { masteryLevelBase: 55 } }
+    - { model: skill-dge, system: { masteryLevelBase: 36 } }
+    - { model: skill-shok, system: { masteryLevelBase: 75 } }
     - name: Tusk
       type: skill
       system:

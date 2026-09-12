@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Mid-length metal ring shirt offering substantial protection against bladed attacks."
 img: icons/game-icons/willdabeast/chain-mail.svg
-shortcode: MHbgn
+shortcode: mhbgn
 type: armorgear
 data:
   templatePriority: 0

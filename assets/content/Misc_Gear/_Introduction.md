@@ -12,120 +12,210 @@ Everyday equipment and sundry goods.
 
 ## Clothing
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "clothing")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'clothing')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Cooking
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "cooking")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'cooking')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Expedition
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "expedition")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'expedition')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Food
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "food")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'food')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Instruments
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "instruments")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'instruments')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Jewelry & Cash
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "jewelry_cash")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'jewelry_cash')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Lighting
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "lighting")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'lighting')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Medical
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "medical")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'medical')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Music
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "music")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'music')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Natural
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "natural")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'natural')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Religious
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "religious")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'religious')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Scribe
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "scribe")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'scribe')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Spirits
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "spirits")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'spirits')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Stone
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "stone")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'stone')
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Tack
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", sohl.system.valueBase as "Value", sohl.system.weightBase as "Weight", description AS "Description"
-WHERE type = "miscgear" and contains(file.tags, "tack")
-SORT name.full ASC
+```sql
+SELECT address.slug           AS _ref,
+       name.full              AS "Name",
+       sohl.system.valueBase  AS "Value",
+       sohl.system.weightBase AS "Weight",
+       description            AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND list_contains(tags, 'tack')
+ORDER BY name.full COLLATE NOCASE
 ```

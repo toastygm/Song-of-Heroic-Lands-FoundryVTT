@@ -10,88 +10,132 @@ description: Magical and supernatural powers.
 
 ## Arcane Incantation
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "arcaneincantation"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'arcaneincantation'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Arcane Talent
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "arcanetalent"
-SORT name.full ASC
+```sql
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'arcanetalent'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Shamanic Rite
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "shamanicrite"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'shamanicrite'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Spirit Action
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "spiritaction"
-SORT name.full ASC
+```sql
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'spiritaction'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Spirit Power
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "spiritpower"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'spiritpower'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Benediction
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "benediction"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'benediction'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Divine Devotion
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "divinedevotion"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'divinedevotion'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Divine Incantation
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "divineincantation"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'divineincantation'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Spirit Talent
 
-```dataview allow-empty
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "spirittalent"
-SORT name.full ASC
+```sql :allow-empty
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'spirittalent'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Alchemy
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "alchemy"
-SORT name.full ASC
+```sql
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'alchemy'
+ORDER BY name.full COLLATE NOCASE
 ```
 
 ## Divination
 
-```dataview
-TABLE WITHOUT ID link(file.path, name.full) AS "Name", description AS "Description"
-WHERE type = "mysticalability" and subType = "divination"
-SORT name.full ASC
+```sql
+SELECT address.slug AS _ref,
+       name.full    AS "Name",
+       description  AS "Description"
+FROM notes
+WHERE type = 'mysticalability'
+  AND subType = 'divination'
+ORDER BY name.full COLLATE NOCASE
 ```

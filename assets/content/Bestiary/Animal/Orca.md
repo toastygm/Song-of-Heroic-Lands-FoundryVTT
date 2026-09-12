@@ -26,21 +26,21 @@ sohl:
     rea: 1d6+8
     cre: 1d6+7
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 23 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 80 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 75 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 42 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 56 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 60 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 53 } }
+    - { model: attribute-str, system: { scoreBase: 23 } }
+    - { model: attribute-end, system: { scoreBase: 18 } }
+    - { model: attribute-dex, system: { scoreBase: 12 } }
+    - { model: attribute-agl, system: { scoreBase: 14 } }
+    - { model: attribute-per, system: { scoreBase: 16 } }
+    - { model: attribute-aur, system: { scoreBase: 12 } }
+    - { model: attribute-wil, system: { scoreBase: 16 } }
+    - { model: attribute-rea, system: { scoreBase: 12 } }
+    - { model: attribute-cre, system: { scoreBase: 11 } }
+    - { model: skill-awar, system: { masteryLevelBase: 80 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 75 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 42 } }
+    - { model: skill-init, system: { masteryLevelBase: 56 } }
+    - { model: skill-dge, system: { masteryLevelBase: 60 } }
+    - { model: skill-shok, system: { masteryLevelBase: 53 } }
     - name: Ramming Strike
       type: skill
       system:

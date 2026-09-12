@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Padded tunic; stitched layers offer steady warmth."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: QTnc
+shortcode: qtnc
 type: armorgear
 data:
   templatePriority: 0

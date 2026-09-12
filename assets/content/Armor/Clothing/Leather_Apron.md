@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Leather apron for craftsmen and artisans, more style than protection."
 img: icons/game-icons/delapouite/cook.svg
-shortcode: LtApn
+shortcode: ltapn
 type: armorgear
 data:
   templatePriority: 0

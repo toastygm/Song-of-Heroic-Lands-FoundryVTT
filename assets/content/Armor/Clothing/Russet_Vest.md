@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Reddish-brown wool vest; sleeveless torso warmth."
 img: icons/game-icons/lorc/leather-vest.svg
-shortcode: RVest
+shortcode: rvest
 type: armorgear
 data:
   templatePriority: 0

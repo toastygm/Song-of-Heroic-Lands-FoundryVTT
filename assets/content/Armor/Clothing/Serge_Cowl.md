@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Twilled serge cowl; provides warmth and protection for everyday wear."
 img: icons/game-icons/lorc/hood.svg
-shortcode: SgCowl
+shortcode: sgcowl
 type: armorgear
 data:
   templatePriority: 0

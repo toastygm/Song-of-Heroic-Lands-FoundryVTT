@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned hand coverings providing warmth for cold weather conditions."
 img: icons/game-icons/delapouite/gauntlet.svg
-shortcode: PMitn
+shortcode: pmitn
 type: armorgear
 data:
   templatePriority: 0

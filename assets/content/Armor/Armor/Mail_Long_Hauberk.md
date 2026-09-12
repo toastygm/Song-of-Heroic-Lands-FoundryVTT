@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Lengthy metal ring torso armor for extended leg protection."
 img: icons/game-icons/willdabeast/chain-mail.svg
-shortcode: MLHbk
+shortcode: mlhbk
 type: armorgear
 data:
   templatePriority: 0

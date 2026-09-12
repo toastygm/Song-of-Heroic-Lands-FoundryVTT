@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Beaver fur tunic providing warmth and elegance for northern climates."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: BvSTnc
+shortcode: bvstnc
 type: armorgear
 data:
   templatePriority: 0

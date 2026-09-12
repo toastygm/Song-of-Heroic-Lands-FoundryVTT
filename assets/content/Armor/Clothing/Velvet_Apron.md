@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Plush velvet apron; opulent status symbol for formal settings."
 img: icons/game-icons/delapouite/cook.svg
-shortcode: VApn
+shortcode: vapn
 type: armorgear
 data:
   templatePriority: 0

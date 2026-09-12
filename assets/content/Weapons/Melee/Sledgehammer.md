@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Massive twin-faced forge-hammer for breaching timber, stone, and mail."
 img: icons/game-icons/lorc/claw-hammer.svg
-shortcode: SlgHmr
+shortcode: slghmr
 type: weapongear
 data:
   templatePriority: 0

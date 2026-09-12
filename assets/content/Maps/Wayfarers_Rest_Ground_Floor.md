@@ -4,6 +4,7 @@ name:
   full: Wayfarer's Rest, Ground Floor
   aliases: []
 description: "The common room of a roadside shelter: one hearth, one stair, one door."
+img: systems/sohl/assets/ui/parchment.jpg
 shortcode: wayrestground
 type: map
 subType: battlemap
@@ -14,7 +15,6 @@ sohl:
   # stair regions can address each other.
   place: wayfarersrest
   placeName: Wayfarer's Rest
-  img: systems/sohl/assets/ui/parchment.jpg
   dimensions: [512, 512]
   pxPerGrid: 64
 

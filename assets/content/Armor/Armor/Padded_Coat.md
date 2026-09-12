@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Cushioned outer layer providing warmth for cold weather conditions."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: PCoat
+shortcode: pcoat
 type: armorgear
 data:
   templatePriority: 0

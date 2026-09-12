@@ -50,39 +50,39 @@ gear:
 sohl:
   kbcat: npc
   items:
-    - { shortcode: agl, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: cml, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: elo, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: emp, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: mor, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: str, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: voi, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 42 } }
-    - { shortcode: cmd, type: skill, system: { masteryLevelBase: 27 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 28 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 44 } }
-    - { shortcode: melee, type: skill, system: { masteryLevelBase: 59 } }
-    - { shortcode: ridg, type: skill, system: { masteryLevelBase: 15 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 46 } }
-    - { shortcode: swim, type: skill, system: { masteryLevelBase: 30 } }
-    - { shortcode: spirit, type: skill, initSkillMult: 3 }
-    - { shortcode: thtcs, type: skill, initSkillMult: 1 }
-    - { shortcode: thro, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkbite, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkgrab, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkheadbutt, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkkick, type: skill, initSkillMult: 2 }
-    - { shortcode: limbblock, type: skill, initSkillMult: 2 }
-    - { shortcode: press, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkpunch, type: skill, initSkillMult: 2 }
-    - { shortcode: trip, type: skill, initSkillMult: 2 }
+    - { model: attribute-agl, system: { scoreBase: 14 } }
+    - { model: attribute-aur, system: { scoreBase: 9 } }
+    - { model: attribute-cml, system: { scoreBase: 11 } }
+    - { model: attribute-cre, system: { scoreBase: 12 } }
+    - { model: attribute-dex, system: { scoreBase: 12 } }
+    - { model: attribute-elo, system: { scoreBase: 10 } }
+    - { model: attribute-emp, system: { scoreBase: 8 } }
+    - { model: attribute-end, system: { scoreBase: 13 } }
+    - { model: attribute-mor, system: { scoreBase: 12 } }
+    - { model: attribute-per, system: { scoreBase: 14 } }
+    - { model: attribute-rea, system: { scoreBase: 13 } }
+    - { model: attribute-str, system: { scoreBase: 15 } }
+    - { model: attribute-voi, system: { scoreBase: 10 } }
+    - { model: attribute-wil, system: { scoreBase: 13 } }
+    - { model: skill-awar, system: { masteryLevelBase: 42 } }
+    - { model: skill-cmd, system: { masteryLevelBase: 27 } }
+    - { model: skill-dge, system: { masteryLevelBase: 28 } }
+    - { model: skill-init, system: { masteryLevelBase: 44 } }
+    - { model: skill-melee, system: { masteryLevelBase: 59 } }
+    - { model: skill-ridg, system: { masteryLevelBase: 15 } }
+    - { model: skill-shok, system: { masteryLevelBase: 46 } }
+    - { model: skill-swim, system: { masteryLevelBase: 30 } }
+    - { model: skill-spirit, initSkillMult: 3 }
+    - { model: skill-thtcs, initSkillMult: 1 }
+    - { model: skill-thro, initSkillMult: 2 }
+    - { model: skill-bflkbite, initSkillMult: 2 }
+    - { model: skill-bflkgrab, initSkillMult: 2 }
+    - { model: skill-bflkheadbutt, initSkillMult: 2 }
+    - { model: skill-bflkkick, initSkillMult: 2 }
+    - { model: skill-limbblock, initSkillMult: 2 }
+    - { model: skill-press, initSkillMult: 2 }
+    - { model: skill-bflkpunch, initSkillMult: 2 }
+    - { model: skill-trip, initSkillMult: 2 }
   system:
     body:
       structure:

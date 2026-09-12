@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff buckram gloves offering rigid hand covering for structured tasks."
 img: icons/game-icons/delapouite/gloves.svg
-shortcode: BGlv
+shortcode: bglv
 type: armorgear
 data:
   templatePriority: 0

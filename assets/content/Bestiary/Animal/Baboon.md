@@ -25,21 +25,21 @@ sohl:
     rea: 1d6+7
     cre: 1d6+6
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 65 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 30 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 48 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 56 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 30 } }
+    - { model: attribute-str, system: { scoreBase: 12 } }
+    - { model: attribute-end, system: { scoreBase: 11 } }
+    - { model: attribute-dex, system: { scoreBase: 14 } }
+    - { model: attribute-agl, system: { scoreBase: 14 } }
+    - { model: attribute-per, system: { scoreBase: 15 } }
+    - { model: attribute-aur, system: { scoreBase: 9 } }
+    - { model: attribute-wil, system: { scoreBase: 12 } }
+    - { model: attribute-rea, system: { scoreBase: 11 } }
+    - { model: attribute-cre, system: { scoreBase: 10 } }
+    - { model: skill-awar, system: { masteryLevelBase: 70 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 65 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 30 } }
+    - { model: skill-init, system: { masteryLevelBase: 48 } }
+    - { model: skill-dge, system: { masteryLevelBase: 56 } }
+    - { model: skill-shok, system: { masteryLevelBase: 30 } }
     - name: Canine Bite
       type: skill
       system:

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Soft plush velvet shirt; luxurious garment for formal occasions and status."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: VShirt
+shortcode: vshirt
 type: armorgear
 data:
   templatePriority: 0

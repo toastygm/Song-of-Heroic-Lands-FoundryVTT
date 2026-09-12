@@ -28,7 +28,7 @@
  */
 
 /** A shipped item whose description is a paragraph of ordinary prose. */
-const ITEM = { type: "armorgear", shortcode: "MHbk" };
+const ITEM = { type: "armorgear", shortcode: "mhbk" };
 
 describe("Item docs — a shipped description is a pointer (#1348)", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));

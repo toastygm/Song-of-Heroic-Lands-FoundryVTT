@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Stiff, structured buckram leg-wear offering durability and reliability."
 img: icons/game-icons/lorc/trousers.svg
-shortcode: BLeg
+shortcode: bleg
 type: armorgear
 data:
   templatePriority: 0

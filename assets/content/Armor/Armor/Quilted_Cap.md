@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Layered-fabric head-cover; light insulation for mild cold."
 img: icons/game-icons/delapouite/billed-cap.svg
-shortcode: QCap
+shortcode: qcap
 type: armorgear
 data:
   templatePriority: 0

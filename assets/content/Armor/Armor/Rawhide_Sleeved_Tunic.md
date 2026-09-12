@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Sturdy hide tunic; arms and torso protection."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: RhSTunic
+shortcode: rhstunic
 type: armorgear
 data:
   templatePriority: 0

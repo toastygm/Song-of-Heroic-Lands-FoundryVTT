@@ -40,56 +40,56 @@ social:
 sohl:
   kbcat: npc
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: cml, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: emp, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: elo, type: attribute, system: { scoreBase: 10 } }
-    - { shortcode: mor, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: voi, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: melee, type: skill, system: { masteryLevelBase: 42 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 38 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 30 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 35 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 45 } }
-    - { shortcode: thro, type: skill, system: { masteryLevelBase: 40 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 50 } }
-    - { shortcode: srvl, type: skill, system: { masteryLevelBase: 35 } }
-    - { shortcode: clmb, type: skill, system: { masteryLevelBase: 42 } }
-    - { shortcode: swim, type: skill, system: { masteryLevelBase: 18 } }
-    - { shortcode: trak, type: skill, system: { masteryLevelBase: 30 } }
-    - { shortcode: slng, type: skill, system: { masteryLevelBase: 55 } }
-    - { shortcode: anmcft, type: skill, system: { masteryLevelBase: 35 } }
-    - { shortcode: cook, type: skill, system: { masteryLevelBase: 30 } }
-    - { shortcode: common, type: skill, system: { masteryLevelBase: 45 } }
-    - { shortcode: guil, type: skill, system: { masteryLevelBase: 25 } }
-    - { shortcode: chrm, type: skill, system: { masteryLevelBase: 28 } }
-    - { shortcode: archery, type: skill, system: { masteryLevelBase: 20 } }
-    - { shortcode: Clb, type: weapongear }
-    - { shortcode: Dgr, type: weapongear }
-    - { shortcode: Slng, type: weapongear }
-    - { shortcode: HsTunic, type: armorgear }
-    - { shortcode: LtShoe, type: armorgear }
-    - { shortcode: bgsmcvs, type: containergear }
-    - { shortcode: SSton, type: projectilegear, system: { quantity: 2 } }
-    - { shortcode: pence, type: miscgear, system: { quantity: 2 } }
-    - { shortcode: spirit, type: skill, initSkillMult: 3 }
-    - { shortcode: bflkbite, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkgrab, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkheadbutt, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkkick, type: skill, initSkillMult: 2 }
-    - { shortcode: limbblock, type: skill, initSkillMult: 2 }
-    - { shortcode: press, type: skill, initSkillMult: 2 }
-    - { shortcode: bflkpunch, type: skill, initSkillMult: 2 }
-    - { shortcode: trip, type: skill, initSkillMult: 2 }
-    - { shortcode: sprt, type: mysticalability }
+    - { model: attribute-str, system: { scoreBase: 10 } }
+    - { model: attribute-end, system: { scoreBase: 10 } }
+    - { model: attribute-dex, system: { scoreBase: 12 } }
+    - { model: attribute-agl, system: { scoreBase: 11 } }
+    - { model: attribute-per, system: { scoreBase: 13 } }
+    - { model: attribute-cml, system: { scoreBase: 12 } }
+    - { model: attribute-aur, system: { scoreBase: 8 } }
+    - { model: attribute-wil, system: { scoreBase: 6 } }
+    - { model: attribute-rea, system: { scoreBase: 10 } }
+    - { model: attribute-cre, system: { scoreBase: 9 } }
+    - { model: attribute-emp, system: { scoreBase: 11 } }
+    - { model: attribute-elo, system: { scoreBase: 10 } }
+    - { model: attribute-mor, system: { scoreBase: 8 } }
+    - { model: attribute-voi, system: { scoreBase: 11 } }
+    - { model: skill-melee, system: { masteryLevelBase: 42 } }
+    - { model: skill-dge, system: { masteryLevelBase: 38 } }
+    - { model: skill-shok, system: { masteryLevelBase: 30 } }
+    - { model: skill-init, system: { masteryLevelBase: 35 } }
+    - { model: skill-awar, system: { masteryLevelBase: 45 } }
+    - { model: skill-thro, system: { masteryLevelBase: 40 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 50 } }
+    - { model: skill-srvl, system: { masteryLevelBase: 35 } }
+    - { model: skill-clmb, system: { masteryLevelBase: 42 } }
+    - { model: skill-swim, system: { masteryLevelBase: 18 } }
+    - { model: skill-trak, system: { masteryLevelBase: 30 } }
+    - { model: skill-slng, system: { masteryLevelBase: 55 } }
+    - { model: skill-anmcft, system: { masteryLevelBase: 35 } }
+    - { model: skill-cook, system: { masteryLevelBase: 30 } }
+    - { model: skill-common, system: { masteryLevelBase: 45 } }
+    - { model: skill-guil, system: { masteryLevelBase: 25 } }
+    - { model: skill-chrm, system: { masteryLevelBase: 28 } }
+    - { model: skill-archery, system: { masteryLevelBase: 20 } }
+    - { model: weapongear-clb }
+    - { model: weapongear-dgr }
+    - { model: weapongear-slng }
+    - { model: armorgear-hstunic }
+    - { model: armorgear-ltshoe }
+    - { model: containergear-bgsmcvs }
+    - { model: projectilegear-sston, system: { quantity: 2 } }
+    - { model: miscgear-pence, system: { quantity: 2 } }
+    - { model: skill-spirit, initSkillMult: 3 }
+    - { model: skill-bflkbite, initSkillMult: 2 }
+    - { model: skill-bflkgrab, initSkillMult: 2 }
+    - { model: skill-bflkheadbutt, initSkillMult: 2 }
+    - { model: skill-bflkkick, initSkillMult: 2 }
+    - { model: skill-limbblock, initSkillMult: 2 }
+    - { model: skill-press, initSkillMult: 2 }
+    - { model: skill-bflkpunch, initSkillMult: 2 }
+    - { model: skill-trip, initSkillMult: 2 }
+    - { model: mysticalability-sprt }
   system:
     body:
       structure:

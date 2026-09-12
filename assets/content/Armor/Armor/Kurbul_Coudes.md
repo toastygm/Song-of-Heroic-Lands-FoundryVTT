@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Treated leather elbow protection with intricate patterns for function and flair."
 img: icons/game-icons/delapouite/elbow-pad.svg
-shortcode: KCou
+shortcode: kcou
 type: armorgear
 data:
   templatePriority: 0

@@ -339,10 +339,10 @@ function abbreviateWords(tokens: string[]): string[] {
  *
  * The result is a *default* offered in the create dialog, which an author is
  * free to replace — so this aims at a readable, short key rather than at any
- * particular one. A shortcode must be strictly alphanumeric — `SHORTCODE_PATTERN`
- * in `src/utils/shortcode-format.mjs` — so unlike a URL slug it joins with
- * nothing: the `type-shortcode` address parse needs the separating hyphen to be
- * the only hyphen in the string.
+ * particular one. A shortcode must be lowercase alphanumeric —
+ * `SHORTCODE_PATTERN` in `src/utils/shortcode-format.mjs` — so unlike a URL slug
+ * it joins with nothing: the `type-shortcode` address parse needs the separating
+ * hyphen to be the only hyphen in the string.
  *
  * Three steps, each doing less than the last:
  *
@@ -495,8 +495,13 @@ export function resolveShortcodeKey(
                     "resolveShortcodeKey: makeRandomId is required to generate a random shortcode",
                 );
             }
-            let id = makeRandomId();
-            while (taken.has(id)) id = makeRandomId();
+            // Foundry's `randomID` is mixed-case base62, so the raw id is not a
+            // valid shortcode under the lowercase rule (#1882). Fold it here
+            // rather than trusting the injected generator, and test the *folded*
+            // value against the taken set — two ids differing only in case are
+            // one key, so comparing the raw one could hand back a collision.
+            let id = sanitizeShortcode(makeRandomId());
+            while (taken.has(id)) id = sanitizeShortcode(makeRandomId());
             return { shortcode: id };
         }
     }

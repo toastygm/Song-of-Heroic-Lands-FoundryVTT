@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "One-hundred-twenty pound horse-bow; only veteran cavalry can draw."
 img: icons/game-icons/lorc/pocket-bow.svg
-shortcode: CBw120
+shortcode: cbw120
 type: weapongear
 data:
   templatePriority: 0

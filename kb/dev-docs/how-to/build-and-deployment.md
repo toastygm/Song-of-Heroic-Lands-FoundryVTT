@@ -496,7 +496,7 @@ both content builds silently, so `npm run lint:content-links` (also part of
 - **A rules document unreachable from `Rules/_Introduction.md`.** An
   unlinked note still compiles and still publishes; it is simply impossible to
   arrive at by reading. Link each one from the chapter that owns it. The walk
-  resolves links exactly as the builds do, and expands fenced `dataview` tables
+  resolves links exactly as the builds do, and expands fenced `sql` tables
   first, so a generated row link counts. It stops **at** the glossary rather than
   walking through it: an index links to nearly everything, and following it would
   make the check vacuous.

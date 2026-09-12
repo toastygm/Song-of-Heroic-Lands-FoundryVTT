@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Well-insulated outer garment providing warmth and protection in cold climates."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: PMntl
+shortcode: pmntl
 type: armorgear
 data:
   templatePriority: 0

@@ -25,21 +25,21 @@ sohl:
     rea: 1d4+5
     cre: 1d4+3
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 9 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 18 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 75 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 65 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 30 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 40 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 64 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 20 } }
+    - { model: attribute-str, system: { scoreBase: 6 } }
+    - { model: attribute-end, system: { scoreBase: 9 } }
+    - { model: attribute-dex, system: { scoreBase: 14 } }
+    - { model: attribute-agl, system: { scoreBase: 15 } }
+    - { model: attribute-per, system: { scoreBase: 18 } }
+    - { model: attribute-aur, system: { scoreBase: 8 } }
+    - { model: attribute-wil, system: { scoreBase: 12 } }
+    - { model: attribute-rea, system: { scoreBase: 8 } }
+    - { model: attribute-cre, system: { scoreBase: 6 } }
+    - { model: skill-awar, system: { masteryLevelBase: 75 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 65 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 30 } }
+    - { model: skill-init, system: { masteryLevelBase: 40 } }
+    - { model: skill-dge, system: { masteryLevelBase: 64 } }
+    - { model: skill-shok, system: { masteryLevelBase: 20 } }
     - name: Beak Strike
       type: skill
       system:

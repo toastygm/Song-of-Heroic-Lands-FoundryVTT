@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Padded shirt for under-armor or standalone combat protection."
 img: icons/game-icons/lucasms/shirt.svg
-shortcode: GSht
+shortcode: gsht
 type: armorgear
 data:
   templatePriority: 0

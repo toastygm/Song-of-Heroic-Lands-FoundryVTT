@@ -8,7 +8,7 @@ type: projectilegear
 data:
   templatePriority: 0
 subType: bolt
-shortcode: BltStd
+shortcode: bltstd
 img: icons/game-icons/lorc/broadhead-arrow.svg
 easyname: Standard
 sohl:

@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Luxurious silk mantle; elegant cloak for formal high-status occasions."
 img: icons/game-icons/delapouite/cape.svg
-shortcode: SlkMntl
+shortcode: slkmntl
 type: armorgear
 data:
   templatePriority: 0

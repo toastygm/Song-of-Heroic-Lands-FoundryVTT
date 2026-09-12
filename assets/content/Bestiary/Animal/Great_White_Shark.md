@@ -24,21 +24,21 @@ sohl:
     rea: 1d4+4
     cre: 1d4+2
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 19 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 11 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 16 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 12 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 14 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 75 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 65 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 39 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 44 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 56 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 45 } }
+    - { model: attribute-str, system: { scoreBase: 19 } }
+    - { model: attribute-end, system: { scoreBase: 16 } }
+    - { model: attribute-dex, system: { scoreBase: 11 } }
+    - { model: attribute-agl, system: { scoreBase: 13 } }
+    - { model: attribute-per, system: { scoreBase: 16 } }
+    - { model: attribute-aur, system: { scoreBase: 12 } }
+    - { model: attribute-wil, system: { scoreBase: 14 } }
+    - { model: attribute-rea, system: { scoreBase: 7 } }
+    - { model: attribute-cre, system: { scoreBase: 5 } }
+    - { model: skill-awar, system: { masteryLevelBase: 75 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 65 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 39 } }
+    - { model: skill-init, system: { masteryLevelBase: 44 } }
+    - { model: skill-dge, system: { masteryLevelBase: 56 } }
+    - { model: skill-shok, system: { masteryLevelBase: 45 } }
     - name: Devastating Bite
       type: skill
       system:

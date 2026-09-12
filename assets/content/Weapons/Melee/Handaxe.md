@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Light ash-haft axe; foot-soldier's main arm or cavalry sidearm."
 img: icons/game-icons/lorc/battle-axe.svg
-shortcode: HAxe
+shortcode: haxe
 type: weapongear
 data:
   templatePriority: 0

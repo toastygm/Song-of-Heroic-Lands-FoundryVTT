@@ -52,197 +52,227 @@ Gear comes in several kinds, each with its own properties and behavior, describe
 
 ## Cash
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "cash"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'cash'
 ```
 
 ## Cooking
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "cooking"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'cooking'
 ```
 
 ## Dye
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "dye"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'dye'
 ```
 
 ## Expedition
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "expedition"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'expedition'
 ```
 
 ## Food
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "food"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'food'
 ```
 
 ## Instruments
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "instruments"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'instruments'
 ```
 
 ## Jewelry
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "jewelry"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'jewelry'
 ```
 
 ## Lighting
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "lighting"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'lighting'
 ```
 
 ## Music
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "music"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'music'
 ```
 
 ## Natural Items
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "natural"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'natural'
 ```
 
 ## Religious
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "religious"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'religious'
 ```
 
 ## Scribe Materials
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "scribe"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'scribe'
 ```
 
 ## Spirits and Brews
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "spirits"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'spirits'
 ```
 
 ## Stone
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "stone"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'stone'
 ```
 
 ## Tack
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "miscgear" AND sohl.kbcat = "tack"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'miscgear'
+  AND sohl.kbcat = 'tack'
 ```
 
 # Container Gear
@@ -251,16 +281,17 @@ WHERE type = "miscgear" AND sohl.kbcat = "tack"
 
 Any gear item can be placed **inside** a container; while stored there, the item travels with the container. Containers may themselves be placed inside other containers (a pouch inside a pack), so a character's belongings form a nested hierarchy. The weight of a container's contents still counts toward the character's carried weight while the container is carried — a full pack is no lighter than the sum of what is in it.
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.maxCapacityBase AS "Capacity",
-  description AS "Description"
-WHERE type = "containergear"
+```sql
+SELECT address.slug                AS _ref,
+       name.full                   AS "Name",
+       shortcode                   AS "Shortcode",
+       sohl.system.weightBase      AS "Weight",
+       sohl.system.valueBase       AS "Value",
+       sohl.system.durabilityBase  AS "Durability",
+       sohl.system.maxCapacityBase AS "Capacity",
+       description                 AS "Description"
+FROM notes
+WHERE type = 'containergear'
 ```
 
 # Weapons {#weapons}
@@ -285,184 +316,212 @@ A weapon **optionally** has an **encumbrance value**. If it does, that value is 
 
 ## Bows
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "bow"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'bow'
 ```
 
 ## Crossbows
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "crossbow"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'crossbow'
 ```
 
 ## Slings
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "sling"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'sling'
 ```
 
 ## Thrown
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "thrown"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'thrown'
 ```
 
 ## Flails
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "flail"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'flail'
 ```
 
 ## Swords
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "sword"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'sword'
 ```
 
 ## Axes
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "axe"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'axe'
 ```
 
 ## Clubs
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "club"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'club'
 ```
 
 ## Knives
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "knife"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'knife'
 ```
 
 ## Polearms
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "polearm"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'polearm'
 ```
 
 ## Nets
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "net"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'net'
 ```
 
 ## Whips
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "whip"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'whip'
 ```
 
 ## Shields
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "shield"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'shield'
 ```
 
 # Siege Weapons
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "weapongear" AND sohl.kbcat = "siege"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'weapongear'
+  AND sohl.kbcat = 'siege'
 ```
 
 # Projectiles
@@ -473,15 +532,16 @@ A projectile carries its own **impact** — the damage it delivers on a hit, exp
 
 Projectiles are ordinarily tracked in quantity (a bundle of arrows) and are expended as they are used.
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  description AS "Description"
-WHERE type = "projectilegear"
+```sql
+SELECT address.slug               AS _ref,
+       name.full                  AS "Name",
+       shortcode                  AS "Shortcode",
+       sohl.system.weightBase     AS "Weight",
+       sohl.system.valueBase      AS "Value",
+       sohl.system.durabilityBase AS "Durability",
+       description                AS "Description"
+FROM notes
+WHERE type = 'projectilegear'
 ```
 
 # Armor
@@ -538,173 +598,191 @@ The penalty applies to any test **built on Perception** — the attribute itself
 
 ## Cloth
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "cloth"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'cloth'
 ```
 
 ## Gambeson
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "gambeson"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'gambeson'
 ```
 
 ## Kurbul
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "kurbul"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'kurbul'
 ```
 
 ## Leather
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "leather"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'leather'
 ```
 
 ## Mail
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "mail"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'mail'
 ```
 
 ## Padded
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "padded"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'padded'
 ```
 
 ## Plate
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "plate"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'plate'
 ```
 
 ## Quilted
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "quilted"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'quilted'
 ```
 
 ## Scale
 
-```dataview
-TABLE WITHOUT ID
-  link(file.path, name.full) AS "Name",
-  shortcode AS "Shortcode",
-  sohl.system.weightBase AS "Weight",
-  sohl.system.valueBase AS "Value",
-  sohl.system.durabilityBase AS "Durability",
-  sohl.system.encumbrance AS "Encumbrance",
-  sohl.system.encumbranceGroup AS "Harness",
-  sohl.system.perceptionPenaltyBase AS "Perception",
-  sohl.system.protectionBase.blunt AS "B",
-  sohl.system.protectionBase.edged AS "E",
-  sohl.system.protectionBase.piercing AS "P",
-  sohl.system.protectionBase.fire AS "F"
-WHERE type = "armorgear" AND sohl.kbcat = "scale"
+```sql
+SELECT address.slug                        AS _ref,
+       name.full                           AS "Name",
+       shortcode                           AS "Shortcode",
+       sohl.system.weightBase              AS "Weight",
+       sohl.system.valueBase               AS "Value",
+       sohl.system.durabilityBase          AS "Durability",
+       sohl.system.encumbrance             AS "Encumbrance",
+       sohl.system.encumbranceGroup        AS "Harness",
+       sohl.system.perceptionPenaltyBase   AS "Perception",
+       sohl.system.protectionBase.blunt    AS "B",
+       sohl.system.protectionBase.edged    AS "E",
+       sohl.system.protectionBase.piercing AS "P",
+       sohl.system.protectionBase.fire     AS "F"
+FROM notes
+WHERE type = 'armorgear'
+  AND sohl.kbcat = 'scale'
 ```
 
 # Concoctions

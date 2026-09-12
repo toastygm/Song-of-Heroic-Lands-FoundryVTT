@@ -25,21 +25,21 @@ sohl:
     rea: 1d4+4
     cre: 1d4+2
   items:
-    - { shortcode: str, type: attribute, system: { scoreBase: 21 } }
-    - { shortcode: end, type: attribute, system: { scoreBase: 20 } }
-    - { shortcode: dex, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: agl, type: attribute, system: { scoreBase: 6 } }
-    - { shortcode: per, type: attribute, system: { scoreBase: 13 } }
-    - { shortcode: aur, type: attribute, system: { scoreBase: 8 } }
-    - { shortcode: wil, type: attribute, system: { scoreBase: 15 } }
-    - { shortcode: rea, type: attribute, system: { scoreBase: 7 } }
-    - { shortcode: cre, type: attribute, system: { scoreBase: 5 } }
-    - { shortcode: awar, type: skill, system: { masteryLevelBase: 70 } }
-    - { shortcode: stlth, type: skill, system: { masteryLevelBase: 50 } }
-    - { shortcode: sprt, type: mysticalability, system: { masteryLevelBase: 33 } }
-    - { shortcode: init, type: skill, system: { masteryLevelBase: 44 } }
-    - { shortcode: dge, type: skill, system: { masteryLevelBase: 36 } }
-    - { shortcode: shok, type: skill, system: { masteryLevelBase: 53 } }
+    - { model: attribute-str, system: { scoreBase: 21 } }
+    - { model: attribute-end, system: { scoreBase: 20 } }
+    - { model: attribute-dex, system: { scoreBase: 6 } }
+    - { model: attribute-agl, system: { scoreBase: 6 } }
+    - { model: attribute-per, system: { scoreBase: 13 } }
+    - { model: attribute-aur, system: { scoreBase: 8 } }
+    - { model: attribute-wil, system: { scoreBase: 15 } }
+    - { model: attribute-rea, system: { scoreBase: 7 } }
+    - { model: attribute-cre, system: { scoreBase: 5 } }
+    - { model: skill-awar, system: { masteryLevelBase: 70 } }
+    - { model: skill-stlth, system: { masteryLevelBase: 50 } }
+    - { model: mysticalability-sprt, system: { masteryLevelBase: 33 } }
+    - { model: skill-init, system: { masteryLevelBase: 44 } }
+    - { model: skill-dge, system: { masteryLevelBase: 36 } }
+    - { model: skill-shok, system: { masteryLevelBase: 53 } }
     - name: Tusk Gore
       type: skill
       system:

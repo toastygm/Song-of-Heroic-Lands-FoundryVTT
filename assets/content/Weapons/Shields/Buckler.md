@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Small light shield for rapid parries; duelist's off-hand ward."
 img: icons/game-icons/willdabeast/round-shield.svg
-shortcode: Bklr
+shortcode: bklr
 type: weapongear
 data:
   templatePriority: 0

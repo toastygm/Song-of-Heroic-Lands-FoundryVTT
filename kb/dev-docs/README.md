@@ -68,7 +68,7 @@ Authoring the content notes in `assets/content/` that compile into compendium do
 - [Authoring a Macro Content Note](content-creator/macro-notes.md) — how a `type: macro` note compiles into a Foundry Macro plus its documentation, and what the `{#script}` anchor does.
 - [Linking Between Content Notes](content-creator/content-links.md) — wikilinks for content authors: the three forms, and why an item and its documentation need two different addresses.
 - [Asset Conventions](content-creator/asset-conventions.md) — where art files live, how `img:` resolves to a shipped path, image and SVG standards, and default item art.
-- [Generated Content Tables](content-creator/content-tables.md) — Dataview `TABLE` queries that tabulate content notes from their frontmatter.
+- [Generated Content Tables](content-creator/content-tables.md) — SQL queries that tabulate content notes from their frontmatter.
 
 ## Reference
 

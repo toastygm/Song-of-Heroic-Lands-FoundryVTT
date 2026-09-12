@@ -5,7 +5,7 @@ name:
   aliases: []
 description: "Tightly-spun wool skirt; durable, practical versatile garment."
 img: icons/game-icons/delapouite/skirt.svg
-shortcode: WSkirt
+shortcode: wskirt
 type: armorgear
 data:
   templatePriority: 0
