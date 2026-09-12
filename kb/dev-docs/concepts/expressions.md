@@ -91,7 +91,7 @@ declares an **expression scope** — a named set of bindings, with a description
 for each — in `src/entity/expr/expression-scopes.mjs`. That one declaration is
 what the runtime validates against, what the formula editor autocompletes from,
 and what the table below is generated from, so the three cannot drift apart
-(issue #1142).
+.
 
 Writing an identifier a scope does not declare is rejected when the expression is
 **compiled**, naming the offending identifier and listing the legal ones — rather
@@ -267,7 +267,7 @@ The sheet's `expressionField` partial forwards that id to the editor as
 `data-expr-scope`, which is what makes autocomplete and the live
 "is this valid?" check agree with the code that will evaluate the value. Nothing
 about the binding contract is typed into a template — a hand-written list there
-is exactly what drifted before (#1142).
+is exactly what drifted before.
 
 ### The standard helpers
 

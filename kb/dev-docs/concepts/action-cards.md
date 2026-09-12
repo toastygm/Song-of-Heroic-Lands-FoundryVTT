@@ -120,7 +120,7 @@ and the action does not re-prompt.
 The click is **authorized before anything runs**: the current client may act only
 if it owns the handler document (a GM owns all). This is
 {@link sohl.document.chat.resolveAuthorizedChatCardHandler} — the real boundary
-(issue #167). It runs before any dialog, scope revival, or logic; the render-time
+. It runs before any dialog, scope revival, or logic; the render-time
 hiding below is UX only and is bypassable.
 
 ## Open vs. targeted buttons — `@self`

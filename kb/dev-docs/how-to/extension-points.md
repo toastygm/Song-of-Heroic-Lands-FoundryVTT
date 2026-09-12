@@ -265,7 +265,7 @@ Extension surfaces:
   (`sohl.events.subscribe({ uuid, actionName, triggerName, predicate })`) — the
   built-in `updateWorldTime` / combat-lifecycle triggers, plus the **scene-region**
   and **environment** triggers (`regionTokenEnter`/`Exit`/`Turn*`/`Round*`,
-  `sceneDarknessChange` — issue #593). Region triggers are event-driven: no
+  `sceneDarknessChange`). Region triggers are event-driven: no
   `fireAt`, so `nextFireTime` is `undefined` and `system.lastRun` is the temporal
   query.
 - **The `trigger` RegionBehavior** ({@link sohl.document.region.foundry}) is
@@ -301,15 +301,14 @@ with `system.templatePriority = <priority:number>` and it becomes an archetype f
 `null` — the field's initial value — means "not an archetype", and a non-numeric
 value is ignored.
 
-**The field was `system.archetype` until issue #1836**, and a module written
+**`system.archetype` is read as a compatibility fallback.** A module written
 against that name keeps working: a world document is migrated on construction,
 and discovery reads a compendium **index** under either spelling — an index
-entry is raw stored data that never passes through a data model, so a pack built
-by an older toolchain would otherwise contribute nothing, silently. Emit
-`system.templatePriority` in new packs. The rename frees `archetype` for the
-character-**sort** taxonomy that authored content already spells `archetypes`; a
-priority and a taxonomy separated only by a plural `s` is a trap
-(`HeroicLands/package-build#266`).
+entry is raw stored data that never passes through a data model, so a pack
+emitting only the old name would otherwise contribute nothing, silently. Emit
+`system.templatePriority` in new packs. `archetype` belongs to the
+character-**sort** taxonomy that authored content spells `archetypes`; a
+priority and a taxonomy separated only by a plural `s` is a trap.
 
 **`0` is a priority, not a blank.** SoHL's own archetypes ship at priority `0`,
 so the tri-state has two states that both look empty and are **not**
@@ -322,9 +321,8 @@ the one place that decision is made.
 sheet header carries a GM-only **Archetype Priority** control bound to
 `system.templatePriority`; a blank box is `null`. (On the Being sheet, whose header
 renders identity as text, it lives in the header's identity dialog alongside
-Name and Shortcode.) It was a flag until issue #1780, and Foundry ships no flag
-editor — marking a document meant exporting it, hand-editing the JSON and
-re-importing.
+Name and Shortcode.) Foundry ships no flag editor, so a flag would mean
+exporting the document, hand-editing the JSON and re-importing.
 
 **Identity is the shortcode, not the name.** After the `(type, subType)` filter,
 an archetype's `system.shortcode` is its identity. Two candidates sharing a

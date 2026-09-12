@@ -118,7 +118,7 @@ docs/
 └── contributing/ Contribution workflow, changesets, system development
 ```
 
-User guide content is authored **in this repository** as Markdown under `assets/content/` (frontmatter `type: doc`), and compiled into Foundry journal entries during build (see [Build & Deployment §5](./build-and-deployment.md#5-compendium-packs-from-in-repo-markdown)). It is source, not generated output: **edit it here** (#1445).
+User guide content is authored **in this repository** as Markdown under `assets/content/` (frontmatter `type: doc`), and compiled into Foundry journal entries during build (see [Build & Deployment §5](./build-and-deployment.md#5-compendium-packs-from-in-repo-markdown)). It is source, not generated output: **edit it here**.
 
 ## Where to find things
 

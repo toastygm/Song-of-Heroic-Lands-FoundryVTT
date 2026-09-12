@@ -64,7 +64,7 @@ Being sheet's Combat tab.
 
 Because it only touches the strike-mode modifiers and `successTest`, the assisted
 path never references combat state. There are **no weapon-level attack/block/
-counterstrike actions** — assisted combat is per-strike-mode only (#69), and
+counterstrike actions** — assisted combat is per-strike-mode only, and
 dodge is a Dodge-skill test, not a Combat-tab cell.
 
 ## Automated combat
@@ -177,7 +177,7 @@ be authorized. The flow (`src/sohl.ts` `renderChatMessageHTML` hook, plus
    - shows Block only if there are blockable modes, Counterstrike only if there's
      a melee attack mode, Dodge only if the Dodge skill is usable.
      This is **UX only** — it hides buttons, it does not authorize.
-3. **Click-time authorization (the real boundary, #167).**
+3. **Click-time authorization (the real boundary).**
    `resolveAuthorizedChatCardHandler` (`chat-card-dispatch.ts`) resolves the
    handler doc (uuid precedence `docUuid → handlerUuid → handlerActorUuid →
 actionHandlerUuid`) and returns it **only if `isOwner`**; `onChatCardButton`

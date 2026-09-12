@@ -64,7 +64,7 @@ Wiring a timed or lifecycle behavior is four steps:
    trigger** (`combatStart`, `roundStart`, `turnEnd`, …). See
    [Triggers](#triggers-the-moments-you-can-hook).
 3. **Register the subscription.**
-   - a **persisted, recurring** schedule → {@link sohl.core.logic.SohlSystem.schedule | sohl.schedule} (writes the durable record **and** arms the queue). It defaults to a **time** schedule (`anchor + interval`); pass a `triggerName` for a **persisted event-driven** schedule (issue #622) — `sohl.schedule(doc, "shockReTest", 0, undefined, undefined, "turnEnd")` re-arms a `turnEnd` subscription on every reload, so a lifecycle cadence survives a reload just like a timed one, and both are offered through the shared {@link sohl.document.item.logic.offerSchedule};
+   - a **persisted, recurring** schedule → {@link sohl.core.logic.SohlSystem.schedule | sohl.schedule} (writes the durable record **and** arms the queue). It defaults to a **time** schedule (`anchor + interval`); pass a `triggerName` for a **persisted event-driven** schedule — `sohl.schedule(doc, "shockReTest", 0, undefined, undefined, "turnEnd")` re-arms a `turnEnd` subscription on every reload, so a lifecycle cadence survives a reload just like a timed one, and both are offered through the shared {@link sohl.document.item.logic.offerSchedule};
    - a **one-shot** future time → {@link sohl.entity.event.SohlEventQueue.scheduleAt | scheduleAt};
    - a **transient lifecycle** subscription (not persisted; re-derived from live state each prep, e.g. a berserker check that exists only while a condition holds) → {@link sohl.entity.event.SohlEventQueue.subscribe | subscribe}, called directly from the document's `finalize()`.
 4. **Let re-arm and reload take care of themselves.** `finalize()` runs on every
@@ -100,7 +100,7 @@ Foundry's `updateWorldTime` / `combatStart` / `deleteCombat` / `combatRound` /
 `Hooks.on(...)` elsewhere for dispatch** — add a built-in trigger by editing that
 one file, or a custom one via [custom triggers](#6-a-custom-trigger--fire-your-own-lifecycle-moment).
 
-### Scene-region & environment triggers (issue #593)
+### Scene-region & environment triggers
 
 The vocabulary above is **time and combat**. A second, **event-driven** family
 covers _where_ characters are and _what the scene is doing_ — Foundry v14 scene
@@ -144,7 +144,7 @@ a scheduler with extras. The distinction shapes what you can ask of a subscripti
 The practical consequence: for an event-driven subscription the queryable temporal
 fact is the **last** occurrence, not the next — so the run record
 (`system.lastRun[actionName]`) is not a display nicety, it is the _only_ meaningful
-temporal query. The **scene-region and environment triggers** (issue #593) are the
+temporal query. The **scene-region and environment triggers** are the
 archetypal event-driven case — a token entering a region, darkness falling — with
 no `fireAt` at all; `nextFireTime` is `undefined` for them by design, and
 `system.lastRun` answers "when did this last happen here?"
@@ -166,7 +166,7 @@ queue and continues seamlessly.
 
 ## Consent: the queue reminds; the human performs
 
-Under the [Prime Directive](https://www.heroiclands.org/sohl/kb/dev-docs/) (issue #579) the queue
+Under the [Prime Directive](https://www.heroiclands.org/sohl/kb/dev-docs/) the queue
 does **not** run a due action directly. It posts an owner-gated `[Perform]`
 reminder card addressed to the document, and the owner's click runs that same
 action. _Reminding is allowed; performing is not._ Everything below is built on
@@ -174,7 +174,7 @@ that: a schedule coming due surfaces an offer, never a fait accompli.
 
 ## Worked examples
 
-### 1. A recurring on-document check — the injury healing check (#486)
+### 1. A recurring on-document check — the injury healing check
 
 The canonical pattern. A treated wound checks its healing every so often; each
 check is a normal action, the schedule lives in the document's
@@ -208,7 +208,7 @@ async healingCheck(_context: SohlActionContext): Promise<void> {
 
 // (c) The TEST. It acts — one occurrence per invocation — and only then OFFERS
 //     the next, anchored on the due time it just answered (NEVER the live clock),
-//     so answering late does not push the cadence later (#1181).
+//     so answering late does not push the cadence later.
 async healingTest(context: SohlActionContext): Promise<{ level: number } | null> {
     const dueAt = context.scope?.dueAt ?? this.healingCheckDueAt();
 
@@ -229,7 +229,7 @@ async healingTest(context: SohlActionContext): Promise<{ level: number } | null>
 - {@link sohl.document.item.logic.offerSchedule} is the shared consent step — accept → `sohl.schedule` the next; decline → `sohl.unschedule` (see [consent](#consent-the-queue-reminds-the-human-performs)).
 - {@link sohl.entity.event.armScheduledActions} does the reload re-arm; {@link sohl.entity.event.elapsedCheckpoints} enumerates the checkpoints a skipped-over stretch of world time contains, for a caller that has to catch up on more than one.
 
-**Check/Test is the shape every recurring effect uses** (#1181): a `*Check` only
+**Check/Test is the shape every recurring effect uses**: a `*Check` only
 offers, a `*Test` acts and then offers the next occurrence. One check invites one
 test — nothing re-arms behind the player, and a check that is never answered
 changes nothing. Blood-loss (`bloodLossAdvanceCheck` → `bloodLossAdvanceTest`),
@@ -300,7 +300,7 @@ to a "next fire" time, so it can't answer [queries](#7-query-the-schedule--when-
 
 Besides the trigger context, a predicate is handed **`subscriberUuid`** — the
 subscription's own document uuid — so it can compare the trigger to itself without
-baking an id into its source. This is how the Incapacitated Shock Re-Test (#569)
+baking an id into its source. This is how the Incapacitated Shock Re-Test
 scopes its `turnEnd` schedule to the victim's **own** turn:
 `combatant.actor.uuid === subscriberUuid` — the `[Perform]` card is offered when
 _this_ being's combatant ends its turn, not on every combatant's. A **persisted**

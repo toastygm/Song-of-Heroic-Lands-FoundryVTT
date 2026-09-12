@@ -96,7 +96,7 @@ assetRoot: `${packageKind}/${foundryPackage}/assets`;
 `foundryPackage: "sohl", packageKind: "systems"`, so its asset root is
 `systems/sohl/assets`. A module declaring `packageKind: "modules",
 foundryPackage: "sohl-thalorna"` gets `modules/sohl-thalorna/assets` **from the
-identical authored value** (#1508).
+identical authored value**.
 
 That is the whole reason to author the short form: `icons/other/sword.svg` means
 "my package's own icon" in every repository, while a hand-written
@@ -148,12 +148,10 @@ nowhere. The paths are correct as an intention; the art has not been drawn yet.
 
 **`sohl-thalorna` hit the same class of failure at scale.** 444 of its 630
 compiled items carry an `img` naming one of 94 distinct icon paths that resolve
-nowhere (`HeroicLands/sohl-thalorna#7`), because SoHL ships icons **nested** —
+nowhere, because SoHL ships icons **nested** —
 `assets/icons/{brand,game-icons,noun,other}/…` — and a flat
-`assets/icons/anvil.svg` has never existed (the real files are
-`assets/icons/noun/anvil.svg` and `assets/icons/game-icons/lorc/anvil.svg`). The
-#1508 prefix fix changed which package root the broken paths hung off; it did
-not make them resolve.
+`assets/icons/anvil.svg` does not exist (the real files are
+`assets/icons/noun/anvil.svg` and `assets/icons/game-icons/lorc/anvil.svg`).
 
 The rule that follows: **paste the path from the file you are pointing at**, and
 remember that a consuming package pointing at SoHL's icons must either ship its
@@ -188,8 +186,8 @@ theme-adaptive. Every SoHL item type therefore gets a themed SVG instead.
 **The runtime reads the same map.** `SohlItem.getDefaultArtwork` imports it back
 through the package's `./sohl/default-item-art` entry point, so an item created
 in-world (via **Add Trauma**, say) gets the icon the pack builder would have
-given it. #932 was precisely that drift, when the builder had a default and the
-runtime did not.
+given it. A default the builder knows and the runtime does not is exactly the
+drift this prevents.
 
 ### Two layers of fail-fast, and a consumer only meets the second
 
@@ -208,7 +206,7 @@ defines its own item type supplies that type's default in its own
 `itemBuilders` entry and never edits a SoHL-owned table. The registry path runs
 back through `resolveImg`, so `img: "icons/relic.svg"` in a registry entry means
 the consumer's own asset root exactly as it does on a note — one spelling, one
-meaning, wherever it is written. This is the current, fixed behaviour (#1568).
+meaning, wherever it is written. This is the current, fixed behaviour.
 
 ## What makes an SVG themeable
 
@@ -263,11 +261,10 @@ declines to touch such a file. **State an icon's colour as a `fill` attribute,
 never as a `fill:` declaration** — or drop it entirely, so the shape defaults to
 black and the injected rule picks it up through `:not([fill])`.
 
-Forty-five bundled icons were authored the other way, five of them default item
-art, and each shipped black on the dark compendium and directory windows. They
-were rewritten to `fill` attributes in #1677; the rendered artwork is
-unchanged, since a `fill` attribute and a `fill:` declaration name the same
-colour.
+An icon authored the other way ships black on the dark compendium and directory
+windows, so bundled icons carry `fill` attributes rather than inline `fill:`
+declarations. The two name the same colour, so the rendered artwork is
+identical.
 
 `tests/build/icon-theming.test.ts` is the standing gate. It walks every `.svg`
 under `assets/icons`, fails on any the injection declines, and separately
@@ -277,8 +274,8 @@ icon carrying inline fills fails there rather than shipping un-themed.
 That suite carries one allowlist entry: `other/mantle.svg` is drawn entirely in
 **strokes**, whose colour lives in an inline `stroke:` that no injected rule can
 override, and rewriting only its fills would half-recolour it. Stroke theming is
-tracked in #1687 — it affects roughly two dozen further icons that carry a black
-`stroke` attribute alongside a themed fill.
+unimplemented; other icons carrying a black `stroke` attribute alongside a
+themed fill are affected the same way.
 
 ### The webfont normaliser is a separate pass
 

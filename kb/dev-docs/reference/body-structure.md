@@ -30,7 +30,7 @@ Every creature (a Being actor) carries its anatomy on the actor itself, under `s
 
 A body structure has three tiers: **body zones**, the **body parts** within each zone, and the **body locations** within each part. A cross-cutting tag set of **body roles** ties parts to the skills and attributes they affect.
 
-**Storage is flat; the hierarchy is derived.** The three tiers persist as three sibling arrays, each child naming its parent by shortcode; {@link sohl.entity.body.BodyStructure} assembles them into the tree on every prepare. Flat storage keeps every edit a single whole-array write — a nested tree would force a by-index write into a sub-array, which Foundry rebuilds from a sparse map and corrupts (#247).
+**Storage is flat; the hierarchy is derived.** The three tiers persist as three sibling arrays, each child naming its parent by shortcode; {@link sohl.entity.body.BodyStructure} assembles them into the tree on every prepare. Flat storage keeps every edit a single whole-array write — a nested tree would force a by-index write into a sub-array, which Foundry rebuilds from a sparse map and corrupts.
 
 ## Where the data lives
 
@@ -169,7 +169,7 @@ A part may carry multiple roles. A wolf's foreleg might be `[locomotor, manipula
 A flagged fumble or stumble (whether from the injury-severity checks above or a
 combat critical failure — the `mishaps: Set<string>` on an attack/defense result,
 see [Combat Resolution Pipeline](./combat-resolution-pipeline.md)) is resolved by a
-**keep-control test** on the affected being (#851 / #852):
+**keep-control test** on the affected being:
 
 - **Stumble** — a "keep your footing" test rolling the **better of** the being's
   **Agility** attribute and **Acrobatics** skill. A failure falls prone.
@@ -211,7 +211,7 @@ SERIOUS/GRIEVOUS = blue, unusable = black).
 ### Immobilized, unusable, and the ability to hold
 
 A limb being out of the fight and a limb being unable to grip are **two different
-states** (#1269) — conflating them would make a constricting hold disarm its
+states** — conflating them would make a constricting hold disarm its
 victim. {@link sohl.entity.body.BodyPart} models them as one settable switch plus
 two derivations, all **Logic-only**: nothing here is persisted, and every value is
 rebuilt from the persisted schema on each preparation cycle.
@@ -264,7 +264,7 @@ the limb is disabled: the body-part editor
 `BodyPart.Data` and so is unaffected; a consumer holding an entity reads
 `canHoldItemBase`.
 
-**Impairment reaches test resolution through a part's roles (#568).** A skill or
+**Impairment reaches test resolution through a part's roles.** A skill or
 attribute declares the body-part roles it depends on in its `impairedByRoles`, and
 the being projects its injured parts onto two role views: `being.unusableRoles()`
 (roles of every _unusable_ part) and `being.impairedRolePenalties()` (each
@@ -277,7 +277,7 @@ penalty is folded into its effective mastery level (the pure
 {@link testImpairmentPenalty}). Both are strict no-ops for a test with no
 `impairedByRoles` or an actor with no impaired parts.
 
-**Weapon strike modes gate on the _specific_ held limb, not a role (#628).** A
+**Weapon strike modes gate on the _specific_ held limb, not a role.** A
 strike mode names its required limbs by _count_ (`minParts`), so gating on the
 being-wide role set would be too coarse — an unusable off-hand you are not gripping
 with must not fail the roll. Instead `GearLogic.heldLimbImpairments` resolves the
@@ -340,7 +340,7 @@ prepare cycle.
 the ceiling.
 
 The cap exists because impact and the thresholds grow at different rates
-(#1242). Impact tracks Strength at about `STR ÷ 2`, while an unbounded scale
+. Impact tracks Strength at about `STR ÷ 2`, while an unbounded scale
 grows the top threshold at `20 × STR ÷ 11` — roughly `STR × 1.8`, some 3.6 times
 faster. Past a scale of about 3 the thresholds outrun every impact the system can
 produce: an Old Dragon at its raw 5.45 would need an effective 109 for a Grievous
@@ -377,7 +377,7 @@ Zone order therefore **matters**: `moveZoneUpdate` re-allocates every subsequent
 
 ## Aimed-strike drift
 
-Zones also supply the neighbourhood the old part-adjacency graph used to provide (#780). {@link sohl.entity.body.BodyStructure.getNeighborParts} returns the nearest ring of candidates:
+Zones also supply the part neighbourhood. {@link sohl.entity.body.BodyStructure.getNeighborParts} returns the nearest ring of candidates:
 
 1. The part's own **zone siblings** (a left arm drifts to the right arm first).
 2. Failing that, parts of the nearest zones by index distance, widening one step at a time in both directions at once.
@@ -430,7 +430,7 @@ one to set when authoring a body structure.
 
 There is no parallel per-shortcode key mechanism. A `SOHL.BodyPart.*` /
 `SOHL.BodyLocation.*` key set once existed alongside the names, but nothing ever read
-it — 169 keys with zero call sites — and it was removed in #1349. Do not add keys for a
+it, so it does not exist. Do not add keys for a
 new part or location; set its `name`.
 
 The `SOHL.BodyPart.FIELDS.*`, `SOHL.BodyLocation.FIELDS.*` and `SOHL.BodyZone.FIELDS.*`

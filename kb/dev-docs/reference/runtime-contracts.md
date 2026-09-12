@@ -79,7 +79,7 @@ field from that sparse map, **truncating the array and default-filling every
 element that wasn't named**. A partial write meant to touch one field of one
 element silently destroys every other element (e.g. wiping every body part's
 `shortcode`, `canHoldItem`, and `locations`). This corrupted persisted anatomy
-in production; see issue #247.
+in production.
 
 To change a subset of an array's elements, **source the full canonical array
 from the DataModel and write it back whole**, with only the target element(s)
@@ -108,20 +108,18 @@ Two reasons this is easy to miss:
 | `system.templatePriority` | `number \| null` | Actor / Item | Marks the document as a Create-dialog **archetype** (a populated starting template) and carries its **priority**. `null` means "not an archetype". See [Extension Points → Create-dialog archetypes](../how-to/extension-points.md#10-create-dialog-archetypes-systemtemplatepriority). |
 
 Declared once, on the shared base schema (`defineSohlDataSchema`), so it reaches
-every Actor, Item and Combatant subtype. It lived in `flags.sohl.docArchetype`
-until issue #1780; Foundry ships no flag editor, so a schema field is what lets a
-GM set it from the sheet instead of by export / hand-edit / re-import. SoHL
-declares no reserved `flags.sohl.*` keys any more.
+every Actor, Item and Combatant subtype. It is a schema field rather than a
+flag because Foundry ships no flag editor, and a schema field is what lets a GM
+set it from the sheet instead of by export / hand-edit / re-import. SoHL
+declares no reserved `flags.sohl.*` keys.
 
-**It was called `system.archetype` until issue #1836.** The field is the
-_priority_, not the kind, and authored content already carries a sibling
-`archetypes` list — what sort of character a being is (healer, warrior, mage). A
-priority and a taxonomy told apart only by a plural `s` is a trap for every
-reader, so the number took the name that says what it is
-(`HeroicLands/package-build#266` settles it across the toolchain). A world's
-existing value is carried across automatically by the shared base's
-`migrateData`, and compendium **index** entries — which never pass through a
-data model — are read under either spelling.
+**`system.archetype` is read as a compatibility fallback.** The field is the
+_priority_, not the kind; authored content carries a sibling `archetypes` list —
+what sort of character a being is (healer, warrior, mage) — and a priority and a
+taxonomy told apart only by a plural `s` is a trap. A world document carrying
+the old name is migrated on construction by the shared base's `migrateData`, and
+compendium **index** entries — which never pass through a data model — are read
+under either spelling.
 
 **`0` is a priority, not a blank.** The system's own archetypes ship at `0`, so a
 truthiness test on this field would hide every one of them. Read it through
@@ -318,7 +316,7 @@ The resolved document's `onChatCardButton(btn)` (or `onChatCardEditAction`) is t
 **A chat-card action is _handled by the actor it addresses_, and only a client that owns that actor may run it** (a GM owns all). Buttons that drive a flow — roll damage, respond to an attack, resume an opposed test — mutate the handler's own actor state, so under [actor-state sovereignty](../concepts/architecture.md#actor-state-sovereignty) authorization is exactly document ownership. This rule has **two sides**, both keyed on the resolved handler document's `isOwner`:
 
 - **Render-time (visibility).** When a card renders, `gateAutomatedDefenseButtons` (`src/document/chat/chat-card-gating.ts`) resolves each defender-response button's `data-handler-actor-uuid` and **removes the buttons a non-owner can't use** (and, for the owner, gates by capability/incapacitation). This is **UX only** — a per-client cosmetic filter.
-- **Click-time (authorization).** The render gate is trivially bypassed by a synthesized click or a direct `doc.onChatCardButton(...)` call, so the **real boundary** is at dispatch: `resolveAuthorizedChatCardHandler(dataset, resolveDoc)` (`chat-card-dispatch.ts`) resolves the handler document and returns it **only if `doc.isOwner`** — otherwise the click is ignored, before any dialog, `buildActionScope` revival, or intrinsic logic runs. Each `onChatCardButton` handler additionally re-checks `this.isOwner` on entry, so a direct call is refused too (defense-in-depth). This closes issue #167.
+- **Click-time (authorization).** The render gate is trivially bypassed by a synthesized click or a direct `doc.onChatCardButton(...)` call, so the **real boundary** is at dispatch: `resolveAuthorizedChatCardHandler(dataset, resolveDoc)` (`chat-card-dispatch.ts`) resolves the handler document and returns it **only if `doc.isOwner`** — otherwise the click is ignored, before any dialog, `buildActionScope` revival, or intrinsic logic runs. Each `onChatCardButton` handler additionally re-checks `this.isOwner` on entry, so a direct call is refused too (defense-in-depth).
 
 Foundry's own document-ownership check still guards the final _persisted write_; the authorization gate exists to refuse _entering_ the pre-write flow (dialogs, scope revival, intrinsic actions) for an unauthorized client. Both `resolveAuthorizedChatCardHandler` and the render gate take the Foundry lookup (`fromUuidSync`) as an injected parameter, so the authorization logic is Foundry-free and unit-tested.
 
