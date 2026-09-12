@@ -51,7 +51,7 @@ const ROOT = "cypress/e2e";
  * frozen schema stands, only the deferred *behavior* is RED. When a fenced
  * feature lands, un-skip its spec(s) and delete its entry here.
  *
- * See the beta-scope plan (Blocker III / issue #958) for the in/out-of-scope
+ * See the beta-scope plan (Blocker III) for the in/out-of-scope
  * boundary these numbers draw.
  *
  * @type {Record<number, string>}

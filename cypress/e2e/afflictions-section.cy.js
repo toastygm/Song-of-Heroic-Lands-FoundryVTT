@@ -13,7 +13,7 @@
 
 /**
  * Being Trauma tab — Afflictions section: afflictions grouped by subtype
- * with Name / Category / Level / HR / Next Heal Test columns (#943 — the former
+ * with Name / Category / Level / HR / Next Heal Test columns (the former
  * Source column is now the explicit Category column, and a calendar-formatted
  * Next Heal Test replaces Notes), a custom-create control (data-type=affliction),
  * and a per-row context menu. (The Trauma tab has no search filter.)
@@ -80,7 +80,7 @@ describe("Being Trauma tab: Afflictions section", () => {
             cy.createItemOn(actor, "affliction", {
                 name: "Numbing Cold",
                 system: {
-                    // privation was removed in the #565 subtype reorg; "other" is
+                    // privation is not a subtype; "other" is
                     // the catch-all affliction subtype.
                     subType: "other",
                     levelBase: 1,

@@ -322,8 +322,8 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
 
     /**
      * Register the sheet's render parts, derived from its declared `PARTS` in
-     * declaration order: the experimental-schema banner (fenced types only,
-     * issue #959), the header, the tab navigation, the Facade tab, and every
+     * declaration order: the experimental-schema banner (fenced types only),
+     * the header, the tab navigation, the Facade tab, and every
      * content tab the concrete sheet declares — the last of which are withheld
      * when the viewer has only limited permission.
      *

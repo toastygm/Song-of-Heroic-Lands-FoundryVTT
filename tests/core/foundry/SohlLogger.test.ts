@@ -15,7 +15,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { SohlLogger } from "@src/core/foundry/SohlLogger";
 
 /**
- * Regression guard for #267: `uiWarn`/`uiInfo`/`uiError` must surface exactly one
+ * Regression guard: `uiWarn`/`uiInfo`/`uiError` must surface exactly one
  * Foundry UI notification and must NOT recurse (the notify branch used to call
  * back into `uiWarn`/`log`, blowing the stack), and a formatting failure must not
  * crash `log()`.

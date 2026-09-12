@@ -16,14 +16,14 @@
  *
  * Two regressions, both reported together:
  *
- *  - #924 — opening a card's ⋮ context menu used to force `position: relative`
+ *  - Opening a card's ⋮ context menu must not force `position: relative`
  *    onto the trigger element (a leftover in `SohlContextMenu._setPosition`),
  *    dropping the absolutely-positioned corner ⋮ back into flow and shifting the
  *    card's text. Nothing cleared the inline style on close, so the shift was
  *    permanent. The menu is positioned within the `.application` container, so
  *    the trigger's own position must be left untouched.
  *
- *  - #925 — every attribute has a Target Level (its mastery level, score × 5)
+ *  - Every attribute has a Target Level (its mastery level, score × 5)
  *    and must be rollable as a Success Test against it, exactly like a skill.
  *    The `successTest` intrinsic action was missing from `AttributeLogic`.
  */

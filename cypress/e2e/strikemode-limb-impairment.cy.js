@@ -26,7 +26,7 @@
  * weapon assigns it to a real limb whose hit locations can then be injured.
  */
 
-/** Minimal weapongear with the correct nested defense schema (avoids #246). */
+/** Minimal weapongear with the correct nested defense schema. */
 const INLINE_WEAPON = {
     name: "Test Sword",
     system: {

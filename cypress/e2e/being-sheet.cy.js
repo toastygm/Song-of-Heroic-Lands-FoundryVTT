@@ -51,7 +51,7 @@ describe("being sheet", () => {
         });
     });
 
-    // #833 — affordance clarity. The edit-identity pencil must be discoverable
+    // Affordance clarity. The edit-identity pencil must be discoverable
     // at rest (present-but-muted), not hidden at opacity:0 until the identity row
     // is hovered. Assert a resting (un-hovered) opacity greater than 0.
     it("shows the edit-identity pencil at rest, not hidden until hover", () => {
@@ -64,7 +64,7 @@ describe("being sheet", () => {
         });
     });
 
-    // #833 — a Being opened straight from the locked `sohl.actors` compendium is
+    // A Being opened straight from the locked `sohl.actors` compendium is
     // read-only, so Foundry disables every control. A disabled `.icon-button`
     // must READ as disabled (a `not-allowed` cursor) rather than looking
     // clickable; before the fix `.icon-button` had no disabled style, so a
@@ -111,7 +111,7 @@ describe("being sheet", () => {
         });
     });
 
-    // #922 — the Profile → Attributes score cards render six across (a pinned
+    // The Profile → Attributes score cards render six across (a pinned
     // six-column grid, not the old auto-fill track) and center their contents.
     // Assert the computed column count and that a card's score value is centered.
     it("renders attribute cards six across, contents centered", () => {
@@ -189,7 +189,7 @@ describe("being sheet", () => {
         });
     });
 
-    // #769 — the EML and Fate value cells bind a hover tooltip to the
+    // The EML and Fate value cells bind a hover tooltip to the
     // mastery-level modifier delta summary (deltaLabel), positioned above the
     // row (data-tooltip-direction="UP"). The attributes' presence (the tooltip
     // text is empty when a value has no deltas) proves the binding; before the
@@ -212,7 +212,7 @@ describe("being sheet", () => {
         });
     });
 
-    // #769 — the strike-mode Impact/Atk/Blk/CX value cells bind an above-row
+    // The strike-mode Impact/Atk/Blk/CX value cells bind an above-row
     // deltaLabel tooltip. A combattechnique skill seeds a melee strike mode so
     // the combat tab has a row to assert against. Only the enabled value cells
     // carry the `rollable` class (a disabled column renders a plain ✕ cell), and

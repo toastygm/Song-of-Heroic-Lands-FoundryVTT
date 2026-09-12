@@ -7,11 +7,11 @@
 
 /**
  * Render the real Mystical Ability properties sheet template in Node and assert
- * the emitted binding placeholders. Covers #815: the phantom
+ * the emitted binding placeholders. The phantom
  * `system.domainCode` control (no such schema field — the Domain-registry
  * integration is incomplete) and the phantom `system.isImprovable` control (a
  * mis-named duplicate of the existing `improveFlag`) must both be gone, while
- * the real `system.improveFlag` control still renders. Also covers #973: the
+ * the real `system.improveFlag` control still renders. Also: the
  * dead `system.skillBaseFormula` control (a Mystical Ability has no Skill Base —
  * its rolled value derives from `masteryLevelBase`) must be gone too, and
  * The unlabelled, inert `system.charges.usesCharges` checkbox must be gone —

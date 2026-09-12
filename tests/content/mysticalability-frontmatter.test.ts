@@ -18,7 +18,7 @@
  * receives is discarded by Foundry when the compendium item is constructed —
  * silently, with nothing at compile or load time to tell the author their
  * value had no effect. `assocMysteryCode` was exactly that for nine notes
- *: the DataModel dropped it in #973, and the notes went on setting it.
+ * The DataModel does not declare it, so a note must not set it.
  *
  * This is the copy-side guard. It cannot see the pack builder's emitted block
  * (that lives in `@heroiclands/package-build`, and is

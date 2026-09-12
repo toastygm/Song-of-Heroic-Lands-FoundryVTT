@@ -277,7 +277,7 @@ describe("MasteryLevelModifier.successTest — headless / skipDialog", () => {
     }
 
     /**
-     * Override the (getter-only) `actorLogic` on a parent logic so the #568
+     * Override the (getter-only) `actorLogic` on a parent logic so the
      * impairment seam can read `unusableRoles()` / `impairedRolePenalties()`.
      */
     function stubActorLogic(parent: any, actorLogic: any): void {

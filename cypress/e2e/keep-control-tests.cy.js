@@ -12,7 +12,7 @@
  */
 
 /**
- * Keep-control tests (#851 Stumble / #852 Fumble). Each is a "keep control of
+ * Keep-control tests (Stumble and Fumble). Each is a "keep control of
  * your body" success test a combat mishap can flag: Stumble rolls the better of
  * Agility / Acrobatics, Fumble the better of Dexterity / Legerdemain, and each
  * posts a result card whose bespoke text ("Keeps Footing", "Drops It", …) comes

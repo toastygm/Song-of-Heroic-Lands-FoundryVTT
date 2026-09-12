@@ -31,7 +31,7 @@ describe("limb immobilization vs. the ability to hold", () => {
     beforeEach(() => cy.closeAllSheets());
     afterEach(() => cy.cleanupWorld());
 
-    /** Minimal weapongear with the correct nested defense schema (cf. #246). */
+    /** Minimal weapongear with the correct nested defense schema. */
     const INLINE_WEAPON = {
         name: "Test Sword",
         system: {

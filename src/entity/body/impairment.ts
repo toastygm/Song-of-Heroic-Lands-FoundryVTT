@@ -28,7 +28,7 @@
  * minimum the result can never be milder than.
  *
  * Pure and Foundry-free; consumed by the Being-sheet header grid (and, later, the
- * health derivation #463).
+ * health derivation).
  */
 
 /**

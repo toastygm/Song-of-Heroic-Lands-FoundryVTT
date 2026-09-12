@@ -60,7 +60,7 @@ export interface ZoneAimResult {
  * parent by shortcode (`bodyZoneCode` / `bodyPartCode`). The constructor
  * assembles them into the Zone → Part → Location tree exposed by
  * {@link BodyStructure.zones}. Flat storage keeps every `update()` a
- * single whole-array write (see {@link setPartFieldsUpdate} and #247) instead of
+ * single whole-array write (see {@link setPartFieldsUpdate}) instead of
  * the nested rewrite a tree would force.
  *
  * Every entity's `index` is its position in its **flat** array, so

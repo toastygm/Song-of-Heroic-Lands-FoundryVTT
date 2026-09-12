@@ -12,7 +12,7 @@
  */
 
 /**
- * Security regression tests for issue #163:
+ * Security regression tests:
  * XSS in CalendarSettingsMenu delete-confirm dialog via imported calendar name.
  *
  * `cal.label` comes verbatim from an imported JSON file; `game.i18n.format`

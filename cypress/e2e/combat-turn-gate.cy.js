@@ -49,7 +49,7 @@ function combatantOf(win, combatId, actorId) {
 
 /**
  * Drive `startAutomatedAttack` on `combatant` and capture the outcome. Stubbing
- * `sohl.log.uiWarn` collects the warnings and also dodges the #267 logger
+ * `sohl.log.uiWarn` collects the warnings and also dodges the logger
  * recursion. Returns `{ result, warnings, posted }` where `posted` is the number
  * of chat messages created by the call (0 when the gate short-circuits).
  */
@@ -124,8 +124,8 @@ describe("automated combat turn gate", () => {
     // RED — the in-turn *pass* is not e2e-reachable headless: `game.combat` needs
     // a canvas (so `getActiveCombat()` is undefined here and the gate always
     // reports "no active combat turn"), and the attack-start flow past the gate
-    // is itself stubbed (#177 — `getUsableStrikeModes()` returns []). The
+    // is itself stubbed (`getUsableStrikeModes()` returns []). The
     // current-vs-other distinction is unit-tested via `outOfTurnAttackReason`.
-    // Un-skip once #177 lands and a viewport is available.
-    it.skip("the current combatant may start an automated attack (#177, needs canvas)", () => {});
+    // Un-skip once automated attack start lands and a viewport is available.
+    it.skip("the current combatant may start an automated attack (needs canvas)", () => {});
 });

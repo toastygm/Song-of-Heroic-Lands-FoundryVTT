@@ -11,7 +11,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-// #822 — the item sheets share the Being sheet's #817 stale-submit condition.
+// The item sheets share the Being sheet's stale-submit condition.
 // Every SoHL sheet uses `submitOnChange`, and Foundry still allows a submit
 // while a sheet is CLOSING. An item sheet renders `<prose-mirror
 // name="system.notes">`, which commits on teardown, so closing an item sheet
@@ -19,7 +19,7 @@
 // in its collection, and the base `_processSubmitData` threw "Document creation
 // from _<ItemSheet> is not supported." The guard now lives in the shared
 // `SheetMixin`, so both the actor and item sheet families skip a stale submit
-// silently while a live edit still persists. This mirrors the #817 being-sheet
+// silently while a live edit still persists. This mirrors the being-sheet
 // test for both a world item and an actor-embedded item (whose deletion
 // cascades from its owning actor).
 describe("item sheet — stale submit after delete", () => {

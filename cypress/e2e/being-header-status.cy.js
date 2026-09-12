@@ -17,7 +17,7 @@
  * Six pills are toggleable ActiveEffect statuses (Sleep/Prone/Stun/Incapacitated/
  * Unconscious/Dead); Aural-Shock and Fatigue are read-only indicators lit from an
  * active affliction of that subtype (matching the prototype). The health bar and
- * body-part grid are split out to #463 / #464 and not exercised here.
+ * body-part grid are covered elsewhere and not exercised here.
  */
 describe("Being sheet header: status toggles + affliction indicators", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));

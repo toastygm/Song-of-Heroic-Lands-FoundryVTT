@@ -22,7 +22,7 @@
  *
  * This spec exercises `foundry.utils.cleanHTML` in the live browser to prove
  * (a) it is present in the runtime our shim assumes, (b) it neutralizes the
- * denylist-bypass vectors from #161, and (c) it preserves the benign chat-card
+ * known denylist-bypass vectors, and (c) it preserves the benign chat-card
  * markup our dispatch relies on — most importantly the `data-*` attributes.
  */
 describe("HTML sanitization", () => {

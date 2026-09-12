@@ -89,7 +89,7 @@ describe("Standard test card — follow-up buttons", () => {
                         skipDialog: btn.dataset.skipDialog ?? null,
                         label: btn.textContent.trim(),
                         // The always-present edit pencil still renders on the
-                        // same card. #856 gave it its own action
+                        // same card. It has its own action
                         // (`resultEdit`); it is a GM-only control, and the e2e
                         // user is a GM, so it renders here.
                         hasEditPencil: !!div.querySelector('[data-action="resultEdit"]'),

@@ -50,7 +50,7 @@ function draw3(rng) {
     return [rng.die(6), rng.die(6), rng.die(6)];
 }
 
-describe("driven-tour: seeded RNG (SohlTour #624)", () => {
+describe("driven-tour: seeded RNG (SohlTour)", () => {
     before(() => cy.login());
 
     afterEach(() => {
@@ -187,8 +187,8 @@ describe("driven-tour: seeded RNG (SohlTour #624)", () => {
     });
 
     it("exit interleaved with the render await leaves no ghost, and a residual ghost is swept by the next start", () => {
-        // The #679 guard only covers an `exit()` landing BEFORE the render begins.
-        // #737 is the residual race: `_renderStep` yields at `super._renderStep()`,
+        // The existing guard only covers an `exit()` landing BEFORE the render
+        // begins. The residual race: `_renderStep` yields at `super._renderStep()`,
         // and an `exit()` interleaving THAT await tears down before the card is
         // tracked, so the card painted afterward strands as a ghost that a later
         // gate probe (character-creation) reads as "open" in full-suite runs.
@@ -243,7 +243,7 @@ describe("driven-tour: seeded RNG (SohlTour #624)", () => {
     });
 });
 
-describe("driven-tour: drive steps (SohlTour #624)", () => {
+describe("driven-tour: drive steps (SohlTour)", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
 
     afterEach(() => {
@@ -290,7 +290,7 @@ describe("driven-tour: drive steps (SohlTour #624)", () => {
     // placeable-Token canvas draw (see kb/dev-docs/how-to/testing.md), so combat/target
     // primitives can't be proven on pixels here.
     it.skip("imports an adventure, starts combat, and sets a target", () => {
-        // RED — blocked by #620: needs the Automated Combat tour's fixtures and a
+        // RED — blocked on the Automated Combat tour: needs its fixtures and a
         // drawn canvas (headless suppresses placeable-Token rendering).
     });
 });

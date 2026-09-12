@@ -83,7 +83,7 @@ export class TraumaSheet extends SohlItemSheetBase {
             categoryChoices:
                 fieldsView.showCategory ? CATEGORY_CHOICES_BY_SUBTYPE[system.subType] : undefined,
             // View-only next recovery/heal/course test date (nothing is
-            // auto-armed — consent model #579); em-dash when unscheduled.
+            // auto-armed — consent model); em-dash when unscheduled.
             nextTestDisplay: this.formatNextTest(logic?.nextRecoveryTestAt),
         });
     }

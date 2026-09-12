@@ -12,7 +12,7 @@
  */
 
 /**
- * Affliction onset creation offer (closing out #579): catching an
+ * Affliction onset creation offer: catching an
  * affliction no longer auto-arms its onset check — `BeingLogic.contagionTest`
  * OFFERS it. This spec is **about the offer**, so it presses the real dialog
  * button.

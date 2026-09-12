@@ -15,7 +15,7 @@
  * Afflictions — contract / transmit / course / treat / heal.
  *
  * The affliction item persists and carries logic (GREEN), and the being can now
- * contract a disease via `BeingLogic.contractDisease` (#391 — search world/pack
+ * contract a disease via `BeingLogic.contractDisease` (search world/pack
  * diseases or describe a custom one, roll CI×Endurance, create on failure). The
  * per-affliction `AfflictionLogic` lifecycle is still unimplemented: transmit
  * warns "Not Implemented" and the course / diagnosis / treatment tests

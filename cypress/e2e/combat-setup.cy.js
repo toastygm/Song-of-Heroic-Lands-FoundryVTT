@@ -16,7 +16,7 @@
  * seed combatant groups, and advance turns/rounds.
  *
  * Combatants receive `SohlCombatantDataModel` (and thus `.logic`) via the `base`
- * type registration (fix for #142); before that they fell back to the typeless
+ * type registration; without it they fall back to the typeless
  * `base` model with no `system.logic` and group seeding crashed.
  */
 
@@ -68,7 +68,7 @@ describe("combat setup", () => {
                         return {
                             combatants: c.combatants.size,
                             started: c.started,
-                            // The #142 fix: every combatant receives its data
+                            // Every combatant receives its data
                             // model, so `system.logic` (SohlCombatantLogic) is
                             // present. (`sohl.currentCombatCombatantLogics` is
                             // not asserted here — it reads the *viewed* combat

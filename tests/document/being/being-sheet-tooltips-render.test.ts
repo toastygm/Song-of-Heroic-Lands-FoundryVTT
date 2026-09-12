@@ -119,7 +119,7 @@ describe("combat.hbs strike-mode value tooltips", () => {
         expect(html).toContain('data-tooltip="ATK DEX +1"');
     });
 
-    // #773 — the missile header had a spurious "Pull" column with no backing
+    // The missile header must carry no spurious "Pull" column with no backing
     // data on MissileStrikeMode, so its cell was pointed at `draw` as a
     // placeholder, duplicating the Draw column's value and tooltip.
     it("has no spurious Pull column in the missile header", () => {

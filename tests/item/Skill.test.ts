@@ -647,7 +647,7 @@ describe("SkillLogic", () => {
     describe("improveWithSDR visibility predicate", () => {
         // The action's `visible` predicate is evaluated against the logic layer
         // (`itemLogic`), not the raw document, since. It must read live
-        // logic state; the pre-#459 `item.system.*` document paths are
+        // logic state; the raw `item.system.*` document paths are
         // always falsy — the Improve entry would never appear.
         function visibleSource(): string {
             const action = makeSkill().actions.get("improveWithSDR");

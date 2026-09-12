@@ -25,7 +25,7 @@ export const CHARACTER_CREATION_TOUR = Object.freeze({
 /**
  * The archetype shortcodes the tour's gated steps recognize. These are the
  * `system.shortcode` values the create-dialog stamps onto an instance seeded
- * from each content archetype (#643 makes an archetype-seeded instance inherit
+ * from each content archetype (an archetype-seeded instance inherits
  * the archetype's own shortcode, even when the document is renamed), reduced to
  * their {@link shortcodeBase | uniqueness-stripped base}. Matching on shortcode —
  * not name — is what lets a gate confirm the user picked the *correct archetype*

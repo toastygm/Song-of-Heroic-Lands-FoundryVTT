@@ -21,9 +21,9 @@
  * renders. We exercise that gate directly by posting a card carrying the four
  * action-card buttons addressed (via `data-handler-uuid`) to a real defender
  * combatant, then asserting which buttons survive — this bypasses the stubbed
- * attacker-start (RED #177).
+ * attacker-start (RED).
  *
- * The attacker-start flow itself aborts (RED #177): `commonAttack` →
+ * The attacker-start flow itself aborts (RED): `commonAttack` →
  * `BeingLogic.getUsableStrikeModes()` returns `[]`, so no attack card is produced
  * and Counterstrike-resume (same path) aborts too.
  */
@@ -257,14 +257,14 @@ describe("automated combat", () => {
 
     // ------------------------------------------------------------------------ RED
 
-    // RED — blocked by #177: automated attack start aborts. `commonAttack` →
+    // RED — blocked on automated attack start, which aborts. `commonAttack` →
     // BeingLogic.getUsableStrikeModes() returns [] (stub, BeingLogic.ts:234), so
     // it emits "no usable strike mode" and returns undefined. Two implemented
     // collectors (availableStrikeModes / collectAttackableStrikeModes) are
     // unwired. Un-skip and assert an attack card is produced once wired.
     it.skip("automated attack start produces an attack card", () => {});
 
-    // RED — blocked by #177: Counterstrike resume routes through the same
+    // RED — blocked on the same: Counterstrike resume routes through the same
     // getUsableStrikeModes stub → aborts.
     it.skip("counterstrike resume resolves an attack", () => {});
 

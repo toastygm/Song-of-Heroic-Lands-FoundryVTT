@@ -7,10 +7,10 @@
 
 /**
  * Render the real Mystery properties sheet template in Node and assert the
- * emitted binding placeholders. Covers #808: the phantom "Affected Skills"
+ * emitted binding placeholders. The phantom "Affected Skills"
  * array editor bound to a nonexistent `system.skills` field must be gone,
  * replaced by the single-skill control bound to the existing
- * `system.assocSkillCode` field. Also covers #815: the phantom
+ * `system.assocSkillCode` field. Also: the phantom
  * `system.domainCode` control (no such schema field) must be gone, and
  * the unlabelled, inert `system.charges.usesCharges` checkbox is gone —
  * whether a mystery uses charges is carried by `system.charges.max` alone.

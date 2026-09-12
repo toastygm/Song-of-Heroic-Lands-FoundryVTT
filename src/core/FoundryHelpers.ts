@@ -474,8 +474,8 @@ export function fvttActorStatuses(actor: SohlActor | null | undefined): Set<stri
  * Add or remove a status effect on an actor (a toggleable Active Effect such as
  * Stunned, Prone, or Dead), via Foundry's `Actor#toggleStatusEffect`.
  *
- * Lets Foundry-free logic drive status-based state (e.g. the being's shock state,
- * #550) without touching the document directly. A no-op when the actor or the API
+ * Lets Foundry-free logic drive status-based state (e.g. the being's shock
+ * state) without touching the document directly. A no-op when the actor or the API
  * is unavailable. Read the resulting state back with {@link fvttActorStatuses}.
  *
  * @param actor - The actor to modify.
@@ -1044,8 +1044,8 @@ export function getActiveScene(): SohlScene | undefined {
 
 /**
  * The uuid of the world's currently **active** scene, or `undefined` when the
- * game is unavailable or no scene is active. Used by the event queue (issue
- * #590) to gate scene-bound scheduled actions in the Foundry-free logic layer
+ * game is unavailable or no scene is active. Used by the event queue to gate
+ * scene-bound scheduled actions in the Foundry-free logic layer
  * without handling a Foundry document.
  *
  * @returns The active scene's uuid, or `undefined` if none is active.

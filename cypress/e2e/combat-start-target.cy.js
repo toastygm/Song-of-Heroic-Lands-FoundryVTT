@@ -36,7 +36,7 @@
  * Where it stops instead: these bare Beings carry no weapon, so strike-mode
  * selection finds nothing usable — "no usable strike mode". That is the step
  * *after* target and defender resolution, which is the point. Producing an
- * actual attack card needs a canvas and remains RED under #177 (see
+ * actual attack card needs a canvas and remains RED (see
  * `combat-automated.cy.js`).
  */
 
@@ -50,7 +50,7 @@ function combatantOf(win, combatId, actorId) {
 /**
  * Drive `startAutomatedAttack` with a **targetless** context — exactly what the
  * combat tracker's context-menu entry builds. Stubbing `sohl.log.uiWarn`
- * collects the warnings (and dodges the #267 logger recursion).
+ * collects the warnings (and dodges the logger recursion).
  *
  * @returns `{ result, warnings }` — `result` is `null` when the call aborted.
  */

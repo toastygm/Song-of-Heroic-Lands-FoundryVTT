@@ -87,7 +87,7 @@ function purgeBeings() {
     });
 }
 
-describe("Assisted Combat tour (SohlTour, #620)", () => {
+describe("Assisted Combat tour (SohlTour)", () => {
     // Headless sheet/canvas re-renders throw benign async errors during the
     // document mutations these steps drive; a genuinely failed mutation instead
     // surfaces as its gate staying closed (an `expectGated(false)` failure), so
@@ -272,7 +272,7 @@ describe("Assisted Combat tour (SohlTour, #620)", () => {
             }).should("be.greaterThan", 0);
         });
 
-        // #847: the posted damage card carries the attacker's id in its root
+        // The posted damage card carries the attacker's id in its root
         // `data-actor-id` (was rendered empty because the builder never set it).
         cy.then(function () {
             const beingId = this.being.id;

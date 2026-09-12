@@ -21,8 +21,8 @@
  * - hold state (assigned via a body-part write — `cy.holdItem` / `cy.releaseItem`,
  *   a Combat-tab concern, not a gear action) and the combat-tab strike-mode gate
  *
- * The display + aggregation gating landed in #180; the hold roundtrip depends on
- * the parts-array fix in #247. (The `set*`/`holdItem`/`releaseItem` gear actions
+ * The hold roundtrip depends on the whole-array `parts` write. (The
+ * `set*`/`holdItem`/`releaseItem` gear actions
  * were retired: carry became a single toggle, worn moved to the armor-scoped
  * `toggleWorn` action / `isWorn` field, and hold is a Combat-tab operation.)
  *
@@ -32,14 +32,14 @@
  * therefore use an inline weapon with the correct nested defense schema. The
  * armor-gating test uses inline armor keyed to a body-location shortcode for a
  * controlled input; the compendium-armor path is now exercised too (the covered
- * locations were migrated from names to shortcodes in #358, closing #249).
+ * locations are addressed by shortcode, not by name).
  */
 
 // Stable, id-independent descriptor for the Mail Shirt armorgear (carry & equip
 // toggles) — resolved by `system.shortcode`, so it survives pack-id regeneration.
 const MAIL_SHIRT_REF = { shortcode: "mshirt", type: "armorgear" };
 
-/** Minimal weapongear with the correct nested defense schema (avoids #246). */
+/** Minimal weapongear with the correct nested defense schema. */
 const INLINE_WEAPON = {
     name: "Test Sword",
     system: {
@@ -162,7 +162,7 @@ describe("gear equip / hold → combat-tab display", () => {
         });
     });
 
-    it("armor protection aggregates only while worn (#180 gate)", () => {
+    it("armor protection aggregates only while worn", () => {
         cy.importActor().then((actor) => {
             cy.createItemOn(actor, "armorgear", INLINE_ARMOR).then((armor) => {
                 // Not equipped by default → no protection on the thorax.

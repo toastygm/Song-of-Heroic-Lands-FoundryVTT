@@ -12,7 +12,7 @@
  */
 
 /**
- * Security regression tests for issue #166:
+ * Security regression tests:
  * ReDoS in the `matches()` expression helper.
  *
  * `MAX_PATTERN_LENGTH` guards on length, not backtracking complexity. A

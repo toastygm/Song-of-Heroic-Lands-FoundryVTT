@@ -15,7 +15,7 @@ import { describe, it, expect } from "vitest";
 import { renderTemplateReal } from "@tests/mocks/hbs-helpers";
 
 // The editable Body Structure tree (add / drag / ⋮) moved from the Combat tab
-// to the Profile tab in the #782 redesign; Combat now shows a flat, read-only
+// to the Profile tab; Combat shows a flat, read-only
 // Body Locations reference table. These specs assert the Profile-tab editor.
 const PROFILE = "systems/sohl/templates/actor/being/profile.hbs";
 
@@ -60,12 +60,12 @@ describe("profile.hbs Body Structure add / drag controls", () => {
         expect(html).toContain('data-action="addBodyZone"');
         expect(html).toContain('data-action="addBodyPart"');
         expect(html).toContain('data-action="addBodyLocation"');
-        // Rows are draggable and addressable by shortcode (matches #742's tree).
+        // Rows are draggable and addressable by shortcode.
         expect(html).toContain('draggable="true"');
         expect(html).toContain('data-zone-shortcode="headzone"');
         expect(html).toContain('data-part-shortcode="head"');
         expect(html).toContain('data-location-shortcode="skull"');
-        // The Edit/Delete ⋮ menus (from #742) still render, now at all three tiers.
+        // The Edit/Delete ⋮ menus render at all three tiers.
         expect(html).toContain("bodyzone-contextmenu");
         expect(html).toContain("bodypart-contextmenu");
         expect(html).toContain("bodylocation-contextmenu");

@@ -19,10 +19,10 @@
  * spec exercises the Foundry-boundary behavior that the pure unit tests
  * (`tests/item/Skill.test.ts`) cannot:
  *
- * - **#325** — creating a `combattechnique` skill with no strike mode seeds a
+ * - Creating a `combattechnique` skill with no strike mode seeds a
  *   default melee one (via `SkillDataModel._preCreate`), so the item is
  *   immediately valid; other subtypes keep a null strike mode.
- * - **#323** — a persisted strike mode round-trips Foundry's schema and its
+ * - A persisted strike mode round-trips Foundry's schema and its
  *   Atk/Blk/CX reflect the governing mastery level.
  */
 describe("combattechnique skill", () => {
@@ -113,8 +113,8 @@ describe("combattechnique skill", () => {
         });
     });
 
-    // #714's always-visible empty Combat Technique section (with its seeded
-    // create control) was formally retired by #797: the redesigned Skills tab is
+    // There is no always-visible empty Combat Technique section with its own
+    // seeded create control: the Skills tab is
     // uniformly present-only, so a being with no combat techniques shows no empty
     // section — it creates its first technique via the tab's global "Add Skill"
     // footer (the subtype picker). The corresponding empty-section e2e assertion

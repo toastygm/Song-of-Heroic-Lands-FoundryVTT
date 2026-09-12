@@ -759,7 +759,7 @@ describe("MysticalAbilityLogic — improvement flag and SDR", () => {
             expect(logic.canImprove).toBe(false);
         });
 
-        it("does not throw before initialize() — masteryLevel unset (#511 class)", () => {
+        it("does not throw before initialize() — masteryLevel unset", () => {
             const logic = makeAbility({ assocSkillCode: null });
             // deliberately NOT calling logic.initialize()
             expect(() => logic.canImprove).not.toThrow();

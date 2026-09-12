@@ -38,7 +38,7 @@ const BodyLocationConfig_Base: any = foundry.applications.api.HandlebarsApplicat
  * identified by its shortcode within that part), not a document, so it has no
  * document sheet. This ApplicationV2 form edits one location and persists via
  * `actor.update()` by rewriting the owning part with its updated locations
- * array (a whole-array write; never by index — see #247).
+ * array (a whole-array write; never by index).
  *
  * The form **auto-saves**: every field change submits (`submitOnChange`) and
  * writes back immediately, so there is no Save button and the window stays open.

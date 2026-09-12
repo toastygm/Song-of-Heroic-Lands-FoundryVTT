@@ -32,7 +32,7 @@ import "./commands/dialogs.js";
  *   no active viewport in headless runs. Unrelated to combat data/logic.
  * - RegionShapeControls.refresh: "Cannot read properties of undefined (reading
  *   'INTERFACE')" — creating a scene Region makes the canvas RegionLayer draw
- *   shape controls, which reads a canvas group that is absent headless (#593
+ *   shape controls, which reads a canvas group that is absent headless (the
  *   region-trigger spec). Canvas rendering, not region-trigger logic.
  *
  * A restricted Region's shape-constraint pass used to be a third entry
@@ -63,7 +63,7 @@ Cypress.on("uncaught:exception", (err) => {
  * `testIsolation` is off, so UI notifications persist across specs. A permanent
  * error notification raised by one spec (e.g. Foundry's `Hooks.onError` on a
  * caught data-preparation failure) stays on screen and can overlay another
- * spec's controls, failing an unrelated interaction (#503 — the header status
+ * spec's controls, failing an unrelated interaction (the header status
  * pill was covered by a bled permanent error notification). Start every test
  * with a clean notification UI. This only clears notifications that already
  * exist before the test runs, so it never masks an error a spec raises itself.

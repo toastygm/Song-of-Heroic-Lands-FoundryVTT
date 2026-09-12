@@ -67,7 +67,7 @@ function expectGated(shouldBeGated, msg) {
     cy.window().should((win) => expect(isGated(win), msg).to.eq(shouldBeGated));
 }
 
-describe("Character Creation tour (SohlTour, #614)", () => {
+describe("Character Creation tour (SohlTour)", () => {
     // Headless sheet/canvas re-renders throw benign async errors during the
     // document mutations these steps drive; a genuinely failed mutation instead
     // surfaces as its gate staying closed (an `expectGated(false)` failure), so

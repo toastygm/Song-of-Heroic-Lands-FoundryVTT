@@ -365,7 +365,7 @@ describe("injury-card zone-die states", () => {
     });
 });
 
-describe("trauma-state-card (Fear / Morale / Pall tests, #558)", () => {
+describe("trauma-state-card (Fear / Morale / Pall tests)", () => {
     it("shows the resulting state, a PSY gain, and effect notes", () => {
         const html = renderTemplateReal(`${CHAT}/trauma-state-card.hbs`, {
             actorId: "abc",
@@ -405,7 +405,7 @@ describe("trauma-state-card (Fear / Morale / Pall tests, #558)", () => {
     });
 });
 
-describe("rally-offer-card (BeingLogic.rallyTest, #559)", () => {
+describe("rally-offer-card (BeingLogic.rallyTest)", () => {
     it("names the rallier and offers to steady on a critical success", () => {
         const html = renderTemplateReal(`${CHAT}/rally-offer-card.hbs`, {
             actorId: "r1",
@@ -427,7 +427,7 @@ describe("rally-offer-card (BeingLogic.rallyTest, #559)", () => {
     });
 });
 
-describe("face-pall-card (TraumaLogic.pallRecovery, #561)", () => {
+describe("face-pall-card (TraumaLogic.pallRecovery)", () => {
     it("names the victim and lists the three fates", () => {
         const html = renderTemplateReal(`${CHAT}/face-pall-card.hbs`, {
             actorName: "Brother Deven",

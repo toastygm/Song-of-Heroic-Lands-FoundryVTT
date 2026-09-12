@@ -1059,7 +1059,7 @@ describe("BeingLogic", () => {
         });
     });
 
-    describe("injuryShock (#555, via the shared shock core)", () => {
+    describe("injuryShock (via the shared shock core)", () => {
         afterEach(() => vi.restoreAllMocks());
 
         function makeShockBeing() {

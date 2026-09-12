@@ -48,7 +48,7 @@ export class ValueDelta extends SohlEntity {
      * (`SOHL.ValueDelta.INFO.*`, `SOHL.MOD.*`, `SOHL.MysticalAbility.*`, …), so
      * anything surfacing it to a human must localize it here rather than
      * emitting the raw key — the same treatment
-     * {@link sohl.entity.modifier.ValueModifier.disabledReason} got in #948. Idempotent on
+     * {@link sohl.entity.modifier.ValueModifier.disabledReason} gets. Idempotent on
      * already-plain text: an unknown key localizes to itself, so an ad-hoc
      * delta named with prose passes through unchanged.
      */

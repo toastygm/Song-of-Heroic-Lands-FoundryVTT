@@ -28,7 +28,7 @@
  * section safe by default: the guard picks it up the moment the directory exists.
  *
  * (The API site no longer carries the guide tree — `projectDocuments` was removed
- * in #430 — so there is no per-section `children:` stub to cross-check anymore;
+ * — so there is no per-section `children:` stub to cross-check;
  * the README is the single index.)
  *
  * Usage:

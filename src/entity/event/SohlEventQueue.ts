@@ -369,8 +369,8 @@ export class SohlEventQueue {
     }
 
     /**
-     * Dispatch a matched subscription by **offering** its action (consent, issue
-     * #579) — delegating to {@link offer}. Time-scheduled reminders dedupe by
+     * Dispatch a matched subscription by **offering** its action (the consent
+     * model) — delegating to {@link offer}. Time-scheduled reminders dedupe by
      * `(uuid, actionName, fireAt)` so the same due occurrence is offered once,
      * not on every world-time advance while it sits unperformed; a non-time
      * (event-driven) trigger offers on every fire. The subscription's `payload`

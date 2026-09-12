@@ -12,7 +12,7 @@
  */
 
 /**
- * Security regression tests for issues #159 and #164:
+ * Security regression tests:
  * Handlebars SSTI/XSS in dialog builders.
  *
  * Verifies that the data-context approach ({{name}} double-stash) auto-escapes

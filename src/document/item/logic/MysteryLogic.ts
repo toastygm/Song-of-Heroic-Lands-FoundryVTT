@@ -222,7 +222,7 @@ export class MysteryLogic<
      * A `boost` naming a skill the actor lacks entirely contributes nothing here;
      * materializing that skill (at ML 0, so this method then confers it) is
      * offered once when the Boost is dropped onto the actor — see
-     * {@link maybeOfferConferredSkill}. #981.
+     * {@link maybeOfferConferredSkill}.
      */
     protected contributeSkillEffect(): void {
         const skill = this.assocSkill;
@@ -240,7 +240,7 @@ export class MysteryLogic<
             // An unlearned skill (seeded mastery level 0 — e.g. one conferred at
             // ML 0 by dropping this Boost, see maybeOfferConferredSkill) is
             // *opened at its Skill Base* and the remaining boosts compound off
-            // that; a learned skill boosts off its own seed. #981.
+            // that; a learned skill boosts off its own seed.
             const seedML = skill.masteryLevelSeed;
             const { delta } = computeBoostContribution(
                 seedML === 0 ?
@@ -273,7 +273,7 @@ export class MysteryLogic<
      * `MysteryDataModel._onCreate`, on the initiating client only.
      *
      * No-op unless this is a `boost` naming a skill absent from the actor; a
-     * shortcode resolving to no skill anywhere is reported, not offered. #981.
+     * shortcode resolving to no skill anywhere is reported, not offered.
      *
      * @returns Resolves once the offer — and any resulting skill creation —
      *   settles.

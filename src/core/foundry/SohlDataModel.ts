@@ -152,7 +152,7 @@ export function defineSohlDataSchema(): foundry.data.fields.DataSchema {
                  * (`"turnEnd"`, `"combatStart"`, a scene-region trigger, …) makes
                  * it event-driven — armed as a live subscription on that trigger,
                  * with `interval` unused. Backwards compatible: an entry written
-                 * before #622 has no trigger and stays time-based.
+                 * without one has no trigger and stays time-based.
                  */
                 triggerName: new StringField({
                     blank: true,

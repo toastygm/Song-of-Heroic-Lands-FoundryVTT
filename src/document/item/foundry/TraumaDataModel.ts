@@ -106,12 +106,13 @@ function defineTraumaDataSchema(): foundry.data.fields.DataSchema {
         courseDurationFormula: durationFormulaField(),
         courseDurationBase: durationBaseField(),
         // Whether this injury, once treated, is eligible for permanent
-        // impairment if it heals slowly (#553 sets it; #554 applies the
+        // impairment if it heals slowly (the Treatment Test sets it; the
+        // impairment system applies the
         // magnitude). A blank sentinel (`false`), not nullable: "not eligible"
         // is the valid default, not a distinct unset state.
         permanentImpairmentEligible: new BooleanField({ initial: false }),
         // Whether this injury is exposed to infection — a poorly-treated wound
-        // (#553 sets it). A Critical-Failure Injury Healing Test on an infectable
+        // (the Treatment Test sets it). A Critical-Failure Injury Healing Test on an infectable
         // wound contracts an infection.
         infectable: new BooleanField({ initial: false }),
         // Body location the trauma affects. Nullable: a whole-body trauma or a
@@ -197,7 +198,7 @@ export class TraumaDataModel<
             game.settings.get("sohl", "bloodLossAdvanceDurationFormula") ?? "",
         );
         const healInterval = Number(healFormula) || 0;
-        // NO recurring check is auto-armed at creation (issue #579 — nothing
+        // NO recurring check is auto-armed at creation (nothing
         // auto-schedules): the creating flow OFFERS each one — the injury flow
         // offers `healingCheck` / `bloodLossAdvanceCheck` (`createTraumaFromInjury`),
         // treatment offers blood-loss, and the shock/infection flows offer

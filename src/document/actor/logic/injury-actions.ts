@@ -366,7 +366,7 @@ function createInjuryName(injury: ResolvedInjury): string {
 
 /**
  * Create a physical Trauma item on the actor from a resolved injury, then
- * **offer** to schedule its first healing check (issue #579 — nothing
+ * **offer** to schedule its first healing check (nothing
  * auto-schedules). Only call this for an actual wound (`injury.level >= 1`); a
  * glancing blow or no-injury result must not create a Trauma.
  *

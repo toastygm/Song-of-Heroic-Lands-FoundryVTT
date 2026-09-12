@@ -12,7 +12,7 @@
  */
 
 /**
- * Keep-control tests (#851 Stumble / #852 Fumble) — the two "did you keep
+ * Keep-control tests (Stumble and Fumble) — the two "did you keep
  * control of your body?" checks a combat mishap can flag. A **Stumble** test
  * (better of Agility / Acrobatics) decides whether a lurching being keeps its
  * footing; a **Fumble** test (better of Dexterity / Legerdemain) whether it

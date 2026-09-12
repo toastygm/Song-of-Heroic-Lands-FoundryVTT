@@ -6,7 +6,7 @@
  */
 
 /**
- * Tests for issue #207: aim/spread deduplication.
+ * Tests for aim/spread deduplication.
  *
  * Before the fix, `aimBodyPartCode` and `spread` were stored as direct fields
  * on both `AttackResult` and `ImpactResult`, creating a second copy of each

@@ -1609,7 +1609,7 @@ describe("TraumaLogic.levelLabel", () => {
         expect(logic.levelLabel).toBe("0");
     });
 
-    it("returns the numeric level as a string (#961 — every level subtype)", () => {
+    it("returns the numeric level as a string, for every level subtype", () => {
         // Fear/Morale no longer carry a numeric level (their state is in the
         // `category` field), so levelLabel is always the numeric string now.
         const logic = makeTrauma({
@@ -1705,7 +1705,7 @@ describe("TraumaLogic.categoryLabel", () => {
     });
 });
 
-describe("TraumaLogic.nextRecoveryTestAt (#939 — view-only next-test date)", () => {
+describe("TraumaLogic.nextRecoveryTestAt (view-only next-test date)", () => {
     /** Seed a single scheduledActions entry. */
     function withSched(
         subType: string,

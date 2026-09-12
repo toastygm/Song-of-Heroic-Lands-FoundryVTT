@@ -14,7 +14,7 @@
 /**
  * Being Trauma tab — Traumas (injuries) section: an Injury sub-type
  * lists Sev / HR / Area / Next Heal Test (Aspect and Bleeding moved to the item
- * sheet in #939), with a custom-create control (data-type=trauma) and a per-row
+ * sheet), with a custom-create control (data-type=trauma) and a per-row
  * context menu.
  */
 describe("Being Trauma tab: Traumas section", () => {

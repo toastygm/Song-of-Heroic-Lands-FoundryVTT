@@ -311,7 +311,7 @@ describe("SohlCalendarData", () => {
             expect(() => formatDefault(cal, c)).not.toThrow();
         });
 
-        // #941 / #944: the SoHL branch previously emitted the month name and era
+        // The SoHL branch must not emit the month name and era
         // abbreviation verbatim, so an i18n-key-valued month/era rendered as the
         // raw key (e.g. `SOHL.Calendar.Default.Month.0.label`,
         // `SOHL.CALENDAR.DEFAULT.EraAbbr`). Both must be localized, exactly as the

@@ -95,7 +95,7 @@ describe("mystery boon/boost skill contribution", () => {
 
     it("a Boon that names no resolvable skill contributes nothing (no offer)", () => {
         // A Boon on an absent skill has no mastery level to modify, so it is not
-        // offered a conferred skill — it simply contributes nothing. #981.
+        // offered a conferred skill — it simply contributes nothing.
         cy.createActor("being", { name: "No-Skill Being" }).then((actor) => {
             cy.createItemOn(actor, "skill", {
                 name: "Sword",

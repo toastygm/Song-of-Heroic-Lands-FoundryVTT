@@ -30,7 +30,7 @@ function pred(source: string): SafeExpression {
 
 /**
  * A resolved document whose logic records the **reminder card** the queue posts
- * when a subscription is dispatched (consent model #579 — the queue offers, it
+ * when a subscription is dispatched (the consent model — the queue offers, it
  * does not perform). `onAction` receives `(actionName, scope, payload)` recovered from
  * the posted card: `actionName` from `data.actionName`, `scope` from `data.scopeData`
  * (`{ …ctx, payload }`), and `payload` from `scope.payload` — the same shape the
@@ -517,7 +517,7 @@ describe("SohlEventQueue", () => {
         });
     });
 
-    describe("consent (#579): a due effect is OFFERED, never performed", () => {
+    describe("consent: a due effect is OFFERED, never performed", () => {
         it("posts a [Perform] reminder addressed to the effect's item — no executeAction", async () => {
             const posted: { tpl: unknown; data: any }[] = [];
             (globalThis as any).fromUuid = async () => {
@@ -589,7 +589,7 @@ describe("SohlEventQueue", () => {
         });
     });
 
-    describe("scene gate (#590): a scene-bound schedule fires only while its scene is active", () => {
+    describe("scene gate: a scene-bound schedule fires only while its scene is active", () => {
         it("does NOT offer while its scene is inactive — and does NOT consume the subscription", async () => {
             let count = 0;
             installActionDoc(() => {
@@ -641,7 +641,7 @@ describe("SohlEventQueue", () => {
         });
     });
 
-    describe("offer (#593): the public consent primitive", () => {
+    describe("offer: the public consent primitive", () => {
         it("posts a [Perform] reminder addressed to the given document", async () => {
             const posted: { tpl: unknown; data: any }[] = [];
             (globalThis as any).fromUuid = async () => {

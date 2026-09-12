@@ -313,7 +313,7 @@ describe("MysteryLogic", () => {
         /**
          * Embed an unlearned skill (masteryLevelBase 0) whose SB derives from a
          * `str` attribute, so a Boost must open it at Skill Base rather than
-         * boost off a zero seed. #981.
+         * boost off a zero seed.
          */
         function makeUnlearnedSkillOnActor(actor: any, sb: number) {
             actor.items.set("str1", makeAttributeStub("str", sb));

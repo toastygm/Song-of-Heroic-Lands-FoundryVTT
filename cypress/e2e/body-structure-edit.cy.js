@@ -294,9 +294,9 @@ describe("Body Structure editors (Profile tab)", () => {
 });
 
 /**
- * Body Structure add / drag-sort / delete — layered on the #721/#722
+ * Body Structure add / drag-sort / delete — layered on the
  * editors. Proves the Combat tab renders the add / drag / ⋮ controls for an
- * owner, and that the #247-safe whole-array update builders (reorder / move /
+ * owner, and that the whole-array update builders (reorder / move /
  * add / remove) persist correctly against a live actor. The add dialog, the
  * shortcode validators, and the delete-guard are covered by the unit suite and
  * the Node template-render tests.
@@ -392,7 +392,7 @@ describe("Body Structure editing — add / sort / delete", () => {
                 // ...and lands at the end of the flat array (its zone's end).
                 expect(r.after[r.after.length - 1]).to.equal(r.movedCode);
                 expect(r.after).to.have.length(r.before.length);
-                // No location was lost to the array-rewrite (#247 guard).
+                // No location was lost to the array-rewrite.
                 expect(r.totAfter).to.equal(r.totBefore);
             });
         });

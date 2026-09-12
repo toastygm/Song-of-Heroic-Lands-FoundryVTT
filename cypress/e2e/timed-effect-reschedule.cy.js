@@ -160,7 +160,7 @@ describe("Timed-effect reschedule", () => {
     // way a player does, to prove the button choice (not a scripted scope) is what
     // drives the outcome. It is the pattern the testing doc recommends when the
     // offer itself is the thing under test: model the user, don't pre-answer.
-    it("pressing Schedule on the test's offer arms the next check (models the player, #579)", () => {
+    it("pressing Schedule on the test's offer arms the next check (models the player)", () => {
         cy.importActor().then((actor) => {
             cy.prepare(actor);
             cy.foundry(async (win) => {

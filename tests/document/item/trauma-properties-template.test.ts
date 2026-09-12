@@ -7,11 +7,11 @@
 
 /**
  * Render the real Trauma properties sheet template in Node and assert the
- * emitted binding placeholders. Covers #926: a document's sub-type is fixed at
+ * emitted binding placeholders. A document's sub-type is fixed at
  * creation, so the Trauma Properties tab must NOT render an editable
  * `system.subType` control. The sub-type is presented read-only in the sheet
  * header (via the localized `typeLabel`); this template only edits the mutable
- * trauma fields. (Supersedes #754, which localized the now-removed dropdown's
+ * trauma fields. (The dropdown this once localized is removed, along with its
  * choice labels.)
  */
 
@@ -81,7 +81,7 @@ describe("trauma properties sheet template", () => {
         expect(html).toContain('data-field="system.healingRateBase"');
     });
 
-    // #927: the Physical fieldset (aspect / body location / blood-loss) is gated
+    // The Physical fieldset (aspect / body location / blood-loss) is gated
     // on the sub-type. The physical-harm sub-type is `injury` (there is no
     // `physical` value in TRAUMA_SUBTYPE), so the gate must render for `injury`.
     it("renders the Physical fieldset for the injury sub-type", () => {

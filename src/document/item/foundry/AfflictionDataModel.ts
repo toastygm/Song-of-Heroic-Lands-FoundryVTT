@@ -175,8 +175,8 @@ export class AfflictionDataModel<
      * current world time and `onsetDurationBase` is seeded from a numeric read of
      * the (per-disease) `onsetDurationFormula` (the offer's default cadence). The
      * `onsetCheck` is **offered**, not auto-armed — `BeingLogic.contagionTest`
-     * calls the shared schedule offer after creating the affliction (issue #579,
-     * the last creation-time auto-schedule removed). A disease created by a raw
+     * calls the shared schedule offer after creating the affliction, so nothing
+     * is auto-scheduled at creation time. A disease created by a raw
      * drag (bypassing `contagionTest`) therefore does not auto-onset, matching
      * how direct trauma creation bypasses its offer. The onset *transition*, when
      * performed, still crystallizes `onsetDate` and auto-schedules the resolution

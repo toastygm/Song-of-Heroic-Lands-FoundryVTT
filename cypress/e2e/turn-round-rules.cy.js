@@ -25,7 +25,7 @@ describe("turn / round rules", () => {
     before(() => cy.login().then(() => cy.cleanupWorld()));
     afterEach(() => cy.cleanupWorld());
 
-    // RED — blocked by #185: `didAction` / move budget are never reset or
+    // RED — blocked on the turn/round rules: `didAction` / move budget are never reset or
     // enforced across turns/rounds. The events fire (advanceTurn / advanceRound
     // work) but no rule consumes them. Un-skip and assert that a combatant's
     // `didAction` clears at the start of its turn and the move budget resets each

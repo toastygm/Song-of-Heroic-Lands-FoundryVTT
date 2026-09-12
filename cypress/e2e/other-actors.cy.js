@@ -221,7 +221,7 @@ describe("non-being actors: cohort / structure / vehicle", () => {
 
     // ------------------------------------------------------------------------ RED
 
-    // RED — blocked by #184: derived behavior for all three — their Logic classes
+    // RED — blocked on derived behavior for all three: their Logic classes
     // are no-op `super` today (no capacity/HP/move/invariant computation). Assert
     // a derived property (structure capacity, cohort aggregate, vehicle load)
     // once implemented.

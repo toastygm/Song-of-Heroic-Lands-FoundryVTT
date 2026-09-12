@@ -7,10 +7,10 @@
 
 /**
  * Render the real Skill properties sheet template in Node and assert the
- * emitted binding placeholders. Covers #709: the Combat Category control
+ * emitted binding placeholders. The Combat Category control
  * (`system.combatCategory`) must render only when `subType === "combat"`, and
  * the removed phantom fields (`weaponGroup` / `baseSkill` / `domain`) must no
- * longer be referenced. Also covers #713: the Impaired By Roles array
+ * longer be referenced. Also: the Impaired By Roles array
  * (`system.impairedByRoles`) must render with add/delete controls, at parity
  * with the Attribute sheet.
  */

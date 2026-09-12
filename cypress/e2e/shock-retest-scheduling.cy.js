@@ -47,7 +47,7 @@ describe("Shock Re-Test scheduling", () => {
                     await a.logic.setShockState(2); // INCAPACITATED
                     await a.logic.offerShockReTest(win.structuredClone(ACCEPT));
 
-                    // Persisted as an event-driven turnEnd schedule (#622 seam),
+                    // Persisted as an event-driven turnEnd schedule,
                     // gated to this being's own combatant.
                     const entry = a.system.scheduledActions.find(
                         (e) => e.actionName === "shockReTest",

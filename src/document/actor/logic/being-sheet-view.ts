@@ -477,8 +477,8 @@ export interface SkillLike {
  * `combattechnique`-subtype skill) keeps a defined position here so its section
  * sorts stably when a being has combat techniques; a being with none creates its
  * first via the tab's global "Add Skill" footer, which opens the subtype picker
- * (issue #797 retired the always-visible empty Combat Technique section that
- * #714 added). The `mystical` subtype is intentionally absent — those skills
+ * (there is no always-visible empty Combat Technique section). The `mystical`
+ * subtype is intentionally absent — those skills
  * surface on the Mysteries tab.
  */
 export const SKILL_DISPLAY_SUBTYPE_ORDER: readonly string[] = [

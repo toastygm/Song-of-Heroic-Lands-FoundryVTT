@@ -19,8 +19,8 @@
  * the being's `currentMoveMedium`). Reach: `BeingLogic.reach` is the greatest
  * reach among currently-available melee modes — combat techniques are always
  * available; a weapon's mode counts only when the weapon is held in at least
- * `minParts` limbs (the hold path landed in #179 and was made corruption-safe in
- * #247).
+ * `minParts` limbs (the hold path writes the whole parts array, which is what
+ * keeps it corruption-safe).
  *
  * The imported Basic Folk being carries a terrestrial movement profile
  * (`feetPerRound` 50) inline at `system.movementProfiles`; its
@@ -157,7 +157,7 @@ describe("movement + reach read paths", () => {
         });
     });
 
-    // #252: computedMove scales the being's feetPerRound by the combatant's
+    // computedMove scales the being's feetPerRound by the combatant's
     // situational moveFactor (run, terrain, haste, …; defaults to 1).
     it("computedMove scales base move by moveFactor", () => {
         cy.createScene().then((scene) => {

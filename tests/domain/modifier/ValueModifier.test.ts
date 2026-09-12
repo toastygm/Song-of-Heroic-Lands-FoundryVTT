@@ -138,11 +138,11 @@ describe("ValueModifier", () => {
         });
     });
 
-    // #948: `disabledReason` is one contract everywhere — it always stores an
+    // `disabledReason` is one contract everywhere — it always stores an
     // i18n *key* (or ""), never localized prose, so serialized data stays
     // language-neutral; localization happens only at the render boundary via
     // `disabledLabel`.
-    describe("disabledLabel (localized reason) — #948", () => {
+    describe("disabledLabel (localized reason)", () => {
         it("is empty when the modifier is enabled", () => {
             const vm = createVM();
             expect(vm.disabledLabel).toBe("");
@@ -491,7 +491,7 @@ describe("ValueModifier", () => {
         });
     });
 
-    describe("chatHtml (#162 security)", () => {
+    describe("chatHtml (security)", () => {
         function pushNamedDelta(vm: ValueModifier, name: string, value: string | number = 5): void {
             vm.deltas.push(
                 new ValueDelta(
@@ -546,7 +546,7 @@ describe("ValueModifier", () => {
         // A delta's `name` is a localization key by convention across the
         // system (`SOHL.MOD.*`, `SOHL.MysticalAbility.*`, …), so the breakdown
         // must localize it at render time — the same treatment `disabledReason`
-        // got in #948.
+        // gets.
         it("localizes each delta name instead of emitting the raw key", () => {
             const vm = createVM();
             pushNamedDelta(vm, "SOHL.MysticalAbility.LevelPenalty", -6);

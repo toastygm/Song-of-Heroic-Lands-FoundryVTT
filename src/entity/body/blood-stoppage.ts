@@ -21,7 +21,7 @@
  * test, `MS` stops the bleeding after the next Blood Loss Advance, and `CS` stops
  * it immediately. If no physician accepts by the end of the round, the Blood Loss
  * Advance proceeds as though the Stoppage Test were a Critical Failure — the
- * auto-resolve fallback already delivered by #487.
+ * auto-resolve fallback.
  */
 
 import { CRITICAL_SUCCESS, MARGINAL_SUCCESS, MARGINAL_FAILURE } from "@src/utils/constants";

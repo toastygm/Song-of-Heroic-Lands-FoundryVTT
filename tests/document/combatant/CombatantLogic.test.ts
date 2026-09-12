@@ -139,7 +139,7 @@ describe("CombatantLogic", () => {
         });
     });
 
-    describe("computedMove (moveFactor scaling, #252)", () => {
+    describe("computedMove (moveFactor scaling)", () => {
         /** A combatant whose actor reports the given feet-per-round (base actor). */
         function combatantWithMove(feetPerRound: number) {
             return makeCombatantLogic({
@@ -173,7 +173,7 @@ describe("CombatantLogic", () => {
     });
 
     describe("turnStartCombatantUpdate (pure)", () => {
-        it("records the position under system.startLocation (#386), not initialLocation", () => {
+        it("records the position under system.startLocation, not initialLocation", () => {
             const update = turnStartCombatantUpdate({ x: 120, y: 340 }, 5);
             expect(update.system.startLocation).toEqual({
                 x: 120,

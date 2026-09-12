@@ -28,7 +28,7 @@
  * `_onRollStrikeModeTest` selects the modifier via
  * `selectStrikeModeModifier(sm, testKind)` — attack→`sm.attack`,
  * block→`sm.defense.block`, counterstrike→`sm.defense.counterstrike` — so the
- * #178 "hard-codes sm.attack" defect is no longer present in the source.
+ * "hard-codes sm.attack" defect is not present in the source.
  *
  * Assisted combat is per-strike-mode only (these cells): there are no weapon-level
  * attack/block/counterstrike actions, and dodge is a skill rather than a
@@ -141,7 +141,7 @@ describe("assisted combat (sheet strike-mode cells)", () => {
     });
 
     it("derives the attack/block/counterstrike values from the associated skill", () => {
-        // Regression for #755: a weapon's strike-mode Atk/Blk/CX cells rendered
+        // Regression guard: a weapon's strike-mode Atk/Blk/CX cells must not render
         // 0 because the weapon never folded its associated skill's mastery level
         // into the mode's attack/defense modifiers. Basic Folk's `melee` ML is
         // raised to 50 above and the mode's own modifiers are all 0, so each

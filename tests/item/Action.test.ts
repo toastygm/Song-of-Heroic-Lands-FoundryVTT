@@ -390,7 +390,7 @@ describe("SohlAction.execute gates on permission then trigger", () => {
     });
 });
 
-describe("SohlAction.execute records lastRun (generic run record, #579)", () => {
+describe("SohlAction.execute records lastRun (generic run record)", () => {
     afterEach(() => vi.restoreAllMocks());
 
     /** An owning-document stub carrying `system.lastRun` + a spyable `update`. */

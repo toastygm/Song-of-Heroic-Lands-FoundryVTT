@@ -78,7 +78,7 @@ describe("pack pipeline severance from src/", () => {
         // The pack pipeline validates an authored `relation` map against this
         // list; the runtime validates the same values through
         // `AFFILIATION_STANDING`. One diverging from the other is exactly the
-        // #932-shaped drift this arrangement exists to prevent.
+        // drift this arrangement exists to prevent.
         expect([...AFFILIATION_STANDINGS].sort()).toEqual([...AffiliationStandings].sort());
     });
 });

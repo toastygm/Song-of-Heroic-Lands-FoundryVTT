@@ -12,7 +12,7 @@
  */
 
 /**
- * Security regression tests for issue #165:
+ * Security regression tests:
  * Catastrophic ReDoS in FILE_PATH_REGEX.
  *
  * The original inner character class `[^<>:"|?*\n\r]` also matched `/` and `\`,

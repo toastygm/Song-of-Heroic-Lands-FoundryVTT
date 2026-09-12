@@ -105,7 +105,7 @@ describe("gear → encumbrance", () => {
 
     it("a carried weapon's encumbrance value is added to encumbrance", () => {
         cy.importActor().then((actor) => {
-            // Weightless weapon with no strike modes (avoids #246) so only its
+            // Weightless weapon with no strike modes so only its
             // encumbrance value (3) contributes; toggle isCarried to see it move.
             cy.createItemOn(actor, "weapongear", {
                 name: "Unwieldy Pike",

@@ -918,8 +918,8 @@ export class BeingLogic<TData extends BeingData = BeingData> extends SohlActorBa
      * glancing-blow roll bonus). The shared `resolveShockRoll` core rolls a
      * headless **Shock** test (fatigue applies, the glancing bonus is added, and
      * injury-impairment penalties do not); its result maps to a shock state, and
-     * the being is worsened to it (shock only ever worsens here — an improving
-     * Re-Test is #556). The state is applied **directly** — the player's click on
+     * the being is worsened to it (shock only ever worsens here — improving is
+     * the Re-Test's job). The state is applied **directly** — the player's click on
      * the injury card's Shock Roll button was the consent — and the Re-Test
      * reminder is then offered.
      *
@@ -1007,9 +1007,9 @@ export class BeingLogic<TData extends BeingData = BeingData> extends SohlActorBa
 
     /**
      * **Offer** to schedule (or, when it no longer applies, clear) the being's
-     * Shock **Re-Test** reminder for its current state — the being-level
-     * timing half of #556, routed through the shared {@link offerSchedule} consent
-     * step so nothing auto-arms (Prime Directive: offer, remind, perform).
+     * Shock **Re-Test** reminder for its current state, routed through the
+     * shared {@link offerSchedule} consent step so nothing auto-arms
+     * (Prime Directive: offer, remind, perform).
      *
      * While in **ordinary** shock the reminder rides the state's cadence: an
      * **Incapacitated** victim re-tests at the end of each combat turn (an
@@ -1117,7 +1117,7 @@ export class BeingLogic<TData extends BeingData = BeingData> extends SohlActorBa
 
     /**
      * Create an Extended Shock / Coma lasting-shock trauma, then **offer** to
-     * track its recovery Course Test (issue #579 — nothing auto-schedules; the
+     * track its recovery Course Test (nothing auto-schedules; the
      * cadence config is seeded by the Trauma data model on creation).
      *
      * @param subType - `SHOCK` (Extended Shock) or `COMA`.

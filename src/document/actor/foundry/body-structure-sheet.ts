@@ -25,9 +25,9 @@ import { SOHL_CONTEXT_MENU_SORT_GROUP } from "@src/utils/constants";
 
 /**
  * Foundry-coupled orchestration for the Being sheet's Combat-tab Body Structure
- * tree. The **Edit** editors (`BodyPartConfig` / `BodyLocationConfig`) come from
- * #721 / #722; this module adds the tree-level affordances of #720 — the add
- * flows, the delete flows (with the part-delete guard), and the per-row `⋮`
+ * tree. The **Edit** editors are `BodyPartConfig` / `BodyLocationConfig`; this
+ * module adds the tree-level affordances — the add flows, the delete flows
+ * (with the part-delete guard), and the per-row `⋮`
  * context menus wiring Edit + Delete. The domain math and blank/validation
  * helpers are pure and unit-tested; this only wires them to dialogs, the actor
  * document, and the context-menu UI.

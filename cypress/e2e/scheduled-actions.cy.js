@@ -75,7 +75,7 @@ describe("Generic scheduled actions", () => {
         });
     });
 
-    it("an event-driven schedule (#622) persists its trigger, arms as a subscription, and offers on turnEnd", () => {
+    it("an event-driven schedule persists its trigger, arms as a subscription, and offers on turnEnd", () => {
         cy.createActor("being", { name: "shocked" }).then((actor) => {
             cy.foundry(async (win) => {
                 const a = win.game.actors.get(actor.id);
@@ -147,7 +147,7 @@ describe("Generic scheduled actions", () => {
         });
     });
 
-    it("a scene-bound schedule (#590) fires only while its scene is active", () => {
+    it("a scene-bound schedule fires only while its scene is active", () => {
         cy.createScene({ name: "vale" }).then((vale) => {
             cy.createScene({ name: "hideout" }).then((hideout) => {
                 cy.createActor("being", { name: "host" }).then((host) => {

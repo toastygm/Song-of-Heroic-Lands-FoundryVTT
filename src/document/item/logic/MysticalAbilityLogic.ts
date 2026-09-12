@@ -227,7 +227,7 @@ export class MysticalAbilityLogic<
      *
      * Mirrors {@link SkillLogic.canImprove}, with the extra association gate.
      * Read while the Being sheet renders, so — like the skill's — it must not
-     * throw on a not-yet-initialized ability (#511 class).
+     * throw on a not-yet-initialized ability.
      */
     get canImprove(): boolean {
         return (

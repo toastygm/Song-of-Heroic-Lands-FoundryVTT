@@ -6,7 +6,7 @@
  */
 
 /**
- * Tests for issue #204: AttackResult.mode rehydrates to a live StrikeMode.
+ * AttackResult.mode rehydrates to a live StrikeMode.
  *
  * Before the fix, AttackResult.mode held StrikeModeBase.PointerData in memory
  * (the wire form). After the fix it holds a live StrikeModeBase | undefined,

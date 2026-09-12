@@ -338,7 +338,7 @@ export class SkillLogic<TData extends SkillData = SkillData> extends SohlItemBas
             (fvttIsCurrentUserGM() || this.data.isOwner) &&
             // `masteryLevel` is seeded in initialize(); guard against reading it
             // on a not-yet-initialized skill (e.g. the sheet rendering before the
-            // actor's prepare completes) so this getter can't throw (#511 class).
+            // actor's prepare completes) so this getter can't throw.
             !this.masteryLevel?.disabled
         );
     }
