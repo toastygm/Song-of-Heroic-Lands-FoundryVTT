@@ -83,15 +83,15 @@ export function legacyTraitError(
         : item.id ? `[${item.id}]`
         : "(unknown)";
     return (
-        `Unrecognized item type "trait": ${label}. The trait item type was retired ` +
-        `(#651) and is not migrated automatically — delete this item or recreate its ` +
+        `Unrecognized item type "trait": ${label}. The trait item type is retired ` +
+        `and is not migrated automatically — delete this item or recreate its ` +
         `data as a trauma/attribute by hand.`
     );
 }
 
 /**
  * Report every surviving legacy `trait` document as an unrecognized retired type
- * — the type was removed in #651 and is **not** auto-converted — without ever
+ * — the type is **not** auto-converted — without ever
  * modifying or deleting it. Runs on every GM load so the error persists until the
  * documents are resolved by hand.
  *
@@ -114,7 +114,7 @@ function reportRetiredTypes(game: any): void {
     if (errors.length) {
         (globalThis as any).ui?.notifications?.error(
             `SoHL: found ${errors.length} unrecognized legacy "trait" item(s) — ` +
-                `the trait type was retired (#651). See the console; remove or ` +
+                `the trait type is retired. See the console; remove or ` +
                 `recreate each one by hand.`,
             { permanent: true },
         );
@@ -339,7 +339,7 @@ export async function runWorldMigrations(
 
 /**
  * Run world-load checks and migrations (GM-only). First reports any surviving
- * legacy `trait` documents (retired in #651, never auto-converted), then — on the
+ * legacy `trait` documents (retired, never auto-converted), then — on the
  * active GM only, to avoid multiple GMs racing to write — runs the version-keyed
  * migration and advances the stored `systemMigrationVersion`.
  */

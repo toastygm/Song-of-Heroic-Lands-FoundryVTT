@@ -220,7 +220,7 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
         // ride onto the owner and pollute discovery (or be re-instantiated as
         // if it were a template). Import and Duplicate deliberately keep the
         // marker; the clear lives here and in the Create dialog, never in the
-        // universal `_preCreate` (issues #604 / #1780).
+        // universal `_preCreate`.
         clearArchetypeMarker(data as any);
 
         if (isMove && GearKinds.includes(droppedItem.type as any)) {
@@ -433,8 +433,8 @@ export abstract class SohlActorSheetBase extends SohlActorSheetBase_Base {
 
     /**
      * Build the `header` part's render context: the actor's name, portrait,
-     * localized type label, and the archetype-marker control's binding (issue
-     * #1780), which every actor header template binds. Subclasses override to
+     * localized type label, and the archetype-marker control's binding, which
+     * every actor header template binds. Subclasses override to
      * add their own header content (a being's health bar, status pills, and
      * body-part lozenges, for instance).
      * @param context - The in-progress render context.

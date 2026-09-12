@@ -538,7 +538,7 @@ export async function fvttFindItemByShortcode(
  * **index** (with the priority / shortcode / subType fields requested) to avoid
  * loading full documents; the winner's `toObject()` is only fetched on confirm.
  *
- * The index is asked for the **pre-#1836 `system.archetype` as well**, and it
+ * The index is asked for the **legacy `system.archetype` as well**, and it
  * has to be: an index entry is raw stored data that never passes through the
  * data model, so a pack built by an older toolchain would otherwise contribute
  * nothing and its archetypes would vanish from the dialog with no error. A
@@ -579,7 +579,7 @@ export async function fvttDiscoverArchetypes(documentName: string): Promise<Arch
         const index = await pack.getIndex({
             fields: [
                 "system.templatePriority",
-                // Pre-#1836 spelling, still carried by packs built by an older
+                // Legacy spelling, still carried by packs built by an older
                 // toolchain; `readTemplatePriority` prefers the new one.
                 "system.archetype",
                 "system.shortcode",

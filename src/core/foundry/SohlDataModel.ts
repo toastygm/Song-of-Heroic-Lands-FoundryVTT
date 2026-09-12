@@ -67,9 +67,8 @@ export function defineSohlDataSchema(): foundry.data.fields.DataSchema {
         // / `enforceShortcodeOnUpdate`. Other documents (combatant,
         // …) never key on it and leave it blank.
         shortcode: new StringField({ initial: "" }),
-        // Create-dialog **archetype** marker and template priority (issue #604,
-        // moved here from `flags.sohl.docArchetype` by #1780, renamed off
-        // `archetype` by #1836). The field is the *priority*, never the kind:
+        // Create-dialog **archetype** marker and template priority. The
+        // field is the *priority*, never the kind:
         // authored content already carries a sibling `archetypes` list — what
         // sort of character this is (healer, warrior, mage) — and a priority
         // and a taxonomy must not be told apart by a plural `s`, so the number
@@ -243,16 +242,15 @@ export abstract class SohlDataModel<
     }
 
     /**
-     * Carry a world's pre-#1836 `system.archetype` across to
-     * {@link SohlDataModel.templatePriority}, the name the field now has.
+     * Carry a world's legacy `system.archetype` across to
+     * {@link SohlDataModel.templatePriority}, the name the field has.
      *
      * Foundry hands a `TypeDataModel` its **`system` block** here, on every
      * clean, so declaring this once on the shared base reaches every SoHL Item,
      * Actor and Combatant subtype — the same reach the field declaration itself
      * has. The rule is {@link sohl.entity.archetype.migrateTemplatePriority},
      * which lives in the Foundry-free layer so it is unit-testable; see it for
-     * why this rename needs a migration where #1780's did not, and for how the
-     * tri-state survives.
+     * why this needs a migration, and for how the tri-state survives.
      *
      * A **compendium index** entry never passes through here — it is raw stored
      * data — so discovery reads the legacy spelling directly instead

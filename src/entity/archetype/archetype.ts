@@ -16,8 +16,8 @@
  * picker.
  *
  * An **archetype** is an existing Actor/Item document marked as a starting
- * template (`system.templatePriority = <priority:number>`, issues #1780 and
- * #1836) that the Create dialog offers to clone from, so a new being/item is
+ * template (`system.templatePriority = <priority:number>`) that the Create
+ * dialog offers to clone from, so a new being/item is
  * born fully populated instead of blank. This module holds the pure rules — no Foundry
  * access — that turn a flat list of discovered candidates into the picker's
  * option list:
@@ -248,8 +248,8 @@ export function canMarkArchetype(isGM: boolean, isEmbedded: boolean): boolean {
  * (a stray string or boolean) is ignored rather than coerced, so junk never
  * enters discovery.
  *
- * **The legacy spelling is still read.** Before #1836 the field was
- * `system.archetype`, and a pack built by an older toolchain — a third-party
+ * **The legacy spelling is still read.** `system.archetype` is the older name
+ * for this field, and a pack built by an older toolchain — a third-party
  * module's, most plausibly — still carries it. A document read through the
  * schema is migrated on construction (`SohlDataModel.migrateData`), but a
  * **compendium index** entry is raw stored data and never passes through the
@@ -274,19 +274,17 @@ export function readTemplatePriority(system: PlainObject | undefined): number | 
 }
 
 /**
- * Rewrite a document's pre-#1836 `system.archetype` onto
+ * Rewrite a document's legacy `system.archetype` onto
  * `system.templatePriority`, in place — the rule behind
  * `SohlDataModel.migrateData`, kept here so it is
  * Foundry-free and can be unit-tested without standing a data model up.
  *
- * The rename needs a migration where #1780's did not. That one moved a
- * **build-generated flag**: no world was a source of truth for the value, so
- * regenerating the packs was the whole migration. This value is different — the
- * archetype contract's *world tier* exists precisely so a GM can duplicate a
- * shipped archetype into their world to shadow it, and that copy carries the
- * marker in world data. Dropped, the override would not error; the archetype
- * would simply stop being offered in the Create dialog, which is the kind of
- * silence a migration exists to prevent.
+ * This needs a migration rather than a pack rebuild, because the archetype
+ * contract's *world tier* exists precisely so a GM can duplicate a shipped
+ * archetype into their world to shadow it, and that copy carries the marker in
+ * world data. Dropped, the override would not error; the archetype would simply
+ * stop being offered in the Create dialog, which is the kind of silence a
+ * migration exists to prevent.
  *
  * The **tri-state is preserved exactly**: a number stays that number (`0`
  * included — it is the priority SoHL's own archetypes ship at), and anything
@@ -314,9 +312,7 @@ export function migrateTemplatePriority<T>(system: T): T {
 
 /**
  * Clear the archetype marker on a document's create-data, in place, by setting
- * `system.templatePriority` to `null` — the schema's "not an archetype" state
- * (issue #1780; this replaces the old `flags.sohl.docArchetype` delete, and
- * #1836 renamed the field off `archetype`).
+ * `system.templatePriority` to `null` — the schema's "not an archetype" state.
  *
  * Called wherever an archetype is **instantiated** into a live document — the
  * Create dialog's seed and the drop-to-embed path — so the marker (and the
@@ -327,7 +323,7 @@ export function migrateTemplatePriority<T>(system: T): T {
  *
  * Writing `null` rather than deleting the key matters: a `0` priority is a real
  * marker, not a blank, so "clear it" cannot be spelled as "drop a falsy value".
- * The pre-#1836 key is deleted alongside, since create-data seeded from a
+ * The legacy `archetype` key is deleted alongside, since create-data seeded from a
  * document built by an older toolchain can still carry it and
  * {@link readTemplatePriority} falls back to it.
  *

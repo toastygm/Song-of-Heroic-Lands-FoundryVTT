@@ -119,13 +119,13 @@ export const ARCHETYPE_FIELD_PARTIAL_NAME = "archetypeField";
  * Create-dialog **archetype** — a populated starting template the Create dialog
  * offers to clone from.
  *
- * The marker lives in the schema (`system.templatePriority`, renamed off
- * `system.archetype` by #1836), so it binds to an ordinary number input: **a
- * number** marks the document as an archetype _at that priority_, and **an
- * empty box** means it is not one — Foundry's `FormDataExtended` casts an empty
- * number input to `null`, which is exactly the field's "not an archetype"
- * state. Before #1780 the marker was a flag, and Foundry ships no flag editor,
- * so setting it meant export → hand-edit JSON → re-import.
+ * The marker lives in the schema (`system.templatePriority`), so it binds to an
+ * ordinary number input: **a number** marks the document as an archetype _at
+ * that priority_, and **an empty box** means it is not one — Foundry's
+ * `FormDataExtended` casts an empty number input to `null`, which is exactly
+ * the field's "not an archetype" state. A schema field rather than a flag,
+ * because Foundry ships no flag editor and setting one would mean
+ * export → hand-edit JSON → re-import.
  *
  * `0` is a real priority — SoHL's own archetypes ship at it — so the value must
  * never be bound through a truthiness test, which would render `0` as an empty
