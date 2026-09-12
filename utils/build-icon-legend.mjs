@@ -242,6 +242,158 @@ function collectActionIcons(lang) {
  * is what carries both the "whose stars are these" distinction and the earned /
  * unearned split on the diamond scale; a Game-Icons glyph has no hollow twin.
  */
+/**
+ * The affordance icons the sheets draw — a disabled marker, a drag handle, the
+ * control that adds a row — and the second set of hand-maintained rows here.
+ *
+ * **These cannot be generated, and the reason is worth stating plainly.** The
+ * three sources this file reads are `ITEM_METADATA`/`ACTOR_METADATA`, the Being
+ * sheet's `TABS`, and `iconFAClass` in `defineIntrinsicActions()` — all of them
+ * places where an icon is declared *with a name beside it*. These glyphs are
+ * written in Handlebars templates instead, which this generator does not scan.
+ *
+ * Scanning the templates would not be enough either. A template holds
+ * `<i class="fa-solid fa-grip-vertical">` and nothing that says it means
+ * **Drag Handle**, or that a hollow star on the Skills tab means an improvement
+ * flag that is *not* set. That meaning is a design decision, and it exists in
+ * the designer's head and in this table. Nowhere else.
+ *
+ * So this is not duplication to be tidied away later. Deleting it does not move
+ * the knowledge somewhere better; it loses it. The rows arrived by hand-editing
+ * the generated page (#1891), which the `--check` mode then correctly refused —
+ * moving them here is what makes both the page and the check right.
+ */
+const INDICATOR_ROWS = [
+    {
+        cls: "fa-solid fa-xmark fa-lg",
+        name: "Disabled",
+        note: "Sheets",
+    },
+    // The improve flag changes **shape** between its states, where the star and
+    // gem scales change weight. That is the difference between a thing you read
+    // and a thing you count: a scale is filled and hollow copies of one glyph
+    // so the eye can total them, and a toggle is two glyphs so the eye can tell
+    // which one it is looking at. It also stops the flag being a second
+    // filled/hollow star pair beside the Victory Stars, which is what it was.
+    {
+        cls: "fa-solid fa-circle-up",
+        name: "Improve Flag Set",
+        note: "Skills and Mysteries tabs on the Being sheet",
+    },
+    {
+        cls: "fa-regular fa-circle",
+        name: "Improve Flag Unset",
+        note: "Skills and Mysteries tabs on the Being sheet",
+    },
+    {
+        cls: "fa-solid fa-ellipsis-vertical fa-fw",
+        name: "Context Menu",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-plus",
+        name: "Add",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-grip-vertical",
+        name: "Drag Handle",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-heart-circle-plus",
+        name: "Injury Healed",
+        note: "Trauma Tab on Actor Sheet",
+    },
+    {
+        cls: "fa-solid fa-file-circle-plus",
+        name: "Create Item",
+        note: "Sheets",
+    },
+    // "Edit Item" is drawn with `fa-file-pen`, below, not `fa-pen-to-square`.
+    // The latter is the intrinsic **Edit** action, which the Actions section
+    // already emits from `iconFAClass` — a row here would have been the same
+    // glyph under a second name for the same thing.
+    {
+        cls: "fa-solid fa-globe",
+        name: "Visit HeroicLands Site",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-play",
+        name: "Start Tour",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-regular fa-square-plus",
+        name: "Add Effect Change",
+        note: "Active Effect Sheet",
+    },
+    {
+        cls: "fa-solid fa-trash",
+        name: "Remove Effect Change",
+        note: "Active Effect Sheet",
+    },
+    {
+        cls: "fa-solid fa-gears",
+        name: "Execute Macro",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-play",
+        name: "Perform Action",
+        note: "Actions Tab on Item and Actor Sheets",
+    },
+    // Three controls edit something, and the glyphs say which kind of thing:
+    // `fa-pen-to-square` a document or field — the intrinsic Edit action, which
+    // the Actions section emits and so is not repeated here — `fa-code` an
+    // expression, and `fa-file-code` a Macro document. Snippet against
+    // document is the distinction the "file" carries.
+    {
+        cls: "fa-solid fa-file-code",
+        name: "Edit Macro",
+        note: "Actions Tab on Item and Actor Sheets",
+    },
+    {
+        cls: "fa-solid fa-code",
+        name: "Edit Expression",
+        note: "Beside any Safe Expression field",
+    },
+    {
+        cls: "fa-solid fa-folder-plus",
+        name: "Create Folder",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-folder-minus",
+        name: "Delete Folder",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-clone",
+        name: "Clone",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-file-import",
+        name: "Import",
+        note: "Sheets",
+    },
+    // No "Add Occupant" row: it is a declared intrinsic action, so the Actions
+    // section already emits it from `iconFAClass` under that exact name. A hand
+    // row here would print the same glyph and the same name twice.
+    {
+        cls: "fa-solid fa-triangle-exclamation fa-fw",
+        name: "Warning",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-circle-question",
+        name: "Help",
+        note: "Sheets",
+    },
+];
+
 const MARK_ROWS = [
     {
         cls: "fa-solid fa-star",
@@ -310,6 +462,7 @@ async function renderPage() {
         ["Being sheet tabs", collectTabIcons(sheet, lang)],
         ["Actions", collectActionIcons(lang)],
         ["Stars & Diamonds", MARK_ROWS],
+        ["Indicators", INDICATOR_ROWS],
     ];
 
     // A silently empty section would publish a legend that looks complete but

@@ -133,16 +133,30 @@ Icons come from two families: [Font Awesome](https://fontawesome.com) (its free 
 
 ## Indicators
 
-|                                            Glyph                                             | Name               | Where you see it          |
-| :------------------------------------------------------------------------------------------: | ------------------ | ------------------------- |
-|       <i class="fa-solid fa-xmark fa-lg" style="font-size:2em" aria-hidden="true"></i>       | Disabled           | Sheets                    |
-|          <i class="fa-solid fa-star" style="font-size:2em" aria-hidden="true"></i>           | Improve Flag Set   | Skill Item on Actor Sheet |
-|         <i class="fa-regular fa-star" style="font-size:2em" aria-hidden="true"></i>          | Improve Flag Unset | Skill Item on Actor Sheet |
-| <i class="fa-solid fa-ellipsis-vertical fa-fw" style="font-size:2em" aria-hidden="true"></i> | Context Menu       | Sheets                    |
-|          <i class="fa-solid fa-plus" style="font-size:2em" aria-hidden="true"></i>           | Add                | Sheets                    |
-|      <i class="fa-solid fa-grip-vertical" style="font-size:2em" aria-hidden="true"></i>      | Drag Handle        | Sheets                    |
-|    <i class="fa-solid fa-heart-circle-plus" style="font-size:2em" aria-hidden="true"></i>    | Injury Healed      | Trauma Tab on Actor Sheet |
-|    <i class="fa-solid fa-file-circle-plus" style="font-size:2em" aria-hidden="true"></i>     | Create Item        | Sheets                    |
+|                                              Glyph                                              | Name                       | Where you see it                             |
+| :---------------------------------------------------------------------------------------------: | -------------------------- | -------------------------------------------- |
+|            <i class="fa-solid fa-plus" style="font-size:2em" aria-hidden="true"></i>            | **Add**                    | Sheets                                       |
+|       <i class="fa-regular fa-square-plus" style="font-size:2em" aria-hidden="true"></i>        | **Add Effect Change**      | Active Effect Sheet                          |
+|           <i class="fa-solid fa-clone" style="font-size:2em" aria-hidden="true"></i>            | **Clone**                  | Sheets                                       |
+|  <i class="fa-solid fa-ellipsis-vertical fa-fw" style="font-size:2em" aria-hidden="true"></i>   | **Context Menu**           | Sheets                                       |
+|        <i class="fa-solid fa-folder-plus" style="font-size:2em" aria-hidden="true"></i>         | **Create Folder**          | Sheets                                       |
+|      <i class="fa-solid fa-file-circle-plus" style="font-size:2em" aria-hidden="true"></i>      | **Create Item**            | Sheets                                       |
+|        <i class="fa-solid fa-folder-minus" style="font-size:2em" aria-hidden="true"></i>        | **Delete Folder**          | Sheets                                       |
+|        <i class="fa-solid fa-xmark fa-lg" style="font-size:2em" aria-hidden="true"></i>         | **Disabled**               | Sheets                                       |
+|       <i class="fa-solid fa-grip-vertical" style="font-size:2em" aria-hidden="true"></i>        | **Drag Handle**            | Sheets                                       |
+|            <i class="fa-solid fa-code" style="font-size:2em" aria-hidden="true"></i>            | **Edit Expression**        | Beside any Safe Expression field             |
+|         <i class="fa-solid fa-file-code" style="font-size:2em" aria-hidden="true"></i>          | **Edit Macro**             | Actions Tab on Item and Actor Sheets         |
+|           <i class="fa-solid fa-gears" style="font-size:2em" aria-hidden="true"></i>            | **Execute Macro**          | Sheets                                       |
+|      <i class="fa-solid fa-circle-question" style="font-size:2em" aria-hidden="true"></i>       | **Help**                   | Sheets                                       |
+|        <i class="fa-solid fa-file-import" style="font-size:2em" aria-hidden="true"></i>         | **Import**                 | Sheets                                       |
+|         <i class="fa-solid fa-circle-up" style="font-size:2em" aria-hidden="true"></i>          | **Improve Flag Set**       | Skills and Mysteries tabs on the Being sheet |
+|          <i class="fa-regular fa-circle" style="font-size:2em" aria-hidden="true"></i>          | **Improve Flag Unset**     | Skills and Mysteries tabs on the Being sheet |
+|     <i class="fa-solid fa-heart-circle-plus" style="font-size:2em" aria-hidden="true"></i>      | **Injury Healed**          | Trauma Tab on Actor Sheet                    |
+|            <i class="fa-solid fa-play" style="font-size:2em" aria-hidden="true"></i>            | **Perform Action**         | Actions Tab on Item and Actor Sheets         |
+|           <i class="fa-solid fa-trash" style="font-size:2em" aria-hidden="true"></i>            | **Remove Effect Change**   | Active Effect Sheet                          |
+|            <i class="fa-solid fa-play" style="font-size:2em" aria-hidden="true"></i>            | **Start Tour**             | Sheets                                       |
+|           <i class="fa-solid fa-globe" style="font-size:2em" aria-hidden="true"></i>            | **Visit HeroicLands Site** | Sheets                                       |
+| <i class="fa-solid fa-triangle-exclamation fa-fw" style="font-size:2em" aria-hidden="true"></i> | **Warning**                | Sheets                                       |
 
 ## See also
 

@@ -220,7 +220,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
                               improves when that item does. --}}
                         {{#if ability.logic.canImprove}}
                         <a class="icon-button toggle-improve-flag{{#if ability.system.improveFlag}} icon-button--on{{/if}}" data-action="toggleImproveFlag" title="{{localize "SOHL.Common.improve"}}">
-                            <i class="{{#if ability.system.improveFlag}}fas fa-star ledger__flag{{else}}far fa-star{{/if}}"></i>
+                            <i class="{{#if ability.system.improveFlag}}fa-solid fa-circle-up ledger__flag{{else}}fa-regular fa-circle{{/if}}"></i>
                         </a>
                         {{/if}}
                         <a class="icon-button item-contextmenu" title="{{localize "SOHL.Common.menu"}}"><i class="fa-solid fa-ellipsis-vertical fa-fw"></i></a>

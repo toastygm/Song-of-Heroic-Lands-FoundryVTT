@@ -23,15 +23,15 @@ A **Combat Technique** skill appears in a second place as well: on the **Combat*
 
 Each row on the Skills tab is itself a set of controls:
 
-| Column / control | What it does                                                                                       |
-| ---------------- | -------------------------------------------------------------------------------------------------- |
-| **SB**           | The Skill Base. A ✗ here means the skill's formula is invalid — hover it for the reason            |
-| **ML**           | The mastery level                                                                                  |
-| **SI**           | The Skill Index — the mastery level's tens digit, used by the Success Value Test                   |
-| **EML**          | \*\*Click to run a [[#success-test\|Success Test]].** Hold **Shift\*\* to skip the pre-roll dialog |
-| **Fate**         | Click to spend a Fate Point on this skill. Hold **Shift** to skip the dialog                       |
-| **☆ star**       | [[#toggle-improve-flag\|Flags the skill for improvement]]. Shown only when you may improve it      |
-| **⋮ menu**       | The Actions context menu — every action on this page                                               |
+| Column / control    | What it does                                                                                       |
+| ------------------- | -------------------------------------------------------------------------------------------------- |
+| **SB**              | The Skill Base. A ✗ here means the skill's formula is invalid — hover it for the reason            |
+| **ML**              | The mastery level                                                                                  |
+| **SI**              | The Skill Index — the mastery level's tens digit, used by the Success Value Test                   |
+| **EML**             | \*\*Click to run a [[#success-test\|Success Test]].** Hold **Shift\*\* to skip the pre-roll dialog |
+| **Fate**            | Click to spend a Fate Point on this skill. Hold **Shift** to skip the dialog                       |
+| **Improve control** | [[#toggle-improve-flag\|Flags the skill for improvement]]. Shown only when you may improve it      |
+| **⋮ menu**          | The Actions context menu — every action on this page                                               |
 
 Spending Fate is described on [[doc-thftsystug|Fate]].
 
@@ -55,7 +55,7 @@ Along with the [[doc-baseitemug|Standard Item Properties]], the following proper
 - **Init Multiplier:** Multiplier applied to the skill base to open the skill's mastery level for a new character. When _Mastery Level_ is blank and the skill is on a character, the opening mastery level is _Skill Base × Init Multiplier_.
 - **Parent Skill:** Shortcode of the base skill if this is a specialization. Leave it as _None_ when the skill stands on its own.
 - **Adopt Parent Mastery:** Shown only once a **Parent Skill** is set. When ticked, the specialization tracks its parent skill's mastery level instead of its own base, with this skill's own bonuses applied on top.
-- **Improvement Flag:** Whether this item is flagged for mastery improvement via _Skill Development Roll_ (SDR). This is the same flag the ☆ star on the Skills tab toggles, and the same one [[#toggle-improve-flag|Toggle Improve Flag]] flips.
+- **Improvement Flag:** Whether this item is flagged for mastery improvement via _Skill Development Roll_ (SDR). This is the same flag the improve control on the Skills tab toggles, and the same one [[#toggle-improve-flag|Toggle Improve Flag]] flips.
 - **Combat Category:** Shown only when the **Category** is _Combat_. The class of attack this weapon skill governs — **None**, **All Weapon Types**, **Melee**, **Missile**, **Melee & Missile**, **Maneuver**, or **Melee & Combat Maneuver**.
 - **Impaired By Roles:** A list of body roles whose injury impairs this skill — _vital_, _core_, _manipulator_, or _locomotor_. An unhealed injury at a body part carrying one of these roles penalizes this skill's tests, and an unusable part makes them fail automatically. Use **Add Role** to add one and the 🗑 to remove it.
 
@@ -105,18 +105,18 @@ A **missile** technique has no Defense section: you cannot block or counterstrik
 
 # The Skill Actions
 
-| Action                                                   | Shortcode           | Where you meet it                   |
-| -------------------------------------------------------- | ------------------- | ----------------------------------- |
-| [[#success-test\|Success Test]]                          | `successTest`       | Actions context menu; the EML cell  |
-| [[#success-value-test\|Success Value Test]]              | `successValueTest`  | Actions context menu                |
-| [[#toggle-improve-flag\|Toggle Improve Flag]]            | `toggleImproveFlag` | Actions context menu; the ☆ star    |
-| [[#improve-with-sdr\|Improve with SDR]]                  | `improveWithSDR`    | Actions context menu, once flagged  |
-| [[#opposed-test\|Opposed Test]]                          | `opposedTestStart`  | Actions context menu                |
-| [[#attack-block-and-counterstrike\|Attack]]              | `attackTest`        | Actions context menu; the Atk cell  |
-| [[#attack-block-and-counterstrike\|Block]]               | `blockTest`         | Actions context menu; the Blk cell  |
-| [[#attack-block-and-counterstrike\|Counterstrike]]       | `counterstrikeTest` | Actions context menu; the CX cell   |
-| [[#the-two-hidden-half-toggles\|Flag for Improvement]]   | `setImproveFlag`    | _Hidden_ — superseded by the toggle |
-| [[#the-two-hidden-half-toggles\|Clear Improvement Flag]] | `unsetImproveFlag`  | _Hidden_ — superseded by the toggle |
+| Action                                                   | Shortcode           | Where you meet it                         |
+| -------------------------------------------------------- | ------------------- | ----------------------------------------- |
+| [[#success-test\|Success Test]]                          | `successTest`       | Actions context menu; the EML cell        |
+| [[#success-value-test\|Success Value Test]]              | `successValueTest`  | Actions context menu                      |
+| [[#toggle-improve-flag\|Toggle Improve Flag]]            | `toggleImproveFlag` | Actions context menu; the improve control |
+| [[#improve-with-sdr\|Improve with SDR]]                  | `improveWithSDR`    | Actions context menu, once flagged        |
+| [[#opposed-test\|Opposed Test]]                          | `opposedTestStart`  | Actions context menu                      |
+| [[#attack-block-and-counterstrike\|Attack]]              | `attackTest`        | Actions context menu; the Atk cell        |
+| [[#attack-block-and-counterstrike\|Block]]               | `blockTest`         | Actions context menu; the Blk cell        |
+| [[#attack-block-and-counterstrike\|Counterstrike]]       | `counterstrikeTest` | Actions context menu; the CX cell         |
+| [[#the-two-hidden-half-toggles\|Flag for Improvement]]   | `setImproveFlag`    | _Hidden_ — superseded by the toggle       |
+| [[#the-two-hidden-half-toggles\|Clear Improvement Flag]] | `unsetImproveFlag`  | _Hidden_ — superseded by the toggle       |
 
 **Attack**, **Block**, and **Counterstrike** appear **only on a Combat Technique** skill; every other category has the rest. Every skill also carries the shared document actions — **Edit**, **Delete**, and **Output Description to Chat** — described once on [[doc-baseitemug|Base Item]].
 
@@ -208,14 +208,14 @@ What a Success Value _buys_ is a matter for the rules of the work being done —
 | **Name**      | Toggle Improve Flag                                                                                                                  |
 | **Shortcode** | `toggleImproveFlag`                                                                                                                  |
 | **Icon**      | `fa-star-half-stroke` (a half-filled star)                                                                                           |
-| **Invoked**   | The **Actions** context menu, or the **☆ star** on the skill's Skills-tab row                                                        |
+| **Invoked**   | The **Actions** context menu, or the **improve control** on the skill's Skills-tab row                                               |
 | **API**       | [`SkillLogic.toggleImproveFlag`](https://www.heroiclands.org/sohl/api/classes/sohl.document.item.logic.SkillLogic#toggleimproveflag) |
 
 ## What it does and when to use it
 
 Flips the skill's **Improvement Flag** — the mark that says _this skill was used meaningfully, and is a candidate for a Skill Development Roll_. Flag a skill in the moment it matters, during play, and the flag is still there when the table gets round to improvement.
 
-There is **no dialog, no roll, and no chat card**: the flag flips and the star on the Skills tab fills in (★) or empties (☆) to match. Run it again to put it back.
+There is **no dialog, no roll, and no chat card**: the flag flips and the improve control on the Skills tab changes to match — a rising arrow when the skill is flagged, an empty circle when it is not. Run it again to put it back.
 
 The star on the row is a shortcut for the identical change — it is shown only on skills you may improve, which means you own the character (or you are the GM) and the skill's mastery level is not disabled. Reached from the context menu on a skill you cannot improve, the action quietly does nothing.
 
@@ -252,7 +252,7 @@ There is **no dialog** — the action rolls straight away.
 
 ## Before you start
 
-- **The skill must be flagged for improvement.** The action appears in the menu only for a flagged skill — flagging is what marks the skill as having earned a development attempt, and the roll spends the flag. If you do not see the action, flag the skill first with [[#toggle-improve-flag|Toggle Improve Flag]] or the ☆ star on the Skills tab.
+- **The skill must be flagged for improvement.** The action appears in the menu only for a flagged skill — flagging is what marks the skill as having earned a development attempt, and the roll spends the flag. If you do not see the action, flag the skill first with [[#toggle-improve-flag|Toggle Improve Flag]] or the improve control on the Skills tab.
 - **You must be able to improve the skill** — you own the character (or are the GM) and its mastery level is not disabled.
 
 # Opposed Test {#opposed-test}
