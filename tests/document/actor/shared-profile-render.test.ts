@@ -141,8 +141,11 @@ describe("shared Profile part", () => {
             }),
         );
 
-        // The current row shows a lit star and no action; the other offers it.
-        expect(html).toContain("fa-solid fa-star");
+        // The current row is marked and offers no action; the other offers it.
+        // A shape change rather than a filled/hollow pair, so the marker cannot
+        // be confused with the Victory Stars on a result card (#1894).
+        expect(html).toContain("fa-solid fa-circle-check");
+        expect(html).toContain("fa-regular fa-circle");
         expect(html).toContain('data-action="makeDefaultMedium"');
         expect(html).toContain('data-medium="aquatic"');
     });
