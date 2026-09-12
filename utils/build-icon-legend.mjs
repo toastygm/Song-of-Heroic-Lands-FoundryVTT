@@ -304,6 +304,64 @@ const INDICATOR_ROWS = [
         name: "Create Item",
         note: "Sheets",
     },
+    {
+        cls: "fa-solid fa-pen-to-square",
+        name: "Edit Item",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-globe",
+        name: "Visit HeroicLands Site",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-play",
+        name: "Start Tour",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-regular fa-square-plus",
+        name: "Add Effect Change",
+        note: "Active Effect Sheet",
+    },
+    {
+        cls: "fa-solid fa-trash",
+        name: "Remove Effect Change",
+        note: "Active Effect Sheet",
+    },
+    {
+        cls: "fa-solid fa-gears",
+        name: "Execute Macro",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-play",
+        name: "Perform Action",
+        note: "Actions Tab on Item and Actor Sheets",
+    },
+    {
+        cls: "fa-solid fa-file-pen",
+        name: "Edit Action",
+        note: "Actions Tab on Item and Actor Sheets",
+    },
+    {
+        cls: "fa-solid fa-file-import",
+        name: "Import",
+        note: "Sheets",
+    },
+    // No "Add Occupant" row: it is a declared intrinsic action, so the Actions
+    // section already emits it from `iconFAClass` under that exact name. A hand
+    // row here would print the same glyph and the same name twice.
+    {
+        cls: "fa-solid fa-triangle-exclamation fa-fw",
+        name: "Warning",
+        note: "Sheets",
+    },
+    {
+        cls: "fa-solid fa-circle-question",
+        name: "Help",
+        note: "Sheets",
+    },
 ];
 
 const MARK_ROWS = [
